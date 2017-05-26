@@ -6,6 +6,11 @@
 	<select id="loginCheck" resultClass="userDto" parameterClass="userDto">
 		select * from userInfo;
 	</select>
+	
+	<!-- 로그인 한 사용자의 정보 보기 -->
+	<select id="getUserInfo" resultClass="userDto" parameterClass="String">
+		select * from userInfo where id = #id#;
+	</select>
 </sqlMap>
 
 
