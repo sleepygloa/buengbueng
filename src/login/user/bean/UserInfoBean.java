@@ -34,12 +34,17 @@ public class UserInfoBean {
 	public String login(HttpServletRequest request,HttpSession session){
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-		System.out.println(id);
-		System.out.println(pw);
+
 		UserInfoDataBean dto = (UserInfoDataBean)sqlMap.queryForObject("test.getUserInfo", id);
 		if(pw.equals(dto.getPw())){
 			session.setAttribute("loginId", dto.getId());
 		}
 		return "/userInfo/userInfoMain";
+	}
+	
+	@RequestMapping("logout.do")
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "/userInfo/userInfoLogin";
 	}
 }
