@@ -18,6 +18,8 @@
 				<li> 님 환영합니다!!</li>
 			</c:if>
 			<li><a href="">로그인</a></li>
+			<li><a href="/buengbueng/userInfoForm.do">회원 정보보기</a></li>
+			<li><a href="/buengbueng/userInfoFormUpdate.do">회원 정보수정</a></li>
 			<li><a href="">회원가입</a></li>
 			<li><a href="">비밀번호찾기</a></li>
 			<c:if test="" >
