@@ -11,6 +11,22 @@
 	<select id="getUserInfo" resultClass="userDto" parameterClass="String">
 		select * from userInfo where id = #id#;
 	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="userInfoUpdate" parameterClass="userDto">
+		UPDATE userInfo SET 
+			name = #name#,
+			birth = #birth#,
+			phone = #phone#,
+			grade = #grade#,
+			address = #address#,
+			email = #email#
+		WHERE id = #id#;
+	</update>
+	
+	
+	
+	
 </sqlMap>
 
 
