@@ -13,7 +13,22 @@ public class CheckInfo {
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
 	
-	//아이디 검사	
+	//아이디 검사
+	public int idCheck(String id){
+		//유효성 검사 상황을 나타내는 변수
+		int validCheck = -1;
+		
+		// 파라메터로 받은 id가 DB에 저장되어 있는지 확인
+		int result = (Integer)sqlMap.queryForObject("checkInfo.validIDCheck", id);
+		
+		if(result == 0){
+			validCheck = 2; // 아이디 없음
+		}else{
+			validCheck = 1; // 아이디 있음
+		}
+		
+		return validCheck;
+	}
 	
 	//비밀번호검사
 	public int pwCheck(UserInfoDataBean dto){

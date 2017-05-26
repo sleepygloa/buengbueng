@@ -1,9 +1,8 @@
 package login.user.bean;
 
-import java.sql.SQLException;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +19,8 @@ public class UserInfoFormBean {
 	public CheckInfo CheckInfo;
 	
 	@RequestMapping("userInfoForm.do")
-	public String userInfoForm(String id, Model model){
+	public String userInfoForm(HttpSession session, Model model){
+		String id = (String)session.getAttribute("loginId");
 		UserInfoDataBean user = (UserInfoDataBean)sqlMap.queryForObject("test.getUserInfo", id);
 		model.addAttribute("user", user);
 		return "/userInfo/userInfoForm";

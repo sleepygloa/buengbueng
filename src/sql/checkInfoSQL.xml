@@ -7,5 +7,9 @@
 	<select id="validCheck" resultClass="userDto" parameterClass="userDto">
 		SELECT  id, pw from userInfo WHERE id = #id#;
 	</select>
-		
+	
+	<!-- 아이디 체크 -->
+	<select id="validIDCheck" resultClass="int" parameterClass="String">
+		SELECT  count(*) from userInfo WHERE id = #id#;
+	</select>
 </sqlMap>
