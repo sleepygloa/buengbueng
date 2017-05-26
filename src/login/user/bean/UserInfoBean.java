@@ -1,5 +1,8 @@
 package login.user.bean;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
@@ -22,4 +25,21 @@ public class UserInfoBean {
 		return "/userInfo/test";
 	}
 	
+	@RequestMapping("loginForm.do")
+	public String loginForm(){
+		return "/userInfo/userInfoLogin";
+	}
+	
+	@RequestMapping("login.do")
+	public String login(HttpServletRequest request,HttpSession session){
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
+		System.out.println(id);
+		System.out.println(pw);
+		UserInfoDataBean dto = (UserInfoDataBean)sqlMap.queryForObject("test.getUserInfo", id);
+		if(pw.equals(dto.getPw())){
+			session.setAttribute("loginId", dto.getId());
+		}
+		return "/userInfo/userInfoMain";
+	}
 }
