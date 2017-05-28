@@ -1,3 +1,8 @@
+/* 전화번호,생년월일 숫자만 입력가능하게 하는 정규식 */
+var phone = /^[0-9]*$/;
+/* 이메일 입력 정규식 */
+var email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;;
+
 /* 사용자 회원가입 모든 항목 체크 */
 function checkSignAll(){
 	if(document.signForm.id.value == ""){
@@ -23,6 +28,11 @@ function checkSignAll(){
 		document.signForm.alert.value = "생년월일을 입력하십시오.";
 		return false;
 	}
+	if(!phone.test(document.signForm.birth.value)){
+		document.signForm.alert.value = "생년월일은 숫자만 입력하십시오.";
+		document.signForm.birth.value = "";
+		return false;
+	}
 	if(document.signForm.address.value == ""){
 		document.signForm.alert.value = "주소를 입력하십시오.";
 		return false;
@@ -31,16 +41,35 @@ function checkSignAll(){
 		document.signForm.alert.value = "전화번호를 입력하십시오.";
 		return false;
 	}
+	if(!phone.test(document.signForm.phone_1.value)){
+		document.signForm.alert.value = "전화번호는 숫자만 입력하십시오.";
+		document.signForm.phone_1.value = "";
+		return false;
+	}
 	if(document.signForm.phone_2.value == "" ){
 		document.signForm.alert.value = "전화번호를 입력하십시오.";
+		return false;
+	}
+	if(!phone.test(document.signForm.phone_2.value)){
+		document.signForm.alert.value = "전화번호는 숫자만 입력하십시오.";
+		document.signForm.phone_2.value = "";
 		return false;
 	}
 	if(document.signForm.phone_3.value == "" ){
 		document.signForm.alert.value = "전화번호를 입력하십시오.";
 		return false;
 	}
+	if(!phone.test(document.signForm.phone_3.value)){
+		document.signForm.alert.value = "전화번호는 숫자만 입력하십시오.";
+		document.signForm.phone_3.value = "";
+		return false;
+	}
 	if(document.signForm.email.value == ""){
 		document.signForm.alert.value = "이메일을 입력하십시오.";
+		return false;
+	}
+	if(!email.test(document.signForm.email.value)){
+		document.signForm.alert.value = "이메일을 정확하게 입력하십시오.";
 		return false;
 	}
 }
@@ -87,6 +116,11 @@ function checkBirth(){
 		document.signForm.alert.value = "생년월일을 입력하십시오.";
 		return false;
 	}
+	if(!phone.test(document.signForm.birth.value)){
+		document.signForm.alert.value = "생년월일은 숫자만 입력하십시오.";
+		document.signForm.birth.value = "";
+		return false;
+	}
 	else{
 		document.signForm.alert.value = "";
 	}
@@ -107,6 +141,11 @@ function checkPhone_1(){
 		document.signForm.alert.value = "전화번호를 입력하십시오.";
 		return false;
 	}
+	if(!phone.test(document.signForm.phone_1.value)){
+		document.signForm.alert.value = "전화번호는 숫자만 입력하십시오.";
+		document.signForm.phone_1.value = "";
+		return false;
+	}
 	else{
 		document.signForm.alert.value = "";
 	}
@@ -116,6 +155,11 @@ function checkPhone_2(){
 		document.signForm.alert.value = "전화번호를 입력하십시오.";
 		return false;
 	}
+	if(!phone.test(document.signForm.phone_2.value)){
+		document.signForm.alert.value = "전화번호는 숫자만 입력하십시오.";
+		document.signForm.phone_2.value = "";
+		return false;
+	}
 	else{
 		document.signForm.alert.value = "";
 	}
@@ -123,6 +167,11 @@ function checkPhone_2(){
 function checkPhone_3(){
 	if(document.signForm.phone_3.value == "" ){
 		document.signForm.alert.value = "전화번호를 입력하십시오.";
+		return false;
+	}
+	if(!phone.test(document.signForm.phone_3.value)){
+		document.signForm.alert.value = "전화번호는 숫자만 입력하십시오.";
+		document.signForm.phone_3.value = "";
 		return false;
 	}
 	else{
