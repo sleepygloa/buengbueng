@@ -12,4 +12,12 @@
 	<select id="validIDCheck" resultClass="int" parameterClass="String">
 		SELECT  count(*) from userInfo WHERE id = #id#;
 	</select>
+	
+	<select id="SearchId" parameterClass="userDto" resultClass="String">
+		select id from userInfo where name=#name# and email=#email# and #phone#;
+	</select>
+	
+	<select id="SearchPw" parameterClass="userDto" resultClass="String">
+		select pw from userInfo where id=#id# and name=#name# and #phone#;
+	</select>
 </sqlMap>

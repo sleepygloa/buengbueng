@@ -47,4 +47,44 @@ public class UserInfoBean {
 		session.invalidate();
 		return "/userInfo/userInfoLogin";
 	}
+
+	@RequestMapping("userInfoSearchIdForm.do")
+	public String SearchId(){
+		return "/userInfo/userInfoSearchIdForm";
+	}
+
+	@RequestMapping("userInfoSearchIdFormPro.do")
+	public String SearchIdPro(UserInfoDataBean dto, HttpServletRequest request){
+		int check = -1;
+		String id = (String)sqlMap.queryForObject("checkInfo.SearchId",dto);
+		if(id==null){
+			check = 0;
+		}else{
+			check = 1;
+		}
+		request.setAttribute("id",id);
+		request.setAttribute("check", check);
+		
+		return "/userInfo/userInfoSearchIdFormPro";
+	}
+	
+	@RequestMapping("userInfoSearchPwForm.do")
+	public String SearchPw(){
+		return "/userInfo/userInfoSearchPwForm";
+	}
+
+	@RequestMapping("userInfoSearchPwFormPro.do")
+	public String SearchPwPro(UserInfoDataBean dto, HttpServletRequest request){
+		int check = -1;
+		String pw = (String)sqlMap.queryForObject("checkInfo.SearchPw",dto);
+		if(pw==null){
+			check = 0;
+		}else{
+			check = 1;
+		}
+		request.setAttribute("pw",pw);
+		request.setAttribute("check", check);
+		
+		return "/userInfo/userInfoSearchPwFormPro";
+	}
 }
