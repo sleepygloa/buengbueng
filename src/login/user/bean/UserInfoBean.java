@@ -25,11 +25,13 @@ public class UserInfoBean {
 		return "/userInfo/test";
 	}
 	
+	//로그인 페이지로 이동
 	@RequestMapping("loginForm.do")
 	public String loginForm(){
 		return "/userInfo/userInfoLogin";
 	}
 	
+	//로그인 완료
 	@RequestMapping("login.do")
 	public String login(HttpServletRequest request,HttpSession session){
 		String id = request.getParameter("id");
@@ -42,6 +44,7 @@ public class UserInfoBean {
 		return "/userInfo/userInfoMain";
 	}
 	
+	//로그아웃?
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session){
 		session.invalidate();

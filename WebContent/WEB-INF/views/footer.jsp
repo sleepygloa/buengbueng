@@ -3,8 +3,8 @@
 
 
 
-<footer>
-푸터입니다.
-</footer>
-
+		<footer>
+			
+		</footer>
+	</body>
 </html>

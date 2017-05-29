@@ -24,8 +24,12 @@
 		WHERE id = #id#;
 	</update>
 	
-	
-	
+	<!-- 회원 가입 -->
+	<insert id="userInfoInsert" parameterClass="userDto">
+		insert into userInfo values(
+			#id#, #pw#, #name#, #birth#, #phone#, #grade#, #address#, #email#, now(), #googleId#
+		);
+	</insert>
 	
 </sqlMap>
 
