@@ -16,6 +16,7 @@
 	<!-- BEAN IMPORT 지정 -->
 	<context:component-scan base-package="login.user.bean" />
 	<context:component-scan base-package="index.all.bean" />
+	<context:component-scan base-package="valid.all.bean" />
 	
 	<!-- DOWNLOAD 지정 -->
 	<!-- <bean id="download" class="test.spring.bean.DownloadView" /> -->

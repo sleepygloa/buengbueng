@@ -6,7 +6,8 @@
 	<settings useStatementNamespaces="true" />
 	
 <!-- For Example : MySQL 연동  -->	
-	<sqlMap resource="/sql/testSQL.xml"/>  
+	<sqlMap resource="/sql/userInfoSQL.xml"/>
+	<sqlMap resource="/sql/checkInfoSQL.xml"/>  
 	
 
 </sqlMapConfig>

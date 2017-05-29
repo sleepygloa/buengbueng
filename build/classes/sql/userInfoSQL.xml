@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="test">
+	<typeAlias alias="userDto" type="login.user.bean.UserInfoDataDTO" />
+		
+	<!--  회원 삭제를 하기위한 패스워드 찾기 -->
+	<select id="checkPasswd" parameterClass="String" resultClass="String">
+		select pw from userInfo where id = #id#
+	</select>
+	
+		<!-- 회원삭제 -->
+	<delete id="deleteUserInfo" parameterClass="String">
+		delete from userInfo where id=#id#
+	</delete>
+	
+	<select id="loginCheck" resultClass="userDto" parameterClass="userDto">
+		select * from userInfo;
+	</select>
+	
+	<!-- 로그인 한 사용자의 정보 보기 -->
+	<select id="getUserInfo" resultClass="userDto" parameterClass="String">
+		select * from userInfo where id = #id#;
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="userInfoUpdate" parameterClass="userDto">
+		UPDATE userInfo SET 
+			name = #name#,
+			birth = #birth#,
+			phone = #phone#,
+			grade = #grade#,
+			address = #address#,
+			email = #email#
+		WHERE id = #id#;
+	</update>
+	
+	<!-- 회원 가입 -->
+	<insert id="userInfoInsert" parameterClass="userDto">
+		insert into userInfo values(
+			#id#, #pw#, #name#, #birth#, #phone#, #grade#, #address#, #email#, now(), #googleId#
+		);
+	</insert>
+	
+</sqlMap>
+
+
+
+
+
+
+
