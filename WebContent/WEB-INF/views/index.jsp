@@ -22,7 +22,8 @@
 			<c:if test="${sessionScope.loginId == null}" >
 				<li><a href="">로그인</a></li>
 				<li><a href="/buengbueng/userInfoSignForm.do">회원가입</a></li>
-				<li><a href="">비밀번호찾기</a></li>
+				<li><a href="/buengbueng/userInfoSearchIdForm.do">아이디 찾기</a></li>
+				<li><a href="/buengbueng/userInfoSearchPwForm.do">비밀번호찾기</a></li>
 			</c:if>
 			<c:if test="" >
 				<li>관리자페이지</li>
