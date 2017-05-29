@@ -35,4 +35,6 @@
 			<td>${user.email}</td>
 		</tr>
 	</table>
+	
+	<input type="button" value="회원탈퇴" onclick="javascript:window.location='/buengbueng/userInfoDeleteForm.do'">
 </body>
