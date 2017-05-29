@@ -62,7 +62,7 @@
 					<input type="submit" value="수정하기" />
 					<input type="reset" value="내용지우기" />
 					<input type="button" value="메인화면으로" 
-						onclick="window.location='/index.do'" />
+						onclick="window.location='index.do'" />
 						
 				</td>
 			</tr>

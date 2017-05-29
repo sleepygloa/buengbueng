@@ -36,5 +36,8 @@
 		</tr>
 	</table>
 	
-	<input type="button" value="회원탈퇴" onclick="javascript:window.location='/buengbueng/userInfoDeleteForm.do'">
+	<input type="button" value="회원탈퇴" onclick="javascript:window.location='/buengbueng/userInfoDeleteForm.do'" />
+	<input type="button" value="회원 정보수정"  onclick="javascript:window.location='/buengbueng/userInfoFormUpdate.do'" />
+	<input type="button" value="메인페이지로"  onclick="javascript:window.location='/buengbueng/index.do'" />
+					
 </body>
