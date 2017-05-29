@@ -18,20 +18,21 @@ public class UserInfoDeleteBean {
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
 	@RequestMapping("userInfoDeletePro.do")
-	public String deletePro(HttpSession session, String passwd, Model model){
+	public String deletePro(HttpSession session, String pw, Model model){
 		int check=0;
 		String id = (String)session.getAttribute("loginId");
 		String asd = (String)sqlMap.queryForObject("test.checkPasswd",id);
-		if(asd.equals(passwd)){
+		if(asd.equals(pw)){
 			try{
 				sqlMap.delete("test.deleteUserInfo",id);
 				session.invalidate();
 				check=1;
+				System.out.println(check);
 				model.addAttribute("check",check);
 			}catch(Exception e){e.printStackTrace();
 		}
 	  }		
-		return "ueserInfo/iserInfoDeletePro";
+		return "userInfo/userInfoDeletePro";
 	}
 
 }

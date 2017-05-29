@@ -3,7 +3,7 @@
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <title>회원탈퇴</title>
 <c:if test="${check==1}">
-<form action="/buengbueng/main.do" method="post" name="deletePRo">
+<form action="/buengbueng/index.do" method="post" name="deletePro">
 	<table width="270" border="0" cellspacing="0" cellpadding="5" align="center">
 		<tr>
 			<td align="center">
@@ -13,7 +13,7 @@
 		<tr>
 			<td align="center">
 				<p>감사합니다 안녕히 가세요.</p>
-				<meta http-equiv="Refrsh" content="5;url="index.do">
+				<meta http-equiv="Refrsh" content="5;url='index.do'">
 			</td>
 		</tr>
 		<tr>
