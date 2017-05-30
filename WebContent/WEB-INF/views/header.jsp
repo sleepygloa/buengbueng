@@ -190,21 +190,12 @@
 							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-<<<<<<< HEAD
 								<div class="product__item col-sm-6">
 									<a href="">
 										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="gnb__text-grp">
 											<h6 class="product__item__name minor-minor">가맹점 관리</h6>
 											<p class="product__item__desc">가맹점 등록 및 삭제</p>
-=======
-								<div class="product__item col-sm-8">
-									<a href="">
-										<span class="gnb-icon ux-heatmap">dd</span>
-										<span class="gnb__text-grp">
-											<h6 class="product__item__name minor-minor">가맹점 관리</h6>
-											<p class="product__item__desc">사장님 보유중인 가맹점 추가 & 삭제 등 관리</p>
->>>>>>> seonho
 										</span>
 									</a>
 								</div>
