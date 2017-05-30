@@ -2,7 +2,7 @@ package login.user.bean;
 
 import java.sql.Timestamp;
 
-public class UserInfoDataBean {
+public class UserInfoDataDTO {
 	
     private String id;
     private String pw;

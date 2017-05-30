@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 
-import login.user.bean.UserInfoDataBean;
+import login.user.bean.UserInfoDataDTO;
 
 
 @Controller
@@ -31,7 +31,7 @@ public class CheckInfo {
 	}
 	
 	//비밀번호검사
-	public int pwCheck(UserInfoDataBean dto){
+	public int pwCheck(UserInfoDataDTO dto){
 		//유효성 검사 상황을 나타내는 변수
 		int validCheck = -1;
 		
@@ -42,7 +42,7 @@ public class CheckInfo {
 		String id = dto.getId();
 		
 		//아이디를 불러와서 각각의 변수로 저장
-		dto = (UserInfoDataBean)sqlMap.queryForObject("checkInfo.validCheck", dto);
+		dto = (UserInfoDataDTO)sqlMap.queryForObject("checkInfo.validCheck", dto);
 		String dbId = dto.getId();
 		String dbPw = dto.getPw();
 		

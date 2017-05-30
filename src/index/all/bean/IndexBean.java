@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import login.user.bean.UserInfoDataBean;
+import login.user.bean.UserInfoDataDTO;
 
 @Controller
 public class IndexBean {
