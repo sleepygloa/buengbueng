@@ -14,9 +14,10 @@
 	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 	
 	<!-- BEAN IMPORT 지정 -->
-	<context:component-scan base-package="login.user.bean" />
-	<context:component-scan base-package="index.all.bean" />
-	<context:component-scan base-package="valid.all.bean" />
+	<context:component-scan base-package="login.user.bean" /> <!-- 회원관리 BEAN -->
+	<context:component-scan base-package="index.all.bean" /> <!-- 메인페이지 BEAN -->
+	<context:component-scan base-package="valid.all.bean" /> <!-- 유효성검사 :  아이디DB검사, 비밀번호DB검사 BEAN -->
+	<context:component-scan base-package="web.menu.bean" /> <!-- 대메뉴 소메뉴 이동하는 BEAN  -->
 	
 	<!-- DOWNLOAD 지정 -->
 	<!-- <bean id="download" class="test.spring.bean.DownloadView" /> -->
