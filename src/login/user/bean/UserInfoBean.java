@@ -204,7 +204,11 @@ public class UserInfoBean {
 		return "/userInfo/userInfoSignPro";
 	}
 	
-	
+	/* 회원 가입 중 등급 사용자 클릭 */
+	@RequestMapping("userInfoGrade.do")
+	public String userInfoGrade(){
+		return "/userInfo/userInfoGrade";
+	}
 	
 	
 	

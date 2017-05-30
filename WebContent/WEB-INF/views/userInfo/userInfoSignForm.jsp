@@ -3,13 +3,49 @@
 <head>
 	<title>회원 가입</title>
 	<script type="text/javascript" src="/buengbueng/js/userInfo/signForm.js"></script>
+	<script type="text/javascript" src="/buengbueng/js/userInfo/bossSignForm.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+
+	$(document).ready(	// jquery의 기본. java의 main.
+			function(){
+				$("#user").click(function(){
+					$.ajax({
+						url:"userInfoGrade.do",
+						type:"post",
+						success:function(data){
+							$("#grade").html(data);
+						}
+					});
+				});
+				$("#boss").click(function(){
+					$.ajax({
+						url:"bossInfoSignForm.do",
+						type:"post",
+						success:function(data){
+							$("#grade").html(data);
+						}
+					});
+				});
+				$("#employee").click(function(){
+					$.ajax({
+						url:"employeeSignForm.do",
+						type:"post",
+						success:function(data){
+							$("#grade").html(data);
+						}
+				});	
+			});	
+		});
+	</script>
+
 </head>
 
 <body>
 	<form action="userInfoSignPro.do" method="post" name="signForm" onsubmit="return checkSignAll();">
 		<table>
 			<tr>
-				<td colspan="2"><input type="text" name="alert" readonly /><td>
+				<td colspan="3"><input type="text" name="alert" readonly /><td>
 			<tr>
 			<tr>
 				<td>아이디</td>
@@ -24,12 +60,22 @@
 			<tr>
 				<td>등급</td>
 				<td>
-					<input type="radio" value="3" name="grade" checked="checked" />사용자
-					<input type="radio" value="1" name="grade" />사장
-					<input type="radio" value="2" name="grade" />알바
+					
+					<input type="radio" value="3" name="grade" id="user" checked="checked" />사용자
+					<input type="radio" value="1" name="grade" id="boss" />사장
+					<input type="radio" value="2" name="grade" id="employee" />알바
 					<input type="radio" value="0" name="grade" />관리자
+					
 				</td>
+				<tr><td></td>
+				<td><div id="grade" ></div></td>
+				</tr>				
 			<tr/>
+			
+			
+			
+		
+			
 			<tr>
 				<td>이름</td>
 				<td><input type="text" name="name" placeholder="이름 입력" onblur="return checkName();"/></td>
