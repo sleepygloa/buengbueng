@@ -57,7 +57,11 @@
 		select * from bossinfo where b_id=#e_bossid#;
 	</select>
 	
-	
+	<!-- 회원 등급 사장으로 업그레이드 -->
+	<update id="userUpdateBoss" parameterClass="String">
+		update userInfo SET grade = 1 WHERE id = #id#;
+	</update>
+
 	
 </sqlMap>
 

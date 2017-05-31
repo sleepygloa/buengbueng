@@ -34,7 +34,7 @@
 	 	<div class="header_wrap">
 			<div class="header container">
 				<!-- 로고 : BUENGBUENG 또는 그림 -->
-				<h1 class="logo">buengbueng</h1>
+				<h1 class="logo"><a href="index.do">buengbueng</a></h1>
 
 				<!-- NAV SECTION -->
 				<!-- BIG NAV : 대 제목 : 메인 NAV : 메인 메뉴 -->				
@@ -191,7 +191,7 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="product__item col-sm-6">
-									<a href="">
+									<a href="franchiseeManagementMain.do">
 										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="gnb__text-grp">
 											<h6 class="product__item__name minor-minor">가맹점 관리</h6>

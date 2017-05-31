@@ -1,24 +1,16 @@
 package login.user.bean;
 
 public class BossInfoDataDTO {
-	private String b_id;
-	private String b_name;
-	private String b_number;
-	private String b_address;
-	private String b_tel;
-	private String b_size;
-	private String b_pccount;
-	private String b_ip;
-	private String b_key;
-	
-	public String getB_ip() {
-		return b_ip;
-	}
-	public void setB_ip(String b_ip) {
-		this.b_ip = b_ip;
-	}
 
-	
+	private String b_id; //사장님아이디
+	private String b_name; //사업장이름
+	private String b_number; //사업자 주소
+	private String b_address; //사업장주소
+	private String b_tel; //사업장 전화번호
+	private String b_size; //사업장 규모
+	private String b_pccount; //사업장 내 보유 PC수
+	private String b_ip; //사업장 사장님 PC IP
+	private String b_key; //프로그램 License Key
 	
 	public String getB_id() {
 		return b_id;
@@ -62,10 +54,17 @@ public class BossInfoDataDTO {
 	public void setB_pccount(String b_pccount) {
 		this.b_pccount = b_pccount;
 	}
+	public String getB_ip() {
+		return b_ip;
+	}
+	public void setB_ip(String b_ip) {
+		this.b_ip = b_ip;
+	}
 	public String getB_key() {
 		return b_key;
 	}
 	public void setB_key(String b_key) {
 		this.b_key = b_key;
 	}
+
 }
