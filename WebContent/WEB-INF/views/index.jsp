@@ -10,7 +10,7 @@
 <div class="main--hero--wrap">
 	<div class="main--hero">
 		<div class="container main--hero--text--wrap">
-			<h1 class="hero__title exa">NEW PC방 관리프로그램 출시!!</h1>
+			<h1 class="hero__title">NEW PC방 관리프로그램 출시!!</h1>
 			<p class="hero__sub__desc major-fourth">통합회원관리시스템!</p>
 			<!--  <a href="tryitforfree" class="btn main--hero--btn"></a> -->
 		</div>
