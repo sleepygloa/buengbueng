@@ -3,7 +3,14 @@
 <sqlMap namespace="franchisee">
 	<typeAlias alias="bossDTO" type="login.user.bean.BossInfoDataDTO" />
 
-	<select id="getBossInfo" parameterClass="String" resultClass="bossDto">
+	<select id="getBossInfo" parameterClass="String" resultClass="bossDTO">
 		select * from bossinfo where b_id = #b_id#
 	</select>
+	
+	<insert id="insertFranchiseeAddLog" parameterClass="bossDTO">
+		insert INTO franchiseeAddLog (result, Date, b_id, b_name, b_number,b_address,b_tel,b_size,b_pccount,b_ip) VALUES(0,now(), #b_id#,#b_name#,#b_number#,#b_address#,#b_tel#,#b_size#,#b_pccount#,#b_ip#);
+	</insert>	
+	
+	
+	
 </sqlMap>

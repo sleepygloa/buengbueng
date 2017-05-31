@@ -19,7 +19,7 @@
 <div class="container for-desktop">
 	<div class="row">
 		<div class="col-md-12-12">
-			<form>
+			<form action="franchiseeAddPro.do" method="post">
 
 				<table>
 					<thead>
@@ -36,8 +36,9 @@
 							<td rowspan="2"> </td>
 							<td>회원아이디</td>
 							<td>
-								<c:if test="${userDto.id != null}">${userDto.id}</c:if>
+								<c:if test="${userDto.id != null}">${userDto.id}<input type="hidden" value="${userDto.id}" /></c:if>
 								<c:if test="${userDto.id == null}">비회원</c:if>
+								
 							</td>
 						</tr>
 						<tr>
@@ -123,6 +124,7 @@
 							<td>사장님 컴퓨터 IP</td>
 							<td>
 								${ip}
+								<input type="hidden" value="${ip}" />
 							</td>
 						</tr>											
 						<tr>

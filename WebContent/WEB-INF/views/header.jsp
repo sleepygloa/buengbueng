@@ -34,7 +34,7 @@
 	 	<div class="header_wrap">
 			<div class="header container">
 				<!-- 로고 : BUENGBUENG 또는 그림 -->
-				<h1 class="logo">buengbueng</h1>
+				<h1 class="logo"><a href="index.do">buengbueng</a></h1>
 
 				<!-- NAV SECTION -->
 				<!-- BIG NAV : 대 제목 : 메인 NAV : 메인 메뉴 -->				

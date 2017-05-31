@@ -53,11 +53,6 @@ public class FranchiseeManagementBean {
 		//사용자라면 사용자정보를 불러오고, 사장님  PC방정보를 입력한다.
 		userDto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
 		
-//		if(userDto.getGrade() == 0 && bossDto == null){ //사용자등급이면서 보유PC방이 없을때
-////			sqlMap.queryForObject("test.userUpdateBoss", id); //사용자를 -> 사장님으로 승급
-////			sqlMap.
-//		}
-		
 		//방문자의 IP주소를 알아낸다
 		ip = (String)findIP.findIp();
 		
@@ -73,4 +68,34 @@ public class FranchiseeManagementBean {
 		return "/bosspcuse/franchiseeAdd";
 	}
 	
+	@RequestMapping("franchiseeAddPro.do")
+	public String franchiseeAddPro(HttpSession session, BossInfoDataDTO bossDto, Model model){
+	
+		//세션의 아이디와 BossInfo Table의 아이디가 동일한 것이 있는지 부터 검사를 한다.
+		UserInfoDataDTO userDto;
+		
+		//현재 로그인한 사용자의 아이디를 불러온다.
+		String id = (String)session.getAttribute("loginId");
+		int check = 0;
+		
+		bossDto.setB_id(id);
+			try{
+				//입력된 정보를 로그에 남겨줍니다.
+				sqlMap.insert("franchisee.insertFranchiseeAddLog", bossDto);
+				
+				check = 1;
+			}catch(Exception e){
+				check = 2;
+				e.printStackTrace();
+				System.out.println(e);
+			}
+		
+		
+		
+		model.addAttribute("check", check);
+		
+		
+		
+		return "/bosspcuse/franchiseeAddPro";
+	}
 }
