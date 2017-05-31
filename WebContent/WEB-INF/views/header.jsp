@@ -53,20 +53,20 @@
 							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6">
+								<div class="product__item col-sm-6-12">
 									<a href="">
-										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
-										<span class="gnb__text-grp">
+										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
+										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">가맹점 찾기</h6>
 											<p class="product__item__desc">시스템을 제공하는 가맹점 찾기</p>
 										</span>
 									</a>
 								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6">
+								<div class="product__item col-sm-6-12">
 									<a href="">
-										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
-										<span class="gnb__text-grp">
+										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
+										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">프로그램 기능소개</h6>
 											<p class="product__item__desc">BUENGBUENG 모든 기능 소개</p>
 										</span>
@@ -92,10 +92,10 @@
 							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6">
+								<div class="product__item col-sm-6-12">
 									<a href="">
-										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
-										<span class="gnb__text-grp">
+										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
+										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">PC방 찾기</h6>
 											<p class="product__item__desc">우리동네, 지역 가맹 피시방찾기</p>
 										</span>
@@ -103,10 +103,10 @@
 								</div>
 								
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6">
+								<div class="product__item col-sm-6-12">
 									<a href="">
-										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
-										<span class="gnb__text-grp">
+										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
+										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">결제</h6>
 											<p class="product__item__desc">PC이용요금 결제</p>
 										</span>
@@ -117,10 +117,10 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
-								<div class="product__item col-sm-6">
+								<div class="product__item col-sm-6-12">
 									<a href="">
-										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
-										<span class="gnb__text-grp">
+										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
+										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">예약</h6>
 											<p class="product__item__desc">원하는자리 미리 예약하기</p>
 										</span>
@@ -128,10 +128,10 @@
 								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
-								<div class="product__item col-sm-6">
+								<div class="product__item col-sm-6-12">
 									<a href="">
-										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
-										<span class="gnb__text-grp">
+										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
+										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">이용현황</h6>
 											<p class="product__item__desc">현재 실시간 자리현황 파악</p>
 										</span>
@@ -142,10 +142,10 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
-								<div class="product__item col-sm-10">
+								<div class="product__item col-sm-8-12">
 									<a href="">
-										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
-										<span class="gnb__text-grp">
+										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
+										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">즐겨찾는 PC방</h6>
 											<p class="product__item__desc">자주찾는 PC방을 지정하여 그곳의 정보를 먼저 파악</p>
 										</span>
@@ -168,20 +168,20 @@
 							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6">
+								<div class="product__item col-sm-6-12">
 									<a href="">
-										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
-										<span class="gnb__text-grp">
+										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
+										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">원격 조정</h6>
 											<p class="product__item__desc">멀리서 사장님 PC 관리</p>
 										</span>
 									</a>
 								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6">
+								<div class="product__item col-sm-6-12">
 									<a href="">
-										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
-										<span class="gnb__text-grp">
+										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
+										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">ERP 관리</h6>
 											<p class="product__item__desc">PC방 내 모든 현황 관리</p>
 										</span>
@@ -191,10 +191,10 @@
 							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6">
+								<div class="product__item col-sm-6-12">
 									<a href="franchiseeManagementMain.do">
-										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
-										<span class="gnb__text-grp">
+										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
+										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">가맹점 관리</h6>
 											<p class="product__item__desc">가맹점 등록 및 삭제</p>
 										</span>
@@ -218,10 +218,10 @@
 							
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6">
+								<div class="product__item col-sm-6-12">
 									<a href="">
-										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
-										<span class="gnb__text-grp">
+										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
+										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">회원 관리</h6>
 											<p class="product__item__desc">멀리서 가맹중인 PC방 관리</p>
 										</span>
@@ -229,10 +229,10 @@
 								</div>
 								
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6">
+								<div class="product__item col-sm-6-12">
 									<a href="">
-										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
-										<span class="gnb__text-grp">
+										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
+										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">챗봇 관리</h6>
 											<p class="product__item__desc">PC방 내 모든 현황 관리</p>
 										</span>
@@ -243,10 +243,10 @@
 							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6">
+								<div class="product__item col-sm-6-12">
 									<a href="">
-										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
-										<span class="gnb__text-grp">
+										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
+										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">ERP 관리</h6>
 											<p class="product__item__desc">전체 ERP 모듈 관리</p>
 										</span>
@@ -254,10 +254,10 @@
 								</div>
 								
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6">
+								<div class="product__item col-sm-6-12">
 									<a href="">
-										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
-										<span class="gnb__text-grp">
+										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
+										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">페이지 관리</h6>
 											<p class="product__item__desc">웹 페이지기능 추가 및 삭제</p>
 										</span>

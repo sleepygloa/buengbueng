@@ -2,24 +2,24 @@
 
 /* --- 기본 설정 CSS ---*/
 html{overflow-y:scroll;overflow-x:scroll} /* x y 축 스크롤링 가능 */
-.clearfix::after{display:block;content:'';clear:both}
+.clearfix::after{display:block;content:'';clear:both}W
 body{height:100%;} /* 세로 100% 최대크기 */
 img{vertical-align:middle} /* 사진은 기본으로 세로가운데정렬 */
 body,p{line-height:1.5;letter-spacing:-.025em;word-break:keep-all} /* word-break 문단 글이 길거나 자동줄바꿈이될때, 글자를 끊어서 줄바꾼할껀지(break-all), 단어 단위로 줄바꿈 할껀지(keep-all) (normal) */
 p{margin-bottom:1.5em}
 a:visited{text-decoration:none}
-h6{font-size:1.24em;line-height:1.2096;margin-bottom:1.2096em}
-h5{font-size:1.5376em;line-height:1.951;margin-bottom:.9755em}
-h4{font-size:1.9066em;line-height:1.5734;margin-bottom:1.58em}
-h3{font-size:2.3642em;line-height:1.2688;margin-bottom:.6344em}
-h2{font-size:2.9316em;line-height:1.5348;margin-bottom:.5116em}
-h1{font-size:3.6352em;line-height:1.2378;margin-bottom:.4126em}
+h6{font-size:1.2em;line-height:1.2096;margin-bottom:1.2096em} /* 19px=1.209 */
+h5{font-size:1.5em;line-height:1.951;margin-bottom:.975em} /* 15px=.975 */
+h4{font-size:1.9m;line-height:1.5734;margin-bottom:.75em} /* 25px=.75 */
+h3{font-size:2.3em;line-height:1.2688;margin-bottom:.6344em} /* 10px=.634 */
+h2{font-size:2.9em;line-height:1.5348;margin-bottom:.511em}  /* 8px=.511 */
+h1{font-size:3.6em;line-height:1.2378;margin-bottom:.438em} /* 7px=.438 */ 
 p.major-fourth{font-size:1.375em;line-height:1.5;margin-bottom:1.3636em}
 .minor{font-size:1.15em;line-height:1.3;margin-bottom:1.3043em}.
 minor-minor{font-size:1em;line-height:1.5;margin-bottom:1.5em}
 .minor--minor{font-size:.847em;line-height:1.5}
 a,a:visited,h1,h2,h3,h4,h5,h6,p{color:#5c5c5c}
-
+.row::after{display:block;clear:both;content:''}
 
 /* HEADER 영역 */
 .header_wrap{position:fixed;z-index:3;top:0;width:100%;background:0 0;transition:all .3s;color:#eee}
@@ -44,18 +44,16 @@ a,a:visited,h1,h2,h3,h4,h5,h6,p{color:#5c5c5c}
 .product__item h6:hover{text-decoration:underline}
 
 /* 각 소메뉴들 중 기능의 좌측 아이콘과 글*/
-.gnb-icon{width:21px;height:20px;margin-right:8px;display:inline-block;position:relative;top:-24px}
-.gnb-icon img{width:21px;height:20px;display:inline-block}
-.gnb__text-grp{display:inline-block}
-.gnb__text-grp p{font-size:14px;color:#777;margin-bottom:0}
+.menu_icon{width:21px;height:20px;margin-right:8px;display:inline-block;position:relative;top:-24px}
+.menu_icon img{width:21px;height:20px;display:inline-block}
+.menu_text{display:inline-block}
+.menu_text p{font-size:14px;color:#777;margin-bottom:0}
 
 
 /* HEADER 반응형 ----------*/
 @media screen and (min-width:250px){
 	.header,.header_wrap{height:60px}
 	.header .logo{margin-top:10px}
-	.shadow .header .logo svg .st0{fill:#f73859}
-	.shadow .header .logo svg .st2{fill:#fff}
 	.header_wrap .header .menu_area .item>a{position:relative;display:block;color:#fff;font-size:20px;height:60px;line-height:60px}
 	.header .menu_area .item.sign,.header .menu_area .item.try{float:none;border:none;display:block;background:0 0;height:60px;line-height:60px;transition:all .3s}
 	.header .hamburger{display:block}
@@ -76,25 +74,22 @@ a,a:visited,h1,h2,h3,h4,h5,h6,p{color:#5c5c5c}
 	.header .menu_area .social__icon{width:50px;height:50px}
 	.product__item{display:block;margin-bottom:10px;margin-left:10px;padding:10px 0}
 	.product__item:hover{background:0 0;display:block}
-	.gnb-icon{display:none}
+	.menu_icon{display:none}
 }
 
 
 @media screen and (min-width:1200px){
-		/* HEADER 위치 : 높이 */
+	/* HEADER 위치 : 높이 */
 	.header,.header_wrap{height:80px}
 	.header .logo{margin-top:18px}
+	/* 대메뉴  */
 	.header_wrap .header .menu_area .item{position:relative;display:inline-block;padding-left:0}
+	
 	.header .menu_area .item.normal>a{color:#fff;margin-left:5px}
-	.shadow .header .item.normal>a{color:#5c5c5c}
 	.header .menu_area .item.normal:first-child{margin-left:0}
 	.header .menu_area .item.normal.on{border-top:2px solid #fff}
 	.header .menu_area .item.normal.on>a{color:#fff}
-	.shadow .header .menu_area .item.normal.on{border-top:2px solid #f73859}
-	.shadow .header .menu_area .item.normal.on>a{color:#f73859}
 	.header .menu_area .item.normal:hover::before{content:"";display:block;border-top:2px solid #fff}
-	.shadow .header .menu_area .item.normal:hover::before{content:"";display:block;border-top:2px solid #f73859}
-	.shadow .header .menu_area .item.normal a:hover{color:#f73859}
 	.header .menu_area .item.normal.on:before{position:absolute;top:-37px;left:-6px;right:-6px;height:3px;background:#282b39;content:''}
 	.header .menu_area .product__list.touch{display:block}
 	.header .menu_area .item.sign,.header .menu_area .item.try{float:right;height:36px;line-height:36px;-webkit-border-radius:3px;border-radius:3px}
@@ -102,27 +97,13 @@ a,a:visited,h1,h2,h3,h4,h5,h6,p{color:#5c5c5c}
 	.header_wrap .header .menu_area .item.sign>a{line-height:33px}
 	.header .menu_area .item.try{background:#fff}
 	.header .menu_area .item.try>a{color:#f83859}
-	.shadow .header .menu_area .item.try{background:#f83859}
-	.shadow .header .menu_area .item.try>a{color:#fff}
-	.shadow .header .menu_area .item.try.on{background:#f83859;color:#fff}
 	.header .menu_area .item.try.on{background:#fff;color:#f83859}
 	.header .menu_area .item.try:hover{background:#eee}
-	.shadow .header .menu_area .item.try:hover{background:#d6314e}
 	.header .menu_area .item.sign{height:34px;border:1px solid #fff;color:#fff}
-	.shadow .header .item.sign{color:#5c5c5c;border-color:#5c5c5c}
-	.shadow .header .item.sign>a{color:#5c5c5c}
-	.shadow .header .menu_area .item.sign{border:1px solid #dcdcdc}
-	.shadow .header .menu_area .item.sign:hover{border:1px solid #282b39}
-	.shadow .header .menu_area .item.sign a{color:#7c7c7c}
-	.shadow .header .menu_area .item.sign:hover a{color:#282b39}
 	.header .menu_area .item.sign{border:1px solid #fdb2bf}
 	.header .menu_area .item.sign:hover{border:1px solid #fff}
 	.header .menu_area .item.sign a{color:#fee}
 	.header .menu_area .item.sign:hover a{color:#fff}
-	.shadow .header .menu_area .item.sign.on{border:1px solid #dcdcdc}
-	.shadow .header .menu_area .item.sign.on:hover{border:1px solid #282b39}
-	.shadow .header .menu_area .item.sign.on a{color:#7c7c7c}
-	.shadow .header .menu_area .item.sign.on:hover a{color:#282b39}
 	.header .menu_area .item.sign.on{border:1px solid #fdb2bf}
 	.header .menu_area .item.sign.on:hover{border:1px solid #fff}
 	.header .menu_area .item.sign.on a{color:#fee}
@@ -293,4 +274,71 @@ a,a:visited,h1,h2,h3,h4,h5,h6,p{color:#5c5c5c}
 }
 @media screen and (min-width:1200px){
 	.using__bg{top:0}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 메인 contents 즉 contain 영역 설정, contain 은 전체의 90% 80%등등사용하고, row 를 쓴 곳에서는 그것을 넘어선 영역을 쓴다. */
+/* container는 가운데 정렬임. */
+
+@media screen and (min-width:250px){
+	.container{margin-left:auto;margin-right:auto;padding-left:20px;padding-right:20px}
+	.row{margin-left:-20x;margin-right:-20px}
+}
+@media screen and (min-width:768px){
+
+}
+@media screen and (min-width:992px){
+	.container{width:90%;padding-left:0px;padding-right:0px}
+}
+
+@media screen and (min-width:1200px){
+	.container{width:90%}
+}
+
+/* grid 시스템, 모바일, 태블릿, pc화면을 정의한다. */
+/* 12가 100%일대 1-12 은 12분할중 1개 의 크기를 말함. 즉 가로정렬하면 12개 들어갈수있음. */
+
+@media screen and (min-width:250px){
+	[class*=col-]{margin-bottom:20px} /* 모든 클래스들 중 col- 로 시작하는 것들을 정의, grid간 아랫공간 띄우기*/
+	.col-xs-2-12{width:25%}
+	.col-xs-6-12{width:50%}
+	.col-xs-12-12{width:100%}
+}
+@media screen and (min-width:768px){
+	.col-sm-3-12{width:25%}
+	.col-sm-4-12{width:33.3333%}
+	.col-sm-6-12{width:50%}
+	.col-sm-8-12{width:66.6666%}
+	.col-sm-12-12{width:100%}
+}
+@media screen and (min-width:992px){
+}
+
+@media screen and (min-width:1200px){
+	[class*=col-]{margin-bottom:3em} /* 폰 size 20px * 3 배 = 60px */
+	.col-md-1-12{width:8.3333%}
+	.col-md-2-12{width:16.6666%}
+	.col-md-3-12{width:25%}
+	.col-md-4-12{width:33.3333%}
+	.col-md-5-12{width:41.6666%}
+	.col-md-6-12{width:50%}
+	.col-md-7-12{width:58.3333%}
+	.col-md-8-12{width:66.6666%}
+	.col-md-9-12{width:75%}
+	.col-md-10-12{width:83.3333%}
+	.col-md-11-12{width:91.6666%}
+	.col-md-12-12{width:100%}
 }

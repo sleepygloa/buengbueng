@@ -738,46 +738,19 @@
 }
 .btn{width:200px;height:60px;line-height:60px;border:0;font-size:20px;border-radius:3px;background:#f73859;text-align:center;color:#fff;display:inline-block;box-shadow:1px 1px 4px 0 rgba(0,0,0,.5)}
 .btn:visited{color:#fff}
-.row::after{display:block;clear:both;content:''}
+
 [class*=col-]{float:left;position:relative;padding-right:25px;padding-left:25px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 
 
 
 
-@media screen and (min-width:250px){
-	[class*=col-]{margin-bottom:20px}
-	.container{margin-left:auto;margin-right:auto;padding-left:20px;padding-right:20px}
-	.row{margin-left:-25px;margin-right:-25px}
-	.col-xs-3{width:25%}
-	.col-xs-6{width:50%}
-	.col-xs-12{width:100%}
-}
+
 @media screen and (min-width:768px){
-	[class*=col-]{margin-bottom:21px}
 	.push-2-12{margin-left:16.6666%}
-	.col-sm-3{width:25%}
-	.col-sm-4{width:33.3333%}
-	.col-sm-6{width:50%}
-	.col-sm-8{width:66.6666%}
-	.col-sm-12{width:100%}
 	.push-1e5-12{margin-left:0}
 	.push-2-12{margin-left:16.6666%}
 }
 @media screen and (min-width:992px){
-	[class*=col-]{margin-bottom:3em}
-	.container{width:970px;padding-left:0;padding-right:0}
-	.col-md-1-12{width:8.3333%}
-	.col-md-2-12{width:16.6666%}
-	.col-md-3-12{width:25%}
-	.col-md-4-12{width:33.3333%}
-	.col-md-5-12{width:41.6666%}
-	.col-md-6-12{width:50%}
-	.col-md-7-12{width:58.3333%}
-	.col-md-8-12{width:66.6666%}
-	.col-md-9-12{width:75%}
-	.col-md-10-12{width:83.3333%}
-	.col-md-11-12{width:91.6666%}
-	.col-md-12-12{width:100%}
 	.col-md-1-16{width:6.25%}
 	.col-md-2-16{width:12.5%;padding:10px}
 	.push-1-12{margin-left:8.3333%}
@@ -793,8 +766,7 @@
 	.push-10-12{margin-left:83.3333%}
 	.push-11-12{margin-left:91.6666%}
 }
-@media screen and (min-width:1290px){
-	.container{width:1280px}}
+
 @font-face{font-family:nanumsquareotfb;src:url(/font/NanumSquareOTFB.otf),url(/font/NanumSquareB.ttf) format("truetype")}
 @font-face{font-family:nanumsquare;src:url(/font/NanumSquareOTFR.otf),url(/font/NanumSquareR.eot) format("embedded-opentype"),url(/font/NanumSquareR.ttf) format("embedded-opentype")}
 

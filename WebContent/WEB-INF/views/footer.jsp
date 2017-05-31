@@ -7,7 +7,7 @@
     <div class="footer container">
     
         <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-4-12">
+            <div class="col-xs-12-12 col-sm-4-12 col-md-4-12">
                 <p class="logo"><img src="img/footer_logo-white.png" width="110" height="21" alt="Beusable"></p>
                 <p class="footer__summary">KH 정보교육원을 통해서 만난 BUENGBUENG TEAM<br/>FINAL PROJECT 입니다</p>
                 <span class="footer__copyright">2017 BUENGBUENG</span>
@@ -17,9 +17,9 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-8 col-md-8-12">
+            <div class="col-xs-12-12 col-sm-8 col-md-8-12">
                 <div class="row">
-                    <div class="footer__list col-xs-12 col-sm-4 col-md-4-12">
+                    <div class="footer__list col-xs-12-12 col-sm-4-12 col-md-4-12">
                         <h6>통계</h6>
                         <ul>
                             <li><a href="#">사용자 분석</a></li>
@@ -28,14 +28,14 @@
                             <li><a href="#">인기있는 스낵</a></li>
                         </ul>
                     </div>
-                    <div class="footer__list col-xs-12 col-sm-4 col-md-4-12">
+                    <div class="footer__list col-xs-12-12 col-sm-4-12 col-md-4-12">
                         <h6>Learn More</h6>
                         <ul>
                             <li><a href="#">Why BUENGBUENG?</a></li>
                             <li><a href="#">가격정책</a></li>
                         </ul>
                     </div>
-                    <div class="footer__list col-xs-12 col-sm-4 col-md-4-12">
+                    <div class="footer__list col-xs-12-12 col-sm-4-12 col-md-4-12">
                         <h6>About Us</h6>
                         <ul>
                             <li><a href="#">MAIL</a></li>

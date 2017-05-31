@@ -15,7 +15,7 @@
 이 페이지는 가맹점을 추가하는 페이지입니다. 
 </div>
 
-<div class="pricing--wrap">
+<div class="pricing--wrap container">
 <div class="container for-desktop">
 	<div class="row">
 		<div class="col-md-12-12">
