@@ -191,7 +191,7 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="product__item col-sm-6">
-									<a href="">
+									<a href="franchiseeManagementMain.do">
 										<span class="gnb-icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="gnb__text-grp">
 											<h6 class="product__item__name minor-minor">가맹점 관리</h6>
@@ -273,13 +273,15 @@
 						</a>
 					</li>
 				
-
-				
+				<!-- 임시로만듬, 회원 로그인했을때 세션확인 -->
+					<li class="item sign"><span color="black">${sessionScope.loginId}</span></li>
+					
 				<!-- 로그인상태와 로그아웃상태일때 환영메세지, 관리자 일때 관리자페이지 링크가 보이게 한다. -->
 					<c:if test="${sessionScope.loginId != null}" >
 						
 						<li class="item sign"><a href="/buengbueng/userInfoForm.do">회원 정보보기</a></li>
 						<li class="item sign"><a href="/buengbueng/userInfoFormUpdate.do">회원 정보수정</a></li>
+						<li class="item sign"><a href="/buengbueng/logout.do">로그아웃</a></li>
 					</c:if>
 					<c:if test="${sessionScope.loginId == null}" >
 						<li class="item sign"><a href="/buengbueng/loginForm.do">로그인</a></li>

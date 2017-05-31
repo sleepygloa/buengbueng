@@ -1,7 +1,7 @@
 html,body,div,span,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,address,big,cite,code,em,img,small,strike,strong,sub,sup,dl,dt,dd,ol,ul,li, fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline}
 article,aside,details,figcaption,figure,footer,header,menu,nav,section{display:block}
 *{margin:0;padding:0;list-style:none;text-decoration:none;font-family:'Ubuntu', nanumsquare, 'Open Sans', Sans-serif}
-@font-face {
+/* @font-face {
     font-family:nanumsquareotfb;
     src: url("../font/NanumSquareOTFB.otf"),
     url("../font/NanumSquareB.ttf") format("truetype");
@@ -12,9 +12,9 @@ article,aside,details,figcaption,figure,footer,header,menu,nav,section{display:b
     url("../font/NanumSquareR.eot") format("embedded-opentype"),
     url("../font/NanumSquareR.ttf") format("embedded-opentype");
 }
-/*h1, h2, h3, h4, h5, h6, p, a, a:visited {*/
-    /*color: #5c5c5c;*/
-/*}*/
+h1, h2, h3, h4, h5, h6, p, a, a:visited {
+    color: #5c5c5c;
+} */
 html{overflow-y:scroll;overflow-x:scroll}
 
 select:-moz-focusring {
@@ -22,7 +22,7 @@ select:-moz-focusring {
     text-shadow: 0 0 0 #000;
 }
 
-#vertical_btn {
+/* #vertical_btn {
     position: absolute;
     z-index: 9999999;
     top: 80px;
@@ -46,10 +46,10 @@ select:-moz-focusring {
 }
 
 
-/*.row {*/
-    /*margin-bottom: 30px; !* 임의 값 *!*/
-/*}*/
-
+.row {
+    margin-bottom: 30px; !* 임의 값 *!
+}
+ */
 .clearfix::after,
 .row::after {
     display: block;
@@ -59,8 +59,8 @@ select:-moz-focusring {
 
 
 
-/*구형 IE 대응*/
-#warning_old_ie {
+/* /*구형 IE 대응*/
+/* #warning_old_ie {
     display: none;
     text-align: center;
 }
@@ -76,9 +76,9 @@ select:-moz-focusring {
 }
 html.lt-ie10 #warning_old_ie {
     display: block;
-}
+} */
 
-/* 메인 전용 */
+/* 메인 전용
 h1{
     font-size:32px;
     font-family:'Ubuntu',nanumsquare, 'Open Sans', Sans-serif;
@@ -91,13 +91,13 @@ h2{
     font-family:'Ubuntu',nanumsquare, 'Open Sans', Sans-serif;
     color:#282b39;
     text-shadow:1px 1px 1px rgba(10,10,10,0.2)
+} */
+/*p {
+    margin-bottom: 10px;
 }
-/*p {*/
-    /*margin-bottom: 10px;*/
-/*}*/
 .em{font-weight:bold;color:red}
 
-/*try it for free button*/
+try it for free button
 .tryforfree_btn {
     margin-top: 20px;
 }
@@ -150,7 +150,7 @@ h2{
     box-shadow:none;
     position:relative;top:1px;left:1px;
 }
-/*banner*/
+banner
 .banner{
     width: 100%;
     min-width: 1024px;
@@ -170,14 +170,14 @@ h2{
 }
 .intro_text{color:#fff;text-shadow:2px 2px 5px rgba(92,92,92,0.9);letter-spacing:1.5px;}
 
-/*content*/
+content
 #home_main {
     min-width: 1024px;
 }
 #about_section-heading {
     text-align: center;
 }
-/*.content{width:984px;height:302px;margin:0 auto;padding:40px 0;}*/
+.content{width:984px;height:302px;margin:0 auto;padding:40px 0;}
 .content{width:984px;margin:0 auto;padding-top:40px;}
 .con_divider{border-bottom:1px dotted #ccc;padding:0 100px}
 .content dt{margin-bottom:28px;}
@@ -205,7 +205,7 @@ h2{
 .sec4 span{display:block;margin-bottom:28px;font-size:15px;}
 
 
-/* 하단 */
+하단
 .footer_wrap{
     position:relative;
     z-index:1;
@@ -213,22 +213,22 @@ h2{
 }
 
 
-/* phone */
+phone
 @media screen and (max-width: 767px) {
 
 }
 
-/* tablet */
+tablet
 @media screen and (min-width: 768px) {
 
 }
 
-/* desktop */
+desktop
 @media screen and (min-width: 992px) {
 
 }
 
-/* large desktop */
+large desktop
 @media screen and (min-width: 1200px) {
 
-}
+} */
