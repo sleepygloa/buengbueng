@@ -3,11 +3,11 @@
 
 <br /><br /><br /><br /><br /><br />
 <!-- SIDEMENU 위치 잡아주는 DIV -->
-<div>
+<div >
 <!-- SIDEMENU 위치에서 실제로 사용할 영역 지정하는 DIV -->
-	<div>
+	<div id="my_side">
 	<!-- 링크 LIST -->
-		<ul>
+		<ul class="my_side_ul">
 			<li>
 				가맹점 통계
 			</li>

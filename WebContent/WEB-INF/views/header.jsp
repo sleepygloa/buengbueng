@@ -22,6 +22,7 @@
     	<link rel="stylesheet" type="text/css" media="all" href="css/style_v2.css">
 		<!-- INDEX CSS 2 -->    
         <link rel="stylesheet" type="text/css" media="all" href="css/dist/modules.min.css">
+        <link rel="stylesheet" type="text/css" media="all" href="css/side_menu.css">
 	
 		<!-- 홈페이지 제목 -->
 		<title>BuengBueng</title>
@@ -38,7 +39,7 @@
 
 				<!-- NAV SECTION -->
 				<!-- BIG NAV : 대 제목 : 메인 NAV : 메인 메뉴 -->				
-				<ul class="menu_area clearfix"> 
+				<ul class="menu_area"> 
 					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 <!-- -------------------------------------------------------------------------------------------------------- -->						
