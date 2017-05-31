@@ -53,7 +53,7 @@
 							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6-12">
+								<div class="product__item col-sm-5-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">
@@ -63,7 +63,7 @@
 									</a>
 								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6-12">
+								<div class="product__item col-sm-5-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">
@@ -82,7 +82,7 @@
 사용자 PC방 이용
 						</a>
 						<!-- 드롭다운메뉴 : 소메뉴 -->
-						<ul class="product__list">
+						<ul class="product__list ">
 							<!-- 소메뉴 타이틀 -->
 							<h6 class="product__list__title minor-minor">
 								헬로월드&nbsp; | &nbsp;
@@ -92,7 +92,7 @@
 							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6-12">
+								<div class="product__item col-sm-5-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">
@@ -103,7 +103,7 @@
 								</div>
 								
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6-12">
+								<div class="product__item col-sm-5-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">
@@ -117,7 +117,7 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
-								<div class="product__item col-sm-6-12">
+								<div class="product__item col-sm-5-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">
@@ -128,7 +128,7 @@
 								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
-								<div class="product__item col-sm-6-12">
+								<div class="product__item col-sm-5-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">
@@ -155,20 +155,20 @@
 						</ul>	
 					</li>
 <!-- ---------------------------------------------------------------------------------------------------- -->
-<li class="item normal product" onClick="return true">
+					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 						
 						<a class="ctgr" href="">
 사장님 PC방 관리
 						</a>
 						<!-- 드롭다운메뉴 : 소메뉴 -->
-						<ul class="product__list">
+						<ul class="product__list ">
 							<!-- 소메뉴 타이틀 -->
 							<h6 class="product__list__title minor-minor">회사소개&nbsp; | &nbsp;<span class="list__title__desc">PC방이용자님이 사용할수 있는 메뉴입니다.</span></h6>
 							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6-12">
+								<div class="product__item col-sm-5-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">
@@ -178,7 +178,7 @@
 									</a>
 								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6-12">
+								<div class="product__item col-sm-5-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">
@@ -191,7 +191,7 @@
 							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6-12">
+								<div class="product__item col-sm-5-12">
 									<a href="franchiseeManagementMain.do">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">
@@ -204,7 +204,7 @@
 						</ul>	
 					</li>					
 <!-- ---------------------------------------------------------------------------------------------------- -->
-<li class="item normal product" onClick="return true">
+					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 						
 						<a class="ctgr" href="">
@@ -218,7 +218,7 @@
 							
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6-12">
+								<div class="product__item col-sm-5-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">
@@ -229,7 +229,7 @@
 								</div>
 								
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6-12">
+								<div class="product__item col-sm-5-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">
@@ -243,7 +243,7 @@
 							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6-12">
+								<div class="product__item col-sm-5-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">
@@ -254,7 +254,7 @@
 								</div>
 								
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-6-12">
+								<div class="product__item col-sm-5-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">

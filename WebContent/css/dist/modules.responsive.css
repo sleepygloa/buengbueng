@@ -6,25 +6,6 @@
 
 
 
-@media screen and (min-width:800px){
-	.header .menu_area .item.normal{margin-left:10px}
-	.header .logo{width:130px}
-}
-@media screen and (min-width:992px){
-	.header .menu_area .item.normal{margin-left:20px}
-	.header_wrap .header .menu_area .item>a{font-size:16px}
-	.header .menu_area .item.sign,.header .menu_area .item.try{margin-top:21px}
-	.header .menu_area .item.sign>a,.header .menu_area .item.try>a{padding-left:15px;padding-right:15px}
-	.header .menu_area .item.sign{margin-left:13px}
-}
-
-
-
-
-
-
-
-
 
 /*
                        */
@@ -32,7 +13,7 @@
 .why--hero{height:43.5em}
 .why--hero{position:relative;background:url(/css/img/banner-b.jpg) no-repeat;background-position:center;background-size:cover;width:100%}
 .why--hero--wrap .hero__title{position:relative;padding-top:13.5rem;letter-spacing:normal;text-align:left}
-[class*=__title]{text-align:center}
+
 .why--hero .hero__desc,.why--hero .hero__title,.why--hero--wrap .hero__sub__desc,.why--hero--wrap .hero__sub__title{color:#fff}
 .why--offer--wrap{padding:5.9em 0}
 .offer__title--wrap{margin-bottom:4.5em}
@@ -731,15 +712,9 @@
 .goProduct,.goProduct:visited{display:block;text-align:center;color:#11aabe}
 .link{width:200px;height:50px;line-height:50px;font-size:20px;text-align:center;display:inline-block;color:#5c5c5c;border:1px solid #5c5c5c;border-radius:3px;box-shadow:1px 1px 10px 0 rgba(0,0,0,.5)}
 
-@media screen and (min-width:768px){
-	.btn{transition:all .3s}
-	.btn:hover{background:#d6314e}
-	.btn:active{position:relative;top:1px}
-}
-.btn{width:200px;height:60px;line-height:60px;border:0;font-size:20px;border-radius:3px;background:#f73859;text-align:center;color:#fff;display:inline-block;box-shadow:1px 1px 4px 0 rgba(0,0,0,.5)}
-.btn:visited{color:#fff}
 
-[class*=col-]{float:left;position:relative;padding-right:25px;padding-left:25px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+
+
 
 
 
