@@ -72,7 +72,257 @@ function checkSignAll(){
 		document.signForm.alert.value = "이메일을 정확하게 입력하십시오.";
 		return false;
 	}
+	// 사장님 js
+	if(document.signForm.b_name.value == ""){
+		document.signForm.alert.value = "상호명을 입력하십시오.";
+		return false;
+	}
+	if(document.signForm.b_number_1.value == "" ){
+		document.signForm.alert.value = "사업자번호를 입력하십시오.";
+		return false;
+	}
+	if(!b_number.test(document.signForm.b_number_1.value)){
+		document.signForm.alert.value = "사업자번호는 숫자만 입력하십시오.";
+		document.signForm.b_number_1.value = "";
+		return false;
+	}
+	if(document.signForm.b_number_2.value == "" ){
+		document.signForm.alert.value = "사업자번호를 입력하십시오.";
+		return false;
+	}
+	if(!b_number.test(document.signForm.b_number_2.value)){
+		document.signForm.alert.value = "사업자번호는 숫자만 입력하십시오.";
+		document.signForm.b_number_2.value = "";
+		return false;
+	}
+	if(document.signForm.b_number_3.value == "" ){
+		document.signForm.alert.value = "사업자번호를 입력하십시오.";
+		return false;
+	}
+	if(!b_number.test(document.signForm.b_number_3.value)){
+		document.signForm.alert.value = "사업자번호는 숫자만 입력하십시오.";
+		document.signForm.b_number_3.value = "";
+		return false;
+	}
+	if(document.signForm.b_address.value == ""){
+		document.signForm.alert.value = "주소를 입력하십시오.";
+		return false;
+	}
+	if(document.signForm.b_tel1.value == "" ){
+		document.signForm.alert.value = "전화번호를 입력하십시오.";
+		return false;
+	}
+	if(!b_tel.test(document.signForm.b_tel1.value)){
+		document.signForm.alert.value = "전화번호는 숫자만 입력하십시오.";
+		document.signForm.b_tel1.value = "";
+		return false;
+	}
+	if(document.signForm.b_tel2.value == "" ){
+		document.signForm.alert.value = "전화번호를 입력하십시오.";
+		return false;
+	}
+	if(!b_tel.test(document.signForm.b_tel2.value)){
+		document.signForm.alert.value = "전화번호는 숫자만 입력하십시오.";
+		document.signForm.b_tel2.value = "";
+		return false;
+	}
+	if(document.signForm.b_tel3.value == "" ){
+		document.signForm.alert.value = "전화번호를 입력하십시오.";
+		return false;
+	}
+	if(!b_tel.test(document.signForm.b_tel3.value)){
+		document.signForm.alert.value = "전화번호는 숫자만 입력하십시오.";
+		document.signForm.b_tel3.value = "";
+		return false;
+	}
+	if(document.signForm.b_size.value == ""){
+		document.signForm.alert.value = "사업장의 규모를 입력하십시오.";
+		return false;
+	}
+	if(document.signForm.b_pccount.value == ""){
+		document.signForm.alert.value = "보유 PC 수 를 입력하십시오.";
+		return false;
+	}
+	if(document.signForm.b_ip.value == ""){
+		document.signForm.alert.value = "대표 IP를 입력하십시오.";
+		return false;
+	}
+	
+	// 알바 js
+	if(document.signForm.e_bossid.value == ""){
+		document.signForm.alert.value = "사장님 아이디를 입력하십시오.";
+		return false;
+	}
+	
 }
+
+/* 사장님 정보 입력 확인 */
+
+// 상호명 입력 확인.
+function checkB_name(){
+	if(document.signForm.b_name.value == ""){
+		document.signForm.alert.value = "상호명을 입력하십시오.";
+		return false;
+	}
+	else{
+		document.signForm.alert.value = "";
+	}
+}
+
+//사업자번호 입력 확인.
+function checkB_number_1(){
+	if(document.signForm.b_number_1.value == "" ){
+		document.signForm.alert.value = "사업자번호를 입력하십시오.";
+		return false;
+	}
+	if(!b_number.test(document.signForm.b_number_1.value)){
+		document.signForm.alert.value = "사업자번호는 숫자만 입력하십시오.";
+		document.signForm.b_number_1.value = "";
+		return false;
+	}
+	else{
+		document.signForm.alert.value = "";
+	}
+}
+
+function checkB_number_2(){
+	if(document.signForm.b_number_2.value == "" ){
+		document.signForm.alert.value = "사업자번호를 입력하십시오.";
+		return false;
+	}
+	if(!b_number.test(document.signForm.b_number_2.value)){
+		document.signForm.alert.value = "사업자번호는 숫자만 입력하십시오.";
+		document.signForm.b_number_2.value = "";
+		return false;
+	}
+	else{
+		document.signForm.alert.value = "";
+	}
+}
+
+function checkB_number_3(){
+	if(document.signForm.b_number_3.value == "" ){
+		document.signForm.alert.value = "사업자번호를 입력하십시오.";
+		return false;
+	}
+	if(!b_number.test(document.signForm.b_number_3.value)){
+		document.signForm.alert.value = "사업자번호는 숫자만 입력하십시오.";
+		document.signForm.b_number_3.value = "";
+		return false;
+	}
+	else{
+		document.signForm.alert.value = "";
+	}
+}
+
+//사업장 주소 입력 확인.
+function checkB_address(){
+	if(document.signForm.b_address.value == ""){
+		document.signForm.alert.value = "사업장 주소를 입력하십시오.";
+		return false;
+	}
+	else{
+		document.signForm.alert.value = "";
+	}
+}
+
+//사업장 전화번호 입력 확인.
+
+function checkB_tel1(){
+	if(document.signForm.b_tel1.value == "" ){
+		document.signForm.alert.value = "사업장 전화번호를 입력하십시오.";
+		return false;
+	}
+	if(!b_tel.test(document.signForm.b_tel1.value)){
+		document.signForm.alert.value = "사업장 전화번호는 숫자만 입력하십시오.";
+		document.signForm.b_tel1.value = "";
+		return false;
+	}
+	else{
+		document.signForm.alert.value = "";
+	}
+}
+
+function checkB_tel2(){
+	if(document.signForm.b_tel2.value == "" ){
+		document.signForm.alert.value = "사업장 전화번호를 입력하십시오.";
+		return false;
+	}
+	if(!b_tel.test(document.signForm.b_tel2.value)){
+		document.signForm.alert.value = "사업장 전화번호는 숫자만 입력하십시오.";
+		document.signForm.b_tel2.value = "";
+		return false;
+	}
+	else{
+		document.signForm.alert.value = "";
+	}
+}
+
+function checkB_tel3(){
+	if(document.signForm.b_tel3.value == "" ){
+		document.signForm.alert.value = "사업장 전화번호를 입력하십시오.";
+		return false;
+	}
+	if(!b_tel.test(document.signForm.b_tel3.value)){
+		document.signForm.alert.value = "사업장 전화번호는 숫자만 입력하십시오.";
+		document.signForm.b_tel3.value = "";
+		return false;
+	}
+	else{
+		document.signForm.alert.value = "";
+	}
+}
+
+//사업장 규모 입력 확인
+function checkB_size(){
+	if(document.signForm.b_size.value == ""){
+		document.signForm.alert.value = "사업장 규모를 입력하십시오.";
+		return false;
+	}
+	else{
+		document.signForm.alert.value = "";
+	}
+}
+
+
+//보유 컴퓨터 수 입력 확인
+function checkB_pccount(){
+	if(document.signForm.b_pccount.value == ""){
+		document.signForm.alert.value = "보유 컴퓨터 수량을 입력하십시오.";
+		return false;
+	}
+	else{
+		document.signForm.alert.value = "";
+	}
+}
+
+//대표 IP 입력 확인
+
+function checkB_ip(){
+	if(document.signForm.b_ip.value == ""){
+		document.signForm.alert.value = "대표 IP를 입력하십시오.";
+		return false;
+	}
+	else{
+		document.signForm.alert.value = "";
+	}
+}
+
+
+// 등급 알바의 사장님 아이디 입력 확인.
+function checkE_bossid(){
+	if(document.signForm.e_bossid.value == ""){
+		document.signForm.alert.value = "사장님 아이디를 입력하십시오.";
+		return false;
+	}
+	else{
+		document.signForm.alert.value = "";
+	}
+}
+
+
+
+
 
 /* 아이디 입력 확인 */
 function checkId(){
@@ -211,3 +461,10 @@ function historyGo(){
 	alert("회원 가입에 실패했습니다.");
 	history.go(-1);
 }
+
+/* 알바가 회원 가입 중에 사장님 아이디를 잘못 입력했을 경우 */
+function bossNoCheck(){
+	alert("사장님 아이디가 존재하지 않습니다.");
+	history.go(-1);
+}
+

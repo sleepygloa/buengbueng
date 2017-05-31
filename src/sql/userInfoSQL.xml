@@ -2,15 +2,16 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="test">
 	<typeAlias alias="userDto" type="login.user.bean.UserInfoDataDTO" />
+	
 		
 	<!--  회원 삭제를 하기위한 패스워드 찾기 -->
 	<select id="checkPasswd" parameterClass="String" resultClass="String">
-		select pw from userInfo where id = #id#
+		select pw from userInfo where id = #id#;
 	</select>
 	
 		<!-- 회원삭제 -->
 	<delete id="deleteUserInfo" parameterClass="String">
-		delete from userInfo where id=#id#
+		delete from userInfo where id=#id#;
 	</delete>
 	
 	<select id="loginCheck" resultClass="userDto" parameterClass="userDto">
@@ -36,10 +37,27 @@
 	
 	<!-- 회원 가입 -->
 	<insert id="userInfoInsert" parameterClass="userDto">
-		insert into userInfo values(
-			#id#, #pw#, #name#, #birth#, #phone#, #grade#, #address#, #email#, now(), #googleId#
+		insert into userInfo values(#id#, #pw#, #name#, #birth#, #phone#, #grade#, #address#, #email#, now(), #googleId#);
+	</insert>
+	
+	<!-- 사장님 정보 저장 -->
+	<insert id="bossInfoInsert" parameterClass="login.user.bean.BossInfoDataDTO">
+		insert into bossinfo values(#b_id#, #b_name#, #b_number#, #b_address#, #b_tel#, #b_size#, #b_pccount#,#b_ip#,#b_key#);
+	</insert>
+	
+	<!-- 알바 정보 저장 -->
+	<insert id="employeeInfoInsert" parameterClass="login.user.bean.EmployeeInfoDataDTO">
+		insert into employeeInfo values(
+			#e_id#, #e_bossid#
 		);
 	</insert>
+	
+	<!-- 알바가 사장님을 찾을 겁니다 -->
+	<select id="searchBossId" parameterClass="String" resultClass="String">
+		select * from bossinfo where b_id=#e_bossid#;
+	</select>
+	
+	
 	
 </sqlMap>
 

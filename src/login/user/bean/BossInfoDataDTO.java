@@ -8,7 +8,16 @@ public class BossInfoDataDTO {
 	private String b_tel;
 	private String b_size;
 	private String b_pccount;
+	private String b_ip;
 	private String b_key;
+	
+	public String getB_ip() {
+		return b_ip;
+	}
+	public void setB_ip(String b_ip) {
+		this.b_ip = b_ip;
+	}
+
 	
 	
 	public String getB_id() {

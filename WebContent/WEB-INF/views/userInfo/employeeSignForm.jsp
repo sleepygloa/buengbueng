@@ -6,16 +6,8 @@
     
     	
 			<tr>
-				<td>상호명</td>
-				<td><input type="text" name="b_name" placeholder="상호명 입력" /></td>
+				<td>사장님 아이디</td>
+				<td><input type="text" name="bossid" placeholder="사장님 아이디 입력" onblur="return checkE_bossid();" /></td>
 			<tr/>
-			<tr>
-				<td>사업자 번호</td>
-				<td>
-					<input type="text" name="b_number_1" size="3"  maxlength="3" onblur="return checkPhone_1();"/>-
-					<input type="text" name="b_number_2" size="2"  maxlength="2" onblur="return checkPhone_2();"/>-
-					<input type="text" name="b_number_3" size="5"   maxlength="5" onblur="return checkPhone_3();"/>
-				</td>
-			<tr/>
-			
+
 			</table>

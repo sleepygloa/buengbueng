@@ -14,3 +14,8 @@
 <c:if test="${result == 'fail'}">
 	<body onload="historyGo();"/>
 </c:if>
+
+<%-- 알바가 입력한 사장아이디가 없을 경우 알림창을 띄운 후 회원 가입 페이지로 돌아감 --%>
+<c:if test="${bossCheck=='fail'}">
+	<body onload="bossNoCheck();"/>
+</c:if>

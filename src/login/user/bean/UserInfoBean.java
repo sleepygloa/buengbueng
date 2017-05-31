@@ -190,9 +190,15 @@ public class UserInfoBean {
 	
 	/* 회원 가입 정보 DB에 저장 페이지 */
 	@RequestMapping("userInfoSignPro.do")
-	public String signPro(UserInfoDataDTO dto, HttpServletRequest request, HttpSession session){
+	public String signPro(UserInfoDataDTO dto, BossInfoDataDTO bdto, EmployeeInfoDataDTO edto,HttpServletRequest request, HttpSession session){
 		String phone = request.getParameter("phone_1")+"-"+request.getParameter("phone_2")+"-"+request.getParameter("phone_3"); // 전화번호를 dto에 저장
 		dto.setPhone(phone);
+		String b_number=request.getParameter("b_number_1")+"-"+request.getParameter("b_number_2")+"-"+request.getParameter("b_number_3"); // 사업자 번호를 bdto에 저장
+		bdto.setB_number(b_number);
+		String b_tel=request.getParameter("b_tel1")+"-"+request.getParameter("b_tel2")+"-"+request.getParameter("b_tel3"); // 사업장 전화번호를 bdto에 저장
+		bdto.setB_tel(b_tel);
+		
+
 		try{
 			sqlMap.insert("test.userInfoInsert", dto);	// DB에 회원 가입 정보 추가하기
 			session.setAttribute("loginId", dto.getId());	// 회원 가입 완료된 id를 세션으로 사용
@@ -201,6 +207,26 @@ public class UserInfoBean {
 			e.printStackTrace();	// 에러 상황 콘솔에 알림
 			request.setAttribute("result", "fail");	// 회원 가입이 실패했음을 알림
 		}
+		
+		if(dto.getGrade()==1){
+			bdto.setB_id(dto.getId());
+			sqlMap.insert("test.bossInfoInsert",bdto);
+		}
+		if(dto.getGrade()==2){
+			edto.setE_id(dto.getId());
+			String bossid= request.getParameter("bossid");
+			String bossCheck = (String) sqlMap.queryForObject("test.searchBossId", bossid);
+			if(bossCheck!=null){
+				edto.setE_bossid(bdto.getB_id());
+				sqlMap.insert("test.employeeInfoInsert",edto);
+			}else{
+				bossCheck="fail";
+			}
+			request.setAttribute("bossCheck",bossCheck);
+		}
+		
+		
+		
 		return "/userInfo/userInfoSignPro";
 	}
 	

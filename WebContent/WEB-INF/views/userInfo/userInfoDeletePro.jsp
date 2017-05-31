@@ -3,7 +3,7 @@
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <title>회원탈퇴</title>
 <c:if test="${check==1}">
-<form action="/buengbueng/index.do" method="post" name="deletePro">
+<form action="index.do" method="post" name="deletePro">
 	<table width="270" border="0" cellspacing="0" cellpadding="5" align="center">
 		<tr>
 			<td align="center">
@@ -25,7 +25,7 @@
 </form>
 </c:if>
 
-<c:if test="${check != 1}">
+<c:if test="${check!=1}">
 <script>
 alert("비밀번호가 맞지 않습니다.")
 history.go(-1);

@@ -273,24 +273,26 @@
 						</a>
 					</li>
 				
-
-				
-				<!-- 로그인상태와 로그아웃상태일때 환영메세지, 관리자 일때 관리자페이지 링크가 보이게 한다. -->
-					<c:if test="${sessionScope.loginId != null}" >
-						
-						<li class="item sign"><a href="/buengbueng/userInfoForm.do">회원 정보보기</a></li>
-						<li class="item sign"><a href="/buengbueng/userInfoFormUpdate.do">회원 정보수정</a></li>
-					</c:if>
-					<c:if test="${sessionScope.loginId == null}" >
-						<li class="item sign"><a href="/buengbueng/loginForm.do">로그인</a></li>
-						<li class="item sign"><a href="/buengbueng/userInfoSignForm.do">회원가입</a></li>
-						<li class="item sign"><a href="">비밀번호찾기</a></li>
-					</c:if>
-					<c:if test="" >
-						<li class="item sign">관리자페이지</li>
-					</c:if>
-					
-				</ul>
-			</div>
-		</div>
-		
+            <!-- 임시로만듬, 회원 로그인했을때 세션확인 -->
+               <li class="item sign"><span color="black">${sessionScope.loginId}</span></li>
+               
+            <!-- 로그인상태와 로그아웃상태일때 환영메세지, 관리자 일때 관리자페이지 링크가 보이게 한다. -->
+               <c:if test="${sessionScope.loginId != null}" >
+                  
+                  <li class="item sign"><a href="/buengbueng/userInfoForm.do">회원 정보보기</a></li>
+                  <li class="item sign"><a href="/buengbueng/userInfoFormUpdate.do">회원 정보수정</a></li>
+                  <li class="item sign"><a href="/buengbueng/logout.do">로그아웃</a></li>
+               </c:if>
+               <c:if test="${sessionScope.loginId == null}" >
+                  <li class="item sign"><a href="/buengbueng/loginForm.do">로그인</a></li>
+                  <li class="item sign"><a href="/buengbueng/userInfoSignForm.do">회원가입</a></li>
+                  <li class="item sign"><a href="">비밀번호찾기</a></li>
+               </c:if>
+               <c:if test="" >
+                  <li class="item sign">관리자페이지</li>
+               </c:if>
+               
+            </ul>
+         </div>
+      </div>
+ 
