@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!-- 접속자가 비회원일때 알람과 함께 메인페이지로 이동 -->
 <c:if test="${check == 9}">
 	<script>

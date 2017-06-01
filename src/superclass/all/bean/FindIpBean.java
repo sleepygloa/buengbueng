@@ -1,4 +1,4 @@
-package findip.all.bean;
+package superclass.all.bean;
 
 import java.net.InetAddress;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class findIpBean {
+public class FindIpBean {
 
 	
 	//접속자의 Ip를 찾는 메서드

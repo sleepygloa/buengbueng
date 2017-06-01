@@ -46,8 +46,7 @@
 		<c:forEach var="article" items="${articleList}">
 		<tr align="center">
 			<td>
-			<c:out value="${number}"/>
-			<c:set var="number" value="${number - 1}"/>
+				${article.num}
 			</td>
 			<td>
 				${article.b_id}
@@ -66,7 +65,8 @@
 			<td>${article.date}</td>
 			<td>
 				<c:if test="${article.result == 0}">
-					<input class="btn" type="button" value="승인대기중" /> 
+					<input class="btn" type="button" value="승인대기중"
+					onclick="window.location='franchiseeListConfirm.do?num=${article.num}'" /> 
 				</c:if>
 				<c:if test="${article.result == 1}">
 					<input class="btn" type="button" value="승인완료" /> 
@@ -76,7 +76,7 @@
 				</c:if>				
 			
 			</td>
-			<td>${article.finishDate}</td>s
+			<td>${article.finishDate}</td>
 			
 		</tr>
 		</c:forEach>

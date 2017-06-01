@@ -8,6 +8,7 @@
 <!-- For Example : MySQL 연동  -->	
 	<sqlMap resource="/sql/userInfoSQL.xml"/> <!-- 회원관리 : 가입, 삭제, 정보보기 등등 -->
 	<sqlMap resource="/sql/checkInfoSQL.xml"/> <!-- 유효성검사 : 아이디검사, 비밀번호 검사 -->
-	<sqlMap resource="/sql/FranchiseeManageSQL.xml"/>  <!--  -->
+	<sqlMap resource="/sql/FranchiseeManageSQL.xml"/>  <!--가맹점 관리 -->
 	<sqlMap resource="/sql/searchPCSQL.xml"/><!-- pc방찾기 -->
+	<sqlMap resource="/sql/superClassSQL.xml" /> <!-- 전역 CLASS : 라이센스키 발급 -->
 </sqlMapConfig>
