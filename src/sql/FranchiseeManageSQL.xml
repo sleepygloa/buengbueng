@@ -3,28 +3,37 @@
 <sqlMap namespace="franchisee">
 	<typeAlias alias="bossDTO" type="login.user.bean.BossInfoDataDTO" />
 
+	<!-- 사장님 정보를 불러온다. -->
 	<select id="getBossInfo" parameterClass="String" resultClass="bossDTO">
 		select * from bossinfo where b_id = #b_id#
 	</select>
 	
+	<!-- 가맹점 신청 : 신청시 log테이블에 레코드 추가 -->
 	<insert id="insertFranchiseeAddLog" parameterClass="bossDTO">
 		insert INTO franchiseeAddLog (result, Date, b_id, b_name, b_number,b_address,b_tel,b_size,b_pccount,b_ip) VALUES(0,now(), #b_id#,#b_name#,#b_number#,#b_address#,#b_tel#,#b_size#,#b_pccount#,#b_ip#);
 	</insert>	
 	
-	
+	<!-- 가맹점 리스트 갯수 보기 -->
 	<select id="getFranchiseeListCount" resultClass="int">
 		select count(*) from franchiseeAddLog
 	</select>
 	
-	
+	<!-- 가맹점 리스트 갯수 -->
 	<select id="getFranchiseeList" resultClass="bossDTO" parameterClass="java.util.HashMap">
 		<![CDATA[
 		select num, result, date, b_id, finishDate, b_name, b_number, b_address, b_tel, b_size, b_pccount, b_ip, b_key
-		 from franchiseeAddLog where num >= #startRow# and num <= #endRow#
+		 from franchiseeAddLog where num >= #startRow# and num <= #endRow# order by num desc
 		 ]]> 	
 	</select>
 	
-	
+	<!-- 가맹점 승인 -->
+	<update id="franchiseeConfirm" parameterClass="java.util.HashMap">
+		UPDATE franchiseeAddLog SET 
+			result = 1,
+			finishDate = now(),
+			b_key = #b_key#
+		WHERE num = #num#;
+	</update>
 	
 	
 	

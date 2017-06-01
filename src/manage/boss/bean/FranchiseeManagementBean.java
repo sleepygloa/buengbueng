@@ -13,9 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import findip.all.bean.findIpBean;
 import login.user.bean.BossInfoDataDTO;
 import login.user.bean.UserInfoDataDTO;
+import superclass.all.bean.FindIpBean;
+import superclass.all.bean.Random;
 
 @Controller
 public class FranchiseeManagementBean {
@@ -26,7 +27,11 @@ public class FranchiseeManagementBean {
 	
 	//sql을 연결 시켜주는 변수
 	@Autowired
-	public findIpBean findIP;
+	public FindIpBean findIP;
+	
+	//랜덤수 만들어주는 변수
+	@Autowired
+	public Random random;
 	
 	//대메뉴에서 '사장님 가맹점 관리 버튼 클릭시' 이동
 	@RequestMapping("franchiseeManagementMain.do")
@@ -174,7 +179,7 @@ public class FranchiseeManagementBean {
             articleList = Collections.EMPTY_LIST;
         }
 
-        System.out.println(articleList.indexOf(0));
+        
 		number=count-(currentPage-1)*pageSize; // 글번호
         
         request.setAttribute("currentPage", new Integer(currentPage));
@@ -187,4 +192,35 @@ public class FranchiseeManagementBean {
         
 		return  "/bosspcuse/franchiseeList";	
 	}
+	
+	//가맹점 신청 승인
+		@RequestMapping("franchiseeListConfirm.do")
+		public String franchiseeListConfirm(int num, HttpServletRequest request, Model model){
+			
+			int check = 0;
+			
+			
+			String b_key = "";
+			// 8자리 16진수 라이센스키를 가져오는 메서드 실행
+			b_key += random.random();
+			
+			HashMap map = new HashMap();
+			map.put("b_key", b_key);
+			map.put("num", num);
+			
+			try{
+				sqlMap.update("franchisee.franchiseeConfirm", map);	
+				check = 1;
+			}catch(Exception e){
+				check = 2;
+			}
+			
+			
+			int franchiseeListConfirm = 1;
+			model.addAttribute("franchiseeListConfirm", franchiseeListConfirm);
+			model.addAttribute("check",check);
+	        
+			return  "/bosspcuse/franchiseeListPro";	
+		}
+	
 }

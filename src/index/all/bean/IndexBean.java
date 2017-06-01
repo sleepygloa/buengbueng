@@ -16,9 +16,7 @@ public class IndexBean {
 	private SqlMapClientTemplate sqlMap;
 	
 	@RequestMapping("index.do")
-	public String test(){
-
-
+	public String index(){
 		return "index";
 	}
 }

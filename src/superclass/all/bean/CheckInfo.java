@@ -1,4 +1,4 @@
-package valid.all.bean;
+package superclass.all.bean;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;

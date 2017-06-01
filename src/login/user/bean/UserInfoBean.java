@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import valid.all.bean.CheckInfo;
+import superclass.all.bean.CheckInfo;
 
 @Controller
 public class UserInfoBean {
