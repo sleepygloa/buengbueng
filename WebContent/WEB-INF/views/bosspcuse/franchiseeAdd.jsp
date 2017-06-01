@@ -5,8 +5,45 @@
 <jsp:include page="../header.jsp" />
 
 <!-- SIDEMENU TEMPLATE -->
-<jsp:include page="franchiseeManageSidemenu.jsp" />
+<c:if test="${sidemenu == 1}">
+	<jsp:include page="../sidemenu.jsp" />
+</c:if>
 
+<script type="text/javascript">
+/* 
+$(document).ready(function(){
+      $("#2").click(function(){
+         $.ajax({
+            url:"ajax.do",
+            dataType : "json",
+            success:function(model){
+               $("#result").html(model.result);
+               $("#result").append(model.id);
+               $("#result").append(model.age);
+               
+            },
+         });
+      });
+   });
+ */   
+	$(document).ready(function(){
+		$("#bossInfo").click(function(){
+		$.ajax({
+			url:"franchiseeAddAjaxBossInfo.do",
+			type:"post",
+			data:{
+/* 				id:$("#id").val(),
+				pw:$("#pw").val() */
+				},
+				success: function(data){
+					$("#result").html(data);
+				 }
+			});
+			});
+			
+		});
+   
+</script>
 
 <!-- ARTICLE -->
 
@@ -16,18 +53,23 @@
 </div>
 
 <div class="pricing--wrap container">
-<div class="container for-desktop">
+<div  class="container for-desktop">
 	<div class="row">
 		<div class="col-md-12-12">
 			<form action="franchiseeAddPro.do" method="post">
 
-				<table>
+				<table id="result">
 					<thead>
+						<tr>
+							<th></th>
+							<th class="radius-left-top">
+								<input id="bossInfo" type="button" value="사장님 보유한 PC방정보를 불러오시겠습니까?" />
+							</th>
+						</tr>					
 						<tr>
 							<th></th>
 							<th class="radius-left-top">카테고리</th>
 							<th>입력</th>
-	
 						</tr>
 					</thead>
 					
@@ -56,68 +98,40 @@
 							<td>상호명</td>
 							<td>
 								<input type="text" name="b_name" placeholder="10자 이내로 력해주세요"/>
-								<c:if test="${bossDto.b_name != null}">
-									${bossDto.b_name}
-								</c:if>							
-							
 							</td>
 						</tr>					
 						<tr>
 							<td>사업자번호</td>
 							<td>
-								<input type="text" name="b_number" placeholder="8숫자 8자리입니다." maxlength="8" />
-								<c:if test="${bossDto.b_number != null}">
-									${bossDto.b_number}
-								</c:if>									
+								<input type="text" name="b_number_1" size="3"  maxlength="3" onblur="return checkB_number_1();"/>-
+								<input type="text" name="b_number_2" size="2"  maxlength="2" onblur="return checkB_number_2();"/>-
+								<input type="text" name="b_number_3" size="5"   maxlength="5" onblur="return checkB_number_3();"/>								
 							</td>
 						</tr>						
 						<tr>
 							<td>사업장 주소</td>
 							<td>
-								<input type="text" name="b_address" placeholder="사업장 주소를 정확히 입력해주세요"/>
-								<c:if test="${bossDto.b_address != null}">
-									${bossDto.b_address}
-								</c:if>	
+								<input type="text" name="b_address" placeholder="사업장 주소 입력" onblur="return checkB_address();">
 							</td>
 						</tr>						
 						<tr>
 							<td>사업장 전화번호</td>
 							<td>
-								<input type="text" name="b_tel" placeholder="- 과 같이 입력해주세요" maxlength="13"/>
-								<c:if test="${bossDto.b_tel != null}">
-									${bossDto.b_tel}
-								</c:if>								
+								<input type="text" name="b_tel1" size="3" maxlength="3" onblur="return checkB_tel1();">-
+								<input type="text" name="b_tel2" size="4" maxlength="4" onblur="return checkB_tel2();">-
+								<input type="text" name="b_tel3" size="4" maxlength="4" onblur="return checkB_tel3();">							
 							</td>
 						</tr>						
 						<tr>
 							<td>사업장 규모</td>
 							<td>
-								<input type="text" name="b_size" placeholder="단위는 평형 입니다. 평형은 빼고 숫자만 입력해주세요" maxlength="4" />
-								<c:if test="${bossDto.b_size != null}">
-									${bossDto.b_size}
-								</c:if>								
+								<input type="text" name="b_size" placeholder="사업장 규모 입력 (평 수)" onblur="return checkB_size();">						
 							</td>
 						</tr>						
 						<tr>
 							<td>보유 컴퓨터수</td>
 							<td>
-								<select name="b_pccount">
-									<option value="0010">10대 미만</option>
-									<option value="1020">20대 미만</option>
-									<option value="2030">30대 미만</option>
-									<option value="3040">40대 미만</option>
-									<option value="4050">50대 미만</option>
-									<option value="5060">60대 미만</option>
-									<option value="6070">70대 미만</option>
-									<option value="7080">80대 미만</option>
-									<option value="8090">90대 미만</option>
-									<option value="90100">100대 미만</option>
-									<option value="100110">110대 미만</option>
-									<option value="110120">120대 미만</option>
-									<option value="120130">130대 미만</option>
-									<option value="130140">140대 미만</option>
-									<option value="140150">150대 미만</option>
-								</select>
+								<input type="text" name="b_pccount" placeholder="보유 PC 수 입력" onblur="return checkB_pccount();"> 대
 							</td>
 						</tr>						
 						<tr>
@@ -149,6 +163,7 @@
 
 <br /><br /><br /><br /><br />
 
+<script type="text/javascript" src="/buengbueng/js/userInfo/signForm.js"></script>
 
 <!-- FOOTER TEMPLATE -->
 <jsp:include page="../footer.jsp" />

@@ -42,7 +42,7 @@ public class UserInfoBean {
 		return "/index";
 	}
 	
-	//로그아웃 클릭시 세션이 종료됨 --> 메인페이지로 이동
+	//로그아웃 클릭시 세션이 종료됨 =--> 메인페이지로 이동
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session){
 		session.invalidate();

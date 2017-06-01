@@ -1,6 +1,9 @@
 package login.user.bean;
 
+import java.sql.Timestamp;
+
 public class BossInfoDataDTO {
+
 
 	private String b_id; //사장님아이디
 	private String b_name; //사업장이름
@@ -12,6 +15,37 @@ public class BossInfoDataDTO {
 	private String b_ip; //사업장 사장님 PC IP
 	private String b_key; //프로그램 License Key
 	
+	private int num; //신청번호 //가맹점 list에서 사용
+	private Timestamp date; //신청날짜
+	private Timestamp finishDate; //승인날짜
+	private int result; //신청결과
+	
+	
+	
+	public int getResult() {
+		return result;
+	}
+	public void setResult(int result) {
+		this.result = result;
+	}
+	public Timestamp getDate() {
+		return date;
+	}
+	public void setDate(Timestamp date) {
+		date = date;
+	}
+	public Timestamp getFinishDate() {
+		return finishDate;
+	}
+	public void setFinishDate(Timestamp finishDate) {
+		this.finishDate = finishDate;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public String getB_id() {
 		return b_id;
 	}

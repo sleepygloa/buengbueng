@@ -5,8 +5,9 @@
 <jsp:include page="../header.jsp" />
 
 <!-- SIDEMENU TEMPLATE -->
-<jsp:include page="franchiseeManageSidemenu.jsp" />
-
+<c:if test="${sidemenu == 1}">
+	<jsp:include page="../sidemenu.jsp" />
+</c:if>
 
 <!-- ARTICLE -->
 

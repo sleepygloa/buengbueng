@@ -12,5 +12,20 @@
 	</insert>	
 	
 	
+	<select id="getFranchiseeListCount" resultClass="int">
+		select count(*) from franchiseeAddLog
+	</select>
+	
+	
+	<select id="getFranchiseeList" resultClass="bossDTO" parameterClass="java.util.HashMap">
+		<![CDATA[
+		select num, result, date, b_id, finishDate, b_name, b_number, b_address, b_tel, b_size, b_pccount, b_ip, b_key
+		 from franchiseeAddLog where num >= #startRow# and num <= #endRow#
+		 ]]> 	
+	</select>
+	
+	
+	
+	
 	
 </sqlMap>
