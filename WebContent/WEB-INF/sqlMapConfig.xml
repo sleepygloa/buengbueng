@@ -9,4 +9,5 @@
 	<sqlMap resource="/sql/userInfoSQL.xml"/> <!-- 회원관리 : 가입, 삭제, 정보보기 등등 -->
 	<sqlMap resource="/sql/checkInfoSQL.xml"/> <!-- 유효성검사 : 아이디검사, 비밀번호 검사 -->
 	<sqlMap resource="/sql/FranchiseeManageSQL.xml"/>  <!--  -->
+	<sqlMap resource="/sql/searchPCSQL.xml"/><!-- pc방찾기 -->
 </sqlMapConfig>

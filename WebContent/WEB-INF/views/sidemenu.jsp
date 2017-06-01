@@ -15,7 +15,15 @@
 			<li><a href="franchiseeAdd.do" >가맹점 추가</a></li>
 			<li>가맹점 추가신청</li>
 		</c:if>
+		<c:if test="${sidemenu == 2}">
+			<li>PC방 찾기</li>
+			<li><a href="searchPCForm.do" >PC방 찾기</a></li>
+			<li><a href="franchiseeAdd.do" >우리동네 PC방 찾기</a></li>
+			
+		</c:if>
+		
 		</ul>
-	
 	</div>
 </div> 
+
+
