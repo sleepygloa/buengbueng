@@ -20,18 +20,21 @@
     	<link rel="stylesheet" type="text/css" media="all" href="css/style_v2.css">
 		<!-- INDEX CSS 2 -->    
         <link rel="stylesheet" type="text/css" media="all" href="css/dist/modules.min.css">
-        <link rel="stylesheet" type="text/css" media="all" href="css/dist/bootstrap.css">
+        <link rel="stylesheet" type="text/css" media="all" href="css/dist/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" media="all" href="css/dist/bootstrap-theme.min.css">
 	
+		<!-- 가맹점 -->
+		<link rel="stylesheet" type="text/css" media="all" href="css/bosspcuse/franchisee.css">
 		<!-- 홈페이지 제목 -->
 		<title>BuengBueng</title>
 		
 	</head>
  
  
- 	<body>
+
 	 	<!-- LOGIN SECTION -->
-	 	<div class="header_wrap">
-			<div class="header container">
+	 	<header class="header_wrap ">
+			<div class="header container ">
 				<!-- 로고 : BUENGBUENG 또는 그림 -->
 				<div><h1 class="logo"><a href="index.do">buengbueng</a></h1></div>
 
@@ -41,16 +44,16 @@
 					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 <!-- -------------------------------------------------------------------------------------------------------- -->						
-<!-- 						<a class="ctgr" href="">
+ 						<a class="ctgr" href="">
 회사 소개
 						</a>
-						드롭다운메뉴 : 소메뉴
+						<!-- 드롭다운메뉴 : 소메뉴 -->
 						<ul class="menu_list">
-							소메뉴 타이틀
+						<!-- 	소메뉴 타이틀 -->
 							<h6 class="menu_subject minor-minor">회사소개&nbsp; | &nbsp;<span class="list__title__desc">PC방이용자님이 사용할수 있는 메뉴입니다.</span></h6>
-							소메뉴 의 각 링크들
+							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
-								컨텐츠당 하나의 div로 구성
+								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
@@ -60,7 +63,7 @@
 										</span>
 									</a>
 								</div>
-								컨텐츠당 하나의 div로 구성
+								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
@@ -72,8 +75,8 @@
 								</div>
 							</li>
 						</ul>	
-					</li> -->
-<!-- -------------------------------------------------------------------------------------------------------- -->
+					</li> 
+<!-- ------------------------------------------------------------------------------------------------------ -->
 					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 						<a class="ctgr" href="">
@@ -83,7 +86,7 @@
 						<ul class="menu_list ">
 							<!-- 소메뉴 타이틀 -->
 							<h6 class="menu_subject minor-minor">
-								헬로월드&nbsp; | &nbsp;
+								PC방이용&nbsp; | &nbsp;
 								<span class="list__title__desc">PC방이용자님이 사용할수 있는 메뉴입니다.</span>
 							</h6>
 							
@@ -117,7 +120,7 @@
 							
 								<div class="menu_menu col-sm-6-12">
 									<a href="">
-										<span class="menu_icon "> <img src="img/ux-heatmaps-gnb@2x.png"> </span>
+										<span class="menu_icon"> <img src="img/ux-heatmaps-gnb@2x.png"> </span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">예약</h6>
 											<p class="menu_desc">원하는자리 미리 예약하기</p>
@@ -140,7 +143,7 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
-								<div class="product__item col-sm-8-12">
+								<div class="product__item col-sm-12-12">
 									<a href="">
 										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
@@ -153,19 +156,19 @@
 						</ul>	
 					</li>
 <!-- ---------------------------------------------------------------------------------------------------- -->
-<!-- 					<li class="item normal product" onClick="return true">
-						대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴
+ 					<li class="item normal product" onClick="return true">
+						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 						
 						<a class="ctgr" href="">
 사장님 PC방 관리
 						</a>
-						드롭다운메뉴 : 소메뉴
+						<!-- 드롭다운메뉴 : 소메뉴 -->
 						<ul class="menu_list ">
-							소메뉴 타이틀
-							<h6 class="menu_subject minor-minor">회사소개&nbsp; | &nbsp;<span class="list__title__desc">PC방이용자님이 사용할수 있는 메뉴입니다.</span></h6>
-							소메뉴 의 각 링크들
+							<!-- 소메뉴 타이틀 -->
+							<h6 class="menu_subject minor-minor">사장님관리&nbsp; | &nbsp;<span class="list__title__desc">사장님께서 PC방관리를 할 수 있습니다.</span></h6>
+							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
-								컨텐츠당 하나의 div로 구성
+								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
@@ -175,7 +178,7 @@
 										</span>
 									</a>
 								</div>
-								컨텐츠당 하나의 div로 구성
+								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
@@ -186,9 +189,9 @@
 									</a>
 								</div>
 							</li>
-							소메뉴 의 각 링크들
+							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
-								컨텐츠당 하나의 div로 구성
+								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="franchiseeManagementMain.do">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
@@ -201,21 +204,21 @@
 							</li>
 						</ul>	
 					</li>					
-----------------------------------------------------------------------------------------------------
+<!-- ---------------------------------------------------------------------------------------------------- -->
 					<li class="item normal product" onClick="return true">
-						대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴
+						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 						
 						<a class="ctgr" href="">
 관리자 프로그램 관리
 						</a>
-						드롭다운메뉴 : 소메뉴
+						<!-- 드롭다운메뉴 : 소메뉴 -->
 						<ul class="menu_list">
-							소메뉴 타이틀
-							<h6 class="menu_subject minor-minor">회사소개&nbsp; | &nbsp;<span class="list__title__desc">PC방이용자님이 사용할수 있는 메뉴입니다.</span></h6>
-							소메뉴 의 각 링크들
+							<!-- 소메뉴 타이틀 -->
+							<h6 class="menu_subject minor-minor">관리자&nbsp; | &nbsp;<span class="list__title__desc">모든 사항을 관리합니다.</span></h6>
+							<!-- 소메뉴 의 각 링크들 -->
 							
 							<li class="row">
-								컨텐츠당 하나의 div로 구성
+								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
@@ -226,7 +229,7 @@
 									</a>
 								</div>
 								
-								컨텐츠당 하나의 div로 구성
+								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
@@ -238,9 +241,9 @@
 								</div>
 							</li>
 							
-							소메뉴 의 각 링크들
+							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
-								컨텐츠당 하나의 div로 구성
+								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
@@ -251,7 +254,7 @@
 									</a>
 								</div>
 								
-								컨텐츠당 하나의 div로 구성
+								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
@@ -265,12 +268,12 @@
 							
 						</ul>	
 					</li>		
-----------------------------------------------------------------------------------------------------								
+<!-- ----------------------------------------------------------------------------------------------------								 -->
 					<li class="item normal product" onClick="return true">
 						<a href="">
 고객센터
 						</a>
-					</li> -->
+					</li> 
 				
                
                
@@ -291,9 +294,9 @@
                
             </ul>
          </div>
-      </div>
- 
- <div class="main_wrap">
+      </header>
+      
+<section class="main_wrap"> 
   	<div class="main container">
  
  
