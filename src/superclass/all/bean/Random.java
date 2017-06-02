@@ -31,13 +31,13 @@ public class Random {
 			
 			for(int j = 1; j < 9; j++){
 				for(int i = 1; i < 10; i ++){
-					b = ((int)(Math.random() * 10));
-					b = (b * i)+1 ;
+					b = ((int)(Math.random() * 10) + 1);
+					b = (b * i * a) + 1 ;
 				}		
 				b = b % 16;
 					if(b == 0){
-						b = ((int)(Math.random() * 10));
-						b = (b * a) % 3 + 2 ;
+						b = ((int)(Math.random() * 10) + 1);
+						b = (b * a) % 7 + 2;
 					}
 					
 				random += Integer.toHexString(b);

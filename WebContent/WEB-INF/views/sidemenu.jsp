@@ -2,11 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<br /><br /><br /><br /><br /><br />
-<!-- SIDEMENU 위치 잡아주는 DIV -->
-<div >
+
 <!-- SIDEMENU 위치에서 실제로 사용할 영역 지정하는 DIV -->
-	<div id="my_side">
+	<div class="sidemenu xs_hidden">
 	<!-- 링크 LIST -->
 		<ul class="my_side_ul">
 		<c:if test="${sidemenu == 1}">
@@ -24,6 +22,3 @@
 		
 		</ul>
 	</div>
-</div> 
-
-

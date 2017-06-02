@@ -745,15 +745,8 @@
 @font-face{font-family:nanumsquareotfb;src:url(/font/NanumSquareOTFB.otf),url(/font/NanumSquareB.ttf) format("truetype")}
 @font-face{font-family:nanumsquare;src:url(/font/NanumSquareOTFR.otf),url(/font/NanumSquareR.eot) format("embedded-opentype"),url(/font/NanumSquareR.ttf) format("embedded-opentype")}
 
-@media screen and (min-width:250px){
-	body{font-size:12px}
-}
-@media screen and (min-width:768px){
-	body{font-size:14px}
-}
-@media screen and (min-width:992px){
-	body{font-size:16px}
-}
+
+
 #vertical_btn{position:absolute;z-index:9999999;top:80px;right:20px;width:30px;height:30px;background:red;color:#fff}
 #vertical_rythm{width:100%;z-index:99999}
 #vertical_rythm.show{position:absolute;top:0;left:0;background-image:linear-gradient(180deg,transparent 95%,#704578 100%);background-size:1px 1.5em;height:700vh}
