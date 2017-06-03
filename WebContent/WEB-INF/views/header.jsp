@@ -23,8 +23,13 @@
         <link rel="stylesheet" type="text/css" media="all" href="css/dist/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" media="all" href="css/dist/bootstrap-theme.min.css">
 	
-		<!-- 가맹점 -->
-		<link rel="stylesheet" type="text/css" media="all" href="css/bosspcuse/franchisee.css">
+
+	
+		<!-- main -->
+		<link rel="stylesheet" type="text/css" media="all" href="css/dist/sidemain_main.css">
+		
+
+		
 		<!-- 홈페이지 제목 -->
 		<title>BuengBueng</title>
 		

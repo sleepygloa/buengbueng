@@ -9,11 +9,7 @@
 <footer class="footer_wrap">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     
-    <div class="">
-   	
-123
 
-    </div>
 </footer>
 
 

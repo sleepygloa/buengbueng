@@ -1,28 +1,28 @@
 @CHARSET "UTF-8";
 
 
-.signin--bg--wrap {
+.userInfo_login_wrap {
 width:100vw;
 height:100vh;
-background-image:url(/css/img/sign-in-bg@2x.jpg);
+background-image:url(/buengbueng/img/userInfo/login.jpg);
 background-repeat:no-repeat;
 background-size:cover;
 background-position:center;
 }
 
-.signin--bg--wrap>.container {
+.userInfo_login_wrap>.container {
 position:relative;
 height:100vh;
 }
 
-.signin--bg--wrap .signin--wrap {
+.userInfo_login_wrap .login_wrap {
 position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
 }
 
-.signin--form--wrap label {
+.login_form_wrap label {
 font-size:16px;
 display:block;
 margin-bottom:10px;
@@ -67,17 +67,17 @@ box-shadow:0 2px 4px 0 rgba(0,0,0,.5);
 cursor:pointer;
 }
 
-.signin--form--wrap .signin--other_form {
+.login_form_wrap .signin--other_form {
 text-align:right;
 }
 
-.signin--form--wrap .signin--other_form a {
+.login_form_wrap .signin--other_form a {
 padding-left:5px;
 padding-right:5px;
 font-size:16px;
 }
 
-.signin--form--wrap .signin--other_form .signup {
+.login_form_wrap .signin--other_form .signup {
 border-right:1px solid #fff;
 }
 

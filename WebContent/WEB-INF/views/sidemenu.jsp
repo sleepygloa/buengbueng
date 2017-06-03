@@ -8,6 +8,10 @@
 	<!-- 링크 LIST -->
 		<ul class="my_side_ul">
 		<c:if test="${sidemenu == 1}">
+		
+		<!-- 가맹점 -->
+		<link rel="stylesheet" type="text/css" media="all" href="css/bosspcuse/franchisee.css">
+		
 			<li>가맹점 통계</li>
 			<li><a href="franchiseeList.do" >가맹점 현황</a></li>
 			<li><a href="franchiseeAdd.do" >가맹점 추가</a></li>

@@ -6,83 +6,92 @@
 <jsp:include page="../header.jsp" />
 
 <!-- SIDEMENU TEMPLATE -->
-<jsp:include page="franchiseeManageSidemenu.jsp" />
+<c:if test="${sidemenu == 1}">
+	<jsp:include page="../sidemenu.jsp" />
+</c:if>
+
+
+<!-- ARTICLE -->
+<div class="side_content">
+
+	<!-- 페이지 제목 -->
+	<div class="container margin_bottom50">
+
+			<h3>가맹점 현황</h3>
+
+	</div>
+
 
 <div class="main_wrap container">
 	<div class="row">
 		<div class="col-sm-12-12">
 
-<b>글목록(전체 글:${count})</b>
+	<div class="container margin_bottom50">	
+		<div class="col-xs-12-12">
+					
+				<!-- 글 갯수 -->
+				<div class="row">
+					<div class="col-md-10-12 col-xs-12-12">
+글목록(전체 글:${count})
+					</div>
+				</div>
 
-<table border="1" width="80%" cellpadding="0" cellspacing="0" align="center"> 
-	<thead>
-		<tr align="center">
-			<th>신청번호</th>
-			<th>점주</th>
-			<th>피시방이름</th>
-			<th>사업자번호</th>
-			<th>주소</th>
-			<th>사업장전화번호</th>
-			<th>규모</th>
-			<th>PC수</th>
-			<th>신청 IP</th>
-			<th>KEY현황</th>
-			<th>신청날짜</th>
-			<th>가맹점 형황</th>
-			<th>승인날짜</th>
-		</tr>
-	</thead>
-<c:if test="${count == 0}">	
-	<tbody>
-		  <tr align="center">
-   			 <td align="center">
-  			    게시판에 저장된 글이 없습니다.
-  		  </td>
-  		</tr>
-	</tbody>	
-</c:if>	
-	<c:if test="${count > 0}">
-	<tbody>
-		<c:forEach var="article" items="${articleList}">
-		<tr align="center">
-			<td>
-				${article.num}
-			</td>
-			<td>
-				${article.b_id}
-			</td>
-			<td>     
-			<a href="content.do?num=${article.num}&pageNum=${currentPage}">
-			${article.b_name}</a> 
-			</td>
-			<td>${article.b_number}</td>
-			<td>${article.b_address}</td>
-			<td>${article.b_tel}</td>
-			<td>${article.b_size}</td>
-			<td>${article.b_pccount}</td>
-			<td>${article.b_ip}</td>
-			<td>${article.b_key}</td>
-			<td>${article.date}</td>
-			<td>
-				<c:if test="${article.result == 0}">
-					<input class="btn" type="button" value="승인대기중"
-					onclick="window.location='franchiseeListConfirm.do?num=${article.num}'" /> 
-				</c:if>
-				<c:if test="${article.result == 1}">
-					<input class="btn" type="button" value="승인완료" /> 
-				</c:if>
-				<c:if test="${article.result == 2}">
-					<input class="btn" type="button" value="보류" /> 
-				</c:if>				
-			
-			</td>
-			<td>${article.finishDate}</td>
-			
-		</tr>
-		</c:forEach>
-	</tbody>
- 	</c:if>
-</table>
+				<!-- 카테고리 -->
+				<div class="row">
+					<div class="col-md-10-12 col-xs-12-12">
+						<div class="col-xs-1-12 table_wd50">신청번호</div>
+						<div class="col-xs-1-12 table_wd50">신청자</div>
+						<div class="col-xs-1-12 table_wd50">피시방이름</div>
+						<div class="col-xs-1-12 table_wd50">신청현황</div>
+						
+						<div class="col-xs-1-12 table_wd100">사업자번호</div>
+						<div class="col-xs-1-12 table_wd200">주소</div>
+						<div class="col-xs-1-12 table_wd100">사업장전화번호</div>
+						<div class="col-xs-1-12 table_wd50">규모</div>
+						<div class="col-xs-1-12 table_wd50">PC수</div>
+						<div class="col-xs-1-12 table_wd50">신청 IP</div>
+						<div class="col-xs-1-12 table_wd50">KEY</div>
+						<div class="col-xs-1-12 table_wd50">신청날짜</div>
+						<div class="col-xs-1-12 table_wd50">승인날짜</div>
+					</div>
+				</div>
+
+				<!-- 게시글 -->
+			<c:forEach var="article" items="${articleList}">
+				<div class="row">
+					<div class="col-md-10-12 col-xs-12-12">
+						<div class="col-xs-1-12 table_wd50">${article.num}</div>
+						<div class="col-xs-1-12 table_wd50">${article.b_id}</div>
+						<div class="col-xs-1-12 table_wd50">
+							<a href="num=${article.num}&pageNum=${currentPage}">
+							${article.b_name}</a> 
+						</div>
+						<div class="col-xs-1-12">
+							<c:if test="${article.result == 0}">
+								<input class="btn" type="button" value="승인대기중"
+								onclick="window.location='franchiseeListConfirm.do?num=${article.num}'" /> 
+							</c:if>
+							<c:if test="${article.result == 1}">
+								<input class="btn" type="button" value="승인완료" /> 
+							</c:if>
+							<c:if test="${article.result == 2}">
+								<input class="btn" type="button" value="보류" /> 
+							</c:if>	
+						</div>
+						
+						<div class="col-xs-1-12 table_wd100">${article.b_number}</div>
+						<div class="col-xs-1-12 table_wd200">${article.b_address}</div>
+						<div class="col-xs-1-12 table_wd100">${article.b_tel}</div>
+						<div class="col-xs-1-12 table_wd50">${article.b_size}</div>
+						<div class="col-xs-1-12 table_wd50">${article.b_pccount}수</div>
+						<div class="col-xs-1-12 table_wd50">${article.b_ip}</div>
+						<div class="col-xs-1-12 table_wd50">${article.b_key}</div>
+						<div class="col-xs-1-12 table_wd50">${article.date}</div>
+						<div class="col-xs-1-12 table_wd50">${article.finishDate}</div>
+					</div>
+				</div>
+			</c:forEach>
+
 
 
 <c:if test="${count > 0}">

@@ -286,9 +286,9 @@ header, section, footer{
 
 /* FOOTER ------------------------ */
 /* 푸터 영역을 감싸는 태그 */
-/* .footer_wrap{z-index:1;background:#384259;color:#fff;margin-bottom:0} */
+ .footer_wrap{z-index:1;background:#384259;color:#fff;margin-bottom:0;height;10px;} 
 
 
 
-	
+
 
