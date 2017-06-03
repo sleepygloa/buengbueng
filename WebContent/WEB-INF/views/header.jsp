@@ -93,7 +93,7 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="product__item col-sm-5-12">
-									<a href="">
+									<a href="searchPCForm.do">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">PC방 찾기</h6>

@@ -1,5 +1,6 @@
 {
 	"id" : "${result}",
-	"point" : "0"
-	"grade" : "${grade}"
+	"point" : "10,000"
+	"grade" : "${grade}",
+	"loginTime" "${loginTime}"
 }
