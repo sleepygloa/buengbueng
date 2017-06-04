@@ -273,8 +273,48 @@
 						<a href="">
 고객센터
 						</a>
-					</li> 
-				
+						<!-- 드롭다운메뉴 : 소메뉴 -->
+						<ul class="menu_list ">
+							<!-- 소메뉴 타이틀 -->
+							<h6 class="menu_subject minor-minor">All people&nbsp; | &nbsp;<span class="list__title__desc">모든 문의는 여기에서 확인할 수 있습니다.</span></h6>
+							<!-- 소메뉴 의 각 링크들 -->
+							<li class="row">
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="franchiseQA.do?snum=1">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">가맹 문의</h6>
+											<p class="menu_desc">가맹시 궁금한 문의 여기로</p>
+										</span>
+									</a>
+								</div>
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="customerQA.do?snum=2">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">Q & A</h6>
+											<p class="menu_desc">자주 물어보는 질문들 여기로</p>
+										</span>
+									</a>
+								</div>
+							</li>
+							<!-- 소메뉴 의 각 링크들 -->
+							<li class="row">
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="oneQA.do?snum=3">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">1:1 문의</h6>
+											<p class="menu_desc">사소한것까지 궁금한건 여기로</p>
+										</span>
+									</a>
+								</div>
+							</li>
+						</ul>	
+					</li>							
                
                
             <!-- 로그인상태와 로그아웃상태일때 환영메세지, 관리자 일때 관리자페이지 링크가 보이게 한다. -->

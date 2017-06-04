@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="customer">
+	<typeAlias alias="customerDTO" type="login.user.bean.CustomerDTO"/>
+	
+	<select id="customercount" parameterClass="int" resultClass="int">
+		SELECT count(*) FROM customerBoard WHERE serial_num=#serial_num#;
+	</select>
+	
+	<select id="customerlist" parameterClass="java.util.HashMap" resultClass="customerDTO">
+		<![CDATA[
+		SELECT num,serial_num,title,content,passwd,writer,email,reg_date,ref,re_step,readcount,@rownum:=@rownum+1 as rownum
+		FROM (SELECT num,serial_num,title,content,passwd,writer,email,reg_date,ref,re_step,readcount
+		FROM (SELECT num,serial_num,title,content,passwd,writer,email,reg_date,ref,re_step,readcount
+		FROM customerBoard,(select @rownum:=0)r WHERE serial_num=#serial_num# order by ref desc, re_step asc limit #startRow#,#pageSize#)a order by ref desc, re_step asc)b;
+		]]>
+	</select>
+
+
+</sqlMap>
