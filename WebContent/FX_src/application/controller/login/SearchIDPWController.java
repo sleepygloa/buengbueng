@@ -34,6 +34,7 @@ public class SearchIDPWController {
 			Parent login = FXMLLoader.load(getClass().getResource("/application/controller/login/LoginApp.fxml"));
 			root.setCenter(login);
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
 			Main.getStage().setScene(scene);
 		}catch(Exception e){
 			e.printStackTrace();

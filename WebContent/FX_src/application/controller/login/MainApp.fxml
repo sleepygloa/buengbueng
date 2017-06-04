@@ -24,7 +24,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="logoutBtn" mnemonicParsing="false" onMouseClicked="#Logout" text="로그아웃">
+                  <Button mnemonicParsing="false" onMouseClicked="#Logout" text="로그아웃">
                      <font>
                         <Font size="18.0" />
                      </font>

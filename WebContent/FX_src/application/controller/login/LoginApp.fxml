@@ -25,24 +25,24 @@
             </PasswordField>
          </children>
       </VBox>
-      <Button fx:id="loginBtn" layoutX="347.0" layoutY="127.0" mnemonicParsing="false" onKeyPressed="#login" onMouseClicked="#login" prefHeight="111.0" prefWidth="114.0" text="로그인">
+      <Button layoutX="347.0" layoutY="127.0" mnemonicParsing="false" onKeyPressed="#login" onMouseClicked="#login" prefHeight="111.0" prefWidth="114.0" text="로그인">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
       <HBox layoutX="127.0" layoutY="264.59765625" spacing="55.0">
          <children>
-            <Text fx:id="searchId" fill="WHITE" onMouseClicked="#searchId" strokeType="OUTSIDE" strokeWidth="0.0" text="아이디 찾기">
+            <Text fill="WHITE" onMouseClicked="#searchId" strokeType="OUTSIDE" strokeWidth="0.0" text="아이디 찾기">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text fx:id="searchPw" fill="WHITE" onMouseClicked="#searchPw" strokeType="OUTSIDE" strokeWidth="0.0" text="비밀번호 찾기">
+            <Text fill="WHITE" onMouseClicked="#searchPw" strokeType="OUTSIDE" strokeWidth="0.0" text="비밀번호 찾기">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text fx:id="sign" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="회원 가입">
+            <Text fill="WHITE" onMouseClicked="#sign" strokeType="OUTSIDE" strokeWidth="0.0" text="회원 가입">
                <font>
                   <Font size="14.0" />
                </font>

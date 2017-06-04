@@ -26,6 +26,7 @@ public class LoginController {
 		try {
 			Parent main =  FXMLLoader.load(getClass().getResource("/application/controller/login/SearchIDApp.fxml"));
 			Scene scene = new Scene(main);
+			scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
 			Main.getStage().setScene(scene); 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -37,6 +38,19 @@ public class LoginController {
 		try {
 			Parent main =  FXMLLoader.load(getClass().getResource("/application/controller/login/SearchPWApp.fxml"));
 			Scene scene = new Scene(main);
+			scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
+			Main.getStage().setScene(scene); 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void sign(){
+		try {
+			Parent main =  FXMLLoader.load(getClass().getResource("/application/controller/login/SignApp.fxml"));
+			Scene scene = new Scene(main);
+			scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
 			Main.getStage().setScene(scene); 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -80,7 +94,7 @@ public class LoginController {
 					}
 					// 메인화면 레이아웃을 화면에 등록
 					Scene scene = new Scene(main);
-					
+					scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
 					// Main.getStage() = Main.java에 있는 메인스테이지 사용(현재 launch된 애)
 					Main.getStage().setFullScreen(false);
 					Main.getStage().setWidth(600);	// 창 가로 크기
