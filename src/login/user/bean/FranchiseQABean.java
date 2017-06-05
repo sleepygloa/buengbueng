@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
@@ -43,7 +44,7 @@ public class FranchiseQABean { // 가맹 문의
 	    }
 	    
 		number=count-(currentPage-1)*pageSize;
-		
+		// 페이지 카운트
         int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
 		 
         int startPage = ((Integer.parseInt(pageNum)-1)/10)*10+1;
@@ -64,14 +65,22 @@ public class FranchiseQABean { // 가맹 문의
 	}
 	
 	@RequestMapping("franchiseForm.do")
-	public String franchiseForm(HttpServletRequest request){
+	public String franchiseForm(HttpServletRequest request,HttpSession session){   // 가맹 문의 폼 
+		if(session.getAttribute("loginId") != null){
+			String id = (String)session.getAttribute("loginId");
+			UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+			request.setAttribute("dto", dto);
+		}
+		
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		int num=0,ref=1,re_step=0;
 		if(request.getParameter("num")!=null){
+			String title=request.getParameter("title");
 			num=Integer.parseInt(request.getParameter("num"));
 			ref=Integer.parseInt(request.getParameter("ref"));
 			re_step=Integer.parseInt(request.getParameter("re_step"));
+			request.setAttribute("title", title);
 		}
 		request.setAttribute("num", new Integer(num));
 		request.setAttribute("ref", new Integer(ref));
@@ -85,15 +94,15 @@ public class FranchiseQABean { // 가맹 문의
 	public String franchisePro(CustomerDTO dto,HashMap map,HttpServletRequest request) throws Exception{
 		String pageNum = request.getParameter("pageNum");
 		
-		int num=dto.getNum();
+		int num=dto.getNum(); 
 		int ref=dto.getRef();
 		int re_step=dto.getRe_step();
 		int snum=dto.getSnum();
 		int number=0;
 		
-		if(num!=0){		
-			number = (Integer)sqlMap.queryForObject("customer.maxNum", snum);	
-		}
+			
+		number = (Integer)sqlMap.queryForObject("customer.maxNum", snum);	
+		
 
 		if(number!=0){ 
 			number=number+1;	
@@ -101,6 +110,7 @@ public class FranchiseQABean { // 가맹 문의
 			number=1;
 		}
 		if (num!=0){ 
+			map.put("number",number);
 			map.put("ref", ref);
 			map.put("re_step",re_step);
 			map.put("snum", snum);
@@ -111,10 +121,63 @@ public class FranchiseQABean { // 가맹 문의
 			dto.setRef(number);
 			dto.setRe_step(0);
 		}
-
+		
 		sqlMap.insert("customer.writePro", dto);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("snum", snum);
 		return "/customer-center/franchisePro";
+	}
+	
+	@RequestMapping("franchiseContent.do")
+	public String franchiseContent(HttpServletRequest request,HashMap map,CustomerDTO dto){
+		String pageNum = request.getParameter("pageNum");
+		String number = request.getParameter("number");
+		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		Integer num = Integer.parseInt(request.getParameter("num"));
+
+		map.put("snum",snum);
+		map.put("num",num);
+	
+		sqlMap.update("customer.contentUp", map);
+		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", map);
+		
+		request.setAttribute("dto", dto);
+		request.setAttribute("number", number);
+		request.setAttribute("pageNum", pageNum);
+		return "/customer-center/franchiseContent";
+	}
+	
+	@RequestMapping("franchiseDelete.do")
+	public String franchiseDelete(HttpServletRequest request){
+		Integer num = Integer.parseInt(request.getParameter("num"));
+		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		String pageNum = request.getParameter("pageNum");
+		request.setAttribute("snum", snum);
+		request.setAttribute("num", num);
+		request.setAttribute("pageNum", pageNum);
+		return "/customer-center/franchiseDelete";
+	}
+	
+	@RequestMapping("franchiseDeletePro.do")
+	public String franchiseDeletePro(HttpServletRequest request,HashMap map){
+		int num = Integer.parseInt(request.getParameter("num"));
+		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		String pageNum = request.getParameter("pageNum");
+		String passwd = request.getParameter("passwd");
+		int check=0;
+		
+		map.put("num", num);
+		map.put("snum",snum);
+		String dispasswd = (String)sqlMap.queryForObject("customer.getPasswd", map);
+				
+		if(passwd.equals(dispasswd)){
+			int ref = (Integer)sqlMap.queryForObject("customer.getRef", map);
+			sqlMap.delete("customer.delRef", ref);
+			check =1;
+		}	
+		request.setAttribute("snum", snum);
+		request.setAttribute("check", check);
+		request.setAttribute("pageNum", pageNum);
+		return "/customer-center/franchiseDeletePro";
 	}
 }
