@@ -5,7 +5,7 @@
 <title>가맹 문의</title>
 </head>
 <div>가맹 문의</div>
-<form action="franchisePro.do" method="post">
+<form action="onePro.do" method="post">
 <input type="hidden" name="pageNum" value="${pageNum}">
 <input type="hidden" name="snum" value="${snum}">
 <input type="hidden" name="num" value="${num}">
@@ -51,7 +51,7 @@
 </div>
 	<span><input type="submit" value="작성하기"></span>
 	<span><input type="reset" value="다시쓰기"></span>
-	<span><input type="button" value="돌아가기" onclick="window.location='franchiseQA.do?snum=${snum}&pageNum=${pageNum}'"></span>
+	<span><input type="button" value="돌아가기" onclick="window.location='oneQA.do?snum=${snum}&pageNum=${pageNum}'"></span>
 </div>
 </div>
 </form>

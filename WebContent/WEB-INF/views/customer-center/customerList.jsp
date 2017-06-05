@@ -7,7 +7,7 @@
 	<title>가맹 문의</title>
 </head>
 <div>
-<div>가맹 문의</div><div><a href="#">문의하기</a></div>
+<div>가맹 문의</div><div><a href="customerForm.do?snum=${snum}&pageNum=${pageNum}">문의하기</a></div>
 	<span>번호</span>
 	<span>제목</span>
 	<span>작성자</span>

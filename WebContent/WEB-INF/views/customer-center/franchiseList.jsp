@@ -8,7 +8,7 @@
 </head>
 
 <div>
-<div>가맹 문의</div><div><a href="#">문의하기</a></div>
+<div>가맹 문의</div><div><a href="franchiseForm.do?snum=${snum}&pageNum=${pageNum}">문의하기</a></div>
 	<span>번호</span>
 	<span>제목</span>
 	<span>작성자</span>
@@ -35,13 +35,13 @@
 </c:forEach>
 	
 	<c:if test="${startPage > 10}">
-        <a href="franchiseQA.do?num=${snum}&pageNum=${ startPage - 10 }">[이전]</a>
+        <a href="franchiseQA.do?snum=${snum}&pageNum=${ startPage - 10 }">[이전]</a>
 	</c:if>
 	<c:forEach var="i" begin="${startPage}" end="${endPage}">
-		<a href="franchiseQA.do?num=${snum}&pageNum=${i}">[${i}]</a>
+		<a href="franchiseQA.do?snum=${snum}&pageNum=${i}">[${i}]</a>
 	</c:forEach>
 	<c:if test="${endPage < pageCount}">
-    	<a href="franchiseQA.do?num=${snum}&pageNum=${ startPage + 10 }">[다음]</a>
+    	<a href="franchiseQA.do?snum=${snum}&pageNum=${ startPage + 10 }">[다음]</a>
 	</c:if>
 </c:if>
 </div>

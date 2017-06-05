@@ -4,17 +4,31 @@
 	<typeAlias alias="customerDTO" type="login.user.bean.CustomerDTO"/>
 	
 	<select id="customercount" parameterClass="int" resultClass="int">
-		SELECT count(*) FROM customerBoard WHERE serial_num=#serial_num#;
+		SELECT count(*) FROM customerBoard WHERE snum=#snum#;
 	</select>
 	
 	<select id="customerlist" parameterClass="java.util.HashMap" resultClass="customerDTO">
 		<![CDATA[
-		SELECT num,serial_num,title,content,passwd,writer,email,reg_date,ref,re_step,readcount,@rownum:=@rownum+1 as rownum
-		FROM (SELECT num,serial_num,title,content,passwd,writer,email,reg_date,ref,re_step,readcount
-		FROM (SELECT num,serial_num,title,content,passwd,writer,email,reg_date,ref,re_step,readcount
-		FROM customerBoard,(select @rownum:=0)r WHERE serial_num=#serial_num# order by ref desc, re_step asc limit #startRow#,#pageSize#)a order by ref desc, re_step asc)b;
+		SELECT num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount,@rownum:=@rownum+1 as rownum
+		FROM (SELECT num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount
+		FROM (SELECT num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount
+		FROM customerBoard,(select @rownum:=0)r WHERE snum=#snum# order by ref desc, re_step asc limit #startRow#,#pageSize#)a order by ref desc, re_step asc)b;
 		]]>
 	</select>
-
-
+	
+	<select id="maxNum" parameterClass="int" resultClass="int">
+		select max(num) from customerBoard where snum=#snum# and re_step=0;
+	</select>
+	
+	<update id="wirteUp" parameterClass="java.util.HashMap">
+		<![CDATA[
+		update customerBoard set re_step=re_step+1 where ref=#ref# and re_step> #re_step# and snum=#snum#;
+		]]>
+	</update>
+	
+	<insert id="writePro" parameterClass="customerDTO">
+		insert into customerBoard(snum,title,content,passwd,writer,email,reg_date,ref,re_step) 
+		values(#snum#,#title#,#content#,#passwd#,#writer#,#email#,now(),#ref#,#re_step#)
+	</insert>
+		
 </sqlMap>

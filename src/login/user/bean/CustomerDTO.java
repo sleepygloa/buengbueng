@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class CustomerDTO {
 	private int num;
-	private int serial_num;
+	private int snum;
 	private String title;
 	private String content;
 	private String passwd;
@@ -20,11 +20,12 @@ public class CustomerDTO {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public int getSerial_num() {
-		return serial_num;
+
+	public int getSnum() {
+		return snum;
 	}
-	public void setSerial_num(int serial_num) {
-		this.serial_num = serial_num;
+	public void setSnum(int snum) {
+		this.snum = snum;
 	}
 	public String getTitle() {
 		return title;

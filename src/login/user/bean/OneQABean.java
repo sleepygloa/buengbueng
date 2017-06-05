@@ -19,7 +19,7 @@ public class OneQABean {  //  1:1 문의
 	
 	@RequestMapping("oneQA.do")
 	public String oneQA(HttpServletRequest request,HashMap map){
-		Integer serial_num = Integer.parseInt(request.getParameter("snum"));
+		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		
 		if(pageNum==null){pageNum="1";}
@@ -31,9 +31,9 @@ public class OneQABean {  //  1:1 문의
 	    
 	    List list=null;
 
-	    int count = (Integer)sqlMap.queryForObject("customer.customercount", serial_num);
+	    int count = (Integer)sqlMap.queryForObject("customer.customercount", snum);
 	    if (count > 0) {
-	    	map.put("serial_num",serial_num);
+	    	map.put("serial_num",snum);
 	    	map.put("startRow",startRow);
 		    map.put("pageSize",pageSize);
 	    	list = sqlMap.queryForList("customer.customerlist", map);
@@ -57,7 +57,62 @@ public class OneQABean {  //  1:1 문의
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
-		request.setAttribute("snum", serial_num);
+		request.setAttribute("snum", snum);
+		request.setAttribute("pageNum", pageNum);
 		return "/customer-center/oneList";
+	}
+	@RequestMapping("oneForm.do")
+	public String franchiseForm(HttpServletRequest request){
+		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		String pageNum = request.getParameter("pageNum");
+		int num=0,ref=1,re_step=0;
+		if(request.getParameter("num")!=null){
+			num=Integer.parseInt(request.getParameter("num"));
+			ref=Integer.parseInt(request.getParameter("ref"));
+			re_step=Integer.parseInt(request.getParameter("re_step"));
+		}
+		request.setAttribute("num", new Integer(num));
+		request.setAttribute("ref", new Integer(ref));
+		request.setAttribute("re_step", new Integer(re_step));
+		request.setAttribute("snum", snum);
+		request.setAttribute("pageNum", pageNum);
+		return "/customer-center/oneForm";
+	}
+	
+	@RequestMapping("onePro.do")
+	public String franchisePro(CustomerDTO dto,HashMap map,HttpServletRequest request) throws Exception{
+		String pageNum = request.getParameter("pageNum");
+		
+		int num=dto.getNum();
+		int ref=dto.getRef();
+		int re_step=dto.getRe_step();
+		int snum=dto.getSnum();
+		int number=0;
+		
+		if(num!=0){		
+			number = (Integer)sqlMap.queryForObject("customer.maxNum", snum);	
+		}
+
+		if(number!=0){ 
+			number=number+1;	
+		}else{
+			number=1;
+		}
+		if (num!=0){ 
+			map.put("ref", ref);
+			map.put("re_step",re_step);
+			map.put("snum", snum);
+			sqlMap.update("customer.writeUp", map);
+			dto.setRe_step(re_step+1);
+	
+		}else{ 
+			dto.setRef(number);
+			dto.setRe_step(0);
+		}
+
+		sqlMap.insert("customer.writePro", dto);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("snum", snum);
+		return "/customer-center/onePro";
 	}
 }
