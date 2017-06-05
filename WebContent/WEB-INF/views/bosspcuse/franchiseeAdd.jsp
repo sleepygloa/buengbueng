@@ -4,36 +4,25 @@
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
 
-<!-- SIDEMENU TEMPLATE -->
-<c:if test="${sidemenu == 1}">
-	<jsp:include page="../sidemenu.jsp" />
-</c:if>
-
-
-
-<!-- ARTICLE -->
-<div class="side_content">
-
-
 	<!-- 페이지 제목 -->
-	<div class="container margin_bottom50">
+	<div class="margin_bottom50">
 		<div class="row">
 			<h3>가맹점 신청 PAGE!</h3>
 		</div>
 	</div>
 	
-	<div class="container margin_bottom50">	
+	<div class="margin_bottom50">	
 		<div class="col-xs-12-12">
 					
 			<form  action="franchiseeAddPro.do" method="post">
 				<!-- 회원 ID -->
 				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 						<c:if test="${userDto.id != null}">
 							<label>ID<br /></label>
 							<div class="form-group">
 								${userDto.id}
-								<input class="col-xs-12-12 form-control" type="hidden" name="id" value="${userDto.id}" placeholder="아이디를 입력하세요" />
+								<input class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" type="hidden" name="id" value="${userDto.id}" placeholder="아이디를 입력하세요" />
 							</div>
 						</c:if>
 						<c:if test="${userDto.id == null}">비회원</c:if>
@@ -41,7 +30,7 @@
 				</div>
 				<!-- 회원 GRADE -->
 				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 						<c:if test="${userDto.grade != null}">
 							<label>등급<br /></label>
 							<div class="form-group">
@@ -56,7 +45,7 @@
 				
 				<!-- 상호명 -->
 				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>상호명<br /></label>
 							<div class="form-group ">
 								<input class="col-xs-12-12 form-control" type="text" name="b_name" placeholder="상호명을 입력하세요" />
@@ -65,7 +54,7 @@
 				</div>
 				<!-- 사업자 번호 -->
 				<div class="row">
-					<div class=" col-md-10-12 col-xs-12-12">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>사업자번호<br /></label>	
 							<div class="form-group">
 								<div class="input-group">
@@ -81,7 +70,7 @@
 				</div>				
 				<!-- 사업장 주소 -->
 				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>사업장 주소<br /></label>
 							<div class="form-group">
 								<input class="col-xs-12-12 form-control" type="text" name="b_address" placeholder="사업장 주소 입력" onblur="return checkB_address();">
@@ -91,7 +80,7 @@
 				<!-- 사업장 전화번호 -->
 				<div class="row">
 
-					<div class="col-md-10-12 col-xs-12-12">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>사업장 전화번호<br /></label>
 							<div class="form-group">
 								<div class="input-group">
@@ -106,27 +95,27 @@
 				</div>
 				<!-- 사업장 규모 -->
 				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>사업장 규모<br /></label>
 							<div class="form-group">
-								<input class="col-xs-12-12 form-control" type="text" name="b_size" placeholder="사업장 규모 입력 (평 수)" onblur="return checkB_size();">	
+								<input class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" type="text" name="b_size" placeholder="사업장 규모 입력 (평 수)" onblur="return checkB_size();">	
 							</div>
 					</div>
 				</div>
 				<!-- 보유 컴퓨터수 -->
 				<div class="row">
 
-					<div class="col-md-10-12 col-xs-12-12">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>보유컴퓨터 수<br /></label>
 							<div class="form-group">
-								<input class="col-xs-12-12 form-control" type="text" name="b_pccount" placeholder="보유한 컴퓨터 대수를 입력하세요" onblur="return checkB_size();">	
+								<input class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" type="text" name="b_pccount" placeholder="보유한 컴퓨터 대수를 입력하세요" onblur="return checkB_size();">	
 							</div>
 					</div>
 				</div>	
 				<!-- 사업장 사장님컴퓨터 IP -->
 				<div class="row">
 
-					<div class="col-md-10-12 col-xs-12-12">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>사업장 사장님컴퓨터 IP<br /></label>
 							<div class="form-group">
 								${ip}
@@ -136,15 +125,15 @@
 				</div>							
 				<!-- 버튼 -->
 				<div class="row">
-					<div class="col-xs-12-12">
-						<input class="btn btn-success col-xs-12-12 col-sm-6-12 col-md-5-12" type="submit" value="신청하기" />
-						<input class="btn btn-default col-xs-12-12 col-sm-6-12 col-md-5-12" type="button" value="취소하기" />
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+						<input class="btn btn-success col-xs-12-12 col-sm-6-12 col-md-6-12" type="submit" value="신청하기" />
+						<input class="btn btn-default col-xs-12-12 col-sm-6-12 col-md-6-12" type="button" value="취소하기" />
 					</div>					
 				</div>	
 			</form>	
 			<div class="row">
-				<div class="col-xs-12-12">
-					<button class="btn btn-default col-xs-12-12 col-md-10-12"  onclick="window.location='index.do'" >메인페이지로</button>
+				<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+					<button class="btn btn-default col-xs-12-12 col-sm-12-12 col-md-12-12"  onclick="window.location='index.do'" >메인페이지로</button>
 				</div>
 			</div>
 		</div>
@@ -176,5 +165,3 @@
 </script>
 
 
-<!-- FOOTER TEMPLATE -->
-<jsp:include page="../footer.jsp" />

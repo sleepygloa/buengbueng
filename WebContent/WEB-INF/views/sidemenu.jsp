@@ -9,20 +9,22 @@
 		<ul class="my_side_ul">
 		<c:if test="${sidemenu == 1}">
 		
-		<!-- 가맹점 -->
-		<link rel="stylesheet" type="text/css" media="all" href="css/bosspcuse/franchisee.css">
-		
 			<li>가맹점 통계</li>
 			<li><a href="franchiseeList.do" >가맹점 현황</a></li>
 			<li><a href="franchiseeAdd.do" >가맹점 추가</a></li>
-			<li>가맹점 추가신청</li>
 		</c:if>
 		<c:if test="${sidemenu == 2}">
 			<li>PC방 찾기</li>
 			<li><a href="searchPCForm.do" >PC방 찾기</a></li>
 			<li><a href="franchiseeAdd.do" >우리동네 PC방 찾기</a></li>
-			
 		</c:if>
+		<c:if test="${sidemenu == 3}">
+			<li><a href="bossErpInfoMain.do" >ERP관리 MAIN</a></li>
+			<li><hr /></li>
+			<li>알바생 관리</li>
+			<li><a href="bossEmployeeInfoMain.do" >아이디 관리</a></li>
+			<li><a href="bossEmployeeAdd.do" >아이디 추가</a></li>
+		</c:if>		
 		
 		</ul>
 	</div>

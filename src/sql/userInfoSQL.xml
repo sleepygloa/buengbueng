@@ -42,7 +42,7 @@
 	
 	<!-- 사장님 정보 저장 -->
 	<insert id="bossInfoInsert" parameterClass="login.user.bean.BossInfoDataDTO">
-		insert into bossinfo values(#b_id#, #b_name#, #b_number#, #b_address#, #b_tel#, #b_size#, #b_pccount#,#b_ip#,#b_key#);
+		insert into bossInfo values(#b_id#, #b_name#, #b_number#, #b_address#, #b_tel#, #b_size#, #b_pccount#,#b_ip#,#b_key#);
 	</insert>
 	
 	<!-- 알바 정보 저장 -->
@@ -54,7 +54,7 @@
 	
 	<!-- 알바가 사장님을 찾을 겁니다 -->
 	<select id="searchBossId" parameterClass="String" resultClass="String">
-		select * from bossinfo where b_id=#e_bossid#;
+		select * from bossInfo where b_id=#e_bossid#;
 	</select>
 	
 	<!-- 회원 등급 사장으로 업그레이드 -->

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="erpEmp">
+
+	<typeAlias alias="beDto" type="erp.boss.bean.BossEmployeeInfoDataDTO" />
+	
+	<!-- 아이디로 아이디와 비밀번호를 확인 -->
+	<select id="insertBossEmployeeAddLog" parameterClass="beDto">
+		insert INTO bossEmployeeLog (b_id, applyCount, applyTime, content) VALUES(#b_id#, #applyCount#, now(), #content#);
+	</select>
+
+
+</sqlMap>
+	

@@ -5,15 +5,6 @@
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
 
-<!-- SIDEMENU TEMPLATE -->
-<c:if test="${sidemenu == 1}">
-	<jsp:include page="../sidemenu.jsp" />
-</c:if>
-
-
-<!-- ARTICLE -->
-<div class="side_content">
-
 	<!-- 페이지 제목 -->
 	<div class="container margin_bottom50">
 

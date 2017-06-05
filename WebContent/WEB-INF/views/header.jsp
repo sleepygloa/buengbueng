@@ -185,7 +185,7 @@
 								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="">
+									<a href="bossErpInfoMain.do">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">ERP 관리</h6>
@@ -304,4 +304,24 @@
 <section class="main_wrap"> 
   	<div class="main container">
  
+		 <!-- SIDEMENU TEMPLATE -->
+		<c:if test="${sidemenuCheck == 1}">
+		
+		<!-- 가맹점 -->
+		<link rel="stylesheet" type="text/css" media="all" href="css/bosspcuse/franchisee.css">
+		
+			<jsp:include page="sidemenu.jsp" />
+			
+			<!-- ARTICLE -->
+			<div class="side_content container">
+			
+		</c:if>
+ 
+ 		 <!-- NO SIDEMENU TEMPLATE -->
+		<c:if test="${sidemenuCheck != 1}">
+
+			<!-- ARTICLE -->
+			<div class="side_scontent container">
+			
+		</c:if>
  

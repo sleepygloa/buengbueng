@@ -20,6 +20,7 @@
 	<context:component-scan base-package="manage.boss.bean" /> <!-- 사장님 관리 BEAN  -->
 	<context:component-scan base-package="search.user.bean" /> <!-- PC방 찾기 BEAN-->
 	<context:component-scan base-package="superclass.all.bean" /> <!-- 전역 CLASS, 상속가능한 것들 BEAN -->
+	<context:component-scan base-package="erp.boss.bean" /> <!-- 사장님 ERP관리 BEAN -->
 
 	<!-- DOWNLOAD 지정 -->
 	<!-- <bean id="download" class="test.spring.bean.DownloadView" /> -->

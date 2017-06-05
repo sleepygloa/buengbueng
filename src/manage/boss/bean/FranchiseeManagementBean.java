@@ -38,7 +38,9 @@ public class FranchiseeManagementBean {
 	public String franchiseeManagementMain(Model model){
 		
 		//사이드메뉴 템플릿
-		int sidemenu = 1;
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 1; //사이드메뉴의 내용을 선택
+		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
 		
 		return "/bosspcuse/franchiseeManagementMain";
@@ -49,7 +51,9 @@ public class FranchiseeManagementBean {
 	public String franchiseeAdd(HttpSession session, BossInfoDataDTO bossDto, Model model){
 		
 		//사이드메뉴 템플릿
-		int sidemenu = 1;
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 1; //사이드메뉴의 내용을 선택
+		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
 		
 		//세션의 아이디와 BossInfo Table의 아이디가 동일한 것이 있는지 부터 검사를 한다.
@@ -153,7 +157,9 @@ public class FranchiseeManagementBean {
 	public String franchiseeList(String pageNum , HttpServletRequest request, Model model){
 		
 		//사이드메뉴 템플릿
-		int sidemenu = 1;
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 1; //사이드메뉴의 내용을 선택
+		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
 		
 		if (pageNum == null) {
