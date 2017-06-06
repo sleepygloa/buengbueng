@@ -1,6 +1,5 @@
 package login.user.bean;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +32,7 @@ public class OneQABean { // 1:1 문의
 	    
 	    List list=null;
 
-	    int count = (Integer)sqlMap.queryForObject("customer.customercount", snum);
+	    int count = (Integer)sqlMap.queryForObject("customer.customercount", snum); //해당 페이지 게시글 갯수
 	    if (count > 0) {
 	    	map.put("snum",snum);
 	    	map.put("startRow",startRow);
@@ -65,7 +64,7 @@ public class OneQABean { // 1:1 문의
 	}
 	
 	@RequestMapping("oneForm.do")
-	public String oneForm(HttpServletRequest request,HttpSession session){   // 가맹 문의 폼 
+	public String oneForm(HttpServletRequest request,HttpSession session){   // 문의 작성 폼 
 		if(session.getAttribute("loginId") != null){
 			String id = (String)session.getAttribute("loginId");
 			UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
@@ -90,7 +89,7 @@ public class OneQABean { // 1:1 문의
 		return "/customer-center/oneForm";
 	}
 	
-	@RequestMapping("onePro.do")
+	@RequestMapping("onePro.do")  // 문의 작성 DB insert 
 	public String onePro(CustomerDTO dto,HashMap map,HttpServletRequest request) throws Exception{
 		String pageNum = request.getParameter("pageNum");
 		
@@ -100,23 +99,16 @@ public class OneQABean { // 1:1 문의
 		int snum=dto.getSnum();
 		int number=0;
 		
-			
-		number = (Integer)sqlMap.queryForObject("customer.maxNum", snum);	
+		number = (Integer)sqlMap.queryForObject("customer.maxNum", snum);
 		
-
-		if(number!=0){ 
-			number=number+1;	
+		if(number!=0){
+			number=number+1;
 		}else{
 			number=1;
 		}
+		
 		if (num!=0){ 
-			map.put("number",number);
-			map.put("ref", ref);
-			map.put("re_step",re_step);
-			map.put("snum", snum);
-			sqlMap.update("customer.writeUp", map);
 			dto.setRe_step(re_step+1);
-	
 		}else{ 
 			dto.setRef(number);
 			dto.setRe_step(0);
@@ -128,7 +120,7 @@ public class OneQABean { // 1:1 문의
 		return "/customer-center/onePro";
 	}
 	
-	@RequestMapping("oneContent.do")
+	@RequestMapping("oneContent.do")  // 게시글 내용 호출
 	public String oneContent(HttpServletRequest request,HashMap map,CustomerDTO dto){
 		String pageNum = request.getParameter("pageNum");
 		String number = request.getParameter("number");
@@ -140,14 +132,16 @@ public class OneQABean { // 1:1 문의
 	
 		sqlMap.update("customer.contentUp", map);
 		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", map);
-		
+		int re_step = (Integer)sqlMap.queryForObject("customer.getReply",dto.getRef()); // 답글의 여부 확인
+	
+		request.setAttribute("re_step", re_step);
 		request.setAttribute("dto", dto);
 		request.setAttribute("number", number);
 		request.setAttribute("pageNum", pageNum);
 		return "/customer-center/oneContent";
 	}
 	
-	@RequestMapping("oneDelete.do")
+	@RequestMapping("oneDelete.do")  // 게시글 삭제 폼
 	public String oneDelete(HttpServletRequest request){
 		Integer num = Integer.parseInt(request.getParameter("num"));
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
@@ -158,26 +152,65 @@ public class OneQABean { // 1:1 문의
 		return "/customer-center/oneDelete";
 	}
 	
-	@RequestMapping("oneDeletePro.do")
+	@RequestMapping("oneDeletePro.do")  //게시글 삭제 Pro
 	public String oneDeletePro(HttpServletRequest request,HashMap map){
 		int num = Integer.parseInt(request.getParameter("num"));
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		String passwd = request.getParameter("passwd");
 		int check=0;
-		
+		// 고유 번호와 글번호로 DB 비밀번호 호출
 		map.put("num", num);
 		map.put("snum",snum);
 		String dispasswd = (String)sqlMap.queryForObject("customer.getPasswd", map);
-				
+		// 뷰에서 받은 비밀번호와 DB에서 받은 비밀번호 비교
 		if(passwd.equals(dispasswd)){
-			int ref = (Integer)sqlMap.queryForObject("customer.getRef", map);
-			sqlMap.delete("customer.delRef", ref);
+			// 해당 글의 ref 그룹 호출 후 해당글 삭제
+			int ref = (Integer)sqlMap.queryForObject("customer.getRef", map);  
+			int re_step = (Integer)sqlMap.queryForObject("customer.getRe_step", map);
+		
+			map.put("ref",ref);
+			map.put("re_step",re_step);
+			sqlMap.delete("customer.delRef", map);
 			check =1;
 		}	
 		request.setAttribute("snum", snum);
 		request.setAttribute("check", check);
 		request.setAttribute("pageNum", pageNum);
 		return "/customer-center/oneDeletePro";
+	}
+	
+	@RequestMapping("oneModify.do")
+	public String oneModify(HttpServletRequest request,CustomerDTO dto,HashMap map){
+		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		Integer num = Integer.parseInt(request.getParameter("num"));
+		String pageNum=request.getParameter("pageNum");
+		
+		map.put("snum", snum);
+		map.put("num",num);
+		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent",map);
+		
+		request.setAttribute("dto", dto);
+		request.setAttribute("pageNum", pageNum);
+		return "/customer-center/oneModify";
+	}
+	
+	@RequestMapping("oneModifyPro.do")
+	public String oneModifyPro(HttpServletRequest request,CustomerDTO dto,HashMap map){
+		String pageNum= request.getParameter("pageNum");
+		int check = 0;
+
+		map.put("num",dto.getNum());
+		map.put("snum",dto.getSnum());
+		String dispasswd = (String)sqlMap.queryForObject("customer.getPasswd",map);
+		
+		if(dto.getPasswd().equals(dispasswd)){
+			sqlMap.update("customer.modifyContent", dto);
+			check=1;
+		}
+		request.setAttribute("check", check);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("dto", dto);
+		return "/customer-center/oneModifyPro";
 	}
 }

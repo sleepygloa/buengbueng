@@ -4,14 +4,13 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#deletepro").click(function(){
+		$("#bossdelpro").click(function(){
 			$.ajax({
-				url:"customerDeletePro.do",
+				url:"bossDeletePro.do",
 				type:"post",
 				data:{num:$("#num").val(),
 					snum:$("#snum").val(),
-					pageNum:$("#pageNum").val(),
-					passwd:$("#passwd").val()},
+					pageNum:$("#pageNum").val()},
 				success:function(data){
 					$("#pro").html(data);
 				}
@@ -28,11 +27,10 @@
 <div id="pro">
 <div>게시글 삭제</div>
 <div>
-	<span>비밀번호</span>
-	<span><input type="password" id="passwd" placeholder="비밀번호 입력란"></span>
+	<b>삭제 하시겠습니까?</b>
 </div>
 <div>
-	<span><button id="deletepro">삭제하기</button></span>
-	</span><input type="button" value="뒤로가기" onclick="window.location='customerContent.do?num=${num}&snum=${snum}&pageNum=${pageNum}'">	
+	<span><button id="bossdelpro">삭제</button></span>
+	</span><input type="button" value="뒤로가기" onclick="window.location='franchiseContent.do?num=${num}&snum=${snum}&pageNum=${pageNum}'">	
 </div>
 </div>

@@ -27,13 +27,6 @@
 		select max(num) as num from customerBoard where snum=#snum# and re_step=0;
 	</select>
 	
-	<!-- 기존 게시글 업뎃 -->
-	<update id="writeUp" parameterClass="java.util.HashMap">
-		<![CDATA[
-		update customerBoard set ref=#ref# where ref=#ref# and re_step>#re_step# and snum=#snum#;
-		]]>
-	</update>
-	
 	<!-- 글 작성 -->
 	<insert id="writePro" parameterClass="customerDTO">
 		insert into customerBoard(snum,title,content,passwd,writer,email,reg_date,ref,re_step) 
@@ -45,23 +38,47 @@
 		update customerBoard set readcount=readcount+1 where num= #num# and snum=#snum#
 	</update>
 	
-	<!-- 게시글 -->
+	<!-- 게시글 불러오기 -->
 	<select id="getContent" parameterClass="java.util.HashMap" resultClass="customerDTO">
 		select * from customerBoard where snum=#snum# and num=#num#
 	</select>
 	
+	<!-- 답글 여부 확인 -->
+	<select id="getReply" parameterClass="int" resultClass="int">
+		select count(*) from customerBoard where ref=#ref#;
+	</select>
+		
 	<!-- 글 비밀번호 조회 -->
 	<select id="getPasswd" parameterClass="java.util.HashMap" resultClass="String">
 		select passwd from customerBoard where num=#num# and snum=#snum#;
 	</select>
 	
-	<!-- 해당 글과 답글 검색 -->
+	<!-- 게시글과 댓글 구분값 조회 -->
+	<select id="getRe_step" parameterClass="java.util.HashMap" resultClass="int">
+		select re_step from customerBoard where num=#num# and snum=#snum#;
+	</select>
+	
+	<!-- 게시글 그룹 검색 -->
 	<select id="getRef" parameterClass="java.util.HashMap" resultClass="int">
 		select ref from customerBoard where num=#num# and snum=#snum#
 	</select>
 	
-	<!-- 해당 글과 답글 삭제 -->
-	<delete id="delRef" parameterClass="int">
-		delete from customerBoard where ref=#ref#
+	<!-- 게시글과 답글 삭제 -->
+	<delete id="delRef" parameterClass="java.util.HashMap">
+	<![CDATA[
+		delete from customerBoard where ref=#ref# and re_step>=#re_step#;
+	]]>
+	</delete>
+	
+	<!-- 게시글 내용 수정 -->
+	<update id="modifyContent" parameterClass="customerDTO">
+		update customerBoard set email=#email#,title=#title#,content=#content# where num=#num# and snum=#snum#
+	</update>
+	
+	<!-- 관리자 글 삭제 -->
+	<delete id="bossDel" parameterClass="java.util.HashMap">
+	<![CDATA[
+		delete from customerBoard where ref=#ref# and re_step>=#re_step#;
+	]]>
 	</delete>
 </sqlMap>
