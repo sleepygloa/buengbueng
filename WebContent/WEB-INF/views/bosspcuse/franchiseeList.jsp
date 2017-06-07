@@ -79,7 +79,7 @@
 			</c:forEach>
 
 
-
+<%-- 
 <c:if test="${count > 0}">
    <c:set var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}"/>
    <c:set var="pageBlock" value="${10}"/>
@@ -102,7 +102,7 @@
         <a href="list.do?pageNum=${startPage + 10}">[다음]</a>
    </c:if>
 </c:if>
-
+ --%>
 		
 		</div>
 	</div>

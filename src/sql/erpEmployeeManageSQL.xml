@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="erpEmp">
-	<typeAlias alias="useTimeDto" type="login.user.bean.UseTimeLogDTO" />
-	<typeAlias alias="beDto" type="erp.boss.bean.BossEmployeeManageDataDTO" />
+
 	<resultMap id="userDtoMap" class="login.user.bean.UserInfoDataDTO">
          <result property="id" column="id" />
          <result property="pw" column="pw" nullValue="1234"/>
-         
          <result property="name" column="name" nullValue="none"/>
          <result property="birth" column="birth" nullValue="170606"/>
          <result property="phone" column="phone" nullValue="010-0000-0000"/>
          <result property="address" column="address" nullValue="none"/>
          <result property="email" column="email" nullValue="none"/>
          <result property="googleId" column="googleId" nullValue="none"/>
-         
     </resultMap>
-
 
 	
 <!-- 알바생 관리 하는 부분 -->

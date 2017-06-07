@@ -6,6 +6,8 @@
 	<settings useStatementNamespaces="true" />
 	
 <!-- For Example : MySQL 연동  -->	
+	<sqlMap resource="/sql/typeAliasSQL.xml"/> <!-- DTO 정의 모아둔곳 -->
+
 	<sqlMap resource="/sql/userInfoSQL.xml"/> <!-- 회원관리 : 가입, 삭제, 정보보기 등등 -->
 	<sqlMap resource="/sql/checkInfoSQL.xml"/> <!-- 유효성검사 : 아이디검사, 비밀번호 검사 -->
   	<sqlMap resource="/sql/franchiseeManageSQL.xml"/> <!--  가맹점 관리 -->

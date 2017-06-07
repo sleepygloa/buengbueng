@@ -3,7 +3,6 @@
 
 <!-- 사용자의 좌석 이용시간 및 PC방 좌석 이용현황 -->
 <sqlMap namespace="useSeat">
-	<typeAlias alias="useTimeDTO" type="login.user.bean.UseTimeDataDTO"/>
 	<!-- 사용자가 로그인 했을 때 사용자 좌석 이용 로그에 로그인 시간 남김 -->
 	<insert id="useTimeLogin" parameterClass="useTimeDTO">
 		insert into useTimeL values(#id#,#loginTime#,0,#ip#);
