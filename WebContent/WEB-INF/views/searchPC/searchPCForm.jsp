@@ -10,15 +10,15 @@
 </c:if>
 
 <body>
-<input type="text" id="sample4_postcode" placeholder="우편번호">
-<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
+<input type="text" id="sample4_postcode" name="postcode" placeholder="우편번호">
+<input type="text" id="sample4_roadAddress" name="roadAddress" placeholder="도로명주소">
+<input type="text" id="sample4_jibunAddress" name="jibunAddress" placeholder="지번주소">
+<input type="button" onclick="sample4_execDaumPostcode()" value="검색">
 <span id="guide" style="color:#999"></span>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="/buengbueng/js/addressAPI.js"></script>
-<script>
+<!-- <script>
 	daum.postcode.load(function(){
    	 new daum.Postcode({
    	     oncomplete: function(data) {
@@ -27,7 +27,7 @@
         }
     }).open();
 });
-</script>
+</script> -->
 
 
 
