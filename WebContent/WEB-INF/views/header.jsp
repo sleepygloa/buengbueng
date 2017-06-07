@@ -19,10 +19,10 @@
 		<!-- CSS RESET -->
 		 <link rel="stylesheet" type="text/css"  href="/buengbueng/css/reset.css"> 
     	<!-- INDEX CSS -->
-    	<link rel="stylesheet" type="text/css" media="all" href="css/style_v2.css">
+    	<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/style_v2.css">
 		<!-- INDEX CSS 2 -->    
-        <link rel="stylesheet" type="text/css" media="all" href="css/dist/modules.min.css">
-        <link rel="stylesheet" type="text/css" media="all" href="css/side_menu.css">
+        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css">
+        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/side_menu.css">
 	
 		<!-- 홈페이지 제목 -->
 		<title>BuengBueng</title>
@@ -103,8 +103,8 @@
 								</div>
 								
 								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="product__item col-sm-5-12">
-									<a href="">
+								<div class="product__item col	-sm-5-12">
+									<a href="userbilling/cash.do">
 										<span class="menu_icon ux-heatmap"><!-- <img src="img/ux-heatmaps-gnb@2x.png"> --></span>
 										<span class="menu_text">
 											<h6 class="product__item__name minor-minor">결제</h6>

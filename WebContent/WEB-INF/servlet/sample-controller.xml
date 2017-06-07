@@ -20,6 +20,7 @@
 	<context:component-scan base-package="findip.all.bean" /> <!-- 접속자 IP 찾는 BEAN -->
 	<context:component-scan base-package="web.menu.bean" /> <!-- 대메뉴 소메뉴 이동하는 BEAN  -->
 	<context:component-scan base-package="manage.boss.bean" /> <!-- 사장님 관리 BEAN  -->
+	<context:component-scan base-package="payment.all.bean" /> <!-- 결제 관련 BEAN  -->
 	
 	<!-- DOWNLOAD 지정 -->
 	<!-- <bean id="download" class="test.spring.bean.DownloadView" /> -->
