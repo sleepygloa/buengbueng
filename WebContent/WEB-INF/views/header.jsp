@@ -22,8 +22,7 @@
         <link rel="stylesheet" type="text/css" media="all" href="css/dist/modules.min.css">
         <link rel="stylesheet" type="text/css" media="all" href="css/dist/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" media="all" href="css/dist/bootstrap-theme.min.css">
-	
-
+		<link rel="stylesheet" type="text/css"  href="/buengbueng/css/reset.css"> 
 	
 		<!-- main -->
 		<link rel="stylesheet" type="text/css" media="all" href="css/dist/sidemain_main.css">
