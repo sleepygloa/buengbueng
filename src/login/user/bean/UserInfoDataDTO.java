@@ -14,6 +14,7 @@ public class UserInfoDataDTO {
     private String email;
     private Timestamp signdate;
     private String googleId;
+    
 	public String getId() {
 		return id;
 	}

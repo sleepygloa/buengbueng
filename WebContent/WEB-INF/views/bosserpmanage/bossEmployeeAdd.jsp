@@ -22,7 +22,7 @@
 							<label>ID<br /></label>
 							<div class="form-group">
 								${id}
-								<input class="col-xs-12-12 form-control" type="hidden" name="id" value="${id}" placeholder="아이디를 입력하세요" />
+								<input class="col-xs-12-12 form-control" type="hidden" name="b_id" value="${id}" placeholder="아이디를 입력하세요" />
 							</div>
 						</c:if>
 					</div>
@@ -33,7 +33,7 @@
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 						<label>신청하는 ID 갯수<br /></label>
 							<div class="form-group">
-								<input class="col-xs-12-12 form-control" type="text" name=""  placeholder="아이디를 입력하세요" />
+								<input class="col-xs-12-12 form-control" type="text" name="applyCount"  placeholder="아이디를 입력하세요" />
 							</div>
 					</div>
 				</div>

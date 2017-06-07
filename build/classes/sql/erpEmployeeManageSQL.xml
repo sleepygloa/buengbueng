@@ -1,14 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="erpEmp">
+	<typeAlias alias="useTimeDto" type="login.user.bean.UseTimeLogDTO" />
+	<typeAlias alias="beDto" type="erp.boss.bean.BossEmployeeManageDataDTO" />
+	<resultMap id="userDtoMap" class="login.user.bean.UserInfoDataDTO">
+         <result property="id" column="id" />
+         <result property="pw" column="pw" nullValue="1234"/>
+         
+         <result property="name" column="name" nullValue="none"/>
+         <result property="birth" column="birth" nullValue="170606"/>
+         <result property="phone" column="phone" nullValue="010-0000-0000"/>
+         <result property="address" column="address" nullValue="none"/>
+         <result property="email" column="email" nullValue="none"/>
+         <result property="googleId" column="googleId" nullValue="none"/>
+         
+    </resultMap>
 
-	<typeAlias alias="beDto" type="erp.boss.bean.BossEmployeeInfoDataDTO" />
+
+	
+<!-- 알바생 관리 하는 부분 -->
 	
 	<!-- 아이디로 아이디와 비밀번호를 확인 -->
-	<select id="insertBossEmployeeAddLog" parameterClass="beDto">
-		insert INTO bossEmployeeLog (b_id, applyCount, applyTime, content) VALUES(#b_id#, #applyCount#, now(), #content#);
+	<insert id="insertBossEmployeeAddLog" parameterClass="beDto">
+		INSERT INTO bossEmployeeLog (b_id, applyCount, applyTime, content) VALUES(#b_id#, #applyCount#, now(), #content#);
+	</insert>
+
+	<!-- 알바생 회원 ID 를 찾음 -->
+	<select id="getEmployeeId" resultClass="beDto" parameterClass="String">
+		SELECT e_id, (select count(*) FROM employeeInfo WHERE e_bossid = #e_bossid#) AS count FROM employeeInfo WHERE e_bossid = #e_bossid# ORDER BY e_id DESC LIMIT 1; 
 	</select>
 
+	<!-- 알바생 아이디를 생성 -->
+	<insert id="insertEmployeeIdUserInfo" parameterClass="String">
+		INSERT INTO userInfo (id, pw, grade, signdate) VALUES(#e_id#, 1234, 2, now());
+	</insert>
+	
+	<!-- 알바생 아이디를   -->
+	<insert id="connectEmployeeIdBossId" parameterClass="java.util.HashMap">
+		INSERT INTO employeeInfo (e_id, e_bossid) VALUES(#e_id#, #e_bossid#);
+	</insert>	
+	
+	<!-- 알바생아이디는 있지만 보스아이디가 없는 것을 찾음 -->
+	<select id="findBossIdNull" resultClass="String">
+		SELECT e_id from employeeInfo where e_bossid = '' ORDER BY e_id desc; 
+	</select>
+	
+	<!-- 알바생아이디는 있고, 보스 아이디가있는 것을 찾음 -->
+	<select id="findBossIdNotNull" resultClass="String">
+		SELECT e_id from employeeInfo where e_bossid = #e_bossid# ORDER BY e_id desc; 
+	</select>
+	
+	<!-- 삭제할 알바생 아이디의 정보를 찾는다.-->
+	<select id="findDeleteId" resultClass="String" parameterClass="String">
+		select pw from userInfo where id = #e_id#;
+	</select>
+
+	<!-- 알바생 아이디를 삭제한다..-->
+	<delete id="deleteEmployeeId" parameterClass="String">
+		delete from employeeInfo where e_id = #e_id#;
+	</delete>
+
+	<!-- 알바생 아이디를 삭제한다..-->
+	<delete id="deleteUserId" parameterClass="String">
+		delete from userInfo where id = #e_id#;
+	</delete>	
+	
+	<!-- 알바생 아이디 수 반환-->
+	<select id="getEmployeeIdCount" resultClass="int" parameterClass="String">
+		select count(*) from employeeInfo where e_bossid = #e_bossid#;
+	</select>
+	
+	<!-- 알바생 아이디 정보 리스트-->
+	<select id="getEmployeeIdInfoList" resultMap="userDtoMap" parameterClass="java.util.HashMap">
+		select * from userInfo where id = (select e_id from employeeInfo where e_bossid = #id# LIMIT #i#, 1);
+	</select>
+	
+	<!-- 알바생 아이디로 정보를 볼러옴 AJAX-->
+	<select id="getEmployeeIdInfo" resultClass="userDto" parameterClass="String">
+		select * from userInfo where id = #id#;
+	</select>		
+
+	<!-- 알바생 아이디로 정보 수정-->
+	<update id="updateEmployeeId"  parameterClass="userDto">
+		UPDATE userInfo SET 
+			pw = #pw#,
+			name = #name#,
+			birth = #birth#,
+			phone = #phone#,
+			email = #email#,
+			address = #address#
+		WHERE id = #id#;
+	</update>	
+
+	<!-- 알바생 접속 LOG 찾기 -->
+	<select id="findLoginLogLogoutNull"  parameterClass="String">
+		SELECT count(*) from useTimeLog WHERE id = #id# ORDER BY loginTime desc;
+	</select>
+
+	<!-- 알바생 접속 LOG 추가 -->
+	<insert id="insertEmployeeLoginLog" parameterClass="java.util.HashMap">
+		INSERT INTO useTimeLog (id, loginTime, ip) VALUES(#id#, now(), #ip#);
+	</insert>
+	
+	<!-- 알바생 접속해제 LOG 변경 -->
+	<update id="updateEmployeeLogoutLog" parameterClass="String">
+		update useTimeLog set logoutTime = now() where id = #id# order by loginTime desc limit 1
+	</update>
+
+	<!-- 알바생 접속 LOG LIST Count -->
+	<select id="getEmployeeLoginLogoutLogListCount" resultClass="int" parameterClass="String">
+		select count(*) from useTimeLog u,(select e_id from employeeInfo where e_bossid = #id#) e where u.id = e.e_id ORDER BY logoutTime desc;
+	</select>	
+
+	<!-- 알바생 접속 LOG LIST  -->
+	<select id="getEmployeeLoginLogoutLogList" resultClass="useTimeDto" parameterClass="java.util.HashMap">
+		<![CDATA[
+			select id, loginTime, logoutTime, ip, r from 
+			(select id, loginTime, logoutTime, ip, @rownum:=@rownum + 1 as r from
+			(select u.id, u.loginTime, u.logoutTime, u.ip from useTimeLog u,
+			(select e_id from employeeInfo where e_bossid = #id#) e 
+			where u.id = e.e_id ORDER BY logoutTime desc) b, (select @rownum:=0) TMP) c	
+			where r >= #startRow# and r <= #endRow# ;
+		]]>
+	</select>	
 
 </sqlMap>
 	

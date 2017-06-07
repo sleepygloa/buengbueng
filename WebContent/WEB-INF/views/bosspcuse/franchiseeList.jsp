@@ -6,30 +6,25 @@
 <jsp:include page="../header.jsp" />
 
 	<!-- 페이지 제목 -->
-	<div class="container margin_bottom50">
-
+	<div class="margin_bottom50">
+		<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 			<h3>가맹점 현황</h3>
-
+		</div>
 	</div>
 
-
-<div class="main_wrap container">
-	<div class="row">
-		<div class="col-sm-12-12">
-
-	<div class="container margin_bottom50">	
+	<div class="margin_bottom50">	
 		<div class="col-xs-12-12">
 					
 				<!-- 글 갯수 -->
 				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 글목록(전체 글:${count})
 					</div>
 				</div>
 
 				<!-- 카테고리 -->
 				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 						<div class="col-xs-1-12 table_wd50">신청번호</div>
 						<div class="col-xs-1-12 table_wd50">신청자</div>
 						<div class="col-xs-1-12 table_wd50">피시방이름</div>
@@ -50,7 +45,7 @@
 				<!-- 게시글 -->
 			<c:forEach var="article" items="${articleList}">
 				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 						<div class="col-xs-1-12 table_wd50">${article.num}</div>
 						<div class="col-xs-1-12 table_wd50">${article.b_id}</div>
 						<div class="col-xs-1-12 table_wd50">
@@ -111,7 +106,6 @@
 		
 		</div>
 	</div>
-</div>
 
 
 

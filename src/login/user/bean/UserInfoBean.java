@@ -1,5 +1,11 @@
 package login.user.bean;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import superclass.all.bean.CheckInfo;
+import superclass.all.bean.FindIpBean;
 
 @Controller
 public class UserInfoBean {
@@ -38,14 +45,41 @@ public class UserInfoBean {
 		UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
 		if(pw.equals(dto.getPw())){
 			session.setAttribute("loginId", dto.getId());
+			
+			//로그인 LOG 남김
+			FindIpBean fib = new FindIpBean();
+			String ip = (String)fib.findIp();
+			
+			HashMap map = new HashMap();
+			map.put("id", id);
+			map.put("ip", ip);
+			sqlMap.insert("erpEmp.insertEmployeeLoginLog", map);
 		}
+		
 		return "/index";
 	}
 	
 	//로그아웃 클릭시 세션이 종료됨 =--> 메인페이지로 이동
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session){
-		session.invalidate();
+		
+		try{
+			//세션 아이디를 페이지로전달
+			String id = (String)session.getAttribute("loginId");
+			System.out.println(id);
+			if(sqlMap.queryForObject("erpEmp.findLoginLogLogoutNull", id) == null){
+				System.out.println(id);
+				System.out.println("dd");
+				sqlMap.update("erpEmp.updateEmployeeLogoutLog", id);
+			};
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			session.invalidate();
+		}
+		
+		
+
 		return "/index";
 	}
 

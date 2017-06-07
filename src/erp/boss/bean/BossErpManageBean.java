@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import login.user.bean.UserInfoDataDTO;
 
 @Controller
-public class BossErpInfoBean {
+public class BossErpManageBean {
 
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
 	
-	@RequestMapping("bossErpInfoMain.do")
+	@RequestMapping("bossErpManageMain.do")
 	public String bossEmployeeInfoMain(Model model,HttpSession session){
 		
 		//사이드메뉴 템플릿

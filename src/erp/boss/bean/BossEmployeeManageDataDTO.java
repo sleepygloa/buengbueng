@@ -2,7 +2,7 @@ package erp.boss.bean;
 
 import java.sql.Timestamp;
 
-public class BossEmployeeInfoDataDTO {
+public class BossEmployeeManageDataDTO {
 
 	private String id;
 	private String b_id;
@@ -11,6 +11,30 @@ public class BossEmployeeInfoDataDTO {
 	private Timestamp confirmTime;
 	private String content;
 	
+	private int count; //주고받을 SQL결과의 count수, 알바생과 사장님아이디가 매칭된 갯수
+	private String e_bossid;
+	private String e_id;
+	
+	
+	
+	public String getE_bossid() {
+		return e_bossid;
+	}
+	public void setE_bossid(String e_bossid) {
+		this.e_bossid = e_bossid;
+	}
+	public String getE_id() {
+		return e_id;
+	}
+	public void setE_id(String e_id) {
+		this.e_id = e_id;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public String getId() {
 		return id;
 	}

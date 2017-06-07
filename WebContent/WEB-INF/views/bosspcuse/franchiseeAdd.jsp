@@ -6,9 +6,7 @@
 
 	<!-- 페이지 제목 -->
 	<div class="margin_bottom50">
-		<div class="row">
 			<h3>가맹점 신청 PAGE!</h3>
-		</div>
 	</div>
 	
 	<div class="margin_bottom50">	

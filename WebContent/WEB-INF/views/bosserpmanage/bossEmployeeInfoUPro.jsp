@@ -8,10 +8,10 @@
 	</script>
 </c:if>
 
-<!-- 알바생신청 완료 -->
+<!-- 알바생변경 완료 -->
 <c:if test="${check == 1}">
 	<script>
-		alert('알바생 신청이 완료되었습니다. ')
+		alert('알바생 정보가 변경되었습니다. ')
 	</script>
 </c:if>
 
@@ -34,7 +34,7 @@
 <!-- 변동없음 -->
 <c:if test="${check == 5}">
 	<script>
-		alert('현재 보유한 알바생 아이디 갯수와 신청한 갯수가 같습니다.')
+		alert('오류')
 	</script>
 	<meta http-equiv="refresh" content="1;url=index.do" />
 </c:if>

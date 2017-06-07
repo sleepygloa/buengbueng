@@ -19,11 +19,13 @@
 			<li><a href="franchiseeAdd.do" >우리동네 PC방 찾기</a></li>
 		</c:if>
 		<c:if test="${sidemenu == 3}">
-			<li><a href="bossErpInfoMain.do" >ERP관리 MAIN</a></li>
+			<li><a href="bossErpManageMain.do" >ERP관리 MAIN</a></li>
 			<li><hr /></li>
 			<li>알바생 관리</li>
-			<li><a href="bossEmployeeInfoMain.do" >아이디 관리</a></li>
-			<li><a href="bossEmployeeAdd.do" >아이디 추가</a></li>
+			<li><a href="bossEmployeeManageMain.do" >ㅇ</a></li>
+			<li><a href="bossEmployeeAdd.do" >아이디 수 변경</a></li>
+			<li><a href="bossEmployeeInfoList.do" >아이디 관리</a></li>
+			<li><a href="bossEmployeeLoginLogoutLogManage.do" >알바 근태관리</a></li>
 		</c:if>		
 		
 		</ul>
