@@ -65,10 +65,10 @@ public class OneQABean { // 1:1 문의
 	
 	@RequestMapping("oneForm.do")
 	public String oneForm(HttpServletRequest request,HttpSession session){   // 문의 작성 폼 
-		if(session.getAttribute("loginId") != null){
+		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출
 			String id = (String)session.getAttribute("loginId");
-			UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
-			request.setAttribute("dto", dto);
+			UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+			request.setAttribute("user", user);
 		}
 		
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
@@ -121,7 +121,13 @@ public class OneQABean { // 1:1 문의
 	}
 	
 	@RequestMapping("oneContent.do")  // 게시글 내용 호출
-	public String oneContent(HttpServletRequest request,HashMap map,CustomerDTO dto){
+	public String oneContent(HttpServletRequest request,HashMap map,CustomerDTO dto,HttpSession session){
+		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출
+			String id = (String)session.getAttribute("loginId");
+			UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+			request.setAttribute("user", user);
+		}
+		
 		String pageNum = request.getParameter("pageNum");
 		String number = request.getParameter("number");
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
