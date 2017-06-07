@@ -6,6 +6,23 @@
     <head>
 	<title>메 뉴</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script>
+
+	$(document).ready(
+			function(){
+				$(".category").click(function(){
+					$.ajax({
+						url:"menuCategoryClick.do",
+						type:"post",
+						data: {category: $(".category").value},
+						success:function(data){
+							$("#categoryMenu").html(data);
+						}
+					});
+				});	
+		});
+	</script>
+	
 	
 </head>
 
@@ -22,7 +39,7 @@
 		<table>
 		<tr>
 		<c:forEach var="category" items="${categoryList}">
-			<td><button name="${category}">${category}</button> </td>
+			<td><input type="button" name="${category}" class="category" value="${category}" /> </td>
 		</c:forEach>
 		</tr>	
 		</table>
@@ -33,12 +50,20 @@
 			<tr>
 			<td>제 품</td><td>제조사</td><td>가 격</td>
 			</tr>
+		
+		<tr><td>
+		<div id="categoryMenu"></div>	
+		</td></tr>
+		
 		<c:forEach var="menu" items="${menuList}">
 		<tr>
 			<td>${menu.name}</td>	<td>${menu.company}</td> 	<td>${menu.price}</td>
 			<td><button id="order" value="${menu.name}">주 문</button></td>
 		</tr>
 		</c:forEach>
+		
+		
+		
 		</table>
 	</div>
 	

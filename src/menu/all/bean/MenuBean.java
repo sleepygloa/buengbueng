@@ -59,11 +59,20 @@ public class MenuBean {
 	}
 	
 	@RequestMapping("menuDeletePro.do")
-	public String menuDeletePro(MenuDTO dto, HttpServletRequest request){
+	public String menuDeletePro(HttpServletRequest request){
 		String name=request.getParameter("name");
 		try{
 			sqlMap.delete("menu.deleteMenu",name);
 		}catch(Exception e){e.printStackTrace();}
 		return "/menu/menuDeletePro";
+	}
+	
+	/* 카테고리별 메뉴 리스트 보여주기 */
+	@RequestMapping("menuCategoryClick.do")
+	public String menuCategoryClick(HttpServletRequest request){
+		String category=request.getParameter("category");
+		List categoryMenuList=sqlMap.queryForList("menu.categoryMenuList",category);
+		request.setAttribute("categoryMenuList",categoryMenuList);
+		return "/menu/menuCategoryClick";
 	}
 }

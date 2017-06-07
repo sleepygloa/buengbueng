@@ -26,5 +26,10 @@
 		delete from menu where name=#name#;
 	</delete>
 	
+	<!-- 카테고리별 메뉴 List -->
+	<select id="categoryMenuList" parameterClass="String" resultClass="menuDto">
+		select * from menu where category=#category#;
+	</select>
+	
 </sqlMap>
 	

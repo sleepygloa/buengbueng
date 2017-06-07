@@ -16,5 +16,6 @@
 	<sqlMap resource="/sql/erpEmployeeManageSQL.xml"/> <!-- ERP 알바 관리 -->
 	<sqlMap resource="/sql/CustomerSQL.xml"/> <!-- 고객센터 -->
 	<sqlMap resource="/sql/useSeatSQL.xml" /> <!-- 사용자의 좌석 이용시간 및 PC방 좌석 이용현황 -->
+	<sqlMap resource="/sql/menuSQL.xml"/> <!-- menu 추가 수정 삭제 관리 -->
 
 </sqlMapConfig>
