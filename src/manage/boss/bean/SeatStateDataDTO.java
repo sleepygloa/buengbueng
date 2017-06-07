@@ -1,6 +1,6 @@
 package manage.boss.bean;
 
-public class SeatCountDataDTO {
+public class SeatStateDataDTO {
 	private String key;
 	private String seatCheck;
 	public String getKey() {

@@ -1,0 +1,25 @@
+@CHARSET "UTF-8";
+
+#pcNum{
+	border:none;
+}
+
+.seatDisposeFirstDiv{
+	width:50%;
+}
+.seatDisposeSecondDiv{
+	width:9.5%;
+	height:100px;
+	border:1px solid black;
+	background-color:#666;
+	color:white;
+	float:left;
+}
+.seatDisposeSecondDiv2{
+	width:9.5%;
+	height:100px;
+	border:1px solid black;
+	background-color:red;
+	color:white;
+	float:left;
+}

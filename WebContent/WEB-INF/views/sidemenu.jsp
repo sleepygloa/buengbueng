@@ -26,6 +26,13 @@
 			<li><a href="bossEmployeeAdd.do" >아이디 수 변경</a></li>
 			<li><a href="bossEmployeeInfoList.do" >아이디 관리</a></li>
 			<li><a href="bossEmployeeLoginLogoutLogManage.do" >알바 근태관리</a></li>
+			<li><hr /></li>
+			<li>PC방 관리</li>
+			<li><a href="seatDispose.do" >PC방 좌석 정보 관리</a></li>
+			<li><a href="seatState.do" >PC방 좌석 이용 관리</a></li>
+			<li><hr /></li>
+			<li>대여 관리</li>
+			<li><a href="bossEmployeeManageMain.do" >대여물품 관리</a></li>
 		</c:if>		
 		
 		</ul>

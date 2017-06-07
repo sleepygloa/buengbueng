@@ -2,7 +2,6 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="franchisee">
 	
-
 	<!-- 사장님 정보를 불러온다. -->
 	<select id="getBossInfo" parameterClass="String" resultClass="bossDTO">
 		select * from bossInfo where b_id = #b_id#

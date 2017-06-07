@@ -1,17 +1,17 @@
 package user.info.dto;
 
 public class UserInfo {
-	private int pcNum;
-	private String id;
-	private String point;
-	private int grade;
-	private String loginTime;
-	
+	private String pcNum; // 사용자가 앉은 PC 좌석 번호
+	private String id; // 사용자 ID
+	private double point; // 사용자 잔액
+	private int grade; // 사용자 등급
+	private String loginTime; // 사용자 로그인 시간
+
 	private static UserInfo instance = new UserInfo();
 
 	private UserInfo(){
 		id = null;
-		point = null;
+		point = 0;
 		grade = 3;
 		loginTime = null;
 	}
@@ -21,7 +21,7 @@ public class UserInfo {
 	
 	public void clear(){
 		id = null;
-		point = null;
+		point = 0;
 		grade = 3;
 		loginTime = null;
 	}
@@ -32,10 +32,10 @@ public class UserInfo {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public void setPoint(String point){
+	public void setPoint(double point){
 		this.point = point;
 	}
-	public String getPoint(){
+	public double getPoint(){
 		return point;
 	}
 	public void setGrade(int grade){
@@ -50,10 +50,11 @@ public class UserInfo {
 	public void setLoginTime(String loginTime) {
 		this.loginTime = loginTime;
 	}
-	public int getPcNum() {
+	public String getPcNum() {
 		return pcNum;
 	}
-	public void setPcNum(int pcNum) {
+	public void setPcNum(String pcNum) {
 		this.pcNum = pcNum;
 	}
+	
 }

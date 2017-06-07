@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="pcInfo">
+	
+	<!-- pc방 좌석 정보 가져오기 -->
+	<select id="getPcInfo" parameterClass="java.util.HashMap" resultClass="pcInfoDto">
+		select * from pcInfo where num = #pcNum# and b_key = #key#;
+	</select>
+	<!-- 좌석 본체 정보 가져오기 -->
+	<select id="getComputerInfo" parameterClass="pcInfoDto" resultClass="comInfo">
+		select * from computer where c_num = #num# and c_bossKey = #b_key#;
+	</select>
+	<!-- 좌석 모니터 정보 가져오기 -->
+	<select id="getMonitorInfo" parameterClass="pcInfoDto" resultClass="moniInfo">
+		select * from monitor where m_num = #num# and m_bossKey = #b_key#;
+	</select>
+	<!-- 좌석 키보드 정보 가져오기 -->
+	<select id="getKeyboardInfo" parameterClass="pcInfoDto" resultClass="keyInfo">
+		select * from keyboard where k_num = #num# and k_bossKey = #b_key#;
+	</select>
+	<!-- 좌석 마우스 정보 가져오기 -->
+	<select id="getMouseInfo" parameterClass="pcInfoDto" resultClass="mouInfo">
+		select * from mouse where mo_num = #num# and mo_bossKey = #b_key#;
+	</select>
+	<!-- 좌석 마우스 정보 가져오기 -->
+	<select id="getSpeakerInfo" parameterClass="pcInfoDto" resultClass="speInfo">
+		select * from speaker where s_num = #num# and s_bossKey = #b_key#;
+	</select>
+<!-- ============================================================================================================================================== -->
+	<!-- 좌석 정보 수정 -->
+	<update id="modifyPcInfo" parameterClass="pcInfoDto">
+		update pcInfo set os = #os#, ip = #ip# where num = #num# and b_key = #b_key#;
+	</update>
+	<!-- 좌석 본체 정보 수정 -->
+	<update id="modifyConputerInfo" parameterClass="comInfo">
+		update computer set c_code = #c_code#, c_company = #c_company#, c_date = #c_date#, c_name = #c_name#, c_model = #c_model#, 
+		c_cpu = #c_cpu#, c_graphic = #c_graphic#, c_hard = #c_hard#, c_ram = #c_ram#, c_power = #c_power#, c_lan = #c_lan#, c_cooler = #c_cooler# 
+		where c_bossKey = #c_bossKey# and c_num = #c_num#;
+	</update>
+	<!-- 좌석 모니터 정보 수정 -->
+	<update id="modifyMonitorInfo" parameterClass="moniInfo">
+		update monitor set m_code = #m_code#, m_company = #m_company#, m_date = #m_date#, m_name = #m_name#, m_model = #m_model#, 
+		m_inch = #m_inch#, m_resolution = #m_resolution#, m_connector = #m_connector#, m_display = #m_display# 
+		where m_bossKey = #m_bossKey# and m_num = #m_num#;
+	</update>
+	<!-- 좌석 키보드 정보 수정 -->
+	<update id="modifyKeyboardInfo" parameterClass="keyInfo">
+		update keyboard set k_code = #k_code#, k_company = #k_company#, k_name = #k_name#, k_connector = #k_connector#, k_type = #k_type# 
+		where k_bossKey = #k_bossKey# and k_num = #k_num#;
+	</update>
+	<!-- 좌석 마우스 정보 수정 -->
+	<update id="modifyMouseInfo" parameterClass="mouInfo">
+		update mouse set mo_code = #mo_code#, mo_company = #mo_company#, mo_name = #mo_name#, mo_connector = #mo_connector#, mo_type = #mo_type# 
+		where mo_bossKey = #mo_bossKey# and mo_num = #mo_num#;
+	</update>
+	<!-- 좌석 스피커 정보 수정 -->
+	<update id="modifySpeakerInfo" parameterClass="speInfo">
+		update speaker set s_code = #s_code#, s_company = #s_company#, s_name = #s_name#, s_connector = #s_connector# 
+		where s_bossKey = #s_bossKey# and s_num = #s_num#;
+	</update>
+<!-- ============================================================================================================================================== -->
+	<!-- 좌석 정보 추가 -->
+	<insert id="insertPcInfo" parameterClass="pcInfoDto">
+		insert into pcInfo values(#num#,#b_key#,#os#,#ip#);
+	</insert>
+	<!-- 좌석 본체 정보 추가 -->
+	<insert id="insertConputerInfo" parameterClass="comInfo">
+		insert into computer values(#c_num#,#c_bossKey#,#c_code#,#c_company#,#c_date#,#c_name#,#c_model#,#c_cpu#,#c_graphic#,#c_hard#,
+		#c_ram#,#c_power#,#c_lan#,#c_cooler#);
+	</insert>
+	<!-- 좌석 모니터 정보 추가 -->
+	<insert id="insertMonitorInfo" parameterClass="moniInfo">
+		insert into monitor values(#m_num#,#m_bossKey#,#m_code#,#m_company#,#m_inch#,#m_resolution#,#m_date#,#m_name#,#m_connector#,#m_model#,#m_display#);
+	</insert>
+	<!-- 좌석 키보드 정보 추가 -->
+	<insert id="insertKeyboardInfo" parameterClass="keyInfo">
+		insert into keyboard values(#k_num#,#k_bossKey#,#k_code#,#k_company#,#k_name#,#k_type#,#k_connector#);
+	</insert>
+	<!-- 좌석 마우스 정보 추가 -->
+	<insert id="insertMouseInfo" parameterClass="mouInfo">
+		insert into mouse values(#mo_num#,#mo_bossKey#,#mo_code#,#mo_company#,#mo_name#,#mo_type#,#mo_connector#);
+	</insert>
+	<!-- 좌석 스피커 정보 추가 -->
+	<insert id="insertSpeakerInfo" parameterClass="speInfo">
+		insert into speaker values(#s_num#,#s_bossKey#,#s_code#,#s_company#,#s_name#,#s_connector#);
+	</insert>
+</sqlMap>

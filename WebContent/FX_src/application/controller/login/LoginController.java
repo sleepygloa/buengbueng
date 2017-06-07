@@ -1,10 +1,10 @@
 package application.controller.login;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URLEncoder;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import application.ConnectServer;
 import application.Main;
@@ -59,53 +59,57 @@ public class LoginController {
 	}
 	
 	public void login(){
-		/* »ç¿ëÀÚ°¡ ID¸¦ ÀÔ·Â ¾ÈÇÏ¸é ¾Ë¸² */
+		/* ì‚¬ìš©ìê°€ IDë¥¼ ì…ë ¥ ì•ˆí•˜ë©´ ì•Œë¦¼ */
 		if(id.getText().equals("")){
-			alertTxt.setText("¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+			alertTxt.setText("ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 		}
-		/* »ç¿ëÀÚ°¡ PW¸¦ ÀÔ·Â ¾ÈÇÏ¸é ¾Ë¸² */
+		/* ì‚¬ìš©ìê°€ PWë¥¼ ì…ë ¥ ì•ˆí•˜ë©´ ì•Œë¦¼ */
 		else if(pw.getText().equals("")){
-			alertTxt.setText("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+			alertTxt.setText("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 		}
-		/* »ç¿ëÀÚ°¡ ID¿Í PW¸¦ ÀÔ·ÂÇÏ¸é ½ÇÇà */
+		/* ì‚¬ìš©ìê°€ IDì™€ PWë¥¼ ì…ë ¥í•˜ë©´ ì‹¤í–‰ */
 		else{
 			try {
-				// ÀÔ·Â¹ŞÀº Á¤º¸¿Í ºÎÇÕÇÏ´Â »ç¿ëÀÚ Á¤º¸°¡ ÀÖ´ÂÁö È®ÀÎ
-				String param="id="+URLEncoder.encode(id.getText(),"UTF-8")+"&pw="+URLEncoder.encode(pw.getText(),"UTF-8");
+				// ì…ë ¥ë°›ì€ ì •ë³´ì™€ ë¶€í•©í•˜ëŠ” ì‚¬ìš©ì ì •ë³´ê°€ ìˆëŠ”ì§€ í™•ì¸
+                InetAddress local = InetAddress.getLocalHost();
+                String ip = local.getHostAddress();
+                String param="id="+URLEncoder.encode(id.getText(),"UTF-8")+"&pw="+URLEncoder.encode(pw.getText(),"UTF-8")+"&ip="+
+                        URLEncoder.encode(ip,"UTF-8")+"&key="+URLEncoder.encode("k93h11m16","UTF-8");
 				String urlInfo = "http://localhost:8080/buengbueng/fxLoginPro.do";
 				JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 				
 				String id = (String)jsonObj.get("id");
 				
-				// ¼­¹ö·ÎºÎÅÍ °ªÀ» Àü´Ş ¹Ş¾Ò°í, ±× °ªÀÌ failÀÌ ¾Æ´Ï¶ó¸é = ·Î±×ÀÎ ¼º°ø
+				// ì„œë²„ë¡œë¶€í„° ê°’ì„ ì „ë‹¬ ë°›ì•˜ê³ , ê·¸ ê°’ì´ failì´ ì•„ë‹ˆë¼ë©´ = ë¡œê·¸ì¸ ì„±ê³µ
 				if(!id.isEmpty() && !id.equals("fail")){
-					// »ç¿ëÀÚ Á¤º¸ ÀúÀå
+					// ì‚¬ìš©ì ì •ë³´ ì €ì¥
 					UserInfo.getInstance().setId(id);
-					UserInfo.getInstance().setPoint((String)jsonObj.get("point"));
+					UserInfo.getInstance().setPoint(Double.parseDouble((String)jsonObj.get("point")));
 					UserInfo.getInstance().setGrade(Integer.parseInt((String)jsonObj.get("grade")));
 					UserInfo.getInstance().setLoginTime((String)jsonObj.get("loginTime"));
+					UserInfo.getInstance().setPcNum((String)jsonObj.get("pcNum"));
 					Parent main = null;
-					// µî±ŞÀÌ »ç¿ëÀÚ(3)ÀÌ¸é
+					// ë“±ê¸‰ì´ ì‚¬ìš©ì(3)ì´ë©´
 					if(UserInfo.getInstance().getGrade() == 3){
-						// ¸ŞÀÎÈ­¸é ·¹ÀÌ¾Æ¿ô
+						// ë©”ì¸í™”ë©´ ë ˆì´ì•„ì›ƒ
 						main =  FXMLLoader.load(getClass().getResource("/application/controller/login/MainApp.fxml"));
 					}else{
 						main =  FXMLLoader.load(getClass().getResource("/application/controller/login/LoginApp.fxml"));
 					}
-					// ¸ŞÀÎÈ­¸é ·¹ÀÌ¾Æ¿ôÀ» È­¸é¿¡ µî·Ï
+					// ë©”ì¸í™”ë©´ ë ˆì´ì•„ì›ƒì„ í™”ë©´ì— ë“±ë¡
 					Scene scene = new Scene(main);
 					scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
-					// Main.getStage() = Main.java¿¡ ÀÖ´Â ¸ŞÀÎ½ºÅ×ÀÌÁö »ç¿ë(ÇöÀç launchµÈ ¾Ö)
+					// Main.getStage() = Main.javaì— ìˆëŠ” ë©”ì¸ìŠ¤í…Œì´ì§€ ì‚¬ìš©(í˜„ì¬ launchëœ ì• )
 					Main.getStage().setFullScreen(false);
-					Main.getStage().setWidth(600);	// Ã¢ °¡·Î Å©±â
-					Main.getStage().setHeight(300);	// Ã¢ ¼¼·Î Å©±â
-					Main.getStage().setX(1300);	// ¸ğ´ÏÅÍ »ó¿¡ Ã¢ÀÌ À§Ä¡ÇÒ X ÁÂÇ¥
-					Main.getStage().setY(50);	// ¸ğ´ÏÅÍ »ó¿¡ Ã¢ÀÌ À§Ä¡ÇÒ Y ÁÂÇ¥
-					Main.getStage().setScene(scene); // Ã¢¿¡ È­¸é ³Ö±â
+					Main.getStage().setWidth(600);	// ì°½ ê°€ë¡œ í¬ê¸°
+					Main.getStage().setHeight(300);	// ì°½ ì„¸ë¡œ í¬ê¸°
+					Main.getStage().setX(1300);	// ëª¨ë‹ˆí„° ìƒì— ì°½ì´ ìœ„ì¹˜í•  X ì¢Œí‘œ
+					Main.getStage().setY(50);	// ëª¨ë‹ˆí„° ìƒì— ì°½ì´ ìœ„ì¹˜í•  Y ì¢Œí‘œ
+					Main.getStage().setScene(scene); // ì°½ì— í™”ë©´ ë„£ê¸°
 				}
-				// ¼­¹ö·ÎºÎÅÍ °ªÀ» Àü´Ş ¹ŞÁö ¸øÇß°Å³ª, Àü´Ş¹ŞÀº °ªÀÌ failÀÌ¶ó¸é = ·Î±×ÀÎ ½ÇÆĞ
+				// ì„œë²„ë¡œë¶€í„° ê°’ì„ ì „ë‹¬ ë°›ì§€ ëª»í–ˆê±°ë‚˜, ì „ë‹¬ë°›ì€ ê°’ì´ failì´ë¼ë©´ = ë¡œê·¸ì¸ ì‹¤íŒ¨
 				else{
-					alertTxt.setText("·Î±×ÀÎ ½ÇÆĞ");
+					alertTxt.setText("ë¡œê·¸ì¸ ì‹¤íŒ¨");
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
