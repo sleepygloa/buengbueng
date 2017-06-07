@@ -8,8 +8,17 @@ public class UseTimeLogDTO {
 	private Timestamp logoutTime;
 	private String ip;
 	private int r;
+	private int workTime;
 	
 	
+	
+	
+	public int getWorkTime() {
+		return workTime;
+	}
+	public void setWorkTime(int workTime) {
+		this.workTime = workTime;
+	}
 	public int getR() {
 		return r;
 	}

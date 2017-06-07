@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import login.user.bean.UseTimeLogDTO;
+
 @Controller
 public class BossEmployeeManageBean2 {
 
@@ -50,6 +52,11 @@ public class BossEmployeeManageBean2 {
 
         List articleList = null; 
         
+        UseTimeLogDTO utlDto = null;
+        Long substract = null;
+        int substractint = 0;
+        
+        
         count = (Integer)sqlMap.queryForObject("erpEmp.getEmployeeLoginLogoutLogListCount", id); //가맹점 정보의 갯수를 가져온다.
         if (count > 0) {
         	HashMap map = new HashMap(); //HashMap에 여러가지정보 (시작행번호, 마지막행번호)넣어 한번에 보낸다.
@@ -57,6 +64,18 @@ public class BossEmployeeManageBean2 {
         	map.put("startRow", startRow);
         	map.put("endRow", endRow);
             articleList = sqlMap.queryForList("erpEmp.getEmployeeLoginLogoutLogList", map); //가맹점 리스트를 뽑아온다.
+            
+            //알바생 급여 에 대한 계산을 30초 단위로 한다.
+            for(int i = 0; i < articleList.size(); i ++){
+            	utlDto = null;
+            	utlDto = (UseTimeLogDTO)articleList.get(i);
+            	substract = utlDto.getLogoutTime().getTime() - utlDto.getLoginTime().getTime();
+            	//밀리초단위로 결과가 나옴.
+            	substractint = (int)(substract/1000); //초단위
+            	utlDto.setWorkTime(substractint);
+            }
+            
+            
         } else {
             articleList = Collections.EMPTY_LIST;
         }
