@@ -41,7 +41,7 @@
 <div id="form">
 <div>
 	<span>글번호</span>
-	<span>${dto.num}</span> 
+	<span>${number}</span> 
 	<span>조회수</span>
 	<span>${dto.readcount}</span>
 </div>
@@ -60,7 +60,7 @@
 </div>
 <div>
 	<c:if test="${user.grade == 0}">
-		<c:if test="${re_step==1}">
+		<c:if test="${re_step == 1}">
 			<span>
 				<input type="button" value="답글쓰기" onclick=
 				"window.location='customerForm.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}'">

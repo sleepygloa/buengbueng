@@ -41,7 +41,7 @@
 		<span><input type="text" name="title"></span>
 	</c:if>
 	<c:if test="${num!=0}">  
-		<span><input type="text" name="title" value="[답변]${title}"></span>
+		<span><input type="text" name="title" value="[Ans]${title}"></span>
 	</c:if>
 </div>
 	<textarea name="content"></textarea>

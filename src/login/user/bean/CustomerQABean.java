@@ -138,8 +138,10 @@ public class CustomerQABean { // Q & A
 	
 		sqlMap.update("customer.contentUp", map);
 		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", map);
-		int re_step = (Integer)sqlMap.queryForObject("customer.getReply",dto.getRef()); // 답글의 여부 확인
-	
+		map.put("ref", dto.getRef());
+		map.put("snum",snum);
+		int re_step = (Integer)sqlMap.queryForObject("customer.getReply",map); // 답글의 여부 확인 1일때만 답변 쓸수있음.
+		
 		request.setAttribute("re_step", re_step);
 		request.setAttribute("dto", dto);
 		request.setAttribute("number", number);
@@ -174,7 +176,7 @@ public class CustomerQABean { // Q & A
 			// 해당 글의 ref 그룹 호출 후 해당글 삭제
 			int ref = (Integer)sqlMap.queryForObject("customer.getRef", map);  
 			int re_step = (Integer)sqlMap.queryForObject("customer.getRe_step", map);
-		
+			map.put("snum", snum);
 			map.put("ref",ref);
 			map.put("re_step",re_step);
 			sqlMap.delete("customer.delRef", map);

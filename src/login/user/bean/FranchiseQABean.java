@@ -98,7 +98,7 @@ public class FranchiseQABean { // 가맹 문의
 		int re_step=dto.getRe_step();
 		int snum=dto.getSnum();
 		int number=0;
-		
+
 		number = (Integer)sqlMap.queryForObject("customer.maxNum", snum);
 		
 		if(number!=0){
@@ -120,8 +120,8 @@ public class FranchiseQABean { // 가맹 문의
 		return "/customer-center/franchisePro";
 	}
 	
-	@RequestMapping("franchiseContent.do")  // 게시글 내용 호출
-	public String franchiseContent(HttpServletRequest request,HashMap map,CustomerDTO dto,HttpSession session){
+	@RequestMapping("franchiseWriteCheck.do")  //  게시글 호출시 패스워드 검사 창
+	public String franchiseWriteCheck(HttpServletRequest request,HttpSession session,HashMap map) {
 		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출
 			String id = (String)session.getAttribute("loginId");
 			UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
@@ -132,15 +132,52 @@ public class FranchiseQABean { // 가맹 문의
 		String number = request.getParameter("number");
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		Integer num = Integer.parseInt(request.getParameter("num"));
+				
+		map.put("num", num);
+		map.put("snum",snum);
+		CustomerDTO dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", map);
+		if(dto.getTitle().length()>=4){		
+			String word = dto.getTitle().substring(1,4);
+			boolean che = word.contains("Ans");
+			request.setAttribute("che", che);
+		}
+		
+		request.setAttribute("number", number);
+		request.setAttribute("snum", snum);
+		request.setAttribute("num", num);
+		request.setAttribute("pageNum", pageNum);
+		return "/customer-center/franchiseWriteCheck";
+	}
 
+	@RequestMapping("franchiseContent.do")  // 게시글 내용 호출
+	public String franchiseContent(HttpServletRequest request,HashMap map,CustomerDTO dto,HttpSession session,UserInfoDataDTO user){
+		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출
+			String id = (String)session.getAttribute("loginId");
+			user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+		}
+		
+		String passwd = request.getParameter("passwd");
+		String pageNum = request.getParameter("pageNum");
+		String number = request.getParameter("number");
+		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		Integer num = Integer.parseInt(request.getParameter("num"));
+		int check = 0;
 		map.put("snum",snum);
 		map.put("num",num);
-	
 		sqlMap.update("customer.contentUp", map);
 		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", map);
-		int re_step = (Integer)sqlMap.queryForObject("customer.getReply",dto.getRef()); // 답글의 여부 확인
-	
+		
+		// 등급이 관리자 or 해당글 비밀번호 일치시 ...
+		if(user.getGrade()==0){check=1;}
+		if(dto.getPasswd().equals(passwd)){check = 1;}
+
+		map.put("ref", dto.getRef());
+		map.put("snum",snum);
+		int re_step = (Integer)sqlMap.queryForObject("customer.getReply",map); // 답글의 여부 확인 1일때만 답변 쓸수있음.	
 		request.setAttribute("re_step", re_step);
+
+		request.setAttribute("user", user);
+		request.setAttribute("check", check);
 		request.setAttribute("dto", dto);
 		request.setAttribute("number", number);
 		request.setAttribute("pageNum", pageNum);
@@ -174,7 +211,7 @@ public class FranchiseQABean { // 가맹 문의
 			// 해당 글의 ref 그룹 호출 후 해당글 삭제
 			int ref = (Integer)sqlMap.queryForObject("customer.getRef", map);  
 			int re_step = (Integer)sqlMap.queryForObject("customer.getRe_step", map);
-		
+			map.put("snum", snum);
 			map.put("ref",ref);
 			map.put("re_step",re_step);
 			sqlMap.delete("customer.delRef", map);
@@ -242,7 +279,7 @@ public class FranchiseQABean { // 가맹 문의
 		map.put("snum",snum);
 		int ref = (Integer)sqlMap.queryForObject("customer.getRef", map);
 		int re_step = (Integer)sqlMap.queryForObject("customer.getRe_step", map);
-		
+		map.put("snum",snum);
 		map.put("ref",ref);
 		map.put("re_step",re_step);
 		sqlMap.delete("customer.bossDel", map);

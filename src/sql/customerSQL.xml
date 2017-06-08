@@ -8,16 +8,16 @@
 	
 	<!-- 게시판의 총 게시글 -->
 	<select id="customercount" parameterClass="int" resultClass="int">
-		SELECT count(*) FROM customerBoard WHERE snum=#snum#;
+		select count(*) from customerBoard where snum=#snum#;
 	</select>
 	
 	<!-- 게시판 리스트 -->
 	<select id="customerlist" parameterClass="java.util.HashMap" resultClass="customerDTO">
 		<![CDATA[
-		SELECT num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount,@rownum:=@rownum+1 as rownum
-		FROM (SELECT num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount
-		FROM (SELECT num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount
-		FROM customerBoard,(select @rownum:=0)r WHERE snum=#snum# order by ref desc, re_step asc limit #startRow#,#pageSize#)a order by ref desc, re_step asc)b;
+		select num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount,@rownum:=@rownum+1 as rownum
+		from (SELECT num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount
+		from (SELECT num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount
+		from customerBoard,(select @rownum:=0)r WHERE snum=#snum# order by ref desc, re_step asc limit #startRow#,#pageSize#)a order by ref desc, re_step asc)b;
 		]]>
 	</select>
 	
@@ -43,8 +43,8 @@
 	</select>
 	
 	<!-- 답글 여부 확인 -->
-	<select id="getReply" parameterClass="int" resultClass="int">
-		select count(*) from customerBoard where ref=#ref#;
+	<select id="getReply" parameterClass="java.util.HashMap" resultClass="int">
+		select count(*) from customerBoard where ref=#ref# and snum=#snum#;
 	</select>
 		
 	<!-- 글 비밀번호 조회 -->
@@ -65,7 +65,7 @@
 	<!-- 게시글과 답글 삭제 -->
 	<delete id="delRef" parameterClass="java.util.HashMap">
 	<![CDATA[
-		delete from customerBoard where ref=#ref# and re_step>=#re_step#;
+		delete from customerBoard where ref=#ref# and re_step>=#re_step# and snum=#snum#
 	]]>
 	</delete>
 	
@@ -77,7 +77,7 @@
 	<!-- 관리자 글 삭제 -->
 	<delete id="bossDel" parameterClass="java.util.HashMap">
 	<![CDATA[
-		delete from customerBoard where ref=#ref# and re_step>=#re_step#;
+		delete from customerBoard where ref=#ref# and re_step>=#re_step# and snum=#snum#;
 	]]>
 	</delete>
 </sqlMap>

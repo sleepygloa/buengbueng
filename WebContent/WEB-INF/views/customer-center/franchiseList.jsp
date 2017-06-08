@@ -6,7 +6,7 @@
 <head>
 	<title>가맹 문의</title>
 </head>
-<div>
+<div id="pwChe">
 <div>가맹 문의</div>
 <div><a href="franchiseForm.do?snum=${snum}&pageNum=${pageNum}">문의하기</a></div>
 	<span>번호</span>
@@ -24,15 +24,15 @@
 <c:forEach var="list" items="${list}">
 <div>
 		<span>
-			<c:out value="${number}"/>
+		<c:out value="${number}"/>
 		</span>
-		<span><a href="franchiseContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}" target="_blank">${list.title}</a></span>
+		<span><a href="franchiseWriteCheck.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
 		<span>${list.writer}</span>
 		<span>${list.email}</span>
 		<span>${list.reg_date}</span>
 		<span>${list.readcount}</span>
 </div>
-<c:set var="number" value="${number-1}"/>
+		<c:set var="number" value="${number-1}"/>
 </c:forEach>
 	
 	<c:if test="${startPage > 10}">
