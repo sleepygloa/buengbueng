@@ -19,7 +19,7 @@ public class OneQABean { // 1:1 문의
 	private SqlMapClientTemplate sqlMap;
 	
 	@RequestMapping("oneQA.do")  // 게시판 리스트
-	public String oneQA(HttpServletRequest request,HashMap map){
+	public String oneQA(HttpServletRequest request,HashMap map,HttpSession session){
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		
@@ -70,7 +70,7 @@ public class OneQABean { // 1:1 문의
 			UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
 			request.setAttribute("user", user);
 		}
-		
+		System.out.println(session.getAttribute("asd"));
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		int num=0,ref=1,re_step=0;

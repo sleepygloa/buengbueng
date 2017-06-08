@@ -47,7 +47,7 @@
 	<textarea name="content"></textarea>
 <div>
 <div>
-	<c:if test="${dto.grade != 0}">
+	<c:if test="${user.grade != 0}">
 	<span>비밀번호</span>
 	<span><input type="password" name="passwd" ></span>
 	</c:if>

@@ -19,7 +19,7 @@ public class CustomerQABean { // Q & A
 	private SqlMapClientTemplate sqlMap;
 	
 	@RequestMapping("customerQA.do")  // 게시판 리스트
-	public String customerQA(HttpServletRequest request,HashMap map){
+	public String customerQA(HttpServletRequest request,HttpSession session,HashMap map){
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		

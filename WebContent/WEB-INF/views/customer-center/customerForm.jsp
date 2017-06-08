@@ -5,9 +5,12 @@
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
 <head>
-<title>가맹 문의</title>
+<title>Q & A</title>
 </head>
-<div>가맹 문의</div>
+<c:if test="${user.grade!=0}">
+	<script>alert("관리자 등급만 작성 가능"); history.go(-1);</script>
+</c:if>
+<div>Q & A</div>
 <form action="customerPro.do" method="post" onsubmit="return customerCheck();" name="customer">
 <input type="hidden" name="pageNum" value="${pageNum}">
 <input type="hidden" name="snum" value="${snum}">
@@ -47,7 +50,7 @@
 	<textarea name="content"></textarea>
 <div>
 <div>
-	<c:if test="${dto.grade != 0}">
+	<c:if test="${user.grade != 0}">
 	<span>비밀번호</span>
 	<span><input type="password" name="passwd" ></span>
 	</c:if>

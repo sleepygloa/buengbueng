@@ -6,7 +6,6 @@
 <head>
 	<title>가맹 문의</title>
 </head>
-
 <div>
 <div>가맹 문의</div>
 <div><a href="franchiseForm.do?snum=${snum}&pageNum=${pageNum}">문의하기</a></div>
@@ -27,7 +26,7 @@
 		<span>
 			<c:out value="${number}"/>
 		</span>
-		<span><a href="franchiseContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
+		<span><a href="franchiseContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}" target="_blank">${list.title}</a></span>
 		<span>${list.writer}</span>
 		<span>${list.email}</span>
 		<span>${list.reg_date}</span>

@@ -4,11 +4,11 @@
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
 <head>
-	<title>가맹 문의</title>
+	<title>1:1 문의</title>
 </head>
 
 <div>
-<div>가맹 문의</div>
+<div>1:1 문의</div>
 <div><a href="oneForm.do?snum=${snum}&pageNum=${pageNum}">문의하기</a></div>
 	<span>번호</span>
 	<span>제목</span>
