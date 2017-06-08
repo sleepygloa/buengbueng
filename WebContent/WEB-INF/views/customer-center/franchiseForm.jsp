@@ -20,7 +20,7 @@
 <div>
 	<span>이름</span>
 	<c:if test="${sessionScope.loginId != null}">
-		<span><input type="text" name="writer" value="${dto.name}" readonly></span>
+		<span><input type="text" name="writer" value="${user.name}" readonly></span>
 	</c:if>
 	<c:if test="${sessionScope.loginId == null}">
 		<span><input type="text" name="writer"></span>
@@ -29,7 +29,7 @@
 <div>
 	<span>이메일</span>
 	<c:if test="${sessionScope.loginId != null}">
-		<span><input type="text" name="email" value="${dto.email}"></span>
+		<span><input type="text" name="email" value="${user.email}"></span>
 	</c:if>
 	<c:if test="${sessionScope.loginId == null}">
 		<span><input type="text" name="email"></span>
