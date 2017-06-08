@@ -7,63 +7,72 @@
 	<title>메 뉴</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script>
-
-	$(document).ready(
-			function(){
-				$(".category").click(function(){
-					$.ajax({
-						url:"menuCategoryClick.do",
-						type:"post",
-						data: {category: $(".category").value},
-						success:function(data){
-							$("#categoryMenu").html(data);
-						}
-					});
-				});	
-		});
+		function category(category){
+				$.ajax({
+					url:"menuCategoryClick.do",
+					type:"post",
+					data: {category: category},
+					success:function(data){
+						$("#categoryMenu").html(data);
+					}
+				});
+		}
+		
+		function alls(){
+			$.ajax({
+				url:"menuCategoryAll.do",
+				type:"post",
+				success:function(data){
+					$("#categoryMenu").html(data);
+				}
+			});
+		}
+		
 	</script>
 	
 	
 </head>
 
 <body>
+
+   	<div>
+		<button onclick="window.location='product.do'">재 고</button>
+	</div>
+
 	<div>
 		<button onclick="window.location='menuInsertForm.do'">메 뉴 추 가</button>
 	</div>
 	
 	<div>
+		<button onclick="window.location='menuModify.do'">메 뉴 수 정</button>
+	</div>
+	
+	<div>
 		<button onclick="window.location='menuDeleteForm.do'">메 뉴 삭 제</button>
 	</div>
+	<div>
+		<button name="menuAll" onclick="alls()">전 체</button>
+	</div>
+	
 	
 	<div>
 		<table>
 		<tr>
 		<c:forEach var="category" items="${categoryList}">
-			<td><input type="button" name="${category}" class="category" value="${category}" /> </td>
+			<td><input type="button" name="${category}" onclick="category('${category}')" value="${category}" /> </td>
 		</c:forEach>
 		</tr>	
 		</table>
 	</div>
 	
 	<div>
-		<table>
-			<tr>
-			<td>제 품</td><td>제조사</td><td>가 격</td>
-			</tr>
-		
+
+		<table >	
 		<tr><td>
 		<div id="categoryMenu"></div>	
 		</td></tr>
-		
-		<c:forEach var="menu" items="${menuList}">
-		<tr>
-			<td>${menu.name}</td>	<td>${menu.company}</td> 	<td>${menu.price}</td>
-			<td><button id="order" value="${menu.name}">주 문</button></td>
-		</tr>
-		</c:forEach>
-		
-		
-		
+
+	
 		</table>
 	</div>
 	

@@ -7,7 +7,7 @@
 	
 	<!-- menu 추가  -->
 	<insert id="insertMenu" parameterClass="menuDto">
-		insert into menu values(#name#, #number#, #price#, #category#, #company#);
+		insert into menu values(#name#, #price#, #category#, #company#);
 	</insert>	
 	
 	<!-- 카테고리 버튼 만들기 -->
@@ -20,6 +20,16 @@
 		select * from menu;
 	</select>
 	
+	<!-- menu 수정하기 위해 상품명에 맞는 정보 가져오기-->
+	<select id="getMenuName" parameterClass="String" resultClass="menuDto">
+		select * from menu where name=#name#;
+	</select>
+	
+	<!-- menu 수정 -->
+	<update id="updateMenu" parameterClass="menuDto">
+		update menu set price=#price#, category=#category#, company=#company# where name=#name#;
+	</update>
+	
 	
 	<!-- menu 삭제 -->
 	<delete id="deleteMenu" parameterClass="String">
@@ -30,6 +40,19 @@
 	<select id="categoryMenuList" parameterClass="String" resultClass="menuDto">
 		select * from menu where category=#category#;
 	</select>
+	
+	
+	
+	<!-- 메뉴에 있는 제품 product 제품명에 보여지게 -->
+	<select id="productName" resultClass="String">
+		select name from menu;  
+	</select>
+	
+	<!-- product 추가 -->
+	<insert id="insertProduct" parameterClass="productDto">
+		insert into menu values(#name#, #code#, #lastday#, #salecheck#, #beginregist#);
+	</insert>
+	
 	
 </sqlMap>
 	

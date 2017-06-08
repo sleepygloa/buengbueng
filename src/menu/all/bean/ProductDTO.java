@@ -6,7 +6,7 @@ public class ProductDTO {
 	private int code;
 	private String name;
 	private Timestamp lastday;
-	private int salecheck;
+	private boolean salecheck;
 	private Timestamp beginregist;
 	
 	
@@ -28,10 +28,10 @@ public class ProductDTO {
 	public void setLastday(Timestamp lastday) {
 		this.lastday = lastday;
 	}
-	public int getSalecheck() {
+	public boolean getSalecheck() {
 		return salecheck;
 	}
-	public void setSalecheck(int salecheck) {
+	public void setSalecheck(boolean salecheck) {
 		this.salecheck = salecheck;
 	}
 	public Timestamp getBeginregist() {

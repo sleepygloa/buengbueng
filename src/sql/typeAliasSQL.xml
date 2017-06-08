@@ -8,6 +8,7 @@
 	<typeAlias alias="useTimeDto" type="login.user.bean.UseTimeLogDTO" />
 	<typeAlias alias="beDto" type="erp.boss.bean.BossEmployeeManageDataDTO" />
 	<typeAlias alias="customerDTO" type="login.user.bean.CustomerDTO"/>
+	<typeAlias alias="productDto" type="menu.all.bean.ProductDTO"/>
 	
 	
     
