@@ -57,6 +57,7 @@
 		<property name="order" value="1" />
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
+		
 	</bean>
 	
 	<!-- DB 연동 : SQL MAP CONTOROL -->
@@ -74,6 +75,6 @@
 	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource"
           destroy-method="close"
           p:driverClassName="com.mysql.jdbc.Driver"
-          p:url="jdbc:mysql://211.211.163.86:11056/buengbueng"
+          p:url="jdbc:mysql://211.211.163.86:11056/buengbueng?useUnicode=yes&amp;characterEncoding=utf8"
           p:username="buengbueng" p:password="1234" /> 
 </beans>
