@@ -120,5 +120,18 @@
 		]]>
 	</select>	
 
+	<!-- 사장님 총 통계 -->
+	
+	<!-- 사장님  알바생 일한 시간 계산 -->
+	<select id="employeeWorkCount" resultClass="bossErpTotalDTO" parameterClass="java.util.HashMap">
+		<![CDATA[
+		select (case when id = 1 then 'hello' else id end) as id,
+		date_format(loginTime, "%Y-%m-%d") AS loginTime, sum(round(logoutTime - loginTime)) as count 
+		from useTimeLog as a INNER JOIN employeeInfo as b ON a.id = b.e_id 
+		where loginTime >= #minDate# and loginTime <= #maxDate#
+		group by id with rollup;
+		]]>
+	</select>
+	
 </sqlMap>
 	

@@ -26,6 +26,7 @@
 			<li><a href="bossEmployeeAdd.do" >아이디 수 변경</a></li>
 			<li><a href="bossEmployeeInfoList.do" >아이디 관리</a></li>
 			<li><a href="bossEmployeeLoginLogoutLogManage.do" >알바 근태관리</a></li>
+			<li><a href="bossEmployeeAccountManage.do" >장부 관리</a></li>
 		</c:if>		
 		
 		</ul>

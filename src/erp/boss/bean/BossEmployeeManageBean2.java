@@ -22,7 +22,7 @@ public class BossEmployeeManageBean2 {
 	
 	//사장님 알바생관리 메인 페이지
 	@RequestMapping("bossEmployeeLoginLogoutLogManage.do")
-	public String bossEmployeeInfoMain(Model model, HttpSession session, String pageNum, String num){
+	public String bossEmployeeLoginLogoutLogManage(Model model, HttpSession session, String pageNum, String num){
 		
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
@@ -57,13 +57,13 @@ public class BossEmployeeManageBean2 {
         int substractint = 0;
         
         
-        count = (Integer)sqlMap.queryForObject("erpEmp.getEmployeeLoginLogoutLogListCount", id); //가맹점 정보의 갯수를 가져온다.
+        count = (Integer)sqlMap.queryForObject("erpEmp.getEmployeeLoginLogoutLogListCount", id); //알바생 로그인로그아웃 이력의 갯수를 센다.
         if (count > 0) {
         	HashMap map = new HashMap(); //HashMap에 여러가지정보 (시작행번호, 마지막행번호)넣어 한번에 보낸다.
         	map.put("id", id);
         	map.put("startRow", startRow);
         	map.put("endRow", endRow);
-            articleList = sqlMap.queryForList("erpEmp.getEmployeeLoginLogoutLogList", map); //가맹점 리스트를 뽑아온다.
+            articleList = sqlMap.queryForList("erpEmp.getEmployeeLoginLogoutLogList", map); //알바생 로그인로그아웃 이력을 가져온다.
             
             //알바생 급여 에 대한 계산을 30초 단위로 한다.
             for(int i = 0; i < articleList.size(); i ++){
