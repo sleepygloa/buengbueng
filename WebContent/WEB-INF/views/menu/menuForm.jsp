@@ -6,7 +6,9 @@
     <head>
 	<title>메 뉴</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	
 	<script>
+	<%--  --%>
 		function category(category){
 				$.ajax({
 					url:"menuCategoryClick.do",
@@ -18,12 +20,23 @@
 				});
 		}
 		
-		function alls(){
+		function all(){
 			$.ajax({
 				url:"menuCategoryAll.do",
 				type:"post",
 				success:function(data){
 					$("#categoryMenu").html(data);
+				}
+			});
+		}
+		
+		function order(name){
+			$.ajax({
+				url:"menuOrderListForm.do",
+				type:"post",
+				data: {name: name},
+				success:function(data){
+					$("#,").html(data);
 				}
 			});
 		}

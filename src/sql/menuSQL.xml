@@ -44,13 +44,13 @@
 	
 	
 	<!-- 메뉴에 있는 제품 product 제품명에 보여지게 -->
-	<select id="productName" resultClass="String">
+	<select id="productName" resultClass="productDto">
 		select name from menu;  
 	</select>
 	
 	<!-- product 추가 -->
 	<insert id="insertProduct" parameterClass="productDto">
-		insert into menu values(#name#, #code#, #lastday#, #salecheck#, #beginregist#);
+		insert into product values(#code#, #name#, #lastday#, #salecheck#, now());
 	</insert>
 	
 	

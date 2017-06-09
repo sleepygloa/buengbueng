@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class ProductDTO {
 	private int code;
 	private String name;
-	private Timestamp lastday;
+	private String lastday;
 	private boolean salecheck;
 	private Timestamp beginregist;
 	
@@ -22,10 +22,10 @@ public class ProductDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Timestamp getLastday() {
+	public String getLastday() {
 		return lastday;
 	}
-	public void setLastday(Timestamp lastday) {
+	public void setLastday(String lastday) {
 		this.lastday = lastday;
 	}
 	public boolean getSalecheck() {

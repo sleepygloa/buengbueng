@@ -27,7 +27,7 @@ public class ProductBean {
 	}
 	
 	@RequestMapping("productInsertPro.do")
-	public String productInsertPro(ProductDTO pdto){
+	public String productInsertPro(ProductDTO pdto, HttpServletRequest request){
 		int check;
 		try{
 			sqlMap.insert("menu.insertProduct",pdto);

@@ -12,6 +12,6 @@
 			<td>${categoryMenu.name}</td>
 			<td>${categoryMenu.company}</td>
 			<td>${categoryMenu.price}</td>
-			<td><button id="order" value="${menu.name}">주 문</button></td>
+			<td><button id="order" value="${menu.name}"onclick="order('${menu.name}')">주 문</button></td>
 		</tr>
 		</c:forEach>
