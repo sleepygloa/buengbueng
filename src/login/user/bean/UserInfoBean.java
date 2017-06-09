@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import superclass.all.bean.CheckInfo;
+import superclass.all.bean.EventGetMoney;
 import superclass.all.bean.FindIpBean;
 
 @Controller
@@ -40,20 +41,36 @@ public class UserInfoBean {
 	public String login(HttpServletRequest request,HttpSession session){
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-
-		//ID로 사용자 정보 불러온다음 입력한 PW와 DB의 PW와 비교한다.
-		UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
-		if(pw.equals(dto.getPw())){
-			session.setAttribute("loginId", dto.getId());
+		
+		int check = -1;
+		
+		try{
+			//ID로 사용자 정보 불러온다음 입력한 PW와 DB의 PW와 비교한다.
+			UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+			if(pw.equals(dto.getPw())){
+				session.setAttribute("loginId", dto.getId());
+				
+				//접속장소의 IP를 검색하고,로그인 LOG 를 남긴다.
+				FindIpBean fib = new FindIpBean();
+				String ip = (String)fib.findIp();
+				
+				HashMap map = new HashMap();
+				map.put("id", id);
+				map.put("ip", ip);
+				sqlMap.insert("erpEmp.insertEmployeeLoginLog", map); //로그인 LOG 남김
+				
+//				int eventMoney = 1000; //이벤트 충전 머니
+//				if(eventMoney != 0){
+//					HashMap map1 = new HashMap();
+//					map1.put("id", id);
+//					map1.put("eventMoney", eventMoney);
+//					EventGetMoney EventGetMoney = new EventGetMoney();
+//					check = EventGetMoney.eventGetMoney(map1);
+//				}
+			}
 			
-			//로그인 LOG 남김
-			FindIpBean fib = new FindIpBean();
-			String ip = (String)fib.findIp();
+		}catch(Exception e){
 			
-			HashMap map = new HashMap();
-			map.put("id", id);
-			map.put("ip", ip);
-			sqlMap.insert("erpEmp.insertEmployeeLoginLog", map);
 		}
 		
 		return "/index";
@@ -66,12 +83,28 @@ public class UserInfoBean {
 		try{
 			//세션 아이디를 페이지로전달
 			String id = (String)session.getAttribute("loginId");
-			System.out.println(id);
 			if(sqlMap.queryForObject("erpEmp.findLoginLogLogoutNull", id) == null){
-				System.out.println(id);
-				System.out.println("dd");
 				sqlMap.update("erpEmp.updateEmployeeLogoutLog", id);
 			};
+			
+			/////////////////////////////
+//			로그아웃시 사용시간 결제
+			/////////////////////////////
+			//정책 불러오기
+			//로그아웃한 PC의 IP를 불러옴
+			//IP를 가지고 LicenseKey 번호를 가져옴 
+			//LIcenseKey로 그 피씨방의 요금정책을 불러옴
+			FindIpBean findIpBean = new FindIpBean();
+			String ip = findIpBean.findIp();
+			System.out.println(ip); //192.168.91.1 192.168.111.1
+			sqlMap.queryForObject("cash.getMoneyPolicyToIp", ip);
+			
+			//로그아웃시간 - 로그인 시간 = 이용시간 **
+			//이용시간 * 정책 = 사용금액
+			//현재금액 - 사용금액 = 남은돈
+			//이용로그남기기
+			//결제로그남기기
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{

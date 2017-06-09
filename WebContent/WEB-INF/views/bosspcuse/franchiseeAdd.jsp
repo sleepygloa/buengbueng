@@ -117,7 +117,7 @@
 							<label>사업장 사장님컴퓨터 IP<br /></label>
 							<div class="form-group">
 								${ip}
-						<input type="hidden" value="${ip}" />
+						<input type="hidden" name="ip" value="${ip}" />
 							</div>
 					</div>
 				</div>							

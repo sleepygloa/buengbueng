@@ -35,6 +35,11 @@
 		WHERE num = #num#;
 	</update>
 	
-	
+	<!-- 가맹점 정보입력 -->
+	<update id="insertFranchiseeInfoAdd" parameterClass="bossDTO">
+		insert INTO franchiseeAddLog 
+		(result, Date, b_id, b_name, b_number,b_address,b_tel,b_size,b_pccount,b_ip) 
+		VALUES(0,now(), #b_id#,#b_name#,#b_number#,#b_address#,#b_tel#,#b_size#,#b_pccount#,#b_ip#);
+	</update>
 	
 </sqlMap>

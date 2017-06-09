@@ -91,38 +91,7 @@ public class FranchiseeManagementBean {
 		return "/bosspcuse/franchiseeAdd";
 	}
 	
-	//가맹점 추가 폼의 AJAX 처리
-		@RequestMapping("franchiseeAddAjaxBossInfo.do")
-		public String franchiseeAddAjaxBossInfo(HttpSession session, BossInfoDataDTO bossDto, Model model){
-			
-			//세션의 아이디와 BossInfo Table의 아이디가 동일한 것이 있는지 부터 검사를 한다.
-			UserInfoDataDTO userDto;
-			
-			//현재 로그인한 사용자의 아이디를 불러온다.
-			String id = (String)session.getAttribute("loginId");
-			int check;
-			String ip;
-						
-			//사장님이라면 사장님정보를 불러온다.
-			bossDto = (BossInfoDataDTO)sqlMap.queryForObject("franchisee.getBossInfo", id);
-			
-			//사용자라면 사용자정보를 불러오고, 사장님  PC방정보를 입력한다.
-			userDto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
-			
-			//방문자의 IP주소를 알아낸다
-			ip = (String)findIP.findIp();
-			
-			//가맹점 신청 테이블에 이력을 남긴다. 
-			
-			//가맹점 추가신청을한다.
-			
-			model.addAttribute("bossDto", bossDto);
-			model.addAttribute("userDto", userDto);
-			model.addAttribute("ip", ip);
-			
-			
-			return "/bosspcuse/franchiseeAddAjaxBossInfo";
-		}
+	
 	
 	//가맹점 신청 처리 BEAN
 	@RequestMapping("franchiseeAddPro.do")
@@ -140,6 +109,8 @@ public class FranchiseeManagementBean {
 				//입력된 정보를 로그에 남겨줍니다.
 				sqlMap.insert("franchisee.insertFranchiseeAddLog", bossDto);
 				
+				//로그남겨졌을때, franchiseeInfo에 프랜차이즈 정보를 입력해줍니다.
+				sqlMap.insert("franchisee.insertFranchiseeInfoAdd", bossDto);
 				check = 1;
 			}catch(Exception e){
 				check = 2;
