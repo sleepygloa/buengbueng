@@ -1,5 +1,6 @@
 package menu.all.bean;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -68,12 +69,19 @@ public class MenuBean {
 	}
 	
 	@RequestMapping("menuModifyPro.do")
-	public String menuModifyPro(MenuDTO mdto, HttpServletRequest request){
+	public String menuModifyPro(String beforeName,MenuDTO mdto, HttpServletRequest request){
 		int check;
 		try{
 			check=1;
 			System.out.println(mdto.getName());
-			sqlMap.update("menu.updateMenu", mdto);
+	
+			HashMap map=new HashMap();
+			map.put("beforeName",beforeName);
+			map.put("name", mdto.getName());
+			map.put("price", mdto.getPrice());
+			map.put("category", mdto.getCategory());
+			map.put("company", mdto.getCompany());
+			sqlMap.update("menu.updateMenu", map);
 			request.setAttribute("check",check);
 		}catch(Exception e){e.printStackTrace(); check=0;}		
 		return "/menu/menuModifyPro";

@@ -1,12 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-</body>
-</html>
+    
+    <head>
+    <title>재 고 수 정</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
+    </head>
+    
+    
+    <body>
+    	<div>
+    	<form action="productModifyPro.do" method="post" name="productInsertForm">
+    		<table>					
+    			<tr>	
+    			<td>제품명</td>
+    			<td>
+    			<input type="text" name="name" placeholder="제품명 입력">
+    			<select name="menu_select" onchange="productSelect();">
+    				<option selected="selected">등록 메뉴 보기</option>
+    				<c:forEach var="namelist" items="${nameList}" >
+    				<option name="name" value="${namelist.name}" >${namelist.name}</option>
+    				</c:forEach>
+    			</select>
+    				
+    			</td>
+    			</tr>
+    			
+    			<tr>	
+    			<td>바코드번호</td>
+    			<td><input type="text" name="code" placeholder="바코드 입력">	</td>
+    			</tr>
+    		
+    			<tr>	
+    			<td>유통기한</td>
+    			<td><input type="text" name="lastday" placeholder="유통기한 입력">	</td>
+    			</tr>
+     
+    			<tr>	
+    			<td>판매유무</td>
+    			<td><input type="text" name="salecheck" placeholder="판매유무 입력"></td>
+    			</tr>
+    			<tr><td><input type="submit" value="추 가"/></td>
+    			</tr>    		
+    		</table>
+    		</form>
+    	</div>
+    </body>

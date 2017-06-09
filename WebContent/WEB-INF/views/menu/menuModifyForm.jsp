@@ -19,7 +19,8 @@
     			
     			<tr>	
     			<td>제품명</td>
-    			<td>${mdto.name}<input type="hidden" name="name" value="${mdto.name }"/></td>
+    			<td><input type="text" name="name" value="${mdto.name}"/>
+    				<input type="hidden" name="beforeName" value="${mdto.name}"></td>
     			</tr>
     		
     			<tr>	

@@ -1,12 +1,13 @@
 package menu.all.bean;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class ProductDTO {
 	private int code;
 	private String name;
-	private String lastday;
-	private boolean salecheck;
+	private Date lastday;
+	private int salecheck;
 	private Timestamp beginregist;
 	
 	
@@ -22,16 +23,16 @@ public class ProductDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getLastday() {
+	public Date getLastday() {
 		return lastday;
 	}
-	public void setLastday(String lastday) {
+	public void setLastday(Date lastday) {
 		this.lastday = lastday;
 	}
-	public boolean getSalecheck() {
+	public int getSalecheck() {
 		return salecheck;
 	}
-	public void setSalecheck(boolean salecheck) {
+	public void setSalecheck(int salecheck) {
 		this.salecheck = salecheck;
 	}
 	public Timestamp getBeginregist() {

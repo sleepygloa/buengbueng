@@ -4,6 +4,7 @@
 
 <script type="text/javascript">
 	function succ(check, url){
+
 		alert(check);
 		window.location=url;
 	}

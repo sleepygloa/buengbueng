@@ -26,8 +26,8 @@
 	</select>
 	
 	<!-- menu 수정 -->
-	<update id="updateMenu" parameterClass="menuDto">
-		update menu set price=#price#, category=#category#, company=#company# where name=#name#;
+	<update id="updateMenu" parameterClass="java.util.HashMap">
+		update menu set name=#name#, price=#price#, category=#category#, company=#company# where name=#beforeName#;
 	</update>
 	
 	
@@ -43,6 +43,14 @@
 	
 	
 	
+	
+	<!-- 등록된 product 내역 보여주기 -->
+	<select id="getProduct" resultClass="productDto">
+		select * from product;  
+	</select>
+	
+	
+	
 	<!-- 메뉴에 있는 제품 product 제품명에 보여지게 -->
 	<select id="productName" resultClass="productDto">
 		select name from menu;  
@@ -52,6 +60,22 @@
 	<insert id="insertProduct" parameterClass="productDto">
 		insert into product values(#code#, #name#, #lastday#, #salecheck#, now());
 	</insert>
+	
+	<!-- product 수정하기 위해 재고명에 맞는 정보 가져오기, 바코드 중복 방지-->
+	<select id="getProductName" parameterClass="int" resultClass="productDto">
+		select * from product where code=#code#;
+	</select>
+	
+	<!-- product 수정 -->
+	<update id="updateProduct" parameterClass="productDto">
+		update product set name=#name#, code=#code#, lastday=#lastday# where code=#code#;
+	</update>
+	
+	
+	<!-- product 삭제 -->
+	<delete id="deleteProduct" parameterClass="int">
+		delete from product where code=#code#;
+	</delete>
 	
 	
 </sqlMap>

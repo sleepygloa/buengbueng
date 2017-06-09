@@ -8,7 +8,7 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	
 	<script>
-	<%--  --%>
+	
 		function category(category){
 				$.ajax({
 					url:"menuCategoryClick.do",
@@ -20,7 +20,7 @@
 				});
 		}
 		
-		function all(){
+		function alls(){
 			$.ajax({
 				url:"menuCategoryAll.do",
 				type:"post",
