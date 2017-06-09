@@ -37,11 +37,13 @@ public class FranchiseeManagementBean {
 	@RequestMapping("franchiseeManagementMain.do")
 	public String franchiseeManagementMain(Model model){
 		
+		//////////////////////////////////////////
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 1; //사이드메뉴의 내용을 선택
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
+		//변수들을 페이지로 전달
 		
 		return "/bosspcuse/franchiseeManagementMain";
 	}
@@ -50,11 +52,13 @@ public class FranchiseeManagementBean {
 	@RequestMapping("franchiseeAdd.do")
 	public String franchiseeAdd(HttpSession session, BossInfoDataDTO bossDto, Model model){
 		
+		//////////////////////////////////////////
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 1; //사이드메뉴의 내용을 선택
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
+		//변수들을 페이지로 전달
 		
 		//세션의 아이디와 BossInfo Table의 아이디가 동일한 것이 있는지 부터 검사를 한다.
 		UserInfoDataDTO userDto;
@@ -64,16 +68,18 @@ public class FranchiseeManagementBean {
 		int check;
 		String ip;
 		
-		//로그인 하지 않았을때 그냥 폼은 보여주지만, 아무것도할수없다.
+		//////////////////////////////////////////
+		//비로그인접근, 잘못된 경로로 접근한사람 내쫓음
 		if(id == null){
 			check = 9; //비회원이 싸이트로 접속했을때.
 			return "/bosspcuse/franchiseeAddPro";
 		}
 		
+		//////////////////////////////////////////////////////////////////////////////
 		//사장님이라면 사장님정보를 불러온다.
 		bossDto = (BossInfoDataDTO)sqlMap.queryForObject("franchisee.getBossInfo", id);
 		
-		//사용자라면 사용자정보를 불러오고, 사장님  PC방정보를 입력한다.
+		//임시 : 사용자라면 사용자정보를 불러오고, 사장님 PC방정보를 입력한다.
 		userDto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
 		
 		//방문자의 IP주소를 알아낸다
@@ -86,7 +92,6 @@ public class FranchiseeManagementBean {
 		model.addAttribute("bossDto", bossDto);
 		model.addAttribute("userDto", userDto);
 		model.addAttribute("ip", ip);
-
 		
 		return "/bosspcuse/franchiseeAdd";
 	}
@@ -106,7 +111,8 @@ public class FranchiseeManagementBean {
 		
 		bossDto.setB_id(id);
 			try{
-				//입력된 정보를 로그에 남겨줍니다.
+				/////////////////////////////////////////////////////////////
+				//가맹점 정보 로그를 입력한다.
 				sqlMap.insert("franchisee.insertFranchiseeAddLog", bossDto);
 				
 				//로그남겨졌을때, franchiseeInfo에 프랜차이즈 정보를 입력해줍니다.
@@ -127,11 +133,13 @@ public class FranchiseeManagementBean {
 	@RequestMapping("franchiseeList.do")
 	public String franchiseeList(String pageNum , HttpServletRequest request, Model model){
 		
+		//////////////////////////////////////////
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 1; //사이드메뉴의 내용을 선택
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
+		//변수들을 페이지로 전달
 		
 		if (pageNum == null) {
             pageNum = "1";
@@ -176,9 +184,9 @@ public class FranchiseeManagementBean {
 			
 			int check = 0;
 			
-			
-			String b_key = "";
+			////////////////////////////////////
 			// 8자리 16진수 라이센스키를 가져오는 메서드 실행
+			String b_key = "";
 			b_key += random.random();
 			
 			HashMap map = new HashMap();
@@ -186,6 +194,8 @@ public class FranchiseeManagementBean {
 			map.put("num", num);
 			
 			try{
+				///////////////////////////////////////////////////
+				//관리자가 가맹점 신청을 승인한다.
 				sqlMap.update("franchisee.franchiseeConfirm", map);	
 				check = 1;
 			}catch(Exception e){

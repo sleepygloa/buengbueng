@@ -16,7 +16,7 @@
 	
 <!-- 알바생 관리 하는 부분 -->
 	
-	<!-- 아이디로 아이디와 비밀번호를 확인 -->
+	<!-- 사장님이 알바원하는 인원수만큼 신청(삭제도가능) -->
 	<insert id="insertBossEmployeeAddLog" parameterClass="beDto">
 		INSERT INTO bossEmployeeLog (b_id, applyCount, applyTime, content) VALUES(#b_id#, #applyCount#, now(), #content#);
 	</insert>
@@ -41,7 +41,7 @@
 		SELECT e_id from employeeInfo where e_bossid = '' ORDER BY e_id desc; 
 	</select>
 	
-	<!-- 알바생아이디는 있고, 보스 아이디가있는 것을 찾음 -->
+	<!-- 알바생아이디 있고, 보스 아이디도 있는 것 중 가장 높은 번호를 찾음 -->
 	<select id="findBossIdNotNull" resultClass="String">
 		SELECT e_id from employeeInfo where e_bossid = #e_bossid# ORDER BY e_id desc; 
 	</select>

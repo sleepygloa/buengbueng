@@ -54,6 +54,7 @@ public class UserInfoBean {
 			if(pw.equals(dto.getPw())){
 				session.setAttribute("loginId", dto.getId());
 				
+				//////////////////////////////////
 				//접속장소의 IP를 검색하고,로그인 LOG 를 남긴다.
 				FindIpBean fib = new FindIpBean();
 				String ip = (String)fib.findIp();
@@ -63,10 +64,14 @@ public class UserInfoBean {
 				map.put("ip", ip);
 				sqlMap.insert("erpEmp.insertEmployeeLoginLog", map); //로그인 LOG 남김
 				
+				////////////////////////////////////
+				//임시 만든 이벤트 코드, 사용자가 방문(로그인) 했을때 1000원씩준다.
 				int eventMoney = 1000; //이벤트 충전 머니
 				if(eventMoney != 0){
-
-					check = eventGetMoney.eventGetMoney(id);
+					HashMap map1 = new HashMap();
+					map1.put("id", id);
+					map1.put("eventMoney", eventMoney);
+					check = eventGetMoney.eventGetMoney(map1);
 				}
 			}
 			
@@ -102,7 +107,8 @@ public class UserInfoBean {
 			map.put("b_ip", ip);
 			
 			System.out.println(ip); //192.168.91.1 192.168.111.1 192.168.10.1
-			UseTimeLogDTO utlDto = null; 
+			UseTimeLogDTO utlDto = null;
+			//유저가 사용한 PC방 이용시간 디테일정보 찾기(계산)
 			utlDto = (UseTimeLogDTO)sqlMap.queryForObject("cash.userPcUseTimePay", map);
 			utlDto.setId(id);
 			System.out.println(utlDto.getId());
@@ -111,17 +117,13 @@ public class UserInfoBean {
 			
 			sqlMap.update("log.userGiveBossMoneyUserAccount", utlDto);//사용자 계좌에 반영
 			sqlMap.update("log.userGiveBossMoneyBossAccount", utlDto);//사장님계좌에 반영
-			
-			
-			
+	
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
 			session.invalidate();
 		}
 		
-		
-
 		return "/index";
 	}
 

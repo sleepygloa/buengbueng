@@ -26,7 +26,8 @@
 	
 		<!-- main -->
 		<link rel="stylesheet" type="text/css" media="all" href="css/dist/sidemain_main.css">
-		
+		<!-- 구글 MATERIAL ICON -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 		
 		<!-- 홈페이지 제목 -->

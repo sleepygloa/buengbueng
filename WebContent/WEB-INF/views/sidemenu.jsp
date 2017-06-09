@@ -7,17 +7,19 @@
 	<div class="sidemenu xs_hidden">
 	<!-- 링크 LIST -->
 		<ul class="my_side_ul">
+<!-- --------------------------------------------------------- -->
 		<c:if test="${sidemenu == 1}">
-		
 			<li>가맹점 통계</li>
 			<li><a href="franchiseeList.do" >가맹점 현황</a></li>
 			<li><a href="franchiseeAdd.do" >가맹점 추가</a></li>
 		</c:if>
+		
 		<c:if test="${sidemenu == 2}">
 			<li>PC방 찾기</li>
 			<li><a href="searchPCForm.do" >PC방 찾기</a></li>
 			<li><a href="franchiseeAdd.do" >우리동네 PC방 찾기</a></li>
 		</c:if>
+		
 		<c:if test="${sidemenu == 3}">
 			<li><a href="bossErpManageMain.do" >ERP관리 MAIN</a></li>
 			<li><hr /></li>
@@ -28,6 +30,6 @@
 			<li><a href="bossEmployeeLoginLogoutLogManage.do" >알바 근태관리</a></li>
 			<li><a href="bossEmployeeAccountManage.do" >장부 관리</a></li>
 		</c:if>		
-		
+<!-- --------------------------------------------------------- -->		
 		</ul>
 	</div>
