@@ -286,25 +286,6 @@ public class UserInfoBean {
 			request.setAttribute("result", "fail");	// 회원 가입이 실패했음을 알림
 		}
 		
-		if(dto.getGrade()==1){
-			bdto.setB_id(dto.getId());
-			sqlMap.insert("test.bossInfoInsert",bdto);
-		}
-		if(dto.getGrade()==2){
-			edto.setE_id(dto.getId());
-			String bossid= request.getParameter("bossid");
-			String bossCheck = (String) sqlMap.queryForObject("test.searchBossId", bossid);
-			if(bossCheck!=null){
-				edto.setE_bossid(bdto.getB_id());
-				sqlMap.insert("test.employeeInfoInsert",edto);
-			}else{
-				bossCheck="fail";
-			}
-			request.setAttribute("bossCheck",bossCheck);
-		}
-		
-		
-		
 		return "/userInfo/userInfoSignPro";
 	}
 	

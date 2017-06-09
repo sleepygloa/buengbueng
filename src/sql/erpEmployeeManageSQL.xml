@@ -36,6 +36,21 @@
 		INSERT INTO employeeInfo (e_id, e_bossid) VALUES(#e_id#, #e_bossid#);
 	</insert>	
 	
+	<!-- 새로만들 알바아이디가 userInfo에 있는지 검색 -->
+	<select id="findEmployeeIdUserId" parameterClass="String">
+		select * from userInfo where id = #e_id#;
+	</select>
+	
+	<!-- 사장아이디만 있는 것을 검색 -->
+	<select id="findEmployeeInfoNullBossId" resultClass="String" parameterClass="String">
+		select e_id from employeeInfo where e_id = '' and e_bossid = #e_bossid# Limit 0,1;
+	</select>
+	
+	<!--  -->
+	<update id="updateEmployeeInfoNullBossId" parameterClass="String">
+		update employeeInfo set e_id = #e_id# where e_id = '' and e_bossid = #e_bossid#;
+	</update>
+	
 	<!-- 알바생아이디는 있지만 보스아이디가 없는 것을 찾음 -->
 	<select id="findBossIdNull" resultClass="String">
 		SELECT e_id from employeeInfo where e_bossid = '' ORDER BY e_id desc; 

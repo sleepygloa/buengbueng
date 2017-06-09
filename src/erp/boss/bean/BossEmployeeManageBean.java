@@ -125,21 +125,20 @@ public class BossEmployeeManageBean {
 					//아까 찾은 제일 마지막으로 큰 숫자 가 2이라면, 3부터 시작할 수 있게 1을 더해준다. for문은 0부터 시작한다.
 						checkIdInt += 1;
 					for(int i = 0; i < length; i ++){
-						checkIdInt += i;
-						//혹시라도 알바생아이디는 있지만, 사장님정보가 누락된 아이디가 있는지 확인한다. 있다면 그아이디를 findId에 넣어준다.
-						if(sqlMap.queryForObject("erpEmp.findBossIdNull", null) != null){
-							findId = (String)sqlMap.queryForObject("erpEmp.findBossIdNull", null);
-						}
-						
-						//위의 IF에서 findId를 채우지 못햇다면, 알바생과 사장님 아이디가 매칭이되었다면
-						if(findId == null){
-						//+1 수를 employee수 로 붙여서 아이디를 만들고
-							e_id = "employee" + checkIdInt;
-						}else{
-						//없다면 찾은 아이디를 생성한다.
-							e_id = findId;
-						}
-										
+						checkIdInt += 1;
+							//혹시라도 알바생아이디는 있지만, 사장님정보가 누락된 아이디가 있는지 확인한다. 있다면 그아이디를 findId에 넣어준다.
+							if(sqlMap.queryForObject("erpEmp.findBossIdNull", null) != null){
+								findId = (String)sqlMap.queryForObject("erpEmp.findBossIdNull", null);
+							}
+							
+							//위의 IF에서 findId를 채우지 못햇다면, 알바생과 사장님 아이디가 매칭이되었다면
+							if(findId == null){
+							//+1 수를 employee수 로 붙여서 아이디를 만들고
+								e_id = "employee" + checkIdInt;
+							}else{
+							//없다면 찾은 아이디를 생성한다.
+								e_id = findId;
+							}
 						////////////////////////////
 						//이렇게 만든아이디를 userInfo에 최초정보만 기입한다. 
 						//알바생이 자신의 나머지정보를 입력할수있게한다. 이력서 작성하듯이.
@@ -147,10 +146,23 @@ public class BossEmployeeManageBean {
 						map.put("e_id", e_id);
 						map.put("e_bossid", b_id);
 						//회원 테이블에 새로운 아이디생성
-						sqlMap.insert("erpEmp.insertEmployeeIdUserInfo", e_id);
 						
+						//새로 만든 알바생 아이디가 회원정보에 입력이 되어있따면?
+						
+						if(sqlMap.queryForObject("erpEmp.findEmployeeIdUserId", e_id) == null){
+							sqlMap.insert("erpEmp.insertEmployeeIdUserInfo", e_id);//유저정보에 넣어준다.
+							if(findId == null){
+								
+							}
+							//보스아디를 알바정보에 넣어준다.
+						}
+						
+						if(sqlMap.queryForObject("erpEmp.findEmployeeInfoNullBossId", b_id) != null){
+							sqlMap.insert("erpEmp.connectEmployeeIdBossId", map);
+						}else{
+							sqlMap.update("erpEmp.updateEmployeeInfoNullBossId", e_id);
+						}
 						//알바생정보 테이블에 사장님아이디와 알바아이디를 새로 기입한다.
-						sqlMap.insert("erpEmp.connectEmployeeIdBossId", map);
 						
 						//이 내용을 신청 수와 알바 생 수와 비교한 만큼 반복한다.
 					}

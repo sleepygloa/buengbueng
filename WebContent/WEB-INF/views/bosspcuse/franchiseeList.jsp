@@ -13,17 +13,17 @@
 	</div>
 
 	<div class="margin_bottom50">	
-		<div class="col-xs-12-12">
+		<div class="bg2 col-xs-12-12">
 					
 				<!-- 글 갯수 -->
-				<div class="row">
+				<div class="bg3 row">
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 글목록(전체 글:${count})
 					</div>
 				</div>
 
 				<!-- 카테고리 -->
-				<div class="row">
+				<div class="bg4 row">
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 						<div class="col-xs-1-12 table_wd50">신청번호</div>
 						<div class="col-xs-1-12 table_wd50">신청자</div>

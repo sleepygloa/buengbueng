@@ -40,7 +40,7 @@ public class FranchiseeManagementBean {
 		//////////////////////////////////////////
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		int sidemenu = 1; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
 		//변수들을 페이지로 전달
@@ -55,7 +55,7 @@ public class FranchiseeManagementBean {
 		//////////////////////////////////////////
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		int sidemenu = 1; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
 		//변수들을 페이지로 전달
@@ -77,10 +77,7 @@ public class FranchiseeManagementBean {
 		
 		//////////////////////////////////////////////////////////////////////////////
 		//사장님이라면 사장님정보를 불러온다.
-		bossDto = (BossInfoDataDTO)sqlMap.queryForObject("franchisee.getBossInfo", id);
-		
-		//임시 : 사용자라면 사용자정보를 불러오고, 사장님 PC방정보를 입력한다.
-		userDto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+		userDto = (UserInfoDataDTO)sqlMap.queryForObject("franchisee.getBossInfo", id);
 		
 		//방문자의 IP주소를 알아낸다
 		ip = (String)findIP.findIp();
@@ -88,8 +85,6 @@ public class FranchiseeManagementBean {
 		//가맹점 신청 테이블에 이력을 남긴다. 
 		
 		//가맹점 추가신청을한다.
-		
-		model.addAttribute("bossDto", bossDto);
 		model.addAttribute("userDto", userDto);
 		model.addAttribute("ip", ip);
 		
@@ -100,7 +95,7 @@ public class FranchiseeManagementBean {
 	
 	//가맹점 신청 처리 BEAN
 	@RequestMapping("franchiseeAddPro.do")
-	public String franchiseeAddPro(HttpSession session, BossInfoDataDTO bossDto, Model model){
+	public String franchiseeAddPro(HttpSession session, FranchiseeDataDTO franchiseeDto, Model model){
 	
 		//세션의 아이디와 BossInfo Table의 아이디가 동일한 것이 있는지 부터 검사를 한다.
 		UserInfoDataDTO userDto;
@@ -109,14 +104,11 @@ public class FranchiseeManagementBean {
 		String id = (String)session.getAttribute("loginId");
 		int check = 0;
 		
-		bossDto.setB_id(id);
+		franchiseeDto.setB_id(id);
 			try{
 				/////////////////////////////////////////////////////////////
 				//가맹점 정보 로그를 입력한다.
-				sqlMap.insert("franchisee.insertFranchiseeAddLog", bossDto);
-				
-				//로그남겨졌을때, franchiseeInfo에 프랜차이즈 정보를 입력해줍니다.
-				sqlMap.insert("franchisee.insertFranchiseeInfoAdd", bossDto);
+				sqlMap.insert("franchisee.insertFranchiseeLog", franchiseeDto);
 				check = 1;
 			}catch(Exception e){
 				check = 2;
@@ -136,7 +128,7 @@ public class FranchiseeManagementBean {
 		//////////////////////////////////////////
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		int sidemenu = 1; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
 		//변수들을 페이지로 전달

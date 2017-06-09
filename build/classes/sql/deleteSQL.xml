@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="test">
+
+<!-- 이 XML은 삭제한 것들을 모아둔 곳임.  -->
+
+	<!-- 사장님 정보 저장 -->
+	<insert id="bossInfoInsert" parameterClass="login.user.bean.BossInfoDataDTO">
+		insert into bossInfo values(#b_id#, #b_name#, #b_number#, #b_address#, #b_tel#, #b_size#, #b_pccount#,#b_ip#,#b_key#);
+	</insert>
+	
+	<!-- 알바 정보 저장 -->
+	<insert id="employeeInfoInsert" parameterClass="login.user.bean.EmployeeInfoDataDTO">
+		insert into employeeInfo values(
+			#e_id#, #e_bossid#
+		);
+	</insert>
+	
+</sqlMap>
