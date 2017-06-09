@@ -1,5 +1,6 @@
 package manage.boss.bean;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import pc.materials.bean.KeyboardDataDTO;
 import pc.materials.bean.MonitorDataDTO;
 import pc.materials.bean.MouseDataDTO;
 import pc.materials.bean.PcInfoDataDTO;
+import pc.materials.bean.PcInfoModifyLogDataDTO;
 import pc.materials.bean.SpeakerDataDTO;
 
 @Controller
@@ -77,22 +79,40 @@ public class SeatMaterialsBean {
 				sqlMap.update("pcInfo.modifyKeyboardInfo", kdto);
 				sqlMap.update("pcInfo.modifyMouseInfo", modto);
 				sqlMap.update("pcInfo.modifySpeakerInfo", sdto);
+				setPcInfoLog(dto.getNum(), dto.getB_key(), "수정");
 			}else{
 				BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
 				dto.setB_key(bdto.getB_key());
 				addPcNumBossKey(dto,cdto,mdto,kdto,modto,sdto);
-			
 				sqlMap.insert("pcInfo.insertPcInfo", dto);
 				sqlMap.insert("pcInfo.insertConputerInfo", cdto);
 				sqlMap.insert("pcInfo.insertMonitorInfo", mdto);
 				sqlMap.insert("pcInfo.insertKeyboardInfo", kdto);
 				sqlMap.insert("pcInfo.insertMouseInfo", modto);
 				sqlMap.insert("pcInfo.insertSpeakerInfo", sdto);
+				setPcInfoLog(dto.getNum(), dto.getB_key(), "추가");
 			}
 		} catch (Exception e) {
 			// 추후...수정
 		}
 	}
+
+	private void setPcInfoLog(int num, String b_key, String what){
+		PcInfoModifyLogDataDTO plog = new PcInfoModifyLogDataDTO();
+		plog.setNum(num);
+		plog.setB_key(b_key);
+		plog.setWhat(what);
+		HashMap map = (HashMap) sqlMap.queryForObject("pcInfo.getAllPcInfo",plog);
+		plog.setC_code((Integer)map.get("c_code"));
+		plog.setM_code((Integer)map.get("m_code"));
+		plog.setMo_code((Integer)map.get("mo_code"));
+		plog.setS_code((Integer)map.get("s_code"));
+		plog.setK_code((Integer)map.get("k_code"));
+		plog.setIp((String)map.get("ip"));
+		plog.setOs((String)map.get("os"));
+		sqlMap.insert("pcInfo.setPcInfoLog", plog);
+	}
+	
 	
 	/* pc방 좌석 관리 */
 	@RequestMapping("seatDispose.do")
@@ -109,28 +129,64 @@ public class SeatMaterialsBean {
 	@RequestMapping("seatAddDel.do")
 	public String seatAdd(HttpSession session, HttpServletRequest request, Model model){
 		String id = (String) session.getAttribute("loginId");
-		HashMap<String,String> map = new HashMap<String,String>();
+		BossInfoDataDTO bdto = null;
+		int pcCount = 0;
+		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("id", id);
-		map.put("pcCount", request.getParameter("pcCount"));
 		if(request.getParameter("what").equals("add")){
+			map.put("pcCount", "1");
 			sqlMap.update("bossERP.addSeat", map);
+			bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
+			pcCount = Integer.parseInt(bdto.getB_pccount());
 		}else{
-			sqlMap.update("bossERP.delSeat", map);
+			bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
+			String[] buf = request.getParameter("pcNums").split(",");
+			if(buf[buf.length-1].equals("")){
+				map.put("pcCount", "1");
+				sqlMap.update("bossERP.delSeat", map);
+				PcInfoDataDTO pdto = new PcInfoDataDTO();
+				pdto.setB_key(bdto.getB_key());
+				int lastNum = (Integer)sqlMap.queryForObject("pcInfo.getLastPcNum", bdto.getB_key());
+				pdto.setNum(lastNum);
+				setPcInfoLog(lastNum, bdto.getB_key(), "삭제");
+				sqlMap.delete("pcInfo.delPcInfo", pdto);
+				pcCount = Integer.parseInt(bdto.getB_pccount())-1;
+			}else{
+				for(int i = 0; i<buf.length; i++){
+					map.put("pcCount", "1");
+					setPcInfoLog(Integer.parseInt(buf[i]), bdto.getB_key(), "삭제");
+					sqlMap.update("bossERP.delSeat", map);
+					PcInfoDataDTO pdto = getPcInfo(id, Integer.parseInt(buf[i]));
+					sqlMap.delete("pcInfo.delPcInfo", pdto);
+				}
+				ArrayList<PcInfoDataDTO> pcAll = (ArrayList)sqlMap.queryForList("pcInfo.getPcInfoAll", bdto.getB_key());
+				pcCount = pcAll.size();
+				for(int i = 0; i < pcAll.size(); i++){
+					if(i != pcAll.size()-1){
+						int search = pcAll.get(i+1).getNum() - pcAll.get(i).getNum();
+						if(search != 1){
+							map.clear();
+							map.put("after_num", pcAll.get(i).getNum()+1);
+							map.put("before_num", pcAll.get(i+1).getNum());
+							sqlMap.update("pcInfo.modifyPcNum", map);
+							pcAll = (ArrayList)sqlMap.queryForList("pcInfo.getPcInfoAll", bdto.getB_key());
+						}
+					}
+				}
+			}
 		}
 		map.clear();
-		BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
-		int count = Integer.parseInt(bdto.getB_pccount());
 		StringBuffer sb = new StringBuffer();
-		for(int i = 0; i < count; i++){
+		for(int i = 0; i < pcCount; i++){
 			sb.append("0");
-			if(i!=count-1){
+			if(i!=pcCount-1){
 				sb.append(",");
 			}
 		}
 		map.put("seatCheck", sb.toString());
 		map.put("key",bdto.getB_key());
 		sqlMap.update("bossERP.modiSeatCount", map);
-		model.addAttribute("count",count);
+		model.addAttribute("count",pcCount);
 		return "/bossERP/seatMaterials/seatUpdate";
 	}
 	

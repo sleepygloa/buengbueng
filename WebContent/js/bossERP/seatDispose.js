@@ -10,7 +10,7 @@ $(document).ready(function(){
 			url:"seatAddDel.do",
 			type:"post",
 			data:{
-				pcCount : pcCount,
+				pcNums : pcCount,
 				what : "add"
 			},
 			success:function(data){
@@ -45,10 +45,10 @@ $(document).ready(function(){
 	$("#seatDel").click(function(){
 		// 체크한 좌석 삭제
 		var checkPC = document.getElementsByName("checkPC");
-		var pcCount = 0;
+		var pcNums = "";
 		for(i = 0; i < checkPC.length; i++){
 			if(checkPC[i].checked){
-				pcCount++;
+				pcNums += checkPC[i].value+',';
 			}
 		}
 		// 체크한 좌석이 없으면 맨 뒤 좌석 1개 제거
@@ -59,7 +59,7 @@ $(document).ready(function(){
 			url:"seatAddDel.do",
 			type:"post",
 			data:{
-				pcCount : pcCount,
+				pcNums : pcNums,
 				what : "del"
 			},
 			success:function(data){

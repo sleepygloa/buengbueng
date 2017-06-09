@@ -16,7 +16,7 @@
 	<typeAlias alias="mouInfo" type="pc.materials.bean.MouseDataDTO"/>
 	<typeAlias alias="speInfo" type="pc.materials.bean.SpeakerDataDTO"/>
     <typeAlias alias="billDto" type="payment.all.bean.UserBillingHistoryDTO"/>
-
+	<typeAlias alias="pcInfoLog" type="pc.materials.bean.PcInfoModifyLogDataDTO"/>
     
     
 </sqlMap>
