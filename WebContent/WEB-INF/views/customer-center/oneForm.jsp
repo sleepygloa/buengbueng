@@ -5,9 +5,9 @@
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
 <head>
-<title>가맹 문의</title>
+<title>1:1 문의</title>
 </head>
-<div>가맹 문의</div>
+<div>1:1 문의</div>
 <form action="onePro.do" method="post" onsubmit="return oneCheck();" name="one">
 <input type="hidden" name="pageNum" value="${pageNum}">
 <input type="hidden" name="snum" value="${snum}">
@@ -41,13 +41,16 @@
 		<span><input type="text" name="title"></span>
 	</c:if>
 	<c:if test="${num!=0}">  
-		<span><input type="text" name="title" value="[Ans]${title}"></span>
+		<span><input type="text" name="title" value="[답변]${title}"></span>
 	</c:if>
 </div>
 	<textarea name="content"></textarea>
 <div>
 <div>
-	<c:if test="${user.grade != 0}">
+	<c:if test="${user.grade == 4 }">
+	<input type="hidden" name="b_passwd">
+	</c:if>
+	<c:if test="${user.grade != 4}">
 	<span>비밀번호</span>
 	<span><input type="password" name="passwd" ></span>
 	</c:if>

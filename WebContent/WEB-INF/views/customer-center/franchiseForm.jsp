@@ -41,13 +41,16 @@
 		<span><input type="text" name="title"></span>
 	</c:if>
 	<c:if test="${num!=0}">  
-		<span><input type="text" name="title" value="[Ans]${title}"></span>
+		<span><input type="text" name="title" value="[답변]${title}"></span>
 	</c:if>
 </div>
 	<textarea name="content"></textarea>
 <div>
 <div>
-	<c:if test="${user.grade != 0}">
+	<c:if test="${user.grade == 4 }">
+	<input type="hidden" name="b_passwd">
+	</c:if>
+	<c:if test="${user.grade != 4}">
 	<span>비밀번호</span>
 	<span><input type="password" name="passwd" ></span>
 	</c:if>

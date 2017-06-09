@@ -35,7 +35,7 @@
 <head>
 <title>작성한 글</title>
 </head>
-<c:if test="${check!=1}">
+<c:if test="${check==0}">
 	<body onload="alert('비밀번호 오류'); history.go(-1);"/>
 </c:if>
 
@@ -64,7 +64,7 @@
 	${dto.content}
 </div>
 <div>
-	<c:if test="${user.grade == 0}">
+	<c:if test="${user.grade == 4}">
 		<c:if test="${re_step == 1}">
 			<span>
 				<input type="button" value="답글쓰기" onclick=
@@ -73,7 +73,7 @@
 		</c:if>
 		<span><button id="bossDel">글삭제</button></span>
 	</c:if>
-	<c:if test="${user.grade != 0}">
+	<c:if test="${user.grade != 4 && dto.re_step==0}">
 	<span><input type="button" value="글수정" onclick="window.location='franchiseModify.do?snum=${dto.snum}&num=${dto.num}&pageNum=${pageNum}'"></span>
 	<span><button id="delete">글삭제</button></span>
 	</c:if>

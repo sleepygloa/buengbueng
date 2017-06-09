@@ -33,6 +33,6 @@
 </div>
 <div>
 	<span><button id="deletepro">삭제하기</button></span>
-	</span><input type="button" value="뒤로가기" onclick="window.location='franchiseContent.do?num=${num}&snum=${snum}&pageNum=${pageNum}'">	
+	</span><input type="button" value="뒤로가기" onclick="history.go(0);">	
 </div>
 </div>

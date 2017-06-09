@@ -25,7 +25,7 @@ public class CustomerQABean { // Q & A
 		
 		if(pageNum==null){pageNum="1";}
 		
-		int pageSize=10; // endRow와 같이써도 가능함. mysql limit 사용시. 출력은 고정.
+		int pageSize=1; // endRow와 같이써도 가능함. mysql limit 사용시. 출력은 고정.
 		int currentPage = Integer.parseInt(pageNum);
 	    int startRow = (currentPage - 1) * pageSize; // mysql에서 limit 는 0부터 시작해야 rownum 1번 값부터 호출
 	    int number=0;
@@ -160,34 +160,6 @@ public class CustomerQABean { // Q & A
 		return "/customer-center/customerDelete";
 	}
 	
-	@RequestMapping("customerDeletePro.do")  //게시글 삭제 Pro
-	public String customerDeletePro(HttpServletRequest request,HashMap map){
-		int num = Integer.parseInt(request.getParameter("num"));
-		Integer snum = Integer.parseInt(request.getParameter("snum"));
-		String pageNum = request.getParameter("pageNum");
-		String passwd = request.getParameter("passwd");
-		int check=0;
-		// 고유 번호와 글번호로 DB 비밀번호 호출
-		map.put("num", num);
-		map.put("snum",snum);
-		String dispasswd = (String)sqlMap.queryForObject("customer.getPasswd", map);
-		// 뷰에서 받은 비밀번호와 DB에서 받은 비밀번호 비교
-		if(passwd.equals(dispasswd)){
-			// 해당 글의 ref 그룹 호출 후 해당글 삭제
-			int ref = (Integer)sqlMap.queryForObject("customer.getRef", map);  
-			int re_step = (Integer)sqlMap.queryForObject("customer.getRe_step", map);
-			map.put("snum", snum);
-			map.put("ref",ref);
-			map.put("re_step",re_step);
-			sqlMap.delete("customer.delRef", map);
-			check =1;
-		}	
-		request.setAttribute("snum", snum);
-		request.setAttribute("check", check);
-		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/customerDeletePro";
-	}
-	
 	@RequestMapping("customerModify.do")
 	public String customerModify(HttpServletRequest request,CustomerDTO dto,HashMap map){
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
@@ -207,16 +179,9 @@ public class CustomerQABean { // Q & A
 	public String customerModifyPro(HttpServletRequest request,CustomerDTO dto,HashMap map){
 		String pageNum= request.getParameter("pageNum");
 		int check = 0;
+			
+		sqlMap.update("customer.modifyContent", dto);
 
-		map.put("num",dto.getNum());
-		map.put("snum",dto.getSnum());
-		String dispasswd = (String)sqlMap.queryForObject("customer.getPasswd",map);
-		
-		if(dto.getPasswd().equals(dispasswd)){
-			sqlMap.update("customer.modifyContent", dto);
-			check=1;
-		}
-		request.setAttribute("check", check);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("dto", dto);
 		return "/customer-center/customerModifyPro";

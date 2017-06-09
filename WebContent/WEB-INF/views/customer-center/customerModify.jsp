@@ -27,11 +27,7 @@
 	<textarea name="content">${dto.content}</textarea>
 </div>
 <div>
-	<span>글 비밀 번호</span>
-	<span><input type="password" name="passwd"></span>
-</div>	
-<div>
 	<input type="submit" value="수정 완료">
-	<input type="button" value="뒤로 가기" onclick="window.location='customerContent.do?snum=${dto.snum}&num=${dto.num}&pageNum=${pageNum}'">
+	<input type="button" value="뒤로 가기" onclick="history.go(-1);">
 </div>
 </form>

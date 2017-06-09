@@ -20,6 +20,12 @@ public class OneQABean { // 1:1 문의
 	
 	@RequestMapping("oneQA.do")  // 게시판 리스트
 	public String oneQA(HttpServletRequest request,HttpSession session,HashMap map){
+		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출
+			String id = (String)session.getAttribute("loginId");
+			UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+			request.setAttribute("user", user);
+		}
+		
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		
@@ -92,12 +98,20 @@ public class OneQABean { // 1:1 문의
 	@RequestMapping("onePro.do")  // 문의 작성 DB insert 
 	public String onePro(CustomerDTO dto,HashMap map,HttpServletRequest request) throws Exception{
 		String pageNum = request.getParameter("pageNum");
-		
+
 		int num=dto.getNum(); 
 		int ref=dto.getRef();
 		int re_step=dto.getRe_step();
 		int snum=dto.getSnum();
 		int number=0;
+		
+		if(request.getParameter("b_passwd")==""){
+			map.put("snum", snum);
+			map.put("num",num);
+			String passwd = (String)sqlMap.queryForObject("customer.getPasswd", map);
+			dto.setPasswd(passwd);
+		}
+		
 		
 		number = (Integer)sqlMap.queryForObject("customer.maxNum", snum);
 		
@@ -136,12 +150,8 @@ public class OneQABean { // 1:1 문의
 		map.put("num", num);
 		map.put("snum",snum);
 		CustomerDTO dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", map);
-		if(dto.getTitle().length()>=4){		
-			String word = dto.getTitle().substring(1,4);
-			boolean che = word.contains("Ans");
-			request.setAttribute("che", che);
-		}
 		
+		request.setAttribute("dto", dto);
 		request.setAttribute("number", number);
 		request.setAttribute("snum", snum);
 		request.setAttribute("num", num);
@@ -167,9 +177,9 @@ public class OneQABean { // 1:1 문의
 		sqlMap.update("customer.contentUp", map);
 		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", map);
 		
-		// 등급이 관리자 or 해당글 비밀번호 일치시
-		if(user.getGrade()==0 || dto.getPasswd().equals(passwd)){sqlMap.update("customer.contentUp", map); check = 1;}
-
+		// 등급이 관리자 or 해당글 비밀번호 일치시 ...
+		if(user.getGrade()==4 || dto.getPasswd().equals(passwd)){check=1;}
+				
 		map.put("ref", dto.getRef());
 		map.put("snum",snum);
 		int re_step = (Integer)sqlMap.queryForObject("customer.getReply",map); // 답글의 여부 확인 1일때만 답변 쓸수있음.	
@@ -182,7 +192,6 @@ public class OneQABean { // 1:1 문의
 		request.setAttribute("pageNum", pageNum);
 		return "/customer-center/oneContent";
 	}
-	
 	
 	@RequestMapping("oneDelete.do")  // 게시글 삭제 폼
 	public String oneDelete(HttpServletRequest request){
