@@ -16,35 +16,27 @@
 	</select>
 	 
  	 <!-- 회원 로그인 했을때 이벤트로 돈 충전해주는 Log -->
-	 <insert id="eventAdminGiveUserMoneyLog" parameterClass="String">
- 		INSERT INTO accountLog (giveId, getId, money, method, reason, signdate) VALUES('admin', #id#, '1000', '1', '8', now());
+	 <insert id="eventAdminGiveUserMoneyLog" parameterClass="java.util.HashMap">
+ 		INSERT INTO accountLog (giveId, getId, money, method, reason, signdate)
+ 						 VALUES('admin', #id#, #eventMoney#, '1', '8', now());
 	 </insert>
 	 
 	 <!-- 회원 로그인 했을때 이벤트로 돈 충전해주는 Log -->
 	 <update id="eventAdminGiveUserMoney" parameterClass="java.util.HashMap">
-	 	UPDATE userAccount SET money = money + #eventMoney# WHERE id = #id#;
+	UPDATE userAccount SET money = money + #eventMoney# WHERE id = #id#;
 	 </update>
 	 
-  	<!-- 로그아웃한 컴퓨터의 IP로 가맹점의 이용요금정책 찾기 -->
-	<select id="getMoneyPolicyToIp" resultClass="int" parameterClass="String">
-	select 
-	    round((logoutTime - loginTime) * #payPolicy#)  as usePcUseTime, 
-	    b.money as userAccoutMoney,
-	    b.money - (round((logoutTime - loginTime) * #payPolicy#))  as Pay, 
-	    logoutTime, loginTime 
-   	from useTimeLog a INNER JOIN (select id, money from userAccount where id = #id#) b ON a.id = b.id 
-   	where a.id = #id# order by loginTime desc limit 0,1;
-	</select>
-	 
  	<!-- 사용자 피시방 이용후 종료시 결제 -->
-	<select id="userPcUseTimePay" resultClass="bossErpTotalDTO" parameterClass="java.util.HashMap">
+	<select id="userPcUseTimePay" resultClass="useTimeDto" parameterClass="java.util.HashMap">
 		<![CDATA[
 	select 
-	    round((logoutTime - loginTime) * #payPolicy#)  as usePcUseTime, 
-	    b.money as userAccoutMoney,
-	    b.money - (round((logoutTime - loginTime) * #payPolicy#))  as Pay, 
-	    logoutTime, loginTime 
-   	from useTimeLog a INNER JOIN (select id, money from userAccount where id = #id#) b ON a.id = b.id 
+	    round((logoutTime - loginTime))  as usePcUseTime, 
+        round((logoutTime - loginTime) * c.moneyPolicy)  as usePcUseTimePay, 
+	    b.money as userAccountMoney,
+	    b.money - (round((logoutTime - loginTime) * c.moneyPolicy))  as payAfterMoney, 
+	    loginTime, logoutTime, b_key  
+   	from useTimeLog a INNER JOIN (select id, money from userAccount where id = #id#) b ON a.id = b.id ,
+   	(select c.moneyPolicy, c.b_key from franchiseePolicy c, (select b_key from franchiseeAddLog where b_ip = #b_ip#) d where c.b_key = d.b_key ) c
    	where a.id = #id# order by loginTime desc limit 0,1;
 		]]>
 	</select>

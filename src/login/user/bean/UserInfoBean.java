@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -29,6 +30,9 @@ public class UserInfoBean {
 	//sql을 연결 시켜주는 변수
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
+	
+	@Autowired
+	public EventGetMoney eventGetMoney;
 	
 	//로그인 클릭시 로그인 페이지로 이동
 	@RequestMapping("loginForm.do")
@@ -59,14 +63,11 @@ public class UserInfoBean {
 				map.put("ip", ip);
 				sqlMap.insert("erpEmp.insertEmployeeLoginLog", map); //로그인 LOG 남김
 				
-//				int eventMoney = 1000; //이벤트 충전 머니
-//				if(eventMoney != 0){
-//					HashMap map1 = new HashMap();
-//					map1.put("id", id);
-//					map1.put("eventMoney", eventMoney);
-//					EventGetMoney EventGetMoney = new EventGetMoney();
-//					check = EventGetMoney.eventGetMoney(map1);
-//				}
+				int eventMoney = 1000; //이벤트 충전 머니
+				if(eventMoney != 0){
+
+					check = eventGetMoney.eventGetMoney(id);
+				}
 			}
 			
 		}catch(Exception e){
@@ -89,21 +90,29 @@ public class UserInfoBean {
 			
 			/////////////////////////////
 //			로그아웃시 사용시간 결제
-			/////////////////////////////
-			//정책 불러오기
-			//로그아웃한 PC의 IP를 불러옴
-			//IP를 가지고 LicenseKey 번호를 가져옴 
-			//LIcenseKey로 그 피씨방의 요금정책을 불러옴
+			/////////////////////////////테스트하기위해서는 가맹점을 그자리에서 만들어야한다.
+			//로그아웃PC의 IP -> LicenseKey 조회 -> 키로 가맹점 요금정책 -> 요금정책을 이용하여
+			//로그아웃시간 - 로그인 시간 = 이용시간 * 요금정책 = 사용금액 
+			//현재금액 - 사용금액 = 남은돈
 			FindIpBean findIpBean = new FindIpBean();
 			String ip = findIpBean.findIp();
-			System.out.println(ip); //192.168.91.1 192.168.111.1
-			sqlMap.queryForObject("cash.getMoneyPolicyToIp", ip);
 			
-			//로그아웃시간 - 로그인 시간 = 이용시간 **
-			//이용시간 * 정책 = 사용금액
-			//현재금액 - 사용금액 = 남은돈
-			//이용로그남기기
-			//결제로그남기기
+			HashMap map = new HashMap();
+			map.put("id",id);
+			map.put("b_ip", ip);
+			
+			System.out.println(ip); //192.168.91.1 192.168.111.1 192.168.10.1
+			UseTimeLogDTO utlDto = null; 
+			utlDto = (UseTimeLogDTO)sqlMap.queryForObject("cash.userPcUseTimePay", map);
+			utlDto.setId(id);
+			System.out.println(utlDto.getId());
+			sqlMap.insert("log.logoutLog", utlDto);//이용로그남기기
+			sqlMap.insert("log.logoutPayLog", utlDto);//결제로그남기기
+			
+			sqlMap.update("log.userGiveBossMoneyUserAccount", utlDto);//사용자 계좌에 반영
+			sqlMap.update("log.userGiveBossMoneyBossAccount", utlDto);//사장님계좌에 반영
+			
+			
 			
 		}catch(Exception e){
 			e.printStackTrace();
