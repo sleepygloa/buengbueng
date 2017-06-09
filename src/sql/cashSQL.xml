@@ -9,11 +9,15 @@
 	</select>
 	
 	<insert id="cash_input" parameterClass="dto">
-		 insert into paymentList(paying_price,buyer_chatid,payment_type,pg_name,confirmation,paying_name) values(#paying_price#,#buyer_chatid#,#payment_type#,#pg_name#,#confirmation#,#paying_name#);
+		 insert into paymentList(paying_price,buyer_chatid,payment_type,pg_name,confirmation,paying_name,error_msg,payment_date) values(#paying_price#,#buyer_chatid#,#payment_type#,#pg_name#,#confirmation#,#paying_name#,#error_msg#,now());
 	</insert>
 	
 	<select id="cash_payment_useInfoLoad" resultClass="userdto" parameterClass="String">
 		select * from userInfo where id = #id#;
 	</select>
-	 
+	
+	<update id="cash_stack" parameterClass="dto">
+		update userInfo set cash=#paying_price# where id=#buyer_chatid#;
+	</update>
+	
 </sqlMap>

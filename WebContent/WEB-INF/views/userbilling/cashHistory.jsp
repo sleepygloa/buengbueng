@@ -56,7 +56,28 @@
 				</c:forEach>
 			</table>
 		</div>
+		<c:if test="${count > 0}">
+		   <c:set var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}"/>
+		   <c:set var="pageBlock" value="${10}"/>
+		   <fmt:parseNumber var="result" value="${currentPage / 10}" integerOnly="true" />
+		   <c:set var="startPage" value="${result * 10 + 1}" />
+		   <c:set var="endPage" value="${startPage + pageBlock-1}"/>
+		   <c:if test="${endPage > pageCount}">
+		        <c:set var="endPage" value="${pageCount}"/>
+		   </c:if> 
+		          
+		   <c:if test="${startPage > 10}">
+		        <a href="/spring/boardlist.do?pageNum=${startPage - 10 }">[이전]</a>
+		   </c:if>
 		
+		   <c:forEach var="i" begin="${startPage}" end="${endPage}">
+		       <a href="/spring/boardlist.do?pageNum=${i}">[${i}]</a>
+		   </c:forEach>
+		
+		   <c:if test="${endPage < pageCount}">
+		        <a href="/spring/board/list.do?pageNum=${startPage + 10}">[다음]</a>
+		   </c:if>
+		</c:if>
 		<p class="margin_b10"><span><strong>포인트 결제 내역 총 5건</strong></span></p>
 		<div>
 			<table class="cash_history" border=1;>
