@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class UseTimeLogDTO {
 	private String id;
+	private String licenseKey;
 	private Timestamp loginTime;
 	private Timestamp logoutTime;
 	private String ip;
@@ -21,6 +22,12 @@ public class UseTimeLogDTO {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getLicenseKey() {
+		return licenseKey;
+	}
+	public void setLicenseKey(String licenseKey) {
+		this.licenseKey = licenseKey;
 	}
 	public Timestamp getLoginTime() {
 		return loginTime;

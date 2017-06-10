@@ -17,6 +17,6 @@
 	<typeAlias alias="speInfo" type="pc.materials.bean.SpeakerDataDTO"/>
     <typeAlias alias="billDto" type="payment.all.bean.UserBillingHistoryDTO"/>
 	<typeAlias alias="pcInfoLog" type="pc.materials.bean.PcInfoModifyLogDataDTO"/>
-    
-    
+    <typeAlias alias="rentDTO" type="manage.boss.bean.RentDataDTO"/>
+    <typeAlias alias="rentProdDTO" type="manage.boss.bean.RentProductDataDTO"/>
 </sqlMap>

@@ -18,5 +18,6 @@
 	<sqlMap resource="/sql/useSeatSQL.xml" /> <!-- 사용자의 좌석 이용시간 및 PC방 좌석 이용현황 -->
 	<sqlMap resource="/sql/cashSQL.xml"/>  <!-- 결제 관련 -->
 	<sqlMap resource="/sql/pcInfoSQL.xml"/> <!-- pc방 좌석 정보 -->
-	<sqlMap resource="/sql/bossPCSQL.xml" /> <!-- 사장님 ERP -->
+	<sqlMap resource="/sql/bossPCSQL.xml" /> <!-- 사장님 PC방 관리 ERP -->
+	<sqlMap resource="/sql/rentSQL.xml" /> <!-- 사장님 대여물품 관리 ERP -->
 </sqlMapConfig>

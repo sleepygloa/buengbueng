@@ -51,10 +51,6 @@ $(document).ready(function(){
 				pcNums += checkPC[i].value+',';
 			}
 		}
-		// 체크한 좌석이 없으면 맨 뒤 좌석 1개 제거
-		if(pcCount == 0){
-			pcCount = 1;
-		}
 		$.ajax({
 			url:"seatAddDel.do",
 			type:"post",

@@ -6,11 +6,12 @@
 	<select id="cash_area" resultClass="billDto">
 		select * from paymentList
 	</select>
-	
+	<!-- 
 	<insert id="cash_input" parameterClass="billDto">
 		 insert into paymentList(paying_price,buyer_chatid,payment_type,pg_name,confirmation,paying_name) values(#paying_price#,#buyer_chatid#,#payment_type#,#pg_name#,#confirmation#,#paying_name#);
 	</insert>
-	<insert id="cash_input" parameterClass="dto">
+	 -->
+	<insert id="cash_input" parameterClass="billDto">
 		 insert into paymentList(paying_price,buyer_chatid,payment_type,pg_name,confirmation,paying_name,error_msg,payment_date) values(#paying_price#,#buyer_chatid#,#payment_type#,#pg_name#,#confirmation#,#paying_name#,#error_msg#,now());
 	</insert>
 	
@@ -18,7 +19,7 @@
 		select * from userInfo where id = #id#;
 	</select>
 	
-	<update id="cash_stack" parameterClass="dto">
+	<update id="cash_stack" parameterClass="billDto">
 		update userInfo set cash=#paying_price# where id=#buyer_chatid#;
 	</update>
 </sqlMap>

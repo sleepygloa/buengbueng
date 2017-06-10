@@ -2,10 +2,9 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 
 <sqlMap namespace="bossERP">
-	
 	<!-- 사장님 정보 가져오기 -->
 	<select id="getBossInfo" parameterClass="String" resultClass="bossDTO">
-		select * from bossInfo where b_id = #id#; 
+		select * from franchiseeInfo where b_id = #id#; 
 	</select>
 	<!-- 좌석이용 현황 가져오기 -->
 	<select id="getSeatCount" parameterClass="String" resultClass="seatInfo">
@@ -13,11 +12,11 @@
 	</select>
 	<!-- pc방 좌석 개수 추가 -->
 	<update id="addSeat" parameterClass="java.util.HashMap">
-		update bossInfo set b_pccount = b_pccount + #pcCount# where b_id = #id#;
+		update franchiseeInfo set b_pccount = b_pccount + #pcCount# where b_id = #id#;
 	</update>
 	<!-- pc방 좌석 개수 삭제 -->
 	<update id="delSeat" parameterClass="java.util.HashMap">
-		update bossInfo set b_pccount = b_pccount - #pcCount# where b_id = #id#;
+		update franchiseeInfo set b_pccount = b_pccount - #pcCount# where b_id = #id#;
 	</update>
 	<!-- pc방 좌석 개수 추가/삭제에 따른 좌석이용현황 초기화 -->
 	<update id="modiSeatCount" parameterClass="java.util.HashMap">
