@@ -278,6 +278,7 @@ body{
  	background:#ee2e24;
  	color:#fff;
  	border-radius: 3px;
+ 	cursor:pointer;
  }
  .user_info{
  	border-right:1px #8f8f8f solid;
@@ -348,11 +349,26 @@ body{
  	vertical-align: middle;
  	margin-top: -7px;
  }
+.cashing_point2{
+ 	width:100px;
+ 	font-size:18px;
+ 	font-weight:bold;
+ 	text-align:right;
+ 	color:#6c6c6c;
+ 	border:none;
+ 	outline:none;
+ 	vertical-align: middle;
+ 	margin-top: -7px;
+ }
 
 
  .cashing_point_b{
  	font-size:18px; 
  	color:#ee2e24;
+ }
+ .cashing_point_b2{
+ 	font-size:18px; 
+ 	color:#6c6c6c;
  }
   .cashing_point_b2{
  	font-size:18px; 
@@ -365,6 +381,7 @@ body{
  	background:none;
  	font-size:18px;
  	outline:none;
+ 	cursor:pointer;
  }
   .cash_Price_box_1 button:hover{
  	border:none;
@@ -389,3 +406,7 @@ body{
  	line-height: 30px;
  	margin-left:40px;
  }
+ .cashing_img{
+ 	text-align: center;
+ 	vertical-align: middle;
+	margin-top:250px;

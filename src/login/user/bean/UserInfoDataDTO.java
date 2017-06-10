@@ -14,7 +14,7 @@ public class UserInfoDataDTO {
     private String email;
     private Timestamp signdate;
     private String googleId;
-    
+
 	public String getId() {
 		return id;
 	}
@@ -74,9 +74,6 @@ public class UserInfoDataDTO {
 	}
 	public void setGoogleId(String googleId) {
 		this.googleId = googleId;
-	}
-
-    
-    
+	} 
     
 }

@@ -25,7 +25,7 @@ import pc.materials.bean.SpeakerDataDTO;
 public class SeatMaterialsBean {
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
-	
+
 	
 	private PcInfoDataDTO getPcInfo(String id, int pcNum){
 		BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
@@ -196,10 +196,24 @@ public class SeatMaterialsBean {
 		String id = (String) session.getAttribute("loginId");
 		BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);		
 		SeatStateDataDTO sdto = (SeatStateDataDTO)sqlMap.queryForObject("bossERP.getSeatCount", bdto.getB_key());
-		
 		model.addAttribute("count",bdto.getB_pccount());
-		String[] seatCon = sdto.getSeatCheck().split(",");
-		model.addAttribute("seatCon",seatCon);
+		if(sdto != null){
+			String[] seatCon = sdto.getSeatCheck().split(",");
+			ArrayList<HashMap<String,String>> param = (ArrayList)sqlMap.queryForList("useSeat.getUseUserId", bdto.getB_key());
+			ArrayList<String> useSeatId = new ArrayList<String>();
+			ArrayList<Integer> useSeatNum = new ArrayList<Integer>();
+			for(int i=0; i<param.size(); i++){
+				HashMap<String,Object> a = new HashMap();
+				a.put("key",bdto.getB_key());
+				a.put("ip",param.get(i).get("ip"));
+				int num = (int)sqlMap.queryForObject("bossERP.getPcNum",a);
+				useSeatNum.add(num);
+				useSeatId.add(param.get(i).get("id").toString());
+			}
+			model.addAttribute("seatCon",seatCon);
+			model.addAttribute("useSeatId",useSeatId);
+			model.addAttribute("useSeatNum",useSeatNum);
+		}
 		if(page == null){
 			return "/bossERP/seatMaterials/seatState";
 		}else{
