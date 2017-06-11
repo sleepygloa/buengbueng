@@ -23,7 +23,7 @@ public class CustomerQABean { // Q & A
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		
-		if(pageNum==null){pageNum="1";}
+		if(pageNum==null){pageNum="10";}
 		
 		int pageSize=1; // endRow와 같이써도 가능함. mysql limit 사용시. 출력은 고정.
 		int currentPage = Integer.parseInt(pageNum);
@@ -122,12 +122,6 @@ public class CustomerQABean { // Q & A
 	
 	@RequestMapping("customerContent.do")  // 게시글 내용 호출
 	public String customerContent(HttpServletRequest request,HashMap map,CustomerDTO dto,HttpSession session){
-		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출
-			String id = (String)session.getAttribute("loginId");
-			UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
-			request.setAttribute("user", user);
-		}
-		
 		String pageNum = request.getParameter("pageNum");
 		String number = request.getParameter("number");
 		Integer snum = Integer.parseInt(request.getParameter("snum"));

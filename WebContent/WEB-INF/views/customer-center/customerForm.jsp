@@ -7,7 +7,7 @@
 <head>
 <title>Q & A</title>
 </head>
-<c:if test="${user.grade!=4}">
+<c:if test="${sessionScope.grade!=4}">
 	<script>alert("관리자 등급만 작성 가능"); history.go(-1);</script>
 </c:if>
 <div>Q & A</div>

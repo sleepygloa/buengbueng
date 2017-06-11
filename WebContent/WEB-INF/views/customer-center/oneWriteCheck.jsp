@@ -22,7 +22,7 @@
 <input type="hidden" name="snum" value="${snum}">
 <input type="hidden" name="pageNum" value="${pageNum}">
 <div>
-<c:if test="${user.grade != 4 || dto.re_step == 0}">
+<c:if test="${sessionScope.grade != 4 || dto.re_step == 0}">
 <div>
 	<span>비밀번호</span>
 	<span><input type="password" name="passwd" placeholder="비밀번호 입력란"></span>

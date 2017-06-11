@@ -59,7 +59,7 @@
 	${dto.content}
 </div>
 <div>
-	<c:if test="${user.grade == 4 }">
+	<c:if test="${sessionScope.grade == 4 }">
 	<c:if test="${re_step == 1}">
 		<span>
 			<input type="button" value="답글쓰기" onclick=

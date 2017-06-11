@@ -40,12 +40,12 @@ public class UserInfoBean {
 	public String login(HttpServletRequest request,HttpSession session){
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-
+		
 		//ID로 사용자 정보 불러온다음 입력한 PW와 DB의 PW와 비교한다.
 		UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
 		if(pw.equals(dto.getPw())){
 			session.setAttribute("loginId", dto.getId());
-			
+			session.setAttribute("grade", dto.getGrade());
 			//로그인 LOG 남김
 			FindIpBean fib = new FindIpBean();
 			String ip = (String)fib.findIp();
@@ -55,7 +55,6 @@ public class UserInfoBean {
 			map.put("ip", ip);
 			sqlMap.insert("erpEmp.insertEmployeeLoginLog", map);
 		}
-		
 		return "/index";
 	}
 	

@@ -8,7 +8,7 @@
 </head>
 <div id="pwChe">
 <div>1:1 문의</div>
-<c:if test="${user.grade != 4 }">
+<c:if test="${sessionScope.grade != 4 }">
 <div><a href="oneForm.do?snum=${snum}&pageNum=${pageNum}">문의하기</a></div>
 </c:if>
 	<span>번호</span>
@@ -28,10 +28,10 @@
 		<span>
 		<c:out value="${number}"/>
 		</span>
-		<c:if test="${user.grade != 4 }">
+		<c:if test="${sessionScope.grade != 4 }">
 			<span><a href="oneWriteCheck.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
 		</c:if>
-		<c:if test="${user.grade == 4 }">
+		<c:if test="${sessionScope.grade == 4 }">
 			<span><a href="oneContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
 		</c:if>
 		<span>${list.writer}</span>

@@ -9,7 +9,9 @@
 
 <div>
 <div>Q & A</div>
+<c:if test="${sessionScope.grade == 4}">
 <div><a href="customerForm.do?snum=${snum}&pageNum=${pageNum}">QA작성</a></div>
+</c:if>
 	<span>번호</span>
 	<span>제목</span>
 	<span>작성자</span>

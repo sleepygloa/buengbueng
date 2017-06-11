@@ -6,9 +6,9 @@
 <head>
 	<title>가맹 문의</title>
 </head>
-<div id="pwChe">
+<div>
 <div>가맹 문의</div>
-<c:if test="${user.grade != 4 }">
+<c:if test="${sessionScope.grade != 4 }">
 <div><a href="franchiseForm.do?snum=${snum}&pageNum=${pageNum}">문의하기</a></div>
 </c:if>
 	<span>번호</span>
@@ -28,10 +28,10 @@
 		<span>
 		<c:out value="${number}"/>
 		</span>
-		<c:if test="${user.grade != 4 }">
+		<c:if test="${sessionScope.grade != 4 }">
 			<span><a href="franchiseWriteCheck.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
 		</c:if>
-		<c:if test="${user.grade == 4 }">
+		<c:if test="${sessionScope.grade == 4 }">
 			<span><a href="franchiseContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
 		</c:if>
 		<span>${list.writer}</span>

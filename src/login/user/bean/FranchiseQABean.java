@@ -20,16 +20,10 @@ public class FranchiseQABean { // 가맹 문의
 	
 	@RequestMapping("franchiseQA.do")  // 게시판 리스트
 	public String franchiseQA(HttpServletRequest request,HttpSession session,HashMap map){
-		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출
-			String id = (String)session.getAttribute("loginId");
-			UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
-			request.setAttribute("user", user);
-		}
-		
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		
-		if(pageNum==null){pageNum="1";}
+		if(pageNum==null){pageNum="10";}
 		
 		int pageSize=10; // endRow와 같이써도 가능함. mysql limit 사용시. 출력은 고정.
 		int currentPage = Integer.parseInt(pageNum);
@@ -137,12 +131,6 @@ public class FranchiseQABean { // 가맹 문의
 	
 	@RequestMapping("franchiseWriteCheck.do")  //  게시글 호출시 패스워드 검사 창
 	public String franchiseWriteCheck(HttpServletRequest request,HttpSession session,HashMap map) {
-		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출
-			String id = (String)session.getAttribute("loginId");
-			UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
-			request.setAttribute("user", user);
-		}
-		
 		String pageNum = request.getParameter("pageNum");
 		String number = request.getParameter("number");
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
@@ -162,11 +150,6 @@ public class FranchiseQABean { // 가맹 문의
 
 	@RequestMapping("franchiseContent.do")  // 게시글 내용 호출
 	public String franchiseContent(HttpServletRequest request,HashMap map,CustomerDTO dto,HttpSession session,UserInfoDataDTO user){
-		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출
-			String id = (String)session.getAttribute("loginId");
-			user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
-		}
-		
 		String passwd = request.getParameter("passwd");
 		String pageNum = request.getParameter("pageNum");
 		String number = request.getParameter("number");
@@ -179,14 +162,15 @@ public class FranchiseQABean { // 가맹 문의
 		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", map);
 		
 		// 등급이 관리자 or 해당글 비밀번호 일치시 ...
-		if(user.getGrade()==4 || dto.getPasswd().equals(passwd)){check=1;}
+		String grade = (String)session.getAttribute("grade");
+		int u_grade = Integer.parseInt(grade);
+		if(u_grade==4 || dto.getPasswd().equals(passwd)){check=1;}
 				
 		map.put("ref", dto.getRef());
 		map.put("snum",snum);
 		int re_step = (Integer)sqlMap.queryForObject("customer.getReply",map); // 답글의 여부 확인 1일때만 답변 쓸수있음.	
 		request.setAttribute("re_step", re_step);
 
-		request.setAttribute("user", user);
 		request.setAttribute("check", check);
 		request.setAttribute("dto", dto);
 		request.setAttribute("number", number);
