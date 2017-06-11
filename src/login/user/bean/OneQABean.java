@@ -155,15 +155,15 @@ public class OneQABean { // 1:1 문의
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		Integer num = Integer.parseInt(request.getParameter("num"));
 		int check = 0;
+		int grade = 0;
 		map.put("snum",snum);
 		map.put("num",num);
-		sqlMap.update("customer.contentUp", map);
+		
 		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", map);
 		
 		// 등급이 관리자 or 해당글 비밀번호 일치시 ...
-		String grade = (String)session.getAttribute("grade");
-		int u_grade = Integer.parseInt(grade);
-		if(u_grade==4 || dto.getPasswd().equals(passwd)){check=1;}
+		if(session.getAttribute("grade")!=null){grade = (Integer)session.getAttribute("grade");}
+		if(grade==4 || dto.getPasswd().equals(passwd)){check=1; sqlMap.update("customer.contentUp", map);}
 				
 		map.put("ref", dto.getRef());
 		map.put("snum",snum);
