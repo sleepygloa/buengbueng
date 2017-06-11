@@ -40,7 +40,7 @@
 	</insert>
 	
 	<!-- 사장님 정보 저장 -->
-	<insert id="bossInfoInsert" parameterClass="login.user.bean.BossInfoDataDTO">
+	<insert id="bossInfoInsert" parameterClass="bossDTO">
 		insert into bossInfo values(#b_id#, #b_name#, #b_number#, #b_address#, #b_tel#, #b_size#, #b_pccount#,#b_ip#,#b_key#);
 	</insert>
 	

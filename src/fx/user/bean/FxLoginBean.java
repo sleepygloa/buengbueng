@@ -1,4 +1,4 @@
-package fx.login.bean;
+package fx.user.bean;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -83,14 +83,16 @@ public class FxLoginBean {
 			Timestamp ts = Timestamp.valueOf(today);
 			udto.setLoginTime(ts);
 			udto.setIp(ip);
+			udto.setLicenseKey(key);
 			sqlMap.insert("useSeat.useTimeLogin", udto);
-			
 			HashMap<String,Object> map = new HashMap<String,Object>();
 			map.put("ip", ip);
 			map.put("key", key);
-			int pcNum = (Integer)sqlMap.queryForObject("bossERP.getPcNum", map);
-			
-			modifySeatState(key, pcNum, "1");
+			int pcNum = 0;
+			if(info.getGrade() == 3){
+				pcNum = (Integer)sqlMap.queryForObject("bossERP.getPcNum", map);
+				modifySeatState(key, pcNum, "1");
+			}
 			
 			model.addAttribute("result", info.getId());
 			model.addAttribute("grade", info.getGrade());
