@@ -6,42 +6,8 @@
     <head>
 	<title>메 뉴</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
 	
-	<script>
-	
-		function category(category){
-				$.ajax({
-					url:"menuCategoryClick.do",
-					type:"post",
-					data: {category: category},
-					success:function(data){
-						$("#categoryMenu").html(data);
-					}
-				});
-		}
-		
-		function alls(){
-			$.ajax({
-				url:"menuCategoryAll.do",
-				type:"post",
-				success:function(data){
-					$("#categoryMenu").html(data);
-				}
-			});
-		}
-		
-		function order(name){
-			$.ajax({
-				url:"menuOrderListForm.do",
-				type:"post",
-				data: {name: name},
-				success:function(data){
-					$("#,").html(data);
-				}
-			});
-		}
-		
-	</script>
 	
 	
 </head>

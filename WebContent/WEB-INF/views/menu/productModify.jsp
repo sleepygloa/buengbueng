@@ -8,7 +8,7 @@
 
 <body>
 <div>
-<form action="menuModifyForm.do" method="post">
+<form action="productModifyForm.do" method="post">
 <table>
 	<tr>
 	<td>제품명</td><td>바코드</td><td>유통기한</td><td>판매유무</td><td>등록일</td>

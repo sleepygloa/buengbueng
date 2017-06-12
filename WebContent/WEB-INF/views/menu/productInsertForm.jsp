@@ -35,7 +35,7 @@
     		
     			<tr>	
     			<td>유통기한</td>
-    			<td><input type="date" name="lastday" placeholder="유통기한 입력">	</td>
+    			<td><input type="text" name="last" placeholder="유통기한 입력">	</td>
     			</tr>
     			<tr><td><input type="submit" value="추 가"/></td>
     			</tr>    		

@@ -14,7 +14,7 @@
 	</div>
 	
    	<div>
-		<button onclick="window.location='productModifyForm.do'">재 고 수 정</button>
+		<button onclick="window.location='productModify.do'">재 고 수 정</button>
 	</div>
 	
 	<div>

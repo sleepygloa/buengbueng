@@ -9,10 +9,16 @@
 	}
 </script>
 
+
 <c:if test="${check==1}">
-	<body onload="succ('재고정보가 수정되었습니다.','productModify.do')" />
+	<body onload="succ('${order}이(가) 주문되었습니다.','userOrderForm.do')" />
 </c:if>
 
 <c:if test="${check==0}">
-	<body onload="succ('정보입력이 바르지 않습니다.','productModifyForm.do')"/>
+	<body onload="succ('상품이 품절 되었습니다.','userOrderForm.do')"/>
+</c:if>
+
+
+<c:if test="${check==-1}">
+	<body onload="succ('오류. 사용에 불편을 드려서 죄송합니다.','userOrderForm.do')"/>
 </c:if>

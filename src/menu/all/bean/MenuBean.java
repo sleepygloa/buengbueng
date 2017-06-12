@@ -40,14 +40,14 @@ public class MenuBean {
 	}
 	
 	@RequestMapping("menuInsertPro.do")
-	public String menuInsertPro(MenuDTO dto, Model model){
+	public String menuInsertPro(MenuDTO dto, HttpServletRequest request){
 		int check;
 		try{
 			sqlMap.insert("menu.insertMenu", dto);
 			check=1;
+			request.setAttribute("check", check);
 		}
-		catch(Exception e){e.printStackTrace(); check=0;}
-		model.addAttribute("check",check);
+		catch(Exception e){e.printStackTrace(); check=0; request.setAttribute("check", check);}
 		return "/menu/menuInsertPro";
 	}
 	
