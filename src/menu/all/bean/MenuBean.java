@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MenuBean {
 	@Autowired
-	private SqlMapClientTemplate sqlMap;
+	private SqlMapClientTemplate sqlMap; 
 	
 	// menu 메인 페이지 이동
 	@RequestMapping("menu.do")

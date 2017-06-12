@@ -7,12 +7,22 @@
 	<title>메 뉴</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
-	
-	
-	
-</head>
+	</head>
 
 <body>
+
+<!-- HEADER TEMPLATE -->
+<jsp:include page="../header.jsp" />
+
+	<!-- 페이지 제목 -->
+	<div class=" margin_bottom50">
+		<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+			<h3>ERP 메뉴관리 페이지입니다.</h3>
+		</div>
+	</div>
+	
+<div class=" margin_bottom50">	
+		<div class="col-xs-12-12">
 
    	<div>
 		<button onclick="window.location='product.do'">재 고</button>
@@ -54,5 +64,9 @@
 	
 		</table>
 	</div>
+	</div>
+	</div>
+	
+	
 	
 </body>

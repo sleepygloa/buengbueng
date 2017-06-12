@@ -6,7 +6,7 @@
 	<settings useStatementNamespaces="true" />
 	
 <!-- For Example : MySQL 연동  -->	
-	<sqlMap resource="/sql/menuSQL.xml"/> <!-- menu 추가 수정 삭제 관리 -->
+
 	<sqlMap resource="sql/typeAliasSQL.xml"/> <!-- DTO 정의 모아둔곳 -->
 	<sqlMap resource="sql/userInfoSQL.xml"/> <!-- 회원관리 : 가입, 삭제, 정보보기 등등 -->
 	<sqlMap resource="sql/checkInfoSQL.xml"/> <!-- 유효성검사 : 아이디검사, 비밀번호 검사 -->
@@ -17,6 +17,6 @@
 	<sqlMap resource="sql/CustomerSQL.xml"/> <!-- 고객센터 -->
 	<sqlMap resource="sql/useSeatSQL.xml" /> <!-- 사용자의 좌석 이용시간 및 PC방 좌석 이용현황 -->
 	<sqlMap resource="sql/cashSQL.xml"/>  <!-- 결제 관련 -->
-	
+	<sqlMap resource="sql/menuSQL.xml"/> <!-- menu 추가 수정 삭제 관리 -->
 	<sqlMap resource="sql/logSQL.xml"/>  <!-- 각종 LOG 관련 -->
 </sqlMapConfig>

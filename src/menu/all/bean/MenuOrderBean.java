@@ -46,7 +46,6 @@ public class MenuOrderBean {
 				// 주문번호 올려주기 위해서
 				int num=(Integer)sqlMap.queryForObject("menu.orderCount",null);
 				num=num+1;
-				System.out.println("제발좀..."+order);
 				int price=(Integer)sqlMap.queryForObject("menu.getPrice",order);
 				String id = (String)session.getAttribute("loginId");
 				

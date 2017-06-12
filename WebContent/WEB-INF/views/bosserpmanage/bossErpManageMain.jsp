@@ -25,7 +25,5 @@
 	
 </div>
 
-
-
 <!-- FOOTER TEMPLATE -->
 <jsp:include page="../footer.jsp" />
