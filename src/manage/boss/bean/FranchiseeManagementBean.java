@@ -18,6 +18,7 @@ import login.user.bean.UserInfoDataDTO;
 import superclass.all.bean.CheckInfo;
 import superclass.all.bean.FindIpBean;
 import superclass.all.bean.Random;
+import superclass.all.bean.ReadDbWriteArray;
 
 @Controller
 public class FranchiseeManagementBean {
@@ -37,6 +38,10 @@ public class FranchiseeManagementBean {
 	//비밀번호 검사
 	@Autowired
 	public CheckInfo pwcheck;
+	
+	//Log파일쓰기
+	@Autowired
+	public ReadDbWriteArray read;
 	
 	//대메뉴에서 '사장님 가맹점 관리 버튼 클릭시' 이동
 	@RequestMapping("franchiseeManagementMain.do")
@@ -113,13 +118,15 @@ public class FranchiseeManagementBean {
 		String id = (String)session.getAttribute("loginId");
 		int check = 0;
 		
+		String fileName = "franchisee\\franchiseeAdd.txt";
+		
 		franchiseeDto.setB_id(id);
 			try{
 				/////////////////////////////////////////////////////////////
 				//가맹점 정보 로그를 입력한다.
 				sqlMap.insert("log.insertFranchiseeLog", franchiseeDto);
 				check = 1;
-				
+				read.readDb(franchiseeDto, fileName);
 			}catch(Exception e){
 				check = 2;
 				e.printStackTrace();

@@ -13,6 +13,9 @@
 	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 	
+	<!-- INIT IMPORT 지정 -->
+	<context:component-scan base-package="config.setting.init" /> <!-- 회원관리 BEAN -->
+	
 	<!-- BEAN IMPORT 지정 -->
 	<context:component-scan base-package="login.user.bean" /> <!-- 회원관리 BEAN -->
 	<context:component-scan base-package="index.all.bean" /> <!-- 메인페이지 BEAN -->
@@ -33,6 +36,9 @@
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<property name="order" value="0" />
 	</bean>
+	
+	<!-- INIT 설정 파일 autowired -->
+	<context:annotation-config />
 	
 <!-- 	
 	AOP 설정 

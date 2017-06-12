@@ -1,0 +1,8 @@
+franchisee\\
+franchisee\\addErrorLog\\
+franchisee\\addSuccessLog\\
+franchisee\\deleteErrorLog\\
+franchisee\\deleteSuccessLog\\
+franchisee\\listLog\\
+franchisee\\updateErrorLog\\
+franchisee\\updateSuccessLog\\
