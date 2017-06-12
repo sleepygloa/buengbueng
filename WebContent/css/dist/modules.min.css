@@ -45,7 +45,9 @@ header, section, footer{
 @media screen and (min-width:992px){
 	section{font-size:16px}
 }
-
+.small-font8{font-size:0.8em;}
+.small-font7{font-size:0.7em;}
+.small-font6{font-size:0.6em;}
 /* 기본 반응형 태그 */
 [class*=col]{float:left;position:relative;padding-right:25px;padding-left:25px;box-sizing:border-box;}
 @media screen and (min-width:250px){
@@ -91,6 +93,7 @@ header, section, footer{
 	.xs_hidden{display:none;}
 	.md_hidden{display:block;}
 	.xsm_hidden{display:none;}
+	.sm_hidden{display:block;}
 }
 @media screen and (min-width:768px){
 	.xs_hidden{display:block;}
@@ -99,6 +102,7 @@ header, section, footer{
 @media screen and (min-width:1200px){
 	.md_hidden{display:none;}
 	.xsm_hidden{display:block;}
+	.sm_hidden{display:none;}
 }
 
 /* 컨텐츠 영역 태그 */

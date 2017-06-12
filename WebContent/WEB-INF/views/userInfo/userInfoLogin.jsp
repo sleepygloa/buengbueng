@@ -13,7 +13,9 @@
         <div class="login_wrap">
             <div class="row">
                 <div class="col-xs-12-12 col-md-6-12">
-                    <h1 class="signin--title"><a class="home" href="index.do"><img src="../img/signin_beulogo-white.png" alt="buengbueng"></a></h1>
+                    <h1 class="signin--title"><a class="home" href="index.do">
+                    <!-- <img src="../img/signin_beulogo-white.png" alt="buengbueng"> -->
+                    </a></h1>
                 </div>
                 <div class="col-xs-12-12 col-md-6-12">
                     <div class="login_form_wrap">

@@ -23,4 +23,10 @@
 		UPDATE userAccount SET money = money + #usePcUseTimePay# where id = #id#;
 	</update>
 
+	<!-- 가맹점 신청 : 신청시 log테이블에 레코드 추가 -->
+	<insert id="insertFranchiseeLog" parameterClass="franchiseeDTO">
+		insert INTO franchiseeLog (result, Date, b_id, b_name, b_number,b_address,b_tel,b_size,b_pccount,b_ip)
+					 VALUES(0,now(), #b_id#,#b_name#,#b_number#,#b_address#,#b_tel#,#b_size#,#b_pccount#,#b_ip#);
+	</insert>
+
 </sqlMap>
