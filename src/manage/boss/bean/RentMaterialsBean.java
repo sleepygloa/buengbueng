@@ -27,6 +27,11 @@ public class RentMaterialsBean {
 	
 	@RequestMapping("rentManage.do")
 	public String rentManage(HttpSession session, Model model){
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		model.addAttribute("sidemenuCheck", sidemenuCheck);
+		model.addAttribute("sidemenu", sidemenu);
 		String id = (String)session.getAttribute("loginId");
 		try{
 			BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);		

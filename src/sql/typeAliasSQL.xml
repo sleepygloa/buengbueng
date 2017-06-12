@@ -19,4 +19,5 @@
 	<typeAlias alias="pcInfoLog" type="pc.materials.bean.PcInfoModifyLogDataDTO"/>
     <typeAlias alias="rentDTO" type="manage.boss.bean.RentDataDTO"/>
     <typeAlias alias="rentProdDTO" type="manage.boss.bean.RentProductDataDTO"/>
+    <typeAlias alias="rentLogDTO" type="manage.boss.bean.RentLogDataDTO"/>    
 </sqlMap>

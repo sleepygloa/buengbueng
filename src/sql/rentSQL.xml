@@ -47,4 +47,9 @@
 	<delete id="deleteRentProduct" parameterClass="rentProdDTO">
 		delete from rentProduct where b_key = #b_key# and code = #code#;
 	</delete>
+<!-- ================================================================================================================= -->
+	<!-- 사용자의 대여 중인 물품 가져오기 -->
+	<select id="getUserRentList" parameterClass="java.util.HashMap" resultClass="String">
+		select name from rentLog where id = #id# and b_key = #key# and returndate = '0000-00-00 00:00:00';
+	</select>
 </sqlMap>

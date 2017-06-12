@@ -36,4 +36,17 @@ public class FxRentBean {
 		model.addAttribute("rentList", sb.toString());
 		return "fxRent/fxGetRentList";
 	}
+	
+	@RequestMapping("fxOrderRent.do")
+	public String fxOrderRent(Model model){
+		String result = "succ";
+		try{
+			
+		}catch(Exception e){
+			// 추후 수정
+		}finally{
+			model.addAttribute("result", result);
+		}
+		return "fxRent/fxOrderRent";
+	}
 }

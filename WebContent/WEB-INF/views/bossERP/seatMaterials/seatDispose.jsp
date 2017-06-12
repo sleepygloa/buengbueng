@@ -9,6 +9,10 @@
 </head>
 
 <body>
+	
+	<!-- HEADER TEMPLATE -->
+	<jsp:include page="/WEB-INF/views/header.jsp" />
+
 	<div>
 		&emsp;&emsp;&emsp;
 		<input type="text" id="pcCount"/>&emsp;<input type="button" id="seatAdd" value="추가"/>
@@ -31,4 +35,6 @@
 		<div class="pcInfo">
 		</div>
 	</div>
+	<!-- FOOTER TEMPLATE -->
+	<jsp:include page="/WEB-INF/views/footer.jsp" />
 </body>

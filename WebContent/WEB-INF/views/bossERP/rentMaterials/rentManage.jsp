@@ -9,6 +9,10 @@
 </head>
 
 <body>
+
+	<!-- HEADER TEMPLATE -->
+	<jsp:include page="/WEB-INF/views/header.jsp" />
+	
 	<div>
 		<input type="button" value="대여물품목록 추가" id="addRent"/>&emsp;&emsp;&emsp;
 		<input type="button" value="대여물품목록삭제" id="delRent"  />&emsp;&emsp;&emsp;

@@ -109,12 +109,11 @@ public class FxLoginBean {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("loginTime", loginTime);
+		map.put("licenseKey", key);
 		String result = "fail";
 		try{
-			sqlMap.update("useSeat.useTimeLogout", map);
-			
+			sqlMap.update("useSeat.useTimeLogout", map);	
 			modifySeatState(key, Integer.parseInt(pcNum), "0");
-			
 			result = "succ";
 		}catch(Exception e){
 			// 추후...수정

@@ -13,7 +13,8 @@
 				<input type="checkBox" value="${pcNum}" name="checkPC"/>${pcNum}<br/>
 				<c:forEach var="num" items="${useSeatNum}">
 					<c:if test="${num == (pcNum)}">
-						${useSeatId.get(usePcCount)}님
+						${useSeatId.get(usePcCount)}님<br/>
+						${useSeatRent.get(usePcCount)} 대여중
 					</c:if>
 				</c:forEach>
 			</div>
