@@ -9,15 +9,8 @@ public class ProductDTO {
 	private Date lastday;
 	private int salecheck;
 	private Timestamp beginregist;
-	private String key;
 	
 	
-	public String getKey() {
-		return key;
-	}
-	public void setKey(String key) {
-		this.key = key;
-	}
 	public int getCode() {
 		return code;
 	}

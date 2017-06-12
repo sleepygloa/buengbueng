@@ -10,14 +10,8 @@ public class OrderDTO {
 	private Date ordertime;
 	private int orderstatus;
 	private int ordermoney;
-	private String key;
 	
-	public String getKey() {
-		return key;
-	}
-	public void setKey(String key) {
-		this.key = key;
-	}
+	
 	public int getNum() {
 		return num;
 	}
