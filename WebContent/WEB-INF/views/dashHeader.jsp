@@ -5,7 +5,6 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>관리자 페이지</title>
@@ -48,9 +47,9 @@
                         <div class="detail">
                             <strong>${sessionScope.loginId}</strong><span class="badge badge-danger m-left-xs ">접속</span>
                             <ul class="list-inline">
-                                <li class=""><a href="/buengbueng/userInfoForm.do">정보 버튼</a></li>
-                                <li class=""><a href="/buengbueng/logout.do" class="no-margin">로그아웃 버튼</a></li>
-                                <li class=""><a href="/buengbueng/index.do" class="no-margin">사용자 페이지</a></li>
+                                <li class=""><a href="userInfoForm.do">정보 버튼</a></li>
+                                <li class=""><a href="logout.do" class="no-margin">로그아웃 버튼</a></li>
+                                <li class=""><a href="index.do" class="no-margin">사용자 페이지</a></li>
                             </ul>
                         </div>
                     </div>
@@ -59,26 +58,32 @@
                         <li class="mt-has-menu">
                             <a href="javascript:void(0)" class="rippler rippler-default">
                             <i class="fa fa-home"></i>
-                            <span class="menu-text">회원관리</span>
+                            <span class="menu-text">회원 정보</span>
                             <span class="selected"></span>
                         </a>
                             <ul class="mt-sub-menu">
-                                <li>
-                                    <a href="/buengbueng/dashtest.do" class="rippler rippler-default">
-                                    <span class="menu-text">등급 관리</span>
+                             	<li>
+                                    <a href="dashUser.do?grade=1&pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">사용자</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="index2.html" class="rippler rippler-default">
-                                    <span class="menu-text">입금 관리</span>
+                                    <a href="dashBoss.do?grade=1&pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">사장님</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                                <li>
+                                    <a href="dashAdmin.do?grade=1&pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">관리자</span>
                                     <span class="label bg-warning">Update</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="index1.html" class="rippler rippler-default">
-                                    <span class="menu-text">출금 관리</span>
+                                    <a href="#" class="rippler rippler-default">
+                                    <span class="menu-text">등급 관리</span>
                                     <span class="label bg-warning">Update</span>
                                     <span class="selected"></span>
                                 </a>

@@ -21,7 +21,7 @@
 	<context:component-scan base-package="search.user.bean" /> <!-- PC방 찾기 BEAN-->
 	<context:component-scan base-package="superclass.all.bean" /> <!-- 전역 CLASS, 상속가능한 것들 BEAN -->
 	<context:component-scan base-package="erp.boss.bean" /> <!-- 사장님 ERP관리 BEAN -->
-
+	<context:component-scan base-package="manage.admin.bean" /> <!-- 관리자 페이지 BEAN -->
 	<!-- FX BEAN INPORT 지정 -->
 	<context:component-scan base-package="fx.login.bean" /> <!-- FX 화원관리 BEAN  -->
 	<context:component-scan base-package="payment.all.bean" /> <!-- 결제 관련 BEAN  -->

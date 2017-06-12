@@ -17,4 +17,5 @@
 	<sqlMap resource="/sql/customerSQL.xml"/> <!-- 고객센터 -->
 	<sqlMap resource="/sql/useSeatSQL.xml" /> <!-- 사용자의 좌석 이용시간 및 PC방 좌석 이용현황 -->
 	<sqlMap resource="/sql/cashSQL.xml"/>  <!-- 결제 관련 -->
+	<sqlMap resource="/sql/adminSQL.xml"/> <!-- 관리자 페이지 -->
 </sqlMapConfig>

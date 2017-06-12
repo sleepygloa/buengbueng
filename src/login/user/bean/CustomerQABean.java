@@ -23,9 +23,9 @@ public class CustomerQABean { // Q & A
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		
-		if(pageNum==null){pageNum="10";}
+		if(pageNum==null){pageNum="1";}
 		
-		int pageSize=1; // endRow와 같이써도 가능함. mysql limit 사용시. 출력은 고정.
+		int pageSize=10; // endRow와 같이써도 가능함. mysql limit 사용시. 출력은 고정.
 		int currentPage = Integer.parseInt(pageNum);
 	    int startRow = (currentPage - 1) * pageSize; // mysql에서 limit 는 0부터 시작해야 rownum 1번 값부터 호출
 	    int number=0;

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="admin">
+	
+	<select id="userCount" parameterClass="int" resultClass="int">
+		select count(*) from userInfo where grade=#grade#;
+	</select>
+	
+	<select id="userList" parameterClass="int" resultClass="userDto">
+		<![CDATA[
+		select id,pw,name,birth,phone,grade,address,email,signdate,googleid,@rownum:=@rownum+1 as rownum
+		from userInfo,(select @rownum:=0)r where grade=#grade# order by signdate desc;
+		]]>
+	</select>
+</sqlMap>

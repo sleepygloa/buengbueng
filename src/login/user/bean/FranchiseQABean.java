@@ -23,7 +23,7 @@ public class FranchiseQABean { // 가맹 문의
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		
-		if(pageNum==null){pageNum="10";}
+		if(pageNum==null){pageNum="1";}
 		
 		int pageSize=10; // endRow와 같이써도 가능함. mysql limit 사용시. 출력은 고정.
 		int currentPage = Integer.parseInt(pageNum);

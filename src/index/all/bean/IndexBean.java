@@ -19,9 +19,4 @@ public class IndexBean {
 	public String index(){
 		return "index";
 	}
-	
-	@RequestMapping("dashIndex.do")
-	public String dashIndex(){
-		return "dashIndex";
-	}
 }
