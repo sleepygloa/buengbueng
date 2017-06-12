@@ -5,6 +5,9 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
     	
+    	
+    	<div>
+    	<table>
 			<tr>
 			<td>제 품</td><td>제조사</td><td>가 격</td>
 			</tr>
@@ -15,5 +18,6 @@
 			</td>
 		</tr>		
 		</c:forEach>
-		
+		</table>
+		</div>
 	

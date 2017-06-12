@@ -48,8 +48,8 @@ public class MenuOrderBean {
 				num=num+1;
 				System.out.println("제발좀..."+order);
 				int price=(Integer)sqlMap.queryForObject("menu.getPrice",order);
-				String id = (String)session.getAttribute("loginId");
-				
+				//String id = (String)session.getAttribute("loginId");
+				String id="imjiii";
 				HashMap map=new HashMap();
 				map.put("num", num);
 				map.put("id",id);
@@ -98,21 +98,10 @@ public class MenuOrderBean {
 	@RequestMapping("menuOrderListForm.do")
 	public String menuOrderListForm(HttpServletRequest request){
 		String status;
+		String statusbutton = null;
 		try{
 			List orderList = (List)sqlMap.queryForList("menu.getMenuOrder", null);
 			request.setAttribute("orderList", orderList);
-			for(int i=0; i<orderList.size();i++){
-				OrderDTO odto=(OrderDTO) orderList.get(i);
-				if(odto.getOrderstatus()==1){
-					status="주문중";
-				}else if(odto.getOrderstatus()==2){
-					status="주문완료";
-				}else{
-					status="주문취소";
-				}
-				request.setAttribute("status",status);
-			}
-			
 		}catch(Exception e){e.printStackTrace();}
 		return "/menu/menuOrderListForm";
 	}
@@ -128,6 +117,7 @@ public class MenuOrderBean {
 	/* 바코드 확인하고 정상적인 주문일 때 완료 페이지*/
 	@RequestMapping("menuOrderComplete.do")
 	public String menuOrderComplete(HttpServletRequest request, int barcode, int num, String menuname){
+		int check;
 		try{
 			HashMap map=new HashMap();
 			map.put("barcode", barcode);
@@ -136,10 +126,12 @@ public class MenuOrderBean {
 			if(!pdto.equals(null)){
 				sqlMap.update("menu.updateStatus",num); // 주문현황 주문중 --> 주문완료
 				sqlMap.update("menu.updateStatus",barcode); // 재고 판매여부 1 --> 0
-				
+				check=1;
+			}else{
+				check=0;
 			}
-			
-		}catch(Exception e){e.printStackTrace();}
+			request.setAttribute("check",check);
+		}catch(Exception e){e.printStackTrace(); check=-1; request.setAttribute("check", check);}
 		
 		return "/menu/menuOrderComplete";
 	}	

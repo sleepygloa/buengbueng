@@ -17,17 +17,19 @@
     <div>
     	<table>
     	<tr>
-    	<td>주문번호</td><td>주문자 아이디</td><td>주문명</td><td>주문 시간</td><td>주문 금액</td><td>현황</td><td></td>
+    	<td>주문번호</td><td>주문자 아이디</td><td>주문명</td><td>주문 시간</td><td>주문 금액</td><td></td>
     	</tr>
     	<c:forEach var="ol" items="${orderList}">
+ 
     		<tr>
-    		<td>${ol.num}</td><td>${ol.id}</td><td>${ol.menuname}</td><td>${ol.ordertime}</td><td>${ol.ordermoney}</td><td>${status}</td>		
+    		<td>${ol.num}</td><td>${ol.id}</td><td>${ol.menuname}</td><td>${ol.ordertime}</td><td>${ol.ordermoney}</td>	
     		<td><input type="submit" value="주문 승인"/>
     			<input type="hidden" name="num" value="${ol.num}"/>
     			<input type="hidden" name="menuname" value="${ol.menuname}">
     		</td>
     		</tr>    	
     		</c:forEach>
+    
     	</table>
     </div>
     </form>

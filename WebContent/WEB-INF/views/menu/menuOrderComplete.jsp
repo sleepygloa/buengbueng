@@ -1,12 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-</body>
-</html>
+<script type="text/javascript">
+	function succ(check, url){
+		alert(check);
+		window.location=url;
+	}
+</script>
+
+<c:if test="${check==1}">
+	<body onload="succ('주문승인이 완료 되었습니다.','menuOrderListForm.do')" />
+</c:if>
+
+<c:if test="${check==0}">
+	<body onload="succ('판매되었거나 메뉴명과 바코드값이 맞지않습니다.','menuBarcodeCheck.do')"/>
+</c:if>
+
+<c:if test="${check==-1}">
+	<body onload="succ('다시 한 번 시도해보세요.','menuBarcodeCheck.do')"/>
+</c:if>

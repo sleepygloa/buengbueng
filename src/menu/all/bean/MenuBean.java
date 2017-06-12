@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
@@ -19,8 +20,13 @@ public class MenuBean {
 	
 	// menu 메인 페이지 이동
 	@RequestMapping("menu.do")
-	public String menuForm(MenuDTO mdto, HttpServletRequest request){
+	public String menuForm(HttpSession session,MenuDTO mdto, HttpServletRequest request){
 		try{
+		//임의로  사장아이디 가져오기.
+		String id= (String)session.getAttribute("loginId");
+		
+			
+			
 		List menuList= sqlMap.queryForList("menu.getMenu",null);
 		request.setAttribute("menuList", menuList);
 		List categoryList =sqlMap.queryForList("menu.getCategory",null);
