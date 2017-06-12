@@ -82,5 +82,5 @@
 			</tr>
 		</table>
 	</form>
-	<script type="text/javascript" src="/buengbueng/js/userInfo/bossSignForm.js"></script>
+	<!-- <script type="text/javascript" src="/buengbueng/js/userInfo/bossSignForm.js"></script> -->
 </body>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="cash">
+
+	<select id="cash_area" resultClass="dto">
+		select * from paymentList
+	</select>
+	
+	<insert id="cash_input" parameterClass="dto">
+		 insert into paymentList(paying_price,buyer_chatid,payment_type,pg_name,confirmation,paying_name) values(#paying_price#,#buyer_chatid#,#payment_type#,#pg_name#,#confirmation#,#paying_name#);
+	</insert>
+	
+	<select id="cash_payment_useInfoLoad" resultClass="userdto" parameterClass="String">
+		select * from userInfo where id = #id#;
+	</select>
+	 
+ 	 <!-- 회원 로그인 했을때 이벤트로 돈 충전해주는 Log -->
+	 <insert id="eventAdminGiveUserMoneyLog" parameterClass="java.util.HashMap">
+ 		INSERT INTO accountLog (giveId, getId, money, method, reason, signdate)
+ 						 VALUES('admin', #id#, #eventMoney#, '1', '8', now());
+	 </insert>
+	 
+	 <!-- 회원 로그인 했을때 이벤트로 돈 충전해주는 Log -->
+	 <update id="eventAdminGiveUserMoney" parameterClass="java.util.HashMap">
+	UPDATE userAccount SET money = money + #eventMoney# WHERE id = #id#;
+	 </update>
+	 
+ 	<!-- 사용자 피시방 이용후 종료시 결제 -->
+	<select id="userPcUseTimePay" resultClass="useTimeDto" parameterClass="java.util.HashMap">
+		<![CDATA[
+	select 
+	    round((logoutTime - loginTime))  as usePcUseTime, 
+        round((logoutTime - loginTime) * c.moneyPolicy)  as usePcUseTimePay, 
+	    b.money as userAccountMoney,
+	    b.money - (round((logoutTime - loginTime) * c.moneyPolicy))  as payAfterMoney, 
+	    loginTime, logoutTime, b_key  
+   	from useTimeLog a INNER JOIN (select id, money from userAccount where id = #id#) b ON a.id = b.id ,
+   	(select c.moneyPolicy, c.b_key from franchiseePolicy c, (select b_key from franchiseeAddLog where b_ip = #b_ip#) d where c.b_key = d.b_key ) c
+   	where a.id = #id# order by loginTime desc limit 0,1;
+		]]>
+	</select>
+	 
+	 
+	 
+</sqlMap>

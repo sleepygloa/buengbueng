@@ -22,12 +22,12 @@
         <link rel="stylesheet" type="text/css" media="all" href="css/dist/modules.min.css">
         <link rel="stylesheet" type="text/css" media="all" href="css/dist/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" media="all" href="css/dist/bootstrap-theme.min.css">
-	
-
+		<link rel="stylesheet" type="text/css"  href="/buengbueng/css/reset.css"> 
 	
 		<!-- main -->
 		<link rel="stylesheet" type="text/css" media="all" href="css/dist/sidemain_main.css">
-		
+		<!-- 구글 MATERIAL ICON -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 		
 		<!-- 홈페이지 제목 -->
@@ -198,7 +198,7 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="franchiseeManagementMain.do">
+									<a href="franchiseeList.do">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">가맹점 관리</h6>
