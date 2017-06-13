@@ -118,15 +118,16 @@ public class FranchiseeManagementBean {
 		String id = (String)session.getAttribute("loginId");
 		int check = 0;
 		
-		String fileName = "franchisee\\franchiseeAdd.txt";
-		
+		String fileName = "C:\\Users\\sleep\\Documents\\workspace\\buengbueng\\WebContent\\log"
+				+ "\\franchisee\\addSuccessLog\\addSuccessLog.txt";
+		String fileCheck = "franchisee";
 		franchiseeDto.setB_id(id);
 			try{
 				/////////////////////////////////////////////////////////////
 				//가맹점 정보 로그를 입력한다.
 				sqlMap.insert("log.insertFranchiseeLog", franchiseeDto);
 				check = 1;
-				read.readDb(franchiseeDto, fileName);
+				read.readDb(franchiseeDto, fileName, fileCheck);
 			}catch(Exception e){
 				check = 2;
 				e.printStackTrace();
