@@ -17,7 +17,7 @@ span{
 
 /* margin left */
 .margin_l5{	margin-left:5px;}
-.margin_l0{	margin-left:10px;}
+.margin_l10{	margin-left:10px;}
 .margin_l15{ margin-left:15px;}
 .margin_l20{ margin-left:20px;}
 
@@ -152,7 +152,7 @@ body{
 .td_title{text-align:center; width:auto;}
 .cash_table{ border-collapse:collapse; width:1100px; border:none;}
 
-.cash_history{ border-collapse:collapse; border:none; width:1100px;}
+.cash_history{ border-collapse:collapse; border:none; width:1100px; }
 .table_header{
 	background:#f8f8f8;
  	color:#222; 
@@ -163,6 +163,11 @@ body{
  	font-size:14px;
  	text-align:center;
  	height:55px;
+ }
+ .table_header p, .table_content p{
+ 	vertical-align: middle;
+ 	line-height: 20px;
+ 	margin: 17px auto;
  }
  .table_content{
  	color:#555; 
@@ -410,3 +415,78 @@ body{
  	text-align: center;
  	vertical-align: middle;
 	margin-top:250px;
+	flaot:left;
+	margin-top:200px;
+ }
+ /************************************ cashHistory ************************************/
+ .head_emp{
+ 	width:100%;
+ 	height:64px;
+ 	float:left;
+ 	border-bottom:1px #999 solid;
+ }
+ .history_tbox{
+ 	width:100%;
+ 	height:180px;
+ 	float:left;
+ 	text-align: center;
+ 	vertical-align:middle;
+ }
+ .history_tbox p{
+ 	font-size: 48px;
+ 	font-weight: bold;
+ 	color:#222;
+ 	margin:0 auto;
+ }
+ .history_tbox sapn{
+ 	font-size: 16px;
+	color:#555;
+	margin:0 auto;
+}
+ .title_text_box{
+ 	width:500px;
+ 	height:110px;
+ 	margin:35px auto;
+ 	display: inline-block;
+ }
+ .history_point_img{
+ 	background: url("/buengbueng/img/pament/img_visual_mypoint.jpg") no-repeat top center;
+ 	height:auto;
+ }
+ .history_point{
+ 	width:100%;
+ 	height:auto;
+	float:left;
+ 	text-align: center;
+ 	vertical-align:middle;
+ }
+ .history_point_tbox{
+ 	width:50%;
+ 	height:110px;
+ 	margin:35px auto;
+ 	display: inline-block;
+ 	
+ }
+  .history_point_tbox P{
+  	font-size:22px;
+  	color:#fff;
+  }
+ .history_point_tbox span{
+ 	color:#f8b133;
+ 	font-weight: bold;
+ }
+ .history_point_List{
+ 	height:auto;
+	margin:0 auto;
+	display:inline-block; 
+	margin: 40px auto;
+	text-align: left;
+ }
+ .history_point_List_title{
+ 	font-weight: 18px;
+ 	margin:10px auto;
+ 	font-weight: bold;
+ }
+
+ 
+ 

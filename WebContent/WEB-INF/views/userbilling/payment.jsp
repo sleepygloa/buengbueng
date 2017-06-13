@@ -32,7 +32,7 @@
 	    			msg += '\n결제 금액 : ' + rsp.paid_amount;
 	    			msg += '카드 승인번호 : ' + rsp.imp_uid;
 	    			
-	    	location.replace("paymentPro.do?paying_price=${pay}&buyer_chatid=${id}&payment_type=${cardtype}&pg_name=html5_inicis&confirmation=Accept&paying_name=123&imp_uid="+rsp.imp_uid+"&merchant_uid=?"+rsp.merchant_uid+"&error_msg="+smsg); // 결제 후 이동 링크
+	    	location.replace("paymentPro.do?paying_price=${pay}&buyer_chatid=${id}&payment_type=${cardtype}&pg_name=html5_inicis&confirmation=Accept&paying_name=123&imp_uid="+rsp.imp_uid+"&merchant_uid="+rsp.merchant_uid+"&error_msg="+smsg); // 결제 후 이동 링크
 	    	jQuery.ajax({
 	    		url: "/payments/complete", //cross-domain error가 발생하지 않도록 주의해주세요
 	    		type: 'POST',

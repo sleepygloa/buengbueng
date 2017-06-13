@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -18,18 +19,13 @@
 						type:"post",
 						data:{
 							pay : $("#pay").val(),
-							cardtype : $("input:radio[name=interest]:checked").val()						},
+							cardtype : $("input:radio[name=interest]:checked").val()						
+						},
 						success:function(data){
 							$("#result").html(data);
 						}	
 					});
 				}); 
-				//결제 금액 선택시 text 값 변경
-				$("#1,#2,#3,#4,#5").click(function (Integer) { 
-					var text = Number($(this).text()); 
-						$("#pay").val(text);
-						$("#payend").val(text+${info.cash});
-					}); 
 			});
 		</script>
 	</head>
@@ -45,13 +41,22 @@
 			<!-- 사용자정보 목록 -->
 			<div class="user_info margin_r20">
 				<div class="cash_in_list1">
-					<span class="cash_span_left">현재 보유 : </span><span class="cash_span_right"><b class="cashing_point_b2">${info.cash}</b></span>
+					<span class="cash_span_left">현재 보유 : </span><span class="cash_span_right"><b class="cashing_point_b2">
+					<c:if test="${info.money != null}">
+						${info.money}
+					</c:if>
+					</b></span>
 				</div>
 				<div class="cash_in_list2">
-					<span class="cash_span_left">충전 예정: </span><span class="cash_span_right"><input id="pay" class="cashing_point" type="text"  placeholder="0"  readonly><b class="cashing_point_b">P</b></span>
+					<span class="cash_span_left">충전 예정: </span><span class="cash_span_right">
+						<input id="pay" class="cashing_point" type="text"  placeholder="0"  readonly><b class="cashing_point_b">P</b>
+					</span>
 				</div>
 				<div class="cash_in_list2">
-					<span class="cash_span_left">충전 예정: </span><span class="cash_span_right"><input id="payend" class="cashing_point2" type="text"  placeholder="0"  readonly><b class="cashing_point_b2">P</b></span>
+					<span class="cash_span_left">충전 예정: </span>
+					<span class="cash_span_right">
+						<input id="payend" class="cashing_point2" type="text"  placeholder="0"  readonly><b class="cashing_point_b2">P</b>
+					</span>
 				</div>	
 			</div>
 			<!-- 결제금액 목록 -->
@@ -113,7 +118,18 @@
 		</div>
 	</center>
 	<!-- 결제 버튼 스크립트 -->
-	
+		
+		<script type="text/javascript">
+				$("#1,#2,#3,#4,#5").click(function (Integer) { 
+					var text = Number($(this).text()); 
+						$("#pay").val(text);
+						if(${info.money != null}){
+							$("#payend").val(text+${info.money});
+						}else{
+							$("#payend").val(text);
+						}
+					}); 
+		</script>
 	</body>
 	<jsp:include page="../footer.jsp" />
 </html>

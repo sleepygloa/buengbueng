@@ -4,20 +4,53 @@
 <sqlMap namespace="cash">
 	<typeAlias alias="dto" type="payment.all.bean.UserBillingHistoryDTO"/>
 	<typeAlias alias="userdto" type="login.user.bean.UserInfoDataDTO"/>	
+	<typeAlias alias="uadto" type="payment.all.bean.UserAccountDTO"/>
 	<select id="cash_area" resultClass="dto">
-		select * from paymentList
+		select * from paymentList;
+	</select>
+	<select id="cash_articleList" resultClass="dto" parameterClass="java.util.HashMap">
+		select * from paymentList where buyer_chatid = #id# and confirmation = #confirmation#;
 	</select>
 	
+	<select id="cash_userAccount" resultClass="uadto">
+		select * from userAccount where  id = #id#;
+	</select>	
+	
 	<insert id="cash_input" parameterClass="dto">
-		 insert into paymentList(paying_price,buyer_chatid,payment_type,pg_name,confirmation,paying_name,error_msg,payment_date) values(#paying_price#,#buyer_chatid#,#payment_type#,#pg_name#,#confirmation#,#paying_name#,#error_msg#,now());
+		 insert into paymentList(paying_price,buyer_chatid,payment_type,pg_name,confirmation,paying_name,error_msg,imp_uid,merchant_uid,payment_date) values(#paying_price#,#buyer_chatid#,#payment_type#,#pg_name#,#confirmation#,#paying_name#,#error_msg#,#imp_uid#,#merchant_uid#,now());
 	</insert>
 	
 	<select id="cash_payment_useInfoLoad" resultClass="userdto" parameterClass="String">
 		select * from userInfo where id = #id#;
 	</select>
 	
-	<update id="cash_stack" parameterClass="dto">
-		update userInfo set cash=#paying_price# where id=#buyer_chatid#;
+	<update id="cash_stack" parameterClass="java.util.HashMap">
+		update userAccount set money=#paying_price# where id=#id#;
 	</update>
+	
+	<select id="getArticleCount" resultClass="int">
+		select count(*) from paymentList where buyer_chatid = #id#;
+	</select>
+	
+	<!-- 
+	<select id="cash_history" resultClass="dto" parameterClass="String">
+		select idx,payment_date,payment_type,buyer_chatid,paying_price from paymentList where confirmation = #Accept#	
+	</select>
+	 -->
+	 <select id="cash_id" resultClass="dto" parameterClass="java.util.HashMap">
+		select * from paymentList where buyer_chatid = #id# and confirmation = #confirmation#;
+	 </select>
+	 
+	 <select id="cashCount" resultClass="int">
+		select count(*) from paymentList where buyer_chatid=#id#
+	 </select>
+	 
+	 
+	<select id="getArticles" parameterClass="java.util.HashMap" resultClass="dto">
+      select r,idx,buyer_chatid,payment_date,payment_type,paying_name,paying_price,confirmation,error_msg,pg_name,imp_uid,merchant_uid 
+      from (select @rownum:= @rownum+1 as r, idx,buyer_chatid,payment_date,payment_type,paying_name,paying_price,confirmation,error_msg,pg_name,imp_uid,merchant_uid 
+      from paymentList,(select @rownum:=0)i where buyer_chatid=#id# and confirmation = #confirmation# order by idx desc)yz where r between #startRow# and #endRow#;
+   </select>
+ 
 	
 </sqlMap>

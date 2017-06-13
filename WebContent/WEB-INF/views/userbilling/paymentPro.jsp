@@ -12,7 +12,7 @@
 <img class="cashing_img" src="/buengbueng/img/pament/cashing.gif">
 </center>
 <form id="cashPro" action="cashPro.do" method="post" >
-	<input type="hidden" name="paying_price" value="${info1.cash + paying_price}"/>
+	<input type="hidden" name="paying_price" value="${account.money + paying_price}"/>
 	<input type="hidden" name="payment_type" value="${payment_type}"/>
 	<input type="hidden" name="cash" value="${paying_price}"/>
 	<input type="submit" value="Submit" style="border:none; color:#fff; background: #fff;"> 

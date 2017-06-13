@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="typeAlias">
+
+	<typeAlias alias="bossDTO" type="login.user.bean.BossInfoDataDTO" />
+	<typeAlias alias="menuDto" type="menu.all.bean.MenuDTO" />
+	<typeAlias alias="userDto" type="login.user.bean.UserInfoDataDTO" />
+	<typeAlias alias="useTimeDto" type="login.user.bean.UseTimeLogDTO" />
+	<typeAlias alias="beDto" type="erp.boss.bean.BossEmployeeManageDataDTO" />
+	<typeAlias alias="customerDTO" type="login.user.bean.CustomerDTO"/>
+	<typeAlias alias="bossErpTotalDTO" type="erp.boss.bean.BossErpTotalDTO"/>
+	<typeAlias alias="dto" type="payment.all.bean.UserBillingHistoryDTO"/>
+    
+
+    
+    
+</sqlMap>

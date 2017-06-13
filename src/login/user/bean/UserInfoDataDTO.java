@@ -14,14 +14,7 @@ public class UserInfoDataDTO {
     private String email;
     private Timestamp signdate;
     private String googleId;
-    private int cash;
     
-	public int getCash() {
-		return cash;
-	}
-	public void setCash(int cash) {
-		this.cash = cash;
-	}
 	public String getId() {
 		return id;
 	}

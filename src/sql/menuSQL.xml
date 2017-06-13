@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="menu">
+
+	
+
+	
+	<!-- menu 추가  -->
+	<insert id="insertMenu" parameterClass="menuDto">
+		insert into menu values(#name#, #number#, #price#, #category#, #company#);
+	</insert>	
+	
+	<!-- 카테고리 버튼 만들기 -->
+	<select id="getCategory" resultClass="String"> 
+		select distinct category from menu;
+	</select>
+	
+	<!-- menu 가져오기 -->
+	<select id="getMenu" resultClass="menuDto">
+		select * from menu;
+	</select>
+	
+	
+	<!-- menu 삭제 -->
+	<delete id="deleteMenu" parameterClass="String">
+		delete from menu where name=#name#;
+	</delete>
+	
+</sqlMap>
+	
