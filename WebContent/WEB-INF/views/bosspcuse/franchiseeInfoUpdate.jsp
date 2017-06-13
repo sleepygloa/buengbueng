@@ -90,9 +90,10 @@
 				<!-- 라이센스KEY -->
 				<div class="row">
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
-						<label>가맹점 IP<br /></label>
+						<label>가맹점 라이센스<br /></label>
 						<div class="form-group">
 						${dto.b_key}
+						<input type="hidden" name="b_key" value="b_key" />
 						</div>
 					</div>
 				</div>																		

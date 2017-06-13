@@ -20,8 +20,22 @@ public class FranchiseeDataDTO {
 	private Timestamp finishDate; //승인날짜
 	private int result; //신청결과
 	
+	private String reason; //삭제 사유
+	private String pw; //삭제비밀번호
 	
 	
+	public String getPw() {
+		return pw;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+	public String getReason() {
+		return reason;
+	}
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
 	public int getResult() {
 		return result;
 	}

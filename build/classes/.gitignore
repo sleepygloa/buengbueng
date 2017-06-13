@@ -1,6 +1,11 @@
-/manage/
-/sql/
-/Config.class
-/Init.class
 /config/
+/erp/
+/fx/
+/index/
+/login/
+/manage/
+/menu/
+/payment/
+/search/
 /superclass/
+/sql/

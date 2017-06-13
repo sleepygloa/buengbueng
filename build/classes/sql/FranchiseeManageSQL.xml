@@ -71,11 +71,27 @@
 		where  b_name = #b_name#;
 	</update>
 	
+	<!-- 가맹점 수정 Log -->
+	<insert id="insertFranchiseeUpdateLog" parameterClass="franchiseeDTO">
+		INSERT INTO franchiseeUpdateLog (num, date, b_key, b_id, b_name, b_number,b_address, b_tel, b_size, b_pccount, b_ip)
+		VALUES(0, now(), #b_key#, #b_id#, #b_name#, #b_number#, #b_address#, #b_tel#, #b_size#, #b_pccount#, #b_ip#);
+	</insert>
+	
 	<!-- 가맹점 삭제 -->
 	<delete id="deleteFranchisee"  parameterClass="java.util.HashMap">
 		delete from franchiseeInfo where b_key = #b_key#;
 	</delete>	
 	
+	<!-- 가맹점 삭제 Log-->
+	<insert id="insertFranchiseeDeleteLog"  parameterClass="java.util.HashMap">
+		INSERT INTO franchiseeDeleteLog (num,id, b_key, pw, reason) VALUES(0,#id#, #b_key#, #pw#, #reason#);
+	</insert>		
+
+	
+	<!-- 가맹점 정보 불러오기:B_key로 -->
+	<select id="getFranchiseeDeleteLogBkey" resultClass="franchiseeDTO" parameterClass="String">
+		select * from franchiseeDeleteLog where b_key = #b_key#;
+	</select>
 	
 	
 </sqlMap>

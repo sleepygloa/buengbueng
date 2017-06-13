@@ -1,5 +1,6 @@
 package manage.boss.bean;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -105,7 +106,7 @@ public class FranchiseeManagementBean {
 	
 	//가맹점 신청 처리 BEAN
 	@RequestMapping("franchiseeAddPro.do")
-	public String franchiseeAddPro(HttpServletRequest request, HttpSession session, FranchiseeDataDTO franchiseeDto, Model model){
+	public String franchiseeAddPro(HttpServletRequest request, HttpSession session, FranchiseeDataDTO franchiseeDto, Model model) throws IOException{
 		String b_number=request.getParameter("b_number_1")+"-"+request.getParameter("b_number_2")+"-"+request.getParameter("b_number_3"); // 사업자 번호를 bdto에 저장
 		franchiseeDto.setB_number(b_number);
 		String b_tel=request.getParameter("b_tel1")+"-"+request.getParameter("b_tel2")+"-"+request.getParameter("b_tel3"); // 사업장 전화번호를 bdto에 저장
@@ -118,20 +119,31 @@ public class FranchiseeManagementBean {
 		String id = (String)session.getAttribute("loginId");
 		int check = 0;
 		
-		String fileName = "C:\\Users\\sleep\\Documents\\workspace\\buengbueng\\WebContent\\log"
-				+ "\\franchisee\\addSuccessLog\\addSuccessLog.txt";
-		String fileCheck = "franchisee";
-		franchiseeDto.setB_id(id);
+
 			try{
 				/////////////////////////////////////////////////////////////
 				//가맹점 정보 로그를 입력한다.
 				sqlMap.insert("log.insertFranchiseeLog", franchiseeDto);
 				check = 1;
+				
+				////////////////////////////////////////////////////////////
+				//TEXT파일로 로그를 남기는 코드
+				String fileName = "\\franchisee\\addSuccessLog\\addSuccessLog.txt";
+				String fileCheck = "franchisee";
+				franchiseeDto.setB_id(id);
 				read.readDb(franchiseeDto, fileName, fileCheck);
+				////////////////////////////////////////////////////////////
 			}catch(Exception e){
 				check = 2;
 				e.printStackTrace();
 				System.out.println(e);
+				////////////////////////////////////////////////////////////
+				//TEXT파일로 로그를 남기는 코드
+				String fileName = "\\franchisee\\addErrorLog\\addErrorLog.txt";
+				String fileCheck = "franchisee";
+				franchiseeDto.setB_id(id);
+				read.readDb(franchiseeDto, fileName, fileCheck);
+				////////////////////////////////////////////////////////////
 			}
 		
 		model.addAttribute("check", check);
@@ -149,13 +161,17 @@ public class FranchiseeManagementBean {
 		map.put("b_key",b_key);
 		map.put("b_name", b_name);
 		
-		sqlMap.update("franchisee.franchiseeConfirm", map);	
-		
-		FranchiseeDataDTO franchiseeDto = null;
-		franchiseeDto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeLastConfirmLog", num);
-		System.out.println(franchiseeDto.getB_key());
-		sqlMap.insert("franchisee.insertFranchiseeInfo", franchiseeDto);
-		
+		try{
+			sqlMap.update("franchisee.franchiseeConfirm", map);	
+			
+			FranchiseeDataDTO franchiseeDto = null;
+			franchiseeDto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeLastConfirmLog", num);
+			System.out.println(franchiseeDto.getB_key());
+			sqlMap.insert("franchisee.insertFranchiseeInfo", franchiseeDto);
+			
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	        
 			return  "redirect:/franchiseeList.do";	
 		}
@@ -232,8 +248,6 @@ public class FranchiseeManagementBean {
 		FranchiseeDataDTO dto = null;
 		dto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeInfo", b_name);
 		
-		System.out.println(b_name);
-		System.out.println(dto.getB_name());
 		model.addAttribute("dto", dto);
 	        
 			return  "/bosspcuse/franchiseeInfo";	
@@ -245,7 +259,6 @@ public class FranchiseeManagementBean {
 		FranchiseeDataDTO dto = null;
 		dto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeInfo", b_name);
 		String check = "update"; //update Form 으로 변경
-		
 		model.addAttribute("dto", dto);
 		model.addAttribute("check", check);
 	        
@@ -254,11 +267,30 @@ public class FranchiseeManagementBean {
 	
 	//가맹점 정보 수정
 	@RequestMapping("franchiseeInfoUpdatePro.do")
-	public String franchiseeInfoUpdatePro(FranchiseeDataDTO dto, Model model){
+	public String franchiseeInfoUpdatePro(HttpSession session,FranchiseeDataDTO dto, Model model) throws IOException{
+		
+		//현재 로그인한 사용자의 아이디를 불러온다.
+		String id = (String)session.getAttribute("loginId");
+		
 		try{
-		sqlMap.update("franchisee.updateFranchiseeInfo", dto);
+			sqlMap.insert("franchisee.insertFranchiseeUpdateLog", dto);
+			////////////////////////////////////////////////////////////
+			//TEXT파일로 로그를 남기는 코드
+			String fileName = "\\franchisee\\updateSuccessLog\\updateSuccessLog.txt";
+			String fileCheck = "franchiseeUpdate";
+			dto.setB_id(id);
+			read.readDb(dto, fileName, fileCheck);
+			////////////////////////////////////////////////////////////
+			sqlMap.update("franchisee.updateFranchiseeInfo", dto);
 		}catch(Exception e){
 			e.printStackTrace();
+			////////////////////////////////////////////////////////////
+			//TEXT파일로 로그를 남기는 코드
+			String fileName = "\\franchisee\\updateErrorLog\\updateErrorLog.txt";
+			String fileCheck = "franchiseeUpdate";
+			dto.setB_id(id);
+			read.readDb(dto, fileName, fileCheck);
+			////////////////////////////////////////////////////////////
 		}
 	        
 			return  "redirect:/franchiseeList.do";	
@@ -274,7 +306,7 @@ public class FranchiseeManagementBean {
 	
 	//가맹점 삭제 신청
 	@RequestMapping("franchiseeDeletePro.do")
-	public String frachiseeDeletePro(String password, String reason, String b_key, HttpSession session,  Model model){
+	public String frachiseeDeletePro(String password, String reason, String b_key, HttpSession session,  Model model) throws IOException{
 		//현재 로그인한 사용자의 아이디를 불러온다.
 		String id = (String)session.getAttribute("loginId");
 		
@@ -285,11 +317,28 @@ public class FranchiseeManagementBean {
 			map.put("pw", password);
 			map.put("reason", reason);
 			map.put("b_key", b_key);
+
+		FranchiseeDataDTO dto = null;	
 			
 			try{
+				sqlMap.insert("franchisee.insertFranchiseeDeleteLog", map);
+				dto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeDeleteLogBkey", b_key);
+				
+				////////////////////////////////////////////////////////////
+				//TEXT파일로 로그를 남기는 코드
+				String fileName = "\\franchisee\\deleteSuccessLog\\deleteSuccessLog.txt";
+				String fileCheck = "franchiseeDelete";
+				read.readDb(dto, fileName, fileCheck);
+				////////////////////////////////////////////////////////////
 				sqlMap.delete("franchisee.deleteFranchisee", map);
 			}catch(Exception e){
 				e.printStackTrace();
+				////////////////////////////////////////////////////////////
+				//TEXT파일로 로그를 남기는 코드
+				String fileName = "\\franchisee\\deleteErrorLog\\deleteErrorLog.txt";
+				String fileCheck = "franchiseeDelete";
+				read.readDb(dto, fileName, fileCheck);
+				////////////////////////////////////////////////////////////
 			}
 		}
 	        
