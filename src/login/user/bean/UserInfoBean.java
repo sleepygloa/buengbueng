@@ -53,6 +53,7 @@ public class UserInfoBean {
 			UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
 			if(pw.equals(dto.getPw())){
 				session.setAttribute("loginId", dto.getId());
+				session.setAttribute("grade", dto.getGrade());
 				
 				//////////////////////////////////
 				//접속장소의 IP를 검색하고,로그인 LOG 를 남긴다.
@@ -78,7 +79,6 @@ public class UserInfoBean {
 		}catch(Exception e){
 			
 		}
-		
 		return "/index";
 	}
 	
