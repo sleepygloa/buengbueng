@@ -3,8 +3,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 메뉴 및 css 내용 -->
 <jsp:include page="../dashHeader.jsp"/>
-
-<div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#dashDelete").click(function(){
+			$.ajax({
+				url:"dashDelete.do",
+				type:"post",
+				data:{
+					id:$("#id").val(),
+				},
+				success:function(data){
+					$("#dashInfo").html(data);
+				}
+			});
+		});
+		$("#dashModify").click(function(){
+			$.ajax({
+				url:"dashModify.do",
+				type:"post",
+				data:{
+					id:$("#id").val(),
+					pw:$("#pw").val(),
+					name:$("#name").val(),
+					birth:$("#birth").val(),
+					phone:$("#phone").val(),
+					email:$("#email").val(),
+					address:$("#address").val(),
+					grade:$("#grade").val(),
+					googleId:$("#googleId").val(),
+				},
+				success:function(data){
+					$("#dashInfo").html(data);
+				}
+			});
+		});
+	});
+</script>
+<div align="center">
 <div>
 	<span>아이디</span>
 	<span>비밀번호</span>
@@ -19,22 +54,24 @@
 </div>
 
 <c:forEach var="list" items="${list}">
-<div>
-	<span>${list.id}</span>
-	<span>${list.pw}</span>
-	<span>${list.name}</span>
-	<span>${list.birth}</span>
-	<span>${list.phone}</span>
-	<span>${list.email}</span>
-	<span>${list.address}</span>
-	<span>${list.grade}</span>
-		<c:if test="${list.googleid != null}">
-			<span>${list.googleid}</span>
+<div id="dashInfo">
+	<span>${list.id}<input type="hidden" id="id" value="${list.id}"></span>
+	<span>${list.pw}<input type="hidden" id="pw" value="${list.pw}"></span>
+	<span>${list.name}<input type="hidden" id="name" value="${list.name}"></span>
+	<span>${list.birth}<input type="hidden" id="birth" value="${list.birth}"></span>
+	<span>${list.phone}<input type="hidden" id="phone" value="${list.phone}"></span>
+	<span>${list.email}<input type="hidden" id="email" value="${list.email}"></span>
+	<span>${list.address}<input type="hidden" id="address" value="${list.address}"></span>
+	<span>${list.grade}<input type="hidden" id="grade" value="${list.grade}"></span>
+		<c:if test="${list.googleId != null}">
+			<span>${list.googleId}<input type="hidden" id="googleId" value="${list.googleId}"></span>
 		</c:if>
-		<c:if test="${list.googleid == null}">
-			<span>일반 가입</span>
+		<c:if test="${list.googleId == null}">
+			<span>일반 가입<input type="hidden" id="googleId" value="일반 가입"></span>
 		</c:if>
-	<span>${list.signdate}</span>
+	<span>${list.signdate}<input type="hidden" id="signdate" value="${list.signdate}"></span>
+	<span><button id="dashModify">수정</button></span>
+	<span><button id="dashDelete">삭제</button></span>
 </div>
 </c:forEach>
 	

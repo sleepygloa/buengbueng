@@ -37,15 +37,13 @@ public class DashIndexBean {
 	    int count=0;
 	    List list=null;
 
-	    count = (Integer)sqlMap.queryForObject("admin.userCount", null); //해당 페이지 내용 갯수
-	    System.out.println("count="+count);
+	    count = (Integer)sqlMap.queryForObject("admin.userCount", grade); //해당 페이지 내용 갯수
 	    if (count > 0) {
 	    	list = sqlMap.queryForList("admin.userList", grade);
-	    	System.out.println(list);
 	    }else{
 	    	list = Collections.EMPTY_LIST;
 	    }
-	    System.out.println(count);
+
 	    
 	    // 페이지 카운트
         int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
@@ -64,5 +62,19 @@ public class DashIndexBean {
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("grade", grade);
 		return "/dash-userInfo/dashUser";
+	}
+	
+	@RequestMapping("dashDelete.do")
+	public String dashDelete(HttpServletRequest request){
+		String id = request.getParameter("id");
+		request.setAttribute("id", id);
+		return "/dash-userInfo/dashDelete";
+	}
+	
+	@RequestMapping("dashDeletePro.do")
+	public String dashDeletePro(HttpServletRequest request){
+		String id = request.getParameter("id");
+		sqlMap.delete("admin.userDelete", id);
+		return "/dash-userInfo/dashDeletePro";
 	}
 }

@@ -8,8 +8,11 @@
 	
 	<select id="userList" parameterClass="int" resultClass="userDto">
 		<![CDATA[
-		select id,pw,name,birth,phone,grade,address,email,signdate,googleid,@rownum:=@rownum+1 as rownum
+		select id,pw,name,birth,phone,grade,address,email,signdate,googleId,@rownum:=@rownum+1 as rownum
 		from userInfo,(select @rownum:=0)r where grade=#grade# order by signdate desc;
 		]]>
 	</select>
+	<delete id="userDelete" parameterClass="String">
+		delete from userInfo where id=#id#;
+	</delete>	
 </sqlMap>
