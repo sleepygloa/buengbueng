@@ -5,10 +5,28 @@
 	
 	<!-- 사장님의 메뉴와 상품 등록 SQL -->
 	
+	<!-- 사장님 이름가지고 오기 -->
+	<select id="getBossName" parameterClass="String" resultClass="String">
+		select name from userInfo where id=#id#;
+	</select>
+	
+	<!-- 사장님 라이센스키 리스트 불러오기 -->	
+	<select id="getLicenseKeyList" parameterClass="String" resultClass="franchiseeDTO">
+		select * from franchiseeInfo where b_id=#id#;
+	</select>
+		
+	<!-- 사장님 라이센스키 불러오기 -->
+	<select id="getLicenseKey" parameterClass="String" resultClass="String">
+		select b_key from franchiseeInfo where b_id=#id#;
+	</select>
+	
+	
+	
+	
 	
 	<!-- menu 추가  -->
 	<insert id="insertMenu" parameterClass="menuDto">
-		insert into menu values(#name#, #price#, #category#, #company#);
+		insert into menu values(#name#, #price#, #category#, #company#, #key#);
 	</insert>	
 	
 	<!-- 카테고리 버튼 만들기 -->
@@ -17,13 +35,13 @@
 	</select>
 	
 	<!-- menu 가져오기 -->
-	<select id="getMenu" resultClass="menuDto">
-		select * from menu;
+	<select id="getMenu" parameterClass="String" resultClass="menuDto">
+		select * from menu where key=#key#;
 	</select>
 	
 	<!-- menu 수정하기 위해 상품명에 맞는 정보 가져오기-->
-	<select id="getMenuName" parameterClass="String" resultClass="menuDto">
-		select * from menu where name=#name#;
+	<select id="getMenuName" parameterClass="menuDto" resultClass="menuDto">
+		select * from menu where name=#name# and key=#key#;
 	</select>
 	
 	<!-- menu 수정 -->

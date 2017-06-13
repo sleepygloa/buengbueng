@@ -2,8 +2,10 @@ package menu.all.bean;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
@@ -16,6 +18,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MenuBean {
 	@Autowired
 	private SqlMapClientTemplate sqlMap; 
+	
+	// 가맹점 라이센스 찾아서 메뉴사용 
+	@RequestMapping("franchiseeMenu.do")
+	public String franchiseeMenu(HttpSession session, HttpServletRequest request){
+		try{
+			String id=(String)session.getAttribute("loginId");
+			String name=(String)sqlMap.queryForObject("menu.getBossName",id);
+			request.setAttribute("name",name);
+			List franchiseeList = sqlMap.queryForList("menu.getLicenseKeyList",id);
+			request.setAttribute("franchiseeList", franchiseeList);
+		
+		}catch(Exception e){e.printStackTrace();}
+		return "/menu/franchiseeMenu/";
+	}
+	
+	// 가맹점 라이센스 선택 후 
+	@RequestMapping("franchiseeMenuPro.do")
+	public String franchiseeMenuPro(String name, String key, HttpServletRequest request){
+		int check;
+		try{
+			if(name.equals(null)){
+				check=0;
+			}else{
+				check=1;
+				request.setAttribute("key",key);
+			}
+		request.setAttribute("check", check);
+		
+		}catch(Exception e){e.printStackTrace(); check=-1; request.setAttribute("check",check);}
+		return "/menu/franchiseeMenuPro";
+	}
+		
 	
 	// menu 메인 페이지 이동
 	@RequestMapping("menu.do")
@@ -40,30 +74,41 @@ public class MenuBean {
 	}
 	
 	@RequestMapping("menuInsertPro.do")
-	public String menuInsertPro(MenuDTO dto, HttpServletRequest request){
+	public String menuInsertPro(MenuDTO mdto, HttpServletRequest request, HttpSession session){
 		int check;
 		try{
-			sqlMap.insert("menu.insertMenu", dto);
+			String id = (String)session.getAttribute("loginId");
+			String licensekey=(String)sqlMap.queryForObject("menu.getLicenseKey",id);
+			if(!licensekey.equals(null)){
+			mdto.setKey(licensekey);
+			sqlMap.insert("menu.insertMenu", mdto);
 			check=1;
 			request.setAttribute("check", check);
+			}else{
+				check=0;
+			}
 		}
-		catch(Exception e){e.printStackTrace(); check=0; request.setAttribute("check", check);}
+		catch(Exception e){e.printStackTrace(); check=-1; request.setAttribute("check", check);}
 		return "/menu/menuInsertPro";
 	}
 	
 	/* 메뉴수정 페이지 */
 	
 	@RequestMapping("menuModify.do")
-	public String menuModify(HttpServletRequest request){
-		List menuList= sqlMap.queryForList("menu.getMenu",null);
+	public String menuModify(HttpServletRequest request,HttpSession session){
+		String id=(String)session.getAttribute("loginId");
+		String licensekey=(String)sqlMap.queryForObject("menu.getLicenseKey",id);
+		List menuList= sqlMap.queryForList("menu.getMenu",licensekey);
 		request.setAttribute("menuList", menuList);
 		return "/menu/menuModify";
 	}
 
 	@RequestMapping("menuModifyForm.do")
-	public String menuModifyForm(HttpServletRequest request){
-		String name=request.getParameter("name");
-		MenuDTO mdto=(MenuDTO)sqlMap.queryForObject("menu.getMenuName",name);
+	public String menuModifyForm(HttpServletRequest request, MenuDTO mdto, HttpSession session){
+		String id=(String)session.getAttribute("loginId");
+		String licensekey=(String)sqlMap.queryForObject("menu.getLicenseKey",id);
+		mdto.setKey(licensekey);
+		mdto=(MenuDTO)sqlMap.queryForObject("menu.getMenuName",mdto);
 		request.setAttribute("mdto",mdto);
 		return "/menu/menuModifyForm";
 	}
@@ -73,7 +118,6 @@ public class MenuBean {
 		int check;
 		try{
 			check=1;
-			System.out.println(mdto.getName());
 	
 			HashMap map=new HashMap();
 			map.put("beforeName",beforeName);
@@ -82,8 +126,10 @@ public class MenuBean {
 			map.put("category", mdto.getCategory());
 			map.put("company", mdto.getCompany());
 			sqlMap.update("menu.updateMenu", map);
+			
 			request.setAttribute("check",check);
-		}catch(Exception e){e.printStackTrace(); check=0;}		
+			
+		}catch(Exception e){e.printStackTrace(); check=0; request.setAttribute("check", check);}		
 		return "/menu/menuModifyPro";
 	}
 	
