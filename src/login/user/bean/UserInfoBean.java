@@ -279,6 +279,7 @@ public class UserInfoBean {
 
 		try{
 			sqlMap.insert("test.userInfoInsert", dto);	// DB에 회원 가입 정보 추가하기
+			sqlMap.insert("test.userAccountInsert", dto); //가입한 회원의 계좌정보 추가
 			session.setAttribute("loginId", dto.getId());	// 회원 가입 완료된 id를 세션으로 사용
 			request.setAttribute("result", "succ");	// 성공적으로 회원 가입이 완료됨을 알림
 		}catch(Exception e){	// DB에 회원 가입 정보 INSERT 시 에러 발생하면 아래 코드 실행
