@@ -17,15 +17,15 @@
 		<!-- <link rel="shortcut icon" type="image/png" href="img/favicon/beuLogo.ico"/> -->
 
 		<!-- CSS RESET -->
-    	<link rel="stylesheet" type="text/css" media="all" href="css/style_v2.css">
+    	<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/style_v2.css">
 		<!-- INDEX CSS 2 -->    
-        <link rel="stylesheet" type="text/css" media="all" href="css/dist/modules.min.css">
-        <link rel="stylesheet" type="text/css" media="all" href="css/dist/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" media="all" href="css/dist/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css">
+        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap-theme.min.css">
 		<link rel="stylesheet" type="text/css"  href="/buengbueng/css/reset.css"> 
 	
 		<!-- main -->
-		<link rel="stylesheet" type="text/css" media="all" href="css/dist/sidemain_main.css">
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/sidemain_main.css">
 		<!-- 구글 MATERIAL ICON -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
