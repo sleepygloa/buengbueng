@@ -24,7 +24,6 @@
 			<li><a href="bossEmployeeAdd.do" >아이디 수 변경</a></li>
 			<li><a href="bossEmployeeInfoList.do" >아이디 관리</a></li>
 			<li><a href="bossEmployeeLoginLogoutLogManage.do" >알바 근태관리</a></li>
-<<<<<<< HEAD
 			<li><a href="bossEmployeeAccountManage.do" >장부 관리</a></li>
 		
 			<li><hr /></li>
@@ -47,7 +46,6 @@
 			<li><a href="userOrderForm.do">사용자 주문창</a></li>
 			<li><a href="menuOrderListForm.do" >사장님 주문내역확인</a></li>
 			
-=======
 			<li><hr /></li>
 			<li>PC방 관리</li>
 			<li><a href="seatDispose.do" >PC방 좌석 정보 관리</a></li>
@@ -56,7 +54,6 @@
 			<li>대여 관리</li>
 			<%--<li><a href="rentMain.do" >대여물품 관리 메인</a></li>--%>
 			<li><a href="rentManage.do" >대여물품 관리</a></li>
->>>>>>> KO
 		</c:if>		
 		
 		

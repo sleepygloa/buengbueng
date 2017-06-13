@@ -29,6 +29,7 @@
 		<!-- 구글 MATERIAL ICON -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+<script src="/buengbueng/js/userInfo/.js"></script>
 		
 		<!-- 홈페이지 제목 -->
 		<title>BuengBueng</title>
