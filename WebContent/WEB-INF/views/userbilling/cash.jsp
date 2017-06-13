@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -18,7 +19,7 @@
 						type:"post",
 						data:{
 							pay : $("#pay").val(),
-							card : $("#card").val()
+							cardtype : $("input:radio[name=interest]:checked").val()						
 						},
 						success:function(data){
 							$("#result").html(data);
@@ -40,13 +41,22 @@
 			<!-- 사용자정보 목록 -->
 			<div class="user_info margin_r20">
 				<div class="cash_in_list1">
-					<span class="cash_span_left">현재 보유 : </span><span class="cash_span_right"><b class="cashing_point_b2">1000P</b></span>
+					<span class="cash_span_left">현재 보유 : </span><span class="cash_span_right"><b class="cashing_point_b2">
+					<c:if test="${info.money != null}">
+						${info.money}
+					</c:if>
+					</b></span>
 				</div>
 				<div class="cash_in_list2">
-					<span class="cash_span_left">충전 예정: </span><span class="cash_span_right"><input id="pay" class="cashing_point" type="text"  placeholder="0"  readonly><b class="cashing_point_b">P</b></span>
+					<span class="cash_span_left">충전 예정: </span><span class="cash_span_right">
+						<input id="pay" class="cashing_point" type="text"  placeholder="0"  readonly><b class="cashing_point_b">P</b>
+					</span>
 				</div>
 				<div class="cash_in_list2">
-					<span class="cash_span_left">결제 완료 후 : </span><span class="cash_span_right"><b class="cashing_point_b2">${pay+pay}P</b></span>
+					<span class="cash_span_left">충전 예정: </span>
+					<span class="cash_span_right">
+						<input id="payend" class="cashing_point2" type="text"  placeholder="0"  readonly><b class="cashing_point_b2">P</b>
+					</span>
 				</div>	
 			</div>
 			<!-- 결제금액 목록 -->
@@ -60,6 +70,7 @@
 				<div class="cash_Price_box_1 margin_l0" id="3"><button>20000</button></div>
 				<div class="cash_Price_box_1 margin_l0" id="4"><button>35000</button></div>
 				<div class="cash_Price_box_1 margin_l0" id="5"><button>50000</button></div>
+
 			</div>
 			<!-- 결제수단 목록 -->
 			<div class="emp_box_class1">
@@ -69,22 +80,22 @@
 				<div class="cash_Price_box_2 margin_l0">
 					<p class="card_title"><b>신용카드</b></p>
 					<div class="cash_cehck">
-				       	 <input class="cash_cehck_label2" type="checkbox" id="music" name="interest" value="music">
-					     	<label for="music">신한카드</label>
-				    	 <input class="cash_cehck_label2 margin_l15" type="checkbox" id="music" name="interest" value="music">
-				    	 	<label for="music">국민카드</label>
-				    	 <input class="cash_cehck_label2 margin_l15" type="checkbox" id="music" name="interest" value="music">
-				    	 	<label for="music">NH채움</label>
-				    	 <input class="cash_cehck_label2 margin_l15" type="checkbox" id="music" name="interest" value="music">
-				    	 	<label for="music">BC카드</label>
-				    	 <input class="cash_cehck_label margin_l15" type="checkbox" id="music" name="interest" value="music">
-				    	 	<label for="music">우리카드</label>
-				    	 <input class="cash_cehck_label margin_l15" type="checkbox" id="music" name="interest" value="music">
-				    	 	<label for="music">현대카드</label>
-				    	 <input class="cash_cehck_label margin_l15" type="checkbox" id="music" name="interest" value="music">
-				    	 	<label for="music">삼성카드</label>
-				    	 <input class="cash_cehck_label margin_l15" type="checkbox" id="music" name="interest" value="music">
-				    	 	<label for="music">외환카드</label>
+				       	 <input class="cash_cehck_label2 cardtype" type="radio" id="Shinhan" name="interest" value="Shinhan">
+					     	<label for="Shinhan">신한카드</label>
+				    	 <input class="cash_cehck_label2 margin_l15 cardtype" type="radio" id="KB" name="interest" value="KB">
+				    	 	<label for="KB">국민카드</label>
+				    	 <input class="cash_cehck_label2 margin_l15 cardtype" type="radio" id="NH" name="interest" value="NH">
+				    	 	<label for="NH">NH채움</label>
+				    	 <input class="cash_cehck_label2 margin_l15 cardtype" type="radio" id="BC" name="interest" value="BC">
+				    	 	<label for="BC">BC카드</label>
+				    	 <input class="cash_cehck_label margin_l15 cardtype" type="radio" id="woori" name="interest" value="Woori">
+				    	 	<label for="woori">우리카드</label>
+				    	 <input class="cash_cehck_label margin_l15 cardtype" type="radio" id="hyundai" name="interest" value="hyundai">
+				    	 	<label for="hyundai">현대카드</label>
+				    	 <input class="cash_cehck_label margin_l15 cardtype" type="radio" id="samsung" name="interest" value="samsung">
+				    	 	<label for="samsung">삼성카드</label>
+				    	 <input class="cash_cehck_label margin_l15 cardtype" type="radio" id="Hana" name="interest" value="Hana">
+				    	 	<label for="Hana">외환카드</label>
 			    	 </div>
 				</div>
 			</div>
@@ -107,12 +118,18 @@
 		</div>
 	</center>
 	<!-- 결제 버튼 스크립트 -->
-	<script> 
-	$("#1,#2,#3,#4,#5,#7,#8,#9").click(function () { 
-		var text = $(this).text(); 
-			$("input").val(text);
-		}); 
-	</script>
+		
+		<script type="text/javascript">
+				$("#1,#2,#3,#4,#5").click(function (Integer) { 
+					var text = Number($(this).text()); 
+						$("#pay").val(text);
+						if(${info.money != null}){
+							$("#payend").val(text+${info.money});
+						}else{
+							$("#payend").val(text);
+						}
+					}); 
+		</script>
 	</body>
 	<jsp:include page="../footer.jsp" />
 </html>

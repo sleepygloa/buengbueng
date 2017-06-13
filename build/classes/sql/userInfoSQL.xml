@@ -40,6 +40,12 @@
 		insert into userInfo values(#id#, #pw#, #name#, #birth#, #phone#, #grade#, #address#, #email#, now(), #googleId#);
 	</insert>
 	
+	<!-- 회원 가입 -->
+	<insert id="userAccountInsert" parameterClass="userDto">
+		insert into userAccount values(#id#, 0);
+	</insert>
+	
+	
 	<!-- 알바가 사장님을 찾을 겁니다 -->
 	<select id="searchBossId" parameterClass="String" resultClass="String">
 		select * from bossInfo where b_id=#e_bossid#;

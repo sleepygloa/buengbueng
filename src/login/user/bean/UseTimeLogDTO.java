@@ -3,7 +3,6 @@ package login.user.bean;
 import java.sql.Timestamp;
 
 public class UseTimeLogDTO {
-	
 	private String id; //로그인로그아웃 아이디
 	private Timestamp loginTime; //로그인시간
 	private Timestamp logoutTime; //로그아웃시간

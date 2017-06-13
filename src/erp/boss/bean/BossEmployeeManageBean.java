@@ -73,6 +73,7 @@ public class BossEmployeeManageBean {
 		
 		int check = 0;
 		
+		//로그인 하지 않았을때 그냥 폼은 보여주지만, 아무것도할수없다.
 		//////////////////////////////////////////
 		//비로그인접근, 잘못된 경로로 접근한사람 내쫓음
 		if(b_id == null){
@@ -81,6 +82,7 @@ public class BossEmployeeManageBean {
 		}
 		
 		try{
+			//입력된 정보를 로그에 남겨줍니다.
 			//////////////////////////////////////
 			//사장님이 알바생아이디를 (숫자)만큼 신청함. 
 			sqlMap.insert("erpEmp.insertBossEmployeeAddLog", beDTO);
@@ -99,6 +101,89 @@ public class BossEmployeeManageBean {
 		int length = 0;
 		int checkIdInt = 0;
 		
+//		try{
+			//employeeInfo 테이블에서 알바생 아이디를 불러온다.
+		if(sqlMap.queryForObject("erpEmp.getEmployeeId", b_id) != null){
+			beDTO2 = (BossEmployeeManageDataDTO)sqlMap.queryForObject("erpEmp.getEmployeeId", b_id);
+			 checkId = (beDTO2.getE_id().substring(8));
+			 checkIdInt = Integer.parseInt(checkId);
+		}
+			
+		
+			//요청수가 더클때
+			if(beDTO2 == null || beDTO2.getCount() < beDTO.getApplyCount()){
+				
+				if(beDTO2 == null){
+					length = beDTO.getApplyCount();
+				}else{
+					length = beDTO.getApplyCount() - beDTO2.getCount();
+				}
+				
+				
+					checkIdInt += 1;
+				for(int i = 0; i < length; i ++){
+					checkIdInt += i;
+					if(sqlMap.queryForObject("erpEmp.findBossIdNull", null) != null){
+						findId = (String)sqlMap.queryForObject("erpEmp.findBossIdNull", null);
+					}
+					
+					if(findId == null){
+						e_id = "employee" + checkIdInt;
+					}else{
+						e_id = findId;
+					}
+										
+					HashMap map = new HashMap();
+					map.put("e_id", e_id);
+					map.put("e_bossid", b_id);
+					//회원 테이블에 새로운 아이디생성
+					sqlMap.insert("erpEmp.insertEmployeeIdUserInfo", e_id);
+					
+					//알바테이블에 사장님아이디와 매칭, 아이디생성,
+					sqlMap.insert("erpEmp.connectEmployeeIdBossId", map);
+					
+				}
+			//매칭된 수와 요청한 수가 같을때
+			}else if(beDTO2.getCount() == beDTO.getApplyCount()){
+				
+				check = 5; //변동이없다는 메세지
+				model.addAttribute("check", check);
+				return "/bosserpmanage/bossEmployeeAddPro";
+			//요청수가 적을대, 아이디를 삭제 시킨다.
+			}else{
+				
+				length = beDTO2.getCount() - beDTO.getApplyCount();
+				ArrayList findIdArray = null;
+				String pw = null;
+								
+				for(int j = 0; j < beDTO2.getCount(); j++){
+					findIdArray = (ArrayList)sqlMap.queryForList("erpEmp.findBossIdNotNull", b_id);
+				}
+				
+				for(int i = 0; i < beDTO2.getCount(); i ++){
+					int j = 0;
+					e_id = (String)findIdArray.get(i);
+					pw = (String)sqlMap.queryForObject("erpEmp.findDeleteId", e_id);
+					if(pw.equals("delete")){
+						try{
+							sqlMap.delete("erpEmp.deleteEmployeeId", e_id);
+							sqlMap.delete("erpEmp.deleteUserId", e_id);
+							j += 1;
+							if(length == j){
+								break;
+							}
+						}catch(Exception e){
+							e.printStackTrace();
+							check = 3;
+						}
+					}else{
+					}
+				}
+			}
+			
+//		}catch(Exception e){
+			
+//		}
 		try{
 			////////////////////////////////////////////////////////////////
 			//employeeInfo 테이블에서 알바생 아이디를 찾는다. 그런데 그냥 찾는 것이아니라

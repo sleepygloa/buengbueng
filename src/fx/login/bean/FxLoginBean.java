@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import login.user.bean.UseTimeDataDTO;
 import login.user.bean.UseTimeLogDTO;
 import login.user.bean.UserInfoDataDTO;
 
@@ -55,6 +56,7 @@ public class FxLoginBean {
 	public String fxLoginPro(UserInfoDataDTO dto, Model model){
 		UserInfoDataDTO info = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", dto.getId());
 		if(info != null && info.getPw().equals(dto.getPw())){
+
 			UseTimeLogDTO udto = new UseTimeLogDTO();
 			udto.setId(info.getId());
 			SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
