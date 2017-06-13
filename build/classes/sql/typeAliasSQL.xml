@@ -12,6 +12,7 @@
 	<typeAlias alias="dto" type="payment.all.bean.UserBillingHistoryDTO"/>
     <typeAlias alias="franchiseeDTO" type="manage.boss.bean.FranchiseeDataDTO"/>
 
+
     
     
 </sqlMap>

@@ -12,11 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-<<<<<<< HEAD
 import login.user.bean.UseTimeDataDTO;
-=======
 import login.user.bean.UseTimeLogDTO;
->>>>>>> seonho
 import login.user.bean.UserInfoDataDTO;
 
 @Controller

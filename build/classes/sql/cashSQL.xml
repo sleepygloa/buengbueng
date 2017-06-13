@@ -4,17 +4,46 @@
 <sqlMap namespace="cash">
 
 	<select id="cash_area" resultClass="dto">
-		select * from paymentList
+		select * from paymentList;
+	</select>
+	<select id="cash_articleList" resultClass="dto" parameterClass="java.util.HashMap">
+		select * from paymentList where buyer_chatid = #id# and confirmation = #confirmation#;
 	</select>
 	
+	<select id="cash_userAccount" resultClass="uadto">
+		select * from userAccount where  id = #id#;
+	</select>	
+	
 	<insert id="cash_input" parameterClass="dto">
-		 insert into paymentList(paying_price,buyer_chatid,payment_type,pg_name,confirmation,paying_name) values(#paying_price#,#buyer_chatid#,#payment_type#,#pg_name#,#confirmation#,#paying_name#);
+		 insert into paymentList(paying_price,buyer_chatid,payment_type,pg_name,confirmation,paying_name,error_msg,imp_uid,merchant_uid,payment_date) values(#paying_price#,#buyer_chatid#,#payment_type#,#pg_name#,#confirmation#,#paying_name#,#error_msg#,#imp_uid#,#merchant_uid#,now());
 	</insert>
 	
 	<select id="cash_payment_useInfoLoad" resultClass="userdto" parameterClass="String">
 		select * from userInfo where id = #id#;
 	</select>
+	
+	<update id="cash_stack" parameterClass="java.util.HashMap">
+		update userAccount set money=#paying_price# where id=#id#;
+	</update>
+	
+	<select id="getArticleCount" resultClass="int">
+		select count(*) from paymentList where buyer_chatid = #id#;
+	</select>
+	
+	<!-- 
+	<select id="cash_history" resultClass="dto" parameterClass="String">
+		select idx,payment_date,payment_type,buyer_chatid,paying_price from paymentList where confirmation = #Accept#	
+	</select>
+	 -->
+	 <select id="cash_id" resultClass="dto" parameterClass="java.util.HashMap">
+		select * from paymentList where buyer_chatid = #id# and confirmation = #confirmation#;
+	 </select>
 	 
+	 <select id="cashCount" resultClass="int">
+		select count(*) from paymentList where buyer_chatid=#id#
+	 </select>
+	 
+
  	 <!-- 회원 로그인 했을때 이벤트로 돈 충전해주는 Log -->
 	 <insert id="eventAdminGiveUserMoneyLog" parameterClass="java.util.HashMap">
  		INSERT INTO accountLog (giveId, getId, money, method, reason, signdate)
@@ -40,7 +69,5 @@
    	where a.id = #id# order by loginTime desc limit 0,1;
 		]]>
 	</select>
-	 
-	 
 	 
 </sqlMap>
