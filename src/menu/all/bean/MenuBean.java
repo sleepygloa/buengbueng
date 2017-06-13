@@ -1,5 +1,6 @@
 package menu.all.bean;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MenuBean {
 	@Autowired
-	private SqlMapClientTemplate sqlMap;
+	private SqlMapClientTemplate sqlMap; 
 	
 	// menu 메인 페이지 이동
 	@RequestMapping("menu.do")
@@ -39,15 +40,51 @@ public class MenuBean {
 	}
 	
 	@RequestMapping("menuInsertPro.do")
-	public String menuInsertPro(MenuDTO dto, Model model){
+	public String menuInsertPro(MenuDTO dto, HttpServletRequest request){
 		int check;
 		try{
 			sqlMap.insert("menu.insertMenu", dto);
 			check=1;
+			request.setAttribute("check", check);
 		}
-		catch(Exception e){e.printStackTrace(); check=0;}
-		model.addAttribute("check",check);
+		catch(Exception e){e.printStackTrace(); check=0; request.setAttribute("check", check);}
 		return "/menu/menuInsertPro";
+	}
+	
+	/* 메뉴수정 페이지 */
+	
+	@RequestMapping("menuModify.do")
+	public String menuModify(HttpServletRequest request){
+		List menuList= sqlMap.queryForList("menu.getMenu",null);
+		request.setAttribute("menuList", menuList);
+		return "/menu/menuModify";
+	}
+
+	@RequestMapping("menuModifyForm.do")
+	public String menuModifyForm(HttpServletRequest request){
+		String name=request.getParameter("name");
+		MenuDTO mdto=(MenuDTO)sqlMap.queryForObject("menu.getMenuName",name);
+		request.setAttribute("mdto",mdto);
+		return "/menu/menuModifyForm";
+	}
+	
+	@RequestMapping("menuModifyPro.do")
+	public String menuModifyPro(String beforeName,MenuDTO mdto, HttpServletRequest request){
+		int check;
+		try{
+			check=1;
+			System.out.println(mdto.getName());
+	
+			HashMap map=new HashMap();
+			map.put("beforeName",beforeName);
+			map.put("name", mdto.getName());
+			map.put("price", mdto.getPrice());
+			map.put("category", mdto.getCategory());
+			map.put("company", mdto.getCompany());
+			sqlMap.update("menu.updateMenu", map);
+			request.setAttribute("check",check);
+		}catch(Exception e){e.printStackTrace(); check=0;}		
+		return "/menu/menuModifyPro";
 	}
 	
 	/* 메뉴삭제 페이지 */
@@ -59,11 +96,34 @@ public class MenuBean {
 	}
 	
 	@RequestMapping("menuDeletePro.do")
-	public String menuDeletePro(MenuDTO dto, HttpServletRequest request){
+	public String menuDeletePro(HttpServletRequest request){
 		String name=request.getParameter("name");
 		try{
 			sqlMap.delete("menu.deleteMenu",name);
 		}catch(Exception e){e.printStackTrace();}
 		return "/menu/menuDeletePro";
+	}
+	
+	/* 카테고리별 메뉴 리스트 보여주기 */
+	@RequestMapping("menuCategoryClick.do")
+	public String menuCategoryClick(HttpServletRequest request){
+		String category=request.getParameter("category");
+		// 전체 다 뜨는 거
+		if(category.equals("all")){
+			List menuList= sqlMap.queryForList("menu.getMenu",null);
+			request.setAttribute("menuList", menuList);
+		}else{
+			List categoryMenuList=sqlMap.queryForList("menu.categoryMenuList",category);
+			request.setAttribute("categoryMenuList",categoryMenuList);
+		}
+		return "/menu/menuCategoryClick";
+	}
+	
+	/* 카테고리 전체 메뉴 보여주기 */
+	@RequestMapping("menuCategoryAll.do")
+	public String menuCategoryAll(HttpServletRequest request){
+		List menuList= sqlMap.queryForList("menu.getMenu",null);
+		request.setAttribute("menuList", menuList);
+		return "/menu/menuCategoryAll";
 	}
 }

@@ -8,12 +8,12 @@
 	<typeAlias alias="useTimeDto" type="login.user.bean.UseTimeLogDTO" />
 	<typeAlias alias="beDto" type="erp.boss.bean.BossEmployeeManageDataDTO" />
 	<typeAlias alias="customerDTO" type="login.user.bean.CustomerDTO"/>
+	<typeAlias alias="productDto" type="menu.all.bean.ProductDTO"/>
+	<typeAlias alias="orderDto" type="menu.all.bean.OrderDTO"/>
 	<typeAlias alias="bossErpTotalDTO" type="erp.boss.bean.BossErpTotalDTO"/>
 	<typeAlias alias="dto" type="payment.all.bean.UserBillingHistoryDTO"/>
     <typeAlias alias="franchiseeDTO" type="manage.boss.bean.FranchiseeDataDTO"/>
     <typeAlias alias="uadto" type="payment.all.bean.UserAccountDTO"/>
 
 
-    
-    
 </sqlMap>

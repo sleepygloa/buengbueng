@@ -3,11 +3,12 @@
 <sqlMap namespace="menu">
 
 	
-
+	<!-- 사장님의 메뉴와 상품 등록 SQL -->
+	
 	
 	<!-- menu 추가  -->
 	<insert id="insertMenu" parameterClass="menuDto">
-		insert into menu values(#name#, #number#, #price#, #category#, #company#);
+		insert into menu values(#name#, #price#, #category#, #company#);
 	</insert>	
 	
 	<!-- 카테고리 버튼 만들기 -->
@@ -20,11 +21,113 @@
 		select * from menu;
 	</select>
 	
+	<!-- menu 수정하기 위해 상품명에 맞는 정보 가져오기-->
+	<select id="getMenuName" parameterClass="String" resultClass="menuDto">
+		select * from menu where name=#name#;
+	</select>
+	
+	<!-- menu 수정 -->
+	<update id="updateMenu" parameterClass="java.util.HashMap">
+		update menu set name=#name#, price=#price#, category=#category#, company=#company# where name=#beforeName#;
+	</update>
+	
 	
 	<!-- menu 삭제 -->
 	<delete id="deleteMenu" parameterClass="String">
 		delete from menu where name=#name#;
 	</delete>
+	
+	<!-- 카테고리별 메뉴 List -->
+	<select id="categoryMenuList" parameterClass="String" resultClass="menuDto">
+		select * from menu where category=#category#;
+	</select>	
+	
+	<!-- 등록된 product 내역 보여주기 -->
+	<select id="getProduct" resultClass="productDto">
+		select * from product;  
+	</select>
+	
+	<!-- 메뉴에 있는 제품 product 제품명에 보여지게 -->
+	<select id="productName" resultClass="productDto">
+		select name from menu;  
+	</select>
+	
+	<!-- product 추가 -->
+	<insert id="insertProduct" parameterClass="productDto">
+		insert into product values(#code#, #name#, #lastday#, #salecheck#, now());
+	</insert>
+	
+	<!-- saleBuyLog 추가 -->
+	<insert id="insertSaleBuyLog" parameterClass="productDto">
+		insert into sellBuyLog values(#name#,#code#,now(),'null');
+	</insert>
+	
+	<!-- product 수정하기 위해 재고명에 맞는 정보 가져오기, 바코드 중복 방지-->
+	<select id="getProductName" parameterClass="int" resultClass="productDto">
+		select * from product where code=#code#;
+	</select>
+	
+	<!-- product 수정 -->
+	<update id="updateProduct" parameterClass="java.util.HashMap">
+		update product set code=#code#, lastday=#lastday# where code=#beforeCode# ;
+	</update>
+	
+	
+	<!-- product 삭제 -->
+	<delete id="deleteProduct" parameterClass="int">
+		delete from product where code=#code#;
+	</delete>
+	
+	
+	
+	
+	
+	<!-- 사용자와 사장님이 주문시 주문현황 SQL -->
+	
+	
+	<!-- MenuOrderPro 에서 주문한 메뉴와 그 메뉴의 재고판매현황이 1인 재고를 꺼내는 sql -->
+	<select id="selectProduct" parameterClass="String" resultClass="productDto">
+		select * from product where name=#order# and salecheck=1;
+	</select>
+	
+	
+	<!-- 주문 갯수 -->
+	<select id="orderCount" resultClass="int">
+	<![CDATA[
+		select count(*) from menuOrder where ordertime<=now()
+	]]>
+	</select>	
+	
+	<!-- order의 메뉴이름을 가지고 가격을 가져옴 -->
+	<select id="getPrice" parameterClass="String" resultClass="int">
+		select price from menu where name=#ordername#;
+	</select>
+	
+	
+	<!-- 주문재고 있으면 주문현황에 추가 -->	
+	<insert id="insertMenuOrder" parameterClass="java.util.HashMap">
+		insert into menuOrder values(#num#,#id#,#menuname#,now(),#orderstatus#,#ordermoney#);
+	</insert>
+	
+	<!-- 사용자가 주문한 내역을 사장이 열어 볼 리스트. 주문현황리스트 -->
+	<select id="getMenuOrder" resultClass="orderDto">
+		select * from menuOrder;
+	</select>
+	
+	<!-- 받은 바코드가 메뉴이름과 일치하며 판매유무가 1이라면 주문완료-->
+	<select id="salecheckCheck" parameterClass="java.util.HashMap" resultClass="productDto">
+		select * from product where code=#barcode# and name=#menuname# and salecheck=1;
+	</select>
+	
+	<!--주문현황 주문중에서 주문완료로 바꾸기 위함-->
+	<update id="updateStatus" parameterClass="int">
+		update menuOrder set orderstatus=2 where num=#num#;
+	</update>
+	
+	<!-- 재고 판매여부 1에서 0으로 판매되었음을 알리기 위함 -->
+	<update id="updateSaleCheck" parameterClass="int">
+		update product set salecheck=0 where code=#barcode#;
+	</update>
 	
 </sqlMap>
 	

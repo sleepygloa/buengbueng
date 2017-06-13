@@ -6,40 +6,67 @@
     <head>
 	<title>메 뉴</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	
-</head>
+	<script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
+	</head>
 
 <body>
+
+<!-- HEADER TEMPLATE -->
+<jsp:include page="../header.jsp" />
+
+	<!-- 페이지 제목 -->
+	<div class=" margin_bottom50">
+		<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+			<h3>ERP 메뉴관리 페이지입니다.</h3>
+		</div>
+	</div>
+	
+<div class=" margin_bottom50">	
+		<div class="col-xs-12-12">
+
+   	<div>
+		<button onclick="window.location='product.do'">재 고</button>
+	</div>
+
 	<div>
 		<button onclick="window.location='menuInsertForm.do'">메 뉴 추 가</button>
 	</div>
 	
 	<div>
+		<button onclick="window.location='menuModify.do'">메 뉴 수 정</button>
+	</div>
+	
+	<div>
 		<button onclick="window.location='menuDeleteForm.do'">메 뉴 삭 제</button>
 	</div>
+	<div>
+		<button name="menuAll" onclick="alls()">전 체</button>
+	</div>
+	
 	
 	<div>
 		<table>
 		<tr>
 		<c:forEach var="category" items="${categoryList}">
-			<td><button name="${category}">${category}</button> </td>
+			<td><input type="button" name="${category}" onclick="category('${category}')" value="${category}" /> </td>
 		</c:forEach>
 		</tr>	
 		</table>
 	</div>
 	
 	<div>
-		<table>
-			<tr>
-			<td>제 품</td><td>제조사</td><td>가 격</td>
-			</tr>
-		<c:forEach var="menu" items="${menuList}">
-		<tr>
-			<td>${menu.name}</td>	<td>${menu.company}</td> 	<td>${menu.price}</td>
-			<td><button id="order" value="${menu.name}">주 문</button></td>
-		</tr>
-		</c:forEach>
+
+		<table >	
+		<tr><td>
+		<div id="categoryMenu"></div>	
+		</td></tr>
+
+	
 		</table>
 	</div>
+	</div>
+	</div>
+	
+	
 	
 </body>
