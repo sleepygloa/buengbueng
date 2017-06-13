@@ -2,10 +2,13 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="menu">
 
+<<<<<<< HEAD
 	
 	<!-- 사장님의 메뉴와 상품 등록 SQL -->
 	
 	
+=======
+>>>>>>> KO
 	<!-- menu 추가  -->
 	<insert id="insertMenu" parameterClass="menuDto">
 		insert into menu values(#name#, #price#, #category#, #company#);

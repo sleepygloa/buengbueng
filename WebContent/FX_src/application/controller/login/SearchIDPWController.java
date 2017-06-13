@@ -3,7 +3,6 @@ package application.controller.login;
 import java.net.URLEncoder;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import application.ConnectServer;
 import application.Main;
@@ -16,18 +15,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
 public class SearchIDPWController {
-	// ¾ÆÀÌµğ Ã£±â
+	// ì•„ì´ë”” ì°¾ê¸°
 	@FXML private TextField i_name;
 	@FXML private TextField i_email;
 	@FXML private TextField i_phone;
 	@FXML private Text i_alert;
-	// ºñ¹Ğ¹øÈ£ Ã£±â
+	// ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°
 	@FXML private TextField p_id;
 	@FXML private TextField p_name;
 	@FXML private TextField p_phone;
 	@FXML private Text p_alert;
 
-	// ÀÌÀü È­¸éÀ¸·Î µ¹¾Æ°¡±â (·Î±×ÀÎ È­¸é)
+	// ì´ì „ í™”ë©´ìœ¼ë¡œ ëŒì•„ê°€ê¸° (ë¡œê·¸ì¸ í™”ë©´)
 	public void before(){
 		try{
 			BorderPane root = new BorderPane();
@@ -41,30 +40,30 @@ public class SearchIDPWController {
 		}
 	}
 	
-	// ¾ÆÀÌµğ Ã£±â
+	// ì•„ì´ë”” ì°¾ê¸°
 	public void searchId(){
 		if(i_name.getText().equals("")){
-			i_alert.setText("ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä.");
+			i_alert.setText("ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”.");
 		}else if(i_email.getText().equals("")){
-			i_alert.setText("ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇÏ¼¼¿ä");
+			i_alert.setText("ì´ë©”ì¼ì„ ì…ë ¥í•˜ì„¸ìš”");
 		}else if(i_phone.getText().equals("")){
-			i_alert.setText("ÀüÈ­ ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+			i_alert.setText("ì „í™” ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 		}else{
 			try{
-				// ÀÔ·ÂÇÑ ÀÌ¸§, ÀÌ¸ŞÀÏ, ÀüÈ­¹øÈ£¸¦ °¡Áö°í DB¿¡¼­ ÇØ´ç Á¤º¸¿¡ ºÎÇÕÇÏ´Â »ç¿ëÀÚÀÇ ID°¡ ÀÖ´ÂÁö Ã£±â À§ÇØ ¼­¹ö·Î ¿¬°á
+				// ì…ë ¥í•œ ì´ë¦„, ì´ë©”ì¼, ì „í™”ë²ˆí˜¸ë¥¼ ê°€ì§€ê³  DBì—ì„œ í•´ë‹¹ ì •ë³´ì— ë¶€í•©í•˜ëŠ” ì‚¬ìš©ìì˜ IDê°€ ìˆëŠ”ì§€ ì°¾ê¸° ìœ„í•´ ì„œë²„ë¡œ ì—°ê²°
 				String param="name="+URLEncoder.encode(i_name.getText(),"UTF-8")+"&email="+URLEncoder.encode(i_email.getText(),"UTF-8")+"&phone="+URLEncoder.encode(i_phone.getText(),"UTF-8");
 				String urlInfo = "http://localhost:8080/buengbueng/fxSearchId.do";
 				JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 
 				String id = (String)jsonObj.get("id");
 				
-				// ¾ÆÀÌµğ°¡ ¾øÀ¸¸é
+				// ì•„ì´ë””ê°€ ì—†ìœ¼ë©´
 				if(id.equals("fail")){
-					i_alert.setText("¾ÆÀÌµğ Á¤º¸¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+					i_alert.setText("ì•„ì´ë”” ì •ë³´ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 				}
-				// ¾ÆÀÌµğ°¡ ÀÖÀ¸¸é ÇöÀç È­¸éÀÇ ¾Ë¸²Ã¢¿¡ ¶ç¿ò
+				// ì•„ì´ë””ê°€ ìˆìœ¼ë©´ í˜„ì¬ í™”ë©´ì˜ ì•Œë¦¼ì°½ì— ë„ì›€
 				else{
-					i_alert.setText("È¸¿ø´ÔÀÇ ¾ÆÀÌµğ´Â "+id+" ÀÔ´Ï´Ù.");
+					i_alert.setText("íšŒì›ë‹˜ì˜ ì•„ì´ë””ëŠ” "+id+" ì…ë‹ˆë‹¤.");
 				}
 			}catch(Exception e){
 				e.printStackTrace();
@@ -72,30 +71,30 @@ public class SearchIDPWController {
 		}
 	}
 	
-	// ºñ¹Ğ¹øÈ£ Ã£±â
+	// ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°
 	public void searchPw(){
 		if(p_id.getText().equals("")){
-			p_alert.setText("¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+			p_alert.setText("ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 		}else if(p_name.getText().equals("")){
-			p_alert.setText("ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä");
+			p_alert.setText("ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”");
 		}else if(p_phone.getText().equals("")){
-			p_alert.setText("ÀüÈ­ ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+			p_alert.setText("ì „í™” ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 		}else{
 			try{
-				// ÀÔ·ÂÇÑ ¾ÆÀÌµğ, ÀÌ¸§, ÀüÈ­¹øÈ£¸¦ °¡Áö°í DB¿¡¼­ ÇØ´ç Á¤º¸¿¡ ºÎÇÕÇÏ´Â »ç¿ëÀÚÀÇ PW°¡ ÀÖ´ÂÁö Ã£±â À§ÇØ ¼­¹ö·Î ¿¬°á
+				// ì…ë ¥í•œ ì•„ì´ë””, ì´ë¦„, ì „í™”ë²ˆí˜¸ë¥¼ ê°€ì§€ê³  DBì—ì„œ í•´ë‹¹ ì •ë³´ì— ë¶€í•©í•˜ëŠ” ì‚¬ìš©ìì˜ PWê°€ ìˆëŠ”ì§€ ì°¾ê¸° ìœ„í•´ ì„œë²„ë¡œ ì—°ê²°
 				String param="id="+URLEncoder.encode(p_id.getText(),"UTF-8")+"&name="+URLEncoder.encode(p_name.getText(),"UTF-8")+"&phone="+URLEncoder.encode(p_phone.getText(),"UTF-8");
 				String urlInfo = "http://localhost:8080/buengbueng/fxSearchPw.do";
 				JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 
 				String pw = (String)jsonObj.get("pw");
 				
-				// ºñ¹Ğ¹øÈ£°¡ ¾øÀ¸¸é
+				// ë¹„ë°€ë²ˆí˜¸ê°€ ì—†ìœ¼ë©´
 				if(pw.equals("fail")){
-					p_alert.setText("ºñ¹Ğ¹øÈ£ Á¤º¸¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+					p_alert.setText("ë¹„ë°€ë²ˆí˜¸ ì •ë³´ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 				}
-				// ºñ¹Ğ¹øÈ£°¡ ÀÖÀ¸¸é ÇöÀç È­¸éÀÇ ¾Ë¸²Ã¢¿¡ ¶ç¿ò
+				// ë¹„ë°€ë²ˆí˜¸ê°€ ìˆìœ¼ë©´ í˜„ì¬ í™”ë©´ì˜ ì•Œë¦¼ì°½ì— ë„ì›€
 				else{
-					p_alert.setText("È¸¿ø´ÔÀÇ ºñ¹Ğ¹øÈ£´Â "+pw+" ÀÔ´Ï´Ù.");
+					p_alert.setText("íšŒì›ë‹˜ì˜ ë¹„ë°€ë²ˆí˜¸ëŠ” "+pw+" ì…ë‹ˆë‹¤.");
 				}
 			}catch(Exception e){
 				e.printStackTrace();

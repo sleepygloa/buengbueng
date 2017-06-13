@@ -20,4 +20,9 @@
 	<sqlMap resource="sql/menuSQL.xml"/> <!-- menu 추가 수정 삭제 관리 -->
 	<sqlMap resource="sql/logSQL.xml"/>  <!-- 각종 LOG 관련 -->
 	<sqlMap resource="/sql/adminSQL.xml"/> <!-- 관리자 페이지 -->
+
+	<sqlMap resource="/sql/pcInfoSQL.xml"/> <!-- pc방 좌석 정보 -->
+	<sqlMap resource="/sql/bossPCSQL.xml" /> <!-- 사장님 PC방 관리 ERP -->
+	<sqlMap resource="/sql/rentSQL.xml" /> <!-- 사장님 대여물품 관리 ERP -->
+	<sqlMap resource="/sql/moduleSQL.xml"/> <!-- 모듈화 관리 -->
 </sqlMapConfig>

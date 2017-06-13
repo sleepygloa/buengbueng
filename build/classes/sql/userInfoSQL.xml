@@ -2,8 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="test">
 	
-	
-		
+
 	<!--  회원 삭제를 하기위한 패스워드 찾기 -->
 	<select id="checkPasswd" parameterClass="String" resultClass="String">
 		select pw from userInfo where id = #id#;
@@ -40,9 +39,15 @@
 		insert into userInfo values(#id#, #pw#, #name#, #birth#, #phone#, #grade#, #address#, #email#, now(), #googleId#);
 	</insert>
 	
+<<<<<<< HEAD
 	<!-- 회원 가입 -->
 	<insert id="userAccountInsert" parameterClass="userDto">
 		insert into userAccount values(#id#, 0);
+=======
+	<!-- 사장님 정보 저장 -->
+	<insert id="bossInfoInsert" parameterClass="bossDTO">
+		insert into bossInfo values(#b_id#, #b_name#, #b_number#, #b_address#, #b_tel#, #b_size#, #b_pccount#,#b_ip#,#b_key#);
+>>>>>>> KO
 	</insert>
 	
 	

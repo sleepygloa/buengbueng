@@ -18,7 +18,7 @@
 		 insert into paymentList(paying_price,buyer_chatid,payment_type,pg_name,confirmation,paying_name,error_msg,imp_uid,merchant_uid,payment_date) values(#paying_price#,#buyer_chatid#,#payment_type#,#pg_name#,#confirmation#,#paying_name#,#error_msg#,#imp_uid#,#merchant_uid#,now());
 	</insert>
 	
-	<select id="cash_payment_useInfoLoad" resultClass="userdto" parameterClass="String">
+	<select id="cash_payment_useInfoLoad" resultClass="userDto" parameterClass="String">
 		select * from userInfo where id = #id#;
 	</select>
 	

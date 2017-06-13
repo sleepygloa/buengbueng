@@ -2,8 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="test">
 	
-	
-		
+
 	<!--  회원 삭제를 하기위한 패스워드 찾기 -->
 	<select id="checkPasswd" parameterClass="String" resultClass="String">
 		select pw from userInfo where id = #id#;
