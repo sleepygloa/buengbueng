@@ -14,25 +14,17 @@ public class EventGetMoney {
 	
 	public int eventGetMoney(HashMap map1){
 		int check = -1;
-		int check2 = -1;
 		try{
-		//이벤트 머니가 있을때만 이 클래스가 실행됩니다.
-		System.out.println(map1.get("id"));
+		//관리자가 가상계좌로 접속한사용자에게 돈을 지불해줍니다.	
+		sqlMap.insert("cash.eventAdminGiveUserMoneyLog", map1);
 		//거래 계좌에 로그를 남겨줍니다. 로그가 남지않으면 입금도 되지 않습니다.
-		sqlMap.insert("cash.eventAdminGiveUserMoneyLog", map1.get("id"));
+		sqlMap.update("cash.eventAdminGiveUserMoney", map1); //회원계좌에 입금해줍니다.
+		check = 1;//성공했을때 변수
 	}catch(Exception e){
 		e.printStackTrace();
-		check = 0;
+		check = 0;//실패했을때 변수
 		System.out.println(e);
-		System.out.println("이벤트 돈 지급 실패1");
 	}
-		System.out.println("이벤트 돈 지급 실패2");
-		
-		sqlMap.update("cash.eventAdminGiveUserMoney", map1); //회원계좌에 입금해줍니다.
-		System.out.println("이벤트 돈 지급 성공3");
-			check = 1;
-
-		
 		return check;
 	}
 }

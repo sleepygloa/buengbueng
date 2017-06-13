@@ -10,7 +10,8 @@
 	<typeAlias alias="customerDTO" type="login.user.bean.CustomerDTO"/>
 	<typeAlias alias="bossErpTotalDTO" type="erp.boss.bean.BossErpTotalDTO"/>
 	<typeAlias alias="dto" type="payment.all.bean.UserBillingHistoryDTO"/>
-    
+    <typeAlias alias="franchiseeDTO" type="manage.boss.bean.FranchiseeDataDTO"/>
+
 
     
     

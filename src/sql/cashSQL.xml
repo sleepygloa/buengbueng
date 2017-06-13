@@ -2,9 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 
 <sqlMap namespace="cash">
-	<typeAlias alias="dto" type="payment.all.bean.UserBillingHistoryDTO"/>
-	<typeAlias alias="userdto" type="login.user.bean.UserInfoDataDTO"/>	
-	<typeAlias alias="uadto" type="payment.all.bean.UserAccountDTO"/>
+
 	<select id="cash_area" resultClass="dto">
 		select * from paymentList;
 	</select>
@@ -45,12 +43,31 @@
 		select count(*) from paymentList where buyer_chatid=#id#
 	 </select>
 	 
+
+ 	 <!-- 회원 로그인 했을때 이벤트로 돈 충전해주는 Log -->
+	 <insert id="eventAdminGiveUserMoneyLog" parameterClass="java.util.HashMap">
+ 		INSERT INTO accountLog (giveId, getId, money, method, reason, signdate)
+ 						 VALUES('admin', #id#, #eventMoney#, '1', '8', now());
+	 </insert>
 	 
-	<select id="getArticles" parameterClass="java.util.HashMap" resultClass="dto">
-      select r,idx,buyer_chatid,payment_date,payment_type,paying_name,paying_price,confirmation,error_msg,pg_name,imp_uid,merchant_uid 
-      from (select @rownum:= @rownum+1 as r, idx,buyer_chatid,payment_date,payment_type,paying_name,paying_price,confirmation,error_msg,pg_name,imp_uid,merchant_uid 
-      from paymentList,(select @rownum:=0)i where buyer_chatid=#id# and confirmation = #confirmation# order by idx desc)yz where r between #startRow# and #endRow#;
-   </select>
- 
-	
+	 <!-- 회원 로그인 했을때 이벤트로 돈 충전해주는 Log -->
+	 <update id="eventAdminGiveUserMoney" parameterClass="java.util.HashMap">
+	UPDATE userAccount SET money = money + #eventMoney# WHERE id = #id#;
+	 </update>
+	 
+ 	<!-- 사용자 피시방 이용후 종료시 결제 -->
+	<select id="userPcUseTimePay" resultClass="useTimeDto" parameterClass="java.util.HashMap">
+		<![CDATA[
+	select 
+	    round((logoutTime - loginTime))  as usePcUseTime, 
+        round((logoutTime - loginTime) * c.moneyPolicy)  as usePcUseTimePay, 
+	    b.money as userAccountMoney,
+	    b.money - (round((logoutTime - loginTime) * c.moneyPolicy))  as payAfterMoney, 
+	    loginTime, logoutTime, b_key  
+   	from useTimeLog a INNER JOIN (select id, money from userAccount where id = #id#) b ON a.id = b.id ,
+   	(select c.moneyPolicy, c.b_key from franchiseePolicy c, (select b_key from franchiseeAddLog where b_ip = #b_ip#) d where c.b_key = d.b_key ) c
+   	where a.id = #id# order by loginTime desc limit 0,1;
+		]]>
+	</select>
+	 
 </sqlMap>

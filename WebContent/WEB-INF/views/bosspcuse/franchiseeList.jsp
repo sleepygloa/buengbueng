@@ -1,123 +1,113 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<style>
+[class*=col-]{margin-bottom:5px} /* 모든 클래스들 중 col- 로 시작하는 것들을 정의, grid간 아랫공간 띄우기*/
+</style>
+<script type="text/javascript">
+	function getInfo(b_name){
+		var b_name = b_name;
+			$.ajax({
+				url:"franchiseeInfo.do",
+				type:"post",
+				data:
+					{ b_name : b_name },
+				success:function(data){
+					$("#franchiseeInfo").html(data);
+				}
+			})
+	}
+</script>
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
 
-<!-- SIDEMENU TEMPLATE -->
-<jsp:include page="franchiseeManageSidemenu.jsp" />
+	<!-- 페이지 제목 -->
+	<div class="margin_bottom50">
+		<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+			<h3>가맹점 현황</h3>
+		</div>
+	</div>
+	<!--  -->
+	<div class="margin_bottom50">
+		<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+			<div class="row">
+				<div>
+				가맹점은 사장님마다 여러개의 가맹점을 보유하 실 수 있습니다 <br />
+				현재 운영중인 PC방을 가맹점 신청하여 관리를 받으실 수도 있고, 새로 가맹점으로부터 운영을 시작할 수도 있습니다.<br />
+				가맹점을 운영하려면, 먼저 가맹점을 신청해주세요! <br />
+				<a href="franchiseeAdd.do" >가맹점 추가</a>
+				<a href="franchiseeDelete.do" >가맹점 삭제신청</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<div class="main_wrap container">
-	<div class="row">
-		<div class="col-sm-12-12">
+<!-- 메인 주요기능 : 카드 섹션? 영역 -------------------------------------------------->
+<div class="main_card_wrap row col-xs-12-12">
+    <div class="main_card_content">
+        <div class="card_title_wrap">`
+            <h3 class="card_title">보유 가맹점 수 : ${count1}</h3>
+        </div>
+<div id="franchiseeInfo"></div>
+	    <div class="card_content_wrap">
+            <div class="row bg2">
+<!-- 카드섹션 컨텐츠------------------------------------------------------------ -->
+<c:forEach var="article" items="${articleList1}">
+                <div class="col-xs-12-12 col-sm-6-12 col-md-4-12">
+                    <div class="offer__function__section scalable">
+                        <div class="card_icon"></div>
+                        <h6  class="minor" onclick="getInfo('${article.b_name}');" value="">${article.b_name}</h6>
+                        <span class="goProduct">${article.b_key}</span>
+                    </div>
+                </div>
+</c:forEach>
 
-<b>글목록(전체 글:${count})</b>
-
-<table border="1" width="80%" cellpadding="0" cellspacing="0" align="center"> 
-	<thead>
-		<tr align="center">
-			<th>신청번호</th>
-			<th>점주</th>
-			<th>피시방이름</th>
-			<th>사업자번호</th>
-			<th>주소</th>
-			<th>사업장전화번호</th>
-			<th>규모</th>
-			<th>PC수</th>
-			<th>신청 IP</th>
-			<th>KEY현황</th>
-			<th>신청날짜</th>
-			<th>가맹점 형황</th>
-			<th>승인날짜</th>
-		</tr>
-	</thead>
-<c:if test="${count == 0}">	
-	<tbody>
-		  <tr align="center">
-   			 <td align="center">
-  			    게시판에 저장된 글이 없습니다.
-  		  </td>
-  		</tr>
-	</tbody>	
-</c:if>	
-	<c:if test="${count > 0}">
-	<tbody>
-		<c:forEach var="article" items="${articleList}">
-		<tr align="center">
-			<td>
-			<c:out value="${number}"/>
-			<c:set var="number" value="${number - 1}"/>
-			</td>
-			<td>
-				${article.b_id}
-			</td>
-			<td>     
-			<a href="content.do?num=${article.num}&pageNum=${currentPage}">
-			${article.b_name}</a> 
-			</td>
-			<td>${article.b_number}</td>
-			<td>${article.b_address}</td>
-			<td>${article.b_tel}</td>
-			<td>${article.b_size}</td>
-			<td>${article.b_pccount}</td>
-			<td>${article.b_ip}</td>
-			<td>${article.b_key}</td>
-			<td>${article.date}</td>
-			<td>
-				<c:if test="${article.result == 0}">
-					<input class="btn" type="button" value="승인대기중" /> 
-				</c:if>
-				<c:if test="${article.result == 1}">
-					<input class="btn" type="button" value="승인완료" /> 
-				</c:if>
-				<c:if test="${article.result == 2}">
-					<input class="btn" type="button" value="보류" /> 
-				</c:if>				
-			
-			</td>
-			<td>${article.finishDate}</td>s
-			
-		</tr>
-		</c:forEach>
-	</tbody>
- 	</c:if>
-</table>
-
-
-<c:if test="${count > 0}">
-   <c:set var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}"/>
-   <c:set var="pageBlock" value="${10}"/>
-   <fmt:parseNumber var="result" value="${currentPage / 10}" integerOnly="true" />
-   <c:set var="startPage" value="${result * 10 + 1}" />
-   <c:set var="endPage" value="${startPage + pageBlock-1}"/>
-   <c:if test="${endPage > pageCount}">
-        <c:set var="endPage" value="${pageCount}"/>
-   </c:if> 
-          
-   <c:if test="${startPage > 10}">
-        <a href="list.do?pageNum=${startPage - 10 }">[이전]</a>
-   </c:if>
-
-   <c:forEach var="i" begin="${startPage}" end="${endPage}">
-       <a href="list.do?pageNum=${i}">[${i}]</a>
-   </c:forEach>
-
-   <c:if test="${endPage < pageCount}">
-        <a href="list.do?pageNum=${startPage + 10}">[다음]</a>
-   </c:if>
-</c:if>
-
-		
+			</div>
 		</div>
 	</div>
 </div>
 
 
+<!-- 메인 주요기능 : 카드 섹션? 영역 -------------------------------------------------->
+<div class="main_card_wrap row col-xs-12-12">
+    <div class="main_card_content">
+        <div class="card_title_wrap">
+            <h3 class="card_title">신청 중인 가맹점 수 : ${count2}</h3>
+        </div>
+<div id="franchiseeInfo"></div>
+	    <div class="card_content_wrap">
+            <div class="row bg2">
+<!-- 카드섹션 컨텐츠------------------------------------------------------------ -->
+<c:forEach var="article" items="${articleList2}">
+                <div class="col-xs-12-12 col-sm-6-12 col-md-4-12">
+                    <div class="offer__function__section scalable">
+                        <div class="card_icon"></div>
+                        <h6  class="minor" onclick="getInfo('${article.b_name}');" value="">${article.b_name}</h6>
+                        <p class="tool__section__desc">
+							<c:if test="${article.result == 0}">
+								<input class="btn" type="button" value="승인대기중"
+								onclick="window.location='franchiseeConfirm.do?num=${article.num}&b_name=${article.b_name}'" /> 
+							</c:if>
+							<c:if test="${article.result == 1}">
+								<input class="btn" type="button" value="승인완료" /> 
+							</c:if>
+							<c:if test="${article.result == 2}">
+								<input class="btn" type="button" value="보류" /> 
+							</c:if>	
+						</p>
 
+                    </div>
+                </div>
+      					<p class="tool__section__desc">${article.date}</p>
+						<p class="tool__section__desc">${article.finishDate}</p>
+                        <span class="goProduct">${article.b_key}</span>
+</c:forEach>
 
-
-<script type="text/javascript" src="/buengbueng/js/userInfo/signForm.js"></script>
+			</div>
+		</div>
+	</div>
+</div>
 
 <!-- FOOTER TEMPLATE -->
 <jsp:include page="../footer.jsp" />

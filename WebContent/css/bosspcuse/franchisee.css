@@ -3,4 +3,22 @@
 
 
 
-.main_wrap{top:150px;width:100%; min-height:600px;height:100%; overflow:hidden;float:left;display:block}
+	
+	
+/* 메인 컨텐츠 내의 table */
+.table{border:1px solid gray;}
+.table * div{border:1px solid gray;}	
+
+/* [class*=col]{float:none;} */
+
+
+/* 제목 */
+.side_content .container h3{margin:auto;text-align:center;margin-top:3em;	}
+
+
+.table_wd50{min-width:50px;}
+.table_wd100{min-width:100px;}
+.table_wd150{min-width:150px;}
+.table_wd200{min-width:200px;}
+.table_wd250{min-width:250px;}
+.table_wd300{min-width:300px;}

@@ -4,11 +4,6 @@
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
 
-<!-- SIDEMENU TEMPLATE -->
-<c:if test="${sidemenu == 1}">
-	<jsp:include page="../sidemenu.jsp" />
-</c:if>
-
 <!-- ARTICLE -->
 
 

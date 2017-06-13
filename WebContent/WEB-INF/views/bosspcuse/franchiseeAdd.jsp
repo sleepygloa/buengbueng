@@ -3,29 +3,148 @@
 
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
+<style>[class*=col]{margin-bottom:0px}</style>
+	<!-- 페이지 제목 -->
+	<div class="margin_bottom50">
+		<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+			<h3>가맹점 신청 PAGE</h3>
+		</div>
+	</div>
+	
+	<div class="margin_bottom50">	
+		<div class="col-xs-12-12">
+					
+			<form  action="franchiseeAddPro.do" method="post">
+				<!-- 회원 ID -->
+				<div class="row">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+						<c:if test="${userDto.id != null}">
+							<label>ID<br /></label>
+							<div class="form-group">
+								${userDto.id}
+								<input class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" type="hidden" name="id" value="${userDto.id}" placeholder="아이디를 입력하세요" />
+							</div>
+						</c:if>
+						<c:if test="${userDto.id == null}">비회원</c:if>
+					</div>
+				</div>
+				<!-- 회원 GRADE -->
+				<div class="row">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+						<c:if test="${userDto.grade != null}">
+							<label>등급<br /></label>
+							<div class="form-group">
+								<c:if test="${userDto.grade == 0}">관리자</c:if>
+								<c:if test="${userDto.grade == 1}">사장</c:if>
+								<c:if test="${userDto.grade == 2}">알바</c:if>
+								<c:if test="${userDto.grade == 3}">사용자</c:if>
+							</div>
+						</c:if>
+					</div>
+				</div>				
+				
+				<!-- 상호명 -->
+				<div class="row">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+							<label>상호명<br /></label>
+							<div class="form-group ">
+								<input class="col-xs-12-12 form-control" type="text" name="b_name" placeholder="상호명을 입력하세요" />
+							</div>
+					</div>
+				</div>
+				<!-- 사업자 번호 -->
+				<div class="row">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+							<label>사업자번호<br /></label>	
+							<div class="form-group">
+								<div class="input-group">
+									<input class="col-xs-1-12 form-control"  type="text" name="b_number_1" size="3"  maxlength="3" onblur="return checkB_number_1();"/>	
+										<div class="input-group-addon">-</div>
+									<input class="col-xs-1-12 form-control"  type="text" name="b_number_2" size="2"  maxlength="2" onblur="return checkB_number_2();"/>	
+										<div class="input-group-addon">-</div>
+									<input class="col-xs-1-12 form-control"  type="text" name="b_number_3" size="5"   maxlength="5" onblur="return checkB_number_3();"/>	
+								</div>
+								
+							</div>														
+					</div>
+				</div>				
+				<!-- 사업장 주소 -->
+				<div class="row">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+							<label>사업장 주소<br /></label>
+							<div class="form-group">
+								<input class="col-xs-12-12 form-control" type="text" name="b_address" placeholder="사업장 주소 입력" onblur="return checkB_address();">
+							</div>
+					</div>
+				</div>	
+				<!-- 사업장 전화번호 -->
+				<div class="row">
 
-<!-- SIDEMENU TEMPLATE -->
-<c:if test="${sidemenu == 1}">
-	<jsp:include page="../sidemenu.jsp" />
-</c:if>
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+							<label>사업장 전화번호<br /></label>
+							<div class="form-group">
+								<div class="input-group">
+									<input class="col-xs-1-12 form-control" type="text" name="b_tel1" size="3" maxlength="3" onblur="return checkB_tel1();">
+										<div class="input-group-addon">-</div>
+									<input class="col-xs-1-12 form-control" type="text" name="b_tel2" size="4" maxlength="4" onblur="return checkB_tel2();">
+										<div class="input-group-addon">-</div>
+									<input class="col-xs-1-12 form-control" type="text" name="b_tel3" size="4" maxlength="4" onblur="return checkB_tel3();">
+								</div>
+							</div>
+					</div>
+				</div>
+				<!-- 사업장 규모 -->
+				<div class="row">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+							<label>사업장 규모<br /></label>
+							<div class="form-group">
+								<input class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" type="text" name="b_size" placeholder="사업장 규모 입력 (평 수)" onblur="return checkB_size();">	
+							</div>
+					</div>
+				</div>
+				<!-- 보유 컴퓨터수 -->
+				<div class="row">
+
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+							<label>보유컴퓨터 수<br /></label>
+							<div class="form-group">
+								<input class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" type="text" name="b_pccount" placeholder="보유한 컴퓨터 대수를 입력하세요" onblur="return checkB_size();">	
+							</div>
+					</div>
+				</div>	
+				<!-- 사업장 사장님컴퓨터 IP -->
+				<div class="row">
+
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+							<label>사업장 사장님컴퓨터 IP<br /></label>
+							<div class="form-group">
+								${ip}
+						<input type="hidden" name="b_ip" value="${ip}" />
+							</div>
+					</div>
+				</div>							
+				<!-- 버튼 -->
+				<div class="row">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+						<input class="btn btn-success col-xs-12-12 col-sm-6-12 col-md-6-12" type="submit" value="신청하기" />
+						<input class="btn btn-default col-xs-12-12 col-sm-6-12 col-md-6-12" type="button" value="취소하기" />
+					</div>					
+				</div>	
+			</form>	
+			<div class="row">
+				<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+					<button class="btn btn-default col-xs-12-12 col-sm-12-12 col-md-12-12"  onclick="window.location='index.do'" >메인페이지로</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+<script type="text/javascript" src="/buengbueng/js/userInfo/signForm.js"></script>
 
 <script type="text/javascript">
-/* 
-$(document).ready(function(){
-      $("#2").click(function(){
-         $.ajax({
-            url:"ajax.do",
-            dataType : "json",
-            success:function(model){
-               $("#result").html(model.result);
-               $("#result").append(model.id);
-               $("#result").append(model.age);
-               
-            },
-         });
-      });
-   });
- */   
+
 	$(document).ready(function(){
 		$("#bossInfo").click(function(){
 		$.ajax({
@@ -45,125 +164,4 @@ $(document).ready(function(){
    
 </script>
 
-<!-- ARTICLE -->
 
-<!-- 페이지 제목 -->
-<div class="pricing__title--wrap container">
-이 페이지는 가맹점을 추가하는 페이지입니다. 
-</div>
-
-<div class="pricing--wrap container">
-<div  class="container for-desktop">
-	<div class="row">
-		<div class="col-md-12-12">
-			<form action="franchiseeAddPro.do" method="post">
-
-				<table id="result">
-					<thead>
-						<tr>
-							<th></th>
-							<th class="radius-left-top">
-								<input id="bossInfo" type="button" value="사장님 보유한 PC방정보를 불러오시겠습니까?" />
-							</th>
-						</tr>					
-						<tr>
-							<th></th>
-							<th class="radius-left-top">카테고리</th>
-							<th>입력</th>
-						</tr>
-					</thead>
-					
-					<tbody>
-						<tr>
-							<td rowspan="2"> </td>
-							<td>회원아이디</td>
-							<td>
-								<c:if test="${userDto.id != null}">${userDto.id}<input type="hidden" value="${userDto.id}" /></c:if>
-								<c:if test="${userDto.id == null}">비회원</c:if>
-								
-							</td>
-						</tr>
-						<tr>
-
-							<td>회원 등급</td>
-							<td>
-								<c:if test="${userDto.grade == 0}">사용자</c:if>
-								<c:if test="${userDto.grade == 1}">사장</c:if>
-								<c:if test="${userDto.grade == 2}">알바</c:if>
-								<c:if test="${userDto.grade == 3}">관리자</c:if>
-							</td>
-						</tr>					
-						<tr>
-							<td rowspan="7"> </td>
-							<td>상호명</td>
-							<td>
-								<input type="text" name="b_name" placeholder="10자 이내로 력해주세요"/>
-							</td>
-						</tr>					
-						<tr>
-							<td>사업자번호</td>
-							<td>
-								<input type="text" name="b_number_1" size="3"  maxlength="3" onblur="return checkB_number_1();"/>-
-								<input type="text" name="b_number_2" size="2"  maxlength="2" onblur="return checkB_number_2();"/>-
-								<input type="text" name="b_number_3" size="5"   maxlength="5" onblur="return checkB_number_3();"/>								
-							</td>
-						</tr>						
-						<tr>
-							<td>사업장 주소</td>
-							<td>
-								<input type="text" name="b_address" placeholder="사업장 주소 입력" onblur="return checkB_address();">
-							</td>
-						</tr>						
-						<tr>
-							<td>사업장 전화번호</td>
-							<td>
-								<input type="text" name="b_tel1" size="3" maxlength="3" onblur="return checkB_tel1();">-
-								<input type="text" name="b_tel2" size="4" maxlength="4" onblur="return checkB_tel2();">-
-								<input type="text" name="b_tel3" size="4" maxlength="4" onblur="return checkB_tel3();">							
-							</td>
-						</tr>						
-						<tr>
-							<td>사업장 규모</td>
-							<td>
-								<input type="text" name="b_size" placeholder="사업장 규모 입력 (평 수)" onblur="return checkB_size();">						
-							</td>
-						</tr>						
-						<tr>
-							<td>보유 컴퓨터수</td>
-							<td>
-								<input type="text" name="b_pccount" placeholder="보유 PC 수 입력" onblur="return checkB_pccount();"> 대
-							</td>
-						</tr>						
-						<tr>
-							<td>사장님 컴퓨터 IP</td>
-							<td>
-								${ip}
-								<input type="hidden" value="${ip}" />
-							</td>
-						</tr>											
-						<tr>
-							<td></td>
-							<td>결정</td>
-							<td>
-								<input type="submit" value="신청하기" />
-								<input type="button" value="취소하기" />
-							</td>
-						</tr>						
-					</tbody>
-					
-				</table>
-			</form>	
-		</div>
-	</div>
-</div>
-
-</div>
-
-<input type="button" value="메인페이지로" onclick="window.location='index.do'" />
-
-<br /><br /><br /><br /><br />
-
-<script type="text/javascript" src="/buengbueng/js/userInfo/signForm.js"></script>
-
-<!-- FOOTER TEMPLATE -->
-<jsp:include page="../footer.jsp" />

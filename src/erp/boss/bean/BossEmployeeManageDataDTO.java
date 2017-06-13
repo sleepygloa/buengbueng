@@ -4,16 +4,18 @@ import java.sql.Timestamp;
 
 public class BossEmployeeManageDataDTO {
 
-	private String id;
-	private String b_id;
-	private int applyCount;
-	private Timestamp applyTime;
-	private Timestamp confirmTime;
-	private String content;
+
+	private String id;	//회원아이디
+	private String b_id;	//사장님아이디
+	private int applyCount;	//사장님이 알바생아이디수 신청갯수
+	private Timestamp applyTime;	//신청시각
+	private Timestamp confirmTime;	//확인한 시각
+	private String content;	//신청사유
 	
 	private int count; //주고받을 SQL결과의 count수, 알바생과 사장님아이디가 매칭된 갯수
-	private String e_bossid;
-	private String e_id;
+	private String e_bossid;	//사장님아이디
+	private String e_id;	//알바생아이디
+
 	
 	
 	

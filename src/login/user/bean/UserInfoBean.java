@@ -1,15 +1,24 @@
 package login.user.bean;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import valid.all.bean.CheckInfo;
+import superclass.all.bean.CheckInfo;
+import superclass.all.bean.EventGetMoney;
+import superclass.all.bean.FindIpBean;
 
 @Controller
 public class UserInfoBean {
@@ -22,6 +31,9 @@ public class UserInfoBean {
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
 	
+	@Autowired
+	public EventGetMoney eventGetMoney;
+	
 	//로그인 클릭시 로그인 페이지로 이동
 	@RequestMapping("loginForm.do")
 	public String loginForm(){
@@ -33,19 +45,85 @@ public class UserInfoBean {
 	public String login(HttpServletRequest request,HttpSession session){
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-
-		//ID로 사용자 정보 불러온다음 입력한 PW와 DB의 PW와 비교한다.
-		UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
-		if(pw.equals(dto.getPw())){
-			session.setAttribute("loginId", dto.getId());
+		
+		int check = -1;
+		
+		try{
+			//ID로 사용자 정보 불러온다음 입력한 PW와 DB의 PW와 비교한다.
+			UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+			if(pw.equals(dto.getPw())){
+				session.setAttribute("loginId", dto.getId());
+				
+				//////////////////////////////////
+				//접속장소의 IP를 검색하고,로그인 LOG 를 남긴다.
+				FindIpBean fib = new FindIpBean();
+				String ip = (String)fib.findIp();
+				
+				HashMap map = new HashMap();
+				map.put("id", id);
+				map.put("ip", ip);
+				sqlMap.insert("erpEmp.insertEmployeeLoginLog", map); //로그인 LOG 남김
+				
+				////////////////////////////////////
+				//임시 만든 이벤트 코드, 사용자가 방문(로그인) 했을때 1000원씩준다.
+				int eventMoney = 1000; //이벤트 충전 머니
+				if(eventMoney != 0){
+					HashMap map1 = new HashMap();
+					map1.put("id", id);
+					map1.put("eventMoney", eventMoney);
+					check = eventGetMoney.eventGetMoney(map1);
+				}
+			}
+			
+		}catch(Exception e){
+			
 		}
+		
 		return "/index";
 	}
 	
 	//로그아웃 클릭시 세션이 종료됨 =--> 메인페이지로 이동
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session){
-		session.invalidate();
+		
+		try{
+			//세션 아이디를 페이지로전달
+			String id = (String)session.getAttribute("loginId");
+			if(sqlMap.queryForObject("erpEmp.findLoginLogLogoutNull", id) == null){
+				sqlMap.update("erpEmp.updateEmployeeLogoutLog", id);
+			};
+			
+			/////////////////////////////
+//			로그아웃시 사용시간 결제
+			/////////////////////////////테스트하기위해서는 가맹점을 그자리에서 만들어야한다.
+			//로그아웃PC의 IP -> LicenseKey 조회 -> 키로 가맹점 요금정책 -> 요금정책을 이용하여
+			//로그아웃시간 - 로그인 시간 = 이용시간 * 요금정책 = 사용금액 
+			//현재금액 - 사용금액 = 남은돈
+			FindIpBean findIpBean = new FindIpBean();
+			String ip = findIpBean.findIp();
+			
+			HashMap map = new HashMap();
+			map.put("id",id);
+			map.put("b_ip", ip);
+			
+			System.out.println(ip); //192.168.91.1 192.168.111.1 192.168.10.1
+			UseTimeLogDTO utlDto = null;
+			//유저가 사용한 PC방 이용시간 디테일정보 찾기(계산)
+			utlDto = (UseTimeLogDTO)sqlMap.queryForObject("cash.userPcUseTimePay", map);
+			utlDto.setId(id);
+			System.out.println(utlDto.getId());
+			sqlMap.insert("log.logoutLog", utlDto);//이용로그남기기
+			sqlMap.insert("log.logoutPayLog", utlDto);//결제로그남기기
+			
+			sqlMap.update("log.userGiveBossMoneyUserAccount", utlDto);//사용자 계좌에 반영
+			sqlMap.update("log.userGiveBossMoneyBossAccount", utlDto);//사장님계좌에 반영
+	
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			session.invalidate();
+		}
+		
 		return "/index";
 	}
 
@@ -207,25 +285,6 @@ public class UserInfoBean {
 			e.printStackTrace();	// 에러 상황 콘솔에 알림
 			request.setAttribute("result", "fail");	// 회원 가입이 실패했음을 알림
 		}
-		
-		if(dto.getGrade()==1){
-			bdto.setB_id(dto.getId());
-			sqlMap.insert("test.bossInfoInsert",bdto);
-		}
-		if(dto.getGrade()==2){
-			edto.setE_id(dto.getId());
-			String bossid= request.getParameter("bossid");
-			String bossCheck = (String) sqlMap.queryForObject("test.searchBossId", bossid);
-			if(bossCheck!=null){
-				edto.setE_bossid(bdto.getB_id());
-				sqlMap.insert("test.employeeInfoInsert",edto);
-			}else{
-				bossCheck="fail";
-			}
-			request.setAttribute("bossCheck",bossCheck);
-		}
-		
-		
 		
 		return "/userInfo/userInfoSignPro";
 	}

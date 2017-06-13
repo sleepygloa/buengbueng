@@ -13,13 +13,20 @@
 	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 	
+	<!-- INIT IMPORT 지정 -->
+	<context:component-scan base-package="config.setting.init" /> <!-- 회원관리 BEAN -->
+	
 	<!-- BEAN IMPORT 지정 -->
 	<context:component-scan base-package="login.user.bean" /> <!-- 회원관리 BEAN -->
 	<context:component-scan base-package="index.all.bean" /> <!-- 메인페이지 BEAN -->
-	<context:component-scan base-package="valid.all.bean" /> <!-- 유효성검사 :  아이디DB검사, 비밀번호DB검사 BEAN -->
-	<context:component-scan base-package="findip.all.bean" /> <!-- 접속자 IP 찾는 BEAN -->
 	<context:component-scan base-package="web.menu.bean" /> <!-- 대메뉴 소메뉴 이동하는 BEAN  -->
 	<context:component-scan base-package="manage.boss.bean" /> <!-- 사장님 관리 BEAN  -->
+	<context:component-scan base-package="search.user.bean" /> <!-- PC방 찾기 BEAN-->
+	<context:component-scan base-package="superclass.all.bean" /> <!-- 전역 CLASS, 상속가능한 것들 BEAN -->
+	<context:component-scan base-package="erp.boss.bean" /> <!-- 사장님 ERP관리 BEAN -->
+
+	<!-- FX BEAN INPORT 지정 -->
+	<context:component-scan base-package="fx.login.bean" /> <!-- FX 화원관리 BEAN  -->
 	<context:component-scan base-package="payment.all.bean" /> <!-- 결제 관련 BEAN  -->
 	
 	<!-- DOWNLOAD 지정 -->
@@ -29,6 +36,9 @@
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<property name="order" value="0" />
 	</bean>
+	
+	<!-- INIT 설정 파일 autowired -->
+	<context:annotation-config />
 	
 <!-- 	
 	AOP 설정 
@@ -71,6 +81,6 @@
 	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource"
           destroy-method="close"
           p:driverClassName="com.mysql.jdbc.Driver"
-          p:url="jdbc:mysql://211.211.163.86:11056/buengbueng"
+          p:url="jdbc:mysql://211.211.163.86:11056/buengbueng?useUnicode=yes&amp;characterEncoding=utf8"
           p:username="buengbueng" p:password="1234" /> 
 </beans>
