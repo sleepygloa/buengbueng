@@ -67,12 +67,13 @@ public class MenuBean {
 	@RequestMapping("menu.do")
 	public String menuForm(MenuDTO mdto,String name,String l_key, HttpServletRequest request){
 		try{
-			System.out.println(l_key);
+		if(l_key!=null){
 		List menuList= (List)sqlMap.queryForList("menu.getMenu",l_key);
 		request.setAttribute("menuList", menuList);
-		List categoryList =sqlMap.queryForList("menu.getCategory",null);
-		if(categoryList!=null){
-			request.setAttribute("categoryList",categoryList);
+		List categoryList =sqlMap.queryForList("menu.getCategory",l_key);
+			if(categoryList!=null){
+				request.setAttribute("categoryList",categoryList);
+			}
 		}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -110,26 +111,31 @@ public class MenuBean {
 	/* 메뉴수정 페이지 */
 	
 	@RequestMapping("menuModify.do")
-	public String menuModify(HttpServletRequest request,HttpSession session){
-		String id=(String)session.getAttribute("loginId");
-		String licensekey=(String)sqlMap.queryForObject("menu.getLicenseKey",id);
-		List menuList= sqlMap.queryForList("menu.getMenu",licensekey);
+	public String menuModify(HttpServletRequest request,String l_key,String name,HttpSession session){
+		List menuList= (List)sqlMap.queryForList("menu.getMenu",l_key);
+		
 		request.setAttribute("menuList", menuList);
+		request.setAttribute("l_key",l_key);
+		request.setAttribute("name",name);
 		return "/menu/menuModify";
 	}
 
 	@RequestMapping("menuModifyForm.do")
-	public String menuModifyForm(HttpServletRequest request, MenuDTO mdto, HttpSession session){
-		String id=(String)session.getAttribute("loginId");
-		String licensekey=(String)sqlMap.queryForObject("menu.getLicenseKey",id);
-		mdto.setL_key(licensekey);
-		mdto=(MenuDTO)sqlMap.queryForObject("menu.getMenuName",mdto);
+	public String menuModifyForm(HttpServletRequest request,String l_key, MenuDTO mdto, HttpSession session){
+		
+		HashMap map=new HashMap();
+		map.put("name",mdto.getName());
+		map.put("l_key", l_key);
+		
+		System.out.println(map);
+		mdto=(MenuDTO)sqlMap.queryForObject("menu.getMenuName",map);
 		request.setAttribute("mdto",mdto);
+		request.setAttribute("l_key",l_key);
 		return "/menu/menuModifyForm";
 	}
 	
 	@RequestMapping("menuModifyPro.do")
-	public String menuModifyPro(String beforeName,MenuDTO mdto, HttpServletRequest request){
+	public String menuModifyPro(String beforeName,String l_key,MenuDTO mdto, HttpServletRequest request){
 		int check=0;
 		try{
 			check=1;
@@ -172,6 +178,7 @@ public class MenuBean {
 		// 전체 다 뜨는 거
 		if(category.equals("all")){
 			List menuList= sqlMap.queryForList("menu.getMenu",l_key);
+			System.out.println(menuList.size());
 			request.setAttribute("menuList", menuList);
 		}else{
 			HashMap map=new HashMap();
@@ -187,6 +194,7 @@ public class MenuBean {
 	@RequestMapping("menuCategoryAll.do")
 	public String menuCategoryAll(HttpServletRequest request,String l_key ){
 		List menuList= sqlMap.queryForList("menu.getMenu",l_key);
+		
 		request.setAttribute("menuList", menuList);
 		return "/menu/menuCategoryAll";
 	}

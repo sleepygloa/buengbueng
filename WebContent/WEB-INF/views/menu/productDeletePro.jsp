@@ -5,11 +5,27 @@
 
 
 <script type="text/javascript">
-	function succ(check, url){
-		alert(check);
-		window.location=url;
+
+function succc(check, url, valueName, value){
+	alert(check);
+	
+	var form = document.createElement("form");
+	   form.setAttribute("method","post");
+	   form.setAttribute("action",url);
+		
+	   var hidden = document.createElement("input");
+	   hidden.setAttribute("type","hidden");
+	   hidden.setAttribute("name", valueName);
+	   hidden.setAttribute("value",value);
+	   form.appendChild(hidden);
+	  
+	   document.body.appendChild(form);
+	   form.submit();
+	}
+
+
 	}
 </script>
 
-	<body onload="succ('재고정보가 삭제되었습니다.','productDeleteForm.do')" />
+	<body onload="succc('재고정보가 삭제되었습니다.','productDeleteForm.do','l_key','${l_key}')" />
 

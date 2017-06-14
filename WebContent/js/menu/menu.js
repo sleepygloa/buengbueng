@@ -21,11 +21,11 @@ function productSelect2(){
 }
 
 /* 사장이 메뉴등록시 카테고리별로 리스트 보이도록  */
-function category(category){
+function category(category,l_key){
 		$.ajax({
 			url:"menuCategoryClick.do",
 			type:"post",
-			data: {category: category},
+			data: {category: category}&{l_key : l_key},
 			success:function(data){
 				$("#categoryMenu").html(data);
 			}

@@ -54,7 +54,7 @@
 		<table>
 		<tr>
 		<c:forEach var="category" items="${categoryList}">
-			<td><input type="button" name="${category}" onclick="category('${category}')" value="${category}" /> </td>
+			<td><input type="button" name="${category}" onclick="category('${category}','${l_key}')" value="${category}" /> </td>
 		</c:forEach>
 		</tr>	
 		</table>

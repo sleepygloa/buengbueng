@@ -31,7 +31,7 @@
 	
 	<!-- 카테고리 버튼 만들기 -->
 	<select id="getCategory" parameterClass="String" resultClass="String"> 
-		select distinct category from menu where l_key=#key#;
+		select distinct category from menu where l_key=#l_key#;
 	</select>
 	
 	<!-- menu 가져오기 -->
@@ -40,7 +40,7 @@
 	</select>
 	
 	<!-- menu 수정하기 위해 상품명에 맞는 정보 가져오기-->
-	<select id="getMenuName" parameterClass="menuDto" resultClass="menuDto">
+	<select id="getMenuName" parameterClass="java.util.HashMap" resultClass="menuDto">
 		select * from menu where name=#name# and l_key=#l_key#;
 	</select>
 	
