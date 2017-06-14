@@ -16,9 +16,23 @@
 	
 <!-- 알바생 관리 하는 부분 -->
 	
+	<!-- 알바생아이디는 있지만 보스아이디가 없는 것을 찾음 -->
+	<select id="findBossIdNull" resultClass="String">
+		SELECT e_id from employeeInfo where e_bossid = '' ORDER BY e_id desc limit 0, 1; 
+	</select>
+	
+	<!-- 알바생신청 로그의 제일 마지막 번호를 불러온다. 신청 폼의 신청 번호 -->
+	<select id="getEmployeeAddLogLastNum" resultClass="int">
+		select num from employeeAddLog order by num desc limit 0, 1;
+	</select>
+		
+	<!-- 사장님이 아이디를 원하는 수만큼 신청 . 관리자의 승낙을 받아야한다. -->
+	<insert id="employeeAddLog" parameterClass="beDto">
+		INSERT INTO employeeAddLog (num, b_id,  applyTime, content) VALUES(0, #b_id#,  now());
+	</insert>
+
 
 	<!-- 사장님이 알바원하는 인원수만큼 신청(삭제도가능) -->
-
 	<insert id="insertBossEmployeeAddLog" parameterClass="beDto">
 		INSERT INTO bossEmployeeLog (b_id, applyCount, applyTime, content) VALUES(#b_id#, #applyCount#, now(), #content#);
 	</insert>
@@ -55,14 +69,10 @@
 	</update>
 	
 
-	<!-- 알바생아이디는 있지만 보스아이디가 없는 것을 찾음 -->
-	<select id="findBossIdNull" resultClass="String">
-		SELECT e_id from employeeInfo where e_bossid = '' ORDER BY e_id desc; 
-	</select>
+
 	
 
 	<!-- 알바생아이디 있고, 보스 아이디도 있는 것 중 가장 높은 번호를 찾음 -->
-
 	<select id="findBossIdNotNull" resultClass="String">
 		SELECT e_id from employeeInfo where e_bossid = #e_bossid# ORDER BY e_id desc; 
 	</select>

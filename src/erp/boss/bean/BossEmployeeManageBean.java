@@ -22,7 +22,7 @@ public class BossEmployeeManageBean {
 	
 	
 	//사장님 알바생관리 메인 페이지
-	@RequestMapping("bossEmployeeManageMain.do")
+	@RequestMapping("bossErpMain.do")
 	public String bossEmployeeInfoMain(Model model, HttpSession session){
 		
 		//////////////////////////////////////////
@@ -39,11 +39,11 @@ public class BossEmployeeManageBean {
 		model.addAttribute("id",id);
 		
 		
-		return "/bosserpmanage/bossEmployeeManageMain";
+		return "/bossERP/erpMain";
 	}
 	
-	//사장님 알바생 추가 페이지로이동
-	@RequestMapping("bossEmployeeAdd.do")
+	//사장님 알바생 관리 페이지로이동
+	@RequestMapping("manageEmployee.do")
 	public String bossEmployeeAdd(Model model, HttpSession session){
 		
 		//////////////////////////////////////////
@@ -59,7 +59,54 @@ public class BossEmployeeManageBean {
 		String id = (String)session.getAttribute("loginId");
 		model.addAttribute("id",id);
 		
-		return "/bosserpmanage/bossEmployeeAdd";
+		return "/bossERP/employeeManage/manageEmployee";
+	}
+	
+	@RequestMapping("addEmployeeInfo.do")
+	public String AddEmployeeIdAjax(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO ){
+			int lastNum = (Integer)sqlMap.queryForObject("erpEmp.getEmployeeAddLogLastNum", null);
+			lastNum += 1;
+			System.out.println(lastNum);
+			model.addAttribute("lastNum", lastNum);
+		
+		return "/bossERP/employeeManage/employeeAddInfo";
+	}
+	
+	@RequestMapping("AddEmployeeId.do")
+	public String AddEmployeeId(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO ){
+			//1. 알바생 정보에서 사장님 정보가 없는 아이디를 검색
+			//2-1. 있다면, 아이디에 사장님정보를 넣고 아이디를 추가한다.
+			//2-2. 없다면, userInfo에 아이디를 제일 마지막번호로 생성, 
+			//			생성한 아이디를 알바정보에 아이디와 사장정보를 입력
+		
+		
+		
+		
+		//////////////////////////////////////////
+		//세션 아이디를 페이지로전달
+		String b_id = (String)session.getAttribute("loginId");
+		model.addAttribute("b_id",b_id);		
+		
+		int check = 0;
+		//로그인 하지 않았을때 그냥 폼은 보여주지만, 아무것도할수없다.
+		//////////////////////////////////////////
+		//비로그인접근, 잘못된 경로로 접근한사람 내쫓음
+		if(b_id == null){
+			check = 9; //비회원이 싸이트로 접속했을때.
+			return "/bosspcuse/franchiseeAddPro";
+		}		
+		try{
+			String fbinId = (String)sqlMap.queryForObject("erpEmp.findBossIdNull", null);//1. 알바생정보테이블에서 알바생아이디는 있지만 사장님아이디가없는 아이디를 검색한다.
+			if(fbinId == null){ //반환된 값은 알바생 아이디
+				//2-1. 사장님아이디가 비어있는 것에 사장님 아이디를 추가함.
+				//먼저로그를 남긴다
+//				sqlMap.update("erpEmp.", parameterObject)
+			}else{
+				//2-2.
+			}
+		}catch(Exception e){e.printStackTrace();}
+		
+		return "/bossERP/employeeManage/manageEmployee";
 	}
 	
 	//사장님 알바생 추가[처리] 페이지로 이동
@@ -72,7 +119,6 @@ public class BossEmployeeManageBean {
 		model.addAttribute("b_id",b_id);
 		
 		int check = 0;
-		
 		//로그인 하지 않았을때 그냥 폼은 보여주지만, 아무것도할수없다.
 		//////////////////////////////////////////
 		//비로그인접근, 잘못된 경로로 접근한사람 내쫓음

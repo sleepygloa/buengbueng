@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="rent">
+	<!-- 대여물품 목록 전부 가져오기 -->
+	<select id="getRentAll" parameterClass="String" resultClass="rentDTO">
+		select * from rent where b_key = #key#;
+	</select>
+	<!-- 대여물품 목록 확인하기 -->
+	<select id="getRentName" parameterClass="rentDTO"  resultClass="String">
+		select rentProduct from rent where b_key = #b_key# and rentProduct = #rentProduct#;
+	</select>
+	<!-- 대여물품 목록 추가하기 -->
+	<insert id="addRent" parameterClass="rentDTO">
+		insert into rent values(#b_key#,#rentProduct#);
+	</insert>
+	<!-- 대여물품 목록 삭제하기 -->
+	<delete id="deleteRent" parameterClass="rentDTO">
+		delete from rent where b_key = #b_key# and rentProduct = #rentProduct#;
+	</delete>
+	<!-- 대여물품 목록 수정하기 -->
+	<update id="modiRent" parameterClass="java.util.HashMap">
+		update rent set rentProduct = #afterProduct# where b_key = #b_key# and rentProduct = #beforeProduct#;
+	</update>
+<!-- ================================================================================================================= -->
+	<!-- 선택된 목록의 대여물품 전부 가져오기 -->
+	<select id="getRentProductAll" parameterClass="rentDTO" resultClass="rentProdDTO">
+		select * from rentProduct where b_key = #b_key# and rentProduct = #rentProduct#;
+	</select>
+	<!-- 대여물품 바코드 정보 확인하기 -->
+	<select id="getRentCode" parameterClass="rentProdDTO" resultClass="int">
+		select count(code) from rentProduct where b_key = #b_key# and code = #code#;
+	</select>
+	<!-- 대여물품 추가하기 -->
+	<insert id="addRentProduct" parameterClass="rentProdDTO">
+		insert into rentProduct values(#code#,#b_key#,#rentProduct#,0,now());
+	</insert>
+	<!-- 대여물품 정보 가져오기 -->
+	<select id="getRentProduct" parameterClass="rentProdDTO" resultClass="rentProdDTO">
+		select * from rentProduct where b_key = #b_key# and code = #code#;
+	</select>
+	<!-- 대여물품 정보 수정하기 -->
+	<update id="modiRentProduct" parameterClass="java.util.HashMap">
+		update rentProduct set code = #afterCode#, rentProduct = #afterProduct# where b_key = #b_key# and code = #beforeCode#;
+	</update>
+	<!-- 대여물품 삭제하기 -->
+	<delete id="deleteRentProduct" parameterClass="rentProdDTO">
+		delete from rentProduct where b_key = #b_key# and code = #code#;
+	</delete>
+<!-- ================================================================================================================= -->
+	<!-- 사용자의 대여 중인 물품 가져오기 -->
+	<select id="getUserRentList" parameterClass="java.util.HashMap" resultClass="String">
+		select name from rentLog where id = #id# and b_key = #key# and returndate = '0000-00-00 00:00:00';
+	</select>
+</sqlMap>

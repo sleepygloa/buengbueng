@@ -20,8 +20,7 @@
 			<li><a href="bossErpManageMain.do" >ERP관리 MAIN</a></li>
 			<li><hr /></li>
 			<li>알바생 관리</li>
-			<li><a href="bossEmployeeManageMain.do" >ㅇ</a></li>
-			<li><a href="bossEmployeeAdd.do" >아이디 수 변경</a></li>
+			<li><a href="manageEmployee.do" >아이디 수 변경</a></li>
 			<li><a href="bossEmployeeInfoList.do" >아이디 관리</a></li>
 			<li><a href="bossEmployeeLoginLogoutLogManage.do" >알바 근태관리</a></li>
 			<li><a href="bossEmployeeAccountManage.do" >장부 관리</a></li>

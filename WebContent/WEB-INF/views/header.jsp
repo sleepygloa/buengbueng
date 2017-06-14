@@ -28,6 +28,7 @@
 		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/sidemain_main.css">
 		<!-- 구글 MATERIAL ICON -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		
 
 <script src="/buengbueng/js/userInfo/.js"></script>
 		
@@ -186,7 +187,7 @@
 								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="bossErpManageMain.do">
+									<a href="bossErpMain.do">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">ERP 관리</h6>
