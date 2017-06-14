@@ -19,7 +19,6 @@
 
 <c:forEach var="list" items="${list}">
 <div id="dashInfo${count}">
-	<span><input type="hidden" id="count${count}" value="${count}"></span>
 	<span>${list.id}<input type="hidden" id="id${count}" value="${list.id}"></span>
 	<span>${list.pw}<input type="hidden" id="pw${count}" value="${list.pw}"></span>
 	<span>${list.name}<input type="hidden" id="name${count}" value="${list.name}"></span>
@@ -36,21 +35,35 @@
 		</c:if>
 	<span>${list.signdate}<input type="hidden" id="signdate${count}" value="${list.signdate}"></span>
 <script>
-	$(document).ready(function(){
-		$("#dashDelete${count}").click(function(){
-			$.ajax({
-				url:"dashDelete.do",
-				type:"post",
-				data:{id:$("#id${count}").val(),count:$("#count${count}").val()},
-				success:function(data){
-					$("#dashInfo${count}").html(data);
-					alert(data);
-				}
-			});
+function delCheck${count}(){
+	if (confirm("정말 삭제하시겠습니까??") == true){    //확인	
+		$.ajax({
+			url:"dashDelete.do",
+			type:"post",
+			data:{id:$("#id${count}").val()},
+			success:function(data){
+				$("#dashInfo${count}").html(data);
+			}
+		});
+	}else{   //취소
+	  	return;
+	}
+}
+$(document).ready(function(){
+	$("#dashModify${count}").click(function(){
+		$.ajax({
+			url:"dashModify.do",
+			type:"post",
+			data:{id:$("#id${count}").val()},
+			success:function(data){
+				$("#dashInfo${count}").html(data);
+			}
 		});
 	});
+});
 </script>
-	<span><button id="dashDelete${count}">삭제</button></span>
+	<span><button onclick="return delCheck${count}();">삭제</button></span>
+	<span><button id="dashModify${count}">수정</button></span>
 </div>
 <c:set var="count" value="${count-1}"/>
 </c:forEach>

@@ -12,6 +12,8 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import login.user.bean.UserInfoDataDTO;
+
 @Controller
 public class DashIndexBean {
 	
@@ -24,7 +26,7 @@ public class DashIndexBean {
 		return "dashIndex";
 	}
 	
-	// 회원정보 수정창
+	// 관리자 페이지 회원정보
 	@RequestMapping("dashUser.do")
 	public String dashUser(HttpServletRequest request){
 		int grade = Integer.parseInt(request.getParameter("grade"));
@@ -37,7 +39,7 @@ public class DashIndexBean {
 	    int startRow = (currentPage - 1) * pageSize; // mysql에서 limit 는 0부터 시작해야 rownum 1번 값부터 호출
 	    int number=0;
 	    int count=0;
-	    List<String> list= null;
+	    List list= null;
 	    
 	    count = (Integer)sqlMap.queryForObject("admin.userCount", grade); //해당 페이지 내용 갯수
 	    if (count > 0) {
@@ -64,24 +66,26 @@ public class DashIndexBean {
 		request.setAttribute("grade", grade);
 		return "/dash-userInfo/dashUser";
 	}
-	
+	// 관리자 페이지 회원 탈퇴 
 	@RequestMapping("dashDelete.do")
 	public String dashDelete(HttpServletRequest request){
 		String id = request.getParameter("id");
-		int count = 0;
-		if(Integer.parseInt(request.getParameter("count"))!=0){
-			count = Integer.parseInt(request.getParameter("count"));
-			request.setAttribute("count", count);
-		}
-		
-		request.setAttribute("id", id);
+		sqlMap.delete("admin.userDelete", id);
 		return "/dash-userInfo/dashDelete";
 	}
 	
-	@RequestMapping("dashDeletePro.do")
-	public String dashDeletePro(HttpServletRequest request){
+	@RequestMapping("dashModify.do")
+	public String dashModify(HttpServletRequest request){
 		String id = request.getParameter("id");
-		sqlMap.delete("admin.userDelete", id);
-		return "/dash-userInfo/dashDeletePro";
+		UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("admin.getUser", id);
+		request.setAttribute("dto", dto);
+		return "/dash-userInfo/dashModify";
 	}
+	// 관리자 페이지 회원 정보 수정
+	@RequestMapping("dashModifyPro.do")
+	public String dashModifyPro(UserInfoDataDTO dto,HttpServletRequest request){
+		sqlMap.update("admin.userUp",dto);
+		return "/dash-userInfo/dashModifyPro";
+	}
+
 }

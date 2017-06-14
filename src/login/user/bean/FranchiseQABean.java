@@ -163,7 +163,8 @@ public class FranchiseQABean { // 가맹 문의
 		
 		// 등급이 관리자 or 해당글 비밀번호 일치시 ...
 		if(session.getAttribute("grade")!=null){grade = (Integer)session.getAttribute("grade");}
-		if(grade==4 || dto.getPasswd().equals(passwd)){check=1; sqlMap.update("customer.contentUp", map);}
+		if(dto.getPasswd().equals(passwd) || grade==4){check=1; sqlMap.update("customer.contentUp", map);
+		}else{ check =0;}
 				
 		map.put("ref", dto.getRef());
 		map.put("snum",snum);
@@ -251,19 +252,7 @@ public class FranchiseQABean { // 가맹 문의
 	}
 	
 	@RequestMapping("bossDelete.do")  // 관리자 권한 삭제 확인
-	public String bossDelete(HttpServletRequest request){
-		Integer snum = Integer.parseInt(request.getParameter("snum"));
-		Integer num = Integer.parseInt(request.getParameter("num"));
-		String pageNum=request.getParameter("pageNum");
-		
-		request.setAttribute("snum", snum);
-		request.setAttribute("num", num);
-		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/bossDelete";
-	}
-	
-	@RequestMapping("bossDeletePro.do") //관리자 권한 삭제 완료
-	public String bossDeletePro(HttpServletRequest request,HashMap map){
+	public String bossDelete(HttpServletRequest request,HashMap map){
 		int num = Integer.parseInt(request.getParameter("num"));
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
@@ -284,6 +273,6 @@ public class FranchiseQABean { // 가맹 문의
 		request.setAttribute("addr", addr);
 		request.setAttribute("snum", snum);
 		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/bossDeletePro";
+		return "/customer-center/bossDelete";
 	}
 }

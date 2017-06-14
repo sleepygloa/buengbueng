@@ -163,7 +163,8 @@ public class OneQABean { // 1:1 문의
 		
 		// 등급이 관리자 or 해당글 비밀번호 일치시 ...
 		if(session.getAttribute("grade")!=null){grade = (Integer)session.getAttribute("grade");}
-		if(grade==4 || dto.getPasswd().equals(passwd)){check=1; sqlMap.update("customer.contentUp", map);}
+		if(dto.getPasswd().equals(passwd) || grade==4){check=1; sqlMap.update("customer.contentUp", map);
+		}else{ check =0;}
 				
 		map.put("ref", dto.getRef());
 		map.put("snum",snum);

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${sessionScope.grade!=4}">
+	<script> alert('관리자 페이지'); history.go(-1);</script>
+</c:if>
 <!DOCTYPE html>
 <html lang="en">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -63,7 +66,7 @@
                         </a>
                             <ul class="mt-sub-menu">
                              	<li>
-                                    <a href="dashUser.do?grade=1&pageNum=1" class="rippler rippler-default">
+                                    <a href="dashUser.do?grade=3&pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">사용자</span>
                                     <span class="selected"></span>
                                 </a>
@@ -75,7 +78,7 @@
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="dashAdmin.do?grade=1&pageNum=1" class="rippler rippler-default">
+                                    <a href="dashAdmin.do?grade=4&pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">관리자</span>
                                     <span class="label bg-warning">Update</span>
                                     <span class="selected"></span>
