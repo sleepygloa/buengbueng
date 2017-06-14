@@ -16,15 +16,62 @@
 	
 <!-- 알바생 관리 하는 부분 -->
 	
+	<!-- 알바생신청 로그의 제일 마지막 번호를 불러온다. 신청 폼의 신청 번호 -->
+	<select id="getEmployeeAddLogLastNum" resultClass="beDto">
+		select num, (select count(*) FROM employeeInfo WHERE e_bossid = #e_bossid#) AS count from employeeAddLog order by num desc limit 0, 1;
+	</select>
+	
+	<!-- 사장님이 알바원하는 인원수만큼 신청(삭제도가능) -->
+	<insert id="insertEmployeeAddLog" parameterClass="beDto">
+		INSERT INTO employeeAddLog (num, result, b_id, applyCount, applyTime, content)
+							 VALUES(0, 0, #b_id#, #applyCount#, now(), #content#);
+	</insert>
+	
+	<!-- 알바생 정보테이블에서 사장님이 보유한 알바생아이디를 찾고, 갯수를 센다. -->
+	<select id="getEmployeeId" resultClass="beDto" parameterClass="String">
+		SELECT e_id, (select count(*) FROM employeeInfo WHERE e_bossid = #e_bossid#) +1 AS count FROM employeeInfo WHERE e_bossid = #e_bossid# ORDER BY e_id DESC LIMIT 1; 
+	</select>	
+	
+	<!-- 알바생 정보테이블에서 사장님이 보유한 알바생아이디를 찾고, 갯수를 센다. -->
+	<select id="getEmployeeAddLog" resultClass="beDto" >
+		SELECT * from  employeeAddLog where result = '0';
+	</select>		
+	
+	<!-- 알바생아이디를 생성하고자할때, 아이디가 중간에없는 아이디를 찾는다. -->
+	<select id="findE_idNull" resultClass="String" parameterClass="String">
+		select e_id from employeeInfo where e_id = #e_id#;
+	</select>
+	
+	<!-- 알바생 아이디를 회원테이블 생성 -->
+	<insert id="insertEmployeeIdUserInfo" parameterClass="String">
+		INSERT INTO userInfo (id, pw, grade, signdate) VALUES(#e_id#, 1234, 2, now());
+	</insert>
+	
+	<!-- 알바생 아이디를  알바생정보테이블에 생성 -->
+	<insert id="insertEmployeeIdEmployeeInfo" parameterClass="java.util.HashMap">
+		INSERT INTO employeeInfo (e_id, e_bossid) VALUES(#e_id#, #e_bossid#);
+	</insert>		
+	
+	<!-- 아이디 신청한 수만큼 아이디 생성이 완료되면, 아이디 신청 컨펌 정보를 업데이트한다. -->
+	<update	id="updateEmployeeAddLog" parameterClass="String">
+		update employeeAddLog set result = 1, confirmTime = now(), e_id = #id#; 
+	</update>
+
+	
+	<!-- 알바생 리스트 -->
+	<select id="getEmployeeList" resultClass="beDto" parameterClass="String">
+		select * from employeeInfo where e_bossid = #id#;
+	</select>
+	
+	
+	
+	
 	<!-- 알바생아이디는 있지만 보스아이디가 없는 것을 찾음 -->
 	<select id="findBossIdNull" resultClass="String">
 		SELECT e_id from employeeInfo where e_bossid = '' ORDER BY e_id desc limit 0, 1; 
 	</select>
 	
-	<!-- 알바생신청 로그의 제일 마지막 번호를 불러온다. 신청 폼의 신청 번호 -->
-	<select id="getEmployeeAddLogLastNum" resultClass="int">
-		select num from employeeAddLog order by num desc limit 0, 1;
-	</select>
+
 		
 	<!-- 사장님이 아이디를 원하는 수만큼 신청 . 관리자의 승낙을 받아야한다. -->
 	<insert id="employeeAddLog" parameterClass="beDto">
@@ -32,25 +79,11 @@
 	</insert>
 
 
-	<!-- 사장님이 알바원하는 인원수만큼 신청(삭제도가능) -->
-	<insert id="insertBossEmployeeAddLog" parameterClass="beDto">
-		INSERT INTO bossEmployeeLog (b_id, applyCount, applyTime, content) VALUES(#b_id#, #applyCount#, now(), #content#);
-	</insert>
 
-	<!-- 알바생 회원 ID 를 찾음 -->
-	<select id="getEmployeeId" resultClass="beDto" parameterClass="String">
-		SELECT e_id, (select count(*) FROM employeeInfo WHERE e_bossid = #e_bossid#) AS count FROM employeeInfo WHERE e_bossid = #e_bossid# ORDER BY e_id DESC LIMIT 1; 
-	</select>
 
-	<!-- 알바생 아이디를 생성 -->
-	<insert id="insertEmployeeIdUserInfo" parameterClass="String">
-		INSERT INTO userInfo (id, pw, grade, signdate) VALUES(#e_id#, 1234, 2, now());
-	</insert>
-	
-	<!-- 알바생 아이디를   -->
-	<insert id="connectEmployeeIdBossId" parameterClass="java.util.HashMap">
-		INSERT INTO employeeInfo (e_id, e_bossid) VALUES(#e_id#, #e_bossid#);
-	</insert>	
+
+
+
 	
 
 	<!-- 새로만들 알바아이디가 userInfo에 있는지 검색 -->

@@ -14,52 +14,122 @@
 	</div>
 	
 <div class=" margin_bottom50">	
+	<div class="col-xs-12-12 col-md-5-12">
 		<div class="col-xs-12-12">
-			<div class="row col-xs-4-12">
-				<div>
-					<table style="border:solid 1px black">
-						<thead>
-							<th>알바생 아이디</th>
-						</thead>
-						<tbody>
-							<tr><td>아이디</td></tr>
-						</tbody>
-						<tfoot>
-						<tr>
-							<td><input type="button" name="" value="알바생 추가" 
-								onclick="getInfo()"/></td>
-							<td><input type="button" name="" value="알바생 삭제"
-								onclick="window.location=''" /></td>
-							<td><input type="button" name="" value="▲" 
-								onclick="window.location=''"/></td>
-							<td><input type="button" name="" value="▼" 
-								onclick="window.location=''"/></td>	
-							<td><input type="button" name="" value="관리자가 아이디 추가" 
-								onclick="window.location=''"/></td>	
-						</tr>
-						</tfoot>
-					</table>
-				</div>
+			<div>
+			<input type="hidden" id="clickNum"/>
+				<table  class="col-xs-12-12 col-md-5-12" style="border:solid 1px black;height:450px;">
+					<thead>
+						<th cols="2">알바생 아이디</th>
+					</thead>
+					<tbody>
+						<tr><td>오픈 06:30~15:30</td></tr>
+						<tr><td>마감 15:30~21:30</td></tr>
+						<tr><td>야간 21:30~06:30</td></tr>
+						<c:forEach var="list" items="${list1}">
+							<tr><td>
+							<span id="num${list.num}" value="${list.num}"
+							onclick="employeeIdSet('${list.num}')">${list.e_id}</span></td></tr>
+						</c:forEach>
+					</tbody>
+					<tfoot>
+					<tr>
+						<td><input type="button" name="" value="알바생 추가" 
+							onclick="getAddInfo()"/></td>
+						<td><input type="button" name="" value="알바생 삭제"
+							onclick="getDeleteInfo()" /></td>
+					</tr>
+					<tr>
+						<td><input type="button" name="" value="▲" 
+							onclick="employeeIdUP()"/></td>
+						<td><input type="button" name="" value="▼" 
+							onclick="window.location=''"/></td>	
+					</tr>
+					<tr>
+						<td><input type="button" name="" value="관리자가 아이디 추가" 
+							onclick="window.location=''"/></td>	
+					</tr>
+					</tfoot>
+				</table>
 			</div>
-			<div class="row col-xs-6-12">
-				<div>
-					<div id="addInfo"></div>
-				</div>
-			
+		</div>
+	</div>
+	<div class="col-xs-12-12 col-md-7-12">
+		<div>
+			<div id="addInfo"></div>
+		</div>
+	</div>
+	<div class="col-xs-12-12 col-md-9-12">
+	<c:forEach var="list" items="${list}">
+	<form action="employeeAddAdminConfirm.do" method="post" >
+	<!-- 가져갈 value들  -->
+	<input type="hidden" name="applyCount" value="${list.applyCount}" />
+	<input type="hidden" name="b_id" value="${list.b_id}" />
+		<div class="container">
+			<div class="col-xs-6-12 col-md-1-12">신청번호</div>
+			<div class="col-xs-6-12 md_hidden">${list.num}</div>
+			<div class="col-xs-6-12 col-md-1-12">ID</div>
+			<div class="col-xs-6-12 md_hidden">${list.b_id}</div>
+			<div class="col-xs-6-12 col-md-1-12">신청수</div>
+			<div class="col-xs-6-12 md_hidden">${list.applyCount}</div>
+			<div class="col-xs-6-12 col-md-2-12">시각</div>
+			<div class="col-xs-6-12 md_hidden">${list.applyTime}</div>
+			<div class="col-xs-6-12 col-md-3-12">사유</div>
+			<div class="col-xs-6-12 md_hidden">${list.content}</div>
+			<div class="col-xs-6-12 col-md-1-12">신청확인</div>
+			<div class="col-xs-6-12 md_hidden">
+				<input type="submit" name="confirm" value="신청확인" 	/> 
 			</div>
-	
+		</div>
+		<div class="container">
+			<div class="col-xs-6-12 col-md-1-12">${list.num}</div>
+			<div class="col-xs-6-12 col-md-1-12">${list.b_id}</div>
+			<div class="col-xs-6-12 col-md-1-12">${list.applyCount}</div>
+			<div class="col-xs-6-12 col-md-2-12">${list.applyTime}</div>
+			<div class="col-xs-6-12 col-md-3-12">${list.content}</div>
+			<div class="col-xs-6-12 col-md-1-12">
+				<input type="submit" name="confirm" value="신청확인" 	/> 
+			</div>
+		</div>
+	</form>
+	</c:forEach>
+	</div>
 </div>
 
 <script type="text/javascript">
-	function getInfo(){
-		/* var b_name = b_name; */
+	function getAddInfo(){
  			$.ajax({
-				url:"addEmployeeInfo.do",
+				url:"employeeAddInfo.do",
 				type:"post",
 				success:function(data){
 					$("#addInfo").html(data);
-					alert("성공");
 				}
 			});
+	}
+	
+	
+	function getDeleteInfo(){
+ 			$.ajax({
+				url:"employeeAddInfo.do",
+				type:"post",
+				success:function(data){
+					$("#addInfo").html(data);
+				}
+			});
+	}
+	
+	
+	function employeeIdUP(){
+		var num = document.getElementById("clickNum").value;
+			$.ajax({
+			url:"employeeIdUP.do",
+			type:"post",
+			data: {num : num},
+			success:function(data){
+			}
+		});
+}	
+	function employeeIdSet(num){
+		document.getElementById("clickNum").value = num;
 	}
 </script>
