@@ -5,14 +5,14 @@ public class MenuDTO {
 	private int price;
 	private String category;
 	private String company;
-	private String key;
+	private String l_key;
 	
-	
-	public String getKey() {
-		return key;
+
+	public String getL_key() {
+		return l_key;
 	}
-	public void setKey(String key) {
-		this.key = key;
+	public void setL_key(String l_key) {
+		this.l_key = l_key;
 	}
 	public String getName() {
 		return name;

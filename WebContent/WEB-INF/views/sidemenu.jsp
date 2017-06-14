@@ -28,7 +28,7 @@
 		
 			<li><hr /></li>
 			<li>메뉴 관리</li>
-			<li><a href="menu.do">메뉴</a></li>
+			<li><a href="franchiseeMenu.do">메뉴</a></li>
 			<li><a href="menuInsertForm.do" >메뉴 추가</a></li>
 			<li><a href="menuModify.do" >메뉴 수정</a></li>
 			<li><a href="menuDeleteForm.do" >메뉴 삭제</a></li>

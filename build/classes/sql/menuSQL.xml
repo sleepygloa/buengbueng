@@ -16,8 +16,8 @@
 	</select>
 		
 	<!-- 사장님 라이센스키 불러오기 -->
-	<select id="getLicenseKey" parameterClass="String" resultClass="String">
-		select b_key from franchiseeInfo where b_id=#id#;
+	<select id="getLicenseKey" parameterClass="java.util.HashMap" resultClass="String">
+		select b_key from franchiseeInfo where b_id=#id# and b_name=#name#;
 	</select>
 	
 	
@@ -26,22 +26,22 @@
 	
 	<!-- menu 추가  -->
 	<insert id="insertMenu" parameterClass="menuDto">
-		insert into menu values(#name#, #price#, #category#, #company#, #key#);
+		insert into menu values(#name#, #price#, #category#, #company#, #l_key#);
 	</insert>	
 	
 	<!-- 카테고리 버튼 만들기 -->
-	<select id="getCategory" resultClass="String"> 
-		select distinct category from menu;
+	<select id="getCategory" parameterClass="String" resultClass="String"> 
+		select distinct category from menu where l_key=#key#;
 	</select>
 	
 	<!-- menu 가져오기 -->
 	<select id="getMenu" parameterClass="String" resultClass="menuDto">
-		select * from menu where key=#key#;
+		select * from menu where l_key=#l_key#;
 	</select>
 	
 	<!-- menu 수정하기 위해 상품명에 맞는 정보 가져오기-->
 	<select id="getMenuName" parameterClass="menuDto" resultClass="menuDto">
-		select * from menu where name=#name# and key=#key#;
+		select * from menu where name=#name# and l_key=#l_key#;
 	</select>
 	
 	<!-- menu 수정 -->
@@ -56,8 +56,8 @@
 	</delete>
 	
 	<!-- 카테고리별 메뉴 List -->
-	<select id="categoryMenuList" parameterClass="String" resultClass="menuDto">
-		select * from menu where category=#category#;
+	<select id="categoryMenuList" parameterClass="java.util.HashMap" resultClass="menuDto">
+		select * from menu where category=#category# and l_key=#l_key#;
 	</select>	
 	
 	<!-- 등록된 product 내역 보여주기 -->

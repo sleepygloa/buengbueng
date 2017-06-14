@@ -1,5 +1,15 @@
 
 
+
+
+function franchiseeSelect(){
+	document.franchiseeMenu.name.value = document.franchiseeMenu.franchisee_select.value;
+}
+
+
+
+
+
 /* 메뉴에 저장된 메뉴명만 뜰 수 있도록 (추가) */
 function productSelect(){
 	document.productInsertForm.name.value = document.productInsertForm.menu_select.value;
@@ -23,10 +33,11 @@ function category(category){
 }
 
 /* 사장이 전체버튼을 눌렀을 때 전체메뉴가 리스트 보이도록  */
-function alls(){
+function alls(l_key){
 	$.ajax({
 		url:"menuCategoryAll.do",
 		type:"post",
+		data : {l_key: l_key},
 		success:function(data){
 			$("#categoryMenu").html(data);
 		}

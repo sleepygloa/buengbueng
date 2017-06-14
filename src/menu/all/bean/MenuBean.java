@@ -30,21 +30,33 @@ public class MenuBean {
 			request.setAttribute("franchiseeList", franchiseeList);
 		
 		}catch(Exception e){e.printStackTrace();}
-		return "/menu/franchiseeMenu/";
+		return "/menu/franchiseeMenu";
 	}
 	
 	// 가맹점 라이센스 선택 후 
 	@RequestMapping("franchiseeMenuPro.do")
-	public String franchiseeMenuPro(String name, String key, HttpServletRequest request){
-		int check;
+	public String franchiseeMenuPro(String name,HttpSession session, HttpServletRequest request){
+		int check=0;
+		String l_key=null;
+		System.out.println(name);
 		try{
-			if(name.equals(null)){
+			if(name=="나의 가맹점 선택"){
 				check=0;
 			}else{
-				check=1;
-				request.setAttribute("key",key);
+			String id=(String)session.getAttribute("loginId");
+			HashMap map=new HashMap();
+			map.put("name",name);
+			map.put("id",id);
+			l_key = (String)sqlMap.queryForObject("menu.getLicenseKey", map);
+			if(l_key!=null){
+			check=1;
+			}else{
+				check=0;
 			}
+		}
 		request.setAttribute("check", check);
+		request.setAttribute("name", name);
+		request.setAttribute("l_key", l_key);
 		
 		}catch(Exception e){e.printStackTrace(); check=-1; request.setAttribute("check",check);}
 		return "/menu/franchiseeMenuPro";
@@ -53,9 +65,10 @@ public class MenuBean {
 	
 	// menu 메인 페이지 이동
 	@RequestMapping("menu.do")
-	public String menuForm(MenuDTO mdto, HttpServletRequest request){
+	public String menuForm(MenuDTO mdto,String name,String l_key, HttpServletRequest request){
 		try{
-		List menuList= sqlMap.queryForList("menu.getMenu",null);
+			System.out.println(l_key);
+		List menuList= (List)sqlMap.queryForList("menu.getMenu",l_key);
 		request.setAttribute("menuList", menuList);
 		List categoryList =sqlMap.queryForList("menu.getCategory",null);
 		if(categoryList!=null){
@@ -64,29 +77,31 @@ public class MenuBean {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		request.setAttribute("name",name);
+		request.setAttribute("l_key",l_key);
 		return "/menu/menuForm";
 	}
 	
 	/* 메뉴추가 페이지 */
 	@RequestMapping("menuInsertForm.do")
-	public String menuInsertForm(){
+	public String menuInsertForm(HttpServletRequest request, String l_key, String name){
+		request.setAttribute("name",name);
+		request.setAttribute("l_key", l_key);
 		return "/menu/menuInsertForm";
 	}
 	
 	@RequestMapping("menuInsertPro.do")
-	public String menuInsertPro(MenuDTO mdto, HttpServletRequest request, HttpSession session){
-		int check;
+	public String menuInsertPro(MenuDTO mdto, HttpServletRequest request, HttpSession session,
+			String l_key ){
+		int check=0;
 		try{
-			String id = (String)session.getAttribute("loginId");
-			String licensekey=(String)sqlMap.queryForObject("menu.getLicenseKey",id);
-			if(!licensekey.equals(null)){
-			mdto.setKey(licensekey);
+			if(!l_key.equals(null)){
 			sqlMap.insert("menu.insertMenu", mdto);
 			check=1;
-			request.setAttribute("check", check);
 			}else{
 				check=0;
 			}
+			request.setAttribute("check", check);
 		}
 		catch(Exception e){e.printStackTrace(); check=-1; request.setAttribute("check", check);}
 		return "/menu/menuInsertPro";
@@ -107,7 +122,7 @@ public class MenuBean {
 	public String menuModifyForm(HttpServletRequest request, MenuDTO mdto, HttpSession session){
 		String id=(String)session.getAttribute("loginId");
 		String licensekey=(String)sqlMap.queryForObject("menu.getLicenseKey",id);
-		mdto.setKey(licensekey);
+		mdto.setL_key(licensekey);
 		mdto=(MenuDTO)sqlMap.queryForObject("menu.getMenuName",mdto);
 		request.setAttribute("mdto",mdto);
 		return "/menu/menuModifyForm";
@@ -115,7 +130,7 @@ public class MenuBean {
 	
 	@RequestMapping("menuModifyPro.do")
 	public String menuModifyPro(String beforeName,MenuDTO mdto, HttpServletRequest request){
-		int check;
+		int check=0;
 		try{
 			check=1;
 	
@@ -135,8 +150,8 @@ public class MenuBean {
 	
 	/* 메뉴삭제 페이지 */
 	@RequestMapping("menuDeleteForm.do")
-	public String menuDeleteForm(HttpServletRequest request){
-		List menuList= sqlMap.queryForList("menu.getMenu",null);
+	public String menuDeleteForm(HttpServletRequest request, String l_key){
+		List menuList= sqlMap.queryForList("menu.getMenu",l_key);
 		request.setAttribute("menuList", menuList);
 		return "/menu/menuDeleteForm";
 	}
@@ -152,14 +167,17 @@ public class MenuBean {
 	
 	/* 카테고리별 메뉴 리스트 보여주기 */
 	@RequestMapping("menuCategoryClick.do")
-	public String menuCategoryClick(HttpServletRequest request){
+	public String menuCategoryClick(HttpServletRequest request, String l_key){
 		String category=request.getParameter("category");
 		// 전체 다 뜨는 거
 		if(category.equals("all")){
-			List menuList= sqlMap.queryForList("menu.getMenu",null);
+			List menuList= sqlMap.queryForList("menu.getMenu",l_key);
 			request.setAttribute("menuList", menuList);
 		}else{
-			List categoryMenuList=sqlMap.queryForList("menu.categoryMenuList",category);
+			HashMap map=new HashMap();
+			map.put("category", category);
+			map.put("l_key", l_key);
+			List categoryMenuList=sqlMap.queryForList("menu.categoryMenuList",map);
 			request.setAttribute("categoryMenuList",categoryMenuList);
 		}
 		return "/menu/menuCategoryClick";
@@ -167,8 +185,8 @@ public class MenuBean {
 	
 	/* 카테고리 전체 메뉴 보여주기 */
 	@RequestMapping("menuCategoryAll.do")
-	public String menuCategoryAll(HttpServletRequest request){
-		List menuList= sqlMap.queryForList("menu.getMenu",null);
+	public String menuCategoryAll(HttpServletRequest request,String l_key ){
+		List menuList= sqlMap.queryForList("menu.getMenu",l_key);
 		request.setAttribute("menuList", menuList);
 		return "/menu/menuCategoryAll";
 	}

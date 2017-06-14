@@ -17,17 +17,19 @@
 </div>
 
 <div>
-	<form action="franchiseeMenuPro.do" method="post">
+	<form action="franchiseeMenuPro.do" method="post" name="franchiseeMenu">
 
+	<input type="hidden" name="name" >
 	<select name="franchisee_select" onchange="franchiseeSelect();">
-    	<option selected="selected">나의 가맹점 선택</option>
+    	<option selected="selected" >나의 가맹점 선택</option>
     	<c:forEach var="fl" items="${franchiseeList}" >
     	<option name="name" value="${fl.b_name}" >${fl.b_name}</option>
+    	
     	</c:forEach>
     </select>
     <div>
+    
     	<input type="submit" value="선 택">
-    	<input type="hidden" name="key" value="${fl.b_key}" />
     </div>
 	</form>
 </div>
