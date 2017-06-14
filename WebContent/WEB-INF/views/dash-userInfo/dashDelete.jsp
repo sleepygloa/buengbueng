@@ -18,6 +18,6 @@
 	});
 </script>
 <div id="resultPro">
-<input type="hidden" id="id" value="${id}">
+<input type="hidden" id="id${count}" value="${id}">
 <button id="deletePro">삭제</button>
 </div>

@@ -1,10 +1,12 @@
 package manage.admin.bean;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,7 @@ public class DashIndexBean {
 	public String dashUser(HttpServletRequest request){
 		int grade = Integer.parseInt(request.getParameter("grade"));
 		String pageNum = request.getParameter("pageNum");
-		
+					
 		if(pageNum==null){pageNum="1";}
 		
 		int pageSize=10; // endRow와 같이써도 가능함. mysql limit 사용시. 출력은 고정.
@@ -35,15 +37,14 @@ public class DashIndexBean {
 	    int startRow = (currentPage - 1) * pageSize; // mysql에서 limit 는 0부터 시작해야 rownum 1번 값부터 호출
 	    int number=0;
 	    int count=0;
-	    List list=null;
-
+	    List<String> list= null;
+	    
 	    count = (Integer)sqlMap.queryForObject("admin.userCount", grade); //해당 페이지 내용 갯수
 	    if (count > 0) {
 	    	list = sqlMap.queryForList("admin.userList", grade);
 	    }else{
 	    	list = Collections.EMPTY_LIST;
 	    }
-
 	    
 	    // 페이지 카운트
         int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
@@ -52,7 +53,7 @@ public class DashIndexBean {
 		int pageBlock=10;
         int endPage = startPage + pageBlock-1;
         if (endPage > pageCount) endPage = pageCount;
-
+        
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("pageNum", pageNum);
@@ -67,6 +68,12 @@ public class DashIndexBean {
 	@RequestMapping("dashDelete.do")
 	public String dashDelete(HttpServletRequest request){
 		String id = request.getParameter("id");
+		int count = 0;
+		if(Integer.parseInt(request.getParameter("count"))!=0){
+			count = Integer.parseInt(request.getParameter("count"));
+			request.setAttribute("count", count);
+		}
+		
 		request.setAttribute("id", id);
 		return "/dash-userInfo/dashDelete";
 	}
