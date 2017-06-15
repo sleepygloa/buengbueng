@@ -41,4 +41,5 @@ function successModi(){
 	<span><input type="text" id="googleId" class="size" value="${googleId}" placeholder="구글Id"></span>
 	<span>${dto.signdate}</span>
 	<span><button onclick="return successModi();">수정완료</button></span>
+	<span><input type="button" value="취소" onclick="window.location='dashUser.do?grade=${dto.grade}&pageNum=${pageNum}';"></span>
 </div>

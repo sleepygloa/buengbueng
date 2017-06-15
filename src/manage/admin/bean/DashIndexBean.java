@@ -22,7 +22,8 @@ public class DashIndexBean {
 	
 	// 관리자 페이지
 	@RequestMapping("dashIndex.do")
-	public String dashIndex(){
+	public String dashIndex(HttpServletRequest request){
+		sqlMap.queryForObject("", null);
 		return "dashIndex";
 	}
 	
@@ -77,15 +78,17 @@ public class DashIndexBean {
 	@RequestMapping("dashModify.do")
 	public String dashModify(HttpServletRequest request){
 		String id = request.getParameter("id");
+		String pageNum=request.getParameter("pageNum");
 		UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("admin.getUser", id);
 		request.setAttribute("dto", dto);
+		request.setAttribute("pageNum", pageNum);
 		return "/dash-userInfo/dashModify";
 	}
 	// 관리자 페이지 회원 정보 수정
 	@RequestMapping("dashModifyPro.do")
 	public String dashModifyPro(UserInfoDataDTO dto,HttpServletRequest request){
 		sqlMap.update("admin.userUp",dto);
-		return "/dash-userInfo/dashModifyPro";
+		return "/dash-userInfo/dashModify";
 	}
 
 }

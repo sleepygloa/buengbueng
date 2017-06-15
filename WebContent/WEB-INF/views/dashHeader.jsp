@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:if test="${sessionScope.grade!=4}">
-	<script> alert('관리자 페이지'); history.go(-1);</script>
+	<script> alert('관리자 페이지'); window.location='index.do';</script>
 </c:if>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,22 +33,23 @@
                     <a class="brandname" href="/buengbueng/dashIndex.do"><i class="fa fa-eercast"></i> <span><span class="text-slim">bueng</span> bueng</span></a>
                     <span class="mt-sidebar-toggle"><a href="#"></a></span>
                 </div>
-                <div class="mt-right-header" data-mt-position-type="relative" data-mt-color-type="header-bg3">
-                    <span class="mt-sidebar-toggle"><a href="#"></a></span>
-                    <ul class="right-navbar">
-                        <li>
-                            <a class="nav-expand" href="#"><img class="img-responsive img-circle" alt="Image Here" src="img/dashBoard/1.jpg" > Mr.Charles</a>
-                        </li>
-                    </ul>
-                </div>
-<!---------------------------------------------경계선-------------------------->                
+                <div class="mt-right-header" data-mt-position-type="relative" data-mt-color-type="header-bg3"/>
+
+<!---------------------------------------------경계선------------------------------------------>                
+<script>
+var myVar = setInterval(myTimer,3000);
+
+function myTimer(){
+	document.getElementById("newAlarm").innerHTML;
+}
+</script>
             </header>
             <div id="mtapp-container" data-mt-color-type="lpanel-bg3" data-mt-lpanel-effect="shrink">
                 <aside id="mt-left-panel" data-mt-position-type="absolute">
                     <div class="user-block clearfix">
                         <img class="img-responsive" alt="Image Here" src="img/dashBoard/1.jpg">
                         <div class="detail">
-                            <strong>${sessionScope.loginId}</strong><span class="badge badge-danger m-left-xs ">접속</span>
+                            <strong>${sessionScope.loginId}</strong><span class="badge badge-danger m-left-xs "><a id="newAlarm" href="#"></a></span>
                             <ul class="list-inline">
                                 <li class=""><a href="userInfoForm.do">정보 버튼</a></li>
                                 <li class=""><a href="logout.do" class="no-margin">로그아웃 버튼</a></li>
@@ -68,25 +69,20 @@
                              	<li>
                                     <a href="dashUser.do?grade=3&pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">사용자</span>
-                                    <span class="selected"></span>
-                                </a>
-                                </li>
-                                <li>
-                                    <a href="dashBoss.do?grade=1&pageNum=1" class="rippler rippler-default">
-                                    <span class="menu-text">사장님</span>
-                                    <span class="selected"></span>
-                                </a>
-                                </li>
-                                <li>
-                                    <a href="dashAdmin.do?grade=4&pageNum=1" class="rippler rippler-default">
-                                    <span class="menu-text">관리자</span>
                                     <span class="label bg-warning">Update</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="rippler rippler-default">
-                                    <span class="menu-text">등급 관리</span>
+                                    <a href="dashUser.do?grade=1&pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">사장님</span>
+                                    <span class="label bg-warning">Update</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                                <li>
+                                    <a href="dashUser.do?grade=4&pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">관리자</span>
                                     <span class="label bg-warning">Update</span>
                                     <span class="selected"></span>
                                 </a>

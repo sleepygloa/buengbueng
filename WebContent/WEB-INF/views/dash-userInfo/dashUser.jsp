@@ -54,7 +54,7 @@ $(document).ready(function(){
 		$.ajax({
 			url:"dashModify.do",
 			type:"post",
-			data:{id:$("#id${count}").val()},
+			data:{id:$("#id${count}").val(),pageNum:${pageNum}},
 			success:function(data){
 				$("#dashInfo${count}").html(data);
 			}
