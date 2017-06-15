@@ -1,6 +1,7 @@
 package erp.boss.bean;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -197,83 +198,101 @@ public class BossEmployeeManageBean {
 		
 		model.addAttribute("check", check);
 		
-		return "/bossERP/employeeManage/manageEmployee";
+		return "redirect:/manageEmployee.do";
 	}
 	
 	//▲ 를 눌렀을때 AJAX 처리
 	@RequestMapping("employeeIdUP.do")
-	public String employeeIdUp(Model model, HttpSession session,String num){
-		
-		System.out.println(num);
-		
-		
-		return "redirect:/manageEmployee.do";
-	}
-	
-	
-	//알바생 정보 LIST
-	@RequestMapping("bossEmployeeInfoList.do")
-	public String bossEmployeeInfoUpdate(Model model, HttpSession session){
-		
-		//////////////////////////////////////////
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
+	public String employeeIdUp(Model model, HttpSession session,int num){
 		
 		//////////////////////////////////////////
 		//세션 아이디를 페이지로전달
-		String id = (String)session.getAttribute("loginId");
-		model.addAttribute("id",id);
+		String b_id = (String)session.getAttribute("loginId");
+		model.addAttribute("b_id",b_id);
+		
+		System.out.println(num);
+		int indexNum = 0;
+		int space = 9999; //해당 컬럼은 primary Key이다.
+		
+		List list = new ArrayList();
+		try{
+			list = (List)sqlMap.queryForList("erpEmp.getListNum",b_id);
+			for(int i = 0 ; i < list.size(); i ++){
+				if((Integer)list.get(i) == num){
+					indexNum = i;
+					
+					int numa = (Integer)list.get(indexNum);
+					if((Integer)list.get(indexNum-1) == null){break;}else{
+						int numb = (Integer)list.get(indexNum-1);
+						
+						HashMap map = new HashMap();
+						map.put("numa", numa); //선택된수
+						map.put("numb", numb); //앞수, 교환될 수
+						map.put("space", space);
+						sqlMap.update("erpEmp.changeSpace", map);
+						sqlMap.update("erpEmp.changeBefore", map);
+						sqlMap.update("erpEmp.changeAfter", map);
+						break;
+					}
+				}
+			}
+//			Collections.swap(list, indexNum-1, indexNum); arrayList 순서바꿔주는 클래스
+			System.out.println(indexNum);
+			
+		}catch(Exception e){}
+		
+		return "forward:/manageEmployee.do";
+	}
+
+	//▼ 를 눌렀을때 AJAX 처리
+	@RequestMapping("employeeIdDOWN.do")
+	public String employeeIdDOWN(Model model, HttpSession session,int num){
 		
 		//////////////////////////////////////////
-		//알바생 게시판		
-		int count = 0; //알바생수 초기화
-		UserInfoDataDTO userDTO = null;
-		ArrayList employeeIdInfoList = null;
-        
-		//알바생 수를 센다.
-        count = (Integer)sqlMap.queryForObject("erpEmp.getEmployeeIdCount", id); //알바생 아이디 수
-        if (count > 0) {
-        	HashMap map = new HashMap();
-        	employeeIdInfoList = new ArrayList();
-        	
-			for(int i = 0; i < count; i ++){
-	        	map.put("id", id);
-				map.put("i", i);
-				//알바생 정보를 list로 출력한다.
-				userDTO = (UserInfoDataDTO)sqlMap.queryForObject("erpEmp.getEmployeeIdInfoList", map);
-				employeeIdInfoList.add(userDTO);
-				map.clear();
-			}
-			
-        } else {
-        	
-        }
-        int idCount = 0;
-		if(employeeIdInfoList == null){
-		}else{
-		///////////////////////////////////////////////////////////////////////////////////////////////
-		//알바생 List를 반응형CSS로 제공한다.
-			idCount = employeeIdInfoList.size();
-			 String menuDiv = MenuCategoryDivResponse.MenuCategoryDivResponse(idCount, employeeIdInfoList);
-			 model.addAttribute("menuDiv",menuDiv);
-		}
-        
-        model.addAttribute("idCount",idCount);
-        model.addAttribute("count",count);
-        model.addAttribute("employeeIdInfoList",employeeIdInfoList);
-        
-		return "/bosserpmanage/bossEmployeeInfoList";
-	}	
-	
-
-	//알바생 정보 보기
-	@RequestMapping("bossEmployeeInfo.do")
-	public String bossEmployeeInfo(Model model, String id){
+		//세션 아이디를 페이지로전달
+		String b_id = (String)session.getAttribute("loginId");
+		model.addAttribute("b_id",b_id);
 		
+		System.out.println(num);
+		int indexNum = 0;
+		int space = 9999; //해당 컬럼은 primary Key이다.
+		
+		List list = new ArrayList();
+		try{
+			list = (List)sqlMap.queryForList("erpEmp.getListNum",b_id);
+			for(int i = 0 ; i < list.size(); i ++){
+				if((Integer)list.get(i) == num){
+					indexNum = i;
+					
+					int numa = (Integer)list.get(indexNum);
+					if((Integer)list.get(indexNum+1) == null){break;}else{
+						int numb = (Integer)list.get(indexNum+1);
+						
+						System.out.println(numa);
+						System.out.println(numb);
+						HashMap map = new HashMap();//up 버튼과 매개변수 교차로 입력됨
+						map.put("numb", numa); //선택된수
+						map.put("numa", numb); //뒷수, 교환될 수
+						map.put("space", space);
+						sqlMap.update("erpEmp.changeSpace", map);
+						sqlMap.update("erpEmp.changeBefore", map);
+						sqlMap.update("erpEmp.changeAfter", map);
+						break;
+					}
+				}
+			}
+//			Collections.swap(list, indexNum-1, indexNum); arrayList 순서바꿔주는 클래스
+			System.out.println(indexNum);
+			
+		}catch(Exception e){}
+		
+		return "forward:/manageEmployee.do";
+	}
+	
+	//알바생 정보 보기
+	@RequestMapping("employeeInfo.do")
+	public String bossEmployeeInfo(Model model, int num){
+		System.out.println(num);
 		//////////////////////////////////////////
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
@@ -286,32 +305,38 @@ public class BossEmployeeManageBean {
 		////////////////////////////////////////////////////////////////////////////////
 		//알바생 리스트에서 클릭했을 때 정보를 불러온다.
 		UserInfoDataDTO userDto = null;
-		userDto = (UserInfoDataDTO)sqlMap.queryForObject("erpEmp.getEmployeeIdInfo", id);
+		userDto = (UserInfoDataDTO)sqlMap.queryForObject("erpEmp.getEmployeeInfo", num);
 		
 		model.addAttribute("userDto", userDto);
 		
-		return "/bosserpmanage/bossEmployeeInfo";
+		return "/bossERP/employeeManage/employeeInfo";
 	}
 	
-	//알바생 정보 변경
-	@RequestMapping("bossEmployeeUpdate.do")
-	public String bossEmployeeUpdate(UserInfoDataDTO dto,Model model){
-		int check = 0;
-		try{
-			////////////////////////////////////////////////////////////////////////////
-			//알바생정보를 수정한다.
-			sqlMap.update("erpEmp.updateEmployeeId", dto);
-			check = 1;
-		}catch(Exception e){
-			check = 2;
-			e.printStackTrace();
-		}
-		model.addAttribute("check", check);
-		
-		return "/bosserpmanage/bossEmployeeInfoUPro";
-	}
+//알바생 정보 수정하기
+@RequestMapping("employeeUpdateInfo.do")
+public String employeeUpdateInfo(Model model, String id){
+	System.out.println("D : :"+id);
+	//////////////////////////////////////////
+	//사이드메뉴 템플릿
+	int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+	int sidemenu = 3; //사이드메뉴의 내용을 선택
+	model.addAttribute("sidemenuCheck", sidemenuCheck);
+	model.addAttribute("sidemenu", sidemenu);
+	//변수들을 페이지로 전달
 	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//알바생 리스트에서 클릭했을 때 정보를 불러온다.
+	UserInfoDataDTO userDto = null;
+	userDto = (UserInfoDataDTO)sqlMap.queryForObject("erpEmp.getEmployeeUpdateInfo", id);
+	model.addAttribute("userDto", userDto);
+	
+	return "/bossERP/employeeManage/employeeUpdateInfo";
 }
+}	
+	
+	//알바생 정보 LIST
+
 
 
 

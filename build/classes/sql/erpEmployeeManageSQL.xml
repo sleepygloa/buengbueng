@@ -60,8 +60,48 @@
 	
 	<!-- 알바생 리스트 -->
 	<select id="getEmployeeList" resultClass="beDto" parameterClass="String">
-		select * from employeeInfo where e_bossid = #id#;
+		select e_id, pw, name AS e_name from userInfo a INNER JOIN 
+		(select e_id from employeeInfo where e_bossid = #id#) b on a.id = b.e_id;
 	</select>
+	
+<!-- ▲▼ 처리 구문 ======================== -->
+	<!-- 새로운 공간을 만들어준다 -->
+	<select id="getListNum" resultClass="int" parameterClass="String">
+		select num from employeeInfo where e_bossid = #b_id#;
+	</select>
+	
+	<!-- 앞번호에 space를 넣어준다. space = 9999 -->
+	<update id="changeSpace" parameterClass="java.util.HashMap">
+		update employeeInfo set num = #space# where num = #numb#;
+	</update>
+	
+	<!-- 앞번호에 변경될 수를 넣어준다. -->
+	<update id="changeBefore" parameterClass="java.util.HashMap">
+		update employeeInfo set num = #numb# where num = #numa#;
+	</update>
+	
+	<!-- 뒷번호에 변경될 수를 넣어준다. -->
+	<update id="changeAfter" parameterClass="java.util.HashMap">
+		update employeeInfo set num = #numa# where num = #space#;
+	</update>	
+<!-- 끝  -->
+	
+	<!-- 알바생 아이디로 정보를 볼러옴 AJAX-->
+	<select id="getEmployeeInfo" resultClass="userDto" parameterClass="int">
+		select * from userInfo a INNER JOIN (select e_id from employeeInfo where num = #num#) b on a.id = b.e_id;
+	</select>	
+	
+	<!-- 알바생 아이디로 회원정보를 볼러옴 AJAX-->
+	<select id="getEmployeeUpdateInfo" resultClass="userDto" parameterClass="String">
+		select * from userInfo where id = #id#;
+	</select>
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -135,10 +175,7 @@
 		select * from userInfo where id = (select e_id from employeeInfo where e_bossid = #id# LIMIT #i#, 1);
 	</select>
 	
-	<!-- 알바생 아이디로 정보를 볼러옴 AJAX-->
-	<select id="getEmployeeIdInfo" resultClass="userDto" parameterClass="String">
-		select * from userInfo where id = #id#;
-	</select>		
+	
 
 	<!-- 알바생 아이디로 정보 수정-->
 	<update id="updateEmployeeId"  parameterClass="userDto">

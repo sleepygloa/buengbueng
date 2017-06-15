@@ -17,9 +17,17 @@ public class BossEmployeeManageDataDTO {
 	private String e_bossid;	//사장님아이디
 	private String e_id;	//알바생아이디
 
+	private String e_name; //알바생 관리에서 사용할 List에서 사용, name으로하면 오류나나?
 	
 	
 	
+	
+	public String getE_name() {
+		return e_name;
+	}
+	public void setE_name(String e_name) {
+		this.e_name = e_name;
+	}
 	public int getNum() {
 		return num;
 	}

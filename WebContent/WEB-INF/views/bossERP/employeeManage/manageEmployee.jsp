@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../../header.jsp" />
@@ -20,7 +19,7 @@
 			<input type="hidden" id="clickNum"/>
 				<table  class="col-xs-12-12 col-md-5-12" style="border:solid 1px black;height:450px;">
 					<thead>
-						<th cols="2">알바생 아이디</th>
+						<th cols="3">알바생 아이디</th>
 					</thead>
 					<tbody>
 						<tr><td>오픈 06:30~15:30</td></tr>
@@ -29,13 +28,16 @@
 						<c:forEach var="list" items="${list1}">
 							<tr><td>
 							<span id="num${list.num}" value="${list.num}"
-							onclick="employeeIdSet('${list.num}')">${list.e_id}</span></td></tr>
+							onclick="employeeIdSet('${list.num}')">${list.e_id} 
+							<c:if test="${list.e_name != null}">(${list.e_name})</c:if></span></td></tr>
 						</c:forEach>
 					</tbody>
 					<tfoot>
 					<tr>
 						<td><input type="button" name="" value="알바생 추가" 
 							onclick="getAddInfo()"/></td>
+						<td><input type="button" name="" value="아이디정보 보기" 
+							onclick="getInfo()"/></td>
 						<td><input type="button" name="" value="알바생 삭제"
 							onclick="getDeleteInfo()" /></td>
 					</tr>
@@ -43,7 +45,7 @@
 						<td><input type="button" name="" value="▲" 
 							onclick="employeeIdUP()"/></td>
 						<td><input type="button" name="" value="▼" 
-							onclick="window.location=''"/></td>	
+							onclick="employeeIdDOWN()"/></td>	
 					</tr>
 					<tr>
 						<td><input type="button" name="" value="관리자가 아이디 추가" 
@@ -56,7 +58,7 @@
 	</div>
 	<div class="col-xs-12-12 col-md-7-12">
 		<div>
-			<div id="addInfo"></div>
+			<div id="info"></div>
 		</div>
 	</div>
 	<div class="col-xs-12-12 col-md-9-12">
@@ -97,23 +99,48 @@
 </div>
 
 <script type="text/javascript">
+function employeeIdSet(num){
+	document.getElementById("clickNum").value = num;
+	alert(num);
+}
 	function getAddInfo(){
  			$.ajax({
 				url:"employeeAddInfo.do",
 				type:"post",
 				success:function(data){
-					$("#addInfo").html(data);
+					$("#info").html(data);
 				}
 			});
 	}
-	
-	
+	/* function getInfo(){
+		alert(num);
+			$.ajax({
+			url:"employeeInfo.do",
+			type:"post",
+			data: {num : num},
+			success:function(data){
+				$("#info").html(data);
+			}
+		});
+}	
+	function getUpdateInfo(id){
+		var id = id;
+			$.ajax({
+			url:"employeeUpdateInfo.do",
+			type:"post",
+			data: {id : id},
+			success:function(data){
+				$("#info").html(data);
+				alert('헬로');
+			}
+		});
+}	 */
 	function getDeleteInfo(){
  			$.ajax({
 				url:"employeeAddInfo.do",
 				type:"post",
 				success:function(data){
-					$("#addInfo").html(data);
+					$("#info").html(data);
 				}
 			});
 	}
@@ -129,7 +156,17 @@
 			}
 		});
 }	
-	function employeeIdSet(num){
-		document.getElementById("clickNum").value = num;
-	}
+	function employeeIdDOWN(){
+		var num = document.getElementById("clickNum").value;
+			$.ajax({
+			url:"employeeIdDOWN.do",
+			type:"post",
+			data: {num : num},
+			success:function(data){
+			}
+		});
+}	
+
 </script>
+<!-- HEADER TEMPLATE -->
+<jsp:include page="../../footer.jsp" />

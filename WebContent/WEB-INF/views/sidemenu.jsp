@@ -17,7 +17,7 @@
 		</c:if>
 		
 		<c:if test="${sidemenu == 3}">
-			<li><a href="bossErpManageMain.do" >ERP관리 MAIN</a></li>
+			<li><a href="bossErpMain.do" >ERP관리 MAIN</a></li>
 			<li><hr /></li>
 			<li>알바생 관리</li>
 			<li><a href="manageEmployee.do" >아이디 수 변경</a></li>
