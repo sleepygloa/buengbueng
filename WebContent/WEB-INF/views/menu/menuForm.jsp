@@ -21,26 +21,31 @@
 		</div>
 	</div>
 	
+	
+	
+	
 <div class=" margin_bottom50">	
 		<div class="col-xs-12-12">
-
+	
+	
+	
    	<div>
 		<button onclick="window.location='product.do'">재 고</button>
 	</div>
 
 	<div>
-		<button onclick="window.location='menuInsertForm.do'">메 뉴 추 가</button>
+		<button onclick="window.location='menuInsertForm.do?l_key=${l_key}&name=${name}'">메 뉴 추 가</button>
 	</div>
 	
 	<div>
-		<button onclick="window.location='menuModify.do'">메 뉴 수 정</button>
+		<button onclick="window.location='menuModify.do?l_key=${l_key}&name=${name}'">메 뉴 수 정</button>
 	</div>
 	
 	<div>
-		<button onclick="window.location='menuDeleteForm.do'">메 뉴 삭 제</button>
+		<button onclick="window.location='menuDeleteForm.do?l_key=${l_key}&name=${name}'">메 뉴 삭 제</button>
 	</div>
 	<div>
-		<button name="menuAll" onclick="alls()">전 체</button>
+		<button onclick="alls('${l_key}')">전 체</button>
 	</div>
 	
 	
@@ -48,7 +53,7 @@
 		<table>
 		<tr>
 		<c:forEach var="category" items="${categoryList}">
-			<td><input type="button" name="${category}" onclick="category('${category}')" value="${category}" /> </td>
+			<td><input type="button" name="${category}" onclick="category('${category}','${l_key}')" value="${category}" /> </td>
 		</c:forEach>
 		</tr>	
 		</table>
@@ -66,7 +71,6 @@
 	</div>
 	</div>
 	</div>
-	
-	
+
 	
 </body>
