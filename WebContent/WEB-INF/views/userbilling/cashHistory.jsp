@@ -28,7 +28,7 @@
 			</div>
 		</div>
 		<div class="history_point_List ">
-		<p class="history_point_List_title">포인트 결제 내역 총 ${count}건</p>
+		<p class="history_point_List_title">포인트 결제 내역 총 ${count - failure_count}건</p>
 		<c:if test="${count > 0}">
 			<table class="cash_history" border=1;>
 				<tr class="table_header">

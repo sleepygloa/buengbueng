@@ -1,0 +1,207 @@
+
+@CHARSET "UTF-8";
+.userInfoTable{
+	border:none;
+	border-top: 1px solid #222;
+	width:100%;
+	text-align: center;
+	font-size: 14px;
+	line-height:16px;
+	color:#222; 
+	
+	
+}
+.userInfoTable tr{
+	border-bottom:1px solid #ddd;
+	height:60px;
+
+}
+.userInfoTable_left_tr{
+	width:180px;
+	text-align: left;
+	text-indent: 30px;
+	background: #f8f8f8;
+	font-weight: normal;
+	height:auto;
+	line-height: 5;
+}
+.userInfoTable_left_tr span{
+	line-height: 4;
+}
+
+.userInfoTable_right_tr{
+	text-align: left;
+	text-indent: 30px;
+	line-height: 3.9;
+}
+.userInfoTable_right_tr span{
+	font-size:12px;
+	margin-left:30px;	
+	color:#555;
+}
+.mypage_title_box{
+	float:left;
+	width:100%;
+	margin-bottom:20px;
+}
+.mypage_title_box span{
+	float:left;
+	font-size: 22px;
+}
+.mypage_title_box button{
+	float:right;
+	margin-left:10px
+}
+.modify_submit, .delete_submit{
+	margin:0 auto;
+	border:1px solid #ddd;
+	background: none;
+	width:150px;
+	border-radius: 4px;
+	height:34px;
+	font-size:14px;
+}
+.modify_submit:hover, .delete_submit:hover{
+	border:1px solid #263238;
+	cursor: pointer;
+	transition: 0.5s;
+}
+.mypage_btn_box{ text-align: center; height:80px; margin-top:15px;}
+
+.mypage_btn{
+	margin:19px auto;
+	border:1px solid #263238;
+	background: #263238;
+	width:200px;
+	height: 40px;
+	border-radius: 4px;
+	color:#fff;
+}
+.mypage_btn:hover{
+	background: black;
+	color:#fff;
+	transition: 0.5s;
+	cursor: pointer;
+}
+/*회원정보 수정페이지 */
+.userInfoTable_right_tr input{
+	height:30px;
+	margin:12 auto;
+	text-indent:5px;
+	border:1px solid #ddd;
+	width:300px;
+}
+
+.userInfo_update_btnBox{
+	width:100%;
+	text-align: center;
+}
+
+.update_cancel_btn{
+	border:none;
+	border:1px solid #263238;
+	background:none;
+	width:160px;
+	height: 40px;
+	border-radius: 4px;
+	transition: 0.5s;
+	color:#222;
+}
+.update_cancel_btn:hover{
+	background: #263238;
+	color:#fff;
+	transition: 0.5s;
+	cursor: pointer;
+}
+.update_success_btn{
+	border:none;
+	border:1px solid #263238;
+	background: #263238;
+	width:160px;
+	height: 40px;
+	border-radius: 4px;
+	color:#fff;
+	transition: 0.5s;
+}
+.update_success_btn:hover{
+	background: black;
+	color:#fff;
+	transition: 0.5s;
+	cursor: pointer;
+}
+/*회원가입*/
+.userInfoSign_Container{
+	border:1px red solid;
+	width:100%;
+	height:700px;
+}
+.userInfoSign_table{
+	border:1px red solid;
+	width:100%;
+	text-align: center;
+}
+.userInfoSign_Container_th{
+	width:180px;
+	height:60px;
+	
+	border:1px red solid;
+}
+.userInfoSign_Container_th p{
+	text-align:left;
+	margin:18px auto;
+	text-indent: 20px;
+}
+.userInfoSign_Container_tr{
+	height:60px;
+	border:1px blue solid;
+	text-align: left;
+}
+.userInfoSign_Container_tr input{
+	width:400px;
+	height:30px;
+	border:1px #ddd solid;
+	outline: none;
+	margin:14px auto;
+	margin-left:20px;
+	text-indent: 10px;
+}
+.userInfoSign_Container_tr2{
+	text-align: left;
+	line-height: 2;
+	
+    border:1px blue solid;
+}
+.signup_phone_input{
+	width:70px;
+	height:30px;
+	border:1px #ddd solid;
+	text-indent: 10px;
+	outline: none;
+	margin-left:20px;
+}
+.signup_phone_input2{
+	width:70px;
+	height:30px;
+	border:1px #ddd solid;
+	text-indent: 10px;
+	outline: none;
+	vertical-align: middle;
+	word-wrap: break-word;
+    word-break: break-all;
+}
+.phone_box{
+	margin:0 auto;
+	background: green;
+	wdith:100%;
+}
+.signup_email_input{
+	margin-left:20px;
+	height:30px;
+	border:1px #ddd solid;
+	text-indent: 10px;
+}
+
+
+
+
+

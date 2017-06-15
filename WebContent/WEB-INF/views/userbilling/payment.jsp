@@ -63,7 +63,7 @@
 	        msg+= '에러내용 : ' + rsp.error_msg;
 	        
 	        alert(msg);
-	        location.replace("cashCancelPro.do?paying_price=${pay}&buyer_chatid=${id}&payment_type=${KB}&pg_name=html5_inicis&confirmation=failure&paying_name=123&imp_uid="+rsp.imp_uid+"&merchant_uid=?"+rsp.merchant_uid+"&error_msg="+msg);
+	        location.replace("cashCancelPro.do?paying_price=${pay}&buyer_chatid=${id}&payment_type=${KB}&pg_name=html5_inicis&confirmation=failure&paying_name=123&imp_uid="+rsp.imp_uid+"&merchant_uid="+rsp.merchant_uid+"&error_msg="+msg);
 	      
 	    }
 	});
