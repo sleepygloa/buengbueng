@@ -96,6 +96,7 @@ public class MenuBean {
 			String l_key ){
 		int check=0;
 		try{
+			String id=(String)session.getAttribute("loginId");
 			if(!l_key.equals(null)){
 			sqlMap.insert("menu.insertMenu", mdto);
 			check=1;
@@ -103,6 +104,8 @@ public class MenuBean {
 				check=0;
 			}
 			request.setAttribute("check", check);
+			request.setAttribute("l_key",l_key);
+		
 		}
 		catch(Exception e){e.printStackTrace(); check=-1; request.setAttribute("check", check);}
 		return "/menu/menuInsertPro";
@@ -112,11 +115,14 @@ public class MenuBean {
 	
 	@RequestMapping("menuModify.do")
 	public String menuModify(HttpServletRequest request,String l_key,String name,HttpSession session){
+		String id=(String)session.getAttribute("loginId");
+
 		List menuList= (List)sqlMap.queryForList("menu.getMenu",l_key);
-		
 		request.setAttribute("menuList", menuList);
 		request.setAttribute("l_key",l_key);
 		request.setAttribute("name",name);
+		
+		
 		return "/menu/menuModify";
 	}
 
@@ -149,6 +155,7 @@ public class MenuBean {
 			sqlMap.update("menu.updateMenu", map);
 			
 			request.setAttribute("check",check);
+			request.setAttribute("l_key", l_key);
 			
 		}catch(Exception e){e.printStackTrace(); check=0; request.setAttribute("check", check);}		
 		return "/menu/menuModifyPro";
@@ -159,14 +166,16 @@ public class MenuBean {
 	public String menuDeleteForm(HttpServletRequest request, String l_key){
 		List menuList= sqlMap.queryForList("menu.getMenu",l_key);
 		request.setAttribute("menuList", menuList);
+		request.setAttribute("l_key",l_key);
 		return "/menu/menuDeleteForm";
 	}
 	
 	@RequestMapping("menuDeletePro.do")
-	public String menuDeletePro(HttpServletRequest request){
+	public String menuDeletePro(HttpServletRequest request, String l_key){
 		String name=request.getParameter("name");
 		try{
 			sqlMap.delete("menu.deleteMenu",name);
+			request.setAttribute("l_key",l_key);
 		}catch(Exception e){e.printStackTrace();}
 		return "/menu/menuDeletePro";
 	}
@@ -180,22 +189,24 @@ public class MenuBean {
 			List menuList= sqlMap.queryForList("menu.getMenu",l_key);
 			System.out.println(menuList.size());
 			request.setAttribute("menuList", menuList);
+			request.setAttribute("l_key", l_key);
 		}else{
 			HashMap map=new HashMap();
 			map.put("category", category);
 			map.put("l_key", l_key);
-			List categoryMenuList=sqlMap.queryForList("menu.categoryMenuList",map);
+			List<MenuDTO> categoryMenuList=(List<MenuDTO>)sqlMap.queryForList("menu.categoryMenuList",map);
 			request.setAttribute("categoryMenuList",categoryMenuList);
+			request.setAttribute("l_key", l_key);
 		}
 		return "/menu/menuCategoryClick";
 	}
 	
 	/* 카테고리 전체 메뉴 보여주기 */
 	@RequestMapping("menuCategoryAll.do")
-	public String menuCategoryAll(HttpServletRequest request,String l_key ){
+	public String menuCategoryAll(HttpServletRequest request,String l_key){
 		List menuList= sqlMap.queryForList("menu.getMenu",l_key);
-		
 		request.setAttribute("menuList", menuList);
+		request.setAttribute("l_key", l_key);
 		return "/menu/menuCategoryAll";
 	}
 }

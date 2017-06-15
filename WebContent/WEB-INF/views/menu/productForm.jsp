@@ -10,15 +10,15 @@
     <body>
     
     <div>
-		<button onclick="window.location='productInsertForm.do'">재 고 등 록</button>
+		<button onclick="window.location='productInsertForm.do?l_key=${l_key}'">재 고 등 록</button>
 	</div>
 	
    	<div>
-		<button onclick="window.location='productModify.do'">재 고 수 정</button>
+		<button onclick="window.location='productModify.do?l_key=${l_key}'">재 고 수 정</button>
 	</div>
 	
 	<div>
-		<button onclick="window.location='productDeleteForm.do'">재 고 삭 제</button>
+		<button onclick="window.location='productDeleteForm.do?l_key=${l_key}'">재 고 삭 제</button>
 	</div>
 	
 	<div>
@@ -37,7 +37,7 @@
 	
 	</div>
     <div>
-		<button onclick="window.location='menu.do'">메뉴로 돌아가기</button>
+		<button onclick="window.location='menu.do?l_key=${l_key}'">메뉴로 돌아가기</button>
 	</div>
     
   

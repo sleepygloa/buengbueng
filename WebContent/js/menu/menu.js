@@ -25,7 +25,7 @@ function category(category,l_key){
 		$.ajax({
 			url:"menuCategoryClick.do",
 			type:"post",
-			data: {category: category}&{l_key : l_key},
+			data: {category: category,l_key:l_key},
 			success:function(data){
 				$("#categoryMenu").html(data);
 			}

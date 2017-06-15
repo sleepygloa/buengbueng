@@ -21,8 +21,7 @@
 		</div>
 	</div>
 	
-	<div><h2>${name} 메뉴 관리</h2>
-	</div>
+	
 	
 	
 <div class=" margin_bottom50">	
@@ -46,7 +45,7 @@
 		<button onclick="window.location='menuDeleteForm.do?l_key=${l_key}&name=${name}'">메 뉴 삭 제</button>
 	</div>
 	<div>
-		<button name="menuAll" onclick="alls(${l_key})">전 체</button>
+		<button onclick="alls('${l_key}')">전 체</button>
 	</div>
 	
 	

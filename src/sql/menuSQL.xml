@@ -20,6 +20,10 @@
 		select b_key from franchiseeInfo where b_id=#id# and b_name=#name#;
 	</select>
 	
+	<!-- 사장님 라이센스키로 해당 피씨방이름 가져오기 -->
+	<select id="getPCBangName" parameterClass="String" resultClass="String">
+		select b_name from franchiseeInfo where b_id=#id#;
+	</select>
 	
 	
 	
@@ -61,8 +65,8 @@
 	</select>	
 	
 	<!-- 등록된 product 내역 보여주기 -->
-	<select id="getProduct" resultClass="productDto">
-		select * from product;  
+	<select id="getProduct" parameterClass="String" resultClass="productDto">
+		select * from product where l_key=#l_key#;  
 	</select>
 	
 	<!-- 메뉴에 있는 제품 product 제품명에 보여지게 -->

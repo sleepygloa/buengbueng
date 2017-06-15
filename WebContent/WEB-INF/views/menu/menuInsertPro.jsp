@@ -8,7 +8,7 @@
 		window.location=url;
 	}
 	
-	function succc(check, url, valueName, value){
+	function succc(check, url, valueName, value,valueName2,value2){
 		alert(check);
 		
 		var form = document.createElement("form");
@@ -21,6 +21,7 @@
 		   hidden.setAttribute("value",value);
 		   form.appendChild(hidden);
 		  
+
 		   document.body.appendChild(form);
 		   form.submit();
 		}
