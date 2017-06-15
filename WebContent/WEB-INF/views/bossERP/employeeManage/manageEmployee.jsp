@@ -1,7 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<script type="text/javascript">
+function employeeIdSet(num){
+	document.getElementById("clickNum").value = num;
+}
+function getAddInfo(){
+		$.ajax({
+		url:"employeeAddInfo.do",
+		type:"post",
+		success:function(data){
+			$("#info").html(data);
+		}
+	});
+}
+/* function getInfo(){
+alert(num);
+	$.ajax({
+	url:"employeeInfo.do",
+	type:"post",
+	data: {num : num},
+	success:function(data){
+		$("#info").html(data);
+	}
+});
+}	
+function getUpdateInfo(id){
+var id = id;
+	$.ajax({
+	url:"employeeUpdateInfo.do",
+	type:"post",
+	data: {id : id},
+	success:function(data){
+		$("#info").html(data);
+		alert('헬로');
+	}
+});
+}	 */
+function getDeleteInfo(){
+		$.ajax({
+		url:"employeeAddInfo.do",
+		type:"post",
+		success:function(data){
+			$("#info").html(data);
+		}
+	});
+}
 
+
+function employeeIdUP(){
+var num = document.getElementById("clickNum").value;
+	$.ajax({
+	url:"employeeIdUP.do",
+	type:"post",
+	data: {num : num},
+	success:function(data){
+		history.go(0);
+	}
+});
+}	
+function employeeIdDOWN(){
+var num = document.getElementById("clickNum").value;
+	$.ajax({
+	url:"employeeIdDOWN.do",
+	type:"post",
+	data: {num : num},
+	success:function(data){
+	}
+});
+}	
+
+</script>
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../../header.jsp" />
 
@@ -28,7 +97,7 @@
 						<c:forEach var="list" items="${list1}">
 							<tr><td>
 							<span id="num${list.num}" value="${list.num}"
-							onclick="employeeIdSet('${list.num}')">${list.e_id} 
+							onclick="employeeIdSet('${list.num}')">${list.e_id} ${list.num}
 							<c:if test="${list.e_name != null}">(${list.e_name})</c:if></span></td></tr>
 						</c:forEach>
 					</tbody>
@@ -98,75 +167,6 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-function employeeIdSet(num){
-	document.getElementById("clickNum").value = num;
-	alert(num);
-}
-	function getAddInfo(){
- 			$.ajax({
-				url:"employeeAddInfo.do",
-				type:"post",
-				success:function(data){
-					$("#info").html(data);
-				}
-			});
-	}
-	/* function getInfo(){
-		alert(num);
-			$.ajax({
-			url:"employeeInfo.do",
-			type:"post",
-			data: {num : num},
-			success:function(data){
-				$("#info").html(data);
-			}
-		});
-}	
-	function getUpdateInfo(id){
-		var id = id;
-			$.ajax({
-			url:"employeeUpdateInfo.do",
-			type:"post",
-			data: {id : id},
-			success:function(data){
-				$("#info").html(data);
-				alert('헬로');
-			}
-		});
-}	 */
-	function getDeleteInfo(){
- 			$.ajax({
-				url:"employeeAddInfo.do",
-				type:"post",
-				success:function(data){
-					$("#info").html(data);
-				}
-			});
-	}
-	
-	
-	function employeeIdUP(){
-		var num = document.getElementById("clickNum").value;
-			$.ajax({
-			url:"employeeIdUP.do",
-			type:"post",
-			data: {num : num},
-			success:function(data){
-			}
-		});
-}	
-	function employeeIdDOWN(){
-		var num = document.getElementById("clickNum").value;
-			$.ajax({
-			url:"employeeIdDOWN.do",
-			type:"post",
-			data: {num : num},
-			success:function(data){
-			}
-		});
-}	
 
-</script>
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../../footer.jsp" />

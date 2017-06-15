@@ -241,7 +241,7 @@ public class BossEmployeeManageBean {
 			
 		}catch(Exception e){}
 		
-		return "forward:/manageEmployee.do";
+		return "redirect:/manageEmployee.do";
 	}
 
 	//▼ 를 눌렀을때 AJAX 처리

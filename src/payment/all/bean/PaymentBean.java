@@ -21,7 +21,6 @@ import login.user.bean.UserInfoDataDTO;
 
 
 @Controller
-@RequestMapping("/userbilling/*")
 public class PaymentBean {
 	
 	private static final Object Accept = null;
