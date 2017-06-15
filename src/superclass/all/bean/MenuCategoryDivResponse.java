@@ -2,15 +2,19 @@ package superclass.all.bean;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
 
 import login.user.bean.UserInfoDataDTO;
 
+@Controller
 public class MenuCategoryDivResponse {
-	public static String MenuCategoryDivResponse(int idCount, ArrayList array){
+	public  String MenuCategoryDivResponse(List array){
 		
 		int divWidth = 12;
 		
-		switch (idCount){
+		switch (array.size()){
 			case 1 : divWidth = 12;break;
 			case 2 : divWidth = 6;break;
 			case 3 : divWidth = 4;break;
@@ -26,13 +30,12 @@ public class MenuCategoryDivResponse {
 		
 		String menu = "";
 		UserInfoDataDTO dto = null;
-		HashMap map = new HashMap();
-		
+			
 		
 		for(int i = 0; i < array.size(); i ++){
-			menu += "<div class='col-xs-" +divWidth + "-12 col-sm-" +divWidth + "-12 col-md-" +divWidth + "-12' >";
+			menu += "<div style='border:solid 1px black' class='col-xs-" +divWidth + "-12 col-sm-" +divWidth + "-12 col-md-" +divWidth + "-12' >";
 			dto =  (UserInfoDataDTO)array.get(i);
-			menu += "<span><a href='bossEmployeeInfo.do?id="+ dto.getId() +"'>"+dto.getName()+"</a></span>";
+			menu += "<span  onclick=\"getInfo(\'"+dto.getId()+"\')\">"+ dto.getId()+" : "+dto.getName()+"</span>";
 			menu += "</div>";
 		}
 		

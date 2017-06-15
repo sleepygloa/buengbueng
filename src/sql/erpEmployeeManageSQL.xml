@@ -87,8 +87,8 @@
 <!-- 끝  -->
 	
 	<!-- 알바생 아이디로 정보를 볼러옴 AJAX-->
-	<select id="getEmployeeInfo" resultClass="userDto" parameterClass="int">
-		select * from userInfo a INNER JOIN (select e_id from employeeInfo where num = #num#) b on a.id = b.e_id;
+	<select id="getEmployeeInfo" resultClass="userDto" parameterClass="String">
+		select * from userInfo where id = #id#;
 	</select>	
 	
 	<!-- 알바생 아이디로 회원정보를 볼러옴 AJAX-->
@@ -96,86 +96,54 @@
 		select * from userInfo where id = #id#;
 	</select>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<!-- 알바생아이디는 있지만 보스아이디가 없는 것을 찾음 -->
-	<select id="findBossIdNull" resultClass="String">
-		SELECT e_id from employeeInfo where e_bossid = '' ORDER BY e_id desc limit 0, 1; 
+	<!-- 삭제할 알바생 아이디를 찾는다.-->
+	<select id="getDeleteIdInfo" resultClass="String" parameterClass="int">
+		select e_id from employeeInfo where num = #num#;
 	</select>
 	
-
-		
-	<!-- 사장님이 아이디를 원하는 수만큼 신청 . 관리자의 승낙을 받아야한다. -->
-	<insert id="employeeAddLog" parameterClass="beDto">
-		INSERT INTO employeeAddLog (num, b_id,  applyTime, content) VALUES(0, #b_id#,  now());
+	<!-- 알바생 아이디 삭제 신청 Log 중 마지막 번호를 출력 -->
+	<select id="getDeleteLogLastNum" resultClass="int">
+		SELECT num from employeeDeleteLog order by num desc limit 0, 1; 
+	</select>	
+	
+	<!-- 알바생의 아이디를 삭제 신청함.-->
+	<insert id="deleteIdLogAdd" >
+		insert into employeeDeleteLog (num, result, b_id, e_id, applyTime, content)
+			 VALUES(0, 0, #b_id#, #e_id#, now(), #content#);  
 	</insert>
-
-
-
-
-
-
-
 	
-
-	<!-- 새로만들 알바아이디가 userInfo에 있는지 검색 -->
-	<select id="findEmployeeIdUserId" parameterClass="String">
-		select * from userInfo where id = #e_id#;
-	</select>
+	<!-- 알바생아이디 삭제 리스트 -->
+	<select id="getEmployeeDeleteList" resultClass="beDto" >
+		SELECT * from  employeeDeleteLog where result = '0';
+	</select>		
 	
-	<!-- 사장아이디만 있는 것을 검색 -->
-	<select id="findEmployeeInfoNullBossId" resultClass="String" parameterClass="String">
-		select e_id from employeeInfo where e_id = '' and e_bossid = #e_bossid# Limit 0,1;
-	</select>
+	<!-- 알바생의 아이디를 삭제 확인 - 관리자.-->
+	<update id="deleteIdLogAddConfirm" parameterClass="String" >
+		update employeeDeleteLog set result = 1, confirmTime = now() where e_id = #e_id#;
+	</update>	
 	
-	<!--  -->
-	<update id="updateEmployeeInfoNullBossId" parameterClass="String">
-		update employeeInfo set e_id = #e_id# where e_id = '' and e_bossid = #e_bossid#;
-	</update>
-	
-
-
-	
-
-	<!-- 알바생아이디 있고, 보스 아이디도 있는 것 중 가장 높은 번호를 찾음 -->
-	<select id="findBossIdNotNull" resultClass="String">
-		SELECT e_id from employeeInfo where e_bossid = #e_bossid# ORDER BY e_id desc; 
-	</select>
-	
-	<!-- 삭제할 알바생 아이디의 정보를 찾는다.-->
-	<select id="findDeleteId" resultClass="String" parameterClass="String">
-		select pw from userInfo where id = #e_id#;
-	</select>
-
-	<!-- 알바생 아이디를 삭제한다..-->
-	<delete id="deleteEmployeeId" parameterClass="String">
+	<!-- 알바생의 아이디를 삭제 삭제1 - employeeInfo.-->
+	<delete id="deleteEidEmployeeInfo" parameterClass="String" >
 		delete from employeeInfo where e_id = #e_id#;
-	</delete>
-
-	<!-- 알바생 아이디를 삭제한다..-->
-	<delete id="deleteUserId" parameterClass="String">
-		delete from userInfo where id = #e_id#;
 	</delete>	
 	
-	<!-- 알바생 아이디 수 반환-->
-	<select id="getEmployeeIdCount" resultClass="int" parameterClass="String">
-		select count(*) from employeeInfo where e_bossid = #e_bossid#;
+	<!-- 알바생의 아이디를 삭제 삭제2 - userInfo.-->
+	<delete id="deleteEidUserInfo" parameterClass="String" >
+		delete from userInfo where id = #e_id#;
+	</delete>
+
+<!-- 신상관리========================================================== -->
+	<!-- 신상관리 알바생 이름 리스트 -->
+	<select id="getEmployeeIdList" resultClass="userDto" parameterClass="String">
+		select id, pw, name, birth, phone, grade, address, email, signdate, googleid 
+		from userInfo a inner Join(select e_id from employeeInfo where e_bossid = #id#) b 
+		on a.id = b.e_id;;
 	</select>
-	
-	<!-- 알바생 아이디 정보 리스트-->
-	<select id="getEmployeeIdInfoList" resultMap="userDtoMap" parameterClass="java.util.HashMap">
-		select * from userInfo where id = (select e_id from employeeInfo where e_bossid = #id# LIMIT #i#, 1);
+
+	<!-- 알바생 아이디 정보 보기 -->
+	<select id="getEmplyeeInfo" resultClass="userDto" parameterClass="String">
+		select * from userInfo where id = #id#;
 	</select>
-	
-	
 
 	<!-- 알바생 아이디로 정보 수정-->
 	<update id="updateEmployeeId"  parameterClass="userDto">
@@ -188,6 +156,12 @@
 			address = #address#
 		WHERE id = #id#;
 	</update>	
+
+
+
+
+
+
 
 	<!-- 알바생 접속 LOG 찾기 -->
 	<select id="findLoginLogLogoutNull"  parameterClass="String">

@@ -5,6 +5,7 @@
 function employeeIdSet(num){
 	document.getElementById("clickNum").value = num;
 }
+
 function getAddInfo(){
 		$.ajax({
 		url:"employeeAddInfo.do",
@@ -14,33 +15,13 @@ function getAddInfo(){
 		}
 	});
 }
-/* function getInfo(){
-alert(num);
-	$.ajax({
-	url:"employeeInfo.do",
-	type:"post",
-	data: {num : num},
-	success:function(data){
-		$("#info").html(data);
-	}
-});
-}	
-function getUpdateInfo(id){
-var id = id;
-	$.ajax({
-	url:"employeeUpdateInfo.do",
-	type:"post",
-	data: {id : id},
-	success:function(data){
-		$("#info").html(data);
-		alert('헬로');
-	}
-});
-}	 */
+ 
 function getDeleteInfo(){
+	var num = document.getElementById("clickNum").value;
 		$.ajax({
-		url:"employeeAddInfo.do",
+		url:"employeeDeleteInfo.do",
 		type:"post",
+		data: {num : num},
 		success:function(data){
 			$("#info").html(data);
 		}
@@ -97,7 +78,7 @@ var num = document.getElementById("clickNum").value;
 						<c:forEach var="list" items="${list1}">
 							<tr><td>
 							<span id="num${list.num}" value="${list.num}"
-							onclick="employeeIdSet('${list.num}')">${list.e_id} ${list.num}
+							onclick="employeeIdSet('${list.num}')">${list.e_id}
 							<c:if test="${list.e_name != null}">(${list.e_name})</c:if></span></td></tr>
 						</c:forEach>
 					</tbody>
@@ -131,6 +112,12 @@ var num = document.getElementById("clickNum").value;
 		</div>
 	</div>
 	<div class="col-xs-12-12 col-md-9-12">
+		<!-- 페이지 제목 -->
+		<div class=" margin_bottom50">
+			<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+				<h3>아이디 신청 List입니다.</h3>
+			</div>
+		</div>
 	<c:forEach var="list" items="${list}">
 	<form action="employeeAddAdminConfirm.do" method="post" >
 	<!-- 가져갈 value들  -->
@@ -156,6 +143,47 @@ var num = document.getElementById("clickNum").value;
 			<div class="col-xs-6-12 col-md-1-12">${list.num}</div>
 			<div class="col-xs-6-12 col-md-1-12">${list.b_id}</div>
 			<div class="col-xs-6-12 col-md-1-12">${list.applyCount}</div>
+			<div class="col-xs-6-12 col-md-2-12">${list.applyTime}</div>
+			<div class="col-xs-6-12 col-md-3-12">${list.content}</div>
+			<div class="col-xs-6-12 col-md-1-12">
+				<input type="submit" name="confirm" value="신청확인" 	/> 
+			</div>
+		</div>
+	</form>
+	</c:forEach>
+	</div>
+			<!-- 페이지 제목 -->
+		<div class=" margin_bottom50">
+			<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+				<h3>아이디 삭제 List입니다.</h3>
+			</div>
+		</div>
+	<div class="col-xs-12-12 col-md-9-12">
+	<c:forEach var="list" items="${list2}">
+	<form action="employeeDeleteAdminConfirm.do" method="post" >
+	<!-- 가져갈 value들  -->
+	<input type="hidden" name="b_id" value="${list.b_id}" />
+	<input type="hidden" name="e_id" value="${list.e_id}" />
+		<div class="container">
+			<div class="col-xs-6-12 col-md-1-12">신청번호</div>
+			<div class="col-xs-6-12 md_hidden">${list.num}</div>
+			<div class="col-xs-6-12 col-md-1-12">ID</div>
+			<div class="col-xs-6-12 md_hidden">${list.b_id}</div>
+			<div class="col-xs-6-12 col-md-1-12">삭제할 ID</div>
+			<div class="col-xs-6-12 md_hidden">${list.e_id}</div>
+			<div class="col-xs-6-12 col-md-2-12">시각</div>
+			<div class="col-xs-6-12 md_hidden">${list.applyTime}</div>
+			<div class="col-xs-6-12 col-md-3-12">사유</div>
+			<div class="col-xs-6-12 md_hidden">${list.content}</div>
+			<div class="col-xs-6-12 col-md-1-12">신청확인</div>
+			<div class="col-xs-6-12 md_hidden">
+				<input type="submit" name="confirm" value="신청확인" 	/> 
+			</div>
+		</div>
+		<div class="container">
+			<div class="col-xs-6-12 col-md-1-12">${list.num}</div>
+			<div class="col-xs-6-12 col-md-1-12">${list.b_id}</div>
+			<div class="col-xs-6-12 col-md-1-12">${list.e_id}</div>
 			<div class="col-xs-6-12 col-md-2-12">${list.applyTime}</div>
 			<div class="col-xs-6-12 col-md-3-12">${list.content}</div>
 			<div class="col-xs-6-12 col-md-1-12">
