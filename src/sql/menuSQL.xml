@@ -59,6 +59,8 @@
 		delete from menu where name=#name#;
 	</delete>
 	
+	
+	
 	<!-- 카테고리별 메뉴 List -->
 	<select id="categoryMenuList" parameterClass="java.util.HashMap" resultClass="menuDto">
 		select * from menu where category=#category# and l_key=#l_key#;
@@ -70,34 +72,34 @@
 	</select>
 	
 	<!-- 메뉴에 있는 제품 product 제품명에 보여지게 -->
-	<select id="productName" resultClass="productDto">
-		select name from menu;  
+	<select id="productName" parameterClass="String" resultClass="menuDto">
+		select name from menu where l_key=#l_key#;  
 	</select>
 	
 	<!-- product 추가 -->
 	<insert id="insertProduct" parameterClass="productDto">
-		insert into product values(#code#, #name#, #lastday#, #salecheck#, now());
+		insert into product values(#code#, #name#, #lastday#, #salecheck#, now(), #l_key#);
 	</insert>
 	
 	<!-- saleBuyLog 추가 -->
 	<insert id="insertSaleBuyLog" parameterClass="productDto">
-		insert into sellBuyLog values(#name#,#code#,now(),'null');
+		insert into sellBuyLog values(#name#,#code#,now(),'null',#l_key#);
 	</insert>
 	
 	<!-- product 수정하기 위해 재고명에 맞는 정보 가져오기, 바코드 중복 방지-->
-	<select id="getProductName" parameterClass="int" resultClass="productDto">
-		select * from product where code=#code#;
+	<select id="getProductName" parameterClass="productDto" resultClass="productDto">
+		select * from product where code=#code# and l_key=#l_key#;
 	</select>
 	
 	<!-- product 수정 -->
 	<update id="updateProduct" parameterClass="java.util.HashMap">
-		update product set code=#code#, lastday=#lastday# where code=#beforeCode# ;
+		update product set code=#code#, lastday=#lastday# where code=#beforeCode# and l_key=#l_key#;
 	</update>
 	
 	
 	<!-- product 삭제 -->
-	<delete id="deleteProduct" parameterClass="int">
-		delete from product where code=#code#;
+	<delete id="deleteProduct" parameterClass="java.util.HashMap">
+		delete from product where code=#code# and l_key=#l_key#;
 	</delete>
 	
 	

@@ -73,6 +73,7 @@ public class MenuBean {
 		List categoryList =sqlMap.queryForList("menu.getCategory",l_key);
 			if(categoryList!=null){
 				request.setAttribute("categoryList",categoryList);
+				
 			}
 		}
 		}catch(Exception e){

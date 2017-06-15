@@ -36,7 +36,9 @@
     				</td>
     			</tr>
     
-    			<tr><td><input type="submit" value="수 정"/></td>
+    			<tr><td><input type="submit" value="수 정"/>
+    					<input type="hidden" name="l_key" value="${l_key}">
+    				</td>
     			</tr>    		
     		</table>
     		</form>

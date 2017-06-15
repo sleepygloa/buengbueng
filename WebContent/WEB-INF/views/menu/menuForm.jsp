@@ -30,7 +30,7 @@
 	
 	
    	<div>
-		<button onclick="window.location='product.do'">재 고</button>
+		<button onclick="window.location='product.do?l_key=${l_key}'">재 고</button>
 	</div>
 
 	<div>

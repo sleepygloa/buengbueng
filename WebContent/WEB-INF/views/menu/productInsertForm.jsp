@@ -30,14 +30,16 @@
     			
     			<tr>	
     			<td>바코드번호</td>
-    			<td><input type="text" name="code" placeholder="바코드 입력">	</td>
+    			<td><input type="text" name="code" maxlength="13" placeholder="바코드 입력">	</td>
     			</tr>
     		
     			<tr>	
     			<td>유통기한</td>
     			<td><input type="text" name="last" placeholder="유통기한 입력">	</td>
     			</tr>
-    			<tr><td><input type="submit" value="추 가"/></td>
+    			<tr><td><input type="submit" value="추 가"/>
+    				<input type="hidden" name="l_key" value="${l_key}">
+    			</td>
     			</tr>    		
     		</table>
     		</form>

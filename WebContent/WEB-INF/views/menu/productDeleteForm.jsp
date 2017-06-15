@@ -23,10 +23,11 @@
 	<td><button type="submit" name="code" value="${product.code}">삭제</button>
 	</tr>
 	</c:forEach>
+	<input type="hidden" name="l_key" value="${l_key}"/>
 </table>
 </form>
 </div>
 <div>
-	<button onclick="window.location='product.do'">메뉴로 돌아가기</button>
+	<button onclick="window.location='product.do?l_key=${l_key}'">메뉴로 돌아가기</button>
 </div>
 </body>
