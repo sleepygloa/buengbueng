@@ -10,6 +10,8 @@
 		select * from paymentList where buyer_chatid = #id# and confirmation = #confirmation#;
 	</select>
 	
+	
+
 	<select id="cash_userAccount" resultClass="uadto">
 		select * from userAccount where  id = #id#;
 	</select>	
@@ -39,10 +41,19 @@
 		select * from paymentList where buyer_chatid = #id# and confirmation = #confirmation#;
 	 </select>
 	 
+	<select id="cash_failureCount" resultClass="int" parameterClass="java.util.HashMap">
+		select count(*) from paymentList where buyer_chatid = #id# and confirmation = #confirmation_f#;
+	</select>	 
+	 
 	 <select id="cashCount" resultClass="int">
 		select count(*) from paymentList where buyer_chatid=#id#
 	 </select>
 	 
+	 <select id="getArticles" parameterClass="java.util.HashMap" resultClass="dto">
+      select r,idx,buyer_chatid,payment_date,payment_type,paying_name,paying_price,confirmation,error_msg,pg_name,imp_uid,merchant_uid 
+      from (select @rownum:= @rownum+1 as r, idx,buyer_chatid,payment_date,payment_type,paying_name,paying_price,confirmation,error_msg,pg_name,imp_uid,merchant_uid 
+      from paymentList,(select @rownum:=0)i where buyer_chatid=#id# and confirmation = #confirmation# order by idx desc)yz where r between #startRow# and #endRow#;
+     </select>
 
  	 <!-- 회원 로그인 했을때 이벤트로 돈 충전해주는 Log -->
 	 <insert id="eventAdminGiveUserMoneyLog" parameterClass="java.util.HashMap">

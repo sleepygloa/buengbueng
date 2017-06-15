@@ -5,7 +5,7 @@
 	
 	
 	<!-- 아이디로 아이디와 비밀번호를 확인 -->
-	<select id="validCheck" resultClass="userDto" parameterClass="userDto">
+	<select id="validCheck" resultClass="userDto" parameterClass="String">
 		SELECT  id, pw from userInfo WHERE id = #id#;
 	</select>
 	

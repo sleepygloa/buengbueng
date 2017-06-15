@@ -142,12 +142,14 @@ public class PaymentBean {
 		HashMap map = new HashMap();
     	map.put("id", id);
     	map.put("confirmation", "Accept");
+    	map.put("confirmation_f", "failure");
 		List payment = (List)sqlMap.queryForList("cash.cash_id", map);
-		
+		int failure = (int) sqlMap.queryForObject("cash.cash_failureCount", map);
+		System.out.println("실패 횟수" + failure);
 		UserAccountDTO c = (UserAccountDTO)sqlMap.queryForObject("cash.cash_userAccount", id);
 		
+		request.setAttribute("failure_count", failure);
 		request.setAttribute("c", c);
-		
 		request.setAttribute("payment", payment);
 		
 		request.setAttribute("id", id);

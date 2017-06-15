@@ -213,14 +213,17 @@ public class UserInfoBean {
 	
 	//----- 회원 정보 수정 페이지로 -----
 	@RequestMapping("userInfoFormUpdate.do")
-	public String userInfoFormUpdate(){
-		
+	public String userInfoFormUpdate(HttpSession session, Model model){
+		String id = (String)session.getAttribute("loginId");
+		UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+		model.addAttribute("user", user);
 		return "/userInfo/userInfoFormUpdate";
 	}
 	
 	//----- 회원 정보 수정 -----
 	@RequestMapping("userInfoFormUpdatePro.do")
 	public String userInfoFormUpdatePro(UserInfoDataDTO dto, Model model){
+		
 		//정보수정 결과 확인 변수
 		int check = -1;
 		
