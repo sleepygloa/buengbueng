@@ -32,8 +32,7 @@
 			<li><a href="seatState.do" >PC방 좌석 이용 관리</a></li>
 			<li><hr /></li>
 			<li>대여 관리</li>
-			<%--<li><a href="rentMain.do" >대여물품 관리 메인</a></li>--%>
-			<li><a href="rentManage.do" >대여물품 관리</a></li>
+			<li><a href="rentMain.do" >대여물품 관리</a></li>
 		</c:if>		
 		
 		</ul>

@@ -13,6 +13,7 @@
 	<!-- HEADER TEMPLATE -->
 	<jsp:include page="/WEB-INF/views/header.jsp" />
 	
+	<input type="hidden" id="b_key" value="${b_key}"/>
 	<div>
 		<input type="button" value="대여물품목록 추가" id="addRent"/>&emsp;&emsp;&emsp;
 		<input type="button" value="대여물품목록삭제" id="delRent"  />&emsp;&emsp;&emsp;
@@ -26,8 +27,8 @@
 			<c:forEach var="rentList" items="${rentList}">
 				<input type="checkbox" name="rentName" value="${rentList.rentProduct}" />
 				${rentList.rentProduct}
-				<input type="button" value="수정하기" onclick="modiRent('${rentList.rentProduct}')"/>
-				<input type="button" value="물품 보기" onclick="selectedproductList('${rentList.rentProduct}')"/>
+				<input type="button" value="수정하기" onclick="modiRent('${rentList.rentProduct}','${b_key}')"/>
+				<input type="button" value="물품 보기" onclick="selectedproductList('${rentList.rentProduct}','${b_key}')"/>
 			</c:forEach>
 		</c:if>
 		<c:if test="${rentList.size() == 0}">
