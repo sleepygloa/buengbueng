@@ -39,17 +39,11 @@
 		insert into userInfo values(#id#, #pw#, #name#, #birth#, #phone#, #grade#, #address#, #email#, now(), #googleId#);
 	</insert>
 	
-	<!-- 사장님 정보 저장 -->
-	<insert id="bossInfoInsert" parameterClass="bossDTO">
-		insert into bossInfo values(#b_id#, #b_name#, #b_number#, #b_address#, #b_tel#, #b_size#, #b_pccount#,#b_ip#,#b_key#);
+	<!-- 회원 가입 -->
+	<insert id="userAccountInsert" parameterClass="userDto">
+		insert into userAccount values(#id#, 0);
 	</insert>
 	
-	<!-- 알바 정보 저장 -->
-	<insert id="employeeInfoInsert" parameterClass="login.user.bean.EmployeeInfoDataDTO">
-		insert into employeeInfo values(
-			#e_id#, #e_bossid#
-		);
-	</insert>
 	
 	<!-- 알바가 사장님을 찾을 겁니다 -->
 	<select id="searchBossId" parameterClass="String" resultClass="String">

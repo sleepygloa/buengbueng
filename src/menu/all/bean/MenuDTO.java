@@ -2,24 +2,25 @@ package menu.all.bean;
 
 public class MenuDTO {
 	private String name;
-	private int number;
 	private int price;
 	private String category;
 	private String company;
+	private String l_key;
 	
-	
+
+	public String getL_key() {
+		return l_key;
+	}
+	public void setL_key(String l_key) {
+		this.l_key = l_key;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getNumber() {
-		return number;
-	}
-	public void setNumber(int number) {
-		this.number = number;
-	}
+
 	public int getPrice() {
 		return price;
 	}

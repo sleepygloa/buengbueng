@@ -13,6 +13,9 @@
 	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 	
+	<!-- INIT IMPORT 지정 -->
+	<context:component-scan base-package="config.setting.init" /> <!-- 회원관리 BEAN -->
+	
 	<!-- BEAN IMPORT 지정 -->
 	<context:component-scan base-package="login.user.bean" /> <!-- 회원관리 BEAN -->
 	<context:component-scan base-package="index.all.bean" /> <!-- 메인페이지 BEAN -->
@@ -21,9 +24,14 @@
 	<context:component-scan base-package="search.user.bean" /> <!-- PC방 찾기 BEAN-->
 	<context:component-scan base-package="superclass.all.bean" /> <!-- 전역 CLASS, 상속가능한 것들 BEAN -->
 	<context:component-scan base-package="erp.boss.bean" /> <!-- 사장님 ERP관리 BEAN -->
+	<context:component-scan base-package="manage.admin.bean" /> <!-- 관리자 페이지 BEAN -->
+	<context:component-scan base-package="menu.all.bean" /> <!-- Menu 총 기능 관리 BEAN -->
+	
 
+	
 	<!-- FX BEAN INPORT 지정 -->
 	<context:component-scan base-package="fx.user.bean" /> <!-- FX 사용자 BEAN  -->
+	<context:component-scan base-package="fx.login.bean" /> <!-- FX 화원관리 BEAN  -->
 	<context:component-scan base-package="payment.all.bean" /> <!-- 결제 관련 BEAN  -->
 	
 	<!-- DOWNLOAD 지정 -->
@@ -33,6 +41,9 @@
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<property name="order" value="0" />
 	</bean>
+	
+	<!-- INIT 설정 파일 autowired -->
+	<context:annotation-config />
 	
 <!-- 	
 	AOP 설정 

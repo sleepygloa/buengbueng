@@ -40,12 +40,11 @@ public class CheckInfo {
 		
 		//유효성검사에 필요한 정보를 받아낼 Key 변수
 		String id = dto.getId();
-		
+		System.out.println(id);
 		//아이디를 불러와서 각각의 변수로 저장
-		dto = (UserInfoDataDTO)sqlMap.queryForObject("checkInfo.validCheck", dto);
+		dto = (UserInfoDataDTO)sqlMap.queryForObject("checkInfo.validCheck", id);
 		String dbId = dto.getId();
 		String dbPw = dto.getPw();
-		
 		if(!pw.equals(dbPw)){
 			validCheck = 2; // 실패
 		}else{
@@ -55,7 +54,23 @@ public class CheckInfo {
 		return validCheck;
 	}
 	
-	
+	//비밀번호검사
+	public int pwCheck2(String password,String id){
+		//유효성 검사 상황을 나타내는 변수
+		int validCheck = -1;
+		UserInfoDataDTO dto = null;
+		String dbPw = null;
+		
+		//아이디를 불러와서 각각의 변수로 저장
+		dbPw = (String)sqlMap.queryForObject("checkInfo.pwCheck", id);
+		if(!password.equals(dbPw)){
+			validCheck = 2; // 실패
+		}else{
+			validCheck = 1; // 성공
+		}
+		
+		return validCheck;
+	}	
 	//아이디와 비밀번호 검사
 	
 	

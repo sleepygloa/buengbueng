@@ -15,7 +15,6 @@
 <div class="row">
 	<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 	
-	<div class="row">
 		<div class="col-xs-12-12 col-sm-12-12">
 				<div class="col-xs-4-12 col-sm-2-12 ">아이디</div>
 				<div class="col-xs-4-12 col-sm-2-12 ">시작시간</div>
@@ -31,7 +30,7 @@
 				<div class="col-xs-4-12 col-sm-2-12 ">${article.id}</div>
 				<div class="col-xs-4-12 col-sm-2-12 ">${article.loginTime}</div>
 				<div class="xs_hidden col-sm-2-12 ">${article.logoutTime}</div>
-				<div class="xs_hidden col-sm-2-12 "></div>
+				<div class="xs_hidden col-sm-2-12 ">${article.workTime}</div>
 				<div class="xs_hidden col-sm-2-12 ">${article.ip}</div>
 				<div class="col-xs-4-12 col-sm-2-12 ">
 					<c:if test="${article.logoutTime == article.loginTime}">

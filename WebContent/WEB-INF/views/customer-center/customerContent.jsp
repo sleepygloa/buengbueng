@@ -41,7 +41,7 @@
 <div id="form">
 <div>
 	<span>글번호</span>
-	<span>${dto.num}</span> 
+	<span>${number}</span> 
 	<span>조회수</span>
 	<span>${dto.readcount}</span>
 </div>
@@ -59,18 +59,15 @@
 	${dto.content}
 </div>
 <div>
-	<c:if test="${sessionScope.loginId == 'admin'}">
-		<c:if test="${re_step==1}">
-			<span>
-				<input type="button" value="답글쓰기" onclick=
-				"window.location='customerForm.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}'">
-			</span>
-		</c:if>
-		<span><button id="bossDel">글삭제</button></span>
+	<c:if test="${sessionScope.grade == 4 }">
+	<c:if test="${re_step == 1}">
+		<span>
+			<input type="button" value="답글쓰기" onclick=
+			"window.location='customerForm.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}'">
+		</span>
 	</c:if>
-	<c:if test="${sessionScope.loginId != 'admin'}">
+	<span><button id="bossDel">글삭제</button></span>
 	<span><input type="button" value="글수정" onclick="window.location='customerModify.do?snum=${dto.snum}&num=${dto.num}&pageNum=${pageNum}'"></span>
-	<span><button id="delete">글삭제</button></span>
 	</c:if>
 	<span><input type="button" value="뒤로가기" onclick="window.location='customerQA.do?snum=${dto.snum}&pageNum=${pageNum}'"></span>
 </div>

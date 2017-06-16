@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="typeAlias">
+
+	<typeAlias alias="bossDTO" type="login.user.bean.BossInfoDataDTO" />
+	<typeAlias alias="menuDto" type="menu.all.bean.MenuDTO" />
+	<typeAlias alias="userDto" type="login.user.bean.UserInfoDataDTO" />
+	<typeAlias alias="useTimeDto" type="login.user.bean.UseTimeLogDTO" />
+	<typeAlias alias="beDto" type="erp.boss.bean.BossEmployeeManageDataDTO" />
+	<typeAlias alias="customerDTO" type="login.user.bean.CustomerDTO"/>
+	<typeAlias alias="productDto" type="menu.all.bean.ProductDTO"/>
+	<typeAlias alias="orderDto" type="menu.all.bean.OrderDTO"/>
+	<typeAlias alias="bossErpTotalDTO" type="erp.boss.bean.BossErpTotalDTO"/>
+	<typeAlias alias="dto" type="payment.all.bean.UserBillingHistoryDTO"/>
+    <typeAlias alias="franchiseeDTO" type="manage.boss.bean.FranchiseeDataDTO"/>
+    <typeAlias alias="uadto" type="payment.all.bean.UserAccountDTO"/>
+
+	<typeAlias alias="seatInfo" type="manage.boss.bean.SeatStateDataDTO"/>
+	<typeAlias alias="pcInfoDto" type="pc.materials.bean.PcInfoDataDTO"/>
+	<typeAlias alias="comInfo" type="pc.materials.bean.ComputerDataDTO"/>
+	<typeAlias alias="keyInfo" type="pc.materials.bean.KeyboardDataDTO"/>
+	<typeAlias alias="moniInfo" type="pc.materials.bean.MonitorDataDTO"/>
+	<typeAlias alias="mouInfo" type="pc.materials.bean.MouseDataDTO"/>
+	<typeAlias alias="speInfo" type="pc.materials.bean.SpeakerDataDTO"/>
+    <typeAlias alias="billDto" type="payment.all.bean.UserBillingHistoryDTO"/>
+	<typeAlias alias="pcInfoLog" type="pc.materials.bean.PcInfoModifyLogDataDTO"/>
+    <typeAlias alias="rentDTO" type="manage.boss.bean.RentDataDTO"/>
+    <typeAlias alias="rentProdDTO" type="manage.boss.bean.RentProductDataDTO"/>
+    <typeAlias alias="rentLogDTO" type="manage.boss.bean.RentLogDataDTO"/>    
+</sqlMap>

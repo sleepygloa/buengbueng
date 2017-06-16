@@ -1,5 +1,6 @@
 package manage.boss.bean;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import login.user.bean.BossInfoDataDTO;
 import login.user.bean.UserInfoDataDTO;
+import superclass.all.bean.CheckInfo;
 import superclass.all.bean.FindIpBean;
 import superclass.all.bean.Random;
+import superclass.all.bean.ReadDbWriteArray;
 
 @Controller
 public class FranchiseeManagementBean {
@@ -33,15 +36,25 @@ public class FranchiseeManagementBean {
 	@Autowired
 	public Random random;
 	
+	//비밀번호 검사
+	@Autowired
+	public CheckInfo pwcheck;
+	
+	//Log파일쓰기
+	@Autowired
+	public ReadDbWriteArray read;
+	
 	//대메뉴에서 '사장님 가맹점 관리 버튼 클릭시' 이동
 	@RequestMapping("franchiseeManagementMain.do")
 	public String franchiseeManagementMain(Model model){
 		
+		//////////////////////////////////////////
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
 		int sidemenu = 1; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
+		//변수들을 페이지로 전달
 		
 		return "/bosspcuse/franchiseeManagementMain";
 	}
@@ -50,11 +63,13 @@ public class FranchiseeManagementBean {
 	@RequestMapping("franchiseeAdd.do")
 	public String franchiseeAdd(HttpSession session, BossInfoDataDTO bossDto, Model model){
 		
+		//////////////////////////////////////////
 		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenuCheck = 0; //사이드메뉴 를 보여줄건지
 		int sidemenu = 1; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
+		//변수들을 페이지로 전달
 		
 		//세션의 아이디와 BossInfo Table의 아이디가 동일한 것이 있는지 부터 검사를 한다.
 		UserInfoDataDTO userDto;
@@ -64,17 +79,16 @@ public class FranchiseeManagementBean {
 		int check;
 		String ip;
 		
-		//로그인 하지 않았을때 그냥 폼은 보여주지만, 아무것도할수없다.
+		//////////////////////////////////////////
+		//비로그인접근, 잘못된 경로로 접근한사람 내쫓음
 		if(id == null){
 			check = 9; //비회원이 싸이트로 접속했을때.
 			return "/bosspcuse/franchiseeAddPro";
 		}
 		
+		//////////////////////////////////////////////////////////////////////////////
 		//사장님이라면 사장님정보를 불러온다.
-		bossDto = (BossInfoDataDTO)sqlMap.queryForObject("franchisee.getBossInfo", id);
-		
-		//사용자라면 사용자정보를 불러오고, 사장님  PC방정보를 입력한다.
-		userDto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+		userDto = (UserInfoDataDTO)sqlMap.queryForObject("franchisee.getBossInfo", id);
 		
 		//방문자의 IP주소를 알아낸다
 		ip = (String)findIP.findIp();
@@ -82,52 +96,22 @@ public class FranchiseeManagementBean {
 		//가맹점 신청 테이블에 이력을 남긴다. 
 		
 		//가맹점 추가신청을한다.
-		
-		model.addAttribute("bossDto", bossDto);
 		model.addAttribute("userDto", userDto);
 		model.addAttribute("ip", ip);
-
 		
 		return "/bosspcuse/franchiseeAdd";
 	}
 	
-	//가맹점 추가 폼의 AJAX 처리
-		@RequestMapping("franchiseeAddAjaxBossInfo.do")
-		public String franchiseeAddAjaxBossInfo(HttpSession session, BossInfoDataDTO bossDto, Model model){
-			
-			//세션의 아이디와 BossInfo Table의 아이디가 동일한 것이 있는지 부터 검사를 한다.
-			UserInfoDataDTO userDto;
-			
-			//현재 로그인한 사용자의 아이디를 불러온다.
-			String id = (String)session.getAttribute("loginId");
-			int check;
-			String ip;
-						
-			//사장님이라면 사장님정보를 불러온다.
-			bossDto = (BossInfoDataDTO)sqlMap.queryForObject("franchisee.getBossInfo", id);
-			
-			//사용자라면 사용자정보를 불러오고, 사장님  PC방정보를 입력한다.
-			userDto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
-			
-			//방문자의 IP주소를 알아낸다
-			ip = (String)findIP.findIp();
-			
-			//가맹점 신청 테이블에 이력을 남긴다. 
-			
-			//가맹점 추가신청을한다.
-			
-			model.addAttribute("bossDto", bossDto);
-			model.addAttribute("userDto", userDto);
-			model.addAttribute("ip", ip);
-			
-			
-			return "/bosspcuse/franchiseeAddAjaxBossInfo";
-		}
+	
 	
 	//가맹점 신청 처리 BEAN
 	@RequestMapping("franchiseeAddPro.do")
-	public String franchiseeAddPro(HttpSession session, BossInfoDataDTO bossDto, Model model){
-	
+	public String franchiseeAddPro(HttpServletRequest request, HttpSession session, FranchiseeDataDTO franchiseeDto, Model model) throws IOException{
+		String b_number=request.getParameter("b_number_1")+"-"+request.getParameter("b_number_2")+"-"+request.getParameter("b_number_3"); // 사업자 번호를 bdto에 저장
+		franchiseeDto.setB_number(b_number);
+		String b_tel=request.getParameter("b_tel1")+"-"+request.getParameter("b_tel2")+"-"+request.getParameter("b_tel3"); // 사업장 전화번호를 bdto에 저장
+		franchiseeDto.setB_tel(b_tel);
+		
 		//세션의 아이디와 BossInfo Table의 아이디가 동일한 것이 있는지 부터 검사를 한다.
 		UserInfoDataDTO userDto;
 		
@@ -135,16 +119,31 @@ public class FranchiseeManagementBean {
 		String id = (String)session.getAttribute("loginId");
 		int check = 0;
 		
-		bossDto.setB_id(id);
+
 			try{
-				//입력된 정보를 로그에 남겨줍니다.
-				sqlMap.insert("franchisee.insertFranchiseeAddLog", bossDto);
-				
+				/////////////////////////////////////////////////////////////
+				//가맹점 정보 로그를 입력한다.
+				sqlMap.insert("log.insertFranchiseeLog", franchiseeDto);
 				check = 1;
+				
+				////////////////////////////////////////////////////////////
+				//TEXT파일로 로그를 남기는 코드
+				String fileName = "\\franchisee\\addSuccessLog\\addSuccessLog.txt";
+				String fileCheck = "franchisee";
+				franchiseeDto.setB_id(id);
+				read.readDb(franchiseeDto, fileName, fileCheck);
+				////////////////////////////////////////////////////////////
 			}catch(Exception e){
 				check = 2;
 				e.printStackTrace();
 				System.out.println(e);
+				////////////////////////////////////////////////////////////
+				//TEXT파일로 로그를 남기는 코드
+				String fileName = "\\franchisee\\addErrorLog\\addErrorLog.txt";
+				String fileCheck = "franchisee";
+				franchiseeDto.setB_id(id);
+				read.readDb(franchiseeDto, fileName, fileCheck);
+				////////////////////////////////////////////////////////////
 			}
 		
 		model.addAttribute("check", check);
@@ -152,15 +151,45 @@ public class FranchiseeManagementBean {
 		return "/bosspcuse/franchiseeAddPro";
 	}
 	
+	//가맹점 신청 승인
+	@RequestMapping("franchiseeConfirm.do")
+	public String franchiseeConfirm(int num, String b_name){
+		String b_key = random.random();
+		
+		HashMap map = new HashMap();
+		map.put("num", num);
+		map.put("b_key",b_key);
+		map.put("b_name", b_name);
+		
+		try{
+			sqlMap.update("franchisee.franchiseeConfirm", map);	
+			
+			FranchiseeDataDTO franchiseeDto = null;
+			franchiseeDto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeLastConfirmLog", num);
+			System.out.println(franchiseeDto.getB_key());
+			sqlMap.insert("franchisee.insertFranchiseeInfo", franchiseeDto);
+			
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	        
+			return  "redirect:/franchiseeList.do";	
+		}
+	
 	//가맹점 신청 리스트
 	@RequestMapping("franchiseeList.do")
-	public String franchiseeList(String pageNum , HttpServletRequest request, Model model){
+	public String franchiseeList(String pageNum , HttpServletRequest request, Model model, HttpSession session){
 		
+		//////////////////////////////////////////
 		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenuCheck = 0; //사이드메뉴 를 보여줄건지
 		int sidemenu = 1; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
+		//변수들을 페이지로 전달
+		
+		//현재 로그인한 사용자의 아이디를 불러온다.
+		String id = (String)session.getAttribute("loginId");
 		
 		if (pageNum == null) {
             pageNum = "1";
@@ -170,63 +199,150 @@ public class FranchiseeManagementBean {
         int currentPage = Integer.parseInt(pageNum);
         int startRow = (currentPage - 1) * pageSize + 1; //시작 행번호
         int endRow = currentPage * pageSize; //끝 행 번호
-        int count = 0; //글 갯수 초기화
-        int number = 0; // 글 번호 초기화
+        int count1 = 0; //글 갯수 초기화
+        int count2 = 0; //글 갯수 초기화
 
-        List articleList = null; 
+        List articleList1 = null;
+        List articleList2 = null; 
         
-        count = (Integer)sqlMap.queryForObject("franchisee.getFranchiseeListCount", null); //가맹점 정보의 갯수를 가져온다.
-        if (count > 0) {
+        /////////////////////////////////////////////////////////////////////////////////
+        //사장님이 보유한 가맹점 리스트
+        /////////////////////////////////////////////////////////////////////////////////
+        count1 = (Integer)sqlMap.queryForObject("franchisee.getFranchiseeListCount", id); //가맹점 정보의 갯수를 가져온다.
+        if (count1 > 0) {
         	HashMap map = new HashMap(); //HashMap에 여러가지정보 (시작행번호, 마지막행번호)넣어 한번에 보낸다.
+        	map.put("id", id);
         	map.put("startRow", startRow);
         	map.put("endRow", endRow);
-            articleList = sqlMap.queryForList("franchisee.getFranchiseeList", map); //가맹점 리스트를 뽑아온다.
+            articleList1 = sqlMap.queryForList("franchisee.getFranchiseeList", map); //가맹점 리스트를 뽑아온다.
         } else {
-            articleList = Collections.EMPTY_LIST;
+            articleList1 = Collections.EMPTY_LIST;
         }
 
-        
-		number=count-(currentPage-1)*pageSize; // 글번호
+        /////////////////////////////////////////////////////////////////////////////////
+        //가맹점 신청중인 리스트
+        /////////////////////////////////////////////////////////////////////////////////
+        count2 = (Integer)sqlMap.queryForObject("franchisee.getFranchiseeAddListCount", id); //가맹점 정보의 갯수를 가져온다.
+        if (count2 > 0) {
+            articleList2 = sqlMap.queryForList("franchisee.getFranchiseeAddList", id); //가맹점 리스트를 뽑아온다.
+        } else {
+            articleList2 = Collections.EMPTY_LIST;
+        }       
         
         request.setAttribute("currentPage", new Integer(currentPage));
         request.setAttribute("startRow", new Integer(startRow));
         request.setAttribute("endRow", new Integer(endRow));
-        request.setAttribute("count", new Integer(count));
+        request.setAttribute("count1", new Integer(count1));
+        request.setAttribute("count2", new Integer(count2));
         request.setAttribute("pageSize", new Integer(pageSize));
-		request.setAttribute("number", new Integer(number));
-        request.setAttribute("articleList", articleList);
+        request.setAttribute("articleList1", articleList1);
+        request.setAttribute("articleList2", articleList2);
         
 		return  "/bosspcuse/franchiseeList";	
 	}
+
 	
-	//가맹점 신청 승인
-		@RequestMapping("franchiseeListConfirm.do")
-		public String franchiseeListConfirm(int num, HttpServletRequest request, Model model){
-			
-			int check = 0;
-			
-			
-			String b_key = "";
-			// 8자리 16진수 라이센스키를 가져오는 메서드 실행
-			b_key += random.random();
-			
+	//가맹점 정보
+	@RequestMapping("franchiseeInfo.do")
+	public String franchiseeInfo(String b_name, Model model){
+		FranchiseeDataDTO dto = null;
+		dto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeInfo", b_name);
+		
+		model.addAttribute("dto", dto);
+	        
+			return  "/bosspcuse/franchiseeInfo";	
+		}
+	
+	//가맹점 정보 수정
+	@RequestMapping("franchiseeInfoUpdate.do")
+	public String franchiseeInfoUpdate(String b_name, Model model){
+		FranchiseeDataDTO dto = null;
+		dto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeInfo", b_name);
+		String check = "update"; //update Form 으로 변경
+		model.addAttribute("dto", dto);
+		model.addAttribute("check", check);
+	        
+			return  "/bosspcuse/franchiseeInfoUpdate";	
+		}
+	
+	//가맹점 정보 수정
+	@RequestMapping("franchiseeInfoUpdatePro.do")
+	public String franchiseeInfoUpdatePro(HttpSession session,FranchiseeDataDTO dto, Model model) throws IOException{
+		
+		//현재 로그인한 사용자의 아이디를 불러온다.
+		String id = (String)session.getAttribute("loginId");
+		
+		try{
+			sqlMap.insert("franchisee.insertFranchiseeUpdateLog", dto);
+			////////////////////////////////////////////////////////////
+			//TEXT파일로 로그를 남기는 코드
+			String fileName = "\\franchisee\\updateSuccessLog\\updateSuccessLog.txt";
+			String fileCheck = "franchiseeUpdate";
+			dto.setB_id(id);
+			read.readDb(dto, fileName, fileCheck);
+			////////////////////////////////////////////////////////////
+			sqlMap.update("franchisee.updateFranchiseeInfo", dto);
+		}catch(Exception e){
+			e.printStackTrace();
+			////////////////////////////////////////////////////////////
+			//TEXT파일로 로그를 남기는 코드
+			String fileName = "\\franchisee\\updateErrorLog\\updateErrorLog.txt";
+			String fileCheck = "franchiseeUpdate";
+			dto.setB_id(id);
+			read.readDb(dto, fileName, fileCheck);
+			////////////////////////////////////////////////////////////
+		}
+	        
+			return  "redirect:/franchiseeList.do";	
+		}	
+	
+	//가맹점 삭제 신청
+	@RequestMapping("franchiseeDelete.do")
+	public String frachiseeDelete(HttpSession session, HttpServletRequest request,  Model model){
+
+	        
+			return  "/bosspcuse/franchiseeDelete";	
+		}	
+	
+	//가맹점 삭제 신청
+	@RequestMapping("franchiseeDeletePro.do")
+	public String frachiseeDeletePro(String password, String reason, String b_key, HttpSession session,  Model model) throws IOException{
+		//현재 로그인한 사용자의 아이디를 불러온다.
+		String id = (String)session.getAttribute("loginId");
+		
+		int check = pwcheck.pwCheck2(password,id);
+		System.out.println(b_key);
+		if(check == 1){
 			HashMap map = new HashMap();
+			map.put("pw", password);
+			map.put("reason", reason);
 			map.put("b_key", b_key);
-			map.put("num", num);
+
+		FranchiseeDataDTO dto = null;	
 			
 			try{
-				sqlMap.update("franchisee.franchiseeConfirm", map);	
-				check = 1;
+				sqlMap.insert("franchisee.insertFranchiseeDeleteLog", map);
+				dto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeDeleteLogBkey", b_key);
+				
+				////////////////////////////////////////////////////////////
+				//TEXT파일로 로그를 남기는 코드
+				String fileName = "\\franchisee\\deleteSuccessLog\\deleteSuccessLog.txt";
+				String fileCheck = "franchiseeDelete";
+				read.readDb(dto, fileName, fileCheck);
+				////////////////////////////////////////////////////////////
+				sqlMap.delete("franchisee.deleteFranchisee", map);
 			}catch(Exception e){
-				check = 2;
+				e.printStackTrace();
+				////////////////////////////////////////////////////////////
+				//TEXT파일로 로그를 남기는 코드
+				String fileName = "\\franchisee\\deleteErrorLog\\deleteErrorLog.txt";
+				String fileCheck = "franchiseeDelete";
+				read.readDb(dto, fileName, fileCheck);
+				////////////////////////////////////////////////////////////
 			}
-			
-			
-			int franchiseeListConfirm = 1;
-			model.addAttribute("franchiseeListConfirm", franchiseeListConfirm);
-			model.addAttribute("check",check);
+		}
 	        
-			return  "/bosspcuse/franchiseeListPro";	
+			return  "redirect:/franchiseeList.do";	
 		}
 	
 }

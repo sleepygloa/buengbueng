@@ -36,7 +36,7 @@
 	      <td align="center"  width="100" >IP</td>    
 	    </tr>
 	
-	   <c:forEach var="article" items="${articleList}">
+	   <c:forEach var="payment" items="${payment}">
 	   <tr height="30">
 	    <td align="center"  width="50" >
 		  <c:out value="${number}"/>
@@ -58,7 +58,7 @@
 			  </c:if>
 		</td>
 	    <td align="center"  width="100"> 
-	       <a href="mailto:${article.email}">${article.writer}</a>
+	       <a href="mailto:${payment.idx}">${article.writer}</a>
 		</td>
 	    <td align="center"  width="150">${article.reg_date}
 		</td>

@@ -3,7 +3,7 @@
 <sqlMap namespace="checkInfo">
 
 	<!-- 아이디로 아이디와 비밀번호를 확인 -->
-	<select id="validCheck" resultClass="userDto" parameterClass="userDto">
+	<select id="validCheck" resultClass="userDto" parameterClass="String">
 		SELECT  id, pw from userInfo WHERE id = #id#;
 	</select>
 	
@@ -19,4 +19,9 @@
 	<select id="SearchPw" parameterClass="userDto" resultClass="String">
 		select pw from userInfo where id=#id# and name=#name# and phone = #phone#;
 	</select>
+	
+		<select id="pwCheck" resultClass="String" parameterClass="String">
+		select pw from userInfo where id=#id# ;
+	</select>
+	
 </sqlMap>

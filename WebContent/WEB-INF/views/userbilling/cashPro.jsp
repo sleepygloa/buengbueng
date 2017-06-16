@@ -46,7 +46,7 @@
 							</tr>
 							<tr>
 								<td class="point_have_list_td">기존 보유 포인트 </td>
-								<td class="point_have_list_td2">${info1.cash}원</td><!-- 기존회원테이블에서 포인트 가지고 올것 -->
+								<td class="point_have_list_td2">${info1.money}원</td><!-- 기존회원테이블에서 포인트 가지고 올것 -->
 							</tr>
 							<tr>
 								<td class="point_have_list_td">충전 포인트 </td>
@@ -54,7 +54,7 @@
 							</tr>
 							<tr>
 								<td class="point_have_list_td">결제 완료 후 포인트 </td>
-								<td class="point_have_list_td2">${info1.cash+cash}원</td>
+								<td class="point_have_list_td2">${info1.money+cash}원</td>
 								
 							</tr>		
 						</table>

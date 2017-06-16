@@ -23,7 +23,7 @@
 			</tr >
 			<c:forEach items="${payment}" var="payment">
 			<tr class="table_content">
-				<td><p>${payment.p_num}</p></td>
+				<td><p>${payment.idx}</p></td>
 				<td><p>${payment.payment_date}</p></td>
 				<td><p>${payment.payment_type}</p></td>
 				<td><p>${payment.paying_name}</p></td>
