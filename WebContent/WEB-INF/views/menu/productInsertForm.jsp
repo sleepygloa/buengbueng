@@ -15,16 +15,16 @@
     	<form action="productInsertPro.do" method="post" name="productInsertForm">
     		<table>					
     			<tr>	
-    			<td>제품명</td>
+    			<td>제품명   <input type="hidden" name="l_key" value="${l_key}"></td>
     			<td>
-    			<input type="text" name="name" placeholder="제품명 입력">
-    			<select name="menu_select" onchange="productSelect();">
+    			
+    			<select name="name">
     				<option selected="selected">등록 메뉴 보기</option>
     				<c:forEach var="namelist" items="${nameList}" >
-    				<option name="name" value="${namelist.name}" >${namelist.name}</option>
+    				<option  value="${namelist.name}" >${namelist.name}</option>
     				</c:forEach>
     			</select>
-    				
+    					
     			</td>
     			</tr>
     			
@@ -38,7 +38,6 @@
     			<td><input type="text" name="last" placeholder="유통기한 입력">	</td>
     			</tr>
     			<tr><td><input type="submit" value="추 가"/>
-    				<input type="hidden" name="l_key" value="${l_key}">
     			</td>
     			</tr>    		
     		</table>

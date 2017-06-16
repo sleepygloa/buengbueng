@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class SellBuyLogDTO {
 	private String name;
-	private int code;
+	private String code;
 	private Date productregistdate;
 	private Date productsaleregistdate;
 	private String l_key;
@@ -21,10 +21,10 @@ public class SellBuyLogDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getCode() {
+	public String getCode() {
 		return code;
 	}
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 	public Date getProductregistdate() {

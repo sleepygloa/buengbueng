@@ -6,13 +6,13 @@
     <head>
     <title>재 고 수 정</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
+    
     </head>
     
     
     <body>
     	<div>
-    	<form action="productModifyPro.do" method="post" name="productModifyForm">
+    	<form action="productModifyPro.do" >
     		<table>					
     			<tr>	
     			<td>제품명</td>
@@ -24,7 +24,7 @@
     			
     			<tr>	
     			<td>바코드번호</td>
-    			<td><input type="text" name="code" value="${pdto.code}">	
+    			<td><input type="text" name="code" maxlength="13" value="${pdto.code}">	
     				<input type="hidden" name="beforeCode" value="${pdto.code}">
     			</td>
     			</tr>

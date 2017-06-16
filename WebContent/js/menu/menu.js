@@ -7,14 +7,6 @@ function franchiseeSelect(){
 }
 
 
-
-
-
-/* 메뉴에 저장된 메뉴명만 뜰 수 있도록 (추가) */
-function productSelect(){
-	document.productInsertForm.name.value = document.productInsertForm.menu_select.value;
-}
-
 /* 위와 동일 (수정때) */
 function productSelect2(){
 	document.productModifyForm.name.value = document.productModifyForm.menu_select.value;
