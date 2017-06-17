@@ -52,11 +52,20 @@
             </Text>
          </children>
       </HBox>
-      <Button layoutX="62.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#menuOrder" text="메뉴 주문">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+      <HBox layoutX="79.0" layoutY="223.0" spacing="20.0">
+         <children>
+            <Button mnemonicParsing="false" onMouseClicked="#menuOrder" text="메뉴 주문">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onMouseClicked="#rentOrder" text="물품 대여">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
       <Text fx:id="alert" fill="RED" layoutX="162.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="403.0000001192093">
          <font>
             <Font name="System Bold" size="24.0" />

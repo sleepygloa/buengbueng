@@ -1,5 +1,6 @@
 package fx.user.bean;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import index.all.bean.FranchiseeModuleDataDTO;
+import index.all.bean.ModuleDataDTO;
 
 @Controller
 public class FxBossERPBean {
@@ -27,7 +29,8 @@ public class FxBossERPBean {
 					name.append(",");
 				}
 			}
-			model.addAttribute("name", name.toString());
+
+			model.addAttribute("name", URLEncoder.encode(name.toString(),"UTF-8"));
 			FranchiseeModuleDataDTO dto = null;
 			if(fdto.getM_name() == null){
 				dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModule",fdto.getB_key());
@@ -55,8 +58,8 @@ public class FxBossERPBean {
 	
 	@RequestMapping("fxSetModule.do")
 	public String fxSetModule(Model model){
-		String moduleName = (String)sqlMap.queryForObject("module.getOfferMenu", null);
-		model.addAttribute("moduleName", moduleName);
+		ModuleDataDTO moduleName = (ModuleDataDTO)sqlMap.queryForObject("module.getOfferMenu", null);
+		model.addAttribute("moduleName", moduleName.getModuleName());
 		return "/fxBossERP/fxSetModule";
 	}
 	
@@ -77,6 +80,19 @@ public class FxBossERPBean {
 	@RequestMapping("fxRemoveModule.do")
 	public String fxRemoveModule(FranchiseeModuleDataDTO fdto, Model model){
 		sqlMap.delete("module.deleteModule", fdto);
+		FranchiseeModuleDataDTO dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModule",fdto.getB_key());
+		StringBuffer module = new StringBuffer();
+		module.append(dto.getModule());
+		model.addAttribute("module", module.toString());
+		StringBuffer menu = new StringBuffer();
+		menu.append(dto.getMenu());
+		model.addAttribute("menu", menu.toString());
+		return "/fxBossERP/fxGetModule";
+	}
+	
+	@RequestMapping("fxModiModulePro.do")
+	public String fxModiModulePro(FranchiseeModuleDataDTO fdto, Model model){
+		sqlMap.update("module.updateModule", fdto);
 		FranchiseeModuleDataDTO dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModule",fdto.getB_key());
 		StringBuffer module = new StringBuffer();
 		module.append(dto.getModule());

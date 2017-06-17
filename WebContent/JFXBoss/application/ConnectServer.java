@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -31,7 +32,7 @@ public class ConnectServer {
 			out.flush();
 
 			// 응답받은 메세지의 길이만큼 버퍼를 생성하여 읽고, "UTF-8"로 디코딩해서 읽어들임
-			BufferedReader br = new BufferedReader( new InputStreamReader( conn.getInputStream(), "UTF-8" ), conn.getContentLength());
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"), conn.getContentLength());
 			String buf;
 			StringBuffer json = new StringBuffer();
 			// 한 라인씩 읽음
@@ -41,10 +42,10 @@ public class ConnectServer {
 			// 스트림 닫음
 			out.close();
 			br.close();
-			
+
 			// 서버에서 전달해준 String을 JSON으로 변경 후 JSON에서 값 꺼내서 사용
 			JSONParser parser = new JSONParser();
-			Object obj = parser.parse(json.toString());
+			Object obj = parser.parse(URLDecoder.decode(json.toString(),"UTF-8"));
 			jsonObj = (JSONObject)obj;
 			
 		} catch (Exception e) {

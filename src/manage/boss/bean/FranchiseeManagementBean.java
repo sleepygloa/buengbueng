@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import index.all.bean.FranchiseeModuleDataDTO;
+import index.all.bean.ModuleDataDTO;
 import login.user.bean.BossInfoDataDTO;
 import login.user.bean.UserInfoDataDTO;
 import superclass.all.bean.CheckInfo;
@@ -168,6 +170,48 @@ public class FranchiseeManagementBean {
 			franchiseeDto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeLastConfirmLog", num);
 			System.out.println(franchiseeDto.getB_key());
 			sqlMap.insert("franchisee.insertFranchiseeInfo", franchiseeDto);
+			
+			// 혜민 코드 추가 시작
+			HashMap param = new HashMap();
+			int pcCount = Integer.parseInt(franchiseeDto.getB_pccount());
+			param.put("b_key", franchiseeDto.getB_key());
+			
+			StringBuffer sb = new StringBuffer();
+			for(int i=1; i<=pcCount; i++){
+				sb.append("0");
+				if(param.get("num") != null){
+					param.remove("num");
+				}
+				if(i!=pcCount){
+					sb.append(",");
+				}
+				param.put("num", i);
+				sqlMap.insert("pcInfo.insertPcInfoDefault", param);
+				sqlMap.insert("pcInfo.insertConputerInfoDefault", param);
+				sqlMap.insert("pcInfo.insertMonitorInfoDefault", param);
+				sqlMap.insert("pcInfo.insertKeyboardInfoDefault", param);
+				sqlMap.insert("pcInfo.insertMouseInfoDefault", param);
+				sqlMap.insert("pcInfo.insertSpeakerInfoDefault", param);
+			}
+			param.remove("num");
+			param.put("check", sb.toString());
+			sqlMap.insert("bossERP.addSeatState", param);
+			ModuleDataDTO defaultModule = (ModuleDataDTO)sqlMap.queryForObject("module.getOfferMenu", null);
+			FranchiseeModuleDataDTO module = new FranchiseeModuleDataDTO();
+			module.setB_key(franchiseeDto.getB_key());
+			module.setM_name("기본");
+			module.setMenu(defaultModule.getModuleName());
+			sb = new StringBuffer();
+			for(int i=0; i<defaultModule.getModuleCount(); i++){
+				sb.append("1");
+				if(i != defaultModule.getModuleCount()-1){
+					sb.append(",");
+				}
+			}
+			module.setModule(sb.toString());
+			sqlMap.insert("module.setModule", module);
+			// 혜민 코드 추가 끝
+			
 			
 		}catch (Exception e){
 			e.printStackTrace();

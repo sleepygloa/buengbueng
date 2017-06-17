@@ -30,9 +30,13 @@
 	<delete id="deleteModule" parameterClass="moduleDTO">
 		delete from franchiseeModule where m_name = #m_name# and b_key = #b_key#;
 	</delete>
+	<!-- 사용자 모듈 수정하기 -->
+	<update id="updateModule">
+		update franchiseeModule set module = #module#, menu = #menu# where m_name = #m_name# and b_key = #b_key#;
+	</update>
 <!-- ======================================================================================================= -->
 	<!-- 사용자에게 제공하는 메뉴 가져오기 -->
-	<select id="getOfferMenu" resultClass="String">	
-		select moduleName from module where num = (select max(num) from module);
+	<select id="getOfferMenu" resultClass="moduleDefaultDTO">	
+		select * from module where num = (select max(num) from module);
 	</select>
 </sqlMap>

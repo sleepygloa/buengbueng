@@ -27,4 +27,6 @@
     <typeAlias alias="rentDTO" type="manage.boss.bean.RentDataDTO"/>
     <typeAlias alias="rentProdDTO" type="manage.boss.bean.RentProductDataDTO"/>
     <typeAlias alias="rentLogDTO" type="manage.boss.bean.RentLogDataDTO"/>    
+    <typeAlias alias="moduleDTO" type="index.all.bean.FranchiseeModuleDataDTO"/>
+    <typeAlias alias="moduleDefaultDTO" type="index.all.bean.ModuleDataDTO"/> 
 </sqlMap>

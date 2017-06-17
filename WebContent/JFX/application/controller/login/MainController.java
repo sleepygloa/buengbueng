@@ -5,11 +5,13 @@ import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.net.URLEncoder;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import application.ConnectServer;
 import application.Main;
 import application.UseCount;
+import application.controller.order.RentPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import user.info.dto.UserInfo;
 
 public class MainController {
@@ -27,6 +30,7 @@ public class MainController {
 	@FXML private Text alert;
 	private static Text point2;
 	private static Text useTime2;
+	private static Stage rentStage;
 	
 	// 메인창(로그인 후 뜨는 창) 나타날 때 실행됨
 	@FXML
@@ -59,6 +63,25 @@ public class MainController {
 		}else{
 			alert.setText("충전 후 이용해주십시오.");
 			count();
+		}
+	}
+	
+	// 
+	public void rentOrder(){
+		try {
+			String param="key="+URLEncoder.encode("k93h11m16","UTF-8");
+			String urlInfo ="http://localhost:8080/buengbueng/fxGetRentList.do";
+			JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+
+			RentPane rent = new RentPane();
+			Scene scene = new Scene(rent.getRentPane((JSONArray)jsonObj.get("rent")));
+			if(rentStage == null){
+				rentStage = new Stage();
+			}
+			rentStage.setScene(scene);
+			rentStage.show();
+		} catch (IOException e) {
+			// 추후 수정
 		}
 	}
 	
@@ -103,5 +126,9 @@ public class MainController {
 	
 	public static Text getPoint(){
 		return point2;
+	}
+	
+	public static Stage getStage(){
+		return rentStage;
 	}
 }

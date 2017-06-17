@@ -26,11 +26,9 @@ public class SeatMaterialsBean {
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
 
-	
-	private PcInfoDataDTO getPcInfo(String id, int pcNum){
-		BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
+	private PcInfoDataDTO getPcInfo(String b_key, int pcNum){
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("key",bdto.getB_key());
+		map.put("key", b_key);
 		map.put("pcNum", pcNum);
 		PcInfoDataDTO pdto = (PcInfoDataDTO)sqlMap.queryForObject("pcInfo.getPcInfo", map);
 		return pdto;
@@ -52,24 +50,25 @@ public class SeatMaterialsBean {
 		return;
 	}
 	
-	private void checkAddModi(String id, int num, String os, String ip, ComputerDataDTO cdto, MonitorDataDTO mdto, KeyboardDataDTO kdto,
+	private void checkAddModi(String b_key, int num, String os, String ip, ComputerDataDTO cdto, MonitorDataDTO mdto, KeyboardDataDTO kdto,
 			MouseDataDTO modto, SpeakerDataDTO sdto){
-		PcInfoDataDTO pdto = getPcInfo(id, num);
+		PcInfoDataDTO pdto = getPcInfo(b_key, num);
 		if(pdto != null){
 			pdto.setOs(os);
 			pdto.setIp(ip);
-			addModifyPcInfo(pdto,cdto,mdto,kdto,modto,sdto,true,id);
+			addModifyPcInfo(pdto,cdto,mdto,kdto,modto,sdto,true,b_key);
 		}else{
 			PcInfoDataDTO dto = new PcInfoDataDTO();
+			dto.setB_key(b_key);
 			dto.setNum(num);
 			dto.setOs(os);
 			dto.setIp(ip);
-			addModifyPcInfo(dto,cdto,mdto,kdto,modto,sdto,false,id);
+			addModifyPcInfo(dto,cdto,mdto,kdto,modto,sdto,false,b_key);
 		}
 	}
 	
 	private void addModifyPcInfo(PcInfoDataDTO dto, ComputerDataDTO cdto, MonitorDataDTO mdto, KeyboardDataDTO kdto,
-			MouseDataDTO modto, SpeakerDataDTO sdto, boolean modi, String id){
+			MouseDataDTO modto, SpeakerDataDTO sdto, boolean modi, String b_key){
 		try{
 			if(modi){
 				addPcNumBossKey(dto,cdto,mdto,kdto,modto,sdto);
@@ -79,10 +78,8 @@ public class SeatMaterialsBean {
 				sqlMap.update("pcInfo.modifyKeyboardInfo", kdto);
 				sqlMap.update("pcInfo.modifyMouseInfo", modto);
 				sqlMap.update("pcInfo.modifySpeakerInfo", sdto);
-				setPcInfoLog(dto.getNum(), dto.getB_key(), "�닔�젙");
+				setPcInfoLog(dto.getNum(), b_key, "수정");
 			}else{
-				BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
-				dto.setB_key(bdto.getB_key());
 				addPcNumBossKey(dto,cdto,mdto,kdto,modto,sdto);
 				sqlMap.insert("pcInfo.insertPcInfo", dto);
 				sqlMap.insert("pcInfo.insertConputerInfo", cdto);
@@ -90,10 +87,10 @@ public class SeatMaterialsBean {
 				sqlMap.insert("pcInfo.insertKeyboardInfo", kdto);
 				sqlMap.insert("pcInfo.insertMouseInfo", modto);
 				sqlMap.insert("pcInfo.insertSpeakerInfo", sdto);
-				setPcInfoLog(dto.getNum(), dto.getB_key(), "異붽�");
+				setPcInfoLog(dto.getNum(), b_key, "추가");
 			}
 		} catch (Exception e) {
-			// 異뷀썑...�닔�젙
+			// 추후 수정
 		}
 	}
 
@@ -113,57 +110,72 @@ public class SeatMaterialsBean {
 		sqlMap.insert("pcInfo.setPcInfoLog", plog);
 	}
 	
-	
-	/* pc諛� 醫뚯꽍 愿�由� */
-	@RequestMapping("seatDispose.do")
-	public String seatDispose(HttpSession session, Model model){
+	/* pc방 좌석 정보 메인*/
+	@RequestMapping("seatDisposeMain.do")
+	public String seatDisposeMain(HttpSession session, Model model){
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
 		int sidemenu = 3; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
-		String id = (String) session.getAttribute("loginId");
-		BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);		
-		model.addAttribute("count",bdto.getB_pccount());
 		
+		String id = (String)session.getAttribute("loginId");
+		ArrayList<BossInfoDataDTO> bdto = (ArrayList<BossInfoDataDTO>)sqlMap.queryForList("bossERP.getBossInfo", id);
+		model.addAttribute("franchisee", bdto);
+		return "/bossERP/seatMaterials/seatDisposeMain";
+	}
+	
+	/* pc방 좌석 관리 */
+	@RequestMapping("seatDispose.do")
+	public String seatDispose(String b_key, Model model){
+		BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getFranchiseeOne",b_key);		
+		model.addAttribute("count",bdto.getB_pccount());
+		model.addAttribute("b_key",bdto.getB_key());
 		return "/bossERP/seatMaterials/seatDispose";
 	}
 	
-	/* pc諛� 醫뚯꽍 異붽� 諛� �궘�젣 */
+	/* pc방 좌석 추가 및 삭제 */
 	@RequestMapping("seatAddDel.do")
-	public String seatAdd(HttpSession session, HttpServletRequest request, Model model){
-		String id = (String) session.getAttribute("loginId");
+	public String seatAdd(String b_key, HttpServletRequest request, Model model){
 		BossInfoDataDTO bdto = null;
 		int pcCount = 0;
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("id", id);
+		map.put("b_key", b_key);
 		if(request.getParameter("what").equals("add")){
 			map.put("pcCount", "1");
 			sqlMap.update("bossERP.addSeat", map);
-			bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
+			bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getFranchiseeOne", b_key);
 			pcCount = Integer.parseInt(bdto.getB_pccount());
+			map.remove("pcCount");
+			map.put("num",pcCount);
+			sqlMap.insert("pcInfo.insertPcInfoDefault", map);
+			sqlMap.insert("pcInfo.insertConputerInfoDefault", map);
+			sqlMap.insert("pcInfo.insertMonitorInfoDefault", map);
+			sqlMap.insert("pcInfo.insertKeyboardInfoDefault", map);
+			sqlMap.insert("pcInfo.insertMouseInfoDefault", map);
+			sqlMap.insert("pcInfo.insertSpeakerInfoDefault", map);
 		}else{
-			bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
+			bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getFranchiseeOne", b_key);
 			String[] buf = request.getParameter("pcNums").split(",");
 			if(buf[buf.length-1].equals("")){
 				map.put("pcCount", "1");
 				sqlMap.update("bossERP.delSeat", map);
 				PcInfoDataDTO pdto = new PcInfoDataDTO();
-				pdto.setB_key(bdto.getB_key());
-				int lastNum = (Integer)sqlMap.queryForObject("pcInfo.getLastPcNum", bdto.getB_key());
+				pdto.setB_key(b_key);
+				int lastNum = (Integer)sqlMap.queryForObject("pcInfo.getLastPcNum", b_key);
 				pdto.setNum(lastNum);
-				setPcInfoLog(lastNum, bdto.getB_key(), "�궘�젣");
+				setPcInfoLog(lastNum, bdto.getB_key(), "삭제");
 				sqlMap.delete("pcInfo.delPcInfo", pdto);
 				pcCount = Integer.parseInt(bdto.getB_pccount())-1;
 			}else{
 				for(int i = 0; i<buf.length; i++){
 					map.put("pcCount", "1");
-					setPcInfoLog(Integer.parseInt(buf[i]), bdto.getB_key(), "�궘�젣");
+					setPcInfoLog(Integer.parseInt(buf[i]), b_key, "삭제");
 					sqlMap.update("bossERP.delSeat", map);
-					PcInfoDataDTO pdto = getPcInfo(id, Integer.parseInt(buf[i]));
+					PcInfoDataDTO pdto = getPcInfo(b_key, Integer.parseInt(buf[i]));
 					sqlMap.delete("pcInfo.delPcInfo", pdto);
 				}
-				ArrayList<PcInfoDataDTO> pcAll = (ArrayList)sqlMap.queryForList("pcInfo.getPcInfoAll", bdto.getB_key());
+				ArrayList<PcInfoDataDTO> pcAll = (ArrayList)sqlMap.queryForList("pcInfo.getPcInfoAll", b_key);
 				pcCount = pcAll.size();
 				for(int i = 0; i < pcAll.size(); i++){
 					if(i != pcAll.size()-1){
@@ -173,7 +185,7 @@ public class SeatMaterialsBean {
 							map.put("after_num", pcAll.get(i).getNum()+1);
 							map.put("before_num", pcAll.get(i+1).getNum());
 							sqlMap.update("pcInfo.modifyPcNum", map);
-							pcAll = (ArrayList)sqlMap.queryForList("pcInfo.getPcInfoAll", bdto.getB_key());
+							pcAll = (ArrayList)sqlMap.queryForList("pcInfo.getPcInfoAll", b_key);
 						}
 					}
 				}
@@ -188,34 +200,43 @@ public class SeatMaterialsBean {
 			}
 		}
 		map.put("seatCheck", sb.toString());
-		map.put("key",bdto.getB_key());
+		map.put("key",b_key);
 		sqlMap.update("bossERP.modiSeatCount", map);
 		model.addAttribute("count",pcCount);
 		return "/bossERP/seatMaterials/seatUpdate";
 	}
 	
-	/* pc諛� 醫뚯꽍 �씠�슜 �쁽�솴 */
-	@RequestMapping("seatState.do")
-	public String seatState(HttpSession session, String page, Model model){
+	/* pc방 좌석 이용 현황 메인*/
+	@RequestMapping("seatStateMain.do")
+	public String seatStateMain(HttpSession session, Model model){
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
 		int sidemenu = 3; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
-		String id = (String) session.getAttribute("loginId");
-		BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);		
-		SeatStateDataDTO sdto = (SeatStateDataDTO)sqlMap.queryForObject("bossERP.getSeatCount", bdto.getB_key());
-		model.addAttribute("count",bdto.getB_pccount());
+		
+		String id = (String)session.getAttribute("loginId");
+		ArrayList<BossInfoDataDTO> bdto = (ArrayList<BossInfoDataDTO>)sqlMap.queryForList("bossERP.getBossInfo", id);
+		model.addAttribute("franchisee", bdto);
+		return "/bossERP/seatMaterials/seatStateMain";
+	}
+	
+	/* pc방 좌석 이용 현황 */
+	@RequestMapping("seatState.do")
+	public String seatState(String b_key, Model model){
+		SeatStateDataDTO sdto = (SeatStateDataDTO)sqlMap.queryForObject("bossERP.getSeatCount", b_key);
+		int pcCount = (Integer)sqlMap.queryForObject("bossERP.getPcCount", b_key);
+		model.addAttribute("count",pcCount);
 		if(sdto != null){
 			String[] seatCon = sdto.getSeatCheck().split(",");
-			ArrayList<HashMap<String,String>> param = (ArrayList)sqlMap.queryForList("useSeat.getUseUserId", bdto.getB_key());
+			ArrayList<HashMap<String,String>> param = (ArrayList<HashMap<String,String>>)sqlMap.queryForList("useSeat.getUseUserId", b_key);
 			ArrayList<String> useSeatId = new ArrayList<String>();
 			ArrayList<String> useSeatRent = new ArrayList<String>();
 			ArrayList<Integer> useSeatNum = new ArrayList<Integer>();
 			if(param != null){
 				for(int i=0; i<param.size(); i++){
 					HashMap<String,Object> a = new HashMap();
-					a.put("key",bdto.getB_key());
+					a.put("key",b_key);
 					a.put("ip",param.get(i).get("ip"));
 					int num = (int)sqlMap.queryForObject("bossERP.getPcNum",a);
 					useSeatNum.add(num);
@@ -240,20 +261,17 @@ public class SeatMaterialsBean {
 			model.addAttribute("seatCon",seatCon);
 			model.addAttribute("useSeatNum",useSeatNum);
 		}
-		if(page == null){
-			return "/bossERP/seatMaterials/seatState";
-		}else{
-			return "/bossERP/seatMaterials/seatState2";
-		}
+		
+		return "/bossERP/seatMaterials/seatState";
 	}
 
-	/* pc諛� 醫뚯꽍 �젙蹂� �솗�씤 */
+	/* pc방 좌석 정보 확인 */
 	@RequestMapping("getSetPcInfo.do")
-	public String getPcInfo(String pcNum, int page, HttpSession session, Model model){
-		String id = (String)session.getAttribute("loginId");
+	public String getPcInfo(String pcNum, int page, String b_key, Model model){
 		boolean all = false;
 		if(page != 2){
-			PcInfoDataDTO pdto = getPcInfo(id, Integer.parseInt(pcNum));
+			PcInfoDataDTO pdto = getPcInfo(b_key, Integer.parseInt(pcNum));
+			
 			if(pdto != null){
 				ComputerDataDTO cdto = (ComputerDataDTO)sqlMap.queryForObject("pcInfo.getComputerInfo",pdto);
 				MonitorDataDTO mdto = (MonitorDataDTO)sqlMap.queryForObject("pcInfo.getMonitorInfo",pdto);
@@ -275,28 +293,30 @@ public class SeatMaterialsBean {
 			return "/bossERP/seatMaterials/getPcInfo";
 		}else{
 			model.addAttribute("all", all);
+			model.addAttribute("b_key", b_key);
 			return "/bossERP/seatMaterials/setPcInfo";
 		}
 	}
 	
-	/* pc諛� 醫뚯꽍 �젙蹂� �씪愿� 異붽� 諛� �닔�젙 */
+	/* pc방 좌석 정보 일괄 추가 및 수정 */
 	@RequestMapping("addModiPcInfo.do")
 	public String modiPcInfo(PcInfoDataDTO dto, String pcNum, ComputerDataDTO cdto, MonitorDataDTO mdto, KeyboardDataDTO kdto,
-			MouseDataDTO modto, SpeakerDataDTO sdto, HttpSession session, HttpServletRequest request){
+			MouseDataDTO modto, SpeakerDataDTO sdto, HttpServletRequest request, Model model){
 		try {
 			cdto.setC_date(java.sql.Date.valueOf(request.getParameter("computer_date")));
 			mdto.setM_date(java.sql.Date.valueOf(request.getParameter("monitor_date")));
-			String id = (String)session.getAttribute("loginId");
 			if(pcNum == null){
-				checkAddModi(id, dto.getNum(), request.getParameter("os"), request.getParameter("ip"), cdto, mdto, kdto, modto, sdto);
+				checkAddModi(dto.getB_key(), dto.getNum(), request.getParameter("os"), request.getParameter("ip"), cdto, mdto, kdto, modto, sdto);
 			}else{
 				String[] buf = pcNum.split(",");
 				for(int i = 0; i < buf.length; i++){
-					checkAddModi(id, Integer.parseInt(buf[i]), request.getParameter("os"), request.getParameter("ip"), cdto, mdto, kdto, modto, sdto);
+					checkAddModi(dto.getB_key(), Integer.parseInt(buf[i]), request.getParameter("os"), request.getParameter("ip"), cdto, mdto, kdto, modto, sdto);
 				}
 			}
 		} catch (Exception e) {
-			// 異뷀썑...�닔�젙
+			// 추후 수정
+		} finally{
+			model.addAttribute("b_key", dto.getB_key());
 		}
 		return "/bossERP/seatMaterials/modifyPcInfo";
 	}

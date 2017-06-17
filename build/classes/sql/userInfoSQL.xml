@@ -47,7 +47,7 @@
 	
 	<!-- 알바가 사장님을 찾을 겁니다 -->
 	<select id="searchBossId" parameterClass="String" resultClass="String">
-		select * from bossInfo where b_id=#e_bossid#;
+		select * from franchiseeInfo where b_id=#e_bossid#;
 	</select>
 	
 	<!-- 회원 등급 사장으로 업그레이드 -->

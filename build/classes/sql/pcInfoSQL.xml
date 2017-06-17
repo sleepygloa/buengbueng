@@ -97,6 +97,31 @@
 		insert into speaker values(#s_num#,#s_bossKey#,#s_code#,#s_company#,#s_name#,#s_connector#);
 	</insert>
 <!-- ============================================================================================================================================== -->
+	<!-- 좌석 기본 정보 추가 -->
+	<insert id="insertPcInfoDefault" parameterClass="java.util.HashMap">
+		insert into pcInfo(num,b_key) values(#num#,#b_key#);
+	</insert>
+	<!-- 좌석 본체 기본 정보 추가 -->
+	<insert id="insertConputerInfoDefault" parameterClass="java.util.HashMap">
+		insert into computer(c_num,c_bossKey,c_date) values(#num#,#b_key#,curdate());
+	</insert>
+	<!-- 좌석 모니터 기본 정보 추가 -->
+	<insert id="insertMonitorInfoDefault" parameterClass="java.util.HashMap">
+		insert into monitor(m_num,m_bossKey,m_date) values(#num#,#b_key#,curdate());
+	</insert>
+	<!-- 좌석 키보드 기본 정보 추가 -->
+	<insert id="insertKeyboardInfoDefault" parameterClass="java.util.HashMap">
+		insert into keyboard(k_num,k_bossKey) values(#num#,#b_key#);
+	</insert>
+	<!-- 좌석 마우스 기본 정보 추가 -->
+	<insert id="insertMouseInfoDefault" parameterClass="java.util.HashMap">
+		insert into mouse(mo_num,mo_bossKey) values(#num#,#b_key#);
+	</insert>
+	<!-- 좌석 스피커 기본 정보 추가 -->
+	<insert id="insertSpeakerInfoDefault" parameterClass="java.util.HashMap">
+		insert into speaker(s_num,s_bossKey) values(#num#,#b_key#);
+	</insert>
+<!-- ============================================================================================================================================== -->
 	<!-- 좌석 정보 지우기 -->
 	<delete id="delPcInfo" parameterClass="pcInfoDto">
 		delete from pcInfo where b_key = #b_key# and num = #num#;

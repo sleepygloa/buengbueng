@@ -74,7 +74,7 @@ public class LoginController {
                 InetAddress local = InetAddress.getLocalHost();
                 String ip = local.getHostAddress();
                 String param="id="+URLEncoder.encode(id.getText(),"UTF-8")+"&pw="+URLEncoder.encode(pw.getText(),"UTF-8")+"&ip="+
-                        URLEncoder.encode(ip,"UTF-8")+"&key="+URLEncoder.encode("k93h11m16","UTF-8");
+                        URLEncoder.encode(ip,"UTF-8")+"&key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8");
 				String urlInfo = "http://localhost:8080/buengbueng/fxLoginPro.do";
 				JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 				
@@ -84,18 +84,10 @@ public class LoginController {
 				if(!id.isEmpty() && !id.equals("fail")){
 					// 사용자 정보 저장
 					UserInfo.getInstance().setId(id);
-					UserInfo.getInstance().setPoint(Double.parseDouble((String)jsonObj.get("point")));
 					UserInfo.getInstance().setGrade(Integer.parseInt((String)jsonObj.get("grade")));
 					UserInfo.getInstance().setLoginTime((String)jsonObj.get("loginTime"));
-					UserInfo.getInstance().setPcNum((String)jsonObj.get("pcNum"));
 					Parent main = null;
-					// 등급이 사용자(3)이면
-					if(UserInfo.getInstance().getGrade() == 3){
-						// 메인화면 레이아웃
-						main =  FXMLLoader.load(getClass().getResource("/application/controller/login/MainApp.fxml"));
-					}else{
-						main =  FXMLLoader.load(getClass().getResource("/application/controller/login/LoginApp.fxml"));
-					}
+					main =  FXMLLoader.load(getClass().getResource("/application/controller/login/BossMainApp.fxml"));
 					// 메인화면 레이아웃을 화면에 등록
 					Scene scene = new Scene(main);
 					scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
