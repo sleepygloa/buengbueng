@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-         </section>                
-    </section>
+		</section>
+	</section>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/dashBoard/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

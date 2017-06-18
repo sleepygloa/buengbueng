@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 	.size{width: 60px;}
 </style>
+
 <script>
 function successModi(){
 	if (confirm("수정 하시겠습니까??") == true){ 
@@ -39,7 +41,12 @@ function successModi(){
 	<span><input type="text" id="address" class="size" value="${dto.address}" placeholder="주소"></span>
 	<span><input type="text" id="grade" class="size" value="${dto.grade}" placeholder="등급"></span>
 	<span><input type="text" id="googleId" class="size" value="${googleId}" placeholder="구글Id"></span>
-	<span>${dto.signdate}</span>
+	<span>${date}</span>
 	<span><button onclick="return successModi();">수정완료</button></span>
-	<span><input type="button" value="취소" onclick="window.location='dashUser.do?grade=${dto.grade}&pageNum=${pageNum}';"></span>
+	<c:if test="${keyword == ''}">
+		<span><input type="button" value="취소" onclick="window.location='dashUser.do?grade=${dto.grade}&pageNum=${pageNum}';"></span>
+	</c:if>
+	<c:if test="${keyword != ''}">
+		<span><input type="button" value="취소" onclick="window.location='dashUserSearch.do?keyword=${keyword}&pageNum=${pageNum}';"></span>
+	</c:if>
 </div>

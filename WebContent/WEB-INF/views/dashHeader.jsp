@@ -34,26 +34,37 @@
                     <span class="mt-sidebar-toggle"><a href="#"></a></span>
                 </div>
                 <div class="mt-right-header" data-mt-position-type="relative" data-mt-color-type="header-bg3"/>
-
+			</header>
 <!---------------------------------------------경계선------------------------------------------>                
 <script>
-var myVar = setInterval(myTimer,3000);
-
-function myTimer(){
-	document.getElementById("newAlarm").innerHTML;
-}
+setInterval("autoRefresh()", 3000);
+	function autoRefresh(){		
+		var currentLocation = window.location;
+		$('#autoRe').load(currentLocation+" #autoRe");
+		}
+setInterval("autoRefresh1()", 3000);
+	function autoRefresh1(){		
+		var currentLocation = window.location;
+		$('#autoRe1').load(currentLocation+" #autoRe1");
+		}
+setInterval("autoRefresh2()", 3000);
+	function autoRefresh2(){		
+		var currentLocation = window.location;
+		$('#autoRe2').load(currentLocation+" #autoRe2");
+		}	
 </script>
-            </header>
             <div id="mtapp-container" data-mt-color-type="lpanel-bg3" data-mt-lpanel-effect="shrink">
                 <aside id="mt-left-panel" data-mt-position-type="absolute">
                     <div class="user-block clearfix">
                         <img class="img-responsive" alt="Image Here" src="img/dashBoard/1.jpg">
                         <div class="detail">
-                            <strong>${sessionScope.loginId}</strong><span class="badge badge-danger m-left-xs "><a id="newAlarm" href="#"></a></span>
+                        <div id="autoRe"><strong>${sessionScope.loginId}</strong>
+                        <span class="label bg-warning"><a href="#">${alarm} ${franchiseAlarm+oneAlarm}</a></span></div>
+                          	
                             <ul class="list-inline">
-                                <li class=""><a href="userInfoForm.do">정보 버튼</a></li>
-                                <li class=""><a href="logout.do" class="no-margin">로그아웃 버튼</a></li>
-                                <li class=""><a href="index.do" class="no-margin">사용자 페이지</a></li>
+                                <li class="badge badge-danger m-left-xs"><a href="userInfoForm.do">정보 버튼</a></li>
+                                <li class="badge badge-danger m-left-xs"><a href="logout.do" class="no-margin">로그아웃 버튼</a></li>
+                                <li class="badge badge-danger m-left-xs"><a href="index.do" class="no-margin">사용자 페이지</a></li>
                             </ul>
                         </div>
                     </div>
@@ -69,25 +80,35 @@ function myTimer(){
                              	<li>
                                     <a href="dashUser.do?grade=3&pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">사용자</span>
-                                    <span class="label bg-warning">Update</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
                                 <li>
                                     <a href="dashUser.do?grade=1&pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">사장님</span>
-                                    <span class="label bg-warning">Update</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
                                 <li>
                                     <a href="dashUser.do?grade=4&pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">관리자</span>
-                                    <span class="label bg-warning">Update</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                                <li>
+                                    <a href="dashUserSearch.do?pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">회원 검색</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="grid.html" class="rippler rippler-default">
+                            <i class="fa fa-th"></i>
+                            <span class="menu-text">좌석 관리</span>
+                            <span class="selected"></span>
+                        </a>
                         </li>
                         <li>
                             <a href="grid.html" class="rippler rippler-default">
@@ -154,6 +175,9 @@ function myTimer(){
                                 <li>
                                     <a href="tables-simple.html" class="rippler rippler-default">
                                     <span class="menu-text">가맹 문의</span>
+                                    <c:if test="${franchiseAlarm >0}">
+                                    	<span class="badge badge-danger m-left-xs "><div id="autoRe1">${franchiseAlarm}</div></span>
+                                    </c:if>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
@@ -166,6 +190,9 @@ function myTimer(){
                                 <li>
                                     <a href="tables-datatables.html" class="rippler rippler-default">
                                     <span class="menu-text">1:1 문의</span>
+                                    <c:if test="${oneAlarm >0 }">
+                                    	<span class="badge badge-danger m-left-xs "><div id="autoRe2">${oneAlarm}</div></span>
+                                    </c:if>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
@@ -174,3 +201,4 @@ function myTimer(){
                 </aside>
          <!-- 중앙에 들어갈 내용!-->
          <section id="main-content">
+         

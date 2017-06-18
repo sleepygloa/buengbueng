@@ -1,5 +1,6 @@
 package login.user.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,7 @@ public class CustomerQABean { // Q & A
 	public String customerQA(HttpServletRequest request,HttpSession session,HashMap map){
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 		if(pageNum==null){pageNum="1";}
 		
 		int pageSize=10; // endRow와 같이써도 가능함. mysql limit 사용시. 출력은 고정.
@@ -31,13 +32,17 @@ public class CustomerQABean { // Q & A
 	    int number=0;
 	    
 	    List list=null;
-
+	    String[] dates = null;	
 	    int count = (Integer)sqlMap.queryForObject("customer.customercount", snum); //해당 페이지 게시글 갯수
 	    if (count > 0) {
 	    	map.put("snum",snum);
 	    	map.put("startRow",startRow);
 		    map.put("pageSize",pageSize);
 	    	list = sqlMap.queryForList("customer.customerlist", map);
+            dates = new String[count];
+			for(int i = 0; i< list.size(); i++){
+				dates[i] = sdf.format(((CustomerDTO)list.get(i)).getReg_date());
+				}
 	    }else{
 	    	list = Collections.EMPTY_LIST;
 	    }
@@ -60,6 +65,7 @@ public class CustomerQABean { // Q & A
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("snum", snum);
+		request.setAttribute("dates", dates);
 		return "/customer-center/customerList";
 	}
 	
