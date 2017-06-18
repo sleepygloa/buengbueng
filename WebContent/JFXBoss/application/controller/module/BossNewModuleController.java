@@ -29,7 +29,7 @@ public class BossNewModuleController {
 	@FXML
 	public void initialize(){
 		try{
-			String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8");
+			String param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8");
 			String urlInfo = "http://localhost:8080/buengbueng/fxSetModule.do";
 			JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 			GridPane gridPane = new GridPane();
@@ -82,7 +82,7 @@ public class BossNewModuleController {
 					sbModule.append(",");
 				}
 			}
-			String	param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+"&m_name="+URLEncoder.encode(moduleName.getText(),"UTF-8")+
+			String	param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&m_name="+URLEncoder.encode(moduleName.getText(),"UTF-8")+
 					"&module="+URLEncoder.encode(sbModule.toString(),"UTF-8")+
 					"&menu="+URLEncoder.encode(sbMenu.toString(),"UTF-8");
 			String urlInfo = "http://localhost:8080/buengbueng/fxSetModulePro.do";

@@ -27,7 +27,7 @@ public class BossMainController {
 		try{
 			menu = bossMenu;
 			view = bossView;
-			String	param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8");
+			String	param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8");
 			String urlInfo = "http://localhost:8080/buengbueng/fxGetModule.do";
 			bossMenu.getChildren().add(setBossMenu(param,urlInfo));
 		}catch(Exception e){	

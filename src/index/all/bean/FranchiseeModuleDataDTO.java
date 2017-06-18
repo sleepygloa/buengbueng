@@ -3,17 +3,17 @@ package index.all.bean;
 import java.sql.Timestamp;
 
 public class FranchiseeModuleDataDTO {
-	private String b_key;
+	private String b_id;
 	private String m_name;
 	private String module;
 	private String menu;
 	private boolean m_check;
 	private Timestamp time;
-	public String getB_key() {
-		return b_key;
+	public String getB_id() {
+		return b_id;
 	}
-	public void setB_key(String b_key) {
-		this.b_key = b_key;
+	public void setB_id(String b_id) {
+		this.b_id = b_id;
 	}
 	public String getM_name() {
 		return m_name;

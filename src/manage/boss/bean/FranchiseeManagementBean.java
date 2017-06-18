@@ -198,7 +198,7 @@ public class FranchiseeManagementBean {
 			sqlMap.insert("bossERP.addSeatState", param);
 			ModuleDataDTO defaultModule = (ModuleDataDTO)sqlMap.queryForObject("module.getOfferMenu", null);
 			FranchiseeModuleDataDTO module = new FranchiseeModuleDataDTO();
-			module.setB_key(franchiseeDto.getB_key());
+			module.setB_id(franchiseeDto.getB_id());
 			module.setM_name("기본");
 			module.setMenu(defaultModule.getModuleName());
 			sb = new StringBuffer();

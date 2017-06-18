@@ -21,7 +21,7 @@ public class FxBossERPBean {
 	@RequestMapping("fxGetModule.do")
 	public String fxGetModule(FranchiseeModuleDataDTO fdto, String change, Model model){
 		try{
-			ArrayList<String> getN = (ArrayList<String>)sqlMap.queryForList("module.getModuleNames",fdto.getB_key());
+			ArrayList<String> getN = (ArrayList<String>)sqlMap.queryForList("module.getModuleNames",fdto.getB_id());
 			StringBuffer name = new StringBuffer();
 			for(int i=0; i<getN.size(); i++){
 				name.append("\""+getN.get(i)+"\"");
@@ -33,7 +33,7 @@ public class FxBossERPBean {
 			model.addAttribute("name", URLEncoder.encode(name.toString(),"UTF-8"));
 			FranchiseeModuleDataDTO dto = null;
 			if(fdto.getM_name() == null){
-				dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModule",fdto.getB_key());
+				dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModule",fdto.getB_id());
 			}else if(fdto.getM_name() != null && change == null){
 				dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModuleForName",fdto);
 
@@ -67,7 +67,7 @@ public class FxBossERPBean {
 	public String fxSetModulePro(FranchiseeModuleDataDTO fdto, Model model){
 		sqlMap.update("module.setModuleFalse", fdto);
 		sqlMap.update("module.setModule", fdto);
-		FranchiseeModuleDataDTO dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModule",fdto.getB_key());
+		FranchiseeModuleDataDTO dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModule",fdto.getB_id());
 		StringBuffer module = new StringBuffer();
 		module.append(dto.getModule());
 		model.addAttribute("module", module.toString());
@@ -80,7 +80,7 @@ public class FxBossERPBean {
 	@RequestMapping("fxRemoveModule.do")
 	public String fxRemoveModule(FranchiseeModuleDataDTO fdto, Model model){
 		sqlMap.delete("module.deleteModule", fdto);
-		FranchiseeModuleDataDTO dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModule",fdto.getB_key());
+		FranchiseeModuleDataDTO dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModule",fdto.getB_id());
 		StringBuffer module = new StringBuffer();
 		module.append(dto.getModule());
 		model.addAttribute("module", module.toString());
@@ -93,7 +93,7 @@ public class FxBossERPBean {
 	@RequestMapping("fxModiModulePro.do")
 	public String fxModiModulePro(FranchiseeModuleDataDTO fdto, Model model){
 		sqlMap.update("module.updateModule", fdto);
-		FranchiseeModuleDataDTO dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModule",fdto.getB_key());
+		FranchiseeModuleDataDTO dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModule",fdto.getB_id());
 		StringBuffer module = new StringBuffer();
 		module.append(dto.getModule());
 		model.addAttribute("module", module.toString());

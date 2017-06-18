@@ -40,7 +40,7 @@ public class BossOptionController {
 	@FXML
 	public void initialize(){
 		try {
-			String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8");
+			String param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8");
 			getModule(param);
 			JSONArray jsonName = (JSONArray)jsonObj.get("name");
 			beforeName = jsonName.get(0).toString();
@@ -56,7 +56,7 @@ public class BossOptionController {
 				@Override
 				public void handle(MouseEvent event) {
 					try{
-						String	param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+"&m_name="+URLEncoder.encode(beforeName,"UTF-8")+
+						String	param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&m_name="+URLEncoder.encode(beforeName,"UTF-8")+
 								"&change="+URLEncoder.encode(changeName,"UTF-8");
 						String urlInfo = "http://localhost:8080/buengbueng/fxGetModule.do";
 						BossMainController.getMenu().getChildren().add(BossMainController.setBossMenu(param,urlInfo));
@@ -85,7 +85,7 @@ public class BossOptionController {
 									sbModule.append(",");
 								}
 							}
-							String	param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+"&m_name="+URLEncoder.encode(changeName,"UTF-8")+
+							String	param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&m_name="+URLEncoder.encode(changeName,"UTF-8")+
 									"&module="+URLEncoder.encode(sbModule.toString(),"UTF-8")+
 									"&menu="+URLEncoder.encode(sbMenu.toString(),"UTF-8");
 							String urlInfo = "http://localhost:8080/buengbueng/fxModiModulePro.do";
@@ -105,7 +105,7 @@ public class BossOptionController {
 					try{
 						if(!changeName.equals(beforeName) || changeName.equals("기본")){
 							alert.setText("");
-							String	param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+"&m_name="+URLEncoder.encode(changeName,"UTF-8");
+							String	param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&m_name="+URLEncoder.encode(changeName,"UTF-8");
 							String urlInfo = "http://localhost:8080/buengbueng/fxRemoveModule.do";
 							ConnectServer.connect(param, urlInfo);
 							option.getItems().remove(changeNameNum);
@@ -146,7 +146,7 @@ public class BossOptionController {
 							moduleCheckView.getChildren().clear();
 							changeNameNum = newValue.intValue();
 							String name = option.getItems().get(changeNameNum);
-							String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+"&m_name="+URLEncoder.encode(name,"UTF-8");
+							String param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&m_name="+URLEncoder.encode(name,"UTF-8");
 							getModule(param);
 							showModuleChecked();
 							changeName = name; 
