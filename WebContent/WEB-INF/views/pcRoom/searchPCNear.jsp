@@ -3,6 +3,7 @@
 <head>
 	<title>우리 동네 PC방 찾기</title>
 	<script type="text/javascript" src="/buengbueng/js/searchPCRoom/searchPCRoom.js"></script>
+	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=b6f10c55f448ee9fa690fab9e2bfe418&libraries=services"></script>
 </head>
 
 <body onload="searchPCNear('${addr}');">
