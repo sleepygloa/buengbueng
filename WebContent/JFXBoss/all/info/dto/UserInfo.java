@@ -1,4 +1,4 @@
-package user.info.dto;
+package all.info.dto;
 
 public class UserInfo {
 	private String id; // 사용자 ID

@@ -12,8 +12,9 @@
 		
 		<c:if test="${sidemenu == 2}">
 			<li>PC방 찾기</li>
+			<li><hr /></li>
 			<li><a href="searchPCForm.do" >PC방 찾기</a></li>
-			<li><a href="franchiseeAdd.do" >우리동네 PC방 찾기</a></li>
+			<li><a href="searchPCNear.do" >우리동네 PC방 찾기</a></li>
 		</c:if>
 		
 		<c:if test="${sidemenu == 3}">
@@ -52,8 +53,13 @@
 			<li><hr /></li>
 			<li>대여 관리</li>
 			<li><a href="rentMain.do" >대여물품 관리</a></li>
-		</c:if>		
-		
+		</c:if>	
+			
+		<c:if test="${sidemenu == 4}">
+			<li>즐겨찾는 PC방</li>
+			<li><hr /></li>
+			<li><a href="favoritePCRoom.do" >즐겨찾는 PC방</a></li>
+		</c:if>
 		
 		
 <!-- --------------------------------------------------------- -->		

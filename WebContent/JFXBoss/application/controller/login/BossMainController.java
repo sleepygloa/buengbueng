@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import all.info.dto.UserInfo;
 import application.ConnectServer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,7 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import user.info.dto.UserInfo;
 
 public class BossMainController {
 	@FXML private AnchorPane bossMenu;

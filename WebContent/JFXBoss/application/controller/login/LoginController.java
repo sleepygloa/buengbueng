@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 
 import org.json.simple.JSONObject;
 
+import all.info.dto.UserInfo;
 import application.ConnectServer;
 import application.Main;
 import javafx.fxml.FXML;
@@ -15,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import user.info.dto.UserInfo;
 
 public class LoginController {
 	@FXML private TextField id;

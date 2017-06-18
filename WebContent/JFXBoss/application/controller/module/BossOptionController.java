@@ -8,6 +8,7 @@ import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import all.info.dto.UserInfo;
 import application.ConnectServer;
 import application.controller.login.BossMainController;
 import javafx.beans.value.ChangeListener;
@@ -26,7 +27,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import user.info.dto.UserInfo;
 
 public class BossOptionController {
 	@FXML private AnchorPane moduleCheckView;
@@ -188,6 +188,7 @@ public class BossOptionController {
 				CheckBox chkBox = new CheckBox();
 				chk.add(chkBox);
 				Label label = new Label();
+				label.setTextFill(Color.WHITE);
 				lb.add(label);
 				if(chkModule == 0){
 					chkBox.setSelected(false);

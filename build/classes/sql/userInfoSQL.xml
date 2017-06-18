@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="test">
-	
-
 	<!--  회원 삭제를 하기위한 패스워드 찾기 -->
 	<select id="checkPasswd" parameterClass="String" resultClass="String">
 		select pw from userInfo where id = #id#;
 	</select>
 	
-		<!-- 회원삭제 -->
+	<!-- 회원삭제 -->
 	<delete id="deleteUserInfo" parameterClass="String">
 		delete from userInfo where id=#id#;
 	</delete>
@@ -55,7 +53,10 @@
 		update userInfo SET grade = 1 WHERE id = #id#;
 	</update>
 
-	
+	<!-- 회원 주소 가져오기 -->
+	<select id="getUserAddr" parameterClass="String" resultClass="String">
+		select address from userInfo where id = #id#;
+	</select>
 </sqlMap>
 
 

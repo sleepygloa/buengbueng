@@ -34,6 +34,10 @@
 	<select id="getPcCount" parameterClass="String" resultClass="int">
 		select b_pccount from franchiseeInfo where b_key = #b_key#;
 	</select>
+	<!-- 가맹점 라이센스키 가져오기 -->
+	<select id="getLicenseKey" parameterClass="java.util.HashMap" resultClass="String">
+		select b_key from franchiseeInfo where b_name = #b_name# and b_id = #b_id#;
+	</select>
 <!-- ======================================================================================= -->
 	<!-- 사용자가 로그인 한 좌석 번호 얻기 -->
 	<select id="getPcNum" parameterClass="java.util.HashMap" resultClass="int">

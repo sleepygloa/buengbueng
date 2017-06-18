@@ -7,6 +7,7 @@ import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import all.info.dto.UserInfo;
 import application.ConnectServer;
 import application.controller.login.BossMainController;
 import javafx.fxml.FXML;
@@ -17,7 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import user.info.dto.UserInfo;
+import javafx.scene.paint.Color;
 
 public class BossNewModuleController {
 	@FXML private AnchorPane moduleCheckView;
@@ -44,6 +45,7 @@ public class BossNewModuleController {
 				CheckBox chkBox = new CheckBox();
 				chk.add(chkBox);
 				Label label = new Label();
+				label.setTextFill(Color.WHITE);
 				lb.add(label);
 				String name = iteratorMenu.next();
 				if(name.equals("option")){
