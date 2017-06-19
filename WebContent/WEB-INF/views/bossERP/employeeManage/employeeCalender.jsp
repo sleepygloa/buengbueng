@@ -4,8 +4,7 @@
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../../header.jsp" />
 
-<script src="js/calender/fullcalender.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style type="text/css">
     body {
         margin :40px 10px;
@@ -18,10 +17,10 @@
         margin : 0 auto;
     }
 </style>
-<link href="./fullcalendar-2.9.1/fullcalendar.css" rel="stylesheet"/>
-<link href="./fullcalendar-2.9.1/fullcalendar.print.css" rel="stylesheet" media="print"/>
-<script type="text/javascript" src="./fullcalendar-2.9.1/lib/moment.min.js"></script>
-<script type="text/javascript" src="./fullcalendar-2.9.1/fullcalendar.js"></script>
+<link href="/buengbueng/js/calender/fullcalendar.css" rel="stylesheet"/>
+<link href="/buengbueng/js/calender/fullcalendar.print.css" rel="stylesheet" media="print"/>
+<script type="text/javascript" src="/buengbueng/js/calender/lib/moment.min.js"></script>
+<script type="text/javascript" src="/buengbueng/js/calender/fullcalendar.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
         jQuery("#calendar").fullCalendar({

@@ -23,7 +23,16 @@
 			<li>알바생 관리</li>
 			<li><a href="manageEmployee.do" >알바아이디 관리</a></li>
 			<li><a href="employeeInfoList.do" >신상 관리</a></li>
-			<li><a href="bossEmployeeLoginLogoutLogManage.do" >알바 근태관리</a></li>
+			<li><a href="" >알바 근태관리</a>
+				<ul>
+					<li><a class="minor-minor" href="employeeCalender.do">근무달력</a></li>
+					<li><a class="minor-minor" href="">출근하기</a></li>
+					<li><a class="minor-minor" href="">퇴근하기</a></li>
+					<li><a class="minor-minor" href="">출근 기록 확인</a></li>
+					<li><a class="minor-minor" href="employeeLoginList.do">알바 로그인 기록확인</a></li>
+					<li><a class="minor-minor" href="">휴가 관리</a></li>
+				</ul>
+			</li>
 			<li><a href="bossEmployeeAccountManage.do" >장부 관리</a></li>
 		
 			<li><hr /></li>

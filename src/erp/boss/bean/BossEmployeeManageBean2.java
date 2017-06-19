@@ -21,8 +21,8 @@ public class BossEmployeeManageBean2 {
 	private SqlMapClientTemplate sqlMap;
 	
 	//사장님 알바생관리 메인 페이지
-	@RequestMapping("bossEmployeeLoginLogoutLogManage.do")
-	public String bossEmployeeLoginLogoutLogManage(Model model, HttpSession session, String pageNum, String num){
+	@RequestMapping("employeeLoginList.do")
+	public String employeeLoginList(Model model, HttpSession session, String pageNum, String num){
 		
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
@@ -84,7 +84,24 @@ public class BossEmployeeManageBean2 {
 		model.addAttribute("count",count);
 		model.addAttribute("number",number);
         
-		return "/bosserpmanage/bossEmployeeLoginLogoutLogManage";
+		return "/bossERP/employeeManage/employeeLoginList";
 	}
+	
+	
+	
+	//사장님 알바생관리 메인 페이지
+	@RequestMapping("employeeCalender.do")
+	public String employeeCalender(Model model){
+		
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		model.addAttribute("sidemenuCheck", sidemenuCheck);
+		model.addAttribute("sidemenu", sidemenu);
+		//변수들을 페이지로 전달
+		
+		return "/bossERP/employeeManage/employeeCalender";
+	}
+	
 	
 }
