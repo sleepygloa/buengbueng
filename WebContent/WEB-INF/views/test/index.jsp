@@ -27,7 +27,7 @@
  	
 				}
  				if(document.forms[0].elements[1].checked)
- 					document.forms[0].action = "admin.go";
+ 					document.forms[0].action = "admin.do";
  				
 				if (isChecked) {
 					document.forms[0].submit();
@@ -81,7 +81,6 @@
 							</tr>
 						</table> <br>
 						<br>
-						<img src="img/bottomFooter.jpg"/>
 					</form>	
 				</div>
 			</div>
