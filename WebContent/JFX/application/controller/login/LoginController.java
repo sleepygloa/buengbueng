@@ -74,7 +74,7 @@ public class LoginController {
                 InetAddress local = InetAddress.getLocalHost();
                 String ip = local.getHostAddress();
                 String param="id="+URLEncoder.encode(id.getText(),"UTF-8")+"&pw="+URLEncoder.encode(pw.getText(),"UTF-8")+"&ip="+
-                        URLEncoder.encode(ip,"UTF-8")+"&key="+URLEncoder.encode("k93h11m16","UTF-8");
+                        URLEncoder.encode(ip,"UTF-8")+"&key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8");
 				String urlInfo = "http://localhost:8080/buengbueng/fxLoginPro.do";
 				JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 				

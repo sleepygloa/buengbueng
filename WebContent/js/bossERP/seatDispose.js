@@ -73,6 +73,7 @@ $(document).ready(function(){
 				pcNums += checkPC[i].value+',';
 			}
 		}
+		pcNums = pcNums.substring(0, pcNums.length-1);
 		$.ajax({
 			url:"seatAddDel.do",
 			type:"post",

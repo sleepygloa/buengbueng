@@ -68,7 +68,7 @@
 	</update>
 	<!-- 좌석 번호 수정 -->
 	<update id="modifyPcNum" parameterClass="java.util.HashMap">
-		update pcInfo set num = #after_num# where num = #before_num#;
+		update pcInfo set num = #after_num# where num = #before_num# and b_key = #b_key#;
 	</update>
 <!-- ============================================================================================================================================== -->
 	<!-- 좌석 정보 추가 -->

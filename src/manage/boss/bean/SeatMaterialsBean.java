@@ -99,6 +99,7 @@ public class SeatMaterialsBean {
 		plog.setNum(num);
 		plog.setB_key(b_key);
 		plog.setWhat(what);
+		
 		HashMap map = (HashMap) sqlMap.queryForObject("pcInfo.getAllPcInfo",plog);
 		plog.setC_code((Integer)map.get("c_code"));
 		plog.setM_code((Integer)map.get("m_code"));
@@ -142,18 +143,21 @@ public class SeatMaterialsBean {
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("b_key", b_key);
 		if(request.getParameter("what").equals("add")){
-			map.put("pcCount", "1");
-			sqlMap.update("bossERP.addSeat", map);
-			bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getFranchiseeOne", b_key);
-			pcCount = Integer.parseInt(bdto.getB_pccount());
-			map.remove("pcCount");
-			map.put("num",pcCount);
-			sqlMap.insert("pcInfo.insertPcInfoDefault", map);
-			sqlMap.insert("pcInfo.insertConputerInfoDefault", map);
-			sqlMap.insert("pcInfo.insertMonitorInfoDefault", map);
-			sqlMap.insert("pcInfo.insertKeyboardInfoDefault", map);
-			sqlMap.insert("pcInfo.insertMouseInfoDefault", map);
-			sqlMap.insert("pcInfo.insertSpeakerInfoDefault", map);
+			for(int i=0; i<Integer.parseInt(request.getParameter("pcNums")); i++){
+				map.put("pcCount", "1");
+				sqlMap.update("bossERP.addSeat", map);
+				bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getFranchiseeOne", b_key);
+				pcCount = Integer.parseInt(bdto.getB_pccount());
+				map.remove("pcCount");
+				map.put("num",pcCount);
+				sqlMap.insert("pcInfo.insertPcInfoDefault", map);
+				sqlMap.insert("pcInfo.insertConputerInfoDefault", map);
+				sqlMap.insert("pcInfo.insertMonitorInfoDefault", map);
+				sqlMap.insert("pcInfo.insertKeyboardInfoDefault", map);
+				sqlMap.insert("pcInfo.insertMouseInfoDefault", map);
+				sqlMap.insert("pcInfo.insertSpeakerInfoDefault", map);
+				map.remove("num");
+			}
 		}else{
 			bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getFranchiseeOne", b_key);
 			String[] buf = request.getParameter("pcNums").split(",");
@@ -184,6 +188,7 @@ public class SeatMaterialsBean {
 							map.clear();
 							map.put("after_num", pcAll.get(i).getNum()+1);
 							map.put("before_num", pcAll.get(i+1).getNum());
+							map.put("b_key", b_key);
 							sqlMap.update("pcInfo.modifyPcNum", map);
 							pcAll = (ArrayList)sqlMap.queryForList("pcInfo.getPcInfoAll", b_key);
 						}
@@ -203,6 +208,7 @@ public class SeatMaterialsBean {
 		map.put("key",b_key);
 		sqlMap.update("bossERP.modiSeatCount", map);
 		model.addAttribute("count",pcCount);
+		model.addAttribute("b_key",b_key);
 		return "/bossERP/seatMaterials/seatUpdate";
 	}
 	

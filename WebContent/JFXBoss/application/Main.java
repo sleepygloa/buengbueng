@@ -1,5 +1,6 @@
 package application;
 	
+import application.controller.order.RentOrder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,9 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-// 로그인 화면 띄우기
+// 濡쒓렇�씤 �솕硫� �쓣�슦湲�
 public class Main extends Application {
 	private static Stage primaryStage = null;
+	static Thread idx = new Thread(new RentOrder());
 	@Override
 	public void start(Stage primaryStage) {
 		Main.primaryStage = primaryStage;
@@ -24,7 +26,6 @@ public class Main extends Application {
 			primaryStage.setFullScreenExitHint("");
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -35,6 +36,7 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
+		idx.start();
 		launch(args);
 	}
 }

@@ -22,8 +22,11 @@ public class Config  {
 	public  void init() throws Exception, IOException {
 		// TODO Auto-generated method stub
 		try{
-//			String destination = "C:\\Users\\user2\\Documents\\workspace\\buengbueng\\WebContent\\log\\";
-			String destination = "C:\\Users\\KO\\Documents\\eclipse\\Spring\\buengbueng\\WebContent\\log\\";
+		      File file = new File("..\\..\\workspace\\buengbueng");
+		      String destination = 
+		            "" + file.getCanonicalPath() + 
+		            "\\WebContent\\log";
+		      
 			String logText = "log.txt";
 			String fileName= "";
 			String fileNamee[] = null; 

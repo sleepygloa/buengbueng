@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 
 import all.info.dto.UserInfo;
 import application.ConnectServer;
+import application.controller.order.RentOrder;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

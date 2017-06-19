@@ -19,7 +19,7 @@
 					<c:forEach var="num" items="${useSeatNum}">
 						<c:if test="${num == (pcNum)}">
 							${useSeatId.get(usePcCount)}님<br/>
-							${useSeatRent.get(usePcCount)} 대여중
+							${useSeatRent.get(usePcCount)}
 						</c:if>
 					</c:forEach>
 				</div>

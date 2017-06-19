@@ -6,6 +6,7 @@ public class UserInfo {
 	private double point; // 사용자 잔액
 	private int grade; // 사용자 등급
 	private String loginTime; // 사용자 로그인 시간
+	private String b_key = "b7fd755f";
 
 	private static UserInfo instance = new UserInfo();
 
@@ -55,6 +56,12 @@ public class UserInfo {
 	}
 	public void setPcNum(String pcNum) {
 		this.pcNum = pcNum;
+	}
+	public String getB_key() {
+		return b_key;
+	}
+	public void setB_key(String b_key) {
+		this.b_key = b_key;
 	}
 	
 }
