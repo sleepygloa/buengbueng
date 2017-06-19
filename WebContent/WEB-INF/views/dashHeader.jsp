@@ -197,7 +197,7 @@ setInterval("autoRefresh2()", 3000);
                                 </a>
                                 </li>
                                  <li>
-                                    <a href="dashNoReply.do?pageNum=1" class="rippler rippler-default">
+                                    <a href="dashReply.do?pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">답변 대기중</span>
                                     <span class="selected"></span>
                                 </a>

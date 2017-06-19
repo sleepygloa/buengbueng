@@ -28,9 +28,6 @@
 		<span>${list.email}</span>
 		<span>${dates[d]}</span>
 		<span>${list.readcount}</span>
-		<c:if test="${dates[d] == today && list.re_step ==0}">
-			<span class="label bg-warning">${alarm}</a></span>
-		</c:if>
 </div>
 		<c:set var="number" value="${number-1}"/>
 		<c:set value="${d+1}" var="d" />
@@ -45,7 +42,6 @@
 	<c:if test="${endPage < pageCount}">
     	<a href="franchiseQA.do?snum=${snum}&pageNum=${ startPage + 10 }">[다음]</a>
 	</c:if>
-</c:if>
 </div>
-
+</c:if>
 <jsp:include page="../dashFooter.jsp"/>
