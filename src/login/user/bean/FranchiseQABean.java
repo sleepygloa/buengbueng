@@ -1,5 +1,6 @@
 package login.user.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +20,10 @@ public class FranchiseQABean { // 가맹 문의
 	private SqlMapClientTemplate sqlMap;
 	
 	@RequestMapping("franchiseQA.do")  // 게시판 리스트
-	public String franchiseQA(HttpServletRequest request,HttpSession session,HashMap map){
+	public String franchiseQA(HttpServletRequest request,HashMap map){
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 		if(pageNum==null){pageNum="1";}
 		
 		int pageSize=10; // endRow와 같이써도 가능함. mysql limit 사용시. 출력은 고정.
@@ -31,13 +32,17 @@ public class FranchiseQABean { // 가맹 문의
 	    int number=0;
 	    
 	    List list=null;
-
+	    String[] dates = null;	
 	    int count = (Integer)sqlMap.queryForObject("customer.customercount", snum); //해당 페이지 게시글 갯수
 	    if (count > 0) {
 	    	map.put("snum",snum);
 	    	map.put("startRow",startRow);
 		    map.put("pageSize",pageSize);
 	    	list = sqlMap.queryForList("customer.customerlist", map);
+            dates = new String[count];
+			for(int i = 0; i< list.size(); i++){
+				dates[i] = sdf.format(((CustomerDTO)list.get(i)).getReg_date());
+				}
 	    }else{
 	    	list = Collections.EMPTY_LIST;
 	    }
@@ -60,6 +65,7 @@ public class FranchiseQABean { // 가맹 문의
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("snum", snum);
+		request.setAttribute("dates", dates);
 		return "/customer-center/franchiseList";
 	}
 	
@@ -163,7 +169,8 @@ public class FranchiseQABean { // 가맹 문의
 		
 		// 등급이 관리자 or 해당글 비밀번호 일치시 ...
 		if(session.getAttribute("grade")!=null){grade = (Integer)session.getAttribute("grade");}
-		if(grade==4 || dto.getPasswd().equals(passwd)){check=1; sqlMap.update("customer.contentUp", map);}
+		if(dto.getPasswd().equals(passwd) || grade==4){check=1; sqlMap.update("customer.contentUp", map);
+		}else{ check =0;}
 				
 		map.put("ref", dto.getRef());
 		map.put("snum",snum);
@@ -251,19 +258,7 @@ public class FranchiseQABean { // 가맹 문의
 	}
 	
 	@RequestMapping("bossDelete.do")  // 관리자 권한 삭제 확인
-	public String bossDelete(HttpServletRequest request){
-		Integer snum = Integer.parseInt(request.getParameter("snum"));
-		Integer num = Integer.parseInt(request.getParameter("num"));
-		String pageNum=request.getParameter("pageNum");
-		
-		request.setAttribute("snum", snum);
-		request.setAttribute("num", num);
-		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/bossDelete";
-	}
-	
-	@RequestMapping("bossDeletePro.do") //관리자 권한 삭제 완료
-	public String bossDeletePro(HttpServletRequest request,HashMap map){
+	public String bossDelete(HttpServletRequest request,HashMap map){
 		int num = Integer.parseInt(request.getParameter("num"));
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
@@ -284,6 +279,6 @@ public class FranchiseQABean { // 가맹 문의
 		request.setAttribute("addr", addr);
 		request.setAttribute("snum", snum);
 		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/bossDeletePro";
+		return "/customer-center/bossDelete";
 	}
 }

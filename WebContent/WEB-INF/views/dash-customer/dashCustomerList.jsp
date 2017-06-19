@@ -1,16 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- HEADER TEMPLATE -->
-<jsp:include page="../header.jsp" />
-<head>
-	<title>가맹 문의</title>
-</head>
+<jsp:include page="../dashHeader.jsp"/>
+
 <div>
 <div>가맹 문의</div>
-<c:if test="${sessionScope.grade != 4 }">
-<div><a href="franchiseForm.do?snum=${snum}&pageNum=${pageNum}">문의하기</a></div>
-</c:if>
 	<span>번호</span>
 	<span>제목</span>
 	<span>작성자</span>
@@ -29,12 +23,7 @@
 		<span>
 		<c:out value="${number}"/>
 		</span>
-		<c:if test="${sessionScope.grade != 4 }">
-			<span><a href="franchiseWriteCheck.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
-		</c:if>
-		<c:if test="${sessionScope.grade == 4 }">
-			<span><a href="franchiseContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
-		</c:if>
+		<span><a href="franchiseContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
 		<span>${list.writer}</span>
 		<span>${list.email}</span>
 		<span>${dates[d]}</span>
@@ -55,3 +44,5 @@
 	</c:if>
 </c:if>
 </div>
+
+<jsp:include page="../dashFooter.jsp"/>

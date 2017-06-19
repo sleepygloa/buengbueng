@@ -300,7 +300,7 @@
 									<a href="customerQA.do?snum=2&pageNum=1">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
-											<h6 class="menu_name minor-minor">Q & A</h6>
+											<h6 class="menu_name minor-minor">자주 묻는 질문</h6>
 											<p class="menu_desc">자주 물어보는 질문들 여기로</p>
 										</span>
 									</a>
