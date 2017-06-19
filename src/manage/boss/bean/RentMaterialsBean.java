@@ -68,6 +68,7 @@ public class RentMaterialsBean {
 				if(rentProduct == null){
 					sqlMap.insert("rent.addRent", rdto);
 					check = 1;
+					model.addAttribute("b_key", rdto.getB_key());
 				}
 			}else{
 				HashMap<String,String> param = new HashMap<String,String>();
@@ -76,9 +77,9 @@ public class RentMaterialsBean {
 				param.put("beforeProduct", request.getParameter("beforeProduct"));
 				sqlMap.update("rent.modiRent", param);
 				check = 1;
+				model.addAttribute("b_key", request.getParameter("key"));
 			}
 			model.addAttribute("check", check);
-			model.addAttribute("b_key", rdto.getB_key());
 		}catch(Exception e){
 			// 추후 수정
 		}

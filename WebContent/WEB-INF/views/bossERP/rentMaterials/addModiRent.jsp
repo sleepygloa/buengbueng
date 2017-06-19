@@ -14,7 +14,7 @@
 	<form action="addModiRentPro.do" method="post">
 		<input type="hidden" value="${page}" name="page"/>
 		<input type="hidden" value="${rent.rentProduct}" name="beforeProduct"/>
-		<input type="hidden" name="key" value="${b_key}"/><br/>
+		<input type="hidden" name="key" value="${rent.b_key}"/><br/>
 		대여물품 목록 : <input type="text" name="afterProduct" value="${rent.rentProduct}"/><br/>
 		<input type="submit" value="수정"/>
 	</form>
