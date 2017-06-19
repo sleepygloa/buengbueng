@@ -173,7 +173,7 @@ setInterval("autoRefresh2()", 3000);
                         </a>
                             <ul class="mt-sub-menu">
                                 <li>
-                                    <a href="tables-simple.html" class="rippler rippler-default">
+                                    <a href="dashFranchiseList.do?snum=1&pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">가맹 문의</span>
                                     <c:if test="${franchiseAlarm >0}">
                                     	<span class="badge badge-danger m-left-xs "><div id="autoRe1">${franchiseAlarm}</div></span>
@@ -182,17 +182,23 @@ setInterval("autoRefresh2()", 3000);
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="tables-datatables.html" class="rippler rippler-default">
-                                    <span class="menu-text">Q & A</span>
+                                    <a href="dashCustomerList.do?snum=2&pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">자주 묻는 질문</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="tables-datatables.html" class="rippler rippler-default">
+                                    <a href="dashOneList.do?snum=3&pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">1:1 문의</span>
                                     <c:if test="${oneAlarm >0 }">
                                     	<span class="badge badge-danger m-left-xs "><div id="autoRe2">${oneAlarm}</div></span>
                                     </c:if>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                                 <li>
+                                    <a href="dashNoReply.do?pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">답변 대기중</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>

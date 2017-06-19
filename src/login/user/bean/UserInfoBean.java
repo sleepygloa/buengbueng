@@ -1,9 +1,5 @@
 package login.user.bean;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,21 +36,25 @@ public class UserInfoBean {
 	public String login(HttpServletRequest request,HttpSession session){
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-		
+		int check=1; // 로그인 실패 
 		//ID로 사용자 정보 불러온다음 입력한 PW와 DB의 PW와 비교한다.
 		UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
-		if(pw.equals(dto.getPw())){
-			session.setAttribute("loginId", dto.getId());
-			session.setAttribute("grade", dto.getGrade());
-			//로그인 LOG 남김
-			FindIpBean fib = new FindIpBean();
-			String ip = (String)fib.findIp();
-			
-			HashMap map = new HashMap();
-			map.put("id", id);
-			map.put("ip", ip);
-			sqlMap.insert("erpEmp.insertEmployeeLoginLog", map);
+		if(dto!=null){	// id가 있는지 없는지 확인
+			if(pw.equals(dto.getPw())){ // 비밀번호 확인
+				session.setAttribute("loginId", dto.getId());
+				session.setAttribute("grade", dto.getGrade());
+				//로그인 LOG 남김
+				FindIpBean fib = new FindIpBean();
+				String ip = (String)fib.findIp();
+				
+				HashMap map = new HashMap();
+				map.put("id", id);
+				map.put("ip", ip);
+				sqlMap.insert("erpEmp.insertEmployeeLoginLog", map);
+				check=0; // 정상 로그인 일때 작동 
+			}
 		}
+		request.setAttribute("check", check);
 		return "/index";
 	}
 	

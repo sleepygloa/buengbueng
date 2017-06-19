@@ -20,7 +20,7 @@ public class FranchiseQABean { // 가맹 문의
 	private SqlMapClientTemplate sqlMap;
 	
 	@RequestMapping("franchiseQA.do")  // 게시판 리스트
-	public String franchiseQA(HttpServletRequest request,HttpSession session,HashMap map){
+	public String franchiseQA(HttpServletRequest request,HashMap map){
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");

@@ -50,12 +50,11 @@
 		where id=#id#
 	</update>
 	
-	<!-- 당일 올라온 게시글 확인 -->
+	<!-- 당일 올라온 게시글 수 확인 -->
 	<select id="franchiseAlarm" resultClass="int">
 		select count(*) from customerBoard where snum=1 and re_step=0 and date(reg_date) = date(now());
 	</select>
 	<select id="oneAlarm" resultClass="int">
 		select count(*) from customerBoard where snum=3 and re_step=0 and date(reg_date) = date(now());
 	</select>
-
 </sqlMap>

@@ -20,7 +20,7 @@ public class OneQABean { // 1:1 문의
 	private SqlMapClientTemplate sqlMap;
 	
 	@RequestMapping("oneQA.do")  // 게시판 리스트
-	public String oneQA(HttpServletRequest request,HttpSession session,HashMap map){
+	public String oneQA(HttpServletRequest request,HashMap map){
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");

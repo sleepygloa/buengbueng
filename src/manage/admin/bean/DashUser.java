@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import login.user.bean.UserInfoDataDTO;
 
 @Controller
-public class DashIndexBean extends AlarmBean{
+public class DashUser extends MethodBean{
 	
 	@Autowired
 	SqlMapClientTemplate sqlMap;
