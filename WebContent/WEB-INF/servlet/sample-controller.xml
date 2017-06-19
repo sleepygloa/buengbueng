@@ -27,6 +27,8 @@
 	<context:component-scan base-package="manage.admin.bean" /> <!-- 관리자 페이지 BEAN -->
 	<context:component-scan base-package="menu.all.bean" /> <!-- Menu 총 기능 관리 BEAN -->
 	
+	<!-- test -->
+	<context:component-scan base-package="spring.test.bean" />
 
 	
 	<!-- FX BEAN INPORT 지정 -->
