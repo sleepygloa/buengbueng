@@ -17,37 +17,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import login.user.bean.CustomerDTO;
 
 @Controller
-public class DashCustomer extends MethodBean {
+public class DashCustomerBean extends BoardMethodBean{
 	
 	@Autowired
 	SqlMapClientTemplate sqlMap;
-	
+	// 관리자 페이지 가맹 문의 
 	@RequestMapping("dashFranchiseList.do")
-	public String dashFranchise(HttpServletRequest request,HashMap map){
+	public String dashFranchiseList(HttpServletRequest request,HashMap map){
+		int snum=0;
 		Alarm(request);
-		dashList(request, map);
-
+		adminList(request, map);
 		return "/dash-customer/dashFranchiseList";
 	}
-	
+	@RequestMapping("dashFranchiseContent.do")
+	public String dashFranchiseContent(HttpServletRequest request,CustomerDTO dto){
+		adminContent(request, dto);
+		return "/dahs-customer/dashFranchiseContent";
+	}
+	// 관리자 페이지 자주 묻는 질문
 	@RequestMapping("dashCustomerList.do")
-	public String dashCustomer(HttpServletRequest request,HashMap map){
+	public String dashCustomerList(HttpServletRequest request,HashMap map){
 		Alarm(request);
-		dashList(request, map);
-		
+		adminList(request, map);
 		return "/dash-customer/dashCustomerList";
 	}
-	
-	@RequestMapping("dashOneList.do")
-	public String dashOne(HttpServletRequest request,HashMap map){
-		Alarm(request);
-		dashList(request, map);
-		
-		return "/dash-customer/dashOneList";
+	@RequestMapping("dashCustomerContent.do")
+	public String dashCustomerContent(HttpServletRequest request,CustomerDTO dto){
+		adminContent(request, dto);
+		return "/dahs-customer/dashCustomerContent";
 	}
 	
+	// 관리자 페이지 1:1 문의	
+	@RequestMapping("dashOneList.do")
+	public String dashOneList(HttpServletRequest request,HashMap map){
+		Alarm(request);
+		adminList(request, map);
+		return "/dash-customer/dashOneList";
+	}
+	@RequestMapping("dashOneContent.do")
+	public String dashOneContent(HttpServletRequest request,CustomerDTO dto){
+		adminContent(request, dto);
+		return "/dahs-customer/dashOneContent";
+	}
+	// 관리자 게시글 삭제
+	@RequestMapping("dashBoardDel.do")
+	public String dashBoardDel(HttpServletRequest request,HashMap map){
+		//adminDelete(request, map);
+		return "/dash-customer/bossDelete";
+	}
+	// 답변중인 게시판
 	@RequestMapping("dashReply.do")
 	public String dashReply(HttpServletRequest request,HashMap map){
+		Alarm(request);
 		String pageNum = request.getParameter("pageNum");
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 		

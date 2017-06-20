@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 import login.user.bean.CustomerDTO;
 
 @Controller
-public class MethodBean {
+public class BoardMethodBean {
 	@Autowired
 	SqlMapClientTemplate sqlMap;
 	// 알람 메서드
@@ -33,7 +33,7 @@ public class MethodBean {
 		}
 	}
 	// 게시글 목록
-	public void dashList(HttpServletRequest request,HashMap map){
+	public void adminList(HttpServletRequest request,HashMap map){
 		int snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
@@ -82,4 +82,50 @@ public class MethodBean {
 		request.setAttribute("snum", snum);
 		request.setAttribute("dates", dates);
 	}
+	//관리자 게시글 호출
+	public void adminContent(HttpServletRequest request,CustomerDTO dto){
+		int num = Integer.parseInt(request.getParameter("num"));
+		int number = Integer.parseInt(request.getParameter("number"));
+		String pageNum = request.getParameter("pageNum");
+		
+		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent",num);
+		
+		request.setAttribute("dto", dto);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("number", number);
+	}
+	/*관리자 삭제
+	public void adminDelete(HttpServletRequest request,HashMap map){
+		int num = Integer.parseInt(request.getParameter("num"));
+		String pageNum = request.getParameter("pageNum");
+		String addr=null;
+		int snum=0;
+		int check=0;
+		if(request.getParameter("snum")!=null){
+			snum = Integer.parseInt(request.getParameter("snum"));
+			map.put("num", num);
+			map.put("snum",snum);
+			int ref = (Integer)sqlMap.queryForObject("customer.getRef", map);
+			int re_step = (Integer)sqlMap.queryForObject("customer.getRe_step", map);
+			map.put("snum",snum);
+			map.put("ref",ref);
+			map.put("re_step",re_step);
+			sqlMap.delete("customer.bossDel", map);
+		}
+		if(snum==0){
+			int ref =(Integer)sqlMap.queryForObject("customer.getRefNum", num);
+			
+		}
+		if(snum == 1){addr="dashFranchiseList"; check=0;}
+		if(snum == 2){addr="dashCustomerList"; check=0;}
+		if(snum == 3){addr="dashOneList"; check=0;}
+		
+		request.setAttribute("check", check);
+		request.setAttribute("addr", addr);
+		request.setAttribute("snum", snum);
+		request.setAttribute("pageNum", pageNum);
+	}
+	public void adminWrite(){
+		
+	}*/
 }
