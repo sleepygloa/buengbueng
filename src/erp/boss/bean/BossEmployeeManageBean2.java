@@ -1,5 +1,7 @@
 package erp.boss.bean;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -103,5 +105,24 @@ public class BossEmployeeManageBean2 {
 		return "/bossERP/employeeManage/employeeCalender";
 	}
 	
-	
+	//알바생 임의 알바일정 출력
+	@RequestMapping("employeeCalenderInsert.do")
+	public String employeeCalenderInsert(HttpSession session, Model model, Long start, Long end){
+		
+		//세션 아이디를 페이지로전달
+		String id = (String)session.getAttribute("loginId");
+		model.addAttribute("id",id);
+		
+		model.addAttribute("start",start);
+		model.addAttribute("end",end);
+		System.out.println(end);
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String starts = df.format(start);
+		String ends = df.format(end-86400000);
+		
+		model.addAttribute("starts",starts);
+		model.addAttribute("ends",ends);
+		
+		return "/bossERP/employeeManage/employeeCalenderInsert";
+	}
 }

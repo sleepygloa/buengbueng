@@ -58,7 +58,7 @@ var num = document.getElementById("clickNum").value;
 	<!-- 페이지 제목 -->
 	<div class=" margin_bottom50">
 		<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
-			<h3>ERP 아이디추가 페이지입니다.</h3>
+			<h3>ERP 아이디추가 페이지입니다.</h3>가맹점 선택 : 
 		</div>
 	</div>
 	
@@ -130,8 +130,10 @@ var num = document.getElementById("clickNum").value;
 			<div class="col-xs-6-12 md_hidden">${list.b_id}</div>
 			<div class="col-xs-6-12 col-md-1-12">신청수</div>
 			<div class="col-xs-6-12 md_hidden">${list.applyCount}</div>
-			<div class="col-xs-6-12 col-md-2-12">시각</div>
+			<div class="col-xs-6-12 col-md-1-12">시각</div>
 			<div class="col-xs-6-12 md_hidden">${list.applyTime}</div>
+			<div class="col-xs-6-12 col-md-1-12">가맹점키</div>
+			<div class="col-xs-6-12 md_hidden">${list.b_key}</div>
 			<div class="col-xs-6-12 col-md-3-12">사유</div>
 			<div class="col-xs-6-12 md_hidden">${list.content}</div>
 			<div class="col-xs-6-12 col-md-1-12">신청확인</div>
@@ -143,7 +145,8 @@ var num = document.getElementById("clickNum").value;
 			<div class="col-xs-6-12 col-md-1-12">${list.num}</div>
 			<div class="col-xs-6-12 col-md-1-12">${list.b_id}</div>
 			<div class="col-xs-6-12 col-md-1-12">${list.applyCount}</div>
-			<div class="col-xs-6-12 col-md-2-12">${list.applyTime}</div>
+			<div class="col-xs-6-12 col-md-1-12">${list.applyTime}</div>
+			<div class="col-xs-6-12 col-md-1-12">${list.b_key}</div>
 			<div class="col-xs-6-12 col-md-3-12">${list.content}</div>
 			<div class="col-xs-6-12 col-md-1-12">
 				<input type="submit" name="confirm" value="신청확인" 	/> 

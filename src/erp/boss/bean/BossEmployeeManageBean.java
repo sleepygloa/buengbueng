@@ -48,8 +48,33 @@ public class BossEmployeeManageBean {
 	}
 	
 	//사장님 알바생 관리 페이지로이동
-	@RequestMapping("manageEmployee.do")
+	@RequestMapping("employeeManage.do")
 	public String manageEmployee(Model model, HttpSession session){
+		
+		//////////////////////////////////////////
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		model.addAttribute("sidemenuCheck", sidemenuCheck);
+		model.addAttribute("sidemenu", sidemenu);
+		//변수들을 페이지로 전달
+		
+		//////////////////////////////////////////
+		//세션 아이디를 페이지로전달
+		String b_id = (String)session.getAttribute("loginId");
+		model.addAttribute("id",b_id);
+		
+		List list = new ArrayList();
+		list = sqlMap.queryForList("erpEmp.getBossFranchiseeList",b_id);
+		
+		model.addAttribute("franchiseeList",list);
+
+		return "/bossERP/employeeManage/employeeManage";
+	}
+	
+	//사장님 알바생 관리 페이지로이동 (가맹점 선택)
+	@RequestMapping("employeeManageInfo.do")
+	public String employeeManageInfo(Model model, HttpSession session){
 		
 		//////////////////////////////////////////
 		//사이드메뉴 템플릿
@@ -81,8 +106,7 @@ public class BossEmployeeManageBean {
 		List list2 = new ArrayList();
 		list2 = (List)sqlMap.queryForList("erpEmp.getEmployeeDeleteList", id);
 		model.addAttribute("list2",list2);
-		
-		return "/bossERP/employeeManage/manageEmployee";
+		return "/bossERP/employeeManage/employeeManageInfo";
 	}
 	
 	//알바생 아이디 신청폼 AJAX 
@@ -96,6 +120,12 @@ public class BossEmployeeManageBean {
 		
 		beDTO = (BossEmployeeManageDataDTO)sqlMap.queryForObject("erpEmp.getEmployeeAddLogLastNum", null);
 		model.addAttribute("beDTO", beDTO);
+		
+		//사장님의 보유한 가맹점을 출력
+		List list = new ArrayList();
+		list = sqlMap.queryForList("erpEmp.getBossFranchiseeList",b_id);
+		
+		model.addAttribute("franchiseeList",list);
 				
 		return "/bossERP/employeeManage/employeeAddInfo";
 	}
@@ -156,20 +186,15 @@ public class BossEmployeeManageBean {
 				 checkId = (beDTO2.getE_id().substring(8)); //아이디 제일 마지막 숫자만 출력한다.
 				 checkIdInt = Integer.parseInt(checkId); //숫자를 인트로 형변환한다.
 			}
-			System.out.println("checkIdInt :"+checkIdInt);
 				
 				//checkIdInt 가 겹치기 않게 +1을 한다.
 					checkIdInt += 1;
 				for(int i = 0; i < applyCount; i ++){
-					System.out.println("for"+i);
 						for(int j = 0; j < checkIdInt+1; j++){
-							System.out.println("j: "+j);
 							String e_id = null;
 							e_id = "employee" + j;
-							System.out.println(e_id);
 							//J 1부터 검색하여 번호가 빈 알바아이디를 찾아냅니다. null일때, 그곳에 해당아이디를 넣어줍니다.
 							if(sqlMap.queryForObject("erpEmp.findE_idNull", e_id) == null){
-								System.out.println("하하");
 								HashMap map = new HashMap();
 								map.put("e_bossid", b_id);
 								map.put("e_id", e_id);
@@ -179,11 +204,9 @@ public class BossEmployeeManageBean {
 								id = e_id;		
 								break;
 							}else{
-								System.out.println("호호");
 								if(j == checkIdInt){
 									j += 1;
 									e_id = "employee" + j;
-									System.out.println("최후의");
 									HashMap map = new HashMap();
 									map.put("e_bossid", b_id);
 									map.put("e_id", e_id);
@@ -207,7 +230,7 @@ public class BossEmployeeManageBean {
 		
 		model.addAttribute("check", check);
 		
-		return "redirect:/manageEmployee.do";
+		return "redirect:/employeeManage.do";
 	}
 	
 	//▲ 를 눌렀을때 AJAX 처리
@@ -250,7 +273,7 @@ public class BossEmployeeManageBean {
 			
 		}catch(Exception e){}
 		
-		return "redirect:/manageEmployee.do";
+		return "redirect:/employeeManage.do";
 	}
 
 	//▼ 를 눌렀을때 AJAX 처리
@@ -295,7 +318,7 @@ public class BossEmployeeManageBean {
 			
 		}catch(Exception e){}
 		
-		return "forward:/manageEmployee.do";
+		return "forward:/employeeManage.do";
 	}
 	
 	//알바생 아이디 삭제 폼
@@ -340,7 +363,7 @@ public class BossEmployeeManageBean {
 		}
 		model.addAttribute("check", check);
 		
-		return "/bossERP/employeeManage/employeeManage";
+		return "/bossERP/employeeManage/employeeDeletePro";
 	}
 	
 	//관리자 알바생 아이디 삭제 신청 승인

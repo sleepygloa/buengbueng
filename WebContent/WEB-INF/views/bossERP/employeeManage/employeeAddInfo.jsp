@@ -27,7 +27,19 @@
 							</div>
 					</div>
 				</div>
-				
+				<!-- 가맹점 이름 -->
+				<div class="row">
+					<div class="col-md-12-12 col-sm-12-12 col-xs-12-12">
+							<label>가맹점 이름<br /></label>
+							<div class="form-group">
+								<select name="b_key">
+								<c:forEach var="list" items="${franchiseeList}">
+									<option value="${list.b_key}">${list.b_name}</option>	
+								</c:forEach>							
+								</select>
+							</div>
+					</div>
+				</div>
 				<!-- 신청하는  ID 수 -->
 				<div class="row">
 					<div class="col-md-12-12 col-sm-12-12 col-xs-12-12">

@@ -20,71 +20,108 @@
 <link href="/buengbueng/js/calender/fullcalendar.css" rel="stylesheet"/>
 <link href="/buengbueng/js/calender/fullcalendar.print.css" rel="stylesheet" media="print"/>
 <script type="text/javascript" src="/buengbueng/js/calender/lib/moment.min.js"></script>
-<script type="text/javascript" src="/buengbueng/js/calender/fullcalendar.js"></script>
+<script type="text/javascript" src="/buengbueng/js/calender/fullcalendar.js" charset="utf-8"></script>
 <script type="text/javascript">
-    jQuery(document).ready(function() {
-        jQuery("#calendar").fullCalendar({
-              defaultDate : "2016-05-12"
-            , editable : true
-            , eventLimit : true
-            , events: [
-                {
-                      title : "All Day Event"
-                    , start : "2016-05-01"
-                },
-                {
-                      title : "Long Event"
-                    , start : "2016-05-07"
-                    , end : "2016-05-10"
-                },
-                {
-                      id : 999
-                    , title : "Repeating Event"
-                    , start : "2016-05-09T16:00:00"
-                },
-                {
-                      id : 999
-                    , title : "Repeating Event"
-                    , start : "2016-05-16T16:00:00"
-                },
-                {
-                      title : "Conference"
-                    , start : "2016-05-11"
-                    , end : "2016-05-13"
-                },
-                {
-                      title : "Meeting"
-                    , start : "2016-05-12T10:30:00"
-                    , end : "2016-05-12T12:30:00"
-                },
-                {
-                      title : "Lunch"
-                    , start : "2016-05-12T12:00:00"
-                },
-                {
-                      title : "Meeting"
-                    , start : "2016-05-12T14:30:00"
-                },
-                {
-                      title : "Happy Hour"
-                    , start : "2016-05-12T17:30:00"
-                },
-                {
-                      title : "Dinner"
-                    , start : "2016-05-12T20:00:00"
-                },
-                {
-                      title : "Birthday Party"
-                    , start : "2016-05-13T07:00:00"
-                },
-                {
-                      title : "Click for Google"
-                    , url : "http://google.com/"
-                    , start : "2016-05-28"
-                }
-            ]
-        });
-    });
+   		$(document).ready(function() {
+   		  //현재년월일
+   		  var date = new Date();
+   		  var d= date.getDate();
+   		  var m = date.getMonth();
+   		  var y = date.getFullYear();
+   		  
+   		  var calendar = $('#calendar').fullCalendar({
+   		  header: {
+   		    left : 'prev, next today', //이전, 다음, 오늘
+   		    center : 'title', //중앙 타이틀
+   		    right: 'month, agendaWeek, agendaDay'
+   		  },
+
+   		  allDayText: '시간', //주간, 월간
+   		  axisFormat: 'tt hh', //주간, 월간
+   		  
+   		  monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+   		  monthNamesShort : ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+   		  dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'],
+   		  dayNameShort:['일','월','화','수','목','금','토'],
+   		  buttonText:{
+   			  prev: '이전달',
+   			  next: '다음달',
+   			  prevYear: '전년',
+   			  nextYear: '내년',
+   			  today: '오늘',
+   			  month: '월간',
+   			  week: '주간',
+   			  day: '일간'
+   		  },
+   		  selectable: true,
+   		  selectHelper:true,
+   		  select:function(start,end){
+   			  onclick(
+   				  window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
+   						  "width=400, height=700,status=no")
+			  )
+   			  /* var title = prompt('일정을 입력하세요');
+   			  if(title){
+   				  calendar.fullCalender('renderEvent',
+   					on(),
+   					true 
+   				  ); 
+   			  }*/
+   			  calender.fullCalendar('unselect');
+   		  },
+   		  editable:true,
+   	    eventSources: [
+
+   	                // your event source
+   	                {
+   	                    url: 'myfeed.do', // use the `url` property
+   	                    color: 'yellow',    // an option!
+   	                    textColor: 'black'  // an option!
+   	                }
+
+   	                // any other sources...
+
+   	            ]
+   		  })
+   		});
+/*     	    var lang_cd = 'ko';
+    	    $('#calendar').fullCalendar({
+    	        header: {
+    	            left: 'prev,next today',
+    	            center: 'title',
+    	            right: 'month,listMonth'
+    	        },
+    	        defaultDate: moment().format('YYYY-MM-DD'),
+    	        locale: initialLocaleCode,
+    	        editable: true,
+    	        navLinks: true,
+    	        eventLimit: true,
+    	        events: function(start, end, timezone, callback) {
+    	            $.ajax({
+    	                url: '/test/eventAll.do',
+    	                type : 'post',
+    	                data : {EVENT_CODE : '11', LANG : lang_cd, startDate : start.format(), endDate : end.format() },
+    	                dataType: 'json',
+    	                success: function(data) {
+    	                    var events = [];
+    	                    $(data).each(function() {
+    	                        events.push({
+    	                            title: $(this).attr('title'),
+    	                            start: $(this).attr('start'),
+    	                            end: $(this).attr('end'),
+    	                            url: "/test/eventDetail.do?id="+$(this).attr('id')+"&amp;lang="+$(this).attr('lang')+"&amp;start="+$(this).attr('start')+"&amp;end="+$(this).attr('end'),
+    	                            lang : $(this).attr('lang')
+    	                        });
+    	                    });
+    	                    callback(events);
+    	                }
+    	            });
+    	 
+    	        },
+    	        loading: function(bool) {
+    	            $('#loading').toggle(bool);
+    	        } */
+    
 </script>
 
    <div id="calendar"></div>

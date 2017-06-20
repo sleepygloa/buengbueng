@@ -637,6 +637,8 @@ var unitsDesc = [ 'year', 'month', 'week', 'day', 'hour', 'minute', 'second', 'm
 
 // Diffs the two moments into a Duration where full-days are recorded first, then the remaining time.
 // Moments will have their timezones normalized.
+//두 개의 순간을 Duration으로 전환하여 전체 일이 먼저 기록 된 다음 나머지 시간을 기록합니다.
+//순간에 표준 시간대가 생깁니다.
 function diffDayTime(a, b) {
 	return moment.duration({
 		days: a.clone().stripTime().diff(b.clone().stripTime(), 'days'),
@@ -665,6 +667,9 @@ function diffByUnit(a, b, unit) {
 // Computes the unit name of the largest whole-unit period of time.
 // For example, 48 hours will be "days" whereas 49 hours will be "hours".
 // Accepts start/end, a range object, or an original duration object.
+//가장 큰 전체 단위 기간의 단위 이름을 계산합니다.
+//예를 들어, 48 시간은 "일"이고 49 시간은 "시간"입니다.
+//시작 / 끝, 범위 개체 또는 원본 기간 개체를 허용합니다.
 function computeGreatestUnit(start, end) {
 	var i, unit;
 	var val;
