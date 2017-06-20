@@ -22,9 +22,16 @@
     	<c:forEach var="ol" items="${orderList}">
     		<tr>
     		<td>${ol.num}</td><td>${ol.id}</td><td>${ol.menuname}</td><td>${ol.ordertime}</td><td>${ol.ordermoney}</td><td>${status}</td>		
-    		<td><input type="submit" value="주문 승인"/>
+    		<td>
+    		<input type="submit" value="주문 승인"/>
+    			<c:if test="${check==0}">
     			<input type="hidden" name="num" value="${ol.num}"/>
+    			</c:if>
+    			<c:if test="${check==1}">
+    			<button onclick="">주문 취소</button>
+    			</c:if>
     			<input type="hidden" name="menuname" value="${ol.menuname}">
+    			<input type="hidden" name="l_key" value="${l_key}"/>
     		</td>
     		</tr>    	
     		</c:forEach>

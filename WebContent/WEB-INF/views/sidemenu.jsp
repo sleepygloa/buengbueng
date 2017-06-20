@@ -43,7 +43,7 @@
 			
 			<li><hr /></li>
 			<li>주문 확인 (이거는 삭제할거예영)</li>
-			<li><a href="userOrderForm.do">사용자 주문창</a></li>
+			<li><a href="userSelectFranchisee.do">사용자 주문창</a></li>
 			<li><a href="menuOrderListForm.do" >사장님 주문내역확인</a></li>
 			
 		</c:if>		

@@ -119,8 +119,6 @@ public class ProductBean {
 			map.put("l_key",l_key);
 			sqlMap.update("menu.updateProduct",map);
 			check=1;
-			request.setAttribute("l_key", l_key);
-			request.setAttribute("check", check);
 		}
 		else if(!pdto.getLastday().equals(beforelastday)){
 			HashMap map = new HashMap();
@@ -130,10 +128,19 @@ public class ProductBean {
 			map.put("l_key",l_key);
 			sqlMap.update("menu.updateProduct",map);
 			check=1;
-			request.setAttribute("l_key", l_key);
-			request.setAttribute("check",check);
+		}else if(pdto.getLastday().equals(beforelastday)){
+			HashMap map = new HashMap();
+			map.put("beforeCode", beforeCode);
+			map.put("lastday",pdto.getLastday());
+			map.put("code",pdto.getCode());
+			map.put("l_key",l_key);
+			sqlMap.update("menu.updateProduct",map);
+			check=1;
 		}
-		}catch(Exception e){e.printStackTrace(); request.setAttribute("check",check);}
+
+		request.setAttribute("l_key", l_key);
+		request.setAttribute("check",check);
+		}catch(Exception e){e.printStackTrace();check=-1; request.setAttribute("check",check);}
 		
 		return "/menu/productModifyPro";
 	}

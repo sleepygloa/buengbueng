@@ -28,6 +28,9 @@
 		<div class="col-xs-12-12">
 	
 	
+	<div>
+		<button onclick="window.location='menuOrderListForm.do?l_key=${l_key}'">주문현황</button>
+	</div>
 	
    	<div>
 		<button onclick="window.location='product.do?l_key=${l_key}'">재 고</button>

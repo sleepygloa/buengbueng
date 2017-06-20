@@ -19,4 +19,5 @@
 	<sqlMap resource="sql/cashSQL.xml"/>  <!-- 결제 관련 -->
 	<sqlMap resource="sql/menuSQL.xml"/> <!-- menu 추가 수정 삭제 관리 -->
 	<sqlMap resource="sql/logSQL.xml"/>  <!-- 각종 LOG 관련 -->
+	<sqlMap resource="sql/orderSQL.xml"/> <!-- 주문관련 사항 -->
 </sqlMapConfig>

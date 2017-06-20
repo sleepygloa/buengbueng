@@ -104,54 +104,7 @@
 	
 	
 	
-	
-	
-	<!-- 사용자와 사장님이 주문시 주문현황 SQL -->
-	
-	
-	<!-- MenuOrderPro 에서 주문한 메뉴와 그 메뉴의 재고판매현황이 1인 재고를 꺼내는 sql -->
-	<select id="selectProduct" parameterClass="String" resultClass="productDto">
-		select * from product where name=#order# and salecheck=1;
-	</select>
-	
-	
-	<!-- 주문 갯수 -->
-	<select id="orderCount" resultClass="int">
-	<![CDATA[
-		select count(*) from menuOrder where ordertime<=now()
-	]]>
-	</select>	
-	
-	<!-- order의 메뉴이름을 가지고 가격을 가져옴 -->
-	<select id="getPrice" parameterClass="String" resultClass="int">
-		select price from menu where name=#ordername#;
-	</select>
-	
-	
-	<!-- 주문재고 있으면 주문현황에 추가 -->	
-	<insert id="insertMenuOrder" parameterClass="java.util.HashMap">
-		insert into menuOrder values(#num#,#id#,#menuname#,now(),#orderstatus#,#ordermoney#);
-	</insert>
-	
-	<!-- 사용자가 주문한 내역을 사장이 열어 볼 리스트. 주문현황리스트 -->
-	<select id="getMenuOrder" resultClass="orderDto">
-		select * from menuOrder;
-	</select>
-	
-	<!-- 받은 바코드가 메뉴이름과 일치하며 판매유무가 1이라면 주문완료-->
-	<select id="salecheckCheck" parameterClass="java.util.HashMap" resultClass="productDto">
-		select * from product where code=#barcode# and name=#menuname# and salecheck=1;
-	</select>
-	
-	<!--주문현황 주문중에서 주문완료로 바꾸기 위함-->
-	<update id="updateStatus" parameterClass="int">
-		update menuOrder set orderstatus=2 where num=#num#;
-	</update>
-	
-	<!-- 재고 판매여부 1에서 0으로 판매되었음을 알리기 위함 -->
-	<update id="updateSaleCheck" parameterClass="int">
-		update product set salecheck=0 where code=#barcode#;
-	</update>
+
 	
 </sqlMap>
 	
