@@ -79,8 +79,9 @@ public class MenuOrderBean {
 			HashMap map1 = new HashMap();
 			map1.put("order", order);
 			map1.put("l_key",l_key);
-			List orderProductList=(List)sqlMap.queryForList("order.selectProduct",map1); // 판매되지 않은 주문한 메뉴의 재고를 불러오는 list.
-			if(orderProductList.size()!=0){ // 판매되지 않은 주문한 메뉴의 재고가 있을 시.
+			int productsalecheck=(Integer)sqlMap.queryForObject("order.selectProduct",map1); // 판매되지 않은 주문한 메뉴의 재고를 불러오는 list.
+			int menuorderstatus=(Integer)sqlMap.queryForObject("order.selectMenuOrder", map1);
+			if(productsalecheck > menuorderstatus){ // 판매되지 않은 주문한 메뉴의 재고가 있을 시.
 				// 주문번호 올려주기 위해서
 				int num=(Integer)sqlMap.queryForObject("order.orderCount",l_key);
 				num=num+1;

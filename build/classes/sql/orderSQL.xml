@@ -17,10 +17,15 @@
 	
 	
 	<!-- MenuOrderPro 에서 주문한 메뉴와 그 메뉴의 재고판매현황이 1인 재고를 꺼내는 sql -->
-	<select id="selectProduct" parameterClass="java.util.HashMap" resultClass="productDto">
-		select * from product where name=#order# and l_key=#l_key# and salecheck=1;
+	<select id="selectProduct" parameterClass="java.util.HashMap" resultClass="int">
+		select count(*) from product where name=#order# and l_key=#l_key# and salecheck=1;
 	</select>
 	
+	<!-- MenuOrderPro 에서 주문했을때 사장주문리스트에 벌써들어가있는 재고를 말하는것 sql -->
+	<select id="selectMenuOrder" parameterClass="java.util.HashMap" resultClass="int">
+		select count(*) from menuOrder where menuname=#order# and l_key=#l_key# and orderstatus=1;
+	</select>
+
 	
 	<!-- 주문 갯수 -->
 	<select id="orderCount" parameterClass="String" resultClass="int">
