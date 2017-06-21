@@ -33,8 +33,8 @@
 	</select>	
 	
 	<!-- 알바생 정보테이블에서 사장님이 보유한 알바생아이디를 찾고, 갯수를 센다. -->
-	<select id="getEmployeeAddLog" resultClass="beDto" >
-		SELECT * from  employeeAddLog where result = '0';
+	<select id="getEmployeeAddLog" resultClass="beDto" parameterClass="java.util.HashMap" >
+		SELECT * from  employeeAddLog where result = '0' and b_key = #b_key#;
 	</select>		
 	
 	<!-- 알바생아이디를 생성하고자할때, 아이디가 중간에없는 아이디를 찾는다. -->
@@ -49,7 +49,7 @@
 	
 	<!-- 알바생 아이디를  알바생정보테이블에 생성 -->
 	<insert id="insertEmployeeIdEmployeeInfo" parameterClass="java.util.HashMap">
-		INSERT INTO employeeInfo (e_id, e_bossid) VALUES(#e_id#, #e_bossid#);
+		INSERT INTO employeeInfo (e_id, e_bossid,b_key) VALUES(#e_id#, #e_bossid#,#b_key#);
 	</insert>		
 	
 	<!-- 아이디 신청한 수만큼 아이디 생성이 완료되면, 아이디 신청 컨펌 정보를 업데이트한다. -->
@@ -59,9 +59,9 @@
 
 	
 	<!-- 알바생 리스트 -->
-	<select id="getEmployeeList" resultClass="beDto" parameterClass="String">
-		select e_id, pw,num, name AS e_name from userInfo a INNER JOIN 
-		(select e_id,num from employeeInfo where e_bossid = #id#) b on a.id = b.e_id;
+	<select id="getEmployeeList" resultClass="beDto" parameterClass="java.util.HashMap">
+		select e_id, pw,num, name, b_key AS e_name from userInfo a INNER JOIN 
+		(select e_id,num,b_key from employeeInfo where e_bossid = #id# and b_key = #b_key#) b on a.id = b.e_id;
 	</select>
 	
 <!-- ▲▼ 처리 구문 ======================== -->
@@ -113,7 +113,7 @@
 	</insert>
 	
 	<!-- 알바생아이디 삭제 리스트 -->
-	<select id="getEmployeeDeleteList" resultClass="beDto" >
+	<select id="getEmployeeDeleteList" resultClass="beDto" parameterClass="java.util.HashMap" >
 		SELECT * from  employeeDeleteLog where result = '0';
 	</select>		
 	
@@ -208,7 +208,7 @@
 		]]>
 	</select>
 	
-	<!-- 사장님의 가맹점 리스트 반환 , 2군데서 사용-->
+	<!-- 사장님의 가맹점 리스트 반환 , 1군데서 사용-->
 	<select id="getBossFranchiseeList" resultClass="franchiseeDTO" parameterClass="String">
 		select b_name, b_key from franchiseeInfo where b_id = #b_id#;
 	</select>
