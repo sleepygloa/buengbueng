@@ -50,11 +50,11 @@ function bossDel(){
 	<c:if test="${re_step == 0}">
 		<span>
 			<input type="button" value="답글쓰기" onclick=
-			"window.location='dashFranchiseForm.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}'">
+			"window.location='dashCustomerForm.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}'">
 		</span>
 	</c:if>
 	<span><button onclick="return bossDel();">글삭제</button></span>
-	<span><input type="button" value="글수정" onclick="window.location='dashFranchiseModify.do?snum=${dto.snum}&num=${dto.num}&pageNum=${pageNum}'"></span>
+	<span><input type="button" value="글수정" onclick="window.location='dashCustomerModify.do?snum=${dto.snum}&num=${dto.num}&pageNum=${pageNum}'"></span>
 	<span><input type="button" value="뒤로가기" onclick="history.go(-1);"></span>
 </div>
 </div>

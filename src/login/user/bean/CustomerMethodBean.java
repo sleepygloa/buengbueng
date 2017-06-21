@@ -109,7 +109,7 @@ public class CustomerMethodBean {  // 사용자 게시판 메서드( 가맹문�
 		}
 		
 		
-		number = (Integer)sqlMap.queryForObject("customer.maxNum", snum);
+		number = (Integer)sqlMap.queryForObject("customer.maxNum", null);
 		
 		if(number!=0){
 			number=number+1;
@@ -123,7 +123,7 @@ public class CustomerMethodBean {  // 사용자 게시판 메서드( 가맹문�
 			dto.setRef(number);
 			dto.setRe_step(0);
 		}
-		
+
 		sqlMap.insert("customer.writePro", dto);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("snum", snum);
@@ -146,8 +146,8 @@ public class CustomerMethodBean {  // 사용자 게시판 메서드( 가맹문�
 		String passwd = request.getParameter("passwd");
 		String pageNum = request.getParameter("pageNum");
 		String number = request.getParameter("number");
-		Integer snum = Integer.parseInt(request.getParameter("snum"));
-		Integer num = Integer.parseInt(request.getParameter("num"));
+		int snum = Integer.parseInt(request.getParameter("snum"));
+		int num = Integer.parseInt(request.getParameter("num"));
 		int check = 0;
 		int grade = 0;
 		
@@ -155,7 +155,7 @@ public class CustomerMethodBean {  // 사용자 게시판 메서드( 가맹문�
 		
 		// 등급이 관리자 or 해당글 비밀번호 일치시 ...
 		if(session.getAttribute("grade")!=null){grade = (Integer)session.getAttribute("grade");}
-		if(dto.getPasswd().equals(passwd) || grade==4){check=1; sqlMap.update("customer.contentUp", map);
+		if(dto.getPasswd().equals(passwd) || grade==4){check=1; sqlMap.update("customer.contentUp", num);
 		}else{ check =0;}
 				
 		map.put("ref", dto.getRef());
@@ -181,7 +181,7 @@ public class CustomerMethodBean {  // 사용자 게시판 메서드( 가맹문�
 	//글삭제 유효성 체크
 	public void writeDeletePro(HttpServletRequest request,HashMap map){
 		int num = Integer.parseInt(request.getParameter("num"));
-		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		int snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		String passwd = request.getParameter("passwd");
 		int check=0;

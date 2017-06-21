@@ -155,7 +155,7 @@ public class CustomerCenterBean extends CustomerMethodBean{ // 가맹 문의 , 1
 		int snum=dto.getSnum();
 		int number=0;
 		
-		number = (Integer)sqlMap.queryForObject("customer.maxNum", snum);
+		number = (Integer)sqlMap.queryForObject("customer.maxNum", null);
 		
 		if(number!=0){
 			number=number+1;

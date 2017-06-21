@@ -112,7 +112,7 @@ public class DashUserBean extends BoardMethodBean{
 		sqlMap.update("admin.userUp",dto);
 		return "/dash-userInfo/dashModify";
 	}
-
+	// 관리자 페이지 회원 찾기
 	@RequestMapping("dashUserSearch.do")
 	public String dashUserSearch(HttpServletRequest request,HashMap map){
 		Alarm(request);// 알람 메서드

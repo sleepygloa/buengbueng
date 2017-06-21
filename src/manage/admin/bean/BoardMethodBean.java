@@ -94,7 +94,7 @@ public class BoardMethodBean {
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("number", number);
 	}
-	/*관리자 삭제
+	// 관리자 페이지 글삭제
 	public void adminDelete(HttpServletRequest request,HashMap map){
 		int num = Integer.parseInt(request.getParameter("num"));
 		String pageNum = request.getParameter("pageNum");
@@ -125,7 +125,25 @@ public class BoardMethodBean {
 		request.setAttribute("snum", snum);
 		request.setAttribute("pageNum", pageNum);
 	}
-	public void adminWrite(){
+	// 관리자 글수정 폼
+	public void adminModify(HttpServletRequest request,CustomerDTO dto){
+		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		Integer num = Integer.parseInt(request.getParameter("num"));
+		String pageNum=request.getParameter("pageNum");
 		
-	}*/
+		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent",num);
+		
+		request.setAttribute("dto", dto);
+		request.setAttribute("pageNum", pageNum);
+	}
+	//관리자 글수정 프로
+	public void adminModifyPro(HttpServletRequest request,CustomerDTO dto){
+		String pageNum= request.getParameter("pageNum");
+		int check = 0;
+			
+		sqlMap.update("customer.modifyContent", dto);
+
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("dto", dto);
+	}
 }
