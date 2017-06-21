@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import login.user.bean.UserInfoDataDTO;
+import manage.boss.bean.FranchiseeDataDTO;
+import superclass.all.bean.FranchiseeSelect;
 import superclass.all.bean.MenuCategoryDivResponse;
 
 @Controller
@@ -25,10 +27,14 @@ public class BossEmployeeManageBean {
 	@Autowired
 	public MenuCategoryDivResponse bossEmployeeManageBean;
 	
+	@Autowired
+	public FranchiseeSelect fs;
+	
 	
 	//사장님 알바생관리 메인 페이지
 	@RequestMapping("bossErpMain.do")
 	public String bossEmployeeInfoMain(Model model, HttpSession session){
+
 		
 		//////////////////////////////////////////
 		//사이드메뉴 템플릿
@@ -42,6 +48,8 @@ public class BossEmployeeManageBean {
 		//세션 아이디를 페이지로전달
 		String id = (String)session.getAttribute("loginId");
 		model.addAttribute("id",id);
+		
+		fs.franchiseeList(id, model);
 		
 		
 		return "/bossERP/erpMain";
@@ -304,8 +312,8 @@ public class BossEmployeeManageBean {
 					if((Integer)list.get(indexNum+1) == null){break;}else{
 						int numb = (Integer)list.get(indexNum+1);
 						
-						System.out.println(numa);
-						System.out.println(numb);
+						System.out.println("numa"+numa);
+						System.out.println("numb"+numb);
 						HashMap map = new HashMap();//up 버튼과 매개변수 교차로 입력됨
 						map.put("numb", numa); //선택된수
 						map.put("numa", numb); //뒷수, 교환될 수
@@ -322,13 +330,12 @@ public class BossEmployeeManageBean {
 			
 		}catch(Exception e){}
 		
-		return "forward:/employeeManage.do";
+		return "redirect:/employeeManage.do";
 	}
 	
 	//알바생 아이디 삭제 폼
 	@RequestMapping("employeeDeleteInfo.do")
-	public String employeeDeleteInfo(Model model, HttpSession session, int num){
-		System.out.println(num);
+	public String employeeDeleteInfo(Model model, HttpSession session, int num, BossEmployeeManageDataDTO beDTO){
 		//////////////////////////////////////////
 		//세션 아이디를 페이지로전달
 		String b_id = (String)session.getAttribute("loginId");
@@ -336,14 +343,15 @@ public class BossEmployeeManageBean {
 		
 		int logNum = 0;
 		
-		String e_id = (String)sqlMap.queryForObject("erpEmp.getDeleteIdInfo", num);
+		beDTO = (BossEmployeeManageDataDTO)sqlMap.queryForObject("erpEmp.getDeleteIdInfo", num);
 	
 			if(sqlMap.queryForObject("erpEmp.getDeleteLogLastNum", null) == null){
 			}else{
 				logNum = (Integer)sqlMap.queryForObject("erpEmp.getDeleteLogLastNum", null);
 			};
 		
-		model.addAttribute("e_id", e_id);
+		model.addAttribute("e_id", beDTO.getE_id());
+		model.addAttribute("b_key", beDTO.getB_key());
 		model.addAttribute("logNum", logNum);
 		
 		return "/bossERP/employeeManage/employeeDeleteInfo";

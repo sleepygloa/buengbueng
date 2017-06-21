@@ -16,6 +16,7 @@
 	
 <!-- 알바생 관리 하는 부분 -->
 	
+	
 	<!-- 알바생신청 로그의 제일 마지막 번호를 불러온다. 신청 폼의 신청 번호 -->
 	<select id="getEmployeeAddLogLastNum" resultClass="beDto">
 		select num, (select count(*) FROM employeeInfo WHERE e_bossid = #e_bossid#) AS count from employeeAddLog order by num desc limit 0, 1;
@@ -97,8 +98,8 @@
 	</select>
 	
 	<!-- 삭제할 알바생 아이디를 찾는다.-->
-	<select id="getDeleteIdInfo" resultClass="String" parameterClass="int">
-		select e_id from employeeInfo where num = #num#;
+	<select id="getDeleteIdInfo" resultClass="beDto" parameterClass="int">
+		select e_id,b_key from employeeInfo where num = #num#;
 	</select>
 	
 	<!-- 알바생 아이디 삭제 신청 Log 중 마지막 번호를 출력 -->

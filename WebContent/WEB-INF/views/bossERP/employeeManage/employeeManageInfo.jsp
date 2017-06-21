@@ -16,7 +16,7 @@ function getAddInfo(b_key){
 		}
 	});
 }
- 
+
 function getDeleteInfo(){
 	var num = document.getElementById("clickNum").value;
 		$.ajax({
@@ -48,10 +48,18 @@ var num = document.getElementById("clickNum").value;
 	type:"post",
 	data: {num : num},
 	success:function(data){
+		history.go(0);
 	}
+})
+}
+	
+$(function (){
+	$('.list').click(function(){
+		$('.bn').css("background-color","white");
+		$(this).css("background-color","green");
+		
+	});
 });
-}	
-
 </script>
 
 <!-- 페이지 제목 -->
@@ -60,42 +68,31 @@ var num = document.getElementById("clickNum").value;
 		<h3>가맹점 ${b_key}ERP 아이디관리 페이지입니다.</h3> 
 	</div>
 </div>
-	
 <div class=" margin_bottom50">	
-	<div class="col-xs-12-12">
-		<div class="col-xs-12-12  col-md-5-12">
-			<div>
+	<div class="col-xs-12-12 col-md-5-12">
+		<div class="col-xs-12-12">
 			<input type="hidden" id="clickNum"/>
-				<table  class="col-xs-12-12 col-md-5-12" style="border:solid 1px black;height:300px;">
-					<thead>
-						<th cols="2">알바생 아이디</th>
-						<th>
-							<input type="button" name="" value="알바생 추가" 
-							onclick="getAddInfo('${b_key}')"/>
-							<input type="button" name="" value="알바생 삭제"
-							onclick="getDeleteInfo()" />
-							<input type="button" name="" value="▲" 
-							onclick="employeeIdUP()"/>
-							<input type="button" name="" value="▼" 
-							onclick="employeeIdDOWN()"/>
-						</th>
-					</thead>
-					<tbody>
+				<div class="col-xs-12-12" style="border:solid 2px black;height:450px;">
+						<div>
+							<div>알바생 아이디</div>
+							<div>
+								<input type="button" name="" value="알바생 추가" 
+								onclick="getAddInfo('${b_key}')"/>
+								<input type="button" name="" value="알바생 삭제"
+								onclick="getDeleteInfo()" />
+								<input type="button" name="" value="▲" 
+								onclick="employeeIdUP()"/>
+								<input type="button" name="" value="▼" 
+								onclick="employeeIdDOWN()"/>
+							</div>
+						</div>
 						<c:forEach var="list" items="${list1}">
-							<tr><td>
-							<span id="num${list.num}" value="${list.num}"
+							<tr style="height:56.25px"><td></td><td width="100%" >
+							<span id="num${list.num}" class="list bn" value="${list.num}"
 							onclick="employeeIdSet('${list.num}')">${list.e_id}
 							<c:if test="${list.e_name != null}">(${list.e_name})</c:if></span></td></tr>
 						</c:forEach>
-					</tbody>
-					<tfoot>
-					<tr>
-						<td><input type="button" name="" value="관리자가 아이디 추가" 
-							onclick="window.location=''"/></td>	
-					</tr>
-					</tfoot>
-				</table>
-			</div>
+				</div>
 		</div>
 	</div>
 	<div class="col-xs-12-12 col-md-7-12">

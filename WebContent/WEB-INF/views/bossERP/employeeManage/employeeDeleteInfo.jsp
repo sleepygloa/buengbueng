@@ -27,7 +27,15 @@
 					</div>
 			</div>
 		</div>
-		
+		<!-- 가맹점 이름 -->
+		<div class="row">
+			<div class="col-md-12-12 col-sm-12-12 col-xs-12-12">
+					<label>가맹점 라이센스<br /></label>
+					<div class="form-group">
+						${b_key}<input type="hidden" name="b_key" value="${b_key}" />
+					</div>
+			</div>
+		</div>
 		<!-- 신청 사유 -->
 		<div class="row">
 			<div class="col-md-12-12 col-sm-12-12 col-xs-12-12">
