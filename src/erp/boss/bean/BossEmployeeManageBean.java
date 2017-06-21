@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import login.user.bean.UserInfoDataDTO;
+import manage.boss.bean.FranchiseeDataDTO;
+import superclass.all.bean.FranchiseeSelect;
 import superclass.all.bean.MenuCategoryDivResponse;
 
 @Controller
@@ -25,10 +27,14 @@ public class BossEmployeeManageBean {
 	@Autowired
 	public MenuCategoryDivResponse bossEmployeeManageBean;
 	
+	@Autowired
+	public FranchiseeSelect fs;
+	
 	
 	//사장님 알바생관리 메인 페이지
 	@RequestMapping("bossErpMain.do")
 	public String bossEmployeeInfoMain(Model model, HttpSession session){
+
 		
 		//////////////////////////////////////////
 		//사이드메뉴 템플릿
@@ -43,12 +49,14 @@ public class BossEmployeeManageBean {
 		String id = (String)session.getAttribute("loginId");
 		model.addAttribute("id",id);
 		
+		fs.franchiseeList(id, model);
+		
 		
 		return "/bossERP/erpMain";
 	}
 	
 	//사장님 알바생 관리 페이지로이동
-	@RequestMapping("manageEmployee.do")
+	@RequestMapping("employeeManage.do")
 	public String manageEmployee(Model model, HttpSession session){
 		
 		//////////////////////////////////////////
@@ -61,33 +69,64 @@ public class BossEmployeeManageBean {
 		
 		//////////////////////////////////////////
 		//세션 아이디를 페이지로전달
+		String b_id = (String)session.getAttribute("loginId");
+		model.addAttribute("id",b_id);
+		
+		List list = new ArrayList();
+		list = sqlMap.queryForList("erpEmp.getBossFranchiseeList",b_id);
+		
+		model.addAttribute("franchiseeList",list);
+
+		return "/bossERP/employeeManage/employeeManage";
+	}
+	
+	//사장님 알바생 관리 페이지로이동 (가맹점 선택)
+	@RequestMapping("employeeManageInfo.do")
+	public String employeeManageInfo(Model model, HttpSession session, String b_key){
+		//////////////////////////////////////////
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		model.addAttribute("sidemenuCheck", sidemenuCheck);
+		model.addAttribute("sidemenu", sidemenu);
+		//변수들을 페이지로 전달
+		
+		//////////////////////////////////////////
+		//세션 아이디를 페이지로전달
 		String id = (String)session.getAttribute("loginId");
 		model.addAttribute("id",id);
+		
+		HashMap map = new HashMap();
+		map.put("id", id);
+		map.put("b_key", b_key);
+		
 		
 		//////////////////////////////////////////////
 		///임시로 추가함
 		List list = new ArrayList();
-		list = (List)sqlMap.queryForList("erpEmp.getEmployeeAddLog",null);
+		list = (List)sqlMap.queryForList("erpEmp.getEmployeeAddLog",map);
 		model.addAttribute("list",list);
 		
 		//////////////////////////////////////////////
 		//알바생 아이디정보를 리스트로 불러옴, 파트 
 		List list1 = new ArrayList();
-		list1 = (List)sqlMap.queryForList("erpEmp.getEmployeeList", id);
+		list1 = (List)sqlMap.queryForList("erpEmp.getEmployeeList", map);
 		model.addAttribute("list1",list1);
 		
 		//////////////////////////////////////////////
 		//알바생 아이디정보를 리스트로 불러옴, 파트 
 		List list2 = new ArrayList();
-		list2 = (List)sqlMap.queryForList("erpEmp.getEmployeeDeleteList", id);
+		list2 = (List)sqlMap.queryForList("erpEmp.getEmployeeDeleteList", map);
 		model.addAttribute("list2",list2);
 		
-		return "/bossERP/employeeManage/manageEmployee";
+		model.addAttribute("b_key",b_key);
+		
+		return "/bossERP/employeeManage/employeeManageInfo";
 	}
 	
 	//알바생 아이디 신청폼 AJAX 
 	@RequestMapping("employeeAddInfo.do")
-	public String employeeAddInfo(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO ){
+	public String employeeAddInfo(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO, String b_key){
 			
 		//////////////////////////////////////////
 		//세션 아이디를 페이지로전달
@@ -96,13 +135,15 @@ public class BossEmployeeManageBean {
 		
 		beDTO = (BossEmployeeManageDataDTO)sqlMap.queryForObject("erpEmp.getEmployeeAddLogLastNum", null);
 		model.addAttribute("beDTO", beDTO);
-				
+
+		model.addAttribute("b_key", b_key);
+		
 		return "/bossERP/employeeManage/employeeAddInfo";
 	}
 	
 	//알바생 아이디 추가 신청 처리, Log남김
 	@RequestMapping("employeeAddPro.do")
-	public String employeeAddPro(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO){
+	public String employeeAddPro(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO, String b_key){
 		
 		//////////////////////////////////////////
 		//세션 아이디를 페이지로전달
@@ -117,6 +158,7 @@ public class BossEmployeeManageBean {
 			return "/bosspcuse/franchiseeAddPro";		}
 		
 		try{
+			beDTO.setB_key(b_key);
 			//입력된 정보를 로그에 남겨줍니다.
 			//////////////////////////////////////
 			//사장님이 알바생아이디를 (숫자)만큼 신청함. 
@@ -137,8 +179,6 @@ public class BossEmployeeManageBean {
 	
 		int applyCount = beDTO.getApplyCount();
 		String b_id = beDTO.getB_id();
-		System.out.println(applyCount);
-		System.out.println(b_id);
 		
 		BossEmployeeManageDataDTO beDTO2 = null;
 		int check = 0;
@@ -156,37 +196,32 @@ public class BossEmployeeManageBean {
 				 checkId = (beDTO2.getE_id().substring(8)); //아이디 제일 마지막 숫자만 출력한다.
 				 checkIdInt = Integer.parseInt(checkId); //숫자를 인트로 형변환한다.
 			}
-			System.out.println("checkIdInt :"+checkIdInt);
 				
 				//checkIdInt 가 겹치기 않게 +1을 한다.
 					checkIdInt += 1;
 				for(int i = 0; i < applyCount; i ++){
-					System.out.println("for"+i);
 						for(int j = 0; j < checkIdInt+1; j++){
-							System.out.println("j: "+j);
 							String e_id = null;
 							e_id = "employee" + j;
-							System.out.println(e_id);
 							//J 1부터 검색하여 번호가 빈 알바아이디를 찾아냅니다. null일때, 그곳에 해당아이디를 넣어줍니다.
 							if(sqlMap.queryForObject("erpEmp.findE_idNull", e_id) == null){
-								System.out.println("하하");
 								HashMap map = new HashMap();
 								map.put("e_bossid", b_id);
 								map.put("e_id", e_id);
+								map.put("b_key", beDTO.getB_key());
 								sqlMap.insert("erpEmp.insertEmployeeIdUserInfo", e_id);
 								sqlMap.insert("erpEmp.insertEmployeeIdEmployeeInfo", map);
 								
 								id = e_id;		
 								break;
 							}else{
-								System.out.println("호호");
 								if(j == checkIdInt){
 									j += 1;
 									e_id = "employee" + j;
-									System.out.println("최후의");
 									HashMap map = new HashMap();
 									map.put("e_bossid", b_id);
 									map.put("e_id", e_id);
+									map.put("b_key", beDTO.getB_key());
 									sqlMap.insert("erpEmp.insertEmployeeIdUserInfo", e_id);
 									sqlMap.insert("erpEmp.insertEmployeeIdEmployeeInfo", map);
 									
@@ -207,7 +242,7 @@ public class BossEmployeeManageBean {
 		
 		model.addAttribute("check", check);
 		
-		return "redirect:/manageEmployee.do";
+		return "redirect:/employeeManage.do";
 	}
 	
 	//▲ 를 눌렀을때 AJAX 처리
@@ -250,7 +285,7 @@ public class BossEmployeeManageBean {
 			
 		}catch(Exception e){}
 		
-		return "redirect:/manageEmployee.do";
+		return "redirect:/employeeManage.do";
 	}
 
 	//▼ 를 눌렀을때 AJAX 처리
@@ -277,8 +312,8 @@ public class BossEmployeeManageBean {
 					if((Integer)list.get(indexNum+1) == null){break;}else{
 						int numb = (Integer)list.get(indexNum+1);
 						
-						System.out.println(numa);
-						System.out.println(numb);
+						System.out.println("numa"+numa);
+						System.out.println("numb"+numb);
 						HashMap map = new HashMap();//up 버튼과 매개변수 교차로 입력됨
 						map.put("numb", numa); //선택된수
 						map.put("numa", numb); //뒷수, 교환될 수
@@ -295,13 +330,12 @@ public class BossEmployeeManageBean {
 			
 		}catch(Exception e){}
 		
-		return "forward:/manageEmployee.do";
+		return "redirect:/employeeManage.do";
 	}
 	
 	//알바생 아이디 삭제 폼
 	@RequestMapping("employeeDeleteInfo.do")
-	public String employeeDeleteInfo(Model model, HttpSession session, int num){
-		System.out.println(num);
+	public String employeeDeleteInfo(Model model, HttpSession session, int num, BossEmployeeManageDataDTO beDTO){
 		//////////////////////////////////////////
 		//세션 아이디를 페이지로전달
 		String b_id = (String)session.getAttribute("loginId");
@@ -309,14 +343,15 @@ public class BossEmployeeManageBean {
 		
 		int logNum = 0;
 		
-		String e_id = (String)sqlMap.queryForObject("erpEmp.getDeleteIdInfo", num);
+		beDTO = (BossEmployeeManageDataDTO)sqlMap.queryForObject("erpEmp.getDeleteIdInfo", num);
 	
 			if(sqlMap.queryForObject("erpEmp.getDeleteLogLastNum", null) == null){
 			}else{
 				logNum = (Integer)sqlMap.queryForObject("erpEmp.getDeleteLogLastNum", null);
 			};
 		
-		model.addAttribute("e_id", e_id);
+		model.addAttribute("e_id", beDTO.getE_id());
+		model.addAttribute("b_key", beDTO.getB_key());
 		model.addAttribute("logNum", logNum);
 		
 		return "/bossERP/employeeManage/employeeDeleteInfo";
@@ -340,7 +375,7 @@ public class BossEmployeeManageBean {
 		}
 		model.addAttribute("check", check);
 		
-		return "/bossERP/employeeManage/employeeManage";
+		return "/bossERP/employeeManage/employeeDeletePro";
 	}
 	
 	//관리자 알바생 아이디 삭제 신청 승인

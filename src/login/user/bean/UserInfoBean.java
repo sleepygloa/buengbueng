@@ -1,9 +1,5 @@
 package login.user.bean;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -79,6 +75,7 @@ public class UserInfoBean {
 		}catch(Exception e){
 			
 		}
+		request.setAttribute("check", check);
 		return "/index";
 	}
 	

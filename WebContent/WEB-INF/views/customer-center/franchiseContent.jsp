@@ -5,32 +5,35 @@
 <jsp:include page="../header.jsp" />
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$("#delete").click(function(){
-			$.ajax({
-				url:"franchiseDelete.do",
-				type:"post",
-				data:{num:$("#num").val(),
-					snum:$("#snum").val(),
-					pageNum:$("#pageNum").val()},
-				success:function(data){
-					$("#form").html(data);
-				}
-			});
-		});
-		$("#bossDel").click(function(){
-			$.ajax({
-				url:"bossDelete.do",
-				type:"post",
-				data:{num:$("#num").val(),
-					snum:$("#snum").val(),
-					pageNum:$("#pageNum").val()},
-				success:function(data){
-					$("#form").html(data);
-				}
-			});
+$(document).ready(function(){
+	$("#delete").click(function(){
+		$.ajax({
+			url:"franchiseDelete.do",
+			type:"post",
+			data:{num:$("#num").val(),
+				snum:$("#snum").val(),
+				pageNum:$("#pageNum").val()},
+			success:function(data){
+				$("#form").html(data);
+			}
 		});
 	});
+});	
+function bossDel(){
+	if(confirm("정말 삭제하시겠습니까??") == true){    //확인
+		$.ajax({
+			url:"bossDelete.do",
+			type:"post",
+			data:{num:$("#num").val(),
+				snum:$("#snum").val(),
+				pageNum:$("#pageNum").val()},
+			success:function(data){
+					$("#form").html(data);
+			}});
+	}else{   //취소
+	  	return;
+	}
+}
 </script>
 <head>
 <title>작성한 글</title>
@@ -71,7 +74,7 @@
 				"window.location='franchiseForm.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}'">
 			</span>
 		</c:if>
-		<span><button id="bossDel">글삭제</button></span>
+		<span><button onclick="return bossDel();">글삭제</button></span>
 	</c:if>
 	<c:if test="${sessionScope.grade != 4 && dto.re_step==0}">
 	<span><input type="button" value="글수정" onclick="window.location='franchiseModify.do?snum=${dto.snum}&num=${dto.num}&pageNum=${pageNum}'"></span>

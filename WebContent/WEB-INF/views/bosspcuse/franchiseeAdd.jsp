@@ -22,7 +22,7 @@
 							<label>ID<br /></label>
 							<div class="form-group">
 								${userDto.id}
-								<input class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" type="hidden" name="id" value="${userDto.id}" placeholder="아이디를 입력하세요" />
+								<input class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" type="hidden" name="b_id" value="${userDto.id}" placeholder="아이디를 입력하세요" />
 							</div>
 						</c:if>
 						<c:if test="${userDto.id == null}">비회원</c:if>

@@ -27,8 +27,6 @@
 	<context:component-scan base-package="manage.admin.bean" /> <!-- 관리자 페이지 BEAN -->
 	<context:component-scan base-package="menu.all.bean" /> <!-- Menu 총 기능 관리 BEAN -->
 	
-
-	
 	<!-- FX BEAN INPORT 지정 -->
 	<context:component-scan base-package="fx.user.bean" /> <!-- FX 사용자 BEAN  -->
 	<context:component-scan base-package="fx.login.bean" /> <!-- FX 화원관리 BEAN  -->
@@ -81,7 +79,7 @@
 		<property name="sqlMapClient" ref="sqlMapClient"/>
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
-
+	
 	<!-- DB 연동 : MySQL -->
 	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource"
           destroy-method="close"

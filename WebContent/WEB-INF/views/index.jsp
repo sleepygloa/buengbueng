@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:if test="${check==11}">
+<script>
+alert('정보가 틀립니다.');
+history.go(-1);
+</script>
+</c:if>
 <!-- HEADER TEMPLATE -->
 <jsp:include page="header.jsp" />
 

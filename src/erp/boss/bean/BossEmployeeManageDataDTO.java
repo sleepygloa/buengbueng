@@ -19,9 +19,17 @@ public class BossEmployeeManageDataDTO {
 
 	private String e_name; //알바생 관리에서 사용할 List에서 사용, name으로하면 오류나나?
 	
+	private String b_key; //가맹점 
 	
 	
 	
+	
+	public String getB_key() {
+		return b_key;
+	}
+	public void setB_key(String b_key) {
+		this.b_key = b_key;
+	}
 	public String getE_name() {
 		return e_name;
 	}

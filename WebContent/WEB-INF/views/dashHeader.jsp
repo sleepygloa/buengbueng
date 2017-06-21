@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${sessionScope.grade!=4}">
+	<script> alert('관리자 페이지'); window.location='index.do';</script>
+</c:if>
 <!DOCTYPE html>
 <html lang="en">
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,26 +33,38 @@
                     <a class="brandname" href="/buengbueng/dashIndex.do"><i class="fa fa-eercast"></i> <span><span class="text-slim">bueng</span> bueng</span></a>
                     <span class="mt-sidebar-toggle"><a href="#"></a></span>
                 </div>
-                <div class="mt-right-header" data-mt-position-type="relative" data-mt-color-type="header-bg3">
-                    <span class="mt-sidebar-toggle"><a href="#"></a></span>
-                    <ul class="right-navbar">
-                        <li>
-                            <a class="nav-expand" href="#"><img class="img-responsive img-circle" alt="Image Here" src="img/dashBoard/1.jpg" > Mr.Charles</a>
-                        </li>
-                    </ul>
-                </div>
-<!---------------------------------------------경계선-------------------------->                
-            </header>
+                <div class="mt-right-header" data-mt-position-type="relative" data-mt-color-type="header-bg3"/>
+			</header>
+<!---------------------------------------------경계선------------------------------------------>                
+<script>
+setInterval("autoRefresh()", 3000);
+	function autoRefresh(){		
+		var currentLocation = window.location;
+		$('#autoRe').load(currentLocation+" #autoRe");
+		}
+setInterval("autoRefresh1()", 3000);
+	function autoRefresh1(){		
+		var currentLocation = window.location;
+		$('#autoRe1').load(currentLocation+" #autoRe1");
+		}
+setInterval("autoRefresh2()", 3000);
+	function autoRefresh2(){		
+		var currentLocation = window.location;
+		$('#autoRe2').load(currentLocation+" #autoRe2");
+		}	
+</script>
             <div id="mtapp-container" data-mt-color-type="lpanel-bg3" data-mt-lpanel-effect="shrink">
                 <aside id="mt-left-panel" data-mt-position-type="absolute">
                     <div class="user-block clearfix">
                         <img class="img-responsive" alt="Image Here" src="img/dashBoard/1.jpg">
                         <div class="detail">
-                            <strong>${sessionScope.loginId}</strong><span class="badge badge-danger m-left-xs ">접속</span>
+                        <div id="autoRe"><strong>${sessionScope.loginId}</strong>
+                        <span class="label bg-warning"><a href="#">${alarm} ${franchiseAlarm+oneAlarm}</a></span></div>
+                          	
                             <ul class="list-inline">
-                                <li class=""><a href="userInfoForm.do">정보 버튼</a></li>
-                                <li class=""><a href="logout.do" class="no-margin">로그아웃 버튼</a></li>
-                                <li class=""><a href="index.do" class="no-margin">사용자 페이지</a></li>
+                                <li class="badge badge-danger m-left-xs"><a href="userInfoForm.do">정보 버튼</a></li>
+                                <li class="badge badge-danger m-left-xs"><a href="logout.do" class="no-margin">로그아웃 버튼</a></li>
+                                <li class="badge badge-danger m-left-xs"><a href="index.do" class="no-margin">사용자 페이지</a></li>
                             </ul>
                         </div>
                     </div>
@@ -63,32 +78,37 @@
                         </a>
                             <ul class="mt-sub-menu">
                              	<li>
-                                    <a href="dashUser.do?grade=1&pageNum=1" class="rippler rippler-default">
+                                    <a href="dashUser.do?grade=3&pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">사용자</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="dashBoss.do?grade=1&pageNum=1" class="rippler rippler-default">
+                                    <a href="dashUser.do?grade=1&pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">사장님</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="dashAdmin.do?grade=1&pageNum=1" class="rippler rippler-default">
+                                    <a href="dashUser.do?grade=4&pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">관리자</span>
-                                    <span class="label bg-warning">Update</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="rippler rippler-default">
-                                    <span class="menu-text">등급 관리</span>
-                                    <span class="label bg-warning">Update</span>
+                                    <a href="dashUserSearch.do?pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">회원 검색</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="grid.html" class="rippler rippler-default">
+                            <i class="fa fa-th"></i>
+                            <span class="menu-text">좌석 관리</span>
+                            <span class="selected"></span>
+                        </a>
                         </li>
                         <li>
                             <a href="grid.html" class="rippler rippler-default">
@@ -153,20 +173,32 @@
                         </a>
                             <ul class="mt-sub-menu">
                                 <li>
-                                    <a href="tables-simple.html" class="rippler rippler-default">
+                                    <a href="dashFranchiseList.do?snum=1&pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">가맹 문의</span>
+                                    <c:if test="${franchiseAlarm >0}">
+                                    	<span class="badge badge-danger m-left-xs "><div id="autoRe1">${franchiseAlarm}</div></span>
+                                    </c:if>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="tables-datatables.html" class="rippler rippler-default">
-                                    <span class="menu-text">Q & A</span>
+                                    <a href="dashCustomerList.do?snum=2&pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">자주 묻는 질문</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
                                 <li>
-                                    <a href="tables-datatables.html" class="rippler rippler-default">
+                                    <a href="dashOneList.do?snum=3&pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">1:1 문의</span>
+                                    <c:if test="${oneAlarm >0 }">
+                                    	<span class="badge badge-danger m-left-xs "><div id="autoRe2">${oneAlarm}</div></span>
+                                    </c:if>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                                 <li>
+                                    <a href="dashNoReply.do?pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">답변 대기중</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
@@ -175,3 +207,4 @@
                 </aside>
          <!-- 중앙에 들어갈 내용!-->
          <section id="main-content">
+         
