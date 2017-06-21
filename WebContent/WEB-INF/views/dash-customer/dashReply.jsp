@@ -23,7 +23,7 @@
 		<span>
 		<c:out value="${number}"/>
 		</span>
-		<span><a href="franchiseContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
+		<span><a href="dashReplyContent.do?num=${list.num}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
 		<span>${list.writer}</span>
 		<span>${list.email}</span>
 		<span>${dates[d]}</span>
@@ -34,13 +34,13 @@
 </c:forEach>
 	
 	<c:if test="${startPage > 10}">
-        <a href="franchiseQA.do?snum=${snum}&pageNum=${ startPage - 10 }">[이전]</a>
+        <a href="dashReply.do?pageNum=${ startPage - 10 }">[이전]</a>
 	</c:if>
 	<c:forEach var="i" begin="${startPage}" end="${endPage}">
-		<a href="franchiseQA.do?snum=${snum}&pageNum=${i}">[${i}]</a>
+		<a href="dashReply.do?pageNum=${i}">[${i}]</a>
 	</c:forEach>
 	<c:if test="${endPage < pageCount}">
-    	<a href="franchiseQA.do?snum=${snum}&pageNum=${ startPage + 10 }">[다음]</a>
+    	<a href="dashReply.do?pageNum=${ startPage + 10 }">[다음]</a>
 	</c:if>
 </div>
 </c:if>

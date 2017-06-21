@@ -57,6 +57,7 @@
 		select re_step from customerBoard where num=#num# and snum=#snum#;
 	</select>
 	
+	
 	<!-- 게시글 그룹 검색 -->
 	<select id="getRef" parameterClass="java.util.HashMap" resultClass="int">
 		select ref from customerBoard where num=#num# and snum=#snum#
@@ -80,4 +81,5 @@
 		delete from customerBoard where ref=#ref# and re_step>=#re_step# and snum=#snum#;
 	]]>
 	</delete>
+	
 </sqlMap>

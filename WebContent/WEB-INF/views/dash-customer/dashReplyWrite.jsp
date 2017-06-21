@@ -8,7 +8,7 @@
 <title>Q & A</title>
 </head>
 <div>자주 묻는 질문</div>
-<form action="dashCustomerWriteFormPro.do" method="post" name="dashCustomer">
+<form action="dashReplyWritePro.do" method="post" name="dashReplyWrite">
 <input type="hidden" name="pageNum" value="${pageNum}">
 <input type="hidden" name="snum" value="${snum}">
 <input type="hidden" name="num" value="${num}">

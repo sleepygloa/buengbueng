@@ -83,16 +83,24 @@ public class BoardMethodBean {
 		request.setAttribute("dates", dates);
 	}
 	//관리자 게시글 호출
-	public void adminContent(HttpServletRequest request,CustomerDTO dto){
-		int num = Integer.parseInt(request.getParameter("num"));
-		int number = Integer.parseInt(request.getParameter("number"));
+	public void adminContent(HttpServletRequest request,CustomerDTO dto,HashMap map){
 		String pageNum = request.getParameter("pageNum");
-		
+		String number = request.getParameter("number");
+		int snum = Integer.parseInt(request.getParameter("snum"));
+		int num = Integer.parseInt(request.getParameter("num"));
+
+		sqlMap.update("customer.contentUp", num);
+	
 		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent",num);
 		
+		map.put("ref", dto.getRef());
+		map.put("snum",snum);
+		int re_step = (Integer)sqlMap.queryForObject("customer.getReply",map); // 답글의 여부 확인 1일때만 답변 쓸수있음.
+		
+		request.setAttribute("re_step", re_step);
 		request.setAttribute("dto", dto);
-		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("number", number);
+		request.setAttribute("pageNum", pageNum);
 	}
 	// 관리자 페이지 글삭제
 	public void adminDelete(HttpServletRequest request,HashMap map){

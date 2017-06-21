@@ -47,10 +47,10 @@ function bossDel(){
 	${dto.content}
 </div>
 <div>
-	<c:if test="${re_step == 0}">
+	<c:if test="${re_step == 1}">
 		<span>
 			<input type="button" value="답글쓰기" onclick=
-			"window.location='dashCustomerForm.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}'">
+			"window.location='dashCustomerWriteForm.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}'">
 		</span>
 	</c:if>
 	<span><button onclick="return bossDel();">글삭제</button></span>

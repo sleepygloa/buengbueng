@@ -73,7 +73,7 @@
 	<select id="customerReplyList" parameterClass="java.util.HashMap" resultClass="customerDTO">
 		<![CDATA[
 		select * FROM customerBoard where ref not in ( SELECT ref from customerBoard group by ref having count(ref)>1) 
-		and snum not in (select snum from customerBoard where snum=2 or snum=4) order by reg_date asc limit #startRow#,#pageSize#;
+		and snum not in (select snum from customerBoard where snum=2 or snum=4 or snum=0) order by reg_date asc limit #startRow#,#pageSize#;
 		]]>
 	</select>
 </sqlMap>

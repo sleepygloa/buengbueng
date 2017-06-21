@@ -33,9 +33,9 @@ public class DashCustomerBean extends BoardMethodBean{
 	}
 	// 관리자 가맹 문의 글 호출
 	@RequestMapping("dashFranchiseContent.do")
-	public String dashFranchiseContent(HttpServletRequest request,CustomerDTO dto){
+	public String dashFranchiseContent(HttpServletRequest request,CustomerDTO dto,HashMap map){
 		Alarm(request);
-		adminContent(request, dto);
+		adminContent(request, dto, map);
 		return "/dash-customer/dashFranchiseContent";
 	}
 	//관리자 가맹 문의 글 수정 폼
@@ -62,9 +62,9 @@ public class DashCustomerBean extends BoardMethodBean{
 	}
 	// 관리자 자주 묻는 질문 게시글 호출
 	@RequestMapping("dashCustomerContent.do")
-	public String dashCustomerContent(HttpServletRequest request,CustomerDTO dto){
+	public String dashCustomerContent(HttpServletRequest request,CustomerDTO dto,HashMap map){
 		Alarm(request);
-		adminContent(request, dto);
+		adminContent(request, dto,map);
 		return "/dash-customer/dashCustomerContent";
 	}
 	//관리자 자주 묻는 질문 글 수정 폼
@@ -84,6 +84,7 @@ public class DashCustomerBean extends BoardMethodBean{
 	//관리자 자주 묻는 질문 글 폼
 	@RequestMapping("dashCustomerWriteForm.do")
 	public String dashCustomerWriteForm(HttpSession session,HttpServletRequest request){
+		Alarm(request);
 		String id = (String)session.getAttribute("loginId");
 		UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
 		
@@ -106,6 +107,38 @@ public class DashCustomerBean extends BoardMethodBean{
 		request.setAttribute("pageNum", pageNum);
 		return "/dash-customer/dashCustomerWriteForm";
 	}
+	//관리자 자주 묻는 질문 글쓰기
+	@RequestMapping("dashCustomerWriteFormPro.do")
+	public String dashCustomerWriteFormPro(HttpServletRequest request,HashMap map,CustomerDTO dto){
+		Alarm(request);
+		String pageNum = request.getParameter("pageNum");
+
+		int num=dto.getNum(); 
+		int ref=dto.getRef();
+		int re_step=dto.getRe_step();
+		int snum=dto.getSnum();
+		int number=0;
+		
+		number = (Integer)sqlMap.queryForObject("customer.maxNum", null);
+		
+		if(number!=0){
+			number=number+1;
+		}else{
+			number=1;
+		}
+		
+		if (num!=0){ 
+			dto.setRe_step(re_step+1);
+		}else{ 
+			dto.setRef(number);
+			dto.setRe_step(0);
+		}
+
+		sqlMap.insert("customer.writePro", dto);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("snum", snum);
+		return "/dash-customer/dashCustomerWriteFormPro";
+	}
 	
 	// 관리자 페이지 1:1 문의 목록	
 	@RequestMapping("dashOneList.do")
@@ -116,9 +149,9 @@ public class DashCustomerBean extends BoardMethodBean{
 	}
 	// 관리자 1:1 문의 게시글 호출
 	@RequestMapping("dashOneContent.do")
-	public String dashOneContent(HttpServletRequest request,CustomerDTO dto){
+	public String dashOneContent(HttpServletRequest request,CustomerDTO dto,HashMap map){
 		Alarm(request);
-		adminContent(request, dto);
+		adminContent(request, dto, map);
 		return "/dash-customer/dashOneContent";
 	}
 	//관리자 1:1 문의 글 수정 폼
@@ -189,5 +222,87 @@ public class DashCustomerBean extends BoardMethodBean{
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("dates", dates);
 		return "/dash-customer/dashReply";
+	}
+	// 답변 중인 게시글 호출
+	@RequestMapping("dashReplyContent.do")
+	public String dashReplyContent(HttpServletRequest request,HashMap map,CustomerDTO dto){
+		Alarm(request);
+		String pageNum = request.getParameter("pageNum");
+		String number = request.getParameter("number");
+		int num = Integer.parseInt(request.getParameter("num"));
+	
+		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent",num);
+
+		request.setAttribute("dto", dto);
+		request.setAttribute("number", number);
+		request.setAttribute("pageNum", pageNum);
+		return "/dash-customer/dashReplyContent";
+	}
+	//답변 중인 게시글 글쓰기 폼
+	@RequestMapping("dashReplyWrite.do")
+	public String dashReplyWrite(HttpSession session,HttpServletRequest request){
+		Alarm(request);
+		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출
+			String id = (String)session.getAttribute("loginId");
+			UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+			request.setAttribute("user", user);
+		}
+		
+		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		String pageNum = request.getParameter("pageNum");
+		int num=0,ref=1,re_step=0;
+		if(request.getParameter("num")!=null){
+			String title=request.getParameter("title");
+			num=Integer.parseInt(request.getParameter("num"));
+			ref=Integer.parseInt(request.getParameter("ref"));
+			re_step=Integer.parseInt(request.getParameter("re_step"));
+			request.setAttribute("title", title);
+		}
+		request.setAttribute("num", new Integer(num));
+		request.setAttribute("ref", new Integer(ref));
+		request.setAttribute("re_step", new Integer(re_step));
+		request.setAttribute("snum", snum);
+		request.setAttribute("pageNum", pageNum);
+		return "/dash-customer/dashReplyWrite";
+	}
+	//답변 중인 게시글 글작성
+	@RequestMapping("dashReplyWritePro.do")
+	public String dashReplyWritePro(HttpServletRequest request,HashMap map,CustomerDTO dto){
+		String pageNum = request.getParameter("pageNum");
+
+		int num=dto.getNum(); 
+		int ref=dto.getRef();
+		int re_step=dto.getRe_step();
+		int snum=dto.getSnum();
+		int number=0;
+		
+		// 답글 작성시 기존 글과 비밀번호 통일
+		if(request.getParameter("b_passwd")==""){
+			map.put("snum", snum);
+			map.put("num",num);
+			String passwd = (String)sqlMap.queryForObject("customer.getPasswd", map);
+			dto.setPasswd(passwd);
+		}
+		
+		
+		number = (Integer)sqlMap.queryForObject("customer.maxNum", null);
+		
+		if(number!=0){
+			number=number+1;
+		}else{
+			number=1;
+		}
+		
+		if (num!=0){ 
+			dto.setRe_step(re_step+1);
+		}else{ 
+			dto.setRef(number);
+			dto.setRe_step(0);
+		}
+
+		sqlMap.insert("customer.writePro", dto);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("snum", snum);
+		return "/dash-customer/dashReplyWritePro";
 	}
 }

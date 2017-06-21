@@ -202,6 +202,12 @@ setInterval("autoRefresh2()", 3000);
                                     <span class="selected"></span>
                                 </a>
                                 </li>
+                                <li>
+                                    <a href="dashBoardSearch.do?pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">게시글 검색</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
                             </ul>
                         </li>
                 </aside>
