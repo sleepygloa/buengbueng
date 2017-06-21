@@ -27,5 +27,4 @@
 	<sqlMap resource="/sql/bossPCSQL.xml" /> <!-- 사장님 PC방 관리 ERP -->
 	<sqlMap resource="/sql/rentSQL.xml" /> <!-- 사장님 대여물품 관리 ERP -->
 	<sqlMap resource="/sql/moduleSQL.xml"/> <!-- 모듈화 관리 -->
->>>>>>> aa8419f96fd6a98da70efb92e598835c8db0ef32
 </sqlMapConfig>
