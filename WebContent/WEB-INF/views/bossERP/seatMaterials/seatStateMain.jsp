@@ -5,6 +5,7 @@
 	<title>PC방 이용현황 관리</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="/buengbueng/js/bossERP/seatState.js"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="css/dist/modules.min.css">
 	<link rel="stylesheet" type="text/css" href="/buengbueng/css/bossERP/seatDispose.css" />
 </head>
 
@@ -22,5 +23,5 @@
 	</select>&emsp;
 	<input type="button" value="확인" id="getSeatState"/>
 	<br/>
-	<div class="seatState"></div>
+	<div id="seatState" class="bg4 row"></div>
 </body>

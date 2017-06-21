@@ -14,7 +14,7 @@ $(document).ready(function(){
 				b_key : b_key
 			},
 			success:function(data){
-				$(".seatDispose").html(data);
+				$("#seatDispose").html(data);
 			}
 		});
 	});
@@ -35,7 +35,7 @@ $(document).ready(function(){
 				b_key : b_key
 			},
 			success:function(data){
-				$(".seatDisposeFirstDiv").html(data);
+				$("#seatDisposeFirstDiv").html(data);
 			}
 		});
 	});
@@ -59,7 +59,7 @@ $(document).ready(function(){
 				b_key : b_key
 			},
 			success:function(data){
-				$(".pcInfo").html(data);
+				$("#pcInfo").html(data);
 			}
 		});
 	});
@@ -83,7 +83,7 @@ $(document).ready(function(){
 				b_key : b_key
 			},
 			success:function(data){
-				$(".seatDisposeFirstDiv").html(data);
+				$("#seatDisposeFirstDiv").html(data);
 			}
 		});
 	});
@@ -100,7 +100,7 @@ function showModiPcInfo(pcNum,page){
 			b_key : b_key
 		},
 		success:function(data){
-			$(".pcInfo").html(data);
+			$("#pcInfo").html(data);
 		}
 	});
 }

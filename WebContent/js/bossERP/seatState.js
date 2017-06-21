@@ -16,7 +16,7 @@ function state() {
 			b_key : b_key
 		},
 		success : function(data) {
-			$(".seatState").html(data);
+			$("#seatState").html(data);
 		}
 	});
 }
