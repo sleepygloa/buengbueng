@@ -9,6 +9,7 @@ public class UseTimeLogDTO {
 	private Timestamp logoutTime; //로그아웃시간
 	private String ip; //접속장소 IP
 	
+	private String licenseKey; //가맹점 라이센스
 	
 	private int r; //게시판 정렬카운트
 	private int workTime; //알바가 일한시간(초)
@@ -68,6 +69,12 @@ public class UseTimeLogDTO {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getLicenseKey() {
+		return licenseKey;
+	}
+	public void setLicenseKey(String licenseKey) {
+		this.licenseKey = licenseKey;
 	}
 	public Timestamp getLoginTime() {
 		return loginTime;

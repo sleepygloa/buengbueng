@@ -5,9 +5,9 @@
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
 <head>
-<title>가맹 문의</title>
+<title>1:1 문의</title>
 </head>
-<div>가맹 문의</div>
+<div>1:1 문의</div>
 <form action="onePro.do" method="post" onsubmit="return oneCheck();" name="one">
 <input type="hidden" name="pageNum" value="${pageNum}">
 <input type="hidden" name="snum" value="${snum}">
@@ -20,7 +20,7 @@
 <div>
 	<span>이름</span>
 	<c:if test="${sessionScope.loginId != null}">
-		<span><input type="text" name="writer" value="${dto.name}" readonly></span>
+		<span><input type="text" name="writer" value="${user.name}" readonly></span>
 	</c:if>
 	<c:if test="${sessionScope.loginId == null}">
 		<span><input type="text" name="writer"></span>
@@ -29,7 +29,7 @@
 <div>
 	<span>이메일</span>
 	<c:if test="${sessionScope.loginId != null}">
-		<span><input type="text" name="email" value="${dto.email}"></span>
+		<span><input type="text" name="email" value="${user.email}"></span>
 	</c:if>
 	<c:if test="${sessionScope.loginId == null}">
 		<span><input type="text" name="email"></span>
@@ -47,7 +47,10 @@
 	<textarea name="content"></textarea>
 <div>
 <div>
-	<c:if test="${sessionScope.loginId != 'admin'}">
+	<c:if test="${sessionScope.grade == 4 }">
+	<input type="hidden" name="b_passwd">
+	</c:if>
+	<c:if test="${sessionScope.grade != 4}">
 	<span>비밀번호</span>
 	<span><input type="password" name="passwd" ></span>
 	</c:if>

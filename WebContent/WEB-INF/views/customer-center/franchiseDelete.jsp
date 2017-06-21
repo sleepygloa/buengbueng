@@ -3,21 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$("#deletepro").click(function(){
-			$.ajax({
-				url:"franchiseDeletePro.do",
-				type:"post",
-				data:{num:$("#num").val(),
-					snum:$("#snum").val(),
-					pageNum:$("#pageNum").val(),
-					passwd:$("#passwd").val()},
-				success:function(data){
-					$("#pro").html(data);
+function delCheck(){
+	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+		$.ajax({
+			url:"franchiseDeletePro.do",
+			type:"post",
+			data:{num:$("#num").val(),
+				snum:$("#snum").val(),
+				pageNum:$("#pageNum").val(),
+				passwd:$("#passwd").val()},
+			success:function(data){
+				$("#pro").html(data);
 				}
 			});
-		});
-	});
+	}else{   //취소
+    	return;
+	}
+}
 </script>
 <head>
 <title>게시글 삭제</title>
@@ -32,7 +34,7 @@
 	<span><input type="password" id="passwd" placeholder="비밀번호 입력란"></span>
 </div>
 <div>
-	<span><button id="deletepro">삭제하기</button></span>
-	</span><input type="button" value="뒤로가기" onclick="window.location='franchiseContent.do?num=${num}&snum=${snum}&pageNum=${pageNum}'">	
+	<span><button onclick="return delCheck();">삭제하기</button></span>
+	</span><input type="button" value="뒤로가기" onclick="history.go(0);">	
 </div>
 </div>

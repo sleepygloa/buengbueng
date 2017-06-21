@@ -1,0 +1,42 @@
+/*################ Theme Header With Content Push Effect Start #####################*/
+#mt-header[data-mt-lpanel-effect="push"] .mt-right-header[data-mt-position-type="fixed"] {
+    margin-left: 230px;
+    margin-right: -230px;
+	padding-right:0px
+}
+#mt-header.mt-minimized-lpanel[data-mt-lpanel-effect="push"] .mt-right-header[data-mt-position-type="fixed"] {
+     margin-left: 50px;
+	margin-right: 0px;
+	padding-right:50px
+}
+#mt-header[data-mt-lpanel-effect="push"] .mt-right-header[data-mt-position-type="relative"] {
+    margin-left: 230px;
+    margin-right: -230px;
+}
+#mt-header[data-mt-lpanel-effect="push"].mt-minimized-lpanel .mt-right-header[data-mt-position-type="relative"] {
+    margin-left: 50px;
+	margin-right: 0px;
+}
+#mt-header[data-mt-lpanel-effect="push"] .mt-right-header[data-mt-position-type="relative"] .mt-sidebar-toggle a:after {
+ margin-left:  0px;
+}
+#mt-header.mt-minimized-lpanel[data-mt-lpanel-effect="push"] .mt-right-header[data-mt-position-type="relative"] .mt-sidebar-toggle a:after {
+ margin-left:  0px;
+}
+#mt-header[data-mt-lpanel-effect="push"] .mt-right-header[data-mt-position-type="fixed"] .mt-sidebar-toggle a:after {
+    margin-left:  0px;
+}
+#mt-header.mt-minimized-lpanel[data-mt-lpanel-effect="push"] .mt-right-header[data-mt-position-type="fixed"] .mt-sidebar-toggle a:after {
+    margin-left:  0px;
+}
+
+#mtapp-container[data-mt-lpanel-effect="push"] #main-content{
+	margin-left: 230px;
+	margin-right: -230px;
+}
+#mtapp-container[data-mt-lpanel-effect="push"].mt-minimized-lpanel #main-content{
+	 margin-left: 50px;
+     margin-right: 0px;	 
+}
+
+/*################ Theme Header With Content Push Effect Close #####################*/

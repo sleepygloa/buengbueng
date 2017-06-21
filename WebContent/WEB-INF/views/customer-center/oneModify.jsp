@@ -32,6 +32,6 @@
 </div>	
 <div>
 	<input type="submit" value="수정 완료">
-	<input type="button" value="뒤로 가기" onclick="window.location='oneContent.do?snum=${dto.snum}&num=${dto.num}&pageNum=${pageNum}'">
+	<input type="button" value="뒤로 가기" onclick="history.go(-1);">
 </div>
 </form>

@@ -2,7 +2,6 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="menu">
 
-	
 	<!-- 사장님의 메뉴와 상품 등록 SQL -->
 	
 	<!-- 사장님 이름가지고 오기 -->
@@ -24,9 +23,6 @@
 	<select id="getPCBangName" parameterClass="String" resultClass="String">
 		select b_name from franchiseeInfo where b_id=#id#;
 	</select>
-	
-	
-	
 	
 	<!-- menu 추가  -->
 	<insert id="insertMenu" parameterClass="menuDto">

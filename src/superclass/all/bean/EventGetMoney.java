@@ -14,7 +14,6 @@ public class EventGetMoney {
 	
 	public int eventGetMoney(HashMap map1){
 		int check = -1;
-		
 		try{
 		//관리자가 가상계좌로 접속한사용자에게 돈을 지불해줍니다.	
 		sqlMap.insert("cash.eventAdminGiveUserMoneyLog", map1);
@@ -26,7 +25,6 @@ public class EventGetMoney {
 		check = 0;//실패했을때 변수
 		System.out.println(e);
 	}
-		
 		return check;
 	}
 }

@@ -2,10 +2,8 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="checkInfo">
 
-	
-	
 	<!-- 아이디로 아이디와 비밀번호를 확인 -->
-	<select id="validCheck" resultClass="userDto" parameterClass="userDto">
+	<select id="validCheck" resultClass="userDto" parameterClass="String">
 		SELECT  id, pw from userInfo WHERE id = #id#;
 	</select>
 	

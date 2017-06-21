@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="admin">
+	<!-- 등급별 회원 수 -->
+	<select id="userCount" parameterClass="int" resultClass="int">
+		select count(*) from userInfo where grade=#grade#;
+	</select>
+	
+	<!-- 등급별 회원 목록 -->
+	<select id="userList" parameterClass="java.util.HashMap" resultClass="userDto">
+		<![CDATA[
+		select id,pw,name,birth,phone,grade,address,email,signdate,googleId,@rownum:=@rownum+1 as rownum
+		from userInfo,(select @rownum:=0)r where grade=#grade# order by signdate desc limit #startRow#,#pageSize#;
+		]]>
+	</select>
+	<!-- 검색된 회원 수-->
+	<select id="userSearch" parameterClass="String" resultClass="int">
+		select count(*) from userInfo where 
+		id like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
+		name like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
+		phone like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
+		email like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
+		address like concat('%',#keyword#,'%') COLLATE utf8_general_ci or
+		googleId like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
+		birth like concat('%',#keyword#,'%'); 
+	</select>
+	<!-- 회원 검색 리스트-->
+	<select id="userSearchList" parameterClass="java.util.HashMap" resultClass="userDto">
+		select * from userInfo where 
+		id like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
+		name like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
+		phone like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
+		email like concat('%',#keyword#,'%') COLLATE utf8_general_ci or
+		address like concat('%',#keyword#,'%') COLLATE utf8_general_ci or
+		googleId like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
+		birth like concat('%',#keyword#,'%') limit #startRow#,#pageSize#;  
+	</select>
+	<!-- 회원 삭제 -->
+	<delete id="userDelete" parameterClass="String">
+		delete from userInfo where id=#id#;
+	</delete>	
+	
+	<!-- 회원 정보 호출 -->
+	<select id="getUser" parameterClass="String" resultClass="userDto" >
+		select * from userInfo where id=#id#;
+	</select>
+	<!-- 회원 정보 수정 -->
+	<update id="userUp" parameterClass="userDto">
+		update userInfo set pw=#pw#,name=#name#,birth=#birth#,phone=#phone#,email=#email#,address=#address#,grade=#grade#,googleId=#googleId#
+		where id=#id#
+	</update>
+	
+	<!-- 당일 올라온 게시글 수 확인 -->
+	<select id="franchiseAlarm" resultClass="int">
+		select count(*) from customerBoard where snum=1 and re_step=0 and date(reg_date) = date(now());
+	</select>
+	<select id="oneAlarm" resultClass="int">
+		select count(*) from customerBoard where snum=3 and re_step=0 and date(reg_date) = date(now());
+	</select>
+</sqlMap>

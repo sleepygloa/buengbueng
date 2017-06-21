@@ -17,17 +17,18 @@
 		<!-- <link rel="shortcut icon" type="image/png" href="img/favicon/beuLogo.ico"/> -->
 
 		<!-- CSS RESET -->
-    	<link rel="stylesheet" type="text/css" media="all" href="css/style_v2.css">
+    	<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/style_v2.css">
 		<!-- INDEX CSS 2 -->    
-        <link rel="stylesheet" type="text/css" media="all" href="css/dist/modules.min.css">
-        <link rel="stylesheet" type="text/css" media="all" href="css/dist/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" media="all" href="css/dist/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css">
+        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap-theme.min.css">
 		<link rel="stylesheet" type="text/css"  href="/buengbueng/css/reset.css"> 
 	
 		<!-- main -->
-		<link rel="stylesheet" type="text/css" media="all" href="css/dist/sidemain_main.css">
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/sidemain_main.css">
 		<!-- 구글 MATERIAL ICON -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		
 
 		
 		<!-- 홈페이지 제목 -->
@@ -110,7 +111,7 @@
 								
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="">
+									<a href="cashPro.do">
 										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">결제</h6>
@@ -148,8 +149,8 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
-								<div class="product__item col-sm-12-12">
-									<a href="">
+								<div class="menu_menu col-sm-6-12">
+									<a href="favoritePCRoom.do">
 										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">즐겨찾는 PC방</h6>
@@ -185,7 +186,7 @@
 								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="bossErpManageMain.do">
+									<a href="bossErpMain.do">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">ERP 관리</h6>
@@ -286,7 +287,7 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="franchiseQA.do?snum=1">
+									<a href="franchiseQA.do?snum=1&pageNum=1">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">가맹 문의</h6>
@@ -296,10 +297,10 @@
 								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="customerQA.do?snum=2">
+									<a href="customerQA.do?snum=2&pageNum=1">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
-											<h6 class="menu_name minor-minor">Q & A</h6>
+											<h6 class="menu_name minor-minor">자주 묻는 질문</h6>
 											<p class="menu_desc">자주 물어보는 질문들 여기로</p>
 										</span>
 									</a>
@@ -309,7 +310,7 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="oneQA.do?snum=3">
+									<a href="oneQA.do?snum=3&pageNum=1">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">1:1 문의</h6>
@@ -328,15 +329,16 @@
                   <li class="item sign"><a href="/buengbueng/userInfoForm.do">회원 정보보기</a></li>
                   <li class="item sign"><a href="#">${sessionScope.loginId}님 환영해요</a></li>
                </c:if>
+
                <c:if test="${sessionScope.loginId == null}" >
                   <li class="item sign"><a href="/buengbueng/userInfoSignForm.do">회원가입</a></li>
                   <li class="item sign"><a href="">비밀번호찾기</a></li>
                   <li class="item sign"><a href="/buengbueng/loginForm.do">로그인</a></li>
                </c:if>
-               <c:if test="" >
-                  <li class="item sign">관리자페이지</li>
-               </c:if>
                
+               <c:if test="${sessionScope.grade==4}" >
+			      <li class="item sign"><a href="/buengbueng/dashIndex.do">관리자 페이지</a></li>
+			   </c:if>               
             </ul>
          </div>
       </header>

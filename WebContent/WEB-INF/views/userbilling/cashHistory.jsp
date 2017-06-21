@@ -5,81 +5,87 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 		<link rel="stylesheet" type="text/css"  href="/buengbueng/css/payment/cash.css">
-		<title>Insert title here</title>
+		<title>나의 포인트 | buengbueng</title>
 	</head>
 	<jsp:include page="../header.jsp" />
-	<body>	
-		<h1 class="">회원님의 포인트 현황입니다.</h1>
-		
-		<table>
-			<c:forEach items="${payment}" var="payment">
-			<tr>
-				<td><p>${payment.payment_type}</p></td>
-				<td><p>${payment.payment_date}</p></td>
-				<td><p>${payment.payment_type}</p></td>
-				<td><p>${payment.paying_name}</p></td>
-			</tr>
-			
-			</c:forEach>
-		</table>
-		
-		<p>${check}12</p>
-		<div>
-			<p>현재 보유 포인트</p>
-			<p><strong style="font-size:32px;">0</strong><strong style="font-size:24px;">P</strong></p>
+	
+	<body>
+	
+	<div class="head_emp"></div>
+	
+	<div class="history_tbox">
+		<div class="title_text_box">
+			<p>나의 포인트</p>
+			<span>내가 가진 buengbueng 포인트의 사용과 내용을 확인 할 수 있습니다.</span>
 		</div>
-		
-		<p class="margin_b10"><span><strong>전체 포인트 사용내역 총 5건</strong></span></p>
-		<div>
-			<table class="cash_history" >
-				<tr class="table_header">
-					<td>번호</td>
-					<td>사용일</td>
-					<td>오더아이디</td>
-					<td>사용PC방</td>
-					<td>사용금액</td>
-					<td>시작시간</td>
-					<td>종료시간</td>
-					<td>잔액</td>
-				</tr>
-				<c:forEach  begin="1" end="5" step="1" >
-				<tr class="table_content margin_b5">
-					<td>1</td>
-					<td>2017-05-29</td>
-					<td>merchant_1496037290036</td>
-					<td>${check}</td>
-					<td>5,000원</td>
-					<td>09:00</td>
-					<td>10:00</td>
-					<td>10,000원</td>
-				</tr>
-				</c:forEach>
-			</table>
+	</div>
+	
+	<div class="history_point">
+		<div class="history_point_img">
+			<div class="history_point_tbox">
+				<P>${id}님의 현재 보유 포인트는 <span >${c.money}P</span> 입니다.</P>
+				<button class="cash_btn" onclick="location.href='http://localhost:8080/buengbueng/userbilling/cash.do'">충전하기</button>
+			</div>
 		</div>
-		
-		<p class="margin_b10"><span><strong>포인트 결제 내역 총 5건</strong></span></p>
-		<div>
+		<div class="history_point_List ">
+		<p class="history_point_List_title">포인트 결제 내역 총 ${count - failure_count}건</p>
+		<c:if test="${count > 0}">
 			<table class="cash_history" border=1;>
 				<tr class="table_header">
-					<td>번호</td>
-					<td>결제일</td>
+					<td><p>번호</p></td>
+					<td>주문 ID</td>
+					<td>구매일</td>
 					<td>결제수단</td>
-					<td>거래번호</td>
-					<td>결제 금액</td>
+					<td>가격</td>
 					<td>비고</td>
 				</tr>
-				<c:forEach  begin="1" end="5" step="1" >
+				<c:forEach  items="${articleList}" var="articleList">
 				<tr class="table_content">
-					<td>1</td>
-					<td>2017-05-29</td>
-					<td>신용카드</td>
-					<td>merchant_1496037290036</td>
-					<td>5,000원</td>
-					<td>정상</td>
+					<td>
+						<c:out value="${number-1}"/>
+						<c:set var="number" value="${number-1}"/>
+					</td>
+					<td><p>${articleList.imp_uid}/${articleList.merchant_uid}</p></td>
+					<td>${articleList.payment_date}</td>
+					<td>${articleList.pg_name}</td>
+					<td>${articleList.paying_price}</td>
+					<td>${articleList.confirmation}</td>
 				</tr>
 				</c:forEach>
 			</table>
+			</c:if>
 		</div>
+	</div>
+	
+		
+		<center>
+		    <c:if test="${count > 0}">
+	        <c:set var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}"/>
+	        <c:set var="pageBlock" value="${10}"/>
+	        <fmt:parseNumber var="result" value="${currentPage / 10}" integerOnly="true" />
+	        <c:set var="startPage" value="${result * 10 + 1}" />
+	        <c:set var="endPage" value="${startPage + pageBlock-1}"/>
+	        <c:if test="${endPage > pageCount}">
+	            <c:set var="endPage" value="${pageCount}"/>
+	   		</c:if> 
+	          
+	   		<c:if test="${startPage > 10}">
+	        		<a href="/buengbueng/userbilling/cashHistory.do?pageNum=${startPage - 10 }">[이전]</a>
+	   		</c:if>
+	
+	   		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+	       		<a href="/buengbueng/userbilling/cashHistory.do?pageNum=${i}">[${i}]</a>
+	   		</c:forEach>
+	
+	   		<c:if test="${endPage < pageCount}">
+	        	<a href="/buengbueng/userbilling/cashHistory.do?pageNum=${startPage + 10}">[다음]</a>
+	   		</c:if>
+			</c:if>
+		</center>
+	 
+	<p>1</p>
 	</body>
+	
 	<jsp:include page="../footer.jsp" />
+	
 </html>

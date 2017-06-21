@@ -16,80 +16,135 @@
 	
 <!-- 알바생 관리 하는 부분 -->
 	
-	<!-- 사장님이 알바원하는 인원수만큼 신청(삭제도가능) -->
-	<insert id="insertBossEmployeeAddLog" parameterClass="beDto">
-		INSERT INTO bossEmployeeLog (b_id, applyCount, applyTime, content) VALUES(#b_id#, #applyCount#, now(), #content#);
-	</insert>
-
-	<!-- 알바생 회원 ID 를 찾음 -->
-	<select id="getEmployeeId" resultClass="beDto" parameterClass="String">
-		SELECT e_id, (select count(*) FROM employeeInfo WHERE e_bossid = #e_bossid#) AS count FROM employeeInfo WHERE e_bossid = #e_bossid# ORDER BY e_id DESC LIMIT 1; 
+	
+	<!-- 알바생신청 로그의 제일 마지막 번호를 불러온다. 신청 폼의 신청 번호 -->
+	<select id="getEmployeeAddLogLastNum" resultClass="beDto">
+		select num, (select count(*) FROM employeeInfo WHERE e_bossid = #e_bossid#) AS count from employeeAddLog order by num desc limit 0, 1;
 	</select>
-
-	<!-- 알바생 아이디를 생성 -->
+	
+	<!-- 사장님이 알바원하는 인원수만큼 신청(삭제도가능) -->
+	<insert id="insertEmployeeAddLog" parameterClass="beDto">
+		INSERT INTO employeeAddLog (num, result, b_id, applyCount, applyTime, content,b_key)
+							 VALUES(0, 0, #b_id#, #applyCount#, now(), #content#,#b_key#);
+	</insert>
+	
+	<!-- 알바생 정보테이블에서 사장님이 보유한 알바생아이디를 찾고, 갯수를 센다. -->
+	<select id="getEmployeeId" resultClass="beDto" parameterClass="String">
+		SELECT e_id, (select count(*) FROM employeeInfo WHERE e_bossid = #e_bossid#) +1 AS count FROM employeeInfo WHERE e_bossid = #e_bossid# ORDER BY e_id DESC LIMIT 1; 
+	</select>	
+	
+	<!-- 알바생 정보테이블에서 사장님이 보유한 알바생아이디를 찾고, 갯수를 센다. -->
+	<select id="getEmployeeAddLog" resultClass="beDto" parameterClass="java.util.HashMap" >
+		SELECT * from  employeeAddLog where result = '0' and b_key = #b_key#;
+	</select>		
+	
+	<!-- 알바생아이디를 생성하고자할때, 아이디가 중간에없는 아이디를 찾는다. -->
+	<select id="findE_idNull" resultClass="String" parameterClass="String">
+		select e_id from employeeInfo where e_id = #e_id#;
+	</select>
+	
+	<!-- 알바생 아이디를 회원테이블 생성 -->
 	<insert id="insertEmployeeIdUserInfo" parameterClass="String">
 		INSERT INTO userInfo (id, pw, grade, signdate) VALUES(#e_id#, 1234, 2, now());
 	</insert>
 	
-	<!-- 알바생 아이디를   -->
-	<insert id="connectEmployeeIdBossId" parameterClass="java.util.HashMap">
-		INSERT INTO employeeInfo (e_id, e_bossid) VALUES(#e_id#, #e_bossid#);
-	</insert>	
+	<!-- 알바생 아이디를  알바생정보테이블에 생성 -->
+	<insert id="insertEmployeeIdEmployeeInfo" parameterClass="java.util.HashMap">
+		INSERT INTO employeeInfo (e_id, e_bossid,b_key) VALUES(#e_id#, #e_bossid#,#b_key#);
+	</insert>		
 	
-	<!-- 새로만들 알바아이디가 userInfo에 있는지 검색 -->
-	<select id="findEmployeeIdUserId" parameterClass="String">
-		select * from userInfo where id = #e_id#;
+	<!-- 아이디 신청한 수만큼 아이디 생성이 완료되면, 아이디 신청 컨펌 정보를 업데이트한다. -->
+	<update	id="updateEmployeeAddLog" parameterClass="String">
+		update employeeAddLog set result = 1, confirmTime = now(), e_id = #id#; 
+	</update>
+
+	
+	<!-- 알바생 리스트 -->
+	<select id="getEmployeeList" resultClass="beDto" parameterClass="java.util.HashMap">
+		select e_id, pw,num, name, b_key AS e_name from userInfo a INNER JOIN 
+		(select e_id,num,b_key from employeeInfo where e_bossid = #id# and b_key = #b_key#) b on a.id = b.e_id;
 	</select>
 	
-	<!-- 사장아이디만 있는 것을 검색 -->
-	<select id="findEmployeeInfoNullBossId" resultClass="String" parameterClass="String">
-		select e_id from employeeInfo where e_id = '' and e_bossid = #e_bossid# Limit 0,1;
+<!-- ▲▼ 처리 구문 ======================== -->
+	<!-- 새로운 공간을 만들어준다 -->
+	<select id="getListNum" resultClass="int" parameterClass="String">
+		select num from employeeInfo where e_bossid = #b_id#;
 	</select>
 	
-	<!--  -->
-	<update id="updateEmployeeInfoNullBossId" parameterClass="String">
-		update employeeInfo set e_id = #e_id# where e_id = '' and e_bossid = #e_bossid#;
+	<!-- 앞번호에 space를 넣어준다. space = 9999 -->
+	<update id="changeSpace" parameterClass="java.util.HashMap">
+		update employeeInfo set num = #space# where num = #numb#;
 	</update>
 	
-	<!-- 알바생아이디는 있지만 보스아이디가 없는 것을 찾음 -->
-	<select id="findBossIdNull" resultClass="String">
-		SELECT e_id from employeeInfo where e_bossid = '' ORDER BY e_id desc; 
-	</select>
+	<!-- 앞번호에 변경될 수를 넣어준다. -->
+	<update id="changeBefore" parameterClass="java.util.HashMap">
+		update employeeInfo set num = #numb# where num = #numa#;
+	</update>
 	
-	<!-- 알바생아이디 있고, 보스 아이디도 있는 것 중 가장 높은 번호를 찾음 -->
-	<select id="findBossIdNotNull" resultClass="String">
-		SELECT e_id from employeeInfo where e_bossid = #e_bossid# ORDER BY e_id desc; 
-	</select>
-	
-	<!-- 삭제할 알바생 아이디의 정보를 찾는다.-->
-	<select id="findDeleteId" resultClass="String" parameterClass="String">
-		select pw from userInfo where id = #e_id#;
-	</select>
-
-	<!-- 알바생 아이디를 삭제한다..-->
-	<delete id="deleteEmployeeId" parameterClass="String">
-		delete from employeeInfo where e_id = #e_id#;
-	</delete>
-
-	<!-- 알바생 아이디를 삭제한다..-->
-	<delete id="deleteUserId" parameterClass="String">
-		delete from userInfo where id = #e_id#;
-	</delete>	
-	
-	<!-- 알바생 아이디 수 반환-->
-	<select id="getEmployeeIdCount" resultClass="int" parameterClass="String">
-		select count(*) from employeeInfo where e_bossid = #e_bossid#;
-	</select>
-	
-	<!-- 알바생 아이디 정보 리스트-->
-	<select id="getEmployeeIdInfoList" resultMap="userDtoMap" parameterClass="java.util.HashMap">
-		select * from userInfo where id = (select e_id from employeeInfo where e_bossid = #id# LIMIT #i#, 1);
-	</select>
+	<!-- 뒷번호에 변경될 수를 넣어준다. -->
+	<update id="changeAfter" parameterClass="java.util.HashMap">
+		update employeeInfo set num = #numa# where num = #space#;
+	</update>	
+<!-- 끝  -->
 	
 	<!-- 알바생 아이디로 정보를 볼러옴 AJAX-->
-	<select id="getEmployeeIdInfo" resultClass="userDto" parameterClass="String">
+	<select id="getEmployeeInfo" resultClass="userDto" parameterClass="String">
 		select * from userInfo where id = #id#;
+	</select>	
+	
+	<!-- 알바생 아이디로 회원정보를 볼러옴 AJAX-->
+	<select id="getEmployeeUpdateInfo" resultClass="userDto" parameterClass="String">
+		select * from userInfo where id = #id#;
+	</select>
+	
+	<!-- 삭제할 알바생 아이디를 찾는다.-->
+	<select id="getDeleteIdInfo" resultClass="beDto" parameterClass="int">
+		select e_id,b_key from employeeInfo where num = #num#;
+	</select>
+	
+	<!-- 알바생 아이디 삭제 신청 Log 중 마지막 번호를 출력 -->
+	<select id="getDeleteLogLastNum" resultClass="int">
+		SELECT num from employeeDeleteLog order by num desc limit 0, 1; 
+	</select>	
+	
+	<!-- 알바생의 아이디를 삭제 신청함.-->
+	<insert id="deleteIdLogAdd" >
+		insert into employeeDeleteLog (num, result, b_id, e_id, applyTime, content)
+			 VALUES(0, 0, #b_id#, #e_id#, now(), #content#);  
+	</insert>
+	
+	<!-- 알바생아이디 삭제 리스트 -->
+	<select id="getEmployeeDeleteList" resultClass="beDto" parameterClass="java.util.HashMap" >
+		SELECT * from  employeeDeleteLog where result = '0';
 	</select>		
+	
+	<!-- 알바생의 아이디를 삭제 확인 - 관리자.-->
+	<update id="deleteIdLogAddConfirm" parameterClass="String" >
+		update employeeDeleteLog set result = 1, confirmTime = now() where e_id = #e_id#;
+	</update>	
+	
+	<!-- 알바생의 아이디를 삭제 삭제1 - employeeInfo.-->
+	<delete id="deleteEidEmployeeInfo" parameterClass="String" >
+		delete from employeeInfo where e_id = #e_id#;
+	</delete>	
+	
+	<!-- 알바생의 아이디를 삭제 삭제2 - userInfo.-->
+	<delete id="deleteEidUserInfo" parameterClass="String" >
+		delete from userInfo where id = #e_id#;
+	</delete>
+
+<!-- 신상관리========================================================== -->
+	<!-- 신상관리 알바생 이름 리스트 -->
+	<select id="getEmployeeIdList" resultClass="userDto" parameterClass="String">
+		select id, pw, name, birth, phone, grade, address, email, signdate, googleid 
+		from userInfo a inner Join(select e_id from employeeInfo where e_bossid = #id#) b 
+		on a.id = b.e_id;;
+	</select>
+
+	<!-- 알바생 아이디 정보 보기 -->
+	<select id="getEmplyeeInfo" resultClass="userDto" parameterClass="String">
+		select * from userInfo where id = #id#;
+	</select>
 
 	<!-- 알바생 아이디로 정보 수정-->
 	<update id="updateEmployeeId"  parameterClass="userDto">
@@ -102,6 +157,12 @@
 			address = #address#
 		WHERE id = #id#;
 	</update>	
+
+
+
+
+
+
 
 	<!-- 알바생 접속 LOG 찾기 -->
 	<select id="findLoginLogLogoutNull"  parameterClass="String">
@@ -146,6 +207,11 @@
 		where loginTime >= #minDate# and loginTime <= #maxDate#
 		group by id with rollup;
 		]]>
+	</select>
+	
+	<!-- 사장님의 가맹점 리스트 반환 , 1군데서 사용-->
+	<select id="getBossFranchiseeList" resultClass="franchiseeDTO" parameterClass="String">
+		select b_name, b_key from franchiseeInfo where b_id = #b_id#;
 	</select>
 	
 </sqlMap>

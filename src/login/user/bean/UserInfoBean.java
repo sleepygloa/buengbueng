@@ -1,9 +1,5 @@
 package login.user.bean;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +49,7 @@ public class UserInfoBean {
 			UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
 			if(pw.equals(dto.getPw())){
 				session.setAttribute("loginId", dto.getId());
+				session.setAttribute("grade", dto.getGrade());
 				
 				//////////////////////////////////
 				//접속장소의 IP를 검색하고,로그인 LOG 를 남긴다.
@@ -78,7 +75,7 @@ public class UserInfoBean {
 		}catch(Exception e){
 			
 		}
-		
+		request.setAttribute("check", check);
 		return "/index";
 	}
 	
@@ -213,14 +210,17 @@ public class UserInfoBean {
 	
 	//----- 회원 정보 수정 페이지로 -----
 	@RequestMapping("userInfoFormUpdate.do")
-	public String userInfoFormUpdate(){
-		
+	public String userInfoFormUpdate(HttpSession session, Model model){
+		String id = (String)session.getAttribute("loginId");
+		UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+		model.addAttribute("user", user);
 		return "/userInfo/userInfoFormUpdate";
 	}
 	
 	//----- 회원 정보 수정 -----
 	@RequestMapping("userInfoFormUpdatePro.do")
 	public String userInfoFormUpdatePro(UserInfoDataDTO dto, Model model){
+		
 		//정보수정 결과 확인 변수
 		int check = -1;
 		
@@ -279,6 +279,7 @@ public class UserInfoBean {
 
 		try{
 			sqlMap.insert("test.userInfoInsert", dto);	// DB에 회원 가입 정보 추가하기
+			sqlMap.insert("test.userAccountInsert", dto); //가입한 회원의 계좌정보 추가
 			session.setAttribute("loginId", dto.getId());	// 회원 가입 완료된 id를 세션으로 사용
 			request.setAttribute("result", "succ");	// 성공적으로 회원 가입이 완료됨을 알림
 		}catch(Exception e){	// DB에 회원 가입 정보 INSERT 시 에러 발생하면 아래 코드 실행

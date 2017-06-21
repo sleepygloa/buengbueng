@@ -18,7 +18,7 @@
 				</div>
 				
 				<div class="cash_title_af">
-					<p><span class="cash_title1">${paying_price}</span>P가 <span class="cash_title2">충전 완료</span> 되었습니다.</p>
+					<p><span class="cash_title1">${cash}</span>P가 <span class="cash_title2">충전 완료</span> 되었습니다.</p>
 					
 					<div class="list_box">
 						<!-- 결젠내역 테이블 -->
@@ -36,7 +36,7 @@
 							</tr>
 							<tr>
 								<td class="cash_today_list_td"><span>결제 금액</span></td>
-								<td class="cash_today_list_td2"><span>${paying_price}원</span></td>	
+								<td class="cash_today_list_td2"><span>${cash}원</span></td>	
 							</tr>		
 						</table>
 						<!-- 충전내역 테이블 -->
@@ -46,15 +46,16 @@
 							</tr>
 							<tr>
 								<td class="point_have_list_td">기존 보유 포인트 </td>
-								<td class="point_have_list_td2">1000원</td><!-- 기존회원테이블에서 포인트 가지고 올것 -->
+								<td class="point_have_list_td2">${info1.money}원</td><!-- 기존회원테이블에서 포인트 가지고 올것 -->
 							</tr>
 							<tr>
 								<td class="point_have_list_td">충전 포인트 </td>
-								<td class="point_have_list_td2">${paying_price}원</td>
+								<td class="point_have_list_td2">${cash}원</td>
 							</tr>
 							<tr>
 								<td class="point_have_list_td">결제 완료 후 포인트 </td>
-								<td class="point_have_list_td2">${paying_price+1000}원</td>
+								<td class="point_have_list_td2">${info1.money+cash}원</td>
+								
 							</tr>		
 						</table>
 					</div>

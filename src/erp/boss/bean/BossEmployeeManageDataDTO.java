@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class BossEmployeeManageDataDTO {
 
+	
 	private String id;	//회원아이디
 	private String b_id;	//사장님아이디
 	private int applyCount;	//사장님이 알바생아이디수 신청갯수
@@ -11,12 +12,36 @@ public class BossEmployeeManageDataDTO {
 	private Timestamp confirmTime;	//확인한 시각
 	private String content;	//신청사유
 	
+	private int num; // 순번
 	private int count; //주고받을 SQL결과의 count수, 알바생과 사장님아이디가 매칭된 갯수
 	private String e_bossid;	//사장님아이디
 	private String e_id;	//알바생아이디
+
+	private String e_name; //알바생 관리에서 사용할 List에서 사용, name으로하면 오류나나?
+	
+	private String b_key; //가맹점 
 	
 	
 	
+	
+	public String getB_key() {
+		return b_key;
+	}
+	public void setB_key(String b_key) {
+		this.b_key = b_key;
+	}
+	public String getE_name() {
+		return e_name;
+	}
+	public void setE_name(String e_name) {
+		this.e_name = e_name;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public String getE_bossid() {
 		return e_bossid;
 	}

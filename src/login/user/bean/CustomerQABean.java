@@ -1,5 +1,6 @@
 package login.user.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,7 @@ public class CustomerQABean { // Q & A
 	public String customerQA(HttpServletRequest request,HashMap map){
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 		if(pageNum==null){pageNum="1";}
 		
 		int pageSize=10; // endRow와 같이써도 가능함. mysql limit 사용시. 출력은 고정.
@@ -31,13 +32,17 @@ public class CustomerQABean { // Q & A
 	    int number=0;
 	    
 	    List list=null;
-
+	    String[] dates = null;	
 	    int count = (Integer)sqlMap.queryForObject("customer.customercount", snum); //해당 페이지 게시글 갯수
 	    if (count > 0) {
 	    	map.put("snum",snum);
 	    	map.put("startRow",startRow);
 		    map.put("pageSize",pageSize);
 	    	list = sqlMap.queryForList("customer.customerlist", map);
+            dates = new String[count];
+			for(int i = 0; i< list.size(); i++){
+				dates[i] = sdf.format(((CustomerDTO)list.get(i)).getReg_date());
+				}
 	    }else{
 	    	list = Collections.EMPTY_LIST;
 	    }
@@ -60,15 +65,16 @@ public class CustomerQABean { // Q & A
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("snum", snum);
+		request.setAttribute("dates", dates);
 		return "/customer-center/customerList";
 	}
 	
 	@RequestMapping("customerForm.do")
 	public String customerForm(HttpServletRequest request,HttpSession session){   // 문의 작성 폼 
-		if(session.getAttribute("loginId") != null){
+		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출
 			String id = (String)session.getAttribute("loginId");
-			UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
-			request.setAttribute("dto", dto);
+			UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+			request.setAttribute("user", user);
 		}
 		
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
@@ -121,7 +127,7 @@ public class CustomerQABean { // Q & A
 	}
 	
 	@RequestMapping("customerContent.do")  // 게시글 내용 호출
-	public String customerContent(HttpServletRequest request,HashMap map,CustomerDTO dto){
+	public String customerContent(HttpServletRequest request,HashMap map,CustomerDTO dto,HttpSession session){
 		String pageNum = request.getParameter("pageNum");
 		String number = request.getParameter("number");
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
@@ -132,8 +138,10 @@ public class CustomerQABean { // Q & A
 	
 		sqlMap.update("customer.contentUp", map);
 		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", map);
-		int re_step = (Integer)sqlMap.queryForObject("customer.getReply",dto.getRef()); // 답글의 여부 확인
-	
+		map.put("ref", dto.getRef());
+		map.put("snum",snum);
+		int re_step = (Integer)sqlMap.queryForObject("customer.getReply",map); // 답글의 여부 확인 1일때만 답변 쓸수있음.
+		
 		request.setAttribute("re_step", re_step);
 		request.setAttribute("dto", dto);
 		request.setAttribute("number", number);
@@ -150,34 +158,6 @@ public class CustomerQABean { // Q & A
 		request.setAttribute("num", num);
 		request.setAttribute("pageNum", pageNum);
 		return "/customer-center/customerDelete";
-	}
-	
-	@RequestMapping("customerDeletePro.do")  //게시글 삭제 Pro
-	public String customerDeletePro(HttpServletRequest request,HashMap map){
-		int num = Integer.parseInt(request.getParameter("num"));
-		Integer snum = Integer.parseInt(request.getParameter("snum"));
-		String pageNum = request.getParameter("pageNum");
-		String passwd = request.getParameter("passwd");
-		int check=0;
-		// 고유 번호와 글번호로 DB 비밀번호 호출
-		map.put("num", num);
-		map.put("snum",snum);
-		String dispasswd = (String)sqlMap.queryForObject("customer.getPasswd", map);
-		// 뷰에서 받은 비밀번호와 DB에서 받은 비밀번호 비교
-		if(passwd.equals(dispasswd)){
-			// 해당 글의 ref 그룹 호출 후 해당글 삭제
-			int ref = (Integer)sqlMap.queryForObject("customer.getRef", map);  
-			int re_step = (Integer)sqlMap.queryForObject("customer.getRe_step", map);
-		
-			map.put("ref",ref);
-			map.put("re_step",re_step);
-			sqlMap.delete("customer.delRef", map);
-			check =1;
-		}	
-		request.setAttribute("snum", snum);
-		request.setAttribute("check", check);
-		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/customerDeletePro";
 	}
 	
 	@RequestMapping("customerModify.do")
@@ -199,16 +179,9 @@ public class CustomerQABean { // Q & A
 	public String customerModifyPro(HttpServletRequest request,CustomerDTO dto,HashMap map){
 		String pageNum= request.getParameter("pageNum");
 		int check = 0;
+			
+		sqlMap.update("customer.modifyContent", dto);
 
-		map.put("num",dto.getNum());
-		map.put("snum",dto.getSnum());
-		String dispasswd = (String)sqlMap.queryForObject("customer.getPasswd",map);
-		
-		if(dto.getPasswd().equals(dispasswd)){
-			sqlMap.update("customer.modifyContent", dto);
-			check=1;
-		}
-		request.setAttribute("check", check);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("dto", dto);
 		return "/customer-center/customerModifyPro";
