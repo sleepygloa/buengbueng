@@ -15,12 +15,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import login.user.bean.UseTimeLogDTO;
+import superclass.all.bean.ParsingDate;
 
 @Controller
 public class BossEmployeeManageBean2 {
 
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
+	
+	@Autowired
+	protected ParsingDate pd;
 	
 	//사장님 알바생관리 메인 페이지
 	@RequestMapping("employeeLoginList.do")
@@ -129,15 +133,38 @@ public class BossEmployeeManageBean2 {
 	@RequestMapping("employeeCalenderInsertPro.do")
 	public String employeeCalenderInsertPro(HttpSession session, Model model, BossEmployeeManageDataDTO beDTO){
 		
+		int check = 9;
 		
+		String id = (String)session.getAttribute("loginId");
+		String b_key = (String)session.getAttribute("b_key");
 		
+		beDTO.setId(id);
+		beDTO.setId(b_key);
 		
+		Long startDate = pd.stringToLongDay(beDTO.getStartDate());
+		Long endDate = pd.stringToLongDay(beDTO.getEndDate());
+		Long startHour = Long.parseLong(beDTO.getStartHour());
+		Long endHour = Long.parseLong(beDTO.getEndHour());
 		
+		startDate += startHour;
+		endDate += endHour;
+		
+		beDTO.setStartTime(pd.longToTimestamp(startDate));
+		beDTO.setEndTime(pd.longToTimestamp(endDate));
+		
+		try{
+			sqlMap.insert("erpEmp.calenderInsertTime", beDTO);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		System.out.println("startDate"+	beDTO.getStartDate()	);
 		System.out.println("startHour"+	beDTO.getStartHour()	);
 		System.out.println("endDate"	+beDTO.getEndDate()	);
 		System.out.println("endHour"+	beDTO.getEndHour()	);
-		return "";	
+		
+		model.addAttribute("check", check);
+		
+		return "/bossERP/employeeManage/employeeCalenderInsert";	
 	}
 	
 }

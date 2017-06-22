@@ -17,6 +17,7 @@
         margin : 0 auto;
     }
 </style>
+
 <link href="/buengbueng/js/calender/fullcalendar.css" rel="stylesheet"/>
 <link href="/buengbueng/js/calender/fullcalendar.print.css" rel="stylesheet" media="print"/>
 <script type="text/javascript" src="/buengbueng/js/calender/lib/moment.min.js"></script>
@@ -56,10 +57,11 @@
    		  selectable: true,
    		  selectHelper:true,
    		  select:function(start,end){
-   			  onclick(
-   				  window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
-   						  "width=450, height=500,status=no")
-			  )
+   					
+   					
+   				 window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
+   						  "width=450, height=300,status=no,toolbar=no,directories=no,location=no,scrollbars=no, resizable=no") 
+			  	
    			  /* var title = prompt('일정을 입력하세요');
    			  if(title){
    				  calendar.fullCalender('renderEvent',

@@ -49,8 +49,7 @@ public class BossEmployeeManageBean {
 		String id = (String)session.getAttribute("loginId");
 		model.addAttribute("id",id);
 		
-		fs.franchiseeList(id, model);
-		
+		fs.franchiseeList(session, id, model);
 		
 		return "/bossERP/erpMain";
 	}

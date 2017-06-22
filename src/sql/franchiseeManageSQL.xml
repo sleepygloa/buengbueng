@@ -6,7 +6,7 @@
 	<select id="getFirstFranchiseeInfo" resultClass="franchiseeDTO" parameterClass="String">
 		select * from franchiseeInfo where b_id = #id#;
 	</select>
-	
+
 	
 	<!-- 사장님 정보를 불러온다. -->
 	<select id="getBossInfo" parameterClass="String" resultClass="userDto">
