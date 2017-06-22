@@ -24,9 +24,9 @@ public class Config  {
 		try{
 //			String destination = "C:\\Users\\user2\\Documents\\workspace\\buengbueng\\WebContent\\log\\";
 //			String destination = "C:\\Users\\KO\\Documents\\eclipse\\Spring\\buengbueng\\WebContent\\log\\";
-			File file = new File("..\\..\\workspace\\buengbueng");
+			File file = new File("..\\buengbueng");
 			String destination = 
-					"" + file.getCanonicalPath() + 
+					"" + file.getCanonicalFile().getPath()  + 
 					"\\WebContent\\log\\";
 			String logText = "log.txt";
 			String fileName= "";

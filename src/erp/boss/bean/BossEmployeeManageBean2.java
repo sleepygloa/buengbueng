@@ -115,7 +115,6 @@ public class BossEmployeeManageBean2 {
 		
 		model.addAttribute("start",start);
 		model.addAttribute("end",end);
-		System.out.println(end);
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String starts = df.format(start);
 		String ends = df.format(end-86400000);
@@ -125,4 +124,20 @@ public class BossEmployeeManageBean2 {
 		
 		return "/bossERP/employeeManage/employeeCalenderInsert";
 	}
+	
+	//알바생 임의 알바일정 출력
+	@RequestMapping("employeeCalenderInsertPro.do")
+	public String employeeCalenderInsertPro(HttpSession session, Model model, BossEmployeeManageDataDTO beDTO){
+		
+		
+		
+		
+		
+		System.out.println("startDate"+	beDTO.getStartDate()	);
+		System.out.println("startHour"+	beDTO.getStartHour()	);
+		System.out.println("endDate"	+beDTO.getEndDate()	);
+		System.out.println("endHour"+	beDTO.getEndHour()	);
+		return "";	
+	}
+	
 }

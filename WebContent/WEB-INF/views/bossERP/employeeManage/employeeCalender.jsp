@@ -58,7 +58,7 @@
    		  select:function(start,end){
    			  onclick(
    				  window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
-   						  "width=400, height=700,status=no")
+   						  "width=450, height=500,status=no")
 			  )
    			  /* var title = prompt('일정을 입력하세요');
    			  if(title){
