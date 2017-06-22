@@ -31,6 +31,4 @@
     <typeAlias alias="moduleDefaultDTO" type="index.all.bean.ModuleDataDTO"/> 
     <typeAlias alias="favoriteDTO" type="pcRoom.search.bean.FavoritePCRoomDataDTO"/>
 	<typeAlias alias="historyDTO" type="payment.all.bean.UsageHistoryDataDTO"/>
-	<typeAlias alias="chattingDto" type="manage.admin.bean.ChattingDto"/>
-	<typeAlias alias="chattingLogDto" type="manage.admin.bean.ChattingLogDto"/>
 </sqlMap>

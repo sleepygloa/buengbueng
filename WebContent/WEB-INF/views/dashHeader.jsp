@@ -111,7 +111,7 @@ setInterval("autoRefresh2()", 3000);
                         </a>
                         </li>
                         <li>
-                            <a href="chatbotList.do" class="rippler rippler-default">
+                            <a href="grid.html" class="rippler rippler-default">
                             <i class="fa fa-th"></i>
                             <span class="menu-text">챗봇 관리</span>
                             <span class="selected"></span>
