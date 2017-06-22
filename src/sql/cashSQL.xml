@@ -88,6 +88,5 @@
 		insert into usageHistory(userId, userName, affiliateCode, usageTime, endTime, amountUsed, etc, businessName, bossId) 
 		values(#userId#, #userName#, #affiliateCode#, #usageTime#, #endTime#, #amountUsed#, #etc#, #businessName#, #bossId#);
 	</insert>
-
+	 
 </sqlMap>
-
