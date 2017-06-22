@@ -1,7 +1,6 @@
 package application;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -11,39 +10,39 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class ConnectServer {
-	// param = ¿äÃ»ÇÒ ÆÄ¶ó¹ÌÅÍÀÇ Á¤º¸ ÀÔ·Â
-	// urlInfo = ¿äÃ» ÁÖ¼Ò
+	// param = ìš”ì²­í•  íŒŒë¼ë¯¸í„°ì˜ ì •ë³´ ì…ë ¥
+	// urlInfo = ìš”ì²­ ì£¼ì†Œ
 	public static JSONObject connect(String param, String urlInfo){
 		JSONObject jsonObj = null;
 		try {
-			// URLÅ¬·¡½ºÀÇ »ı¼ºÀÚ·Î ÁÖ¼Ò¸¦ ³Ñ°ÜÁÜ
+			// URLí´ë˜ìŠ¤ì˜ ìƒì„±ìë¡œ ì£¼ì†Œë¥¼ ë„˜ê²¨ì¤Œ
 			URL url = new URL(urlInfo);
-			// ÇØ´ç ÁÖ¼ÒÀÇ ÆäÀÌÁö·Î Á¢¼ÓÀ» ÇÏ°í, ´ÜÀÏ HTTP Á¢¼ÓÀ» ÇÏ±â À§ÇØ Ä³½ºº‚¸¶
+			// í•´ë‹¹ ì£¼ì†Œì˜ í˜ì´ì§€ë¡œ ì ‘ì†ì„ í•˜ê³ , ë‹¨ì¼ HTTP ì ‘ì†ì„ í•˜ê¸° ìœ„í•´ ìºìŠ¤?ë§ˆ
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-			// OutputStreamÀ¸·Î POST µ¥ÀÌÅÍ¸¦ ³Ñ°ÜÁÖ°Ú´Ù´Â ¿É¼Ç Á¤ÀÇ
+			// OutputStreamìœ¼ë¡œ POST ë°ì´í„°ë¥¼ ë„˜ê²¨ì£¼ê² ë‹¤ëŠ” ì˜µì…˜ ì •ì˜
 			conn.setDoOutput(true);
-			// POST¹æ½ÄÀ¸·Î ¿äÃ»
+			// POSTë°©ì‹ìœ¼ë¡œ ìš”ì²­
 			conn.setRequestMethod("POST");
-			// OutputStream¿¡ ¿äÃ»ÇÒ OutpuStreamÀ» ³ÖÀ½
+			// OutputStreamì— ìš”ì²­í•  OutpuStreamì„ ë„£ìŒ
 			OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-			// ¸Ş¼¼Áö·Î ÀÛ¼ºµÈ ÆÄ¶ó¹ÌÅÍ Á¤º¸¸¦ ¹ÙÀÌÆ® ´ÜÀ§·Î ¿äÃ»
+			// ë©”ì„¸ì§€ë¡œ ì‘ì„±ëœ íŒŒë¼ë¯¸í„° ì •ë³´ë¥¼ ë°”ì´íŠ¸ ë‹¨ìœ„ë¡œ ìš”ì²­
 			out.write(param);
-			// ½ºÆ®¸²ÀÇ ¹öÆÛ¸¦ ºñ¿ò
+			// ìŠ¤íŠ¸ë¦¼ì˜ ë²„í¼ë¥¼ ë¹„ì›€
 			out.flush();
 
-			// ÀÀ´ä¹ŞÀº ¸Ş¼¼ÁöÀÇ ±æÀÌ¸¸Å­ ¹öÆÛ¸¦ »ı¼ºÇÏ¿© ÀĞ°í, "UTF-8"·Î µğÄÚµùÇØ¼­ ÀĞ¾îµéÀÓ
+			// ì‘ë‹µë°›ì€ ë©”ì„¸ì§€ì˜ ê¸¸ì´ë§Œí¼ ë²„í¼ë¥¼ ìƒì„±í•˜ì—¬ ì½ê³ , "UTF-8"ë¡œ ë””ì½”ë”©í•´ì„œ ì½ì–´ë“¤ì„
 			BufferedReader br = new BufferedReader( new InputStreamReader( conn.getInputStream(), "UTF-8" ), conn.getContentLength());
 			String buf;
 			StringBuffer json = new StringBuffer();
-			// ÇÑ ¶óÀÎ¾¿ ÀĞÀ½
+			// í•œ ë¼ì¸ì”© ì½ìŒ
 			while( ( buf = br.readLine() ) != null ) {
 				json.append(buf);
 			}
-			// ½ºÆ®¸² ´İÀ½
+			// ìŠ¤íŠ¸ë¦¼ ë‹«ìŒ
 			out.close();
 			br.close();
 			
-			// ¼­¹ö¿¡¼­ Àü´ŞÇØÁØ StringÀ» JSONÀ¸·Î º¯°æ ÈÄ JSON¿¡¼­ °ª ²¨³»¼­ »ç¿ë
+			// ì„œë²„ì—ì„œ ì „ë‹¬í•´ì¤€ Stringì„ JSONìœ¼ë¡œ ë³€ê²½ í›„ JSONì—ì„œ ê°’ êº¼ë‚´ì„œ ì‚¬ìš©
 			JSONParser parser = new JSONParser();
 			Object obj = parser.parse(json.toString());
 			jsonObj = (JSONObject)obj;

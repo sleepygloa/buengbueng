@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import login.user.bean.CustomerDTO;
 import login.user.bean.UserInfoDataDTO;
+import sun.invoke.empty.Empty;
 
 @Controller
 public class DashCustomerBean extends BoardMethodBean{
@@ -268,6 +269,7 @@ public class DashCustomerBean extends BoardMethodBean{
 	//답변 중인 게시글 글작성
 	@RequestMapping("dashReplyWritePro.do")
 	public String dashReplyWritePro(HttpServletRequest request,HashMap map,CustomerDTO dto){
+		Alarm(request);
 		String pageNum = request.getParameter("pageNum");
 
 		int num=dto.getNum(); 
@@ -304,5 +306,59 @@ public class DashCustomerBean extends BoardMethodBean{
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("snum", snum);
 		return "/dash-customer/dashReplyWritePro";
+	}
+	// 게시글 검색 목록
+	@RequestMapping("dashBoardSearch.do")
+	public String dashUserSearch(HttpServletRequest request,HashMap map){
+		Alarm(request);
+		String pageNum=request.getParameter("pageNum");
+		String column=request.getParameter("column");
+		String keyword=request.getParameter("keyword");
+		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+
+		map.put("column", column);
+		map.put("keyword", keyword);
+		int count = (Integer)sqlMap.queryForObject("admin.customerSearchCount", map);
+		System.out.println(count);
+		if(pageNum==null){pageNum = "1";}
+		int pageSize = 10;
+		int currentPage= Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize;
+		int number = 0;
+		List list=null;
+		String dates[]=null;
+		
+		if(count>0){
+			map.put("startRow", startRow);
+			map.put("pageSize",pageSize);
+			map.put("column", column);
+			map.put("keyword", keyword);
+			list = sqlMap.queryForList("admin.customerSearch", map);
+			dates=new String[count];
+			for(int i = 0;i<list.size();i++){
+				dates[i]=sdf.format(((CustomerDTO)list.get(i)).getReg_date());
+			}
+		}else{
+			list =Collections.EMPTY_LIST;
+		}
+		number=count-(currentPage-1)*pageSize;
+		
+		int pageCount = count / pageSize + (count%pageSize == 0? 0:1);
+		
+		int startPage = ((Integer.parseInt(pageNum)-1)/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage + pageBlock - 1;
+		if(endPage > pageCount){endPage = pageCount;}
+		
+		request.setAttribute("number", number);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("count", count);
+		request.setAttribute("list", list);
+		request.setAttribute("pageNum", pageNum);		
+		request.setAttribute("dates", dates);
+		return "/dash-customer/dashBoardSearch";
 	}
 }

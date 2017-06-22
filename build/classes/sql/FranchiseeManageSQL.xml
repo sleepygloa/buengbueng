@@ -2,39 +2,95 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="franchisee">
 	
-
 	<!-- 사장님 정보를 불러온다. -->
-	<select id="getBossInfo" parameterClass="String" resultClass="bossDTO">
-		select * from bossInfo where b_id = #b_id#
+	<select id="getBossInfo" parameterClass="String" resultClass="userDto">
+		select * from userInfo where id = #id# and grade = '1';
 	</select>
 	
-	<!-- 가맹점 신청 : 신청시 log테이블에 레코드 추가 -->
-	<insert id="insertFranchiseeAddLog" parameterClass="bossDTO">
-		insert into franchiseeAddLog (result, Date, b_id, b_name, b_number,b_address,b_tel,b_size,b_pccount,b_ip) VALUES(0,now(), #b_id#,#b_name#,#b_number#,#b_address#,#b_tel#,#b_size#,#b_pccount#,#b_ip#);
+	<!-- 가맹점 신청 : 신청시 franchiseeInfo테이블에 레코드 추가 -->
+	<insert id="insertFranchiseeInfo" parameterClass="franchiseeDTO">
+		insert INTO franchiseeInfo (b_key, b_id, b_name, b_number,b_address,b_tel,b_size,b_pccount,b_ip)
+					 VALUES( #b_key#,#b_id#,#b_name#,#b_number#,#b_address#,#b_tel#,#b_size#,#b_pccount#,#b_ip#);
 	</insert>	
-	
+
 	<!-- 가맹점 리스트 갯수 보기 -->
-	<select id="getFranchiseeListCount" resultClass="int">
-		select count(*) from franchiseeAddLog
+	<select id="getFranchiseeListCount" resultClass="int" parameterClass="String">
+		select count(*) from franchiseeInfo where b_id = #id#;
 	</select>
 	
 	<!-- 가맹점 리스트 갯수 -->
-	<select id="getFranchiseeList" resultClass="bossDTO" parameterClass="java.util.HashMap">
+	<select id="getFranchiseeList" resultClass="franchiseeDTO" parameterClass="java.util.HashMap">
 		<![CDATA[
-		select num, result, date, b_id, finishDate, b_name, b_number, b_address, b_tel, b_size, b_pccount, b_ip, b_key
-		 from franchiseeAddLog where num >= #startRow# and num <= #endRow# order by num desc
+		select   b_id,  b_name, b_number, b_address, b_tel, b_size, b_pccount, b_ip, b_key
+		 from franchiseeInfo where  b_id = #id# ORDER BY b_name desc;
+		 ]]> 	
+	</select>	
+	
+	<!-- 가맹점 신청 리스트 갯수 보기 -->
+	<select id="getFranchiseeAddListCount" resultClass="int" parameterClass="String">
+		select count(*) from franchiseeLog where b_id = #id# and result = 0;
+	</select>
+	
+	<!-- 가맹점 신청 리스트 갯수 -->
+	<select id="getFranchiseeAddList" resultClass="franchiseeDTO" parameterClass="String">
+		<![CDATA[
+		select num,date, result, date, b_id, finishDate, b_name, b_number, b_address, b_tel, b_size, b_pccount, b_ip, b_key
+		 from franchiseeLog where  b_id = #id# and result = 0 ;
 		 ]]> 	
 	</select>
 	
 	<!-- 가맹점 승인 -->
 	<update id="franchiseeConfirm" parameterClass="java.util.HashMap">
-		UPDATE franchiseeAddLog SET 
+		UPDATE franchiseeLog SET 
 			result = 1,
 			finishDate = now(),
 			b_key = #b_key#
 		WHERE num = #num#;
 	</update>
 	
+		<!-- 가맹점 로그에서 정보 불러오기 : num -->
+	<select id="getFranchiseeLastConfirmLog" resultClass="franchiseeDTO" parameterClass="int">
+		select * from franchiseeLog where num = #num#;
+	</select>
+	
+	<!-- 가맹점 정보 불러오기:이름으로 -->
+	<select id="getFranchiseeInfo" resultClass="franchiseeDTO" parameterClass="String">
+		select * from franchiseeInfo where b_name = #b_name#;
+	</select>
+	
+	<!-- 가맹점 정보 수정하기 -->
+	<update id="updateFranchiseeInfo"  parameterClass="franchiseeDTO">
+		update franchiseeInfo SET 
+			b_number = #b_number#,
+			b_address = #b_address#,
+			b_tel = #b_tel#,
+			b_size = #b_size#,
+			b_pccount  = #b_pccount#,
+			b_ip = #b_ip#
+		where  b_name = #b_name#;
+	</update>
+	
+	<!-- 가맹점 수정 Log -->
+	<insert id="insertFranchiseeUpdateLog" parameterClass="franchiseeDTO">
+		INSERT INTO franchiseeUpdateLog (num, date, b_key, b_id, b_name, b_number,b_address, b_tel, b_size, b_pccount, b_ip)
+		VALUES(0, now(), #b_key#, #b_id#, #b_name#, #b_number#, #b_address#, #b_tel#, #b_size#, #b_pccount#, #b_ip#);
+	</insert>
+	
+	<!-- 가맹점 삭제 -->
+	<delete id="deleteFranchisee"  parameterClass="java.util.HashMap">
+		delete from franchiseeInfo where b_key = #b_key#;
+	</delete>	
+	
+	<!-- 가맹점 삭제 Log-->
+	<insert id="insertFranchiseeDeleteLog"  parameterClass="java.util.HashMap">
+		INSERT INTO franchiseeDeleteLog (num,id, b_key, pw, reason) VALUES(0,#id#, #b_key#, #pw#, #reason#);
+	</insert>		
+
+	
+	<!-- 가맹점 정보 불러오기:B_key로 -->
+	<select id="getFranchiseeDeleteLogBkey" resultClass="franchiseeDTO" parameterClass="String">
+		select * from franchiseeDeleteLog where b_key = #b_key#;
+	</select>
 	
 	
 </sqlMap>

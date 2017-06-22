@@ -13,6 +13,7 @@
 	<script>
 		alert('가맹점 신청이 완료되었습니다. 관리자의 승인을 기다려주세요. 평균 1~2일 걸립니다. ')
 	</script>
+	<meta http-equiv="refresh" content="1;url=franchiseeList.do" />
 </c:if>
 
 <!-- 서버오류, 메인페이지로이동 -->

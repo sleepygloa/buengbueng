@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="log">
+
+	<!-- 로그아웃시 logoutPayDetailLog 테이블에 로그를 남김 -->
+	<insert id="logoutLog" parameterClass="useTimeDto">
+		INSERT INTO logoutPayDetailLog (id, usePcUseTime, usePcUseTimePay, userAccountMoney, payAfterMoney)
+		VALUES(#id#, #usePcUseTime#, #usePcUseTimePay#, #userAccountMoney#, #payAfterMoney#);
+	</insert>
+	
+	<!-- 로그아웃시 userTimeLog 테이블에 로그를 남김 -->
+	<insert id="logoutPayLog" parameterClass="useTimeDto">
+		INSERT INTO accountLog (giveId, getId, money, method, reason, signdate) VALUES(#id#, 'admin', -#usePcUseTimePay#, '1', '2', now());
+	</insert>
+
+	<!-- 로그아웃 완료시 userAccount 테이블에 거래금액이 결제됨 --> <!-- 사용자 -->
+	<update id="userGiveBossMoneyUserAccount" parameterClass="useTimeDto">
+		UPDATE userAccount SET money = money + #usePcUseTimePay# where id = (select b_id from bossInfo where b_key = #b_key#);
+	</update>
+
+	<!-- 로그아웃 완료시 userAccount 테이블에 거래금액이 결제됨 --> <!-- 사자ㅑㅇ님 -->
+	<update id="userGiveBossMoneyBossAccount" parameterClass="useTimeDto">
+		UPDATE userAccount SET money = money + #usePcUseTimePay# where id = #id#;
+	</update>
+
+	<!-- 가맹점 신청 : 신청시 log테이블에 레코드 추가 -->
+	<insert id="insertFranchiseeLog" parameterClass="franchiseeDTO">
+		insert INTO franchiseeLog (result, Date, b_id, b_name, b_number,b_address,b_tel,b_size,b_pccount,b_ip)
+					 VALUES(0,now(), #b_id#,#b_name#,#b_number#,#b_address#,#b_tel#,#b_size#,#b_pccount#,#b_ip#);
+	</insert>
+
+</sqlMap>

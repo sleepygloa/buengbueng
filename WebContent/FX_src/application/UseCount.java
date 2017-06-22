@@ -1,8 +1,9 @@
 package application;
 
 import application.controller.login.MainController;
+import user.info.dto.UserInfo;
 
-// »ç¿ëÀÚ ÀÌ¿ë½Ã°£ Ä«¿îÆ®
+// ì‚¬ìš©ì ì´ìš©ì‹œê°„ ì¹´ìš´íŠ¸
 public class UseCount implements Runnable{
 
 	private static UseCount instance;
@@ -15,7 +16,7 @@ public class UseCount implements Runnable{
 	}
 	
 	public static void stopTime(){
-		// ÀÌÀü »ç¿ëÀÚÀÇ »ç¿ë ½Ã°£ Thread´Â ²ô±â
+		// ì´ì „ ì‚¬ìš©ìì˜ ì‚¬ìš© ì‹œê°„ ThreadëŠ” ë„ê¸°
 		instance.time = false;
 		instance = null;
 		useTime = null;
@@ -23,10 +24,10 @@ public class UseCount implements Runnable{
 	
 	public static Thread getUseTime(int count){
 		secs = count;
-		// Thread´Â 1°³ÀÇ °´Ã¼¸¦ Àç½ÃÀÛÇÏ´Â °³³ä X -> »õ·Î »ı¼º ÈÄ start()
+		// ThreadëŠ” 1ê°œì˜ ê°ì²´ë¥¼ ì¬ì‹œì‘í•˜ëŠ” ê°œë… X -> ìƒˆë¡œ ìƒì„± í›„ start()
 		instance = new UseCount();
 		useTime = new Thread(instance);
-		// trueÀÏ ¶§ ¹İº¹ ½ÇÇà
+		// trueì¼ ë•Œ ë°˜ë³µ ì‹¤í–‰
 		instance.time = true;
 		return useTime;
 	}
@@ -37,12 +38,30 @@ public class UseCount implements Runnable{
 				int sec = secs % 60;
 				int min = secs / 60 % 60;
 				int hour = secs / 3600;
-				String time = String.format("%02d:%02d:%02d", hour, min, sec);
-				MainController.getUseTime().setText(time);
-				secs--;
-				Thread.sleep(1000);
+				
+				// ì‚¬ìš© ê°€ëŠ¥ ì‹œê°„ì´ ì—†ìœ¼ë©´
+				if(sec==0 && min ==0 && hour ==0){
+					time = false;
+					MainController main = new MainController();
+					main.Logout();
+				}
+				// ì‚¬ìš© ê°€ëŠ¥ ì‹œê°„ì´ ìˆìœ¼ë©´
+				else{
+					// ì‚¬ìš© ê°€ëŠ¥ ì‹œê°„ 1ì´ˆ ì”© ê¹ì„
+					String time = String.format("%02d:%02d:%02d", hour, min, sec);
+					MainController.getUseTime().setText(time);
+					secs--;
+					
+					// 1ì´ˆ ë‹¹ í¬ì¸íŠ¸ 0.25ì› ì”© ì°¨ê°
+					double usePoint = UserInfo.getInstance().getPoint();
+					UserInfo.getInstance().setPoint(usePoint-0.25);
+					usePoint = UserInfo.getInstance().getPoint();
+					MainController.getPoint().setText(String.valueOf(usePoint)+"ì›");
+					
+					Thread.sleep(1000);
+				}
 			}catch(Exception e){
-				// ÃßÈÄ...¼öÁ¤
+				// ì¶”í›„...ìˆ˜ì •
 			}
 		}
 	}

@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import user.info.dto.UserInfo;
@@ -21,32 +22,59 @@ import user.info.dto.UserInfo;
 public class MainController {
 	@FXML private Text id;
 	@FXML private Text point;
+	@FXML private Label pcNum;
 	@FXML private Text useTime;
+	@FXML private Text alert;
+	private static Text point2;
 	private static Text useTime2;
 	
-	// ¸ŞÀÎÃ¢(·Î±×ÀÎ ÈÄ ¶ß´Â Ã¢) ³ªÅ¸³¯ ¶§ ½ÇÇàµÊ
+	// ë©”ì¸ì°½(ë¡œê·¸ì¸ í›„ ëœ¨ëŠ” ì°½) ë‚˜íƒ€ë‚  ë•Œ ì‹¤í–‰ë¨
 	@FXML
 	public void initialize(){
 		id.setText(UserInfo.getInstance().getId());
-		point.setText(UserInfo.getInstance().getPoint()+"¿ø");
+		point.setText(UserInfo.getInstance().getPoint()+"ì›");
+		pcNum.setText(UserInfo.getInstance().getPcNum());
 		useTime2 = useTime;
-		// Å¸ÀÌ¸Ó ½ÃÀÛ (1½Ã°£¿¡ 500¿øÀÌ¶ó°í Ä¡°í...)
-		int p = Integer.parseInt(UserInfo.getInstance().getPoint().replaceAll(",", ""));
-		int count = (p/500)*3600;
+		point2 = point;
+		count();
+	}
+	
+	// ì‚¬ìš© ê°€ëŠ¥ ì‹œê°„ íƒ€ì´ë¨¸
+	public void count(){
+		// íƒ€ì´ë¨¸ ì‹œì‘ (1ì´ˆì— 0.25ì›)
+		int count = (int)(UserInfo.getInstance().getPoint()/0.25);
 		UseCount.getUseTime(count).start();
 	}
 	
+	// ë©”ë‰´ ì£¼ë¬¸ -> í¬ì¸íŠ¸ ì°¨ê° -> ì‚¬ìš© ê°€ëŠ¥ ì‹œê°„ ê¹ì„
+	public void menuOrder(){
+		// íƒ€ì´ë¨¸ ë©ˆì¶¤
+		UseCount.stopTime();
+		// ì£¼ë¬¸í•œ ë©”ë‰´ê°€ 2000ì›ì´ë¼ê³  ì¹˜ê³ ...
+		double menu = 2000;
+		double currentPoint = UserInfo.getInstance().getPoint();
+		if(menu < currentPoint){
+			UserInfo.getInstance().setPoint(currentPoint-menu);
+			count();
+		}else{
+			alert.setText("ì¶©ì „ í›„ ì´ìš©í•´ì£¼ì‹­ì‹œì˜¤.");
+			count();
+		}
+	}
+	
+	// ì‚¬ìš©ì ë¡œê·¸ì•„ì›ƒ
 	public void Logout(){
 		try {
-			// Å¸ÀÌ¸Ó ¸ØÃã
+			// íƒ€ì´ë¨¸ ë©ˆì¶¤
 			UseCount.stopTime();
 			
-			// »ç¿ëÀÚ ·Î±×¾Æ¿ô ½Ã°£ ·Î±×¿¡ ³²±â±â
-			String param="id="+URLEncoder.encode(id.getText(),"UTF-8")+"&loginTime="+URLEncoder.encode(UserInfo.getInstance().getLoginTime(),"UTF-8");
+			// ì‚¬ìš©ì ë¡œê·¸ì•„ì›ƒ ì‹œê°„ ë¡œê·¸ì— ë‚¨ê¸°ê¸°
+			String param="id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&loginTime="+URLEncoder.encode(UserInfo.getInstance().getLoginTime(),"UTF-8")+
+					"&pcNum="+URLEncoder.encode(UserInfo.getInstance().getPcNum(),"UTF-8")+"&key="+URLEncoder.encode("k93h11m16","UTF-8");
 			String urlInfo ="http://localhost:8080/buengbueng/fxLogoutPro.do";
 			JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 			
-			// ·Î±×¾Æ¿ô Á¤»óÀûÀ¸·Î µÇ¸é ÃÊ±â È­¸é(·Î±×ÀÎ È­¸é)À¸·Î ÀüÈ¯
+			// ë¡œê·¸ì•„ì›ƒ ì •ìƒì ìœ¼ë¡œ ë˜ë©´ ì´ˆê¸° í™”ë©´(ë¡œê·¸ì¸ í™”ë©´)ìœ¼ë¡œ ì „í™˜
 			if(jsonObj.get("result").equals("succ")){
 				UserInfo.getInstance().clear();
 				BorderPane root = new BorderPane();
@@ -58,8 +86,8 @@ public class MainController {
 				scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
 				Main.getStage().setWidth(gd.getDisplayMode().getWidth());
 				Main.getStage().setHeight(gd.getDisplayMode().getHeight());
-				Main.getStage().setX(0);	// ¸ğ´ÏÅÍ »ó¿¡ Ã¢ÀÌ À§Ä¡ÇÒ X ÁÂÇ¥
-				Main.getStage().setY(0);	// ¸ğ´ÏÅÍ »ó¿¡ Ã¢ÀÌ À§Ä¡ÇÒ Y ÁÂÇ¥
+				Main.getStage().setX(0);	// ëª¨ë‹ˆí„° ìƒì— ì°½ì´ ìœ„ì¹˜í•  X ì¢Œí‘œ
+				Main.getStage().setY(0);	// ëª¨ë‹ˆí„° ìƒì— ì°½ì´ ìœ„ì¹˜í•  Y ì¢Œí‘œ
 				Main.getStage().setScene(scene);
 			}
 
@@ -68,8 +96,12 @@ public class MainController {
 			e.printStackTrace();
 		}
 	}
+	
 	public static Text getUseTime(){
 		return useTime2;
 	}
-
+	
+	public static Text getPoint(){
+		return point2;
+	}
 }

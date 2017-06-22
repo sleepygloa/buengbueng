@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:if test="${check==1}">
+<c:if test="${check==-1}">
 <script>
 alert('정보가 틀립니다.');
 history.go(-1);
@@ -11,7 +11,7 @@ history.go(-1);
 
 <!-- ARTICLE -->
 
-<!-- 메인 화면 전광판  -->
+<!-- 메인 화면 전광판  ------------------------------------------------------------>
 <div class="main_ad row">
 	<div class="main_ad_content">
 		<div class="container main_ad_text_wrap">
@@ -20,10 +20,10 @@ history.go(-1);
 		</div>
 	</div>
 </div>
-<!-- 끝 : 메인화면 전광판 -->	
+<!-- 끝 : 메인화면 전광판 ---------------------------------------------------------->	
 	
 	
-<!-- 메인 주요기능 : 카드 섹션? 영역 -->
+<!-- 메인 주요기능 : 카드 섹션? 영역 -------------------------------------------------->
 <div class="main_card_wrap row">
     <div class="main_card_content">
         <div class="card_title_wrap">
@@ -33,6 +33,7 @@ history.go(-1);
 	    <div class="card_content_wrap">
 	            <h4 class="card_content_title">새로운 점주는 언제나 환영이지!!</h4>
 	            <div class="row">
+<!-- 카드섹션 컨텐츠------------------------------------------------------------ -->
 	                <div class="col-xs-12-12 col-sm-6-12 col-md-4-12">
 	                    <a class="offer__function__section scalable"  href="">
 	                        <div class="card_icon ux-heatmap"></div>
@@ -85,7 +86,7 @@ history.go(-1);
 		</div>
     </div>	
 </div>
-<!-- 메인 주요기능 : 카드 섹션? 영역 -->
+<!-- 메인 주요기능 : 카드 섹션? 영역 --------------------------------------------------->
 
 <!-- FOOTER TEMPLATE -->
 <jsp:include page="footer.jsp" />

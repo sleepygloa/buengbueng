@@ -3,10 +3,12 @@
 
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
-
+<style>[class*=col]{margin-bottom:0px}</style>
 	<!-- 페이지 제목 -->
 	<div class="margin_bottom50">
-			<h3>가맹점 신청 PAGE!</h3>
+		<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+			<h3>가맹점 신청 PAGE</h3>
+		</div>
 	</div>
 	
 	<div class="margin_bottom50">	
@@ -117,7 +119,7 @@
 							<label>사업장 사장님컴퓨터 IP<br /></label>
 							<div class="form-group">
 								${ip}
-						<input type="hidden" value="${ip}" />
+						<input type="hidden" name="b_ip" value="${ip}" />
 							</div>
 					</div>
 				</div>							

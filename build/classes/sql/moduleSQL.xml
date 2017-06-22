@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="module">
+	<!-- 해당 사용자의 모듈화 가져오기 -->
+	<select id="getModule" parameterClass="String" resultClass="String">
+		select module from franchiseModule where b_key = #key#;
+	</select>
+</sqlMap>

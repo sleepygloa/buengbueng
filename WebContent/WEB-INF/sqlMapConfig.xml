@@ -6,16 +6,23 @@
 	<settings useStatementNamespaces="true" />
 	
 <!-- For Example : MySQL 연동  -->	
-	<sqlMap resource="/sql/typeAliasSQL.xml"/> <!-- DTO 정의 모아둔곳 -->
-
-	<sqlMap resource="/sql/userInfoSQL.xml"/> <!-- 회원관리 : 가입, 삭제, 정보보기 등등 -->
-	<sqlMap resource="/sql/checkInfoSQL.xml"/> <!-- 유효성검사 : 아이디검사, 비밀번호 검사 -->
-  	<sqlMap resource="/sql/franchiseeManageSQL.xml"/> <!--  가맹점 관리 -->
-	<sqlMap resource="/sql/searchPCSQL.xml"/><!-- pc방찾기 -->
-	<sqlMap resource="/sql/superClassSQL.xml" /> <!-- 전역 CLASS : 라이센스키 발급 -->
-	<sqlMap resource="/sql/erpEmployeeManageSQL.xml"/> <!-- ERP 알바 관리 -->
-	<sqlMap resource="/sql/customerSQL.xml"/> <!-- 고객센터 -->
-	<sqlMap resource="/sql/useSeatSQL.xml" /> <!-- 사용자의 좌석 이용시간 및 PC방 좌석 이용현황 -->
-	<sqlMap resource="/sql/cashSQL.xml"/>  <!-- 결제 관련 -->
+	<sqlMap resource="sql/typeAliasSQL.xml"/> <!-- DTO 정의 모아둔곳 -->
+	
+	<sqlMap resource="sql/userInfoSQL.xml"/> <!-- 회원관리 : 가입, 삭제, 정보보기 등등 -->
+	<sqlMap resource="sql/checkInfoSQL.xml"/> <!-- 유효성검사 : 아이디검사, 비밀번호 검사 -->
+	<sqlMap resource="sql/searchPCSQL.xml"/><!-- pc방찾기 -->
+	<sqlMap resource="sql/superClassSQL.xml" /> <!-- 전역 CLASS : 라이센스키 발급 -->
+	<sqlMap resource="sql/erpEmployeeManageSQL.xml"/> <!-- ERP 알바 관리 -->
+	<sqlMap resource="sql/customerSQL.xml"/> <!-- 고객센터 -->
+	<sqlMap resource="sql/useSeatSQL.xml" /> <!-- 사용자의 좌석 이용시간 및 PC방 좌석 이용현황 -->
+	<sqlMap resource="sql/cashSQL.xml"/>  <!-- 결제 관련 -->
+	<sqlMap resource="sql/franchiseeManageSQL.xml"/> <!--  가맹점 관리 -->
+	<sqlMap resource="sql/menuSQL.xml"/> <!-- menu 추가 수정 삭제 관리 -->
+	<sqlMap resource="sql/logSQL.xml"/>  <!-- 각종 LOG 관련 -->
 	<sqlMap resource="/sql/adminSQL.xml"/> <!-- 관리자 페이지 -->
+
+	<sqlMap resource="/sql/pcInfoSQL.xml"/> <!-- pc방 좌석 정보 -->
+	<sqlMap resource="/sql/bossPCSQL.xml" /> <!-- 사장님 PC방 관리 ERP -->
+	<sqlMap resource="/sql/rentSQL.xml" /> <!-- 사장님 대여물품 관리 ERP -->
+	<sqlMap resource="/sql/moduleSQL.xml"/> <!-- 모듈화 관리 -->
 </sqlMapConfig>

@@ -5,7 +5,7 @@
 	
 	<!-- 라이센스키 중복검사 -->
 	<select id="licenseKeyDuplicateInspection" resultClass="int" parameterClass="String">
-		select count(*) from franchiseeAddLog where b_key = #b_key#;
+		select count(*) from franchiseeLog where b_key = #b_key#;
 	</select>
 	
 	

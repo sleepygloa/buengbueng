@@ -4,62 +4,68 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.login.MainController">
    <children>
-      <VBox layoutX="131.0" layoutY="41.0" spacing="20.0">
+      <HBox layoutX="162.0" layoutY="89.0" spacing="10.0">
          <children>
-            <HBox spacing="10.0">
-               <children>
-                  <Text fx:id="id" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="262.2421875">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Text>
-                  <Label text="님">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Button mnemonicParsing="false" onMouseClicked="#Logout" text="로그아웃">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-            <HBox alignment="TOP_RIGHT" spacing="10.0">
-               <children>
-                  <Label text="잔액">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="point" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-               </children>
-            </HBox>
-            <HBox alignment="TOP_RIGHT" spacing="10.0">
-               <children>
-                  <Label text="사용 시간">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="useTime" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" wrappingWidth="115.12109375">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-               </children>
-            </HBox>
+            <Text fx:id="id" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="262.2421875">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Label text="님" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Button mnemonicParsing="false" onMouseClicked="#Logout" text="로그아웃">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
-      </VBox>
+      </HBox>
+      <Label layoutX="400.0" layoutY="137.0" text="잔액" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Text fx:id="point" fill="WHITE" layoutX="449.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" wrappingWidth="115.3818359375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <HBox alignment="TOP_RIGHT" layoutX="360.0" layoutY="173.0" spacing="10.0">
+         <children>
+            <Label text="사용 시간" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Text fx:id="useTime" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" wrappingWidth="115.12109375">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+      <Button layoutX="62.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#menuOrder" text="메뉴 주문">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Text fx:id="alert" fill="RED" layoutX="162.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="403.0000001192093">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Text>
+      <Label fx:id="pcNum" layoutX="62.0" layoutY="49.0" prefHeight="42.0" prefWidth="52.0" textAlignment="CENTER" textFill="#fffb00">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
