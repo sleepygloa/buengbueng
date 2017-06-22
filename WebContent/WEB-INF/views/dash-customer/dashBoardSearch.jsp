@@ -18,7 +18,7 @@
 		<span>
 		<c:out value="${number}"/>
 		</span>
-		<span><a href="dashFranchiseContent.do?num=${list.num}&snum=${list.snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
+		<span><a href="dashBoardSearchContent.do?num=${list.num}&snum=${list.snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
 		<span>${list.writer}</span>
 		<span>${list.email}</span>
 		<span>${dates[d]}</span>
@@ -32,13 +32,13 @@
 </c:forEach>
 	
 	<c:if test="${startPage > 10}">
-        <a href="dashFranchiseList.do?snum=${snum}&pageNum=${ startPage - 10 }">[이전]</a>
+        <a href="dashBoardSearch.do?column=${column}&keyword=${keyword}&pageNum=${ startPage - 10 }">[이전]</a>
 	</c:if>
 	<c:forEach var="i" begin="${startPage}" end="${endPage}">
-		<a href="dashFranchiseList.do?snum=${snum}&pageNum=${i}">[${i}]</a>
+		<a href="dashBoardSearch.do?column=${column}&keyword=${keyword}&pageNum=${i}">[${i}]</a>
 	</c:forEach>
 	<c:if test="${endPage < pageCount}">
-    	<a href="dashFranchiseList.do?snum=${snum}&pageNum=${ startPage + 10 }">[다음]</a>
+    	<a href="dashBoardSearcht.do?column=${column}&keyword=${keyword}&pageNum=${ startPage + 10 }">[다음]</a>
 	</c:if>
 </div>
 </c:if>

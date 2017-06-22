@@ -315,19 +315,20 @@ public class DashCustomerBean extends BoardMethodBean{
 		String column=request.getParameter("column");
 		String keyword=request.getParameter("keyword");
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
-
-		map.put("column", column);
-		map.put("keyword", keyword);
-		int count = (Integer)sqlMap.queryForObject("admin.customerSearchCount", map);
-		System.out.println(count);
+		
 		if(pageNum==null){pageNum = "1";}
 		int pageSize = 10;
 		int currentPage= Integer.parseInt(pageNum);
 		int startRow = (currentPage-1)*pageSize;
 		int number = 0;
+		int count = 0;
 		List list=null;
 		String dates[]=null;
-		
+				
+		if(keyword!=null){
+			map.put("column", column);
+			map.put("keyword", keyword);
+			count = (Integer)sqlMap.queryForObject("admin.customerSearchCount", map);
 		if(count>0){
 			map.put("startRow", startRow);
 			map.put("pageSize",pageSize);
@@ -340,7 +341,8 @@ public class DashCustomerBean extends BoardMethodBean{
 			}
 		}else{
 			list =Collections.EMPTY_LIST;
-		}
+		}}		
+		
 		number=count-(currentPage-1)*pageSize;
 		
 		int pageCount = count / pageSize + (count%pageSize == 0? 0:1);
@@ -359,6 +361,8 @@ public class DashCustomerBean extends BoardMethodBean{
 		request.setAttribute("list", list);
 		request.setAttribute("pageNum", pageNum);		
 		request.setAttribute("dates", dates);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("column", column);
 		return "/dash-customer/dashBoardSearch";
 	}
 }
