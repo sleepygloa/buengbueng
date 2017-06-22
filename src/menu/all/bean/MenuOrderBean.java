@@ -172,10 +172,10 @@ public class MenuOrderBean {
 	
 	/* 바코드 확인하고 정상적인 주문일 때 완료 페이지*/
 	@RequestMapping("menuOrderComplete.do")
-	public String menuOrderComplete(HttpServletRequest request, String barcode, int num, String name, String l_key){
+	public String menuOrderComplete(HttpSession session,HttpServletRequest request, String barcode, int num, String name, String l_key){
 		int check=0;
 		try{
-			System.out.println("menuOrderComplete"+name+l_key+barcode);
+		
 			HashMap map=new HashMap();
 			map.put("barcode", barcode);
 			map.put("name",name);
@@ -197,6 +197,19 @@ public class MenuOrderBean {
 				
 				// sellBuyLog 판매시간 입력.
 				sqlMap.update("order.productsaleregistdate", map2);
+				
+				String userId=(String)session.getAttribute("loginId");
+				int ordermoney = (Integer)sqlMap.queryForObject("order.getOrderMoney", name); // 메뉴가격 가져오는 것.
+				int usermoney = (Integer)sqlMap .queryForObject("order.getUserMoney",userId);
+				int money = usermoney-ordermoney;
+				System.out.println(ordermoney+usermoney+money);
+			
+				
+				HashMap map3 = new HashMap();
+				map3.put("userId",userId);
+				map3.put("money",money);
+				sqlMap.update("order.menuPayment", map3);
+				
 				
 				check=1;
 			}

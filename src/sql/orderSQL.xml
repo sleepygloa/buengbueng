@@ -4,6 +4,14 @@
 	
 	<!-- 사용자와 사장님이 주문시 주문현황 SQL -->
 	
+
+	
+	<!-- 재고 유통기한이 지났을 경우 자동으로 삭제 (로그인이 되는 순간) -->	
+	<delete id="lastdayDelete">
+	<![CDATA[
+		delete from product where lastday < now();
+	]]>
+	</delete>	
 	
 	<!-- 사용자가 로그인하는 피씨방 정보 가져오는 sql -->
 	<select id="selectFranchisee" resultClass="franchiseeDTO">
@@ -24,6 +32,7 @@
 	<!-- MenuOrderPro 에서 주문했을때 사장주문리스트에 벌써들어가있는 재고를 말하는것 sql -->
 	<select id="selectMenuOrder" parameterClass="java.util.HashMap" resultClass="int">
 		select count(*) from menuOrder where menuname=#order# and l_key=#l_key# and orderstatus=1;
+		
 	</select>
 
 	
@@ -47,7 +56,7 @@
 	
 	<!-- 사용자가 주문한 내역을 사장이 열어 볼 리스트. 주문현황리스트 -->
 	<select id="getMenuOrder" parameterClass="String" resultClass="orderDto">
-		select * from menuOrder where l_key=#l_key#;
+		select * from (select * from menuOrder where l_key=#l_key# order by orderstatus asc) menuOrder order by ordertime desc;
 	</select>
 	
 	<!-- 받은 바코드가 메뉴이름과 일치하며 판매유무가 1이라면 주문완료-->
@@ -69,6 +78,22 @@
 	<update id="productsaleregistdate" parameterClass="java.util.HashMap">
 		update sellBuyLog set productsaleregistdate=now() where name=#name# and code=#barcode# and l_key=#l_key#;
 	</update>
+	
+	<!-- 사용자 잔액 가져오기 -->
+	<select id="getUserMoney" parameterClass="String" resultClass="int">
+		select money from userAccount where id=#userId#;
+	</select>
+	
+	<!-- 메뉴 값 가져오기 -->
+	<select id="getOrderMoney" parameterClass="String" resultClass="int">
+		select distinct ordermoney from menuOrder where menuname=#name#;
+	</select>
+
+	<!-- 사장이 주문승인시 주문한 사용자 메뉴값 잔액에서 차감--> 
+	<update id="menuPayment" parameterClass="java.util.HashMap">
+		update userAccount set money=#money# where id=#userId#;
+	</update> 
+	
 	
 	
 
