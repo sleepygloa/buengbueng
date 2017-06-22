@@ -55,34 +55,10 @@ public class BossEmployeeManageBean {
 		return "/bossERP/erpMain";
 	}
 	
-	//사장님 알바생 관리 페이지로이동
-	@RequestMapping("employeeManage.do")
-	public String manageEmployee(Model model, HttpSession session){
-		
-		//////////////////////////////////////////
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
-		
-		//////////////////////////////////////////
-		//세션 아이디를 페이지로전달
-		String b_id = (String)session.getAttribute("loginId");
-		model.addAttribute("id",b_id);
-		
-		List list = new ArrayList();
-		list = sqlMap.queryForList("erpEmp.getBossFranchiseeList",b_id);
-		
-		model.addAttribute("franchiseeList",list);
 
-		return "/bossERP/employeeManage/employeeManage";
-	}
-	
 	//사장님 알바생 관리 페이지로이동 (가맹점 선택)
 	@RequestMapping("employeeManageInfo.do")
-	public String employeeManageInfo(Model model, HttpSession session, String b_key){
+	public String employeeManageInfo(Model model, HttpSession session){
 		//////////////////////////////////////////
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
@@ -95,6 +71,9 @@ public class BossEmployeeManageBean {
 		//세션 아이디를 페이지로전달
 		String id = (String)session.getAttribute("loginId");
 		model.addAttribute("id",id);
+		
+		//가맹점 키를 세션으로 받음
+		String b_key = (String)session.getAttribute("b_key");
 		
 		HashMap map = new HashMap();
 		map.put("id", id);
@@ -119,14 +98,12 @@ public class BossEmployeeManageBean {
 		list2 = (List)sqlMap.queryForList("erpEmp.getEmployeeDeleteList", map);
 		model.addAttribute("list2",list2);
 		
-		model.addAttribute("b_key",b_key);
-		
 		return "/bossERP/employeeManage/employeeManageInfo";
 	}
 	
 	//알바생 아이디 신청폼 AJAX 
 	@RequestMapping("employeeAddInfo.do")
-	public String employeeAddInfo(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO, String b_key){
+	public String employeeAddInfo(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO){
 			
 		//////////////////////////////////////////
 		//세션 아이디를 페이지로전달
@@ -135,20 +112,21 @@ public class BossEmployeeManageBean {
 		
 		beDTO = (BossEmployeeManageDataDTO)sqlMap.queryForObject("erpEmp.getEmployeeAddLogLastNum", null);
 		model.addAttribute("beDTO", beDTO);
-
-		model.addAttribute("b_key", b_key);
 		
 		return "/bossERP/employeeManage/employeeAddInfo";
 	}
 	
 	//알바생 아이디 추가 신청 처리, Log남김
 	@RequestMapping("employeeAddPro.do")
-	public String employeeAddPro(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO, String b_key){
+	public String employeeAddPro(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO){
 		
 		//////////////////////////////////////////
 		//세션 아이디를 페이지로전달
 		String b_id = (String)session.getAttribute("loginId");
 		model.addAttribute("b_id",b_id);
+		
+		//가맹점 키를 세션으로 받음
+		String b_key = (String)session.getAttribute("b_key");
 		
 		int check = 0;
 		//로그인 하지 않았을때 그냥 폼은 보여주지만, 아무것도할수없다.
@@ -351,7 +329,6 @@ public class BossEmployeeManageBean {
 			};
 		
 		model.addAttribute("e_id", beDTO.getE_id());
-		model.addAttribute("b_key", beDTO.getB_key());
 		model.addAttribute("logNum", logNum);
 		
 		return "/bossERP/employeeManage/employeeDeleteInfo";
@@ -411,8 +388,11 @@ public class BossEmployeeManageBean {
 		String id = (String)session.getAttribute("loginId");
 		model.addAttribute("id",id);
 		
+		//가맹점 키를 세션으로 받음
+		String b_key = (String)session.getAttribute("b_key");
+		
 		List list = new ArrayList();
-		list = (List)sqlMap.queryForList("erpEmp.getEmployeeIdList", id);
+		list = (List)sqlMap.queryForList("erpEmp.getEmployeeIdList", b_key);
 		
 		String menu =  bossEmployeeManageBean.MenuCategoryDivResponse(list);
 		

@@ -3,7 +3,6 @@
 <style>
 form{border:1px solid black;}
 </style>
-<form action="" method="post">
 <!-- 카테고리 -->
 	<!-- 페이지 제목 -->
 	<div class=" margin_bottom50">
@@ -93,10 +92,10 @@ form{border:1px solid black;}
 		
 		<div class="row">
 			<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
-				<input class="btn btn-success col-xs-12-12 col-sm-6-12 col-md-6-12" type="submit" value="수정하기" />
+				<input class="btn btn-success col-xs-12-12 col-sm-6-12 col-md-6-12" type="submit" value="수정하기" 
+				onclick="getUpdateInfo('${userDto.id}')" />
 				<input class="btn btn-default col-xs-12-12 col-sm-6-12 col-md-6-12" type="button" value="취소하기"
-				onclick="window.location='manageEmployee.do'" />
+				onclick="window.location='employeeManage.do'" />
 			</div>					
 		</div>	
 	</c:if>
-</form>

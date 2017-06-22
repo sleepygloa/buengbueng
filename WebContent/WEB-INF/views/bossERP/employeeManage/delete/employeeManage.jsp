@@ -17,8 +17,7 @@ $(document).ready(function(){
 });
 })
 </script>
-<!-- HEADER TEMPLATE -->
-<jsp:include page="../../header.jsp" />
+
 
 	<!-- 페이지 제목 -->
 	<div class=" margin_bottom50">
@@ -43,6 +42,3 @@ $(document).ready(function(){
 		<div id="employeeManageInfo"></div>
 	</div>
 </div>
-
-<!-- HEADER TEMPLATE -->
-<jsp:include page="../../footer.jsp" />
