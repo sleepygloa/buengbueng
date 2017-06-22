@@ -3,15 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="/buengbueng/js/userInfo/customerForm.js"></script>
 <!-- HEADER TEMPLATE -->
-<jsp:include page="../header.jsp" />
+<jsp:include page="../dashHeader.jsp" />
 <head>
 <title>Q & A</title>
 </head>
-<c:if test="${sessionScope.grade!=4}">
-	<script>alert("관리자 등급만 작성 가능"); history.go(-1);</script>
-</c:if>
 <div>자주 묻는 질문</div>
-<form action="customerPro.do" method="post" onsubmit="return customerCheck();" name="customer">
+<form action="dashReplyWritePro.do" method="post" name="dashReplyWrite">
 <input type="hidden" name="pageNum" value="${pageNum}">
 <input type="hidden" name="snum" value="${snum}">
 <input type="hidden" name="num" value="${num}">
@@ -41,7 +38,8 @@
 <div>
 	<span><input type="submit" value="작성하기"></span>
 	<span><input type="reset" value="다시쓰기"></span>
-	<span><input type="button" value="돌아가기" onclick="window.location='customerQA.do?snum=${snum}&pageNum=${pageNum}'"></span>
+	<span><input type="button" value="돌아가기" onclick="history.go(-1);"></span>
 </div>
 </div>
 </form>
+<jsp:include page="../dashFooter.jsp"/>

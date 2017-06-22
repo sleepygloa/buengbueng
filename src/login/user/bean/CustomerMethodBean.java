@@ -14,13 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class FranchiseQABean { // 가맹 문의
-
-	@Autowired
-	private SqlMapClientTemplate sqlMap;
+public class CustomerMethodBean {  // 사용자 게시판 메서드( 가맹문의, 1:1 문의 , 자주묻는 질문)
 	
-	@RequestMapping("franchiseQA.do")  // 게시판 리스트
-	public String franchiseQA(HttpServletRequest request,HashMap map){
+	@Autowired
+	SqlMapClientTemplate sqlMap;
+	//글 목록
+	public void boardList(HttpServletRequest request,HashMap map){
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
@@ -66,11 +65,9 @@ public class FranchiseQABean { // 가맹 문의
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("snum", snum);
 		request.setAttribute("dates", dates);
-		return "/customer-center/franchiseList";
 	}
-	
-	@RequestMapping("franchiseForm.do")
-	public String franchiseForm(HttpServletRequest request,HttpSession session){   // 문의 작성 폼 
+	// 글쓰기 폼
+	public void writeForm(HttpServletRequest request,HttpSession session){
 		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출
 			String id = (String)session.getAttribute("loginId");
 			UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
@@ -92,11 +89,9 @@ public class FranchiseQABean { // 가맹 문의
 		request.setAttribute("re_step", new Integer(re_step));
 		request.setAttribute("snum", snum);
 		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/franchiseForm";
 	}
-	
-	@RequestMapping("franchisePro.do")  // 문의 작성 DB insert 
-	public String franchisePro(CustomerDTO dto,HashMap map,HttpServletRequest request) throws Exception{
+	// 글 입력
+	public void writePro(HttpServletRequest request,CustomerDTO dto,HashMap map){
 		String pageNum = request.getParameter("pageNum");
 
 		int num=dto.getNum(); 
@@ -114,7 +109,7 @@ public class FranchiseQABean { // 가맹 문의
 		}
 		
 		
-		number = (Integer)sqlMap.queryForObject("customer.maxNum", snum);
+		number = (Integer)sqlMap.queryForObject("customer.maxNum", null);
 		
 		if(number!=0){
 			number=number+1;
@@ -128,48 +123,39 @@ public class FranchiseQABean { // 가맹 문의
 			dto.setRef(number);
 			dto.setRe_step(0);
 		}
-		
+
 		sqlMap.insert("customer.writePro", dto);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("snum", snum);
-		return "/customer-center/franchisePro";
 	}
-	
-	@RequestMapping("franchiseWriteCheck.do")  //  게시글 호출시 패스워드 검사 창
-	public String franchiseWriteCheck(HttpServletRequest request,HttpSession session,HashMap map) {
+	// 글 불러오기 이전 유효성 체크
+	public void writeCheck(HttpServletRequest request){
 		String pageNum = request.getParameter("pageNum");
 		String number = request.getParameter("number");
-		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		Integer num = Integer.parseInt(request.getParameter("num"));
 				
-		map.put("num", num);
-		map.put("snum",snum);
-		CustomerDTO dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", map);
+		CustomerDTO dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", num);
 		
 		request.setAttribute("dto", dto);
 		request.setAttribute("number", number);
-		request.setAttribute("snum", snum);
 		request.setAttribute("num", num);
 		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/franchiseWriteCheck";
 	}
-
-	@RequestMapping("franchiseContent.do")  // 게시글 내용 호출
-	public String franchiseContent(HttpServletRequest request,HashMap map,CustomerDTO dto,HttpSession session,UserInfoDataDTO user){
+	// 글 불러오기
+	public void writeContent(HttpServletRequest request,HashMap map,HttpSession session,CustomerDTO dto){
 		String passwd = request.getParameter("passwd");
 		String pageNum = request.getParameter("pageNum");
 		String number = request.getParameter("number");
-		Integer snum = Integer.parseInt(request.getParameter("snum"));
-		Integer num = Integer.parseInt(request.getParameter("num"));
+		int snum = Integer.parseInt(request.getParameter("snum"));
+		int num = Integer.parseInt(request.getParameter("num"));
 		int check = 0;
 		int grade = 0;
-		map.put("snum",snum);
-		map.put("num",num);
-		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", map);
+		
+		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", num);
 		
 		// 등급이 관리자 or 해당글 비밀번호 일치시 ...
 		if(session.getAttribute("grade")!=null){grade = (Integer)session.getAttribute("grade");}
-		if(dto.getPasswd().equals(passwd) || grade==4){check=1; sqlMap.update("customer.contentUp", map);
+		if(dto.getPasswd().equals(passwd) || grade==4){check=1; sqlMap.update("customer.contentUp", num);
 		}else{ check =0;}
 				
 		map.put("ref", dto.getRef());
@@ -181,24 +167,21 @@ public class FranchiseQABean { // 가맹 문의
 		request.setAttribute("dto", dto);
 		request.setAttribute("number", number);
 		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/franchiseContent";
 	}
 	
-	@RequestMapping("franchiseDelete.do")  // 게시글 삭제 폼
-	public String franchiseDelete(HttpServletRequest request){
+	// 글삭제 폼
+	public void writeDelete(HttpServletRequest request){
 		Integer num = Integer.parseInt(request.getParameter("num"));
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		request.setAttribute("snum", snum);
 		request.setAttribute("num", num);
 		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/franchiseDelete";
 	}
-	
-	@RequestMapping("franchiseDeletePro.do")  //게시글 삭제 Pro
-	public String franchiseDeletePro(HttpServletRequest request,HashMap map){
+	//글삭제 유효성 체크
+	public void writeDeletePro(HttpServletRequest request,HashMap map){
 		int num = Integer.parseInt(request.getParameter("num"));
-		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		int snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		String passwd = request.getParameter("passwd");
 		int check=0;
@@ -220,33 +203,29 @@ public class FranchiseQABean { // 가맹 문의
 		request.setAttribute("snum", snum);
 		request.setAttribute("check", check);
 		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/franchiseDeletePro";
 	}
 	
-	@RequestMapping("franchiseModify.do")
-	public String franchiseModify(HttpServletRequest request,CustomerDTO dto,HashMap map){
+	// 글수정 폼
+	public void modify(HttpServletRequest request,CustomerDTO dto){
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		Integer num = Integer.parseInt(request.getParameter("num"));
 		String pageNum=request.getParameter("pageNum");
-		
-		map.put("snum", snum);
-		map.put("num",num);
-		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent",map);
+
+		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent",num);
 		
 		request.setAttribute("dto", dto);
 		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/franchiseModify";
 	}
 	
-	@RequestMapping("franchiseModifyPro.do")
-	public String franchiseModifyPro(HttpServletRequest request,CustomerDTO dto,HashMap map){
+	// 글수정 유효성 검사
+	public void modifyPro(HttpServletRequest request,CustomerDTO dto,HashMap map){
 		String pageNum= request.getParameter("pageNum");
 		int check = 0;
 
 		map.put("num",dto.getNum());
 		map.put("snum",dto.getSnum());
 		String dispasswd = (String)sqlMap.queryForObject("customer.getPasswd",map);
-		
+
 		if(dto.getPasswd().equals(dispasswd)){
 			sqlMap.update("customer.modifyContent", dto);
 			check=1;
@@ -254,31 +233,5 @@ public class FranchiseQABean { // 가맹 문의
 		request.setAttribute("check", check);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("dto", dto);
-		return "/customer-center/franchiseModifyPro";
-	}
-	
-	@RequestMapping("bossDelete.do")  // 관리자 권한 삭제 확인
-	public String bossDelete(HttpServletRequest request,HashMap map){
-		int num = Integer.parseInt(request.getParameter("num"));
-		Integer snum = Integer.parseInt(request.getParameter("snum"));
-		String pageNum = request.getParameter("pageNum");
-		String addr=null;
-		map.put("num", num);
-		map.put("snum",snum);
-		int ref = (Integer)sqlMap.queryForObject("customer.getRef", map);
-		int re_step = (Integer)sqlMap.queryForObject("customer.getRe_step", map);
-		map.put("snum",snum);
-		map.put("ref",ref);
-		map.put("re_step",re_step);
-		sqlMap.delete("customer.bossDel", map);
-		
-		if(snum == 1){addr="franchiseQA";}
-		if(snum == 2){addr="customerQA";}
-		if(snum == 3){addr="oneQA";}
-		
-		request.setAttribute("addr", addr);
-		request.setAttribute("snum", snum);
-		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/bossDelete";
 	}
 }

@@ -57,4 +57,30 @@
 	<select id="oneAlarm" resultClass="int">
 		select count(*) from customerBoard where snum=3 and re_step=0 and date(reg_date) = date(now());
 	</select>
+
+	<!-- 모든 게시글  갯수 -->
+	<select id="customerAllCount" resultClass="int">
+		select count(*) from customerBoard where snum=1 or snum=3;
+	</select>
+	<!-- 답변 없는 게시글 수 -->
+	<select id="customerReplyCount" resultClass="int">
+		<![CDATA[
+		select count(*) FROM customerBoard where ref not in ( SELECT ref from customerBoard group by ref having count(ref)>1) 
+		and snum not in (select snum from customerBoard where snum=2 or snum=4 or snum=5);
+		]]>
+	</select>
+	<!-- 답변 없는 글-->
+	<select id="customerReplyList" parameterClass="java.util.HashMap" resultClass="customerDTO">
+		<![CDATA[
+		select * FROM customerBoard where ref not in ( SELECT ref from customerBoard group by ref having count(ref)>1) 
+		and snum not in (select snum from customerBoard where snum=2 or snum=4 or snum=5) order by reg_date asc limit #startRow#,#pageSize#;
+		]]>
+	</select>
+	<!-- 게시글 검색 -->
+	<select id="customerSearchCount" parameterClass="java.util.HashMap" resultClass="int">
+		select count(*) from customerBoard where $column$ like concat('%',#keyword#,'%') collate utf8_general_ci;
+	</select>
+	<select id="customerSearch" parameterClass="java.util.HashMap" resultClass="customerDTO">
+		select * from customerBoard where $column$ like concat('%',#keyword#,'%') collate utf8_general_ci order by reg_date desc limit #startRow#,#pageSize#;
+	</select>
 </sqlMap>
