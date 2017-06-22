@@ -1,24 +1,6 @@
 var b_key;
 
 $(document).ready(function(){
-	var select = document.getElementById("b_key");
-	b_key = select.options[select.selectedIndex].value;
-	
-	$("#getSeatDispose").click(function(){
-		var select = document.getElementById("b_key");
-		b_key = select.options[select.selectedIndex].value;
-		$.ajax({
-			url:"seatDispose.do",
-			type:"post",
-			data:{
-				b_key : b_key
-			},
-			success:function(data){
-				$("#seatDispose").html(data);
-			}
-		});
-	});
-	
 	$("#seatAdd").click(function(){
 		// 입력한만큼 좌석 추가
 		var pcCount = document.getElementById("pcCount").value;
@@ -31,8 +13,7 @@ $(document).ready(function(){
 			type:"post",
 			data:{
 				pcNums : pcCount,
-				what : "add",
-				b_key : b_key
+				what : "add"
 			},
 			success:function(data){
 				$("#seatDisposeFirstDiv").html(data);
@@ -55,8 +36,7 @@ $(document).ready(function(){
 			type:"post",
 			data:{
 				pcNum : pcNums,
-				page : "2",
-				b_key : b_key
+				page : "2"
 			},
 			success:function(data){
 				$("#pcInfo").html(data);
@@ -79,8 +59,7 @@ $(document).ready(function(){
 			type:"post",
 			data:{
 				pcNums : pcNums,
-				what : "del",
-				b_key : b_key
+				what : "del"
 			},
 			success:function(data){
 				$("#seatDisposeFirstDiv").html(data);
@@ -96,8 +75,7 @@ function showModiPcInfo(pcNum,page){
 		type:"post",
 		data:{
 			pcNum : pcNum,
-			page : page,
-			b_key : b_key
+			page : page
 		},
 		success:function(data){
 			$("#pcInfo").html(data);

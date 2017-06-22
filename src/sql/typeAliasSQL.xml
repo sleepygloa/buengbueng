@@ -30,4 +30,5 @@
     <typeAlias alias="moduleDTO" type="index.all.bean.FranchiseeModuleDataDTO"/>
     <typeAlias alias="moduleDefaultDTO" type="index.all.bean.ModuleDataDTO"/> 
     <typeAlias alias="favoriteDTO" type="pcRoom.search.bean.FavoritePCRoomDataDTO"/>
+	<typeAlias alias="historyDTO" type="payment.all.bean.UsageHistoryDataDTO"/>
 </sqlMap>

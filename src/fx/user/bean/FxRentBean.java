@@ -26,9 +26,13 @@ public class FxRentBean {
 		StringBuffer sb = new StringBuffer("[");
 		for(int i=0; i<rentList.size(); i++){
 			try {
-				sb.append("\""+URLEncoder.encode(rentList.get(i).getRentProduct(),"UTF-8")+"\"");
-				if(i!= rentList.size()-1){
-					sb.append(",");
+				int count = (Integer)sqlMap.queryForObject("rent.getRentProductCount", rentList.get(i));
+				int orderCount = (Integer)sqlMap.queryForObject("rent.getUserRentOrderCount", rentList.get(i));
+				if(count != 0 && (count - orderCount)>0){
+					sb.append("\""+URLEncoder.encode(rentList.get(i).getRentProduct(),"UTF-8")+"\"");
+					if(i!= rentList.size()-1){
+						sb.append(",");
+					}
 				}
 			} catch (UnsupportedEncodingException e) {
 			}
@@ -42,17 +46,29 @@ public class FxRentBean {
 	@RequestMapping("fxOrderRent.do")
 	public String fxOrderRent(RentLogDataDTO rentLog, String rentList, Model model){
 		String result = "fail";
+		StringBuffer sb = new StringBuffer();
 		try{
 			String[] name = rentList.split(" ");
 			for(int i=0; i<name.length; i++){
 				rentLog.setName(name[i]);
-				sqlMap.insert("rent.addUserRent", rentLog);
+				int count = (Integer)sqlMap.queryForObject("rent.getUserRentCheck", rentLog);
+				if(count ==0){
+					sqlMap.insert("rent.addUserRent", rentLog);
+				}else{
+					sb.append(rentLog.getName());
+					if(i != name.length-1){
+						sb.append(",");
+					}
+				}
 			}
-			result = "succ";
+			if(sb.length() == 0){
+				result = "succ";
+			}else{
+				result = sb.toString()+"은(는) 대여 신청 또는 대여 중인 물품으로 제외되었습니다.";
+			}
+			model.addAttribute("result", URLEncoder.encode(result, "UTF-8"));
 		}catch(Exception e){
 			e.printStackTrace();
-		}finally{
-			model.addAttribute("result", result);
 		}
 		return "/fxRent/fxOrderRent";
 	}
@@ -123,7 +139,6 @@ public class FxRentBean {
 				param.put("rentCheck", 1);
 				sqlMap.update("rent.updateRentState", param);
 			}else{
-				System.out.println(what);
 				sqlMap.update("rent.userReturnOK", rentLog);
 				param.put("rentCheck", 0);
 				sqlMap.update("rent.updateRentState", param);
