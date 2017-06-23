@@ -78,9 +78,9 @@
 	</select>
 	<!-- 게시글 검색 -->
 	<select id="customerSearchCount" parameterClass="java.util.HashMap" resultClass="int" remapResults="true">
-		select count(*) from customerBoard where $column$ like concat('%',#keyword#,'%') collate utf8_general_ci;
+		select count(*) from customerBoard where snum!=5 and $column$ like concat('%',#keyword#,'%') collate utf8_general_ci;
 	</select>
 	<select id="customerSearch" parameterClass="java.util.HashMap" resultClass="customerDTO" remapResults="true">
-		select * from customerBoard where $column$ like concat('%',#keyword#,'%') collate utf8_general_ci order by reg_date desc limit #startRow#,#pageSize#;
+		select * from customerBoard where snum!=5 and $column$ like concat('%',#keyword#,'%') collate utf8_general_ci order by reg_date desc limit #startRow#,#pageSize#;
 	</select>
 </sqlMap>

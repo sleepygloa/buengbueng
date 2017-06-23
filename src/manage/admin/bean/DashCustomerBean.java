@@ -365,4 +365,24 @@ public class DashCustomerBean extends BoardMethodBean{
 		request.setAttribute("column", column);
 		return "/dash-customer/dashBoardSearch";
 	}
+	// 검색된 게시글 들어가기
+	@RequestMapping("dashBoardSearchContent.do")
+	public String dashBoardSearchContent(HttpServletRequest request){
+		int snum=Integer.parseInt(request.getParameter("snum"));
+		int num=Integer.parseInt(request.getParameter("num"));
+		String pageNum=request.getParameter("pageNum");
+		int number=Integer.parseInt(request.getParameter("number"));
+		String addr = null;
+		
+		if(snum==1){addr="dashFranchiseContent";}
+		if(snum==2){addr="dashCustomerContent";}
+		if(snum==3){addr="dashOneContent";}
+		
+		request.setAttribute("addr", addr);
+		request.setAttribute("snum", snum);
+		request.setAttribute("num", num);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("number", number);
+		return "/dash-customer/dashBoardSearchContent";
+	}
 }

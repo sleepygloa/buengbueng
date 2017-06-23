@@ -22,15 +22,17 @@ public class BoardMethodBean {
 	public void Alarm(HttpServletRequest request){
 		int franchiseAlarm=0;
 		int oneAlarm=0;
+		int noReply=0;
 		franchiseAlarm=(Integer)sqlMap.queryForObject("admin.franchiseAlarm", null);
 		oneAlarm=(Integer)sqlMap.queryForObject("admin.oneAlarm", null);
-			
+		noReply=(Integer)sqlMap.queryForObject("admin.customerReplyCount", null);
 		if(franchiseAlarm > 0 || oneAlarm > 0){
 			String alarm="new";
 			request.setAttribute("alarm", alarm);
 			request.setAttribute("franchiseAlarm", franchiseAlarm);
 			request.setAttribute("oneAlarm", oneAlarm);
 		}
+		request.setAttribute("noReply", noReply);
 	}
 	// 게시글 목록
 	public void adminList(HttpServletRequest request,HashMap map){

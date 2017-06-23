@@ -198,13 +198,13 @@ setInterval("autoRefresh2()", 3000);
                                 </li>
                                  <li>
                                     <a href="dashReply.do?pageNum=1" class="rippler rippler-default">
-                                    <span class="menu-text">답변 대기중</span>
+                                    <span class="menu-text">답변 대기중<span class="badge badge-danger m-left-xs ">${noReply}</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
                                 <li>
                                     <a href="dashBoardSearch.do?pageNum=1" class="rippler rippler-default">
-                                    <span class="menu-text">게시글 검색</span>
+                                    <span class="menu-text">게시판 검색</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
