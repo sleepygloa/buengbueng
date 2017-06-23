@@ -41,6 +41,12 @@ margin-right:10px;
 <script type="text/javascript" src="/buengbueng/js/calender/lib/moment.min.js"></script>
 <script type="text/javascript" src="/buengbueng/js/calender/fullcalendar.js" charset="utf-8"></script>
 <script type="text/javascript">
+function moveConfirm(){
+	return true;
+}
+function moveCancel(){
+	return false;
+}
    		$(document).ready(function() {
    		//토스트 -------------------------------------
    			
@@ -111,29 +117,29 @@ margin-right:10px;
 	 		"width=450, height=300,status=no,toolbar=no,directories=no,location=no,scrollbars=no, resizable=no")
    		  },
    	    eventDrop: function(event, delta, revertFunc) {
-			delayToasts();
-			function moveConfirm(data){
-				alert(data);
-			}
-/* if(!confirm("확인좀")){
-   			revertFunc();
-} */
+		var toasts = new Toast('info','toast-top-full-width',
+		'<div><label class="toast-title">'+event.title+'님!</label><span class="toast-message">일정을  '+event.start.format()+' 로 변경하겠습니까?</div> <div><button class="ghost-btn" onClick="moveCancel()">닫기</button></div><div><button class="ghost-btn" onClick="moveConfirm()">확인</button></div> ');
+
+		
+		 if(!delayToasts()){
+			alert("d");
+			 revertFunc();
+		}
    	        
    	     function Toast(type, css, msg){
 				this.type = type;
 				this.css = css;
 				this.msg = msg 
 			}
-			var toasts = new Toast('info','toast-top-full-width',
-'<div><label class="toast-title">'+event.title+'님!</label><span class="toast-message">일정을  '+event.start.format()+' 로 변경하겠습니까?</div> <div><button class="ghost-btn">닫기</button></div><div><button class="ghost-btn" onclick="moveConfirm(\'check\')">확인</button></div> ');
+			
 
 			
 		    toastr.options.positionClass = 'toast-top-full-width';
 		    toastr.options.extendedTimeOut = 0; //1000;
-		    toastr.options.timeOut = 000;
+		    toastr.options.timeOut = 0;
 		    toastr.options.fadeOut = 250;
 		    toastr.options.fadeIn = 250;
-		     toastr.options.tapToDismiss = false; 
+		     /* toastr.options.tapToDismiss = false; */ 
 		    toastr.options.preventDuplicates=true;
 		    
 		    function delayToasts() {
