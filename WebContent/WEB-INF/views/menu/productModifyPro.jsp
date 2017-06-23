@@ -10,9 +10,17 @@
 </script>
 
 <c:if test="${check==1}">
-	<body onload="succ('재고정보가 수정되었습니다.','productModify.do')" />
+	
+	<script>
+		alert("재고정보가 수정되었습니다.");
+		history.go(-2);
+	</script>
 </c:if>
 
 <c:if test="${check==0}">
 	<body onload="succ('정보입력이 바르지 않습니다.','productModifyForm.do')"/>
+	<script>
+		alert("정보입력이 바르지 않습니다.");
+		history.go(-1);
+	</script>
 </c:if>

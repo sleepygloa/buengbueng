@@ -1,10 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 
 <sqlMap namespace="rent">
 	<!-- 대여물품 목록 전부 가져오기 -->
 	<select id="getRentAll" parameterClass="String" resultClass="rentDTO">
-		select * from rent where b_key = #key#;
+		select b_key,rentProduct from rent where b_key = #key#;
+	</select>
+	<!-- 대여물품 목록 재고 확인하기 -->
+	<select id="getRentProductCount" parameterClass="rentDTO" resultClass="int">
+		select count(rentProduct) count from rentProduct where b_key = #b_key# and rentCheck = 0 and rentProduct = #rentProduct#;
+	</select>
+	<!-- 해당 물품에 대한 대여 주문 개수 확인하기 -->
+	<select id="getUserRentOrderCount" parameterClass="rentDTO" resultClass="int">
+		select count(name) from rentLog where b_key = #b_key# and rentdate = '0000-00-00 00:00:00' and name = #rentProduct#;
 	</select>
 	<!-- 대여물품 목록 확인하기 -->
 	<select id="getRentName" parameterClass="rentDTO"  resultClass="String">
@@ -52,4 +59,33 @@
 	<select id="getUserRentList" parameterClass="java.util.HashMap" resultClass="String">
 		select name from rentLog where id = #id# and b_key = #key# and returndate = '0000-00-00 00:00:00';
 	</select>
+	<!-- 사용자의 대여 중인 물품 추가하기 -->
+	<insert id="addUserRent" parameterClass="rentLogDTO">
+		insert into rentLog (b_key, name, id, rentdate, returndate) values(#b_key#,#name#,#id#,'0000-00-00 00:00:00','0000-00-00 00:00:00');
+	</insert>
+<!-- ================================================================================================================= -->
+	<!-- 사용자들이 대여 신청한 것들 보기(아직 대여 중 X) -->
+	<select id="getUserRentOrder" parameterClass="String" resultClass="rentLogDTO">
+		select name,id from rentLog where b_key = #b_key# and rentdate = '0000-00-00 00:00:00';
+	</select>
+	<!-- 사용자들이 대여 중인 것들 보기 (대여 O) -->
+	<select id="getUsersRentList" parameterClass="String" resultClass="rentLogDTO">
+		select name,id,code from rentLog where b_key = #b_key# and code != 0 and returndate = '0000-00-00 00:00:00';
+	</select>
+	<!-- 해당 물품을 사용자가 대여 신청 또는 대여 중인 것인지 확인 -->
+	<select id="getUserRentCheck" parameterClass="rentLogDTO" resultClass="int">
+		select count(name) from rentLog where b_key = #b_key# and id = #id# and name = #name# and (code = 0 or rentdate != '0000-00-00 00:00:00');
+	</select>
+	<!-- 사용자의 대여 신청 승인 -->
+	<update id="userRentOk" parameterClass="rentLogDTO">
+		update rentLog set code = #code#, rentdate = now() where b_key = #b_key# and id = #id# and name = #name#;
+	</update>
+	<!-- 대여 물품 대여 상태 변경 -->
+	<update id="updateRentState" parameterClass="java.util.HashMap">
+		update rentProduct set rentCheck = #rentCheck# where b_key = #b_key# and code = #code#;
+	</update>
+	<!-- 사용자의 대여 반납 승인 -->
+	<update id="userReturnOK" parameterClass="rentLogDTO">
+		update rentLog set returndate = now() where b_key = #b_key# and code = #code# and id = #id#;
+	</update>
 </sqlMap>

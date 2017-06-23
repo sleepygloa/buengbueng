@@ -149,8 +149,8 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
-								<div class="product__item col-sm-12-12">
-									<a href="">
+								<div class="menu_menu col-sm-6-12">
+									<a href="favoritePCRoom.do">
 										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">즐겨찾는 PC방</h6>
@@ -328,12 +328,16 @@
                   <li class="item sign"><a href="/buengbueng/logout.do">로그아웃</a></li>
                   <li class="item sign"><a href="/buengbueng/userInfoForm.do">회원 정보보기</a></li>
                   <li class="item sign"><a href="#">${sessionScope.loginId}님 환영해요</a></li>
+                  <c:if test="${sessionScope.grade!=4}" >
+                  	<li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">1:1 문의</a></li>
+                  </c:if>
                </c:if>
 
                <c:if test="${sessionScope.loginId == null}" >
                   <li class="item sign"><a href="/buengbueng/userInfoSignForm.do">회원가입</a></li>
                   <li class="item sign"><a href="">비밀번호찾기</a></li>
                   <li class="item sign"><a href="/buengbueng/loginForm.do">로그인</a></li>
+                  <li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">1:1 문의</a></li>
                </c:if>
                
                <c:if test="${sessionScope.grade==4}" >

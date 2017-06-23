@@ -5,8 +5,8 @@
 </head>
 
 <body>
-	<br><br><br><p>좌석 정보 보기</p>
-		pc 번호 : <input type="text" value="${pcNum}" name="num" readonly /><br/>
+		<p>좌석 정보 보기</p>
+		pc 번호 : <input type="text" value="${pcInfo.num}" name="num" readonly /><br/>
 		OS : <input type="text" value="${pcInfo.os}" name="os" readonly/><br/>
 		IP : <input type="text" value="${pcInfo.ip}" name="ip" readonly/><br/>
 		

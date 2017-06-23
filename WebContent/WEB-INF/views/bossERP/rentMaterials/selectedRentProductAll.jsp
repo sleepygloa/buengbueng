@@ -14,7 +14,8 @@
 		</c:if>
 		<br/>
 		${rentPList.beginRegist}<br/>
-		<input type="button" value="수정하기" onclick="modiRentProduct('${rentPList.code}');"/>
+		<input type="hidden" value="${b_key}" name="b_key"/>
+		<input type="button" value="수정하기" onclick="modiRentProduct('${rentPList.code}','${b_key}');"/>
 		<br/><br/>
 	</c:forEach>
 </c:if>

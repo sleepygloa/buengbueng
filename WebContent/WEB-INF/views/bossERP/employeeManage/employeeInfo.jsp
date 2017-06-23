@@ -11,7 +11,18 @@ form{border:1px solid black;}
 			<h3>회원 정보</h3>
 		</div>
 	</div>
-	<c:if test="${userDto == null}">
+	<c:if test="${userDto.getName() == null}">
+	
+		<!-- 알바생아이디 -->
+		<div class="row">
+			<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+					<div class=" col-xs-12-12 col-sm-12-12 col-md-12-12 form-group">
+						<div class="input-group">
+						<label>아이디 : ${userDto.id}<br /></label>
+						</div>
+					</div>														
+			</div>
+		</div>	
 		<div class="row">
 			<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 				<input class="btn btn-success col-xs-12-12 col-sm-12-12 col-md-12-12" type="button" value="수정하기" 
@@ -21,7 +32,7 @@ form{border:1px solid black;}
 
 			
 	</c:if>
-	<c:if test="${userDto != null}">
+	<c:if test="${userDto.getName() != null}">
 		<!-- 알바생아이디 -->
 		<div class="row">
 			<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">

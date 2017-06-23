@@ -19,10 +19,11 @@ public class ProductBean {
 	
 	/* 재고관리 첫 페이지*/
 	@RequestMapping("product.do")
-	public String productForm(HttpServletRequest request){
+	public String productForm(HttpServletRequest request, String l_key){
 		try{
-		List productList=sqlMap.queryForList("menu.getProduct",null);
+		List productList=sqlMap.queryForList("menu.getProduct",l_key);
 		request.setAttribute("productList",productList);
+		request.setAttribute("l_key", l_key);
 		}catch(Exception e){e.printStackTrace();}
 		return "/menu/productForm";
 	}

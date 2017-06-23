@@ -19,12 +19,7 @@ public class RentMaterialsBean {
 
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
-	
-	@RequestMapping("rentMain.do")
-	public String rentMain(){
-		return "/bossERP/rentMaterials/rentMain";
-	}
-	
+
 	@RequestMapping("rentManage.do")
 	public String rentManage(HttpSession session, Model model){
 		//사이드메뉴 템플릿
@@ -32,10 +27,10 @@ public class RentMaterialsBean {
 		int sidemenu = 3; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
-		String id = (String)session.getAttribute("loginId");
+		
 		try{
-			BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);		
-			ArrayList<RentDataDTO> rentList = (ArrayList)sqlMap.queryForList("rent.getRentAll", bdto.getB_key());
+			String b_key = (String)session.getAttribute("b_key");
+			ArrayList<RentDataDTO> rentList = (ArrayList)sqlMap.queryForList("rent.getRentAll", b_key);
 			model.addAttribute("rentList", rentList);
 		}catch(Exception e){
 			/// 추후 수정
@@ -44,23 +39,22 @@ public class RentMaterialsBean {
 	}
 	
 	@RequestMapping("addRent.do")
-	public String addRent(Model model){
+	public String addRent(String b_key,Model model){
 		model.addAttribute("page", "add");
+		model.addAttribute("b_key", b_key);
 		return "/bossERP/rentMaterials/addModiRent";
 	}
 	
 	@RequestMapping("addModiRentPro.do")
-	public String addRentPro(RentDataDTO rdto, HttpSession session, HttpServletRequest request, String page, Model model){
+	public String addRentPro(RentDataDTO rdto, HttpServletRequest request, String page, Model model){
 		int check = 0;
-		String id = (String)session.getAttribute("loginId");
 		try{
-			BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
 			if(page.equals("add")){
-				rdto.setB_key(bdto.getB_key());
 				String rentProduct = (String)sqlMap.queryForObject("rent.getRentName",rdto);
 				if(rentProduct == null){
 					sqlMap.insert("rent.addRent", rdto);
 					check = 1;
+					model.addAttribute("b_key", rdto.getB_key());
 				}
 			}else{
 				HashMap<String,String> param = new HashMap<String,String>();
@@ -69,9 +63,9 @@ public class RentMaterialsBean {
 				param.put("beforeProduct", request.getParameter("beforeProduct"));
 				sqlMap.update("rent.modiRent", param);
 				check = 1;
+				model.addAttribute("b_key", request.getParameter("key"));
 			}
 			model.addAttribute("check", check);
-
 		}catch(Exception e){
 			// 추후 수정
 		}
@@ -79,18 +73,15 @@ public class RentMaterialsBean {
 	}
 	
 	@RequestMapping("delRent.do")
-	public String delRent(HttpSession session, String rentName, Model model){
-		String id = (String)session.getAttribute("loginId");
+	public String delRent(RentDataDTO rdto,String rentName, Model model){
 		try{
-			BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
-			RentDataDTO rdto = new RentDataDTO();
-			rdto.setB_key(bdto.getB_key());
 			String[] rent = rentName.split(",");
 			for(int i=0; i< rent.length; i++){
 				rdto.setRentProduct(rent[i]);
 				sqlMap.delete("rent.deleteRent", rdto);
 			}	
 			model.addAttribute("check", "1");
+			model.addAttribute("b_key", rdto.getB_key());
 		}catch(Exception e){
 			/// 추후 수정
 		}
@@ -98,13 +89,8 @@ public class RentMaterialsBean {
 	}
 	
 	@RequestMapping("modiRent.do")
-	public String modiRent(HttpSession session, String rentProduct, Model model){
-		String id = (String)session.getAttribute("loginId");
+	public String modiRent(RentDataDTO rent, Model model){
 		try{
-			BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
-			RentDataDTO rent = new RentDataDTO();
-			rent.setB_key(bdto.getB_key());
-			rent.setRentProduct(rentProduct);
 			model.addAttribute("rent", rent);
 			model.addAttribute("page", "modi");
 		}catch(Exception e){
@@ -114,16 +100,12 @@ public class RentMaterialsBean {
 	}
 	
 	@RequestMapping("selectedRentProductAll.do")
-	public String getRentProductAll(HttpSession session, String rentProduct, Model model){
-		String id = (String)session.getAttribute("loginId");
+	public String getRentProductAll(RentDataDTO rent, Model model){
 		try{
-			BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
-			RentDataDTO rent = new RentDataDTO();
-			rent.setB_key(bdto.getB_key());
-			rent.setRentProduct(rentProduct);
 			ArrayList<RentProductDataDTO> rentPList = (ArrayList)sqlMap.queryForList("rent.getRentProductAll", rent);
 			model.addAttribute("rentPList", rentPList);
-			model.addAttribute("rentProduct", rentProduct);
+			model.addAttribute("rentProduct", rent.getRentProduct());
+			model.addAttribute("b_key", rent.getB_key());
 		}catch(Exception e){
 			// 추후 수정
 		}
@@ -131,13 +113,12 @@ public class RentMaterialsBean {
 	}
 	
 	@RequestMapping("addRentProduct.do")
-	public String addRentProduct(HttpSession session, Model model){
-		String id = (String)session.getAttribute("loginId");
+	public String addRentProduct(String b_key, Model model){
 		try{
-			BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
-			ArrayList<RentDataDTO> rentName = (ArrayList)sqlMap.queryForList("rent.getRentAll", bdto.getB_key());
+			ArrayList<RentDataDTO> rentName = (ArrayList<RentDataDTO>)sqlMap.queryForList("rent.getRentAll", b_key);
 			model.addAttribute("rentName", rentName);
 			model.addAttribute("page", "add");
+			model.addAttribute("b_key", b_key);
 		}catch(Exception e){
 			// 추후 수정
 		}
@@ -145,12 +126,9 @@ public class RentMaterialsBean {
 	}
 	
 	@RequestMapping("addModiRentProductPro.do")
-	public String addRentProductPro(HttpSession session, String page, RentProductDataDTO rdto, HttpServletRequest request, Model model){
-		String id = (String)session.getAttribute("loginId");
+	public String addRentProductPro(String page, RentProductDataDTO rdto, HttpServletRequest request, Model model){
 		int check = 0;
 		try{
-			BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
-			rdto.setB_key(bdto.getB_key());
 			if(page.equals("add")){
 				check = (Integer)sqlMap.queryForObject("rent.getRentCode", rdto);
 				if(check == 0){
@@ -165,7 +143,7 @@ public class RentMaterialsBean {
 				}
 				if(check == 0){
 					HashMap<String,Object> param = new HashMap<String,Object>();
-					param.put("b_key", bdto.getB_key());
+					param.put("b_key", rdto.getB_key());
 					param.put("afterProduct", rdto.getRentProduct());
 					param.put("beforeCode", request.getParameter("beforeCode"));
 					param.put("afterCode", rdto.getCode());	
@@ -176,6 +154,7 @@ public class RentMaterialsBean {
 				}
 			}
 			model.addAttribute("check", check);
+			model.addAttribute("b_key", rdto.getB_key());
 		}catch(Exception e){
 			// 추후 수정
 		}
@@ -183,21 +162,15 @@ public class RentMaterialsBean {
 	}
 
 	@RequestMapping("modiRentProduct.do")
-	public String modiRentProduct(HttpSession session, int rentCode, Model model){
-		String id = (String)session.getAttribute("loginId");
+	public String modiRentProduct(RentProductDataDTO param, Model model){
 		try{
-			BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
-			RentProductDataDTO param = new RentProductDataDTO();
-			param.setB_key(bdto.getB_key());
-			param.setCode(rentCode);
-			
 			param = (RentProductDataDTO)sqlMap.queryForObject("rent.getRentProduct", param);
 			
-			ArrayList<RentDataDTO> rentName = (ArrayList)sqlMap.queryForList("rent.getRentAll", bdto.getB_key());
+			ArrayList<RentDataDTO> rentName = (ArrayList<RentDataDTO>)sqlMap.queryForList("rent.getRentAll", param.getB_key());
 			model.addAttribute("rentName", rentName);
 			model.addAttribute("rentP", param);
 			model.addAttribute("page", "modi");
-
+			model.addAttribute("b_key", param.getB_key());
 		}catch(Exception e){
 			// 추후 수정
 		}
@@ -205,12 +178,8 @@ public class RentMaterialsBean {
 	}
 	
 	@RequestMapping("delRentProduct.do")
-	public String delRentProduct(HttpSession session, String rentPCode, Model model){
-		String id = (String)session.getAttribute("loginId");
+	public String delRentProduct(RentProductDataDTO rdto, String rentPCode, Model model){
 		try{
-			BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getBossInfo", id);
-			RentProductDataDTO rdto = new RentProductDataDTO();
-			rdto.setB_key(bdto.getB_key());
 			String[] rent = rentPCode.split(",");
 			for(int i=0; i< rent.length; i++){
 				rdto.setCode(Integer.parseInt(rent[i]));

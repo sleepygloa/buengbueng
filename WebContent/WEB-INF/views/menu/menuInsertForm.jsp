@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     
     <head>
@@ -31,7 +32,10 @@
     			<td>제품가격</td>
     			<td><input type="text" name="price" placeholder="제품가격 입력"></td>
     			</tr>
-    			<tr><td><input type="submit" value="추 가"/></td>
+    			<tr><td><input type="submit" value="추 가"/>
+    					<input type="hidden" name="l_key" value="${l_key}">
+    					
+    			</td>
     			</tr>    		
     		</table>
     		</form>

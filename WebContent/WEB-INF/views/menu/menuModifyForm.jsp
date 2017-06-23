@@ -32,7 +32,9 @@
     			<td>제품가격</td>
     			<td><input type="text" name="price" placeholder="제품가격 입력" value="${mdto.price}"></td>
     			</tr>
-    			<tr><td><input type="submit" value="수 정"/></td>
+    			<tr><td><input type="submit" value="수 정"/>
+    					<input type="hidden" name="l_key" value="${l_key}"/>
+    			</td>
     			</tr>    		
     		</table>
     		</form>
