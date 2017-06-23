@@ -368,6 +368,7 @@ public class DashCustomerBean extends BoardMethodBean{
 	// 검색된 게시글 들어가기
 	@RequestMapping("dashBoardSearchContent.do")
 	public String dashBoardSearchContent(HttpServletRequest request){
+		Alarm(request);		
 		int snum=Integer.parseInt(request.getParameter("snum"));
 		int num=Integer.parseInt(request.getParameter("num"));
 		String pageNum=request.getParameter("pageNum");

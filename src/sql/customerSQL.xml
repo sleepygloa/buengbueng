@@ -23,7 +23,7 @@
 	
 	<!-- 게시판  num의 최대 값 -->
 	<select id="maxNum" parameterClass="int" resultMap="intnull">
-		select max(num) as num from customerBoard where re_step=0;
+		select max(ref) as num from customerBoard where re_step=0;
 	</select>
 	
 	<!-- 글 작성 -->
