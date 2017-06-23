@@ -13,6 +13,7 @@
 		from userInfo,(select @rownum:=0)r where grade=#grade# order by signdate desc limit #startRow#,#pageSize#;
 		]]>
 	</select>
+	
 	<!-- 검색된 회원 수-->
 	<select id="userSearch" parameterClass="String" resultClass="int">
 		select count(*) from userInfo where 
@@ -24,6 +25,7 @@
 		googleId like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
 		birth like concat('%',#keyword#,'%'); 
 	</select>
+	
 	<!-- 회원 검색 리스트-->
 	<select id="userSearchList" parameterClass="java.util.HashMap" resultClass="userDto">
 		select * from userInfo where 
@@ -35,6 +37,7 @@
 		googleId like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
 		birth like concat('%',#keyword#,'%') limit #startRow#,#pageSize#;  
 	</select>
+	
 	<!-- 회원 삭제 -->
 	<delete id="userDelete" parameterClass="String">
 		delete from userInfo where id=#id#;
@@ -44,6 +47,7 @@
 	<select id="getUser" parameterClass="String" resultClass="userDto" >
 		select * from userInfo where id=#id#;
 	</select>
+	
 	<!-- 회원 정보 수정 -->
 	<update id="userUp" parameterClass="userDto">
 		update userInfo set pw=#pw#,name=#name#,birth=#birth#,phone=#phone#,email=#email#,address=#address#,grade=#grade#,googleId=#googleId#
@@ -62,6 +66,7 @@
 	<select id="customerAllCount" resultClass="int">
 		select count(*) from customerBoard where snum=1 or snum=3;
 	</select>
+	
 	<!-- 답변 없는 게시글 수 -->
 	<select id="customerReplyCount" resultClass="int">
 		<![CDATA[
@@ -69,6 +74,7 @@
 		and snum not in (select snum from customerBoard where snum=2 or snum=4 or snum=5);
 		]]>
 	</select>
+	
 	<!-- 답변 없는 글-->
 	<select id="customerReplyList" parameterClass="java.util.HashMap" resultClass="customerDTO">
 		<![CDATA[
@@ -76,11 +82,37 @@
 		and snum not in (select snum from customerBoard where snum=2 or snum=4 or snum=5) order by reg_date asc limit #startRow#,#pageSize#;
 		]]>
 	</select>
+	
 	<!-- 게시글 검색 -->
 	<select id="customerSearchCount" parameterClass="java.util.HashMap" resultClass="int" remapResults="true">
 		select count(*) from customerBoard where snum!=5 and $column$ like concat('%',#keyword#,'%') collate utf8_general_ci;
 	</select>
 	<select id="customerSearch" parameterClass="java.util.HashMap" resultClass="customerDTO" remapResults="true">
 		select * from customerBoard where snum!=5 and $column$ like concat('%',#keyword#,'%') collate utf8_general_ci order by reg_date desc limit #startRow#,#pageSize#;
+	</select>
+	
+	<!-- 관리자 페이지 가맹점 신청 리스트 갯수 보기 -->
+	<select id="getFranchiseeAddListCount" resultClass="int">
+		select count(*) from franchiseeLog where result = 0;
+	</select>
+	
+	<!-- 관리자 페이지 가맹점 신청 리스트 목록 -->
+	<select id="getFranchiseeAddList" resultClass="franchiseeDTO" parameterClass="java.util.HashMap">
+		<![CDATA[
+		select num,date, result, date, b_id, finishDate, b_name, b_number, b_address, b_tel, b_size, b_pccount, b_ip, b_key,@rownum:=@rownum+1 as rownum
+		 from franchiseeLog,(select @rownum:=0)r where result = 0 order by date asc limit #startRow#,#pageSize#;
+		 ]]> 	
+	</select>
+	
+	<!-- 관리자 페이지 가맹점 리스트 갯수 보기 -->
+	<select id="getFranchiseeListCount" resultClass="int">
+		select count(*) from franchiseeLog where result = 1;
+	</select>
+	<!-- 관리자 페이지 가맹점 리스트 목록 보기 -->
+	<select id="getFranchiseeList" resultClass="franchiseeDTO" parameterClass="java.util.HashMap">
+		<![CDATA[
+		select num,date, result, date, b_id, finishDate, b_name, b_number, b_address, b_tel, b_size, b_pccount, b_ip, b_key,@rownum:=@rownum+1 as rownum
+		 from franchiseeLog,(select @rownum:=0)r where result = 1 order by date asc limit #startRow#,#pageSize#;
+		 ]]> 	
 	</select>
 </sqlMap>
