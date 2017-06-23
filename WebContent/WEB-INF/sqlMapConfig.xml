@@ -25,4 +25,5 @@
 	<sqlMap resource="/sql/bossPCSQL.xml" /> <!-- 사장님 PC방 관리 ERP -->
 	<sqlMap resource="/sql/rentSQL.xml" /> <!-- 사장님 대여물품 관리 ERP -->
 	<sqlMap resource="/sql/moduleSQL.xml"/> <!-- 모듈화 관리 -->
+	<sqlMap resource="/sql/chatbotSQL.xml" /> <!-- 챗봇 관리 -->
 </sqlMapConfig>
