@@ -30,16 +30,35 @@
    		  var m = date.getMonth();
    		  var y = date.getFullYear();
    		  
+   		  getEvent();
+   		});
+   		
+   		function getEvent(){
+   			var id = $('#id').val();
+   			$.post('employeeCalenderList.do', createCalenderDateResult);
+   		}
+   		
+   		function createCalenderDateResult(resp){
+   			var result = $.parseJSON(resp),
+   			eventData = [];
+	   		eventData.push({
+   						title : result.title,
+   						start : result.start,
+   						end : result.end
+   					});
+
+   			calendarEvent(eventData);
+   		}
+   		
+   		function calendarEvent(eventData){
    		  var calendar = $('#calendar').fullCalendar({
    		  header: {
    		    left : 'prev, next today', //이전, 다음, 오늘
    		    center : 'title', //중앙 타이틀
    		    right: 'month, agendaWeek, agendaDay'
    		  },
-
    		  allDayText: '시간', //주간, 월간
    		  axisFormat: 'tt hh', //주간, 월간
-   		  
    		  monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
    		  monthNamesShort : ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
    		  dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'],
@@ -54,29 +73,60 @@
    			  week: '주간',
    			  day: '일간'
    		  },
+   		  
    		  selectable: true,
    		  selectHelper:true,
+   		  eventClick: function(calEvent, jsEvent, view){
+   			if(title != null){
+				calendar.fullCalendar('renderEvent',{
+					title: title,
+					start: start,
+					end: end
+				})
+				calender.fullCalendar('unselect');
+			}
+   			  return false;
+   		  },
    		  select:function(start,end){
-   					
-   					
-   				 window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
-   						  "width=450, height=300,status=no,toolbar=no,directories=no,location=no,scrollbars=no, resizable=no") 
-			  	
-   			  /* var title = prompt('일정을 입력하세요');
-   			  if(title){
-   				  calendar.fullCalender('renderEvent',
-   					on(),
-   					true 
-   				  ); 
-   			  }*/
-   			  calender.fullCalendar('unselect');
+			window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
+	 		"width=450, height=300,status=no,toolbar=no,directories=no,location=no,scrollbars=no, resizable=no")
+	   		
+
    		  },
    		  editable:true,
-   	    eventSources: [
+   		  eventLimit:true,
+   		  events:eventData
+   		  
+   		  
+   		/* events: function(start, end, timezone, callback) {
+            $.ajax({
+                url: 'employeeCalenderList.do',
+                type : 'post',
+                success: function(data) {
+                    var events = [{title:'테스트',start:'2017-06-22', end:'2017-06-23'}];
+                    $(data).each(function() {
+                        events.push({
+                            title: $(this).attr('title'),
+                            start: $(this).attr('startTime'),
+                            end: $(this).attr('endTime'),
+                            url: "employeeCalenderList.do?id="+$(this).attr('id')+"&amp;lang="+$(this).attr('lang')+"&amp;start="+$(this).attr('startTime')+"&amp;end="+$(this).attr('endTime'),
+                            lang : $(this).attr('lang')
+                        });
+                    });
+                    callback(events);
+                }
+            });
+ 
+        } */
+	})
+}
+	
+   			  
+/*    	    eventSources: [
 
    	                // your event source
    	                {
-   	                    url: 'myfeed.do', // use the `url` property
+   	                    url: 'employeeCalenderList.do', // use the `url` property
    	                    color: 'yellow',    // an option!
    	                    textColor: 'black'  // an option!
    	                }
@@ -84,8 +134,8 @@
    	                // any other sources...
 
    	            ]
-   		  })
-   		});
+   		  }) 
+   		});*/
 /*     	    var lang_cd = 'ko';
     	    $('#calendar').fullCalendar({
     	        header: {
@@ -126,4 +176,5 @@
     
 </script>
 
+<input type="hidden" id="id" value="${sessionScope.loginId} " />
    <div id="calendar"></div>

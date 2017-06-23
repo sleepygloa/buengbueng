@@ -36,10 +36,13 @@ public class FranchiseeSelect {
 		List<FranchiseeDataDTO> list = new ArrayList();
 		FranchiseeDataDTO fdto= null;
 		//알바생 아이디검사
-		if(id.contains("employee")){
+		if(id !=null && id.contains("employee")){
 			try{
 				list.add((FranchiseeDataDTO)sqlMap.queryForObject("erpEmp.getEidBkey", id));
-				fdto = (FranchiseeDataDTO)list;
+				fdto = list.get(0);
+				if(session.getAttribute("b_key") != null){
+					session.removeAttribute("b_key");
+				}
 				session.setAttribute("b_key", fdto.getB_key());
 			}catch(Exception e){
 				e.printStackTrace();

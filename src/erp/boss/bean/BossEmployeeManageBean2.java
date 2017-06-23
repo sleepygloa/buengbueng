@@ -2,6 +2,7 @@ package erp.boss.bean;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import login.user.bean.UseTimeLogDTO;
 import superclass.all.bean.ParsingDate;
@@ -109,7 +111,7 @@ public class BossEmployeeManageBean2 {
 		return "/bossERP/employeeManage/employeeCalender";
 	}
 	
-	//알바생 임의 알바일정 출력
+	//알바생 일정 추가하기
 	@RequestMapping("employeeCalenderInsert.do")
 	public String employeeCalenderInsert(HttpSession session, Model model, Long start, Long end){
 		
@@ -129,7 +131,7 @@ public class BossEmployeeManageBean2 {
 		return "/bossERP/employeeManage/employeeCalenderInsert";
 	}
 	
-	//알바생 임의 알바일정 출력
+	//알바생 일정 추가 처리
 	@RequestMapping("employeeCalenderInsertPro.do")
 	public String employeeCalenderInsertPro(HttpSession session, Model model, BossEmployeeManageDataDTO beDTO){
 		
@@ -137,9 +139,8 @@ public class BossEmployeeManageBean2 {
 		
 		String id = (String)session.getAttribute("loginId");
 		String b_key = (String)session.getAttribute("b_key");
-		
 		beDTO.setId(id);
-		beDTO.setId(b_key);
+		beDTO.setB_key(b_key);
 		
 		Long startDate = pd.stringToLongDay(beDTO.getStartDate());
 		Long endDate = pd.stringToLongDay(beDTO.getEndDate());
@@ -157,14 +158,37 @@ public class BossEmployeeManageBean2 {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		System.out.println("startDate"+	beDTO.getStartDate()	);
-		System.out.println("startHour"+	beDTO.getStartHour()	);
-		System.out.println("endDate"	+beDTO.getEndDate()	);
-		System.out.println("endHour"+	beDTO.getEndHour()	);
 		
 		model.addAttribute("check", check);
 		
 		return "/bossERP/employeeManage/employeeCalenderInsert";	
 	}
+	
+	//알바생 일정 JSON으로 불러오기 AJAX
+	@RequestMapping("employeeCalenderList.do")
+	public ModelAndView employeeCalenderList(HttpSession session, Model model, BossEmployeeManageDataDTO beDTO){
+		ModelAndView mv = new ModelAndView();
+		List list = new ArrayList();
+		
+		String id = (String)session.getAttribute("loginId");
+		
+		try{
+			String b_id = (String)sqlMap.queryForObject("erpEmp.getEidBid", id);
+			list = (List)sqlMap.queryForList("erpEmp.getCalenderWorkTimeList", b_id);
+			
+			mv.setViewName("/bossERP/employeeManage/employeeCalenderJSON");
+			for(int i = 0; i < list.size(); i++){
+				mv.addObject("title", ((EmployeeWorkTimeDTO)(list.get(i))).getE_id());
+				mv.addObject("start", ((EmployeeWorkTimeDTO)(list.get(i))).getStartTime());
+				mv.addObject("end", ((EmployeeWorkTimeDTO)(list.get(i))).getEndTime());
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return mv;
+			
+	}
+	
 	
 }

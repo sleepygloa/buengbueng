@@ -18,7 +18,7 @@
 	
 	<!-- 알바생이 사장님 관리페이지를 들어갔을때 세션을 받아오기 -->
 	<select id="getEidBkey" resultClass="franchiseeDto" parameterClass="String">
-		select b.b_key, a.b_id, a.b_name from franchiseeInfo a INNER JOIN (select e_bossid, b_key from employeeInfo where e_id = #id#) b ON a.b_key = b.b_key;
+		select b.b_key, a.b_id, a.b_name,b.e_id from franchiseeInfo a INNER JOIN (select e_id, e_bossid, b_key from employeeInfo where e_id = #id#) b ON a.b_key = b.b_key;
 	</select>
 	
 	<!-- 알바생신청 로그의 제일 마지막 번호를 불러온다. 신청 폼의 신청 번호 -->
@@ -206,6 +206,15 @@
 	 INSERT INTO employeeWorkTime(num, b_key, todayDate, e_id, startTime, endTime)
 	  VALUES(0, #b_key#, now(), #id#, #startTime#, #endTime#);
 	</insert>
+	
+	<select id="getEidBid" resultClass="String" parameterClass="String">
+		select e_bossid from employeeInfo where e_id = #id#;
+	</select>
+	
+	<select id="getCalenderWorkTimeList" resultClass="workTimeDTO" parameterClass="String">
+		select a.num, a.b_key, a.todayDate, a.e_id, a.startTime, a.endTime, a.exTime, a.result from employeeWorkTime a INNER JOIN 
+		(select e_id from employeeInfo where e_bossid = #b_id#) b ON a.e_id = b.e_id;
+	</select>
 
 	<!-- 사장님 총 통계 -->
 	
