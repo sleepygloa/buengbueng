@@ -40,12 +40,8 @@
    		
    		function createCalenderDateResult(resp){
    			var result = $.parseJSON(resp),
-   			eventData = [];
-	   		eventData.push({
-   						title : result.title,
-   						start : result.start,
-   						end : result.end
-   					});
+   			eventData = "";
+	   		eventData = result;
 
    			calendarEvent(eventData);
    		}

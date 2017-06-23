@@ -15,6 +15,7 @@
     <typeAlias alias="franchiseeDTO" type="manage.boss.bean.FranchiseeDataDTO"/>
     <typeAlias alias="uadto" type="payment.all.bean.UserAccountDTO"/>
     <typeAlias alias="workTimeDto" type="erp.boss.bean.EmployeeWorkTimeDTO" />
+    <typeAlias alias="workTimeLIstDto" type="erp.boss.bean.EmployeeWorkTimeListDTO" />
 
 	<typeAlias alias="seatInfo" type="manage.boss.bean.SeatStateDataDTO"/>
 	<typeAlias alias="pcInfoDto" type="pc.materials.bean.PcInfoDataDTO"/>

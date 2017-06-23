@@ -9,12 +9,15 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import login.user.bean.UseTimeLogDTO;
 import superclass.all.bean.ParsingDate;
@@ -173,15 +176,22 @@ public class BossEmployeeManageBean2 {
 		String id = (String)session.getAttribute("loginId");
 		
 		try{
+			ObjectMapper mapper = new ObjectMapper();
+			
 			String b_id = (String)sqlMap.queryForObject("erpEmp.getEidBid", id);
 			list = (List)sqlMap.queryForList("erpEmp.getCalenderWorkTimeList", b_id);
 			
+			String jsonList = mapper.writeValueAsString(list);
+			System.out.println(jsonList);
+			
 			mv.setViewName("/bossERP/employeeManage/employeeCalenderJSON");
-			for(int i = 0; i < list.size(); i++){
-				mv.addObject("title", ((EmployeeWorkTimeDTO)(list.get(i))).getE_id());
-				mv.addObject("start", ((EmployeeWorkTimeDTO)(list.get(i))).getStartTime());
-				mv.addObject("end", ((EmployeeWorkTimeDTO)(list.get(i))).getEndTime());
-			}
+			
+			model.addAttribute("jsonList", jsonList);
+//			for(int i = 0; i < list.size(); i++){
+//				mv.addObject("title", ((EmployeeWorkTimeDTO)(list.get(i))).getE_id());
+//				mv.addObject("start", ((EmployeeWorkTimeDTO)(list.get(i))).getStartTime());
+//				mv.addObject("end", ((EmployeeWorkTimeDTO)(list.get(i))).getEndTime());
+//			}
 			
 		}catch(Exception e){
 			e.printStackTrace();

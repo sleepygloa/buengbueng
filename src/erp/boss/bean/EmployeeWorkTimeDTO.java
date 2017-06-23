@@ -7,10 +7,10 @@ public class EmployeeWorkTimeDTO {
 	private int num;
 	private String b_key;
 	private Timestamp todayDate;
-	private String e_id;
-	private Timestamp startTime;
-	private Timestamp endTime;
-	private Timestamp exTime;
+	private String title;
+	private Timestamp start;
+	private Timestamp end;
+	private Timestamp ex;
 	private int result;
 	public int getNum() {
 		return num;
@@ -30,29 +30,31 @@ public class EmployeeWorkTimeDTO {
 	public void setTodayDate(Timestamp todayDate) {
 		this.todayDate = todayDate;
 	}
-	public String getE_id() {
-		return e_id;
+
+
+	public String getTitle() {
+		return title;
 	}
-	public void setE_id(String e_id) {
-		this.e_id = e_id;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public Timestamp getStartTime() {
-		return startTime;
+	public Timestamp getStart() {
+		return start;
 	}
-	public void setStartTime(Timestamp startTime) {
-		this.startTime = startTime;
+	public void setStart(Timestamp start) {
+		this.start = start;
 	}
-	public Timestamp getEndTime() {
-		return endTime;
+	public Timestamp getEnd() {
+		return end;
 	}
-	public void setEndTime(Timestamp endTime) {
-		this.endTime = endTime;
+	public void setEnd(Timestamp end) {
+		this.end = end;
 	}
-	public Timestamp getExTime() {
-		return exTime;
+	public Timestamp getEx() {
+		return ex;
 	}
-	public void setExTime(Timestamp exTime) {
-		this.exTime = exTime;
+	public void setEx(Timestamp ex) {
+		this.ex = ex;
 	}
 	public int getResult() {
 		return result;
