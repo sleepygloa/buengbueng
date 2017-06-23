@@ -55,6 +55,10 @@
       <property name="contentType" value="application/json;charset=UTF-8"/>
    </bean>
 
+	<!-- Json -->
+	 <bean  
+	id="jsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"/>
+
 	<!-- BEAN : FILE UPLOAD -->
  	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="-1"/> <!-- -1은 업로드 크기의 제한이 없음 무한대임 -->

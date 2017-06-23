@@ -13,7 +13,7 @@
 	<sqlMap resource="sql/searchPCSQL.xml"/><!-- pc방찾기 -->
 	<sqlMap resource="sql/superClassSQL.xml" /> <!-- 전역 CLASS : 라이센스키 발급 -->
 	<sqlMap resource="sql/erpEmployeeManageSQL.xml"/> <!-- ERP 알바 관리 -->
-<!--<sqlMap resource="sql/customerSQL.xml"/>  고객센터 -->
+	<sqlMap resource="sql/customerSQL.xml"/>  <!-- 고객센터 -->
 	<sqlMap resource="sql/useSeatSQL.xml" /> <!-- 사용자의 좌석 이용시간 및 PC방 좌석 이용현황 -->
 	<sqlMap resource="sql/cashSQL.xml"/>  <!-- 결제 관련 -->
 	<sqlMap resource="sql/franchiseeManageSQL.xml"/> <!--  가맹점 관리 -->

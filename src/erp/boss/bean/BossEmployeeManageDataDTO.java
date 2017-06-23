@@ -21,9 +21,57 @@ public class BossEmployeeManageDataDTO {
 	
 	private String b_key; //가맹점 
 	
+	private String startDate;
+	private String endDate;
+	private String startHour;
+	private String endHour;
+	
+	private Timestamp startTime;
+	private Timestamp endTime;
 	
 	
 	
+	
+	
+	
+	
+	
+	public Timestamp getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
+	}
+	public Timestamp getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(Timestamp endTime) {
+		this.endTime = endTime;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getStartHour() {
+		return startHour;
+	}
+	public void setStartHour(String startHour) {
+		this.startHour = startHour;
+	}
+	public String getEndHour() {
+		return endHour;
+	}
+	public void setEndHour(String endHour) {
+		this.endHour = endHour;
+	}
 	public String getB_key() {
 		return b_key;
 	}

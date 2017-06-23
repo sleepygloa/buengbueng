@@ -53,7 +53,7 @@ ${sessionScope.b_key}
 			</li>
 			<li><hr /></li>
 			<li>알바생 관리</li>
-			<li><a href="employeeManage.do" >알바아이디 관리</a></li>
+			<li><a href="employeeManageInfo.do" >알바아이디 관리</a></li>
 			<li><a href="employeeInfoList.do" >신상 관리</a></li>
 			<li><a href="" >알바 근태관리</a>
 				<ul>

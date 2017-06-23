@@ -2,25 +2,34 @@ package erp.boss.bean;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import login.user.bean.UseTimeLogDTO;
+import superclass.all.bean.ParsingDate;
 
 @Controller
 public class BossEmployeeManageBean2 {
 
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
+	
+	@Autowired
+	protected ParsingDate pd;
 	
 	//사장님 알바생관리 메인 페이지
 	@RequestMapping("employeeLoginList.do")
@@ -105,7 +114,7 @@ public class BossEmployeeManageBean2 {
 		return "/bossERP/employeeManage/employeeCalender";
 	}
 	
-	//알바생 임의 알바일정 출력
+	//알바생 일정 추가하기
 	@RequestMapping("employeeCalenderInsert.do")
 	public String employeeCalenderInsert(HttpSession session, Model model, Long start, Long end){
 		
@@ -115,7 +124,6 @@ public class BossEmployeeManageBean2 {
 		
 		model.addAttribute("start",start);
 		model.addAttribute("end",end);
-		System.out.println(end);
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String starts = df.format(start);
 		String ends = df.format(end-86400000);
@@ -124,5 +132,64 @@ public class BossEmployeeManageBean2 {
 		model.addAttribute("ends",ends);
 		
 		return "/bossERP/employeeManage/employeeCalenderInsert";
+	}
+	
+	//알바생 일정 추가 처리
+	@RequestMapping("employeeCalenderInsertPro.do")
+	public String employeeCalenderInsertPro(HttpSession session, Model model, BossEmployeeManageDataDTO beDTO){
+		
+		int check = 9;
+		
+		String id = (String)session.getAttribute("loginId");
+		String b_key = (String)session.getAttribute("b_key");
+		beDTO.setId(id);
+		beDTO.setB_key(b_key);
+		
+		Long startDate = pd.stringToLongDay(beDTO.getStartDate());
+		Long endDate = pd.stringToLongDay(beDTO.getEndDate());
+		Long startHour = Long.parseLong(beDTO.getStartHour());
+		Long endHour = Long.parseLong(beDTO.getEndHour());
+		
+		startDate += startHour;
+		endDate += endHour;
+		
+		beDTO.setStartTime(pd.longToTimestamp(startDate));
+		beDTO.setEndTime(pd.longToTimestamp(endDate));
+		
+		try{
+			sqlMap.insert("erpEmp.calenderInsertTime", beDTO);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("check", check);
+		
+		return "/bossERP/employeeManage/employeeCalenderInsert";	
+	}
+	
+	//알바생 일정 JSON으로 불러오기 AJAX
+	@RequestMapping("employeeCalenderList.do")
+	public ModelAndView employeeCalenderList(HttpSession session, Model model, BossEmployeeManageDataDTO beDTO){
+		ModelAndView mv = new ModelAndView();
+		List list = new ArrayList();
+		
+		String id = (String)session.getAttribute("loginId");
+		
+		try{
+			ObjectMapper mapper = new ObjectMapper();
+			
+			String b_id = (String)sqlMap.queryForObject("erpEmp.getEidBid", id);
+			list = (List)sqlMap.queryForList("erpEmp.getCalenderWorkTimeList", b_id);
+			
+			String jsonList = mapper.writeValueAsString(list);
+			
+			mv.setViewName("/bossERP/employeeManage/employeeCalenderJSON");
+			//굳이 ModelAndView를 사용했다. String으로 반환해도되는데
+			model.addAttribute("jsonList", jsonList);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return mv;
 	}
 }

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+
 <script type="text/javascript">
 function employeeIdSet(num){
 	document.getElementById("clickNum").value = num;
@@ -62,10 +64,13 @@ $(function (){
 });
 </script>
 
+<!-- HEADER TEMPLATE -->
+<jsp:include page="../../header.jsp" />
+
 <!-- 페이지 제목 -->
 <div class=" margin_bottom50">
 	<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
-		<h3>가맹점 ${b_key}ERP 아이디관리 페이지입니다.</h3> 
+		<h3>가맹점 ${sessionScope.b_key}ERP 아이디관리 페이지입니다.</h3> 
 	</div>
 </div>
 <div class=" margin_bottom50">	
@@ -193,3 +198,5 @@ $(function (){
 
 </div>
 
+<!-- HEADER TEMPLATE -->
+<jsp:include page="../../footer.jsp" />
