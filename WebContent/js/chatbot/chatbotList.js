@@ -1,10 +1,13 @@
-function addChat(){
+function addChat(max){
 	if($(".addChat").html() != ""){
 		$(".addChat").html("");
 	}else{
 		$.ajax({
 			url:"addChat.do",
 			type:"POST",
+			data: {
+				max : max
+			},
 			success: function(data){
 				$(".addChat").html(data);
 			}

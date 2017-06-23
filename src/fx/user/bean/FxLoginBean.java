@@ -78,6 +78,7 @@ public class FxLoginBean {
 		if(info != null && info.getPw().equals(dto.getPw())){
 			UseTimeLogDTO udto = new UseTimeLogDTO();
 			udto.setId(info.getId());
+			udto.setGrade(info.getGrade());
 			SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 			Calendar cal = Calendar.getInstance();
 			String today = null;

@@ -61,6 +61,13 @@ public class SeatMaterialsBean {
 			pdto.setOs(os);
 			pdto.setIp(ip);
 			addModifyPcInfo(pdto,cdto,mdto,kdto,modto,sdto,true,b_key);
+		}else{
+			PcInfoDataDTO dto = new PcInfoDataDTO();
+			dto.setB_key(b_key);
+			dto.setNum(num);
+			dto.setOs(os);
+			dto.setIp(ip);
+			addModifyPcInfo(dto,cdto,mdto,kdto,modto,sdto,false,b_key);
 		}
 	}
 	
@@ -134,7 +141,7 @@ public class SeatMaterialsBean {
 	public String seatAdd(HttpSession session, HttpServletRequest request, Model model){
 		String b_key = (String)session.getAttribute("b_key");
 		BossInfoDataDTO bdto = null;
-		int pcCount = 0;
+		int pcCount = 1;
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("b_key", b_key);
 		/* 좌석 추가 */
@@ -159,41 +166,52 @@ public class SeatMaterialsBean {
 		else{
 			bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getFranchiseeOne", b_key);
 			String[] buf = request.getParameter("pcNums").split(",");
-			/* 단일 삭제 */
-			if(buf[buf.length-1].equals("")){
-				map.put("pcCount", "1");
-				sqlMap.update("bossERP.delSeat", map);
-				PcInfoDataDTO pdto = new PcInfoDataDTO();
-				pdto.setB_key(b_key);
-				int lastNum = (Integer)sqlMap.queryForObject("pcInfo.getLastPcNum", b_key);
-				pdto.setNum(lastNum);
-				setPcInfoLog(lastNum, bdto.getB_key(), "삭제");
-				sqlMap.delete("pcInfo.delPcInfo", pdto);
-				pcCount = Integer.parseInt(bdto.getB_pccount())-1;
-			}
-			/* 다중 삭제 */
-			else{
-				for(int i = 0; i<buf.length; i++){
+			ArrayList<PcInfoDataDTO> pcAll = (ArrayList)sqlMap.queryForList("pcInfo.getPcInfoAll", b_key);
+			if(pcAll.size() > 1){
+				/* 단일 삭제 */
+				if(buf[buf.length-1].equals("")){
 					map.put("pcCount", "1");
-					setPcInfoLog(Integer.parseInt(buf[i]), b_key, "삭제");
 					sqlMap.update("bossERP.delSeat", map);
-					PcInfoDataDTO pdto = getPcInfo(b_key, Integer.parseInt(buf[i]));
+					PcInfoDataDTO pdto = new PcInfoDataDTO();
+					pdto.setB_key(b_key);
+					int lastNum = (Integer)sqlMap.queryForObject("pcInfo.getLastPcNum", b_key);
+					pdto.setNum(lastNum);
+					setPcInfoLog(lastNum, bdto.getB_key(), "삭제");
 					sqlMap.delete("pcInfo.delPcInfo", pdto);
+					pcCount = Integer.parseInt(bdto.getB_pccount())-1;
 				}
-				ArrayList<PcInfoDataDTO> pcAll = (ArrayList)sqlMap.queryForList("pcInfo.getPcInfoAll", b_key);
-				pcCount = pcAll.size();
-				for(int i = 0; i < pcAll.size(); i++){
-					if(i != pcAll.size()-1){
-						int search = pcAll.get(i+1).getNum() - pcAll.get(i).getNum();
-						if(search != 1){
-							map.clear();
-							map.put("after_num", pcAll.get(i).getNum()+1);
-							map.put("before_num", pcAll.get(i+1).getNum());
-							map.put("b_key", b_key);
-							sqlMap.update("pcInfo.modifyPcNum", map);
-							pcAll = (ArrayList)sqlMap.queryForList("pcInfo.getPcInfoAll", b_key);
+				/* 다중 삭제 */
+				else{
+					for(int i = 0; i<buf.length; i++){
+						map.put("pcCount", "1");
+						setPcInfoLog(Integer.parseInt(buf[i]), b_key, "삭제");
+						sqlMap.update("bossERP.delSeat", map);
+						PcInfoDataDTO pdto = getPcInfo(b_key, Integer.parseInt(buf[i]));
+						sqlMap.delete("pcInfo.delPcInfo", pdto);
+					}
+					pcAll = (ArrayList)sqlMap.queryForList("pcInfo.getPcInfoAll", b_key);
+					if(pcAll.get(0).getNum() != 1){
+						map.clear();
+						map.put("after_num", "1");
+						map.put("before_num", pcAll.get(0).getNum());
+						map.put("b_key", b_key);
+						sqlMap.update("pcInfo.modifyPcNum", map);
+						pcAll = (ArrayList)sqlMap.queryForList("pcInfo.getPcInfoAll", b_key);
+					}
+					for(int i = 0; i < pcAll.size(); i++){
+						if(i != pcAll.size()-1){
+							int search = pcAll.get(i+1).getNum() - pcAll.get(i).getNum();
+							if(search != 1){
+								map.clear();
+								map.put("after_num", pcAll.get(i).getNum()+1);
+								map.put("before_num", pcAll.get(i+1).getNum());
+								map.put("b_key", b_key);
+								sqlMap.update("pcInfo.modifyPcNum", map);
+								pcAll = (ArrayList)sqlMap.queryForList("pcInfo.getPcInfoAll", b_key);
+							}
 						}
 					}
+					pcCount = pcAll.size();
 				}
 			}
 		}

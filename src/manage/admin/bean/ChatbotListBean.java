@@ -34,7 +34,8 @@ public class ChatbotListBean {
 	
 	/* 챗봇 질답 추가 페이지 */
 	@RequestMapping("addChat.do")
-	public String addChat(){
+	public String addChat(int max, Model model){
+		model.addAttribute("max", max);
 		return "/chatbot/addChat";
 	}
 	

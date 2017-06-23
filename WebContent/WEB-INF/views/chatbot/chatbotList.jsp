@@ -7,7 +7,7 @@
 
 <body>
 	<jsp:include page="/WEB-INF/views/dashHeader.jsp"/>
-	<button onclick="addChat();">챗봇 추가</button><br/>
+	<button onclick="addChat('${max}');">챗봇 추가</button><br/>
 	<div class="addChat"></div><br/>
 	<table>
 		<tr>

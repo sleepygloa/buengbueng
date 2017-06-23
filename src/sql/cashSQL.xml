@@ -85,8 +85,7 @@
 	
 	<!-- 사용자 이용내역 추가 (usageHistory) -->
 	<insert id="addUsageHistory" parameterClass="historyDTO">
-		insert into usageHistory(userId, userName, affiliateCode, usageTime, endTime, amountUsed, etc, businessName, bossId) 
-		values(#userId#, #userName#, #affiliateCode#, #usageTime#, #endTime#, #amountUsed#, #etc#, #businessName#, #bossId#);
+		insert into usageHistory values(#idx#, #userId#, #userName#, #affiliateCode#, #usageTime#, #endTime#, #amountUsed#, #etc#, #businessName#, #bossId#);
 	</insert>
 
 </sqlMap>
