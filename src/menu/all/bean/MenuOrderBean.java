@@ -1,5 +1,8 @@
 package menu.all.bean;
 
+import java.util.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +15,8 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.orm.ibatis.SqlMapTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.mysql.fabric.xmlrpc.base.Data;
 
 @Controller
 
@@ -82,15 +87,11 @@ public class MenuOrderBean {
 			int productsalecheck=(Integer)sqlMap.queryForObject("order.selectProduct",map1); // 판매되지 않은 주문한 메뉴의 재고를 불러오는 list.
 			int menuorderstatus=(Integer)sqlMap.queryForObject("order.selectMenuOrder", map1);
 			if(productsalecheck > menuorderstatus){ // 판매되지 않은 주문한 메뉴의 재고가 있을 시.
-				// 주문번호 올려주기 위해서
-				int num=(Integer)sqlMap.queryForObject("order.orderCount",l_key);
-				num=num+1;
 		
 				int price=(Integer)sqlMap.queryForObject("order.getPrice",map1);
 				String id = (String)session.getAttribute("loginId");
 				
 				HashMap map=new HashMap();
-				map.put("num", num);
 				map.put("id",id);
 				map.put("menuname",order);
 				map.put("orderstatus",orderstatus);
@@ -152,9 +153,22 @@ public class MenuOrderBean {
 		String status;
 		int check=0;
 		try{
+			// 마지막 주문의 날짜 가져오기.
+			String lastOrdertime=(String)sqlMap.queryForObject("order.getLastOrder",null);
+			
+			Date nowtime=new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String nowTime = sdf.format(nowtime);
+			
+			if(!lastOrdertime.equals(nowtime)){
+				sqlMap.update("order.orderNumReset",nowtime);
+			}
+			
 			List orderList = (List)sqlMap.queryForList("order.getMenuOrder", l_key);
 			request.setAttribute("orderList", orderList);
 			request.setAttribute("l_key",l_key);			
+			request.setAttribute("lastOrdertime",lastOrdertime);
+			request.setAttribute("nowtime",nowtime);
 		}catch(Exception e){e.printStackTrace();}
 		return "/menu/menuOrderListForm";
 
@@ -198,17 +212,24 @@ public class MenuOrderBean {
 				// sellBuyLog 판매시간 입력.
 				sqlMap.update("order.productsaleregistdate", map2);
 				
-				String userId=(String)session.getAttribute("loginId");
+				
+				// 주문자 아이디 가져오기
+				HashMap map3 = new HashMap();
+				map3.put("num",num);
+				map3.put("l_key",l_key);
+				map3.put("barcode",barcode);
+				String userId=(String)sqlMap.queryForObject("order.getOrderUserId",map3);
+			
 				int ordermoney = (Integer)sqlMap.queryForObject("order.getOrderMoney", name); // 메뉴가격 가져오는 것.
 				int usermoney = (Integer)sqlMap .queryForObject("order.getUserMoney",userId);
 				int money = usermoney-ordermoney;
-				System.out.println(ordermoney+usermoney+money);
-			
+				System.out.println(ordermoney+""+usermoney+money);
+		
 				
-				HashMap map3 = new HashMap();
-				map3.put("userId",userId);
-				map3.put("money",money);
-				sqlMap.update("order.menuPayment", map3);
+				HashMap map4 = new HashMap();
+				map4.put("userId",userId);
+				map4.put("money",money);
+				sqlMap.update("order.menuPayment", map4);
 				
 				
 				check=1;
