@@ -17,18 +17,26 @@
 		<!-- <link rel="shortcut icon" type="image/png" href="img/favicon/beuLogo.ico"/> -->
 
 		<!-- CSS RESET -->
-    	<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/style_v2.css">
+    	<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/style_v2.css" />
 		<!-- INDEX CSS 2 -->    
-        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css">
-        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap-theme.min.css" />
 		<link rel="stylesheet" type="text/css"  href="/buengbueng/css/reset.css"> 
 	
 		<!-- main -->
-		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/sidemain_main.css">
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/sidemain_main.css" />
 		<!-- 구글 MATERIAL ICON -->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 		
+		<!-- 알람 toast API CSS -->
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/toast/toast.css" />
+		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		
+		<!-- 알람 toast API JS 임시 -->
+		<script src="/buengbueng/css/toast/toast.js"></script>
+	
 
 		
 		<!-- 홈페이지 제목 -->

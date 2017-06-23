@@ -182,23 +182,14 @@ public class BossEmployeeManageBean2 {
 			list = (List)sqlMap.queryForList("erpEmp.getCalenderWorkTimeList", b_id);
 			
 			String jsonList = mapper.writeValueAsString(list);
-			System.out.println(jsonList);
 			
 			mv.setViewName("/bossERP/employeeManage/employeeCalenderJSON");
-			
+			//굳이 ModelAndView를 사용했다. String으로 반환해도되는데
 			model.addAttribute("jsonList", jsonList);
-//			for(int i = 0; i < list.size(); i++){
-//				mv.addObject("title", ((EmployeeWorkTimeDTO)(list.get(i))).getE_id());
-//				mv.addObject("start", ((EmployeeWorkTimeDTO)(list.get(i))).getStartTime());
-//				mv.addObject("end", ((EmployeeWorkTimeDTO)(list.get(i))).getEndTime());
-//			}
 			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return mv;
-			
 	}
-	
-	
 }

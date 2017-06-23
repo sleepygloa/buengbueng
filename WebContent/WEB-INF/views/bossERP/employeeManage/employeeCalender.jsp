@@ -3,8 +3,26 @@
 
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../../header.jsp" />
+<style>
+#toast-container{
+	width: 70%;
+	margin:0 auto;
+}
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+.ghost-btn{
+color:#E0E2E3;
+font-weight:800;
+background-color:#319DBC;
+border:white 1px solid;
+width: 100px;
+height:30px;
+font-size:1.2em;
+vertical-align:middle;
+float:right;
+margin-right:10px;
+}
+</style>
+
 <style type="text/css">
     body {
         margin :40px 10px;
@@ -24,6 +42,10 @@
 <script type="text/javascript" src="/buengbueng/js/calender/fullcalendar.js" charset="utf-8"></script>
 <script type="text/javascript">
    		$(document).ready(function() {
+   		//토스트 -------------------------------------
+   			
+   			
+   		//캘린더 ----------------------------------------
    		  //현재년월일
    		  var date = new Date();
    		  var d= date.getDate();
@@ -46,6 +68,7 @@
    			calendarEvent(eventData);
    		}
    		
+
    		function calendarEvent(eventData){
    		  var calendar = $('#calendar').fullCalendar({
    		  header: {
@@ -86,90 +109,51 @@
    		  select:function(start,end){
 			window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
 	 		"width=450, height=300,status=no,toolbar=no,directories=no,location=no,scrollbars=no, resizable=no")
-	   		
-
    		  },
+   	    eventDrop: function(event, delta, revertFunc) {
+			delayToasts();
+			function moveConfirm(data){
+				alert(data);
+			}
+/* if(!confirm("확인좀")){
+   			revertFunc();
+} */
+   	        
+   	     function Toast(type, css, msg){
+				this.type = type;
+				this.css = css;
+				this.msg = msg 
+			}
+			var toasts = new Toast('info','toast-top-full-width',
+'<div><label class="toast-title">'+event.title+'님!</label><span class="toast-message">일정을  '+event.start.format()+' 로 변경하겠습니까?</div> <div><button class="ghost-btn">닫기</button></div><div><button class="ghost-btn" onclick="moveConfirm(\'check\')">확인</button></div> ');
+
+			
+		    toastr.options.positionClass = 'toast-top-full-width';
+		    toastr.options.extendedTimeOut = 0; //1000;
+		    toastr.options.timeOut = 000;
+		    toastr.options.fadeOut = 250;
+		    toastr.options.fadeIn = 250;
+		     toastr.options.tapToDismiss = false; 
+		    toastr.options.preventDuplicates=true;
+		    
+		    function delayToasts() {
+		        var delay = 0;
+		        window.setTimeout(function () { showToast(); }, delay);
+		    }
+
+		    function showToast() {
+		        var t = toasts;
+		        toastr.options.positionClass = t.css;
+		        toastr[t.type](t.msg);
+		    }
+   	    },
    		  editable:true,
    		  eventLimit:true,
    		  events:eventData
-   		  
-   		  
-   		/* events: function(start, end, timezone, callback) {
-            $.ajax({
-                url: 'employeeCalenderList.do',
-                type : 'post',
-                success: function(data) {
-                    var events = [{title:'테스트',start:'2017-06-22', end:'2017-06-23'}];
-                    $(data).each(function() {
-                        events.push({
-                            title: $(this).attr('title'),
-                            start: $(this).attr('startTime'),
-                            end: $(this).attr('endTime'),
-                            url: "employeeCalenderList.do?id="+$(this).attr('id')+"&amp;lang="+$(this).attr('lang')+"&amp;start="+$(this).attr('startTime')+"&amp;end="+$(this).attr('endTime'),
-                            lang : $(this).attr('lang')
-                        });
-                    });
-                    callback(events);
-                }
-            });
- 
-        } */
 	})
 }
-	
-   			  
-/*    	    eventSources: [
-
-   	                // your event source
-   	                {
-   	                    url: 'employeeCalenderList.do', // use the `url` property
-   	                    color: 'yellow',    // an option!
-   	                    textColor: 'black'  // an option!
-   	                }
-
-   	                // any other sources...
-
-   	            ]
-   		  }) 
-   		});*/
-/*     	    var lang_cd = 'ko';
-    	    $('#calendar').fullCalendar({
-    	        header: {
-    	            left: 'prev,next today',
-    	            center: 'title',
-    	            right: 'month,listMonth'
-    	        },
-    	        defaultDate: moment().format('YYYY-MM-DD'),
-    	        locale: initialLocaleCode,
-    	        editable: true,
-    	        navLinks: true,
-    	        eventLimit: true,
-    	        events: function(start, end, timezone, callback) {
-    	            $.ajax({
-    	                url: '/test/eventAll.do',
-    	                type : 'post',
-    	                data : {EVENT_CODE : '11', LANG : lang_cd, startDate : start.format(), endDate : end.format() },
-    	                dataType: 'json',
-    	                success: function(data) {
-    	                    var events = [];
-    	                    $(data).each(function() {
-    	                        events.push({
-    	                            title: $(this).attr('title'),
-    	                            start: $(this).attr('start'),
-    	                            end: $(this).attr('end'),
-    	                            url: "/test/eventDetail.do?id="+$(this).attr('id')+"&amp;lang="+$(this).attr('lang')+"&amp;start="+$(this).attr('start')+"&amp;end="+$(this).attr('end'),
-    	                            lang : $(this).attr('lang')
-    	                        });
-    	                    });
-    	                    callback(events);
-    	                }
-    	            });
-    	 
-    	        },
-    	        loading: function(bool) {
-    	            $('#loading').toggle(bool);
-    	        } */
     
+
 </script>
 
 <input type="hidden" id="id" value="${sessionScope.loginId} " />
