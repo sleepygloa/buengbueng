@@ -2,4 +2,5 @@
     pageEncoding="UTF-8"%>
 <script>
  alert('삭제 완료');
+ history.go(0);
 </script>

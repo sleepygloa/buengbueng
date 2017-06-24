@@ -55,7 +55,6 @@ function bossDel(){
 		"window.location='dashReplyWrite.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}'">
 	</span>
 	<span><button onclick="return bossDel();">글삭제</button></span>
-	<span><input type="button" value="글수정" onclick="window.location='customerModify.do?snum=${dto.snum}&num=${dto.num}&pageNum=${pageNum}'"></span>
 	<span><input type="button" value="뒤로가기" onclick="history.go(-1);"></span>
 </div>
 </div>

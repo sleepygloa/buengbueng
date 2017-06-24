@@ -173,8 +173,16 @@ setInterval("autoRefresh2()", 3000);
                         </a>
                             <ul class="mt-sub-menu">
                                 <li>
-                                    <a href="dashAgreeList.do?PageNum=1&pageNum1=1" class="rippler rippler-default">
-                                    <span class="menu-text">가맹&알바 목록</span>
+                                    <a href="dashAgreeList.do?pageNum=1&pageNum1=1" class="rippler rippler-default">
+                                    <span class="menu-text">가맹 목록</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                            </ul>
+                            <ul class="mt-sub-menu">
+                                <li>
+                                    <a href="dashEmpAgreeList.do?pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">알바 목록</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>

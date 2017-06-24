@@ -183,6 +183,8 @@ public class DashCustomerBean extends BoardMethodBean{
 		Alarm(request);
 		String pageNum = request.getParameter("pageNum");
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+		Date day = new Date();
+		String today = sdf.format(day); // java에서 오늘 날짜 출력
 		
 		if(pageNum==null){pageNum = "1";}
 		int pageSize = 10;
@@ -213,6 +215,7 @@ public class DashCustomerBean extends BoardMethodBean{
 		int endPage = startPage + pageBlock - 1;
 		if(endPage > pageCount){endPage = pageCount;}
 		
+		request.setAttribute("today", today);
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("number", number);
@@ -315,6 +318,8 @@ public class DashCustomerBean extends BoardMethodBean{
 		String column=request.getParameter("column");
 		String keyword=request.getParameter("keyword");
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+		Date day = new Date();
+		String today = sdf.format(day); // 오늘날짜 스트링으로 형변환
 		
 		if(pageNum==null){pageNum = "1";}
 		int pageSize = 10;
@@ -352,6 +357,7 @@ public class DashCustomerBean extends BoardMethodBean{
 		int endPage = startPage + pageBlock - 1;
 		if(endPage > pageCount){endPage = pageCount;}
 		
+		request.setAttribute("today", today);
 		request.setAttribute("number", number);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("pageCount", pageCount);

@@ -41,7 +41,7 @@
 </div>
 
 <div>
-<div>보유 가맹점 수 : ${count1}</div>
+<div>승인된 가맹점 수 : ${count1}</div>
 <c:forEach var="article1" items="${articleList1}">
 	<div id="agreeList${count1}">
                 <div class="col-xs-12-12 col-sm-6-12 col-md-4-12">

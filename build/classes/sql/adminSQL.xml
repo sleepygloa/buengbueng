@@ -79,7 +79,7 @@
 	<select id="customerReplyList" parameterClass="java.util.HashMap" resultClass="customerDTO">
 		<![CDATA[
 		select * FROM customerBoard where ref not in ( SELECT ref from customerBoard group by ref having count(ref)>1) 
-		and snum not in (select snum from customerBoard where snum=2 or snum=4 or snum=5) order by reg_date asc limit #startRow#,#pageSize#;
+		and snum not in (select snum from customerBoard where snum=2 or snum=4 or snum=5) order by reg_date desc limit #startRow#,#pageSize#;
 		]]>
 	</select>
 	
@@ -104,15 +104,36 @@
 		 ]]> 	
 	</select>
 	
+	<!-- 가맹점 정보 불러오기:이름으로 -->
+	<select id="getFranchiseeInfo" resultClass="franchiseeDTO" parameterClass="String">
+		select * from franchiseeLog where b_name = #b_name#;
+	</select>
+	
 	<!-- 관리자 페이지 가맹점 리스트 갯수 보기 -->
 	<select id="getFranchiseeListCount" resultClass="int">
-		select count(*) from franchiseeLog where result = 1;
+		select count(*) from franchiseeInfo;
 	</select>
 	<!-- 관리자 페이지 가맹점 리스트 목록 보기 -->
 	<select id="getFranchiseeList" resultClass="franchiseeDTO" parameterClass="java.util.HashMap">
 		<![CDATA[
-		select num,date, result, date, b_id, finishDate, b_name, b_number, b_address, b_tel, b_size, b_pccount, b_ip, b_key,@rownum:=@rownum+1 as rownum
-		 from franchiseeLog,(select @rownum:=0)r where result = 1 order by date asc limit #startRow#,#pageSize#;
+		select *,@rownum:=@rownum+1 as rownum
+		 from franchiseeInfo,(select @rownum:=0)r order by b_name asc limit #startRow#,#pageSize#;
 		 ]]> 	
+	</select>
+	
+	<!-- 관리자 페이지 검색된 가맹점 리스트 갯수 보기 -->
+	<select id="getFranchiseeListSearchCount" resultClass="int" parameterClass="String">
+		select count(*) from franchiseeInfo where b_name like concat('%',#keyword#,'%') COLLATE utf8_general_ci;
+	</select>
+	<!-- 관리자 페이지 검색된 가맹점 리스트 목록 보기 -->
+	<select id="getFranchiseeSearchList" resultClass="franchiseeDTO" parameterClass="java.util.HashMap">
+		<![CDATA[
+		select *,@rownum:=@rownum+1 as rownum
+		 from franchiseeInfo,(select @rownum:=0)r where b_name like concat('%',#keyword#,'%') COLLATE utf8_general_ci order by b_name asc limit #startRow#,#pageSize#;
+		 ]]> 	
+	</select>
+	
+	<select id="getBossFranchiseeList" resultClass="franchiseeDTO" parameterClass="java.util.HashMap">
+		select b_id,b_name, b_key from franchiseeInfo order by b_id desc limit #startRow#,#pageSize#;
 	</select>
 </sqlMap>
