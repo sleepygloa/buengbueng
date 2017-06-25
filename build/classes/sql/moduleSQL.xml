@@ -39,4 +39,9 @@
 	<select id="getOfferMenu" resultClass="moduleDefaultDTO">	
 		select * from module where num = (select max(num) from module);
 	</select>
+<!-- ======================================================================================================= -->
+	<!-- 알바생의 사장님 id 가져오기 -->
+	<select id="getBossId" parameterClass="String" resultClass="String">
+		select e_bossid from employeeInfo where e_id = #id#;
+	</select>
 </sqlMap>

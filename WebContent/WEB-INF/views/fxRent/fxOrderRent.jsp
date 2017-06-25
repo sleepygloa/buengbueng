@@ -1,3 +1,5 @@
 {
-	"result" : "${result}"
+	"result" : "${result}",
+	"suc" : "${suc}",
+	"err" : "${err}"
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import manage.boss.bean.RentDataDTO;
 import manage.boss.bean.RentLogDataDTO;
+import manage.boss.bean.RentProductDataDTO;
 
 @Controller
 public class FxRentBean {
@@ -46,7 +47,10 @@ public class FxRentBean {
 	@RequestMapping("fxOrderRent.do")
 	public String fxOrderRent(RentLogDataDTO rentLog, String rentList, Model model){
 		String result = "fail";
+		String suc = "";
+		String err = "";
 		StringBuffer sb = new StringBuffer();
+		StringBuffer sb2 = new StringBuffer();
 		try{
 			String[] name = rentList.split(" ");
 			for(int i=0; i<name.length; i++){
@@ -54,19 +58,21 @@ public class FxRentBean {
 				int count = (Integer)sqlMap.queryForObject("rent.getUserRentCheck", rentLog);
 				if(count ==0){
 					sqlMap.insert("rent.addUserRent", rentLog);
+					sb2.append(name[i]+",");
+					result = "succ";
 				}else{
-					sb.append(rentLog.getName());
-					if(i != name.length-1){
-						sb.append(",");
-					}
+					sb.append(rentLog.getName()+",");
 				}
 			}
-			if(sb.length() == 0){
-				result = "succ";
-			}else{
-				result = sb.toString()+"은(는) 대여 신청 또는 대여 중인 물품으로 제외되었습니다.";
+			if(sb.length() != 0){
+				err = sb.toString().substring(0,sb.toString().length()-1)+"은(는) 대여 신청 또는 대여 중인 물품으로 제외되었습니다.";
+			}
+			if(sb2.length() != 0){
+				suc = sb2.toString().substring(0,sb2.toString().length()-1);
 			}
 			model.addAttribute("result", URLEncoder.encode(result, "UTF-8"));
+			model.addAttribute("suc", URLEncoder.encode(suc, "UTF-8"));
+			model.addAttribute("err", URLEncoder.encode(err, "UTF-8"));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -79,35 +85,11 @@ public class FxRentBean {
 			ArrayList<RentLogDataDTO> rentOrderList = (ArrayList<RentLogDataDTO>)sqlMap.queryForList("rent.getUserRentOrder", b_key);
 			StringBuffer sb = new StringBuffer("[");
 			StringBuffer sb2 = new StringBuffer("[");
-			for(int i=0; i<rentOrderList.size(); i++){
-				sb.append("\""+URLEncoder.encode(rentOrderList.get(i).getName(),"UTF-8")+"\"");
-				sb2.append("\""+URLEncoder.encode(rentOrderList.get(i).getId(),"UTF-8")+"\"");
-				if(i != rentOrderList.size()-1){
-					sb.append(",");
-					sb2.append(",");
-				}
-			}
-			sb.append("]");
-			sb2.append("]");
-			model.addAttribute("name", sb.toString());
-			model.addAttribute("id", sb2.toString());
-		}catch(Exception e){
-			
-		}
-		return "/fxRent/fxGetUserRentOrder";
-	}
-	
-	@RequestMapping("fxGetUserReturnOrder.do")
-	public String fxGetUserReturnOrder(String b_key, Model model){
-		try{
-			ArrayList<RentLogDataDTO> rentOrderList = (ArrayList<RentLogDataDTO>)sqlMap.queryForList("rent.getUsersRentList", b_key);
-			StringBuffer sb = new StringBuffer("[");
-			StringBuffer sb2 = new StringBuffer("[");
 			StringBuffer sb3 = new StringBuffer("[");
 			for(int i=0; i<rentOrderList.size(); i++){
 				sb.append("\""+URLEncoder.encode(rentOrderList.get(i).getName(),"UTF-8")+"\"");
 				sb2.append("\""+URLEncoder.encode(rentOrderList.get(i).getId(),"UTF-8")+"\"");
-				sb3.append(URLEncoder.encode(String.valueOf(rentOrderList.get(i).getCode()),"UTF-8"));
+				sb3.append(rentOrderList.get(i).getPcNum());
 				if(i != rentOrderList.size()-1){
 					sb.append(",");
 					sb2.append(",");
@@ -119,7 +101,54 @@ public class FxRentBean {
 			sb3.append("]");
 			model.addAttribute("name", sb.toString());
 			model.addAttribute("id", sb2.toString());
+			model.addAttribute("pcNum", sb3.toString());
+		}catch(Exception e){
+			
+		}
+		return "/fxRent/fxGetUserRentOrder";
+	}
+	
+	@RequestMapping("fxGetUserRentCancel.do")
+	public String fxGetUserRentCancel(RentLogDataDTO rentLog, Model model){
+		String result = "fail";
+		try{
+			sqlMap.delete("rent.userRentCancel", rentLog);
+			result = "succ";
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		model.addAttribute("result", result);
+		return "/fxRent/fxResult";
+	}
+	
+	@RequestMapping("fxGetUserReturnOrder.do")
+	public String fxGetUserReturnOrder(String b_key, Model model){
+		try{
+			ArrayList<RentLogDataDTO> rentOrderList = (ArrayList<RentLogDataDTO>)sqlMap.queryForList("rent.getUsersRentList", b_key);
+			StringBuffer sb = new StringBuffer("[");
+			StringBuffer sb2 = new StringBuffer("[");
+			StringBuffer sb3 = new StringBuffer("[");
+			StringBuffer sb4 = new StringBuffer("[");
+			for(int i=0; i<rentOrderList.size(); i++){
+				sb.append("\""+URLEncoder.encode(rentOrderList.get(i).getName(),"UTF-8")+"\"");
+				sb2.append("\""+URLEncoder.encode(rentOrderList.get(i).getId(),"UTF-8")+"\"");
+				sb3.append(URLEncoder.encode(String.valueOf(rentOrderList.get(i).getCode()),"UTF-8"));
+				sb3.append(rentOrderList.get(i).getPcNum());
+				if(i != rentOrderList.size()-1){
+					sb.append(",");
+					sb2.append(",");
+					sb3.append(",");
+					sb4.append(",");
+				}
+			}
+			sb.append("]");
+			sb2.append("]");
+			sb3.append("]");
+			sb4.append("]");
+			model.addAttribute("name", sb.toString());
+			model.addAttribute("id", sb2.toString());
 			model.addAttribute("code", sb3.toString());
+			model.addAttribute("pcNum", sb4.toString());
 			
 		}catch(Exception e){
 			
@@ -131,24 +160,30 @@ public class FxRentBean {
 	public String fxUserRentReturnOk(RentLogDataDTO rentLog, String what, Model model){
 		String result = "fail";
 		try{
-			HashMap param = new HashMap();
-			param.put("b_key", rentLog.getB_key());
-			param.put("code", rentLog.getCode());
+			RentProductDataDTO rdto = new RentProductDataDTO();
+			rdto.setB_key(rentLog.getB_key());
+			rdto.setCode(rentLog.getCode());
 			if(what.equals("rent")){
-				sqlMap.update("rent.userRentOk", rentLog);
-				param.put("rentCheck", 1);
-				sqlMap.update("rent.updateRentState", param);
+				rdto = (RentProductDataDTO)sqlMap.queryForObject("rent.getRentProduct", rdto);
+				if(rdto != null && rdto.getRentCheck() == 0 && rdto.getRentProduct().equals(rentLog.getName())){
+					sqlMap.update("rent.userRentOk", rentLog);
+					rdto.setRentCheck(1);
+					sqlMap.update("rent.updateRentState", rdto);
+					result = "succ";
+				}else{
+					result = URLEncoder.encode("바코드 정보를 정확히 입력하세요.","UTF-8");
+				}
 			}else{
 				sqlMap.update("rent.userReturnOK", rentLog);
-				param.put("rentCheck", 0);
-				sqlMap.update("rent.updateRentState", param);
+				rdto.setRentCheck(0);
+				sqlMap.update("rent.updateRentState", rdto);
+				result = "succ";
 			}
-			result = "succ";
 			model.addAttribute("result", result);
 		}catch(Exception e){
 			
 		}
-		return "/fxRent/fxUserRentReturnOk";
+		return "/fxRent/fxResult";
 	}
 	
 }

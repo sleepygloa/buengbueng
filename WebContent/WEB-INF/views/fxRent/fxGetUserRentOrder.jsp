@@ -1,4 +1,5 @@
 {
-	"name" : ${name}
-	"id" : ${id}
+	"name" : ${name},
+	"id" : ${id},
+	"pcNum" : ${pcNum}
 }
