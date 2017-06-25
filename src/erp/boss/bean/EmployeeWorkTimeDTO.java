@@ -12,6 +12,7 @@ public class EmployeeWorkTimeDTO {
 	private Timestamp end;
 	private Timestamp ex;
 	private int result;
+	
 	public int getNum() {
 		return num;
 	}

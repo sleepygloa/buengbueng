@@ -41,12 +41,24 @@ margin-right:10px;
 <script type="text/javascript" src="/buengbueng/js/calender/lib/moment.min.js"></script>
 <script type="text/javascript" src="/buengbueng/js/calender/fullcalendar.js" charset="utf-8"></script>
 <script type="text/javascript">
-function moveConfirm(){
-	return true;
+function moveConfirm(date){
+	var date = date;
+	
+	$.ajax({
+		url: "employeeCalenderEventDrop.do",
+    	type:"post",
+    	data:{date:date},
+    	dataType : "json",
+    	success:function(data){
+    		history.go(0);
+    	},
+    	fail:function(){
+    		history.go(0);
+    	}
+	})
 }
-function moveCancel(){
-	return false;
-}
+function revert(){} // 추가
+
    		$(document).ready(function() {
    		//토스트 -------------------------------------
    			
@@ -116,30 +128,25 @@ function moveCancel(){
 			window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
 	 		"width=450, height=300,status=no,toolbar=no,directories=no,location=no,scrollbars=no, resizable=no")
    		  },
-   	    eventDrop: function(event, delta, revertFunc) {
-		var toasts = new Toast('info','toast-top-full-width',
-		'<div><label class="toast-title">'+event.title+'님!</label><span class="toast-message">일정을  '+event.start.format()+' 로 변경하겠습니까?</div> <div><button class="ghost-btn" onClick="moveCancel()">닫기</button></div><div><button class="ghost-btn" onClick="moveConfirm()">확인</button></div> ');
+   	    eventDrop: function(event, delta, revertFunc, delayToasts) {
 
-		
-		 if(!delayToasts()){
-			alert("d");
-			 revertFunc();
-		}
-   	        
+   			revert = revertFunc; // 추가
+
+		var toasts = new Toast('info','toast-top-full-width',
+		"<div><label class=\"toast-title\">"+event.title+"님!</label><span class=\"toast-message\">일정을  ["+event.start.format()+" ~ "+event.end.format()+"] 로 변경하겠습니까?</div> <div><button class=\"ghost-btn\" onClick=\"revert()\">닫기</button></div><div><button class=\"ghost-btn\" "+
+				"onClick=\"moveConfirm(\'{&quot;start&quot;:&quot;"+event.start.format()+"&quot;,&quot;end&quot;:&quot;"+event.end.format()+"&quot;}\')\">확인</button></div> ");
+   			
    	     function Toast(type, css, msg){
 				this.type = type;
 				this.css = css;
 				this.msg = msg 
 			}
 			
-
-			
 		    toastr.options.positionClass = 'toast-top-full-width';
 		    toastr.options.extendedTimeOut = 0; //1000;
-		    toastr.options.timeOut = 0;
+		    toastr.options.timeOut = 5000;
 		    toastr.options.fadeOut = 250;
 		    toastr.options.fadeIn = 250;
-		     /* toastr.options.tapToDismiss = false; */ 
 		    toastr.options.preventDuplicates=true;
 		    
 		    function delayToasts() {
@@ -152,6 +159,9 @@ function moveCancel(){
 		        toastr.options.positionClass = t.css;
 		        toastr[t.type](t.msg);
 		    }
+		    
+		    showToast(); // 추가
+		    
    	    },
    		  editable:true,
    		  eventLimit:true,

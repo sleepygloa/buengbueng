@@ -1415,7 +1415,7 @@ newMomentProto.format = function() {
 		return oldMomentFormat(englishMoment(this), 'YYYY-MM-DD');
 	}
 	if (this._ambigZone) {
-		return oldMomentFormat(englishMoment(this), 'YYYY-MM-DD[T]HH:mm:ss');
+		return oldMomentFormat(englishMoment(this), 'YYYY-MM-DD HH:mm:ss');
 	}
 	if (this._fullCalendar) { // enhanced non-ambig moment?
 		// moment.format() doesn't ensure english, but we want to.
@@ -1431,7 +1431,7 @@ newMomentProto.toISOString = function() {
 		return oldMomentFormat(englishMoment(this), 'YYYY-MM-DD');
 	}
 	if (this._ambigZone) {
-		return oldMomentFormat(englishMoment(this), 'YYYY-MM-DD[T]HH:mm:ss');
+		return oldMomentFormat(englishMoment(this), 'YYYY-MM-DD HH:mm:ss');
 	}
 	if (this._fullCalendar) { // enhanced non-ambig moment?
 		// depending on browser, moment might not output english. ensure english.

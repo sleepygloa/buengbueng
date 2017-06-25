@@ -7,9 +7,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.json.Json;
+import javax.json.JsonArray;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
@@ -180,9 +184,9 @@ public class BossEmployeeManageBean2 {
 			
 			String b_id = (String)sqlMap.queryForObject("erpEmp.getEidBid", id);
 			list = (List)sqlMap.queryForList("erpEmp.getCalenderWorkTimeList", b_id);
-			
+
 			String jsonList = mapper.writeValueAsString(list);
-			
+			System.out.println(jsonList);
 			mv.setViewName("/bossERP/employeeManage/employeeCalenderJSON");
 			//굳이 ModelAndView를 사용했다. String으로 반환해도되는데
 			model.addAttribute("jsonList", jsonList);
@@ -191,5 +195,39 @@ public class BossEmployeeManageBean2 {
 			e.printStackTrace();
 		}
 		return mv;
+	}
+	
+	//알바생 일정 이벤트드랍시 변경 처리 AJAX
+	@RequestMapping("employeeCalenderEventDrop.do")
+	public String employeeCalenderEventDrop(HttpSession session, Model model, String date){
+		
+		String e_id = (String)session.getAttribute("loginId");
+		String b_key = (String)session.getAttribute("b_key");
+		
+		String check = "";
+		try{
+			
+			JSONParser Jparser = new JSONParser();
+			
+			JSONObject JObject = (JSONObject)Jparser.parse(date);
+			String start = (String)JObject.get("start");
+			String end =  (String)JObject.get("end");		
+			
+			HashMap map = new HashMap();
+			map.put("e_id", e_id);
+			map.put("start", start);
+			map.put("end", end);
+			map.put("b_key", b_key);
+			
+			sqlMap.insert("erpEmp.calenderUpdateTimeLog", map); //근무시간 변경 로그남김
+			sqlMap.update("erpEmp.calenderUpdateTime", map); //근무시간 변경
+			System.out.println("start: "+start);
+			System.out.println("end: "+end);
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return check;
 	}
 }

@@ -207,14 +207,27 @@
 	  VALUES( #b_key#, now(), #id#, #startTime#, #endTime#);
 	</insert>
 	
+	<!-- 알바생 근무 일정 리스트 를 뽑기 위해 사장님아이디 검색 -->
 	<select id="getEidBid" resultClass="String" parameterClass="String">
 		select e_bossid from employeeInfo where e_id = #id#;
 	</select>
 	
+	<!-- 알바생 근무 일정 리스트를 달력에 뽑아냄 -->
 	<select id="getCalenderWorkTimeList" resultClass="workTimeListDTO" parameterClass="String">
 		select a.title, DATE_FORMAT(a.start, '%Y-%m-%d %H:%i:%s') as start, DATE_FORMAT(a.end, '%Y-%m-%d %H:%i:%s') as end from employeeWorkTime a INNER JOIN 
 		(select e_id from employeeInfo where e_bossid = #id#) b ON a.title = b.e_id;
 	</select>
+	
+	<!-- 알바생 근무 일정 변경 log : eventDropLog -->
+	<insert id="calenderUpdateTimeLog" parameterClass="java.util.HashMap">
+	 INSERT INTO employeeWorkTimeUpdateLog ( b_key, title, start, end, updateDate)
+	  VALUES( #b_key#, #e_id#, #start#, #end#, now());
+	</insert>
+	
+	<!-- 알바생 근무 일정 변경 : eventDrop -->
+	<update id="calenderUpdateTime" parameterClass="java.util.HashMap">
+	 UPDATE employeeWorkTime SET start = #start#, end = #end# WHERE title = #e_id#;
+	</update>
 
 	<!-- 사장님 총 통계 -->
 	
