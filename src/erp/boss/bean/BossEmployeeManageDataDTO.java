@@ -20,10 +20,16 @@ public class BossEmployeeManageDataDTO {
 	private String e_name; //알바생 관리에서 사용할 List에서 사용, name으로하면 오류나나?
 	
 	private String b_key; //가맹점 
+	private String b_name; // 가맹점 이름
 	
 	
 	
-	
+	public String getB_name() {
+		return b_name;
+	}
+	public void setB_name(String b_name) {
+		this.b_name = b_name;
+	}
 	public String getB_key() {
 		return b_key;
 	}

@@ -177,7 +177,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 	@RequestMapping("dashAgreeDelete.do")
 	public String dashAgreeDelete(String b_key,HashMap map){
 		map.put("b_key", b_key);
-		sqlMap.delete("franchisee.deleteFranchisee", map);  // franchiseeInfo b_key - seatState licenseKey FK떄문에 삭제 불가. 테이블 on Delete해야됨
+		sqlMap.delete("franchisee.deleteFranchisee", map); 
 		return "/dash-Agree/dashAgreeDelete";
 	}
 	
@@ -191,6 +191,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 		int startRow=(currentPage-1)*pageSize;
 		List list =null;
 		int count = 0;
+		// 검색 키워드 조건으로 리스트 따로 호출
 		if(request.getParameter("keyword")!=null){
 			String keyword = request.getParameter("keyword");
 			map.put("keyword", keyword);

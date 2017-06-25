@@ -24,8 +24,8 @@
 	
 	<!-- 사장님이 알바원하는 인원수만큼 신청(삭제도가능) -->
 	<insert id="insertEmployeeAddLog" parameterClass="beDto">
-		INSERT INTO employeeAddLog (num, result, b_id, applyCount, applyTime, content,b_key)
-							 VALUES(0, 0, #b_id#, #applyCount#, now(), #content#,#b_key#);
+		INSERT INTO employeeAddLog (num, result, b_id, applyCount, applyTime, content,b_key,b_name)
+							 VALUES(0, 0, #b_id#, #applyCount#, now(), #content#,#b_key#,#b_name#);
 	</insert>
 	
 	<!-- 알바생 정보테이블에서 사장님이 보유한 알바생아이디를 찾고, 갯수를 센다. -->
@@ -109,13 +109,13 @@
 	
 	<!-- 알바생의 아이디를 삭제 신청함.-->
 	<insert id="deleteIdLogAdd" >
-		insert into employeeDeleteLog (num, result, b_id, e_id, applyTime, content)
-			 VALUES(0, 0, #b_id#, #e_id#, now(), #content#);  
+		insert into employeeDeleteLog (num, result,b_name,b_key, b_id, e_id, applyTime, content)
+			 VALUES(0, 0,#b_name#,#b_key#, #b_id#, #e_id#, now(), #content#);  
 	</insert>
 	
 	<!-- 알바생아이디 삭제 리스트 -->
 	<select id="getEmployeeDeleteList" resultClass="beDto" parameterClass="java.util.HashMap" >
-		SELECT * from  employeeDeleteLog where result = '0';
+		SELECT * from  employeeDeleteLog where result = '0' and b_key=#b_key#;
 	</select>		
 	
 	<!-- 알바생의 아이디를 삭제 확인 - 관리자.-->

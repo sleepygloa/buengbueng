@@ -97,5 +97,8 @@
 		select * from franchiseeDeleteLog where b_key = #b_key#;
 	</select>
 	
-	
+	<!-- 가맹점 이름 불러오기:b_key로 -->
+	<select id="getFranchiseeLogBkey" resultClass="String" parameterClass="String">
+		select b_name from franchiseeLog where b_key = #b_key#;
+	</select>
 </sqlMap>

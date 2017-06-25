@@ -132,7 +132,7 @@
 		 from franchiseeInfo,(select @rownum:=0)r where b_name like concat('%',#keyword#,'%') COLLATE utf8_general_ci order by b_name asc limit #startRow#,#pageSize#;
 		 ]]> 	
 	</select>
-	
+	<!-- 가맹점 이름,라이센스,사장id 호출  -->
 	<select id="getBossFranchiseeList" resultClass="franchiseeDTO" parameterClass="java.util.HashMap">
 		select b_id,b_name, b_key from franchiseeInfo order by b_id desc limit #startRow#,#pageSize#;
 	</select>

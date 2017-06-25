@@ -40,17 +40,6 @@
 				<input type="submit" name="confirm" value="신청확인" 	/> 
 			</div>
 		</div>
-		<div>
-			<div class="xsm_hidden col-md-1-12">${list.num}</div>
-			<div class="xsm_hidden col-md-1-12">${list.b_id}</div>
-			<div class="xsm_hidden col-md-1-12">${list.applyCount}</div>
-			<div class="xsm_hidden col-md-2-12">${list.applyTime}</div>
-			<div class="xsm_hidden col-md-1-12">${list.b_key}</div>
-			<div class="xsm_hidden col-md-5-12">${list.content}</div>
-			<div class="xsm_hidden col-md-1-12">
-				<input type="submit" name="confirm" value="신청확인" 	/> 
-			</div>
-		</div>
 	</form>
 	</c:forEach>
 	</div>
@@ -79,16 +68,6 @@
 			<div class="col-xs-6-12 md_hidden">${list.content}</div>
 			<div class="col-xs-6-12 col-md-1-12">신청확인</div>
 			<div class="col-xs-6-12 md_hidden">
-				<input type="submit" name="confirm" value="신청확인" 	/> 
-			</div>
-		</div>
-		<div class="container">
-			<div class="col-xs-6-12 col-md-1-12">${list.num}</div>
-			<div class="col-xs-6-12 col-md-1-12">${list.b_id}</div>
-			<div class="col-xs-6-12 col-md-1-12">${list.e_id}</div>
-			<div class="col-xs-6-12 col-md-2-12">${list.applyTime}</div>
-			<div class="col-xs-6-12 col-md-3-12">${list.content}</div>
-			<div class="col-xs-6-12 col-md-1-12">
 				<input type="submit" name="confirm" value="신청확인" 	/> 
 			</div>
 		</div>

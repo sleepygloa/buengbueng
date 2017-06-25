@@ -150,6 +150,10 @@ public class BossEmployeeManageBean {
 		String b_id = (String)session.getAttribute("loginId");
 		model.addAttribute("b_id",b_id);
 		
+		//////////////////////////////////////////
+		//b_key로 가맹점 이름 알바 정보에 입력
+		String b_name = (String)sqlMap.queryForObject("franchisee.getFranchiseeLogBkey",b_key);
+
 		int check = 0;
 		//로그인 하지 않았을때 그냥 폼은 보여주지만, 아무것도할수없다.
 		//////////////////////////////////////////
@@ -159,6 +163,7 @@ public class BossEmployeeManageBean {
 		
 		try{
 			beDTO.setB_key(b_key);
+			beDTO.setB_name(b_name);
 			//입력된 정보를 로그에 남겨줍니다.
 			//////////////////////////////////////
 			//사장님이 알바생아이디를 (숫자)만큼 신청함. 
@@ -364,7 +369,12 @@ public class BossEmployeeManageBean {
 		//세션 아이디를 페이지로전달
 		String b_id = (String)session.getAttribute("loginId");
 		model.addAttribute("b_id",b_id);
+		
+		//////////////////////////////////////////
+		//b_key로 가맹점 이름 알바 정보에 입력
+		String b_name = (String)sqlMap.queryForObject("franchisee.getFranchiseeLogBkey",beDto.getB_key());
 		beDto.setB_id(b_id);
+		beDto.setB_name(b_name);
 		int check = 0;
 		try{
 			sqlMap.insert("erpEmp.deleteIdLogAdd", beDto);
