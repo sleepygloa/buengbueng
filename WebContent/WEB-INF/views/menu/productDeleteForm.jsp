@@ -4,11 +4,12 @@
 
 <head>
 	<title>재고삭제</title>
+	<script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
 </head>
 
 <body>
 <div>
-<form action="productDeletePro.do" method="post">
+<form action="productDeletePro.do" method="post" onsubmit="return menuDelete()">
 <table>
 	<tr>
 	<td>제품명</td><td>바코드</td><td>유통기한</td><td>판매유무</td><td>등록일</td>

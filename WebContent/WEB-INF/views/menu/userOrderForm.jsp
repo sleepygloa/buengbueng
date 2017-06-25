@@ -13,7 +13,7 @@
 		<button name="menuAll" onclick="useralls('${l_key}','${name}')">전 체</button>
 	</div>
 	
-    
+    	
     	<div>
 		<table>
 		<tr>

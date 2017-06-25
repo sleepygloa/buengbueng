@@ -13,10 +13,6 @@
 	]]>
 	</delete>	
 	
-	<!-- 주문번호를 하루 마다 초기화 시켜주기 위한 sql-->
-	<update id="orderNumReset" parameterClass="" >
-		update menuOrder set num=1;
-	</update>
 	
 	
 	<!-- 사용자가 로그인하는 피씨방 정보 가져오는 sql -->
@@ -47,10 +43,18 @@
 	</select> 
 	
 	
+	   <!-- 주문내역가지고오기 , 사용: userOrderPro.do  -->
+   <select id="orderCount" resultClass="orderDto" parameterClass="String">
+   		select * from menuOrder where l_key=#l_key# order by ordertime desc;
+   </select>  
+	
+	
+	
 	<!-- 주문재고 있으면 주문현황에 추가 -->	
 	<insert id="insertMenuOrder" parameterClass="java.util.HashMap">
 		insert into menuOrder values(#num#,#id#,#menuname#,now(),#orderstatus#,#ordermoney#,#l_key#);
 	</insert>
+	
 	
 	<!-- 사용자가 주문한 내역을 사장이 열어 볼 리스트. 주문현황리스트 -->
 	<select id="getMenuOrder" parameterClass="String" resultClass="orderDto">
@@ -58,8 +62,8 @@
 	</select>
 	
 	<!-- 마지막 주문 시간 가져오기 -->
-	<select id="getLastOrder" resultClass="String">
-		select max(date_format(ordertime,'%Y-%m-%d')) from menuOrder;
+	<select id="getLastOrder" resultClass="String" parameterClass="String">
+		select max(date_format(ordertime,'%Y-%m-%d')) from menuOrder where l_key=#l_key#;
 	</select>
 	
 	<!-- 주문한 사용자 아이디 가져오기  -->
@@ -103,6 +107,6 @@
 	</update> 
 	
 	
-	
+
 
 </sqlMap>

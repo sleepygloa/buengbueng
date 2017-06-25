@@ -8,6 +8,7 @@
 		window.location=url;
 	}
 	
+	
 	function succc(check, url, valueName, value,valueName2,value2){
 		alert(check);
 		
@@ -27,18 +28,19 @@
 		}
 	
 	
-	
 </script>
 
-<c:if test="${check==1}">
-	<body onload="succc('메뉴정보가 추가되었습니다.','menu.do','l_key','${l_key}')" />
-</c:if>
 
+<c:if test="${check==1 }">
+	<body onload="succc('메뉴정보가 추가되었습니다.','menu.do','l_key','${l_key}')"/>
+</c:if>
 
 <c:if test="${check==0}">
 	<body onload="succ('접근권한이 없습니다.','index.do')"/>
-</c:if>
+</c:if>dksizz
 
 <c:if test="${check==-1}">
 	<body onload="succc('정보입력이 바르지 않습니다.','menuInsertForm.do'l_key','${l_key}')"/>
 </c:if>
+
+

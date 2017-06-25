@@ -6,13 +6,14 @@
     <head>
     <title>재 고 수 정</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
     
     </head>
     
     
     <body>
     	<div>
-    	<form action="productModifyPro.do" >
+    	<form action="productModifyPro.do" method="post" onsubmit="return menuModify()" >
     		<table>					
     			<tr>	
     			<td>제품명</td>

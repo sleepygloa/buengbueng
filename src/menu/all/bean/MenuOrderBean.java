@@ -79,21 +79,53 @@ public class MenuOrderBean {
 	public String userOrderPro(String name,String order,HttpServletRequest request,String l_key, HttpSession session){
 		System.out.println("이름"+name+order);
 		int check;
+		int num;
 		int orderstatus=1;
+		List menuOrderList;
 		try{
 			HashMap map1 = new HashMap();
 			map1.put("order", order);
 			map1.put("l_key",l_key);
 			int productsalecheck=(Integer)sqlMap.queryForObject("order.selectProduct",map1); // 판매되지 않은 주문한 메뉴의 재고를 불러오는 list.
 			int menuorderstatus=(Integer)sqlMap.queryForObject("order.selectMenuOrder", map1);
+
+			int price=(Integer)sqlMap.queryForObject("order.getPrice",map1);
+			String id = (String)session.getAttribute("loginId");
+			
+			int userMoney=(Integer)sqlMap.queryForObject("order.getUserMoney",id);
+			if(userMoney<price){
+				check=2;
+			}else{
+						
 			if(productsalecheck > menuorderstatus){ // 판매되지 않은 주문한 메뉴의 재고가 있을 시.
-		
-				int price=(Integer)sqlMap.queryForObject("order.getPrice",map1);
-				String id = (String)session.getAttribute("loginId");
+			
+				menuOrderList=(List)sqlMap.queryForList("order.orderCount",l_key);
+				if(menuOrderList.size()==0){
+					num=1;
+				}else{
+
+					// 마지막 주문의 날짜 가져오기.
+					String lastOrdertime=(String)sqlMap.queryForObject("order.getLastOrder",l_key);
+					
+					Date nowtime=new Date();
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					String nowTime = sdf.format(nowtime);
+					
+					if(lastOrdertime!=nowTime){
+						num=0;
+					}else{
+						OrderDTO odto=(OrderDTO) menuOrderList.get(0);
+						num=odto.getNum();
+						System.out.println(num);
+					}
+
+				}
+				num=num+1;					
 				
 				HashMap map=new HashMap();
+				map.put("num",num);
 				map.put("id",id);
-				map.put("menuname",order);
+				map.put("menuname",order); 
 				map.put("orderstatus",orderstatus);
 				map.put("ordermoney",price);
 				map.put("l_key",l_key);
@@ -103,6 +135,8 @@ public class MenuOrderBean {
 			}else{ // 주문한 메뉴의 재고가 없을 시.
 				check=0;
 			}
+			}
+			
 			request.setAttribute("check", check);
 			request.setAttribute("order",order);
 			request.setAttribute("name",name);
@@ -149,26 +183,12 @@ public class MenuOrderBean {
 	////// 사장님 주문 //////
 	
 	@RequestMapping("menuOrderListForm.do")
-	public String menuOrderListForm(HttpServletRequest request, String l_key){
-		String status;
-		int check=0;
+	public String menuOrderListForm(HttpSession session,HttpServletRequest request){
 		try{
-			// 마지막 주문의 날짜 가져오기.
-			String lastOrdertime=(String)sqlMap.queryForObject("order.getLastOrder",null);
-			
-			Date nowtime=new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String nowTime = sdf.format(nowtime);
-			
-			if(!lastOrdertime.equals(nowtime)){
-				sqlMap.update("order.orderNumReset",nowtime);
-			}
-			
+			String l_key=(String)session.getAttribute("b_key");
 			List orderList = (List)sqlMap.queryForList("order.getMenuOrder", l_key);
 			request.setAttribute("orderList", orderList);
-			request.setAttribute("l_key",l_key);			
-			request.setAttribute("lastOrdertime",lastOrdertime);
-			request.setAttribute("nowtime",nowtime);
+			request.setAttribute("l_key",l_key);	
 		}catch(Exception e){e.printStackTrace();}
 		return "/menu/menuOrderListForm";
 

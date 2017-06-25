@@ -33,7 +33,7 @@
 	    		<button onclick="window.location='menuBarcodeCheck.do?menuname=${ol.menuname}&num=${ol.num}&l_key=${l_key}'">주문승인</button>
     			</c:if>
     			<c:if test="${ol.orderstatus==2}">
-    			<button onclick="">주문 취소</button>
+    			
     			</c:if>
     		</td>
     		</tr>    	

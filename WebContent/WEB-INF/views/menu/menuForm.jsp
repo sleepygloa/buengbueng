@@ -37,15 +37,15 @@
 	</div>
 
 	<div>
-		<button onclick="window.location='menuInsertForm.do?l_key=${l_key}&name=${name}'">메 뉴 추 가</button>
+		<button onclick="window.location='menuInsertForm.do?l_key=${l_key}'">메 뉴 추 가</button>
 	</div>
 	
 	<div>
-		<button onclick="window.location='menuModify.do?l_key=${l_key}&name=${name}'">메 뉴 수 정</button>
+		<button onclick="window.location='menuModify.do?l_key=${l_key}'">메 뉴 수 정</button>
 	</div>
 	
 	<div>
-		<button onclick="window.location='menuDeleteForm.do?l_key=${l_key}&name=${name}'">메 뉴 삭 제</button>
+		<button onclick="window.location='menuDeleteForm.do?l_key=${l_key}'">메 뉴 삭 제</button>
 	</div>
 	<div>
 		<button onclick="alls('${l_key}')">전 체</button>

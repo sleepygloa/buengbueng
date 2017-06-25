@@ -7,12 +7,13 @@
     <title>재 고 추 가</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
+    <script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
     </head>
     
     
     <body>
     	<div>
-    	<form action="productInsertPro.do" method="post" name="productInsertForm">
+    	<form action="productInsertPro.do" method="post" name="productInsertForm" onsubmit="return menuInsert()">
     		<table>					
     			<tr>	
     			<td>제품명   <input type="hidden" name="l_key" value="${l_key}"></td>

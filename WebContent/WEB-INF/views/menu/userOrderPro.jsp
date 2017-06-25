@@ -9,6 +9,10 @@
 	}
 </script>
 
+<c:if test="${check==2}">
+	<body onload="succ('잔액이 부족합니다.','userOrderForm.do?name=${name}&l_key=${l_key}')"/>
+</c:if>
+
 
 <c:if test="${check==1}">
 	<body onload="succ('${order}이(가) 주문되었습니다.','userOrderForm.do?name=${name}&l_key=${l_key}')" />

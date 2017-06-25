@@ -65,9 +65,10 @@ public class MenuBean {
 	
 	// menu 메인 페이지 이동
 	@RequestMapping("menu.do")
-	public String menuForm(MenuDTO mdto,String name,String l_key, HttpServletRequest request){
+	public String menuForm(MenuDTO mdto,HttpSession session,HttpServletRequest request){
 		try{
-		if(l_key!=null){
+			String l_key= (String)session.getAttribute("b_key");
+		if(l_key!=null || l_key!="가맹점 선택"){
 		List menuList= (List)sqlMap.queryForList("menu.getMenu",l_key);
 		request.setAttribute("menuList", menuList);
 		List categoryList =sqlMap.queryForList("menu.getCategory",l_key);
@@ -76,18 +77,19 @@ public class MenuBean {
 				
 			}
 		}
+		request.setAttribute("l_key", l_key);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		request.setAttribute("name",name);
-		request.setAttribute("l_key",l_key);
+		
+		
 		return "/menu/menuForm";
 	}
 	
 	/* 메뉴추가 페이지 */
 	@RequestMapping("menuInsertForm.do")
-	public String menuInsertForm(HttpServletRequest request, String l_key, String name){
-		request.setAttribute("name",name);
+	public String menuInsertForm(HttpServletRequest request, String l_key){
+		
 		request.setAttribute("l_key", l_key);
 		return "/menu/menuInsertForm";
 	}
@@ -115,13 +117,13 @@ public class MenuBean {
 	/* 메뉴수정 페이지 */
 	
 	@RequestMapping("menuModify.do")
-	public String menuModify(HttpServletRequest request,String l_key,String name,HttpSession session){
+	public String menuModify(HttpServletRequest request,String l_key,HttpSession session){
 		String id=(String)session.getAttribute("loginId");
 
 		List menuList= (List)sqlMap.queryForList("menu.getMenu",l_key);
 		request.setAttribute("menuList", menuList);
 		request.setAttribute("l_key",l_key);
-		request.setAttribute("name",name);
+		
 		
 		
 		return "/menu/menuModify";

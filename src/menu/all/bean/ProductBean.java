@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -24,8 +25,9 @@ public class ProductBean {
 	
 	/* 재고관리 첫 페이지*/
 	@RequestMapping("product.do")
-	public String productForm(HttpServletRequest request, String l_key){
+	public String productForm(HttpServletRequest request, HttpSession session){
 		try{
+		String l_key=(String)session.getAttribute("b_key");
 		List productList=sqlMap.queryForList("menu.getProduct",l_key);
 		request.setAttribute("productList",productList);
 		request.setAttribute("l_key", l_key);
