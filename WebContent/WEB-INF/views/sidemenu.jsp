@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
 <script type="text/javascript">
 window.onload=function(){
 	var id = '${sessionScope.loginId}';
@@ -68,24 +69,18 @@ ${sessionScope.b_key}
 			<li><a href="bossEmployeeAccountManage.do" >장부 관리</a></li>
 		
 			<li><hr /></li>
-			<li>메뉴 관리</li>
-			<li><a href="franchiseeMenu.do">메뉴</a></li>
-			<li><a href="menuInsertForm.do" >메뉴 추가</a></li>
-			<li><a href="menuModify.do" >메뉴 수정</a></li>
-			<li><a href="menuDeleteForm.do" >메뉴 삭제</a></li>
-		
-			<li><hr /></li>
-			<li>재고 관리</li>
-			<li><a href="product.do">재고 리스트</a></li>
-			<li><a href="productInsertForm.do" >재고 추가</a></li>
-			<li><a href="productModify.do" >재고 수정</a></li>
-			<li><a href="productDeleteForm.do" >재고 삭제</a></li>
+			<li>메뉴</li>
+			<li><a href="menu.do" onclick="return getL_keyCheck(${sessionScope.b_key})">메뉴 관리</a></li>
+			<li><a href="product.do">재고 관리</a></li>
 			
+			<li><hr /></li>
+			<li>주문 확인</li>
+			<li><a href="menuOrderListForm.do">주문 내역 확인</a></li>			
 			
 			<li><hr /></li>
 			<li>주문 확인 (이거는 삭제할거예영)</li>
-			<li><a href="userOrderForm.do">사용자 주문창</a></li>
-			<li><a href="menuOrderListForm.do" >사장님 주문내역확인</a></li>
+			<li><a href="userSelectFranchisee.do">사용자 주문창</a></li>
+			
 			
 			<li><hr /></li>
 			<li>PC방 관리</li>

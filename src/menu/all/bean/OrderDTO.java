@@ -1,13 +1,14 @@
 package menu.all.bean;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class OrderDTO {
 
 	private int num;
 	private String id;
 	private String menuname;
-	private Date ordertime;
+	private Timestamp ordertime;
 	private int orderstatus;
 	private int ordermoney;
 	private String l_key;
@@ -37,10 +38,10 @@ public class OrderDTO {
 	public void setMenuname(String menuname) {
 		this.menuname = menuname;
 	}
-	public Date getOrdertime() {
+	public Timestamp getOrdertime() {
 		return ordertime;
 	}
-	public void setOrdertime(Date ordertime) {
+	public void setOrdertime(Timestamp ordertime) {
 		this.ordertime = ordertime;
 	}
 	public int getOrderstatus() {

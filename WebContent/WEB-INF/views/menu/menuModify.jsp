@@ -7,6 +7,9 @@
 </head>
 
 <body>
+
+<!-- HEADER TEMPLATE -->
+	<jsp:include page="/WEB-INF/views/header.jsp" />
 <div>
 <form action="menuModifyForm.do" method="post">
 <table>

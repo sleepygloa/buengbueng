@@ -13,13 +13,13 @@
 			</tr>
 		
     
-	<c:forEach var="categoryMenu" items="${categoryMenuList}">
+	<c:forEach var="cm" items="${categoryMenuList}">
 	
 		<tr>
-			<td>${categoryMenu.name}</td>
-			<td>${categoryMenu.company}</td>
-			<td>${categoryMenu.price}</td>
-			<td><input type="button" name="order" value="주 문" onclick="window.location='userOrderPro.do?order=${categoryMenu.name}'"/>	</td>
+			<td>${cm.name}</td>
+			<td>${cm.company}</td>
+			<td>${cm.price}</td>
+			<td><input type="button" name="order" value="주 문" onclick="window.location='userOrderPro.do?order=${cm.name}&l_key=${l_key}&name=${name}'"/>	</td>
 		</tr>
 		</c:forEach>
 		</table>
