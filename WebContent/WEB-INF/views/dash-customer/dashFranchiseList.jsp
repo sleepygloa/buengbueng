@@ -23,27 +23,27 @@
 		<span>
 		<c:out value="${number}"/>
 		</span>
-		<span><a href="franchiseContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
-		<c:if test="${dates[d] == today}">
-			<span class="label bg-warning">${alarm}</a></span>
-		</c:if>
+		<span><a href="dashFranchiseContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
 		<span>${list.writer}</span>
 		<span>${list.email}</span>
 		<span>${dates[d]}</span>
 		<span>${list.readcount}</span>
+		<c:if test="${dates[d] == today && list.re_step ==0}">
+			<span class="label bg-warning">${alarm}</a></span>
+		</c:if>
 </div>
 		<c:set var="number" value="${number-1}"/>
 		<c:set value="${d+1}" var="d" />
 </c:forEach>
 	
 	<c:if test="${startPage > 10}">
-        <a href="franchiseQA.do?snum=${snum}&pageNum=${ startPage - 10 }">[이전]</a>
+        <a href="dashFranchiseList.do?snum=${snum}&pageNum=${ startPage - 10 }">[이전]</a>
 	</c:if>
 	<c:forEach var="i" begin="${startPage}" end="${endPage}">
-		<a href="franchiseQA.do?snum=${snum}&pageNum=${i}">[${i}]</a>
+		<a href="dashFranchiseList.do?snum=${snum}&pageNum=${i}">[${i}]</a>
 	</c:forEach>
 	<c:if test="${endPage < pageCount}">
-    	<a href="franchiseQA.do?snum=${snum}&pageNum=${ startPage + 10 }">[다음]</a>
+    	<a href="dashFranchiseList.do?snum=${snum}&pageNum=${ startPage + 10 }">[다음]</a>
 	</c:if>
 </c:if>
 </div>

@@ -10,7 +10,7 @@
 <c:if test="${sessionScope.grade!=4}">
 	<script>alert("관리자 등급만 작성 가능"); history.go(-1);</script>
 </c:if>
-<div>Q & A</div>
+<div>자주 묻는 질문</div>
 <form action="customerPro.do" method="post" onsubmit="return customerCheck();" name="customer">
 <input type="hidden" name="pageNum" value="${pageNum}">
 <input type="hidden" name="snum" value="${snum}">

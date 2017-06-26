@@ -6,7 +6,7 @@
 <jsp:include page="userAdmin.jsp"/>
 
 <div align="center">
-	<form action="dashUserSearch.do" method="post" name="userSearch" onsubmit="return keywordCheck();">
+	<form action="dashUserSearch.do" method="get" name="userSearch" onsubmit="return keywordCheck();">
 		<input type="hidden" name="pageNum" value="${pageNum}">
 		<input type="text" name="keyword" placeholder="키워드 입력">
 		<input type="submit" value="회원 검색">

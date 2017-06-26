@@ -8,7 +8,7 @@ $(document).ready(function(){
 				b_key: b_key
 			},
 			success: function(data){
-				$(".rentDiv").html(data);
+				$("#rentDiv").html(data);
 			}
 		});
 	});
@@ -30,7 +30,7 @@ $(document).ready(function(){
 				b_key : b_key
 			},
 			success: function(data){
-				$(".rentDiv").html(data);
+				$("#rentDiv").html(data);
 			}
 		});
 	});
@@ -50,7 +50,7 @@ $(document).ready(function(){
 				b_key : b_key
 			},
 			success: function(data){
-				$(".rentDiv").html('');
+				$("#rentDiv").html('');
 			}
 		});
 	});
@@ -111,7 +111,7 @@ function modiRent(rentProduct,b_key){
 			b_key: b_key
 		},
 		success: function(data){
-			$(".rentDiv").html(data);
+			$("#rentDiv").html(data);
 		}
 	});
 }
@@ -124,7 +124,7 @@ function selectedproductList(rentProduct,b_key){
 			b_key: b_key
 		},
 		success: function(data){
-			$(".rentDiv").html(data);
+			$("#rentDiv").html(data);
 		}
 	});
 }
@@ -138,7 +138,7 @@ function modiRentProduct(rentCode,b_key){
 			b_key : b_key
 		},
 		success: function(data){
-			$(".rentDiv").html(data);
+			$("#rentDiv").html(data);
 		}
 	});
 }

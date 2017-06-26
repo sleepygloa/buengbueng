@@ -8,7 +8,7 @@
 function bossDel(){
 	if(confirm("정말 삭제하시겠습니까??") == true){    //확인
 		$.ajax({
-			url:"bossDelete.do",
+			url:"dashBoardDel.do",
 			type:"post",
 			data:{num:$("#num").val(),
 				snum:$("#snum").val(),
@@ -50,16 +50,14 @@ function bossDel(){
 	${dto.content}
 </div>
 <div>
-	<c:if test="${sessionScope.grade == 4 }">
 	<c:if test="${re_step == 1}">
 		<span>
 			<input type="button" value="답글쓰기" onclick=
-			"window.location='customerForm.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}'">
+			"window.location='dash.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}'">
 		</span>
 	</c:if>
 	<span><button onclick="return bossDel();">글삭제</button></span>
 	<span><input type="button" value="글수정" onclick="window.location='customerModify.do?snum=${dto.snum}&num=${dto.num}&pageNum=${pageNum}'"></span>
-	</c:if>
 	<span><input type="button" value="뒤로가기" onclick="window.location='customerQA.do?snum=${dto.snum}&pageNum=${pageNum}'"></span>
 </div>
 </div>

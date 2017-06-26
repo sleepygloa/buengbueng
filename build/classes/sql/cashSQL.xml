@@ -80,5 +80,13 @@
    	where a.id = #id# order by loginTime desc limit 0,1;
 		]]>
 	</select>
-	 
+	
+<!-- ========================================================================================================================================== -->
+	
+	<!-- 사용자 이용내역 추가 (usageHistory) -->
+	<insert id="addUsageHistory" parameterClass="historyDTO">
+		insert into usageHistory values(#idx#, #userId#, #userName#, #affiliateCode#, #usageTime#, #endTime#, #amountUsed#, #etc#, #businessName#, #bossId#);
+	</insert>
+
 </sqlMap>
+

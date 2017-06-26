@@ -1,4 +1,6 @@
 {
-	"count" : ${count},
-	"seatCon" : [${seatCon}]
+	"count" : "${count}",
+	"seatCon" : [${seatCon}],
+	"useSeatId" : [${useSeatId}],
+	"useSeatNum" : [${useSeatNum}]
 }

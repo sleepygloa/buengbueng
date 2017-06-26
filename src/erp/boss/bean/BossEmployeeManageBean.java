@@ -127,6 +127,10 @@ public class BossEmployeeManageBean {
 		//가맹점 키를 세션으로 받음
 		String b_key = (String)session.getAttribute("b_key");
 		
+		//////////////////////////////////////////
+		//b_key로 가맹점 이름 알바 정보에 입력
+		String b_name = (String)sqlMap.queryForObject("franchisee.getFranchiseeLogBkey",b_key);
+
 		int check = 0;
 		//로그인 하지 않았을때 그냥 폼은 보여주지만, 아무것도할수없다.
 		//////////////////////////////////////////
@@ -136,6 +140,7 @@ public class BossEmployeeManageBean {
 		
 		try{
 			beDTO.setB_key(b_key);
+			beDTO.setB_name(b_name);
 			//입력된 정보를 로그에 남겨줍니다.
 			//////////////////////////////////////
 			//사장님이 알바생아이디를 (숫자)만큼 신청함. 
@@ -153,7 +158,6 @@ public class BossEmployeeManageBean {
 	@RequestMapping("employeeAddAdminConfirm.do")
 	public String employeeAddAdminConfirm(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO){
 		
-	
 		int applyCount = beDTO.getApplyCount();
 		String b_id = beDTO.getB_id();
 		
@@ -170,13 +174,14 @@ public class BossEmployeeManageBean {
 			//없다면 없는 것이고, 있다면 있는 알바생아이디중 제일 큰 아이디의 마지막 번호만 가져온다.
 			if(sqlMap.queryForObject("erpEmp.getEmployeeId", b_id) != null){
 				beDTO2 = (BossEmployeeManageDataDTO)sqlMap.queryForObject("erpEmp.getEmployeeId", b_id);
-				 checkId = (beDTO2.getE_id().substring(8)); //아이디 제일 마지막 숫자만 출력한다.
+				 checkId = (beDTO2.getE_id()); //아이디 제일 마지막 숫자만 출력한다.
 				 checkIdInt = Integer.parseInt(checkId); //숫자를 인트로 형변환한다.
 			}
-				
-				//checkIdInt 가 겹치기 않게 +1을 한다.
-					checkIdInt += 1;
+
+	
+					
 				for(int i = 0; i < applyCount; i ++){
+					checkIdInt += 1; //checkIdInt 가 겹치기 않게 +1을 한다.
 						for(int j = 0; j < checkIdInt+1; j++){
 							String e_id = null;
 							e_id = "employee" + j;
@@ -340,7 +345,12 @@ public class BossEmployeeManageBean {
 		//세션 아이디를 페이지로전달
 		String b_id = (String)session.getAttribute("loginId");
 		model.addAttribute("b_id",b_id);
+		
+		//////////////////////////////////////////
+		//b_key로 가맹점 이름 알바 정보에 입력
+		String b_name = (String)sqlMap.queryForObject("franchisee.getFranchiseeLogBkey",beDto.getB_key());
 		beDto.setB_id(b_id);
+		beDto.setB_name(b_name);
 		int check = 0;
 		try{
 			sqlMap.insert("erpEmp.deleteIdLogAdd", beDto);

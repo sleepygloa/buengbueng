@@ -19,23 +19,9 @@ public class RentMaterialsBean {
 
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
-	
-	@RequestMapping("rentMain.do")
-	public String rentMain(HttpSession session, Model model){
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		
-		String id = (String)session.getAttribute("loginId");
-		ArrayList<BossInfoDataDTO> bdto = (ArrayList<BossInfoDataDTO>)sqlMap.queryForList("bossERP.getBossInfo", id);
-		model.addAttribute("franchisee", bdto);
-		return "/bossERP/rentMaterials/rentMain";
-	}
-	
+
 	@RequestMapping("rentManage.do")
-	public String rentManage(String b_key, Model model){
+	public String rentManage(HttpSession session, Model model){
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
 		int sidemenu = 3; //사이드메뉴의 내용을 선택
@@ -43,9 +29,9 @@ public class RentMaterialsBean {
 		model.addAttribute("sidemenu", sidemenu);
 		
 		try{
+			String b_key = (String)session.getAttribute("b_key");
 			ArrayList<RentDataDTO> rentList = (ArrayList)sqlMap.queryForList("rent.getRentAll", b_key);
 			model.addAttribute("rentList", rentList);
-			model.addAttribute("b_key", b_key);
 		}catch(Exception e){
 			/// 추후 수정
 		}

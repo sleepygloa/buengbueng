@@ -111,7 +111,7 @@ setInterval("autoRefresh2()", 3000);
                         </a>
                         </li>
                         <li>
-                            <a href="grid.html" class="rippler rippler-default">
+                            <a href="chatbotList.do" class="rippler rippler-default">
                             <i class="fa fa-th"></i>
                             <span class="menu-text">챗봇 관리</span>
                             <span class="selected"></span>
@@ -165,6 +165,29 @@ setInterval("autoRefresh2()", 3000);
                                 </li>
                             </ul>
                         </li>
+                                                <li class="mt-has-menu">
+                            <a href="javascript:void(0)">
+                            <i class="fa fa-pencil-square-o"></i>
+                            <span class="menu-text">신청 목록</span>
+                            <span class="selected"></span>
+                        </a>
+                            <ul class="mt-sub-menu">
+                                <li>
+                                    <a href="dashAgreeList.do?pageNum=1&pageNum1=1" class="rippler rippler-default">
+                                    <span class="menu-text">가맹 목록</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                            </ul>
+                            <ul class="mt-sub-menu">
+                                <li>
+                                    <a href="dashEmpAgreeList.do?pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">알바 목록</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="mt-has-menu">
                             <a href="javascript:void(0)" class="rippler rippler-default">
                             <i class="fa fa-table"></i>
@@ -197,8 +220,14 @@ setInterval("autoRefresh2()", 3000);
                                 </a>
                                 </li>
                                  <li>
-                                    <a href="dashNoReply.do?pageNum=1" class="rippler rippler-default">
-                                    <span class="menu-text">답변 대기중</span>
+                                    <a href="dashReply.do?pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">답변 대기중<span class="badge badge-danger m-left-xs ">${noReply}</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                                <li>
+                                    <a href="dashBoardSearch.do?pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">게시판 검색</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
