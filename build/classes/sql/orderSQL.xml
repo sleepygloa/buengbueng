@@ -96,6 +96,11 @@
 		select money from userAccount where id=#userId#;
 	</select>
 	
+	<!-- 사용자 주문창에 승인되지 않은 금액 가져오기. orderpro에서 사용. -->
+	<select id="getMenuOrderMoney" parameterClass="String" resultClass="int">
+		select ordermoney from menuOrder where orderstatus=1 and id=#id#;
+	</select>
+	
 	<!-- 메뉴 값 가져오기 -->
 	<select id="getOrderMoney" parameterClass="String" resultClass="int">
 		select distinct ordermoney from menuOrder where menuname=#name#;

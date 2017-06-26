@@ -67,16 +67,21 @@ public class MenuBean {
 	@RequestMapping("menu.do")
 	public String menuForm(MenuDTO mdto,HttpSession session,HttpServletRequest request){
 		try{
+			//사이드메뉴 템플릿
+			int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+			int sidemenu = 3; //사이드메뉴의 내용을 선택
+			request.setAttribute("sidemenuCheck", sidemenuCheck);
+			request.setAttribute("sidemenu", sidemenu);
+			
 			String l_key= (String)session.getAttribute("b_key");
-		if(l_key!=null || l_key!="가맹점 선택"){
-		List menuList= (List)sqlMap.queryForList("menu.getMenu",l_key);
-		request.setAttribute("menuList", menuList);
-		List categoryList =sqlMap.queryForList("menu.getCategory",l_key);
+			List menuList= (List)sqlMap.queryForList("menu.getMenu",l_key);
+			request.setAttribute("menuList", menuList);
+			
+			List categoryList =sqlMap.queryForList("menu.getCategory",l_key);
 			if(categoryList!=null){
 				request.setAttribute("categoryList",categoryList);
 				
 			}
-		}
 		request.setAttribute("l_key", l_key);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -89,6 +94,11 @@ public class MenuBean {
 	/* 메뉴추가 페이지 */
 	@RequestMapping("menuInsertForm.do")
 	public String menuInsertForm(HttpServletRequest request, String l_key){
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		request.setAttribute("sidemenuCheck", sidemenuCheck);
+		request.setAttribute("sidemenu", sidemenu);
 		
 		request.setAttribute("l_key", l_key);
 		return "/menu/menuInsertForm";
@@ -118,6 +128,13 @@ public class MenuBean {
 	
 	@RequestMapping("menuModify.do")
 	public String menuModify(HttpServletRequest request,String l_key,HttpSession session){
+
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		request.setAttribute("sidemenuCheck", sidemenuCheck);
+		request.setAttribute("sidemenu", sidemenu);
+		
 		String id=(String)session.getAttribute("loginId");
 
 		List menuList= (List)sqlMap.queryForList("menu.getMenu",l_key);
@@ -131,6 +148,11 @@ public class MenuBean {
 
 	@RequestMapping("menuModifyForm.do")
 	public String menuModifyForm(HttpServletRequest request,String l_key, MenuDTO mdto, HttpSession session){
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		request.setAttribute("sidemenuCheck", sidemenuCheck);
+		request.setAttribute("sidemenu", sidemenu);
 		
 		HashMap map=new HashMap();
 		map.put("name",mdto.getName());
@@ -167,6 +189,13 @@ public class MenuBean {
 	/* 메뉴삭제 페이지 */
 	@RequestMapping("menuDeleteForm.do")
 	public String menuDeleteForm(HttpServletRequest request, String l_key){
+		
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		request.setAttribute("sidemenuCheck", sidemenuCheck);
+		request.setAttribute("sidemenu", sidemenu);
+		
 		List menuList= sqlMap.queryForList("menu.getMenu",l_key);
 		request.setAttribute("menuList", menuList);
 		request.setAttribute("l_key",l_key);

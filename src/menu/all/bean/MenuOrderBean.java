@@ -4,6 +4,8 @@ import java.util.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,8 +82,9 @@ public class MenuOrderBean {
 		System.out.println("이름"+name+order);
 		int check;
 		int num;
+		int orderMoney = 0;
 		int orderstatus=1;
-		List menuOrderList;
+		List<OrderDTO> menuOrderList;
 		try{
 			HashMap map1 = new HashMap();
 			map1.put("order", order);
@@ -92,35 +95,53 @@ public class MenuOrderBean {
 			int price=(Integer)sqlMap.queryForObject("order.getPrice",map1);
 			String id = (String)session.getAttribute("loginId");
 			
+			// 사용자가 주문은 하고 아직 승인이 안됬을 때 그 금액도 현재잔액과 합해야함
+			List userOrderMoneyList = (List)sqlMap.queryForList("order.getMenuOrderMoney",id);
+			if(userOrderMoneyList!=null){
+				for(int i=0; i<userOrderMoneyList.size(); i++){
+					orderMoney=(int) userOrderMoneyList.get(i);
+				}
+			}
+			
 			int userMoney=(Integer)sqlMap.queryForObject("order.getUserMoney",id);
+			userMoney=userMoney-orderMoney; //현재 잔액에서 주문내역에들어간 주문승인이 안된 값을 빼주고 난 뒤에 주문가능.
+			
 			if(userMoney<price){
 				check=2;
 			}else{
 						
 			if(productsalecheck > menuorderstatus){ // 판매되지 않은 주문한 메뉴의 재고가 있을 시.
 			
-				menuOrderList=(List)sqlMap.queryForList("order.orderCount",l_key);
+				menuOrderList=(List<OrderDTO>)sqlMap.queryForList("order.orderCount",l_key);
+				
 				if(menuOrderList.size()==0){
-					num=1;
+					num=0;
+					System.out.println(num+"여기인가");
 				}else{
-
-					// 마지막 주문의 날짜 가져오기.
-					String lastOrdertime=(String)sqlMap.queryForObject("order.getLastOrder",l_key);
+					
 					
 					Date nowtime=new Date();
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					String nowTime = sdf.format(nowtime);
+					System.out.println(nowTime+"newtime");
 					
-					if(lastOrdertime!=nowTime){
-						num=0;
-					}else{
+					// 마지막 주문의 날짜 가져오기.
+					String lastOrdertime=(String)sqlMap.queryForObject("order.getLastOrder",l_key);
+					System.out.println(lastOrdertime +"ordertime");
+			
+					if(lastOrdertime.equals(nowTime)){ 
 						OrderDTO odto=(OrderDTO) menuOrderList.get(0);
 						num=odto.getNum();
-						System.out.println(num);
+						System.out.println(num+"넌아닐거같아");
+						
+					}else{
+						num=0;
+						System.out.println(num+"이곳인가");
 					}
 
 				}
-				num=num+1;					
+				num=num+1;		
+				System.out.println("더해졌니"+num);
 				
 				HashMap map=new HashMap();
 				map.put("num",num);
@@ -185,6 +206,12 @@ public class MenuOrderBean {
 	@RequestMapping("menuOrderListForm.do")
 	public String menuOrderListForm(HttpSession session,HttpServletRequest request){
 		try{
+			//사이드메뉴 템플릿
+			int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+			int sidemenu = 3; //사이드메뉴의 내용을 선택
+			request.setAttribute("sidemenuCheck", sidemenuCheck);
+			request.setAttribute("sidemenu", sidemenu);
+			
 			String l_key=(String)session.getAttribute("b_key");
 			List orderList = (List)sqlMap.queryForList("order.getMenuOrder", l_key);
 			request.setAttribute("orderList", orderList);
@@ -197,7 +224,12 @@ public class MenuOrderBean {
 	/* 주문승인버튼 누른 후 바코드 확인하기*/
 	@RequestMapping("menuBarcodeCheck.do")
 	public String menuBarcodeCheck(HttpServletRequest request,String menuname, int num, String l_key){
-		System.out.println("menuBarcodeCheck"+l_key);
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		request.setAttribute("sidemenuCheck", sidemenuCheck);
+		request.setAttribute("sidemenu", sidemenu);
+	
 		request.setAttribute("name",menuname);
 		request.setAttribute("num",num);
 		request.setAttribute("l_key",l_key);

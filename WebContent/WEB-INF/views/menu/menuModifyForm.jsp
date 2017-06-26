@@ -10,6 +10,9 @@
     
     
     <body>
+    
+    <!-- HEADER TEMPLATE -->
+	<jsp:include page="/WEB-INF/views/header.jsp" />
     	<div>
     	<form action="menuModifyPro.do" method="post" onsubmit="return menuModify()">
     		<table>					
@@ -39,5 +42,9 @@
     			</tr>    		
     		</table>
     		</form>
+    	</div>
+    	
+    	<div>
+    	<button onclick="window.location='menuModify.do?l_key=${l_key}'">수정창 전체보기로 돌아가기</button> 
     	</div>
     </body>

@@ -27,6 +27,12 @@ public class ProductBean {
 	@RequestMapping("product.do")
 	public String productForm(HttpServletRequest request, HttpSession session){
 		try{
+			//사이드메뉴 템플릿
+			int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+			int sidemenu = 3; //사이드메뉴의 내용을 선택
+			request.setAttribute("sidemenuCheck", sidemenuCheck);
+			request.setAttribute("sidemenu", sidemenu);
+			
 		String l_key=(String)session.getAttribute("b_key");
 		List productList=sqlMap.queryForList("menu.getProduct",l_key);
 		request.setAttribute("productList",productList);
@@ -38,6 +44,13 @@ public class ProductBean {
 	/* 재고추가 페이지*/
 	@RequestMapping("productInsertForm.do")
 	public String productInsertForm(HttpServletRequest request, String l_key){
+		
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		request.setAttribute("sidemenuCheck", sidemenuCheck);
+		request.setAttribute("sidemenu", sidemenu);
+		
 		List nameList = sqlMap.queryForList("menu.productName",l_key);
 		request.setAttribute("nameList",nameList);
 		request.setAttribute("l_key", l_key);
@@ -75,6 +88,13 @@ public class ProductBean {
 	/* 재고수정 페이지*/
 	@RequestMapping("productModify.do")
 	public String productModify(HttpServletRequest request, String l_key){
+		
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		request.setAttribute("sidemenuCheck", sidemenuCheck);
+		request.setAttribute("sidemenu", sidemenu);
+		
 		List productList=sqlMap.queryForList("menu.getProduct",l_key);
 		request.setAttribute("productList",productList);
 		request.setAttribute("l_key", l_key);
@@ -86,6 +106,12 @@ public class ProductBean {
 	public String productModifyForm(HttpServletRequest request,String code, String l_key){
 		try{
 
+			//사이드메뉴 템플릿
+			int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+			int sidemenu = 3; //사이드메뉴의 내용을 선택
+			request.setAttribute("sidemenuCheck", sidemenuCheck);
+			request.setAttribute("sidemenu", sidemenu);
+			
 			HashMap map = new HashMap();
 			map.put("code",code);
 			map.put("l_key", l_key);
@@ -149,6 +175,13 @@ public class ProductBean {
 	
 	@RequestMapping("productDeleteForm.do")
 	public String productDeleteForm(HttpServletRequest request, String l_key){
+		
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		request.setAttribute("sidemenuCheck", sidemenuCheck);
+		request.setAttribute("sidemenu", sidemenu);
+		
 		List productList=sqlMap.queryForList("menu.getProduct",l_key);
 		request.setAttribute("productList",productList);
 		request.setAttribute("l_key", l_key);

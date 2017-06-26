@@ -12,6 +12,10 @@
     
     
     <body>
+    
+    <!-- HEADER TEMPLATE -->
+	<jsp:include page="/WEB-INF/views/header.jsp" />
+    
     	<div>
     	<form action="productInsertPro.do" method="post" name="productInsertForm" onsubmit="return menuInsert()">
     		<table>					
@@ -44,4 +48,9 @@
     		</table>
     		</form>
     	</div>
+    	
+    	<div>
+    	<button onclick="window.location='product.do?l_key=${l_key}'">돌아가기</button> 
+    	</div>
+    	
     </body>

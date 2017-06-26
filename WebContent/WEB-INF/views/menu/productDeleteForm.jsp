@@ -8,6 +8,11 @@
 </head>
 
 <body>
+
+    <!-- HEADER TEMPLATE -->
+	<jsp:include page="/WEB-INF/views/header.jsp" />
+    
+
 <div>
 <form action="productDeletePro.do" method="post" onsubmit="return menuDelete()">
 <table>
@@ -29,6 +34,6 @@
 </form>
 </div>
 <div>
-	<button onclick="window.location='product.do?l_key=${l_key}'">메뉴로 돌아가기</button>
+	<button onclick="window.location='product.do?l_key=${l_key}'">돌아가기</button>
 </div>
 </body>

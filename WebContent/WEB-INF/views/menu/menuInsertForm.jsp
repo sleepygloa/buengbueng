@@ -11,6 +11,10 @@
     
     
     <body>
+    
+    <!-- HEADER TEMPLATE -->
+	<jsp:include page="/WEB-INF/views/header.jsp" />
+    
     	<div>
     	<form action="menuInsertPro.do" method="post" onsubmit="return menuInsert()">
     		<table>					
@@ -33,14 +37,17 @@
     			<td>제품가격</td>
     			<td><input type="text" name="price" placeholder="제품가격 입력"></td>
     			</tr>
-    			<tr><td><input type="submit" value="추 가" onclick=여기여기/>
+    			<tr><td><input type="submit" value="추 가" />
     					<input type="hidden" name="l_key" value="${l_key}">
     					
     			</td>
-    			</tr>
-    			<tr><td><button onclick="window.location='menu.do?l_key=${l_key}'">메뉴로 돌아가기</button> </td></tr> 
-    					  		
+    			</tr>    					  		
     		</table>
     		</form>
     	</div>
+    	
+    	<div>
+    	<button onclick="window.location='menu.do?l_key=${l_key}'">메뉴로 돌아가기</button> 
+    	</div>
+    	
     </body>

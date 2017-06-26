@@ -11,6 +11,10 @@
     
     <body>
     
+    <!-- HEADER TEMPLATE -->
+	<jsp:include page="/WEB-INF/views/header.jsp" />
+    
+    
     <div>주문현황 리스트</div>
     <div>
 
