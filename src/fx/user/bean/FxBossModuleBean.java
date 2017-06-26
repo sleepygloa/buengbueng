@@ -19,10 +19,17 @@ public class FxBossModuleBean {
 	private SqlMapClientTemplate sqlMap;
 	
 	@RequestMapping("fxGetModule.do")
-	public String fxGetModule(FranchiseeModuleDataDTO fdto, String change, Model model){
+	public String fxGetModule(FranchiseeModuleDataDTO fdto, int grade, String change, Model model){
 		try{
+			if(grade == 2){
+				String bossId = (String)sqlMap.queryForObject("module.getBossId", fdto.getB_id());
+				fdto.setB_id(bossId);
+			}
+			
 			ArrayList<String> getN = (ArrayList<String>)sqlMap.queryForList("module.getModuleNames",fdto.getB_id());
 			StringBuffer name = new StringBuffer();
+			StringBuffer module = new StringBuffer();
+			StringBuffer menu = new StringBuffer();
 			for(int i=0; i<getN.size(); i++){
 				name.append("\""+getN.get(i)+"\"");
 				if(i!=getN.size()-1){
@@ -34,20 +41,28 @@ public class FxBossModuleBean {
 			FranchiseeModuleDataDTO dto = null;
 			if(fdto.getM_name() == null){
 				dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModule",fdto.getB_id());
+				if(grade == 2){
+					module.append(dto.getModule().substring(0, dto.getModule().length()-2));
+					int last = dto.getMenu().indexOf(",\"option\"");
+					menu.append(dto.getMenu().substring(0, last));
+				}else{
+					module.append(dto.getModule());
+					menu.append(dto.getMenu());
+				}
 			}else if(fdto.getM_name() != null && change == null){
 				dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModuleForName",fdto);
-
+				module.append(dto.getModule().substring(0, dto.getModule().length()-2));
+				int last = dto.getMenu().indexOf(",\"option\"");
+				menu.append(dto.getMenu().substring(0, last));
 			}else{
 				sqlMap.update("module.setModuleFalse", fdto);
 				fdto.setM_name(change);
 				sqlMap.update("module.changeModule", fdto);
 				dto = (FranchiseeModuleDataDTO)sqlMap.queryForObject("module.getModuleForName",fdto);
+				module.append(dto.getModule());
+				menu.append(dto.getMenu());
 			}
-			StringBuffer module = new StringBuffer();
-			module.append(dto.getModule());
 			model.addAttribute("module", module.toString());
-			StringBuffer menu = new StringBuffer();
-			menu.append(dto.getMenu());
 			model.addAttribute("menu", menu.toString());
 			
 		}catch(Exception e){
@@ -59,7 +74,8 @@ public class FxBossModuleBean {
 	@RequestMapping("fxSetModule.do")
 	public String fxSetModule(Model model){
 		ModuleDataDTO moduleName = (ModuleDataDTO)sqlMap.queryForObject("module.getOfferMenu", null);
-		model.addAttribute("moduleName", moduleName.getModuleName());
+		int last = moduleName.getModuleName().indexOf(",\"option\"");
+		model.addAttribute("moduleName", moduleName.getModuleName().substring(0, last));
 		return "/fxBossModule/fxSetModule";
 	}
 	

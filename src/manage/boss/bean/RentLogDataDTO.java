@@ -8,6 +8,7 @@ public class RentLogDataDTO {
 	private String b_key;
 	private String name;
 	private String id;
+	private int pcNum;
 	private Timestamp rentdate;
 	private Timestamp returndate;
 	
@@ -31,6 +32,12 @@ public class RentLogDataDTO {
 	}
 	public String getId() {
 		return id;
+	}
+	public int getPcNum() {
+		return pcNum;
+	}
+	public void setPcNum(int pcNum) {
+		this.pcNum = pcNum;
 	}
 	public void setId(String id) {
 		this.id = id;

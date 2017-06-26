@@ -1,6 +1,6 @@
 {
 	"id" : "${result}",
-	"point" : "10000"
+	"point" : "${money}"
 	"grade" : "${grade}",
 	"loginTime" "${loginTime}"
 	"pcNum": "${pcNum}"

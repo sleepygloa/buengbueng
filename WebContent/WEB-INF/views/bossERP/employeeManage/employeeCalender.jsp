@@ -223,6 +223,7 @@ $(document).ready(function() {
 			window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
 	 		"width=450, height=300,status=no,toolbar=no,directories=no,location=no,scrollbars=no, resizable=no")
    		  },
+<<<<<<< HEAD
 //////////////////////////////////////////////////////////////////////////////////////////
    		  eventDragStart: function(event, eventDropF){
    			dragPlanStart = event.start.format();
@@ -236,6 +237,42 @@ $(document).ready(function() {
 			"<div><label class=\"toast-title\">"+event.title+"님!</label><span class=\"toast-message\">일정을  ["+dragPlanStart+" ~ "+dragPlanEnd+"] 에서   ["+event.start.format()+" ~ "+event.end.format()+"] 로 변경하겠습니까?</div> <div><button class=\"ghost-btn\" onClick=\"revert()\">닫기</button></div><div><button class=\"ghost-btn\" "+
 					"onClick=\"moveConfirm(\'{&quot;dragPlanStart&quot;:&quot;"+dragPlanStart+"&quot;,&quot;dragPlanEnd&quot;:&quot;"+dragPlanEnd+"&quot;,&quot;start&quot;:&quot;"+event.start.format()+"&quot;,&quot;end&quot;:&quot;"+event.end.format()+"&quot;}\')\">확인</button></div> ");
 			showToast(toasts); // 추가
+=======
+   	    eventDrop: function(event, delta, revertFunc) {
+   	    	
+   	    	revert = revertFunc; // 추가
+   	    	
+			var toasts = new Toast('info','toast-top-full-width',
+			'<div><label class="toast-title">'+event.title+'님!</label><span class="toast-message">일정을  '+event.start.format()+' 로 변경하겠습니까?</div> <div><button class="ghost-btn" onClick="revert()">닫기</button></div><div><button class="ghost-btn">확인</button></div> ');
+
+   	     	function Toast(type, css, msg){
+				this.type = type;
+				this.css = css;
+				this.msg = msg 
+			}
+			
+		    toastr.options.positionClass = 'toast-top-full-width';
+		    toastr.options.extendedTimeOut = 0; //1000;
+		    toastr.options.timeOut = 0;
+		    toastr.options.fadeOut = 250;
+		    toastr.options.fadeIn = 250;
+		     /* toastr.options.tapToDismiss = false; */ 
+		    toastr.options.preventDuplicates=true;
+		    
+		    function delayToasts() {
+		        var delay = 0;
+		        window.setTimeout(function () { showToast(); }, delay);
+		    }
+
+		    function showToast() {
+		        var t = toasts;
+		        toastr.options.positionClass = t.css;
+		        toastr[t.type](t.msg);
+		    }
+		    
+		    delayToasts(); // 추가
+
+>>>>>>> KO
    	    },
    		  editable:true,
    		  eventLimit:true,

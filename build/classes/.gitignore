@@ -1,9 +1,18 @@
 /erp/
+<<<<<<< HEAD
 /sql/
 /config/
 /pc/
 /pcRoom/
 /payment/
+=======
+/index/
+/login/
+/menu/
+/payment/
+/pc/
+/pcRoom/
+>>>>>>> KO
 /superclass/
 /sql/
 /menu/
