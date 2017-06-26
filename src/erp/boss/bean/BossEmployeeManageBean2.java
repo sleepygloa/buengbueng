@@ -211,18 +211,24 @@ public class BossEmployeeManageBean2 {
 			
 			JSONObject JObject = (JSONObject)Jparser.parse(date);
 			String start = (String)JObject.get("start");
-			String end =  (String)JObject.get("end");		
+			String end =  (String)JObject.get("end");
+			String dragPlanStart = (String)JObject.get("dragPlanStart");
+			String dragPlanEnd =  (String)JObject.get("dragPlanEnd");
+			
+			System.out.println(dragPlanStart);
 			
 			HashMap map = new HashMap();
 			map.put("e_id", e_id);
 			map.put("start", start);
 			map.put("end", end);
 			map.put("b_key", b_key);
+			map.put("dragPlanStart", dragPlanStart);
+			map.put("dragPlanEnd", dragPlanEnd);
+			
+			
 			
 			sqlMap.insert("erpEmp.calenderUpdateTimeLog", map); //근무시간 변경 로그남김
 			sqlMap.update("erpEmp.calenderUpdateTime", map); //근무시간 변경
-			System.out.println("start: "+start);
-			System.out.println("end: "+end);
 		
 		}catch(Exception e){
 			e.printStackTrace();

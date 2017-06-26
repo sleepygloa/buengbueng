@@ -70,6 +70,9 @@ function revert(){} // 추가
    		  var m = date.getMonth();
    		  var y = date.getFullYear();
    		  
+			var dragPlanStart = 0;
+			var dragPlanEnd = 0;
+   		  
    		  getEvent();
    		});
    		
@@ -128,13 +131,18 @@ function revert(){} // 추가
 			window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
 	 		"width=450, height=300,status=no,toolbar=no,directories=no,location=no,scrollbars=no, resizable=no")
    		  },
+   		eventDragStart: function(event, eventDropF){
+   			dragPlanStart = event.start.format();
+   			dragPlanEnd = event.end.format();
+   		},
+
    	    eventDrop: function(event, delta, revertFunc, delayToasts) {
 
    			revert = revertFunc; // 추가
 
 		var toasts = new Toast('info','toast-top-full-width',
-		"<div><label class=\"toast-title\">"+event.title+"님!</label><span class=\"toast-message\">일정을  ["+event.start.format()+" ~ "+event.end.format()+"] 로 변경하겠습니까?</div> <div><button class=\"ghost-btn\" onClick=\"revert()\">닫기</button></div><div><button class=\"ghost-btn\" "+
-				"onClick=\"moveConfirm(\'{&quot;start&quot;:&quot;"+event.start.format()+"&quot;,&quot;end&quot;:&quot;"+event.end.format()+"&quot;}\')\">확인</button></div> ");
+		"<div><label class=\"toast-title\">"+event.title+"님!</label><span class=\"toast-message\">일정을  ["+dragPlanStart+" ~ "+dragPlanEnd+"] 에서   ["+event.start.format()+" ~ "+event.end.format()+"] 로 변경하겠습니까?</div> <div><button class=\"ghost-btn\" onClick=\"revert()\">닫기</button></div><div><button class=\"ghost-btn\" "+
+				"onClick=\"moveConfirm(\'{&quot;dragPlanStart&quot;:&quot;"+dragPlanStart+"&quot;,&quot;dragPlanEnd&quot;:&quot;"+dragPlanEnd+"&quot;,&quot;start&quot;:&quot;"+event.start.format()+"&quot;,&quot;end&quot;:&quot;"+event.end.format()+"&quot;}\')\">확인</button></div> ");
    			
    	     function Toast(type, css, msg){
 				this.type = type;
@@ -144,7 +152,7 @@ function revert(){} // 추가
 			
 		    toastr.options.positionClass = 'toast-top-full-width';
 		    toastr.options.extendedTimeOut = 0; //1000;
-		    toastr.options.timeOut = 5000;
+		    toastr.options.timeOut = 10000;
 		    toastr.options.fadeOut = 250;
 		    toastr.options.fadeIn = 250;
 		    toastr.options.preventDuplicates=true;

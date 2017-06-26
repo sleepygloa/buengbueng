@@ -9536,7 +9536,7 @@ var View = FC.View = Model.extend({
 		this.stopListeningTo(this.calendar, 'eventsReset');
 	},
 
-
+//seonho
 	setEvents: function(events) {
 		this.set('currentEvents', events);
 		this.set('hasEvents', true);
