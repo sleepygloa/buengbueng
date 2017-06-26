@@ -171,7 +171,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 
 		model.addAttribute("dto", dto);
 
-			return  "/bosspcuse/franchiseeInfo";
+			return  "/dash-Agree/dashFranchiseInfo";
 		}
 	// 관리자 페이지 가맹점 삭제
 	@RequestMapping("dashAgreeDelete.do")
@@ -241,15 +241,18 @@ public class dashAllManagementBean extends BoardMethodBean{
 		//////////////////////////////////////////////
 		///임시로 추가함
 		List list = new ArrayList();
-		list = (List)sqlMap.queryForList("erpEmp.getEmployeeAddLog",map);
+		list = (List)sqlMap.queryForList("erpEmp.getEmployeeAddLog",map); // 알바생 신청 목록
 		request.setAttribute("list",list);
-
+		int count1 = (Integer)sqlMap.queryForObject("erpEmp.getEmployeeAddLogCount", map); // 알바생 신청 목록 카운트
 		//////////////////////////////////////////////
 		//알바생 아이디정보를 리스트로 불러옴, 파트 
 		List list2 = new ArrayList();
 		list2 = (List)sqlMap.queryForList("erpEmp.getEmployeeDeleteList", map);
 		request.setAttribute("list2",list2);
+		int count2 = (Integer)sqlMap.queryForObject("erpEmp.getEmployeeDeleteListCount", map);
 		
+		request.setAttribute("count1", count1);
+		request.setAttribute("count2", count2);
 		request.setAttribute("b_name",b_name);
 		return "/dash-Agree/dashEmpAgreeBlank";
 	}
@@ -258,7 +261,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 	@RequestMapping("dashEmployeeAddAdminConfirm.do")
 	public String employeeAddAdminConfirm(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO){
 		
-	
+		
 		int applyCount = beDTO.getApplyCount();
 		String b_id = beDTO.getB_id();
 		
@@ -275,13 +278,13 @@ public class dashAllManagementBean extends BoardMethodBean{
 			//없다면 없는 것이고, 있다면 있는 알바생아이디중 제일 큰 아이디의 마지막 번호만 가져온다.
 			if(sqlMap.queryForObject("erpEmp.getEmployeeId", b_id) != null){
 				beDTO2 = (BossEmployeeManageDataDTO)sqlMap.queryForObject("erpEmp.getEmployeeId", b_id);
-				 checkId = (beDTO2.getE_id().substring(8)); //아이디 제일 마지막 숫자만 출력한다.
+				 checkId = (beDTO2.getE_id()); //아이디 제일 마지막 숫자만 출력한다.
 				 checkIdInt = Integer.parseInt(checkId); //숫자를 인트로 형변환한다.
 			}
 				
-				//checkIdInt 가 겹치기 않게 +1을 한다.
-					checkIdInt += 1;
 				for(int i = 0; i < applyCount; i ++){
+					//checkIdInt 가 겹치기 않게 +1을 한다.
+					checkIdInt += 1;
 						for(int j = 0; j < checkIdInt+1; j++){
 							String e_id = null;
 							e_id = "employee" + j;

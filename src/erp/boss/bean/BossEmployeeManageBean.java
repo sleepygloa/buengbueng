@@ -181,7 +181,6 @@ public class BossEmployeeManageBean {
 	@RequestMapping("employeeAddAdminConfirm.do")
 	public String employeeAddAdminConfirm(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO){
 		
-	
 		int applyCount = beDTO.getApplyCount();
 		String b_id = beDTO.getB_id();
 		
@@ -198,13 +197,14 @@ public class BossEmployeeManageBean {
 			//없다면 없는 것이고, 있다면 있는 알바생아이디중 제일 큰 아이디의 마지막 번호만 가져온다.
 			if(sqlMap.queryForObject("erpEmp.getEmployeeId", b_id) != null){
 				beDTO2 = (BossEmployeeManageDataDTO)sqlMap.queryForObject("erpEmp.getEmployeeId", b_id);
-				 checkId = (beDTO2.getE_id().substring(8)); //아이디 제일 마지막 숫자만 출력한다.
+				 checkId = (beDTO2.getE_id()); //아이디 제일 마지막 숫자만 출력한다.
 				 checkIdInt = Integer.parseInt(checkId); //숫자를 인트로 형변환한다.
 			}
-				
-				//checkIdInt 가 겹치기 않게 +1을 한다.
-					checkIdInt += 1;
+
+	
+					
 				for(int i = 0; i < applyCount; i ++){
+					checkIdInt += 1; //checkIdInt 가 겹치기 않게 +1을 한다.
 						for(int j = 0; j < checkIdInt+1; j++){
 							String e_id = null;
 							e_id = "employee" + j;

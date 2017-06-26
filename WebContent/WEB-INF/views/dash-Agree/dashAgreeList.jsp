@@ -5,7 +5,7 @@
 <script type="text/javascript">
 	function getInfo(b_name){
 		var b_name = b_name;
-		window.open("dashAgreeInfo.do?b_name="+b_name, "가맹점 정보", "width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
+		window.open("dashAgreeInfo.do?b_name="+b_name, "가맹점 정보", "width=800, height=160, toolbar=no, menubar=no, scrollbars=no, resizable=no" ); 
 	}
 </script>
 <div>
@@ -15,7 +15,7 @@
 		<p class="tool__section__desc">
 			<c:if test="${article.result == 0}">
 				<input class="btn" type="button" value="승인대기중"
-				onclick="window.location='dashfranchiseeConfirm.do?num=${article.num}&b_name=${article.b_name}'" /> 
+				onclick="window.location='dashfranchiseeConfirm.do?num=${article.num}&b_name=${article.b_name}&pageNum1=${pageNum1}'" /> 
 			</c:if>
 			<c:if test="${article.result == 1}">
 				<input class="btn" type="button" value="승인완료" /> 
