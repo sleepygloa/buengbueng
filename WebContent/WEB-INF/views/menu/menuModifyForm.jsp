@@ -5,12 +5,16 @@
     <head>
     <title>메 뉴 수 정</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
     </head>
     
     
     <body>
+    
+    <!-- HEADER TEMPLATE -->
+	<jsp:include page="/WEB-INF/views/header.jsp" />
     	<div>
-    	<form action="menuModifyPro.do" method="post">
+    	<form action="menuModifyPro.do" method="post" onsubmit="return menuModify()">
     		<table>					
     			<tr>	
     			<td>카테고리</td>
@@ -38,5 +42,9 @@
     			</tr>    		
     		</table>
     		</form>
+    	</div>
+    	
+    	<div>
+    	<button onclick="window.location='menuModify.do?l_key=${l_key}'">수정창 전체보기로 돌아가기</button> 
     	</div>
     </body>

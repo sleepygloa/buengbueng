@@ -65,28 +65,41 @@ public class MenuBean {
 	
 	// menu 메인 페이지 이동
 	@RequestMapping("menu.do")
-	public String menuForm(MenuDTO mdto,String name,String l_key, HttpServletRequest request){
+	public String menuForm(MenuDTO mdto,HttpSession session,HttpServletRequest request){
 		try{
-		if(l_key!=null){
-		List menuList= (List)sqlMap.queryForList("menu.getMenu",l_key);
-		request.setAttribute("menuList", menuList);
-		List categoryList =sqlMap.queryForList("menu.getCategory",l_key);
+			//사이드메뉴 템플릿
+			int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+			int sidemenu = 3; //사이드메뉴의 내용을 선택
+			request.setAttribute("sidemenuCheck", sidemenuCheck);
+			request.setAttribute("sidemenu", sidemenu);
+			
+			String l_key= (String)session.getAttribute("b_key");
+			List menuList= (List)sqlMap.queryForList("menu.getMenu",l_key);
+			request.setAttribute("menuList", menuList);
+			
+			List categoryList =sqlMap.queryForList("menu.getCategory",l_key);
 			if(categoryList!=null){
 				request.setAttribute("categoryList",categoryList);
+				
 			}
-		}
+		request.setAttribute("l_key", l_key);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		request.setAttribute("name",name);
-		request.setAttribute("l_key",l_key);
+		
+		
 		return "/menu/menuForm";
 	}
 	
 	/* 메뉴추가 페이지 */
 	@RequestMapping("menuInsertForm.do")
-	public String menuInsertForm(HttpServletRequest request, String l_key, String name){
-		request.setAttribute("name",name);
+	public String menuInsertForm(HttpServletRequest request, String l_key){
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		request.setAttribute("sidemenuCheck", sidemenuCheck);
+		request.setAttribute("sidemenu", sidemenu);
+		
 		request.setAttribute("l_key", l_key);
 		return "/menu/menuInsertForm";
 	}
@@ -114,13 +127,20 @@ public class MenuBean {
 	/* 메뉴수정 페이지 */
 	
 	@RequestMapping("menuModify.do")
-	public String menuModify(HttpServletRequest request,String l_key,String name,HttpSession session){
+	public String menuModify(HttpServletRequest request,String l_key,HttpSession session){
+
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		request.setAttribute("sidemenuCheck", sidemenuCheck);
+		request.setAttribute("sidemenu", sidemenu);
+		
 		String id=(String)session.getAttribute("loginId");
 
 		List menuList= (List)sqlMap.queryForList("menu.getMenu",l_key);
 		request.setAttribute("menuList", menuList);
 		request.setAttribute("l_key",l_key);
-		request.setAttribute("name",name);
+		
 		
 		
 		return "/menu/menuModify";
@@ -128,6 +148,11 @@ public class MenuBean {
 
 	@RequestMapping("menuModifyForm.do")
 	public String menuModifyForm(HttpServletRequest request,String l_key, MenuDTO mdto, HttpSession session){
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		request.setAttribute("sidemenuCheck", sidemenuCheck);
+		request.setAttribute("sidemenu", sidemenu);
 		
 		HashMap map=new HashMap();
 		map.put("name",mdto.getName());
@@ -164,6 +189,13 @@ public class MenuBean {
 	/* 메뉴삭제 페이지 */
 	@RequestMapping("menuDeleteForm.do")
 	public String menuDeleteForm(HttpServletRequest request, String l_key){
+		
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		request.setAttribute("sidemenuCheck", sidemenuCheck);
+		request.setAttribute("sidemenu", sidemenu);
+		
 		List menuList= sqlMap.queryForList("menu.getMenu",l_key);
 		request.setAttribute("menuList", menuList);
 		request.setAttribute("l_key",l_key);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.Synthesizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
@@ -51,8 +52,10 @@ public class UserSearchPCBean {
 		model.addAttribute("sidemenu", sidemenu);
 	
 		String address = (String)sqlMap.queryForObject("test.getUserAddr", id);
+
 		String[] spl = address.split(" ");
 		String addr = spl[2].substring(0, spl[2].length()-1);
+		
 		model.addAttribute("addr", addr);
 		return "/pcRoom/searchPCNear";
 	}
