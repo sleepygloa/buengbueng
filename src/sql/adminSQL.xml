@@ -16,7 +16,7 @@
 	
 	<!-- 검색된 회원 수-->
 	<select id="userSearch" parameterClass="String" resultClass="int">
-		select count(*) from userInfo where 
+		select count(*) from (select * from userInfo where grade not in (select grade from userInfo where grade=2))a where 
 		id like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
 		name like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
 		phone like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
@@ -28,7 +28,7 @@
 	
 	<!-- 회원 검색 리스트-->
 	<select id="userSearchList" parameterClass="java.util.HashMap" resultClass="userDto">
-		select * from userInfo where 
+		select * from (select * from userInfo where grade not in (select grade from userInfo where grade=2))a where 
 		id like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
 		name like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
 		phone like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
