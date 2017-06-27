@@ -93,17 +93,20 @@ public class FxLoginBean {
 			map.put("key", key);
 			int pcNum = 0;
 			int money = 0;
+			String bossIP  = null;
 			if(info.getGrade() == 3){
 				pcNum = (Integer)sqlMap.queryForObject("bossERP.getPcNum", map);
 				modifySeatState(key, pcNum, "1");
 				UserAccountDTO uadto = (UserAccountDTO)sqlMap.queryForObject("cash.getUserAccount", info.getId());
 				money = uadto.getMoney();
+				bossIP = (String)sqlMap.queryForObject("bossERP.getBossIP", key);
 			}
 			model.addAttribute("result", info.getId());
 			model.addAttribute("money", money);
 			model.addAttribute("grade", info.getGrade());
 			model.addAttribute("loginTime", udto.getLoginTime());
 			model.addAttribute("pcNum", pcNum);
+			model.addAttribute("bossIP", bossIP);
 		}else{
 			model.addAttribute("result", "fail");
 		}
