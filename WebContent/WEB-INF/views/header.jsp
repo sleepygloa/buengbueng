@@ -17,18 +17,26 @@
 		<!-- <link rel="shortcut icon" type="image/png" href="img/favicon/beuLogo.ico"/> -->
 
 		<!-- CSS RESET -->
-    	<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/style_v2.css">
+    	<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/style_v2.css" />
 		<!-- INDEX CSS 2 -->    
-        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css">
-        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap-theme.min.css" />
 		<link rel="stylesheet" type="text/css"  href="/buengbueng/css/reset.css"> 
 	
 		<!-- main -->
-		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/sidemain_main.css">
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/sidemain_main.css" />
 		<!-- 구글 MATERIAL ICON -->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 		
+		<!-- 알람 toast API CSS -->
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/toast/toast.css" />
+		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		
+		<!-- 알람 toast API JS 임시 -->
+		<script src="/buengbueng/css/toast/toast.js"></script>
+	
 
 		
 		<!-- 홈페이지 제목 -->
@@ -149,8 +157,8 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
-								<div class="product__item col-sm-12-12">
-									<a href="">
+								<div class="menu_menu col-sm-6-12">
+									<a href="favoritePCRoom.do">
 										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">즐겨찾는 PC방</h6>
@@ -300,7 +308,7 @@
 									<a href="customerQA.do?snum=2&pageNum=1">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
-											<h6 class="menu_name minor-minor">Q & A</h6>
+											<h6 class="menu_name minor-minor">자주 묻는 질문</h6>
 											<p class="menu_desc">자주 물어보는 질문들 여기로</p>
 										</span>
 									</a>
@@ -328,12 +336,16 @@
                   <li class="item sign"><a href="/buengbueng/logout.do">로그아웃</a></li>
                   <li class="item sign"><a href="/buengbueng/userInfoForm.do">회원 정보보기</a></li>
                   <li class="item sign"><a href="#">${sessionScope.loginId}님 환영해요</a></li>
+                  <c:if test="${sessionScope.grade!=4}" >
+                  	<li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
+                  </c:if>
                </c:if>
 
                <c:if test="${sessionScope.loginId == null}" >
                   <li class="item sign"><a href="/buengbueng/userInfoSignForm.do">회원가입</a></li>
                   <li class="item sign"><a href="">비밀번호찾기</a></li>
                   <li class="item sign"><a href="/buengbueng/loginForm.do">로그인</a></li>
+                  <li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
                </c:if>
                
                <c:if test="${sessionScope.grade==4}" >

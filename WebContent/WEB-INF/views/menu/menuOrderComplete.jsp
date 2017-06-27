@@ -1,12 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-</body>
-</html>
+<script type="text/javascript">
+	function succ(check, url){
+		alert(check);
+		window.location=url;
+	}
+</script>
+
+
+<c:if test="${check==1}">
+	<body onload="succ('${name}이(가) 주문승인되었습니다.','menuOrderListForm.do?l_key=${l_key}')" />
+</c:if>
+
+<c:if test="${check==0}">
+	<body onload="succ('주문승인이 올바르지 않습니다.','menuOrderListForm.do?l_key=${l_key}')"/>
+</c:if>
+
+
+<c:if test="${check==-1}">
+	<body onload="succ('오류. 사용에 불편을 드려서 죄송합니다.','menuOrderListForm.do?l_key=${l_key}')"/>
+</c:if>

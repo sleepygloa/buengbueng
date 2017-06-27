@@ -9,16 +9,20 @@
 	}
 </script>
 
+<c:if test="${check==2}">
+	<body onload="succ('잔액이 부족합니다.','userOrderForm.do?name=${name}&l_key=${l_key}')"/>
+</c:if>
+
 
 <c:if test="${check==1}">
-	<body onload="succ('${order}이(가) 주문되었습니다.','userOrderForm.do')" />
+	<body onload="succ('${order}이(가) 주문되었습니다.','userOrderForm.do?name=${name}&l_key=${l_key}')" />
 </c:if>
 
 <c:if test="${check==0}">
-	<body onload="succ('상품이 품절 되었습니다.','userOrderForm.do')"/>
+	<body onload="succ('상품이 품절 되었습니다.','userOrderForm.do?name=${name}&l_key=${l_key}')"/>
 </c:if>
 
 
 <c:if test="${check==-1}">
-	<body onload="succ('오류. 사용에 불편을 드려서 죄송합니다.','userOrderForm.do')"/>
+	<body onload="succ('오류. 사용에 불편을 드려서 죄송합니다.','userOrderForm.do?name=${name}&l_key=${l_key}')"/>
 </c:if>

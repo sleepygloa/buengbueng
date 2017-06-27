@@ -11,9 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import login.user.bean.BossInfoDataDTO;
 import login.user.bean.UseTimeLogDTO;
 import login.user.bean.UserInfoDataDTO;
 import manage.boss.bean.SeatStateDataDTO;
+import payment.all.bean.UsageHistoryDataDTO;
+import payment.all.bean.UserAccountDTO;
 
 @Controller
 public class FxLoginBean {
@@ -57,7 +60,6 @@ public class FxLoginBean {
 	@RequestMapping("fxSearchPw.do")
 	public String fxSearchPw(UserInfoDataDTO dto, Model model){
 		try{
-			System.out.println(dto.getPhone());
 			String pw = (String) sqlMap.queryForObject("checkInfo.SearchPw", dto);
 			if(pw != null){
 				model.addAttribute("result", pw);
@@ -76,7 +78,8 @@ public class FxLoginBean {
 		if(info != null && info.getPw().equals(dto.getPw())){
 			UseTimeLogDTO udto = new UseTimeLogDTO();
 			udto.setId(info.getId());
-			SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+			udto.setGrade(info.getGrade());
+			SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 			Calendar cal = Calendar.getInstance();
 			String today = null;
 			today = formatter.format(cal.getTime());
@@ -89,12 +92,15 @@ public class FxLoginBean {
 			map.put("ip", ip);
 			map.put("key", key);
 			int pcNum = 0;
+			int money = 0;
 			if(info.getGrade() == 3){
 				pcNum = (Integer)sqlMap.queryForObject("bossERP.getPcNum", map);
 				modifySeatState(key, pcNum, "1");
+				UserAccountDTO uadto = (UserAccountDTO)sqlMap.queryForObject("cash.getUserAccount", info.getId());
+				money = uadto.getMoney();
 			}
-			
 			model.addAttribute("result", info.getId());
+			model.addAttribute("money", money);
 			model.addAttribute("grade", info.getGrade());
 			model.addAttribute("loginTime", udto.getLoginTime());
 			model.addAttribute("pcNum", pcNum);
@@ -112,13 +118,30 @@ public class FxLoginBean {
 		map.put("licenseKey", key);
 		String result = "fail";
 		try{
-			sqlMap.update("useSeat.useTimeLogout", map);	
-			modifySeatState(key, Integer.parseInt(pcNum), "0");
+			sqlMap.update("useSeat.useTimeLogout", map);
+			if(!pcNum.equals("0")){
+				modifySeatState(key, Integer.parseInt(pcNum), "0");
+			}
+			UserInfoDataDTO udto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+			if(udto.getGrade() == 3){
+				UseTimeLogDTO utdto = (UseTimeLogDTO)sqlMap.queryForObject("useSeat.getUseUserInfo", map);
+				BossInfoDataDTO fdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getFranchiseeOne", key);
+				UsageHistoryDataDTO uhdto = new UsageHistoryDataDTO();
+				uhdto.setUserId(id);
+				uhdto.setUserName(udto.getName());
+				uhdto.setAffiliateCode(key);
+				uhdto.setUsageTime(utdto.getLoginTime());
+				uhdto.setEndTime(utdto.getLogoutTime());
+				uhdto.setBusinessName(fdto.getB_name());
+				uhdto.setBossId(fdto.getB_id());
+				uhdto.setEtc("etc");
+				uhdto.setAmountUsed(1000);
+				sqlMap.insert("cash.addUsageHistory", uhdto);
+			}
 			result = "succ";
-		}catch(Exception e){
-			// 추후...수정
-		}finally{
 			model.addAttribute("result", result);
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 		return "/fxUserInfo/fxLogoutPro";
 	}

@@ -1,9 +1,5 @@
 package login.user.bean;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,18 +63,19 @@ public class UserInfoBean {
 				
 				////////////////////////////////////
 				//임시 만든 이벤트 코드, 사용자가 방문(로그인) 했을때 1000원씩준다.
-				int eventMoney = 1000; //이벤트 충전 머니
+				/*int eventMoney = 1000; //이벤트 충전 머니
 				if(eventMoney != 0){
 					HashMap map1 = new HashMap();
 					map1.put("id", id);
 					map1.put("eventMoney", eventMoney);
 					check = eventGetMoney.eventGetMoney(map1);
-				}
+				}*/
 			}
 			
 		}catch(Exception e){
 			
 		}
+		request.setAttribute("check", check);
 		return "/index";
 	}
 	
@@ -110,7 +107,7 @@ public class UserInfoBean {
 			UseTimeLogDTO utlDto = null;
 			//유저가 사용한 PC방 이용시간 디테일정보 찾기(계산)
 			utlDto = (UseTimeLogDTO)sqlMap.queryForObject("cash.userPcUseTimePay", map);
-			utlDto.setId(id);
+
 			System.out.println(utlDto.getId());
 			sqlMap.insert("log.logoutLog", utlDto);//이용로그남기기
 			sqlMap.insert("log.logoutPayLog", utlDto);//결제로그남기기

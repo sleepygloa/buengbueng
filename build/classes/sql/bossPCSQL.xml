@@ -2,9 +2,13 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 
 <sqlMap namespace="bossERP">
-	<!-- 사장님 정보 가져오기 -->
+	<!-- 사장님의 모든 가맹점 정보 가져오기 -->
 	<select id="getBossInfo" parameterClass="String" resultClass="bossDTO">
 		select * from franchiseeInfo where b_id = #id#; 
+	</select>
+	<!-- 사장님의 가맹점 1개 정보 가져오기-->
+	<select id="getFranchiseeOne" parameterClass="String" resultClass="bossDTO">
+		select * from franchiseeInfo where b_key = #b_key#; 
 	</select>
 	<!-- 좌석이용 현황 가져오기 -->
 	<select id="getSeatCount" parameterClass="String" resultClass="seatInfo">
@@ -12,16 +16,28 @@
 	</select>
 	<!-- pc방 좌석 개수 추가 -->
 	<update id="addSeat" parameterClass="java.util.HashMap">
-		update franchiseeInfo set b_pccount = b_pccount + #pcCount# where b_id = #id#;
+		update franchiseeInfo set b_pccount = b_pccount + #pcCount# where b_key = #b_key#;
 	</update>
 	<!-- pc방 좌석 개수 삭제 -->
 	<update id="delSeat" parameterClass="java.util.HashMap">
-		update franchiseeInfo set b_pccount = b_pccount - #pcCount# where b_id = #id#;
+		update franchiseeInfo set b_pccount = b_pccount - #pcCount# where b_key = #b_key#;
 	</update>
+	<!-- pc방 좌석이용현황 기본 -->
+	<insert id="addSeatState" parameterClass="java.util.HashMap">
+		insert into seatState values(#b_key#,#check#);
+	</insert>
 	<!-- pc방 좌석 개수 추가/삭제에 따른 좌석이용현황 초기화 -->
 	<update id="modiSeatCount" parameterClass="java.util.HashMap">
 		update seatState set seatCheck = #seatCheck# where licenseKey = #key#;
 	</update>
+	<!-- 가맹점 1개의 총 좌석 개수 가져오기 -->
+	<select id="getPcCount" parameterClass="String" resultClass="int">
+		select b_pccount from franchiseeInfo where b_key = #b_key#;
+	</select>
+	<!-- 가맹점 라이센스키 가져오기 -->
+	<select id="getLicenseKey" parameterClass="java.util.HashMap" resultClass="String">
+		select b_key from franchiseeInfo where b_name = #b_name# and b_id = #b_id#;
+	</select>
 <!-- ======================================================================================= -->
 	<!-- 사용자가 로그인 한 좌석 번호 얻기 -->
 	<select id="getPcNum" parameterClass="java.util.HashMap" resultClass="int">

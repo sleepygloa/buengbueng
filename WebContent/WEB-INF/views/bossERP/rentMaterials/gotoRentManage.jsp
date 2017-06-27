@@ -4,7 +4,7 @@
 <script src="/buengbueng/js/bossERP/rentManage.js"></script>
 
 <c:if test="${check == 1}">
-	<c:redirect url="rentManage.do" />
+	<body onload="gotoURL2('rentManage.do','b_key','${b_key}','page','rentManage2')"/>
 </c:if>
 
 <c:if test="${check == 0}">

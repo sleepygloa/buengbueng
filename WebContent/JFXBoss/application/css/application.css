@@ -1,0 +1,25 @@
+.root{
+	-fx-background-color: #222;
+}
+
+.notUse{
+	-fx-background-color: gray;
+	-fx-cursor: hand;
+	-fx-translate-x: 12;
+	-fx-translate-y: 12;
+	-fx-border-color: #999;
+
+}
+
+.use{
+	-fx-background-color: red;
+	-fx-cursor: hand;
+	-fx-translate-x: 12;
+	-fx-translate-y: 12;
+	-fx-border-color: #999;
+}
+
+.pcNum{
+	-fx-text-fill: white;
+	-fx-padding: 10;
+}

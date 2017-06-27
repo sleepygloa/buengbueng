@@ -3,13 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-
-<script type="text/javascript">
-	function succ(check, url){
-		alert(check);
-		window.location=url;
-	}
+<script>
+	alert("재고정보가 삭제되었습니다.");
+	window.location.href="productDeleteForm.do?l_key=${l_key}";
+	
 </script>
 
-	<body onload="succ('재고정보가 삭제되었습니다.','productDeleteForm.do')" />
+	
 

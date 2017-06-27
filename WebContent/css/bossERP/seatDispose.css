@@ -3,14 +3,7 @@
 #pcNum{
 	border:none;
 }
-
-.seatDisposeFirstDiv{
-	width:50%;
-}
-.seatDisposeFirstDiv2{
-	width:50%;
-}
-.seatDisposeSecondDiv{
+#seatDisposeSecondDiv{
 	width:9.5%;
 	height:100px;
 	border:1px solid black;
@@ -18,7 +11,7 @@
 	color:white;
 	float:left;
 }
-.seatDisposeSecondDiv2{
+#seatDisposeSecondDiv2{
 	width:9.5%;
 	height:100px;
 	border:1px solid black;

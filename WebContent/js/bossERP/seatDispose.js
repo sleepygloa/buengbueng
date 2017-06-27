@@ -1,3 +1,5 @@
+var b_key;
+
 $(document).ready(function(){
 	$("#seatAdd").click(function(){
 		// 입력한만큼 좌석 추가
@@ -14,7 +16,7 @@ $(document).ready(function(){
 				what : "add"
 			},
 			success:function(data){
-				$(".seatDisposeFirstDiv").html(data);
+				$("#seatDisposeFirstDiv").html(data);
 			}
 		});
 	});
@@ -37,7 +39,7 @@ $(document).ready(function(){
 				page : "2"
 			},
 			success:function(data){
-				$(".pcInfo").html(data);
+				$("#pcInfo").html(data);
 			}
 		});
 	});
@@ -51,6 +53,7 @@ $(document).ready(function(){
 				pcNums += checkPC[i].value+',';
 			}
 		}
+		pcNums = pcNums.substring(0, pcNums.length-1);
 		$.ajax({
 			url:"seatAddDel.do",
 			type:"post",
@@ -59,7 +62,7 @@ $(document).ready(function(){
 				what : "del"
 			},
 			success:function(data){
-				$(".seatDisposeFirstDiv").html(data);
+				$("#seatDisposeFirstDiv").html(data);
 			}
 		});
 	});
@@ -75,7 +78,7 @@ function showModiPcInfo(pcNum,page){
 			page : page
 		},
 		success:function(data){
-			$(".pcInfo").html(data);
+			$("#pcInfo").html(data);
 		}
 	});
 }

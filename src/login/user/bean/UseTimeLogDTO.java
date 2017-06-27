@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 public class UseTimeLogDTO {
 	
 	private String id; //로그인로그아웃 아이디
+	private int grade; // 사용자 등급
 	private Timestamp loginTime; //로그인시간
 	private Timestamp logoutTime; //로그아웃시간
 	private String ip; //접속장소 IP
@@ -69,6 +70,12 @@ public class UseTimeLogDTO {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 	public String getLicenseKey() {
 		return licenseKey;

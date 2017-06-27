@@ -76,7 +76,7 @@
 	    b.money - (round((logoutTime - loginTime) * c.moneyPolicy))  as payAfterMoney, 
 	    loginTime, logoutTime, b_key  
    	from useTimeLog a INNER JOIN (select id, money from userAccount where id = #id#) b ON a.id = b.id ,
-   	(select c.moneyPolicy, c.b_key from franchiseePolicy c, (select b_key from franchiseeAddLog where b_ip = #b_ip#) d where c.b_key = d.b_key ) c
+   	(select c.moneyPolicy, c.b_key from franchiseePolicy c, (select b_key from franchiseeLog where b_ip = #b_ip#) d where c.b_key = d.b_key ) c
    	where a.id = #id# order by loginTime desc limit 0,1;
 		]]>
 	</select>
@@ -171,4 +171,18 @@
 	 ]]>
 	 </select>
 	
+
+
+<!-- ========================================================================================================================================== -->
+	
+	<!-- 사용자 이용내역 추가 (usageHistory) -->
+	<insert id="addUsageHistory" parameterClass="historyDTO">
+		insert into usageHistory values(#idx#, #userId#, #userName#, #affiliateCode#, #usageTime#, #endTime#, #amountUsed#, #etc#, #businessName#, #bossId#);
+	</insert>
+
+	<!-- 사용자의 잔액 가져오기 (15번째 코드에서 parameterClass 빠져있음) -->
+	<select id="getUserAccount" parameterClass="String" resultClass="uadto">
+		select * from userAccount where id = #id#;
+	</select>	
 </sqlMap>
+

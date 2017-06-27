@@ -23,6 +23,7 @@
 </div>
 </c:if>
 <c:if test="${count>0}">
+<c:set var="d" value="0"/>
 <c:forEach var="list" items="${list}">
 <div>
 		<span>
@@ -36,10 +37,11 @@
 		</c:if>
 		<span>${list.writer}</span>
 		<span>${list.email}</span>
-		<span>${list.reg_date}</span>
+		<span>${dates[d]}</span>
 		<span>${list.readcount}</span>
 </div>
 		<c:set var="number" value="${number-1}"/>
+		<c:set value="${d+1}" var="d" />
 </c:forEach>
 	
 	<c:if test="${startPage > 10}">

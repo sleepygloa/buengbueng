@@ -19,9 +19,66 @@ public class BossEmployeeManageDataDTO {
 
 	private String e_name; //알바생 관리에서 사용할 List에서 사용, name으로하면 오류나나?
 	
+	private String b_key; //가맹점 
+	private String b_name; // 가맹점 이름
+	
+	private String startDate;
+	private String endDate;
+	private String startHour;
+	private String endHour;
+	
+	private Timestamp startTime;
+	private Timestamp endTime;
 	
 	
-	
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getStartHour() {
+		return startHour;
+	}
+	public void setStartHour(String startHour) {
+		this.startHour = startHour;
+	}
+	public String getEndHour() {
+		return endHour;
+	}
+	public void setEndHour(String endHour) {
+		this.endHour = endHour;
+	}
+	public Timestamp getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
+	}
+	public Timestamp getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(Timestamp endTime) {
+		this.endTime = endTime;
+	}
+	public String getB_name() {
+		return b_name;
+	}
+	public void setB_name(String b_name) {
+		this.b_name = b_name;
+	}
+	public String getB_key() {
+		return b_key;
+	}
+	public void setB_key(String b_key) {
+		this.b_key = b_key;
+	}
 	public String getE_name() {
 		return e_name;
 	}

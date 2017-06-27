@@ -2,6 +2,12 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="franchisee">
 	
+	<!-- 최초가맹점 정보를 불러온다. -->
+	<select id="getFirstFranchiseeInfo" resultClass="franchiseeDTO" parameterClass="String">
+		select * from franchiseeInfo where b_id = #id#;
+	</select>
+
+	
 	<!-- 사장님 정보를 불러온다. -->
 	<select id="getBossInfo" parameterClass="String" resultClass="userDto">
 		select * from userInfo where id = #id# and grade = '1';
@@ -57,7 +63,7 @@
 	<select id="getFranchiseeInfo" resultClass="franchiseeDTO" parameterClass="String">
 		select * from franchiseeInfo where b_name = #b_name#;
 	</select>
-	
+		
 	<!-- 가맹점 정보 수정하기 -->
 	<update id="updateFranchiseeInfo"  parameterClass="franchiseeDTO">
 		update franchiseeInfo SET 
@@ -86,11 +92,13 @@
 		INSERT INTO franchiseeDeleteLog (num,id, b_key, pw, reason) VALUES(0,#id#, #b_key#, #pw#, #reason#);
 	</insert>		
 
-	
 	<!-- 가맹점 정보 불러오기:B_key로 -->
 	<select id="getFranchiseeDeleteLogBkey" resultClass="franchiseeDTO" parameterClass="String">
 		select * from franchiseeDeleteLog where b_key = #b_key#;
 	</select>
 	
-	
+	<!-- 가맹점 이름 불러오기:b_key로 -->
+	<select id="getFranchiseeLogBkey" resultClass="String" parameterClass="String">
+		select b_name from franchiseeLog where b_key = #b_key#;
+	</select>
 </sqlMap>

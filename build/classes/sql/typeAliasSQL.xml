@@ -16,6 +16,9 @@
     <typeAlias alias="uadto" type="payment.all.bean.UserAccountDTO"/>
     <typeAlias alias="usageHistoryDTO" type="payment.all.bean.UsageHistory"/>
     <typeAlias alias="DailySettlementDTO" type="payment.all.bean.DailySettlementDTO"/>
+    <typeAlias alias="workTimeDto" type="erp.boss.bean.EmployeeWorkTimeDTO" />
+    <typeAlias alias="workTimeLIstDto" type="erp.boss.bean.EmployeeWorkTimeListDTO" />
+
 
 	<typeAlias alias="seatInfo" type="manage.boss.bean.SeatStateDataDTO"/>
 	<typeAlias alias="pcInfoDto" type="pc.materials.bean.PcInfoDataDTO"/>
@@ -29,4 +32,10 @@
     <typeAlias alias="rentDTO" type="manage.boss.bean.RentDataDTO"/>
     <typeAlias alias="rentProdDTO" type="manage.boss.bean.RentProductDataDTO"/>
     <typeAlias alias="rentLogDTO" type="manage.boss.bean.RentLogDataDTO"/>    
+    <typeAlias alias="moduleDTO" type="index.all.bean.FranchiseeModuleDataDTO"/>
+    <typeAlias alias="moduleDefaultDTO" type="index.all.bean.ModuleDataDTO"/> 
+    <typeAlias alias="favoriteDTO" type="pcRoom.search.bean.FavoritePCRoomDataDTO"/>
+	<typeAlias alias="historyDTO" type="payment.all.bean.UsageHistoryDataDTO"/>
+	<typeAlias alias="chattingDto" type="manage.admin.bean.ChattingDto"/>
+	<typeAlias alias="chattingLogDto" type="manage.admin.bean.ChattingLogDto"/>
 </sqlMap>

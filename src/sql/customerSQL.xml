@@ -23,7 +23,7 @@
 	
 	<!-- 게시판  num의 최대 값 -->
 	<select id="maxNum" parameterClass="int" resultMap="intnull">
-		select max(num) as num from customerBoard where snum=#snum# and re_step=0;
+		select max(ref) as num from customerBoard where re_step=0;
 	</select>
 	
 	<!-- 글 작성 -->
@@ -33,13 +33,13 @@
 	</insert>
 	
 	<!-- 조회수 증가 -->
-	<update id="contentUp" parameterClass="java.util.HashMap">
-		update customerBoard set readcount=readcount+1 where num= #num# and snum=#snum#
+	<update id="contentUp" parameterClass="int">
+		update customerBoard set readcount=readcount+1 where num=#num#
 	</update>
 	
 	<!-- 게시글 불러오기 -->
-	<select id="getContent" parameterClass="java.util.HashMap" resultClass="customerDTO">
-		select * from customerBoard where snum=#snum# and num=#num#
+	<select id="getContent" parameterClass="int" resultClass="customerDTO">
+		select * from customerBoard where num=#num#
 	</select>
 	
 	<!-- 답글 여부 확인 -->
@@ -56,6 +56,7 @@
 	<select id="getRe_step" parameterClass="java.util.HashMap" resultClass="int">
 		select re_step from customerBoard where num=#num# and snum=#snum#;
 	</select>
+	
 	
 	<!-- 게시글 그룹 검색 -->
 	<select id="getRef" parameterClass="java.util.HashMap" resultClass="int">
@@ -80,4 +81,5 @@
 		delete from customerBoard where ref=#ref# and re_step>=#re_step# and snum=#snum#;
 	]]>
 	</delete>
+	
 </sqlMap>

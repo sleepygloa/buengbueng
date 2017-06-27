@@ -1,10 +1,14 @@
 $(document).ready(function(){
+	var b_key = document.getElementById("b_key").value;
 	$("#addRent").click(function(){
 		$.ajax({
 			url: "addRent.do",
 			type: "post",
+			data: {
+				b_key: b_key
+			},
 			success: function(data){
-				$(".rentDiv").html(data);
+				$("#rentDiv").html(data);
 			}
 		});
 	});
@@ -16,23 +20,17 @@ $(document).ready(function(){
 				rentNames += rName[i].value+',';
 			}
 		}
-		$.ajax({
-			url: "delRent.do",
-			type: "post",
-			data:{
-				rentName : rentNames
-			},
-			success: function(data){
-				$(".rentDiv").html('');
-			}
-		});
+		gotoURL2("delRent.do","rentName",rentNames,"b_key",b_key);
 	});
 	$("#addRentProduct").click(function(){
 		$.ajax({
 			url: "addRentProduct.do",
 			type: "post",
+			data: {
+				b_key : b_key
+			},
 			success: function(data){
-				$(".rentDiv").html(data);
+				$("#rentDiv").html(data);
 			}
 		});
 	});
@@ -48,10 +46,11 @@ $(document).ready(function(){
 			url: "delRentProduct.do",
 			type: "post",
 			data:{
-				rentPCode : rentPCodes
+				rentPCode : rentPCodes,
+				b_key : b_key
 			},
 			success: function(data){
-				$(".rentDiv").html('');
+				$("#rentDiv").html('');
 			}
 		});
 	});
@@ -62,44 +61,84 @@ function gotoAlert(txt){
 	history.go(-1);
 }
 
+function gotoURL(url,name,value){
+	  var form = document.createElement("form");
+	   form.setAttribute("method","post");
+	   form.setAttribute("action",url);
+	   
+	   var hidden = document.createElement("input");
+	   hidden.setAttribute("type","hidden");
+	   hidden.setAttribute("name", name);
+	   hidden.setAttribute("value",value);
+	   form.appendChild(hidden);
+
+	   document.body.appendChild(form);
+	   form.submit();
+}
+
+
+function gotoURL2(url,name1,value1,name2,value2){
+	  var form = document.createElement("form");
+	   form.setAttribute("method","post");
+	   form.setAttribute("action",url);
+	   
+	   var hidden = document.createElement("input");
+	   hidden.setAttribute("type","hidden");
+	   hidden.setAttribute("name", name1);
+	   hidden.setAttribute("value",value1);
+	   form.appendChild(hidden);
+	   
+	   hidden = document.createElement("input");
+	   hidden.setAttribute("type","hidden");
+	   hidden.setAttribute("name", name2);
+	   hidden.setAttribute("value",value2);
+	   form.appendChild(hidden);
+
+	   document.body.appendChild(form);
+	   form.submit();
+}
+
 function rentSelect(){
 	document.rentProductForm.rentProduct.value = document.rentProductForm.rent.value;
 }
 
-function modiRent(rentProduct){
+function modiRent(rentProduct,b_key){
 	$.ajax({
 		url: "modiRent.do",
 		type: "post",
 		data: {
-			rentProduct: rentProduct
+			rentProduct: rentProduct,
+			b_key: b_key
 		},
 		success: function(data){
-			$(".rentDiv").html(data);
+			$("#rentDiv").html(data);
 		}
 	});
 }
-function selectedproductList(rentProduct){
+function selectedproductList(rentProduct,b_key){
 	$.ajax({
 		url: "selectedRentProductAll.do",
 		type: "post",
 		data: {
-			rentProduct: rentProduct
+			rentProduct: rentProduct,
+			b_key: b_key
 		},
 		success: function(data){
-			$(".rentDiv").html(data);
+			$("#rentDiv").html(data);
 		}
 	});
 }
 
-function modiRentProduct(rentCode){
+function modiRentProduct(rentCode,b_key){
 	$.ajax({
 		url: "modiRentProduct.do",
 		type: "post",
 		data: {
-			rentCode: rentCode
+			code: rentCode,
+			b_key : b_key
 		},
 		success: function(data){
-			$(".rentDiv").html(data);
+			$("#rentDiv").html(data);
 		}
 	});
 }

@@ -19,7 +19,7 @@
 <div>
 <input type="hidden" name="number" value="${number}">
 <input type="hidden" name="num" value="${num}">
-<input type="hidden" name="snum" value="${snum}">
+<input type="hidden" name="snum" value="${dto.snum}">
 <input type="hidden" name="pageNum" value="${pageNum}">
 <div>
 <c:if test="${sessionScope.grade != 4 || dto.re_step == 0}">

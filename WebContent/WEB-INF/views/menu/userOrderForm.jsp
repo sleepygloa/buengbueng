@@ -10,15 +10,15 @@
     
     <body>
     <div>
-		<button name="menuAll" onclick="useralls()">전 체</button>
+		<button name="menuAll" onclick="useralls('${l_key}','${name}')">전 체</button>
 	</div>
 	
-    
+    	
     	<div>
 		<table>
 		<tr>
 		<c:forEach var="category" items="${categoryList}">
-			<td><input type="button" name="${category}" onclick="usercategory('${category}')" value="${category}" /> </td>
+			<td><input type="button" name="${category}" onclick="usercategory('${category}','${l_key}','${name}')" value="${category}" /> </td>
 		</c:forEach>
 		</tr>	
 		</table>

@@ -4,26 +4,28 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class ProductDTO {
-	private int code;
+	private String code;
 	private String name;
 	private Date lastday;
 	private int salecheck;
 	private Timestamp beginregist;
-	private String key;
+	private String l_key;
 	
+
 	
-	public String getKey() {
-		return key;
-	}
-	public void setKey(String key) {
-		this.key = key;
-	}
-	public int getCode() {
+	public String getCode() {
 		return code;
 	}
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
+	public String getL_key() {
+		return l_key;
+	}
+	public void setL_key(String l_key) {
+		this.l_key = l_key;
+	}
+
 	public String getName() {
 		return name;
 	}

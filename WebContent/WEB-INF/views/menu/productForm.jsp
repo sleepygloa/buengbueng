@@ -9,20 +9,24 @@
     
     <body>
     
+    <!-- HEADER TEMPLATE -->
+	<jsp:include page="/WEB-INF/views/header.jsp" />
+    
     <div>
-		<button onclick="window.location='productInsertForm.do'">재 고 등 록</button>
-	</div>
+    <table>
+    <tr>
+		<td><button onclick="window.location='productInsertForm.do?l_key=${l_key}'">재 고 등 록</button></td>
 	
-   	<div>
-		<button onclick="window.location='productModify.do'">재 고 수 정</button>
-	</div>
+		<td><button onclick="window.location='productModify.do?l_key=${l_key}'">재 고 수 정</button></td>
 	
+		<td><button onclick="window.location='productDeleteForm.do?l_key=${l_key}'">재 고 삭 제</button></td>
+	
+	</tr>
+	</table>
+	</div>
+		
 	<div>
-		<button onclick="window.location='productDeleteForm.do'">재 고 삭 제</button>
-	</div>
-	
-	<div>
-		<table>
+		<table>`
 		<tr><td>제품명</td><td>바코드</td><td>유통기한</td><td>판매유무</td><td>등록일</td></tr>
 		<c:forEach var="pl" items="${productList}">
 			<tr>
@@ -35,9 +39,6 @@
 			</c:forEach> 
 		</table>
 	
-	</div>
-    <div>
-		<button onclick="window.location='menu.do'">메뉴로 돌아가기</button>
 	</div>
     
   

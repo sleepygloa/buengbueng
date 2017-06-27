@@ -5,7 +5,7 @@
 </head>
 
 <body>
-	<br><br><br><p>좌석 정보 수정</p>
+	<p>좌석 정보 수정</p>
 	<form action="addModiPcInfo.do" method="post">
 	<c:if test="${all == false}">
 		pc 번호 : <input type="text" value="${pcNum}" name="num" readonly /><br/>
