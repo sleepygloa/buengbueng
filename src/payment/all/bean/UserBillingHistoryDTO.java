@@ -14,9 +14,15 @@ public class UserBillingHistoryDTO {
 	private String pg_name;
 	private String imp_uid;
 	private String merchant_uid;
+	private String pg_tid;
 	
 	
-	
+	public String getPg_tid() {
+		return pg_tid;
+	}
+	public void setPg_tid(String pg_tid) {
+		this.pg_tid = pg_tid;
+	}
 	public String getImp_uid() {
 		return imp_uid;
 	}

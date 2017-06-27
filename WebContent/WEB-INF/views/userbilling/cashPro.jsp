@@ -6,11 +6,34 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" type="text/css"  href="/buengbueng/css/payment/cash.css">
 		<title>결제 완료 페이지</title>
-	
+		<script>
+			/*뒤로 가기 막는 스크립트*/
+			history.pushState(null, null, location.href); 
+			window.onpopstate = function(event) { 
+				alert('올바르지 못한 접근입니다.');
+			history.go(1); 
+			}
+			/*새로고침 방지 스크립트*/
+			document.onkeydown = function(e){
+			      key = (e) ? e.keyCode : event.keyCode;
+			      if(key==8 || key==116){
+			         if(e){
+			            e.preventDefault();
+			            alert('새로고침버튼을 사용하실 수 없습니다.');
+			         }
+			         else{
+			            event.keyCode = 0;
+			            event.returnValue = false;
+			         }
+			      }
+			}			
+				
+			
+		</script>
 	</head>
 	<jsp:include page="../header.jsp" />
 	
-	<body>
+	<body >
 		<center>
 			<div class="emp_box">
 				<div class="cash_title margin_b20">
