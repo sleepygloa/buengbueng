@@ -40,6 +40,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 		
 		try{
 			sqlMap.update("franchisee.franchiseeConfirm", map);	
+			sqlMap.insert("franchisee.insertFranchiseePolicy", map); //가맹점 추가시 가맹점 금액정책 테이블 추가
 			
 			FranchiseeDataDTO franchiseeDto = null;
 			franchiseeDto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeLastConfirmLog", num);
@@ -177,6 +178,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 	@RequestMapping("dashAgreeDelete.do")
 	public String dashAgreeDelete(String b_key,HashMap map){
 		map.put("b_key", b_key);
+		sqlMap.delete("franchisee.deleteFranchiseePolicy", map); //가맹점 삭제시 가맹점 정책 테이블 삭제
 		sqlMap.delete("franchisee.deleteFranchisee", map); 
 		return "/dash-Agree/dashAgreeDelete";
 	}
