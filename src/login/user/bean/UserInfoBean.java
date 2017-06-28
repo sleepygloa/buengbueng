@@ -106,7 +106,7 @@ public class UserInfoBean {
 			
 			System.out.println(ip); //192.168.91.1 192.168.111.1 192.168.10.1
 			UseTimeLogDTO utlDto = null;
-			if((Integer)sqlMap.queryForObject("test.getGradeInfo", id) == 3 && (Integer)session.getAttribute("webLogin") == 1){
+			if((Integer)sqlMap.queryForObject("test.getGradeInfo", id) == 3 && (Integer)session.getAttribute("webLogin") != 1){
 			
 			//유저가 사용한 PC방 이용시간 디테일정보 찾기(계산)
 			utlDto = (UseTimeLogDTO)sqlMap.queryForObject("cash.userPcUseTimePay", map);
