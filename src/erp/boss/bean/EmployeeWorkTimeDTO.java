@@ -12,7 +12,34 @@ public class EmployeeWorkTimeDTO {
 	private Timestamp end;
 	private Timestamp ex;
 	private int result;
+	private String color;
 	
+	//출근관리
+	private Timestamp commuteTime;
+	private Timestamp offWorkTime;
+	
+	
+	
+	
+	public Timestamp getCommuteTime() {
+		return commuteTime;
+	}
+	public void setCommuteTime(Timestamp commuteTime) {
+		this.commuteTime = commuteTime;
+	}
+	
+	public Timestamp getOffWorkTime() {
+		return offWorkTime;
+	}
+	public void setOffWorkTime(Timestamp offWorkTime) {
+		this.offWorkTime = offWorkTime;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
 	public int getNum() {
 		return num;
 	}

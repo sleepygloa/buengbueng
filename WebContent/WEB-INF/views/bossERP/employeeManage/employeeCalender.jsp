@@ -210,12 +210,8 @@ $(document).ready(function() {
   			    var eventInfoDateEnd = calEvent.end.format();
 				eventInfoAjax(eventInfoDateStart,eventInfoDateEnd);
    				eventInfof();
-/*         alert('Event: ' + calEvent.title);
-        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-        alert('View: ' + view.name); */
 
         // change the border color just for fun
-        $(this).css('border-color', 'red');
    		 },
 
 //////////////////////////////////////////////////////////////////////////////////////////   		  
@@ -265,6 +261,9 @@ function Toast(type, css, msg){
 	        toastr.options.positionClass = t.css;
 	        toastr[t.type](t.msg);
 	    }
+    
+		    
+		    
 }
     
 

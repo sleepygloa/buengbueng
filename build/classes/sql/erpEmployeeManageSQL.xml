@@ -28,23 +28,20 @@
 	
 	<!-- 사장님이 알바원하는 인원수만큼 신청(삭제도가능) -->
 	<insert id="insertEmployeeAddLog" parameterClass="beDto">
-		INSERT INTO employeeAddLog (num, result, b_id, applyCount, applyTime, content,b_key,b_name)
-							 VALUES(0, 0, #b_id#, #applyCount#, now(), #content#,#b_key#,#b_name#);
+		INSERT INTO employeeAddLog (num, result, b_id, applyCount, applyTime, content,b_key)
+							 VALUES(0, 0, #b_id#, #applyCount#, now(), #content#,#b_key#);
 	</insert>
 	
 	<!-- 알바생 정보테이블에서 사장님이 보유한 알바생아이디를 찾고, 갯수를 센다. -->
 	<select id="getEmployeeId" resultClass="beDto" parameterClass="String">
-		SELECT substring(e_id, 9,11)+0 as e_id,(select count(*) FROM employeeInfo WHERE e_bossid = 'test3') +1 AS count FROM employeeInfo WHERE e_bossid = 'test3' ORDER BY e_id DESC LIMIT 1; 
+		SELECT e_id, (select count(*) FROM employeeInfo WHERE e_bossid = #e_bossid#) +1 AS count FROM employeeInfo WHERE e_bossid = #e_bossid# ORDER BY e_id DESC LIMIT 1; 
 	</select>	
 	
 	<!-- 알바생 정보테이블에서 사장님이 보유한 알바생아이디를 찾고, 갯수를 센다. -->
 	<select id="getEmployeeAddLog" resultClass="beDto" parameterClass="java.util.HashMap" >
 		SELECT * from  employeeAddLog where result = '0' and b_key = #b_key#;
 	</select>		
-	<!-- 알바생 신청 갯수 -->
-	<select id="getEmployeeAddLogCount" resultClass="int" parameterClass="java.util.HashMap" >
-		SELECT count(*) from  employeeAddLog where result = '0' and b_key = #b_key#;
-	</select>			
+	
 	<!-- 알바생아이디를 생성하고자할때, 아이디가 중간에없는 아이디를 찾는다. -->
 	<select id="findE_idNull" resultClass="String" parameterClass="String">
 		select e_id from employeeInfo where e_id = #e_id#;
@@ -116,18 +113,13 @@
 	
 	<!-- 알바생의 아이디를 삭제 신청함.-->
 	<insert id="deleteIdLogAdd" >
-		insert into employeeDeleteLog (num, result,b_name,b_key, b_id, e_id, applyTime, content)
-			 VALUES(0, 0,#b_name#,#b_key#, #b_id#, #e_id#, now(), #content#);  
+		insert into employeeDeleteLog (num, result, b_id, e_id, applyTime, content)
+			 VALUES(0, 0, #b_id#, #e_id#, now(), #content#);  
 	</insert>
 	
 	<!-- 알바생아이디 삭제 리스트 -->
 	<select id="getEmployeeDeleteList" resultClass="beDto" parameterClass="java.util.HashMap" >
-		SELECT * from  employeeDeleteLog where result = '0' and b_key=#b_key#;
-	</select>		
-	
-	<!-- 알바생아이디 삭제 리스트 갯수-->
-	<select id="getEmployeeDeleteListCount" resultClass="int" parameterClass="java.util.HashMap" >
-		SELECT count(*) from  employeeDeleteLog where result = '0' and b_key=#b_key#;
+		SELECT * from  employeeDeleteLog where result = '0';
 	</select>		
 	
 	<!-- 알바생의 아이디를 삭제 확인 - 관리자.-->
@@ -236,7 +228,72 @@
 	<update id="calenderUpdateTime" parameterClass="java.util.HashMap">
 	 UPDATE employeeWorkTime SET start = #start#, end = #end# WHERE title = #e_id# and start = #dragPlanStart# and end = #dragPlanEnd#;
 	</update>
+	
+	<!-- 알바 출근 유효성 검사 -->
+	<select id="employeeCommuteCheck" resultClass="workTimeDto" parameterClass="String">
+	 	<![CDATA[
+	 	select * from employeeWorkTime 
+	 	where title = #e_id# and date_add(start, interval - 10 minute) <= now() and date_add(end, interval + 10 minute)  >= now();
+	 	]]>
+	</select>
+	
+	<!-- 알바 출근 상태로 변경 -->
+	<update id="updateEmployeeCommute" parameterClass="String">
+	 	<![CDATA[	
+	 	update employeeWorkTime set result = 1
+	 	where title = #e_id# and date_add(start, interval - 10 minute) <= now() and date_add(end, interval + 10 minute) >= now();
+	 	]]>	 	
+	</update>	
+	
+	<!-- 알바 출근 상태로 출근시간 찍기 -->
+	<insert id="insertEmployeeCommute" parameterClass="workTimeDto">
+		INSERT INTO employeeWorkTimeCommute (num, result, commuteTime, ex)
+					VALUES(#num#, '1', now(), '1970-01-01 00:00:00');
+	</insert>	
+	
+	<!-- 알바 출근 상태로 출근시간 찍기 : 메세지 VIEW 출력 -->
+	<select id="getCommute" resultClass="workTimeDto" parameterClass="workTimeDto">
+		select commuteTime from employeeWorkTimeCommute where num = #num# ;
+	</select>	
 
+	<!-- 알바 퇴근 유효성 검사 -->
+	<select id="employeeOffWorkCheck" resultClass="workTimeDto" parameterClass="String">
+	 	<![CDATA[
+	 	select * from employeeWorkTime 
+	 	where title = #e_id# and date_add(start, interval - 10 minute) <= now() and date_add(end, interval + 3 hour)  >= now();
+	 	]]>
+	</select>
+	
+	<!-- 알바 퇴근 상태로 퇴근시간 찍기 -->
+	<update id="updateEmployeeOffWork" parameterClass="workTimeDto">
+		UPDATE employeeWorkTimeCommute SET 
+			result = '2',
+			offWorkTime = if(now() > #end#, #end#, now()),
+			ex = if(now() > #end#, now() - #end#, now()) 
+		WHERE num = #num#;  
+	</update>
+	
+	<!-- 알바 퇴근 상태로 변경 -->
+	<update id="updateEmployeeOffWork2" parameterClass="String">
+	 	<![CDATA[	
+	 	update employeeWorkTime set result = 2
+	 	where title = #e_id# and date_add(start, interval - 10 minute) <= now() and date_add(end, interval + 3 hour) >= now();
+	 	]]>	 	
+	</update>	
+	
+	<!-- 회원 등급 체크 -->
+	<select id="getUserGrade" resultClass="int" parameterClass="String">
+		 select grade from userInfo where id = #id#;
+	</select>
+	
+	<!-- 알바 근태 리스트 -->
+	<select id="getEmployeeWorkTimeList" resultClass="workTimeDto" parameterClass="String">
+		select c.num, c.b_key, c.todayDate, c.title, c.start, c.end, c.result, c.color, c.commuteTime, c.offWorkTime, c.ex from employeeInfo a 
+			 INNER JOIN	(select a.num, a.b_key, a.todayDate, a.title, a.start, a.end, a.result, a.color, b.commuteTime, b.offWorkTime, b.ex from employeeWorkTime a INNER JOIN employeeWorkTimeCommute b ON a.num = b.num WHERE a.result = 2) c 
+		ON a.e_id = c.title WHERE a.e_bossid = #id#;
+	</select>	
+	
+	
 	<!-- 사장님 총 통계 -->
 	
 	<!-- 사장님  알바생 일한 시간 계산 -->
