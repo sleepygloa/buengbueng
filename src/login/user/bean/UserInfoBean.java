@@ -108,7 +108,6 @@ public class UserInfoBean {
 			//유저가 사용한 PC방 이용시간 디테일정보 찾기(계산)
 			utlDto = (UseTimeLogDTO)sqlMap.queryForObject("cash.userPcUseTimePay", map);
 
-			System.out.println(utlDto.getId());
 			sqlMap.insert("log.logoutLog", utlDto);//이용로그남기기
 			sqlMap.insert("log.logoutPayLog", utlDto);//결제로그남기기
 			

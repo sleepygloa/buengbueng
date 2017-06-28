@@ -232,12 +232,11 @@ public class BossEmployeeManageBean2 {
 	
 	//알바생 일정 이벤트드랍시 변경 처리 AJAX
 	@RequestMapping("employeeCalenderEventDrop.do")
-	public String employeeCalenderEventDrop(HttpSession session, Model model, String date){
+	public ModelAndView employeeCalenderEventDrop(HttpSession session, Model model, String date){
 		
 		String e_id = (String)session.getAttribute("loginId");
 		String b_key = (String)session.getAttribute("b_key");
 		
-		String check = "";
 		try{
 			
 			JSONParser Jparser = new JSONParser();
@@ -257,8 +256,6 @@ public class BossEmployeeManageBean2 {
 			map.put("dragPlanStart", dragPlanStart);
 			map.put("dragPlanEnd", dragPlanEnd);
 			
-			
-			
 			sqlMap.insert("erpEmp.calenderUpdateTimeLog", map); //근무시간 변경 로그남김
 			sqlMap.update("erpEmp.calenderUpdateTime", map); //근무시간 변경
 		
@@ -266,7 +263,7 @@ public class BossEmployeeManageBean2 {
 			e.printStackTrace();
 		}
 		
-		return check;
+		return new ModelAndView("ajaxView");
 	}
 	
 		//알바생 일정 직접 수정 정보보기 AJAX
@@ -284,7 +281,7 @@ public class BossEmployeeManageBean2 {
 	
 		//알바생 일정 직접 수정 정보 변경 AJAX
 		@RequestMapping("employeeCalenderEventInfoUpdatePro.do")
-		public String employeeCalenderEventInfoUpdatePro(HttpSession session, Model model,String eventInfoDateStart,String eventInfoDateEnd, String eventInfoChagneDateStart, String eventInfoChangeDateEnd){
+		public ModelAndView employeeCalenderEventInfoUpdatePro(HttpSession session, Model model,String eventInfoDateStart,String eventInfoDateEnd, String eventInfoChagneDateStart, String eventInfoChangeDateEnd){
 			
 			String e_id = (String)session.getAttribute("loginId");
 			String b_key = (String)session.getAttribute("b_key");
@@ -304,8 +301,33 @@ public class BossEmployeeManageBean2 {
 				e.printStackTrace();
 			}
 			
-			return "redirect:/employeeCalender.do";
+			return new ModelAndView("redirect:/employeeCalender.do");
 		}	
 	
+		
+		
+		//알바생 일정 직접 수정정보 의 삭제 AJAX
+		@RequestMapping("employeeCalenderEventDelete.do")
+		public ModelAndView employeeCalenderEventDelete(HttpSession session, Model model, String eventInfoDateStart, String eventInfoDateEnd){
+			String e_id = (String)session.getAttribute("loginId");
+			String b_key = (String)session.getAttribute("b_key");
+			
+			String check = "";
+			
+			try{
+				HashMap map = new HashMap();
+				map.put("dragPlanStart", eventInfoDateStart);
+				map.put("dragPlanEnd", eventInfoDateEnd);
+				map.put("e_id", e_id);
+				map.put("b_key", b_key);			
+				//
+				sqlMap.insert("erpEmp.calenderDeleteTimeLog", map); //근무시간 변경 로그남김
+				sqlMap.delete("erpEmp.calenderDeleteTime", map); //근무시간 변경
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+			return new ModelAndView("ajaxView");
+		}	
 	
 }

@@ -170,12 +170,6 @@
 		WHERE id = #id#;
 	</update>	
 
-
-
-
-
-
-
 	<!-- 알바생 접속 LOG 찾기 -->
 	<select id="findLoginLogLogoutNull"  parameterClass="String">
 		SELECT count(*) from useTimeLog WHERE id = #id# ORDER BY loginTime desc;
@@ -236,6 +230,17 @@
 	<update id="calenderUpdateTime" parameterClass="java.util.HashMap">
 	 UPDATE employeeWorkTime SET start = #start#, end = #end# WHERE title = #e_id# and start = #dragPlanStart# and end = #dragPlanEnd#;
 	</update>
+	
+	<!-- 알바생 근무 일정 삭제 log :eventInfo -->
+	<insert id="calenderDeleteTimeLog" parameterClass="java.util.HashMap">
+	INSERT INTO employeeWorkTimeDeleteLog (b_key, title, start, end, deleteDate) 	
+									VALUES(#b_key#, #e_id#, #dragPlanStart#, #dragPlanEnd#, now());
+	</insert>
+
+	<!-- 알바생 근무 일정 삭제 :eventInfo -->
+	<delete id="calenderDeleteTime" parameterClass="java.util.HashMap">
+		DELETE FROM employeeWorkTime WHERE title = #e_id# and start = #dragPlanStart# and end = #dragPlanEnd#;
+	</delete>	
 	
 	<!-- 알바 출근 유효성 검사 -->
 	<select id="employeeCommuteCheck" resultClass="workTimeDto" parameterClass="String">

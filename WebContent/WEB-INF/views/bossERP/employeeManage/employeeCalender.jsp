@@ -34,7 +34,7 @@ margin-right:10px;
         max-width : 900px;
         margin : 0 auto;
     }
-    .popup {
+.popup {
     position: absolute;
     display: inline-block;
     cursor: pointer;
@@ -112,9 +112,10 @@ width:125px;
 <script type="text/javascript" src="/buengbueng/js/calender/lib/moment.min.js"></script>
 <script type="text/javascript" src="/buengbueng/js/calender/fullcalendar.js" charset="utf-8"></script>
 <script type="text/javascript">
+  var eventInfoDateStart = "";
+  var eventInfoDateEnd = ""; 
 function moveConfirm(date){
 	var date = date;
-	
 	$.ajax({
 		url: "employeeCalenderEventDrop.do",
     	type:"post",
@@ -129,6 +130,7 @@ function moveConfirm(date){
 	})
 }
 function eventInfoAjax(eventInfoDateStart,eventInfoDateEnd){
+
 	$.ajax({
 		url: "employeeCalenderEventInfo.do",
 		type:"post",
@@ -139,8 +141,6 @@ function eventInfoAjax(eventInfoDateStart,eventInfoDateEnd){
 		success:function(data){
 			$('#myPopup').html(data);
 		}
-		
-		
 	})
 }
 function revert(){} // 추가
@@ -148,6 +148,21 @@ function eventInfof() {
 	var popup = document.getElementById("myPopup");
 	popup.classList.toggle("show");
 }	
+function employeeEventDelete(){
+	$(".popup").hide(); 
+	$.ajax({
+		url: "employeeCalenderEventDelete.do",
+		type:"post",
+		data:{
+			eventInfoDateStart : eventInfoDateStart,
+			eventInfoDateEnd : eventInfoDateEnd
+		},
+		dataType: "json",
+		success:function(data){
+			history.go(0);
+		}
+	})
+}
 $(document).ready(function() {
    		  //현재년월일
    		  var date = new Date();
@@ -206,8 +221,8 @@ $(document).ready(function() {
    		  selectHelper:true,
 //////////////////////////////////////////////////////////////////////////////////////////   		  
    		  eventClick: function(calEvent, jsEvent, view) {
-  			    var eventInfoDateStart = calEvent.start.format();
-  			    var eventInfoDateEnd = calEvent.end.format();
+  			    eventInfoDateStart = calEvent.start.format();
+  			    eventInfoDateEnd = calEvent.end.format();
 				eventInfoAjax(eventInfoDateStart,eventInfoDateEnd);
    				eventInfof();
 

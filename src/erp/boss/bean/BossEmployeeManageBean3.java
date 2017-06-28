@@ -42,6 +42,9 @@ public class BossEmployeeManageBean3 {
 			ewtDTO = (EmployeeWorkTimeDTO)sqlMap.queryForObject("erpEmp.employeeCommuteCheck", e_id);
 			
 			if(ewtDTO == null){
+				int check = 10;
+				model.addAttribute("check", check);
+				return "/bossERP/employeeManage/employeeCalender";
 			}else if(ewtDTO.getResult() != 0){
 				ewtDTO = (EmployeeWorkTimeDTO)sqlMap.queryForObject("erpEmp.getCommute", ewtDTO);
 				int check = -1;
@@ -54,14 +57,13 @@ public class BossEmployeeManageBean3 {
 				sqlMap.update("erpEmp.updateEmployeeCommute", e_id);
 				ewtDTO = (EmployeeWorkTimeDTO)sqlMap.queryForObject("erpEmp.getCommute", ewtDTO);
 			}
+			commuteTime = ewtDTO.getCommuteTime();
+			
+			model.addAttribute("commuteTime", commuteTime);
+			model.addAttribute("checkCommute", checkCommute);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		commuteTime = ewtDTO.getCommuteTime();
-		
-		model.addAttribute("commuteTime", commuteTime);
-		model.addAttribute("checkCommute", checkCommute);
 		
 		return "/bossERP/employeeManage/employeeCommute";
 	}
@@ -89,6 +91,9 @@ public class BossEmployeeManageBean3 {
 			ewtDTO = (EmployeeWorkTimeDTO)sqlMap.queryForObject("erpEmp.employeeOffWorkCheck", e_id);
 			
 			if(ewtDTO == null){
+				int check = 10;
+				model.addAttribute("check", check);
+				return "/bossERP/employeeManage/employeeCalender";
 			}else if(ewtDTO.getResult() == 2){
 				ewtDTO = (EmployeeWorkTimeDTO)sqlMap.queryForObject("erpEmp.getCommute", ewtDTO);
 				int check = -1;
@@ -101,14 +106,13 @@ public class BossEmployeeManageBean3 {
 				sqlMap.update("erpEmp.updateEmployeeOffWork2", e_id);
 				ewtDTO = (EmployeeWorkTimeDTO)sqlMap.queryForObject("erpEmp.getCommute", ewtDTO);
 			}
+			commuteTime = ewtDTO.getCommuteTime();
+			
+			model.addAttribute("commuteTime", commuteTime);
+			model.addAttribute("checkCommute", checkCommute);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		commuteTime = ewtDTO.getCommuteTime();
-		
-		model.addAttribute("commuteTime", commuteTime);
-		model.addAttribute("checkCommute", checkCommute);
 		
 		return "/bossERP/employeeManage/employeeCommute";
 	}
@@ -129,17 +133,17 @@ public class BossEmployeeManageBean3 {
 		//변수들을 페이지로 전달
 		
 		try{
-			int check = (Integer)sqlMap.queryForObject("erpEmp.getUserGrade", id);
+			int check = (Integer)sqlMap.queryForObject("erpEmp.getUserGrade", id);//알바인지, 사장님인지 구분한다.
 			//리스트를 뽑는다.
 			List list = new ArrayList();
 			
 			if(check == 1){
 				//사장님이면	
-				list = (List)sqlMap.queryForObject("erpEmp.getEmployeeWorkTimeList", id);
+				list = (List)sqlMap.queryForList("erpEmp.getEmployeeWorkTimeList", id);
 			}else if(check == 2){
 				//알바생이면				
 				id = (String)sqlMap.queryForObject("erpEmp.getEidBid", id);
-				list = (List)sqlMap.queryForObject("erpEmp.getEmployeeWorkTimeList", id);
+				list = (List)sqlMap.queryForList("erpEmp.getEmployeeWorkTimeList", id);
 			}else{}
 		
 			model.addAttribute("list", list);
@@ -148,7 +152,7 @@ public class BossEmployeeManageBean3 {
 			e.printStackTrace();
 		}
 		
-		return "/bossERP/employeeManage/employeeLoginList";
+		return "/bossERP/employeeManage/employeeWorkTimeList";
 	}	
 	
 }
