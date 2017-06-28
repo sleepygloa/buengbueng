@@ -10,6 +10,11 @@
 	<delete id="deleteUserInfo" parameterClass="String">
 		delete from userInfo where id=#id#;
 	</delete>
+
+	<!-- 알바 계좌 정보 삭제 -->
+	<delete id="userAccountDeleteE" parameterClass="String">
+		delete from userAccount where id=#e_id#;
+	</delete>
 	
 	<!-- 회원 삭제 시 계좌정보 삭제 -->
 	<delete id="userAccountDelete" parameterClass="userDto">
@@ -46,6 +51,11 @@
 	<!-- 회원 가입 -->
 	<insert id="userAccountInsert" parameterClass="userDto">
 		insert into userAccount values(#id#, 0);
+	</insert>
+	
+		<!-- 회원 가입 -->
+	<insert id="userAccountInsertE" parameterClass="String">
+		insert into userAccount values(#e_id#, 0);
 	</insert>
 	
 	

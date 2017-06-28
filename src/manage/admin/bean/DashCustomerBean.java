@@ -24,14 +24,152 @@ public class DashCustomerBean extends BoardMethodBean{
 	
 	@Autowired
 	SqlMapClientTemplate sqlMap;
-	// 관리자 페이지 가맹 문의 
-	@RequestMapping("dashFranchiseList.do")
-	public String dashFranchiseList(HttpServletRequest request,HashMap map){
-		int snum=0;
+	
+	@RequestMapping("dashList.do")
+	public String dashList(HttpServletRequest request,HashMap map){
 		Alarm(request);
-		adminList(request, map);
-		return "/dash-customer/dashFranchiseList";
+		int pageSize = 10; // 한페이지 크기
+		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+		Date day = new Date();
+		String today = sdf.format(day); // java에서 오늘 날짜 출력
+		
+		int snum = Integer.parseInt(request.getParameter("snum"));
+		String pageNum = request.getParameter("pageNum");
+		
+		if(pageNum==null){pageNum = "1";}
+		int currentPage= Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize;
+		int number = 0;
+		
+		List list = null;
+		String[] dates = null;
+		int count = (Integer)sqlMap.queryForObject("customer.customercount", snum);
+		if(count>0){
+			map.put("snum",snum);
+			map.put("startRow",startRow);
+			map.put("pageSize",pageSize);
+			list = sqlMap.queryForList("customer.customerlist", map);
+			dates=new String[count];
+			for(int i=0;i<list.size();i++){
+				dates[i]=sdf.format(((CustomerDTO)list.get(i)).getReg_date());
+			}
+		}else{
+			list = Collections.EMPTY_LIST;
+		}
+		number=count-(currentPage-1)*pageSize;
+		
+		int pageCount = count / pageSize + (count%pageSize == 0? 0:1);
+		
+		int startPage = ((Integer.parseInt(pageNum)-1)/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage + pageBlock - 1;
+		if(endPage > pageCount){endPage = pageCount;}
+		
+		request.setAttribute("today", today);
+		request.setAttribute("count", count);
+		request.setAttribute("list", list);
+		request.setAttribute("number", number);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("snum", snum);
+		request.setAttribute("dates", dates);
+		
+		///////////////////////////////////////////////////
+
+		int snum2 = Integer.parseInt(request.getParameter("snum2"));
+		String pageNum2 = request.getParameter("pageNum2");
+				
+		if(pageNum2==null){pageNum2 = "1";}
+		int currentPage2= Integer.parseInt(pageNum2);
+		int startRow2 = (currentPage2-1)*pageSize;
+		int number2 = 0;
+		
+		List list2 = null;
+		String[] dates2 = null;
+		int count2 = (Integer)sqlMap.queryForObject("customer.customercount", snum2);
+		if(count2>0){
+			map.put("snum",snum2);
+			map.put("startRow",startRow2);
+			map.put("pageSize",pageSize);
+			list2 = sqlMap.queryForList("customer.customerlist", map);
+			dates2=new String[count2];
+			for(int i=0;i<list2.size();i++){
+				dates2[i]=sdf.format(((CustomerDTO)list2.get(i)).getReg_date());
+			}
+		}else{
+			list2 = Collections.EMPTY_LIST;
+		}
+		number2=count2-(currentPage2-1)*pageSize;
+		
+		int pageCount2 = count2 / pageSize + (count2%pageSize == 0? 0:1);
+		
+		int startPage2 = ((Integer.parseInt(pageNum2)-1)/10)*10+1;
+		int pageBlock2 = 10;
+		int endPage2 = startPage2 + pageBlock2 - 1;
+		if(endPage2 > pageCount2){endPage2 = pageCount2;}
+
+		request.setAttribute("count2", count2);
+		request.setAttribute("list2", list2);
+		request.setAttribute("number2", number2);
+		request.setAttribute("pageNum2", pageNum2);
+		request.setAttribute("currentPage2", currentPage2);
+		request.setAttribute("pageCount2", pageCount2);
+		request.setAttribute("startPage2", startPage2);
+		request.setAttribute("endPage2", endPage2);
+		request.setAttribute("snum2", snum2);
+		request.setAttribute("dates2", dates2);
+		
+		///////////////////////////////////////////////////////////
+
+		int snum3 = Integer.parseInt(request.getParameter("snum3"));
+		String pageNum3 = request.getParameter("pageNum3");
+				
+		if(pageNum3==null){pageNum3 = "1";}
+		int currentPage3= Integer.parseInt(pageNum3);
+		int startRow3 = (currentPage3-1)*pageSize;
+		int number3 = 0;
+		
+		List list3 = null;
+		String[] dates3 = null;
+		int count3 = (Integer)sqlMap.queryForObject("customer.customercount", snum3);
+		if(count3>0){
+			map.put("snum",snum3);
+			map.put("startRow",startRow3);
+			map.put("pageSize",pageSize);
+			list3 = sqlMap.queryForList("customer.customerlist", map);
+			dates3=new String[count3];
+			for(int i=0;i<list3.size();i++){
+				dates3[i]=sdf.format(((CustomerDTO)list3.get(i)).getReg_date());
+			}
+		}else{
+			list3 = Collections.EMPTY_LIST;
+		}
+		number3=count3-(currentPage3-1)*pageSize;
+		
+		int pageCount3 = count3 / pageSize + (count3%pageSize == 0? 0:1);
+		
+		int startPage3 = ((Integer.parseInt(pageNum3)-1)/10)*10+1;
+		int pageBlock3 = 10;
+		int endPage3 = startPage3 + pageBlock3 - 1;
+		if(endPage3 > pageCount3){endPage3 = pageCount3;}
+
+		request.setAttribute("count3", count3);
+		request.setAttribute("list3", list3);
+		request.setAttribute("number3", number3);
+		request.setAttribute("pageNum3", pageNum3);
+		request.setAttribute("currentPage3", currentPage3);
+		request.setAttribute("pageCount3", pageCount3);
+		request.setAttribute("startPage3", startPage3);
+		request.setAttribute("endPage3", endPage3);
+		request.setAttribute("snum3", snum3);
+		request.setAttribute("dates3", dates3);
+
+		return "/dash-customer/dashList";
 	}
+	
 	// 관리자 가맹 문의 글 호출
 	@RequestMapping("dashFranchiseContent.do")
 	public String dashFranchiseContent(HttpServletRequest request,CustomerDTO dto,HashMap map){
@@ -53,14 +191,7 @@ public class DashCustomerBean extends BoardMethodBean{
 		adminModifyPro(request, dto);
 		return "/dash-customer/dashFranchiseModifyPro";
 	}
-	
-	// 관리자 페이지 자주 묻는 질문
-	@RequestMapping("dashCustomerList.do")
-	public String dashCustomerList(HttpServletRequest request,HashMap map){
-		Alarm(request);
-		adminList(request, map);
-		return "/dash-customer/dashCustomerList";
-	}
+
 	// 관리자 자주 묻는 질문 게시글 호출
 	@RequestMapping("dashCustomerContent.do")
 	public String dashCustomerContent(HttpServletRequest request,CustomerDTO dto,HashMap map){
@@ -148,13 +279,7 @@ public class DashCustomerBean extends BoardMethodBean{
 		adminList(request, map);
 		return "/dash-customer/dashOneList";
 	}
-	// 관리자 1:1 문의 게시글 호출
-	@RequestMapping("dashOneContent.do")
-	public String dashOneContent(HttpServletRequest request,CustomerDTO dto,HashMap map){
-		Alarm(request);
-		adminContent(request, dto, map);
-		return "/dash-customer/dashOneContent";
-	}
+
 	//관리자 1:1 문의 글 수정 폼
 	@RequestMapping("dashOneModify.do")
 	public String dashOneModify(HttpServletRequest request,CustomerDTO dto){

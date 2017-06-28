@@ -296,7 +296,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 								map.put("b_key", beDTO.getB_key());
 								sqlMap.insert("erpEmp.insertEmployeeIdUserInfo", e_id);
 								sqlMap.insert("erpEmp.insertEmployeeIdEmployeeInfo", map);
-								
+								sqlMap.insert("test.userAccountInsertE", e_id);
 								id = e_id;		
 								break;
 							}else{
@@ -309,7 +309,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 									map.put("b_key", beDTO.getB_key());
 									sqlMap.insert("erpEmp.insertEmployeeIdUserInfo", e_id);
 									sqlMap.insert("erpEmp.insertEmployeeIdEmployeeInfo", map);
-									
+									sqlMap.insert("test.userAccountInsertE", e_id);
 									id = e_id;		
 									break;
 								}
@@ -318,7 +318,8 @@ public class dashAllManagementBean extends BoardMethodBean{
 						}
 					
 				}
-				sqlMap.update("erpEmp.updateEmployeeAddLog", id);	
+				sqlMap.update("erpEmp.updateEmployeeAddLog", id);
+				
 				check = 1;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -335,6 +336,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 	public String employeeDeleteAdminConfirm(Model model, String e_id){
 		int check = 0;
 		try{
+			sqlMap.delete("test.userAccountDeleteE",e_id);
 			sqlMap.update("erpEmp.deleteIdLogAddConfirm", e_id);
 			sqlMap.delete("erpEmp.deleteEidEmployeeInfo", e_id);
 			sqlMap.delete("erpEmp.deleteEidUserInfo", e_id);
