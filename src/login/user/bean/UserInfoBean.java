@@ -186,10 +186,10 @@ public class UserInfoBean {
 		String asd = (String)sqlMap.queryForObject("test.checkPasswd",id);
 		if(asd.equals(pw)){
 			try{
+				sqlMap.delete("test.userAccountDelete",id); //회원의 계좌정보 삭제
 				sqlMap.delete("test.deleteUserInfo",id);
 				session.invalidate();
 				check=1;
-				System.out.println(check);
 				model.addAttribute("check",check);
 			}catch(Exception e){e.printStackTrace();
 		}
@@ -197,7 +197,6 @@ public class UserInfoBean {
 		return "userInfo/userInfoDeletePro";
 	}
 	
-
 	
 	@RequestMapping("userInfoForm.do")
 	public String userInfoForm(HttpSession session, Model model){

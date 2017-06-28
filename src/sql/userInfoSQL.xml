@@ -11,6 +11,12 @@
 		delete from userInfo where id=#id#;
 	</delete>
 	
+	<!-- 회원 삭제 시 계좌정보 삭제 -->
+	<delete id="userAccountDelete" parameterClass="userDto">
+		delete from userAccount where id = #id#;
+	</delete>
+	
+	
 	<select id="loginCheck" resultClass="userDto" parameterClass="userDto">
 		select * from userInfo;
 	</select>

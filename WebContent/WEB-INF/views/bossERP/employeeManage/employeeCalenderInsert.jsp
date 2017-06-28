@@ -7,18 +7,28 @@
 .date_button{
 display:box;
 padding:5px;
-font-size:1.2em;
+font-size:0.9em;
 border : none;
 background-color:#fff;
 }
 .date_selectbox{
 padding:5 15px;
-font-size:1.2em;
+font-size:0.9em;
 border:none;
 }
 .div_deco{
 border-bottom:1px solid #f5f5f5;
-padding:10 0px;
+padding:0 0 2 10px;
+}
+.minor-minor{
+font-size:0.7em;
+}
+.bg-color-white{
+}
+.bg-color-wgray{
+}
+.date_checkbox{
+width:20px;
 }
 </style>
 <c:if test="${check == 9}">
@@ -26,6 +36,7 @@ padding:10 0px;
  <script>
  opener.parent.location.reload();
 	function sc(){
+		
 		opener=self;
 		
 		setTimeout('self.close()',500);
@@ -37,18 +48,23 @@ padding:10 0px;
 
 	<div class="col-xs-12-12"><!-- 내용 -->
 	<div class="margin-bottom50"></div><!-- 여백 -->
-	
+		<form action="employeeCalenderInsertPro.do" method="post">
 		<div class="container popup_container">
 	
 			<div class="popup_title"><label>알바일정</label></div>
 			
-			<form action="employeeCalenderInsertPro.do" method="post">
-			<div class="popup_id"><label>아이디 : ${id}</label></div>
+			<div class="popup_id col-xs-3-12 div_deco">아이디 </div>
+			<div class="popup_id col-xs-9-12"><input class="date_button" type="button" value="${id}" /></div>
 			<div class="popup_content">
-				<div class="col-xs-12-12 div_deco">
-				<span>시작일</span>&nbsp;&nbsp;
+				<div class="col-xs-3-12 div_deco">
+				<span>시작일</span>
+				</div>
+				<div class="col-xs-9-12 div_deco">
 				<input type="hidden" name="startDate" value="${starts}" />
 				<input class="date_button" type="button" name="startDate" value="${starts}" />
+				</div>
+				<div class="col-xs-3-12 div_deco"></div>
+				<div class="col-xs-9-12 div_deco">
 				<select class="date_selectbox" name="startHour">
 					<option value="0">00:00</option>
 					<option value="3600000">01:00</option>
@@ -106,19 +122,31 @@ padding:10 0px;
 				</select>
 				</div>
 				
+				<div  class="col-xs-3-12 div_deco">
+				종료일<input type="hidden" name="endDate" value="${ends}"/>
+				</div>
+				<div  class="col-xs-9-12 div_deco">
+				<input class="date_button" type="button" name="endDate" value="${ends}"/>
+				</div>
+				<div  class="col-xs-3-12 div_deco">
+				근무일수
+				</div>
+				<div  class="col-xs-3-12 div_deco">
+				<input class="date_button" type="button"  value="${forDate}"/> 일
+				<input  type="hidden" name="forDate" value="${forDate}"/>
+				</div>
 				<div  class="col-xs-12-12 div_deco">
-				종료일&nbsp;&nbsp;<input type="hidden" name="endDate" value="${ends}"/>
-				<input class="date_button" type="button" name="endDate" value="${ends}"/><br />
-				기간&nbsp;&nbsp;<input type="button" name="for" value="${forDate}"/>
+				<span class="minor-minor">*. 야근근무자는 기간 체크를 해주세요.(근무시간 중 24시간이 지나는 타임만!!)</span>
+				</div>
+				
 				</div>	
 			</div>
+			
 			<div class="popup-btn">
-				<!-- <input class="btn btn-default col-xs-12-12" type="submit" value="신청하기"/> -->
 				<input class="btn btn-default col-xs-12-12" type="submit" value="신청하기"  /> 
 			</div>
+			
 		</form>
-		</div>
-	
 	</div>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 

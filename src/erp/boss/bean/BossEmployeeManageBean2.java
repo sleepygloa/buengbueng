@@ -131,8 +131,9 @@ public class BossEmployeeManageBean2 {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String starts = df.format(start);
 		String ends = df.format(end-86400000);
-		String forDate = df.format(end-start);
-
+		
+		DateFormat df2 = new SimpleDateFormat("dd");
+		String forDate = df2.format(end-start-86400000);
 		
 		model.addAttribute("starts",starts);
 		model.addAttribute("ends",ends);
@@ -157,17 +158,47 @@ public class BossEmployeeManageBean2 {
 		Long startHour = Long.parseLong(beDTO.getStartHour());
 		Long endHour = Long.parseLong(beDTO.getEndHour());
 		
-		startDate += startHour;
-		endDate += endHour;
+		int forDate = Integer.parseInt(beDTO.getForDate());
 		
-		beDTO.setStartTime(pd.longToTimestamp(startDate));
-		beDTO.setEndTime(pd.longToTimestamp(endDate));
-		
-		try{
-			sqlMap.insert("erpEmp.calenderInsertTime", beDTO);
-		}catch(Exception e){
-			e.printStackTrace();
+		if(startHour < endHour){
+			
+			
+			if(forDate > 1){
+				endDate = startDate + endHour;
+				startDate += startHour;
+			}else{
+				startDate += startHour;
+				endDate += endHour;
+			}
+			
+
+			try{
+				for(int i = 0; i < forDate; i++){
+					beDTO.setStartTime(pd.longToTimestamp(startDate+i*86400000));
+					beDTO.setEndTime(pd.longToTimestamp(endDate+i*86400000));
+					
+					sqlMap.insert("erpEmp.calenderInsertTime", beDTO);	
+				}
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}else{// endHour < startHour 새벽근무자
+			if(forDate > 2){
+				check = 9;//2일이상 종일근무시 불가능하다는 경고창을 보낸다.
+			}else{
+				startDate += startHour;
+				endDate += endHour;
+				
+				beDTO.setStartTime(pd.longToTimestamp(startDate));
+				beDTO.setEndTime(pd.longToTimestamp(endDate));
+				
+				sqlMap.insert("erpEmp.calenderInsertTime", beDTO);
+			}
+
 		}
+		
+		
 		
 		model.addAttribute("check", check);
 		
@@ -217,7 +248,6 @@ public class BossEmployeeManageBean2 {
 			String dragPlanStart = (String)JObject.get("dragPlanStart");
 			String dragPlanEnd =  (String)JObject.get("dragPlanEnd");
 			
-			System.out.println(dragPlanStart);
 			
 			HashMap map = new HashMap();
 			map.put("e_id", e_id);
@@ -258,9 +288,6 @@ public class BossEmployeeManageBean2 {
 			
 			String e_id = (String)session.getAttribute("loginId");
 			String b_key = (String)session.getAttribute("b_key");
-			
-			System.out.println(eventInfoChangeDateEnd);
-
 			
 			try{
 				HashMap map = new HashMap();
