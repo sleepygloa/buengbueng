@@ -1,25 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
-    <head>
-    	<title>주문 현황</title>
-    		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    	<script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
-    	<script type="text/javascript" src="/buengbueng/js/menu/menuStatus.js"></script>
-    	
-    </head>
-    
-    <body>
-    
-    <!-- HEADER TEMPLATE -->
-	<jsp:include page="/WEB-INF/views/header.jsp" />
-    
-    
-    <div>주문현황 리스트</div>
 
-
-    <div class="bossMenuStatus">
     	<table>
     	<tr>
     	<td>주문번호</td><td>주문자 아이디</td><td>주문명</td><td>주문 시간</td><td>주문 금액</td><td>현황</td><td></td>
@@ -47,9 +29,3 @@
     		</tr>    	
 			</c:forEach>
     	</table>
-    </div>
-
-    
-    
-    
-    </body>

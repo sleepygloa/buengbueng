@@ -63,7 +63,7 @@ public class MenuOrderBean {
 	
 	/* 사용자 주문 페이지*/
 	@RequestMapping("userOrderForm.do")
-	public String userOrderForm(HttpSession session,HttpServletRequest request, String name){
+	public String userOrderForm(HttpSession session,String tf ,HttpServletRequest request, String name){
 		try{
 		String id=(String)session.getAttribute("loginId");
 		String l_key = (String)sqlMap.queryForObject("order.getLicenseKey",name);
@@ -74,10 +74,9 @@ public class MenuOrderBean {
 		HashMap map = new HashMap();
 		map.put("l_key",l_key);
 		map.put("id",id);
-		List<OrderDTO> userOrderList=(List<OrderDTO>)sqlMap.queryForList("order.getUserOrder", map);
+		List<OrderDTO> userOrderList=(List<OrderDTO>)sqlMap.queryForList("order.getUserOrderList", map);
 		request.setAttribute("userOrderList", userOrderList);
 		request.setAttribute("id", id);
-
 		
 		List categoryList =sqlMap.queryForList("menu.getCategory",l_key);
 		if(categoryList!=null){
@@ -85,12 +84,14 @@ public class MenuOrderBean {
 			request.setAttribute("l_key",l_key);
 			request.setAttribute("name", name);
 		}
-		
-		
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return "/menu/userOrderForm";
+	    if(tf == null){
+	         return "/menu/userOrderForm";
+	      }else{
+	         return "/menu/userOrderTable";
+	      }
 	}
 	
 	@RequestMapping("userOrderPro.do")
@@ -109,6 +110,7 @@ public class MenuOrderBean {
 			int menuorderstatus=(Integer)sqlMap.queryForObject("order.selectMenuOrder", map1);
 
 			int price=(Integer)sqlMap.queryForObject("order.getPrice",map1);
+			
 			String id = (String)session.getAttribute("loginId");
 			
 			// 사용자가 주문은 하고 아직 승인이 안됬을 때 그 금액도 현재잔액과 합해야함
@@ -139,8 +141,8 @@ public class MenuOrderBean {
 					
 					// 마지막 주문의 날짜 가져오기.
 					String lastOrdertime=(String)sqlMap.queryForObject("order.getLastOrder",l_key);
-					System.out.println(lastOrdertime +"ordertime");
-			
+				
+					
 					if(lastOrdertime.equals(nowTime)){ 
 						OrderDTO odto=(OrderDTO) menuOrderList.get(0);
 						num=odto.getNum();
@@ -211,13 +213,25 @@ public class MenuOrderBean {
 	
 	/* 사용자 주문창에서 취소 창 */
 	@RequestMapping("userOrderCancel.do")
-	public String userOrderDelete(HttpServletRequest request, String id, Timestamp ordertime, String l_key){
-		try{
-			
-		}catch(Exception e){
-			
-		}
-		return "menu/userOrderCancel";
+	public String userOrderCancel(HttpServletRequest request, Timestamp ordertime, String id, String l_key){
+		int check=0;
+		request.setAttribute("check", check);
+		try{			
+			HashMap map = new HashMap();
+			map.put("id",id);
+			map.put("l_key",l_key);
+			map.put("ordertime",ordertime);
+			int status = (Integer)sqlMap.queryForObject("order.getUserOrder", map);
+			if(status==1){
+				sqlMap.update("order.OrderCancel", map);
+				check=1;
+			}else{
+				check=0;
+			}
+			request.setAttribute("check", check);
+		
+		}catch(Exception e){e.printStackTrace(); check=-1; request.setAttribute("check",check);}
+		return "/menu/userOrderCancel";
 	}
 	
 	/* 사용자 주문승된 후 환불 요청 페이지 */
@@ -236,7 +250,7 @@ public class MenuOrderBean {
 	////// 사장님 주문 //////
 	
 	@RequestMapping("menuOrderListForm.do")
-	public String menuOrderListForm(HttpSession session,HttpServletRequest request){
+	public String menuOrderListForm(HttpSession session,String tf,HttpServletRequest request){
 		try{
 			//사이드메뉴 템플릿
 			int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
@@ -249,7 +263,13 @@ public class MenuOrderBean {
 			request.setAttribute("orderList", orderList);
 			request.setAttribute("l_key",l_key);	
 		}catch(Exception e){e.printStackTrace();}
-		return "/menu/menuOrderListForm";
+		
+		if(tf == null){
+			return "/menu/menuOrderListForm";
+		}else{
+			return "/menu/menuOrderTable";
+		}
+		
 
 	}
 	
@@ -271,9 +291,8 @@ public class MenuOrderBean {
 	/* 바코드 확인하고 정상적인 주문일 때 완료 페이지*/
 	@RequestMapping("menuOrderComplete.do")
 	public String menuOrderComplete(HttpSession session,HttpServletRequest request, String barcode, int num, String name, String l_key){
-		int check=0;
+		int check;
 		try{
-		
 			HashMap map=new HashMap();
 			map.put("barcode", barcode);
 			map.put("name",name);
@@ -293,21 +312,32 @@ public class MenuOrderBean {
 				map2.put("l_key", l_key);
 				sqlMap.update("order.updateSaleCheck",map2); // 재고 판매여부 1 --> 0
 				
-				// sellBuyLog 판매시간 입력.
-				sqlMap.update("order.productsaleregistdate", map2);
+				// sellBuyLog 판매시간 입력 / sellBuyLog 금액 입력.
+				HashMap map5 = new HashMap();
+				map5.put("name",name);
+				map5.put("l_key",l_key);
+				int price = (Integer)sqlMap.queryForObject("order.getMenuPrice", map5);
+				
+				HashMap map6 = new HashMap();
+				map6.put("price", price);
+				map6.put("name", name);
+				map6.put("barcode", barcode);
+				map6.put("l_key", l_key);
+				
+				sqlMap.update("order.productsaleregistdate", map6);
 				
 				
 				// 주문자 아이디 가져오기
 				HashMap map3 = new HashMap();
 				map3.put("num",num);
 				map3.put("l_key",l_key);
-				map3.put("barcode",barcode);
+				map3.put("name",name);
 				String userId=(String)sqlMap.queryForObject("order.getOrderUserId",map3);
 			
 				int ordermoney = (Integer)sqlMap.queryForObject("order.getOrderMoney", name); // 메뉴가격 가져오는 것.
 				int usermoney = (Integer)sqlMap .queryForObject("order.getUserMoney",userId);
 				int money = usermoney-ordermoney;
-				System.out.println(ordermoney+""+usermoney+money);
+				
 		
 				
 				HashMap map4 = new HashMap();

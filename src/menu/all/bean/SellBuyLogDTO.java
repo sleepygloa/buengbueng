@@ -7,8 +7,15 @@ public class SellBuyLogDTO {
 	private String code;
 	private Date productregistdate;
 	private Date productsaleregistdate;
+	private int price;
 	private String l_key;
 	
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public String getL_key() {
 		return l_key;
 	}
