@@ -12,13 +12,13 @@
 	margin-bottom:30px;
 }
 .popup_id{
-	width:100%;
+	width:95%;
 	padding-left:10px;
 	margin-bottom:30px;
 }
 .popup_content{
-	width:100%;
-	padding:0 10 0 10;
+	width:95%;
+	padding:0 auto;
 	
 }
 .col-xs-6-12{

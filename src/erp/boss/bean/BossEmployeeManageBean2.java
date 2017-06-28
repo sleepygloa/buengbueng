@@ -131,9 +131,12 @@ public class BossEmployeeManageBean2 {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String starts = df.format(start);
 		String ends = df.format(end-86400000);
+		String forDate = df.format(end-start);
+
 		
 		model.addAttribute("starts",starts);
 		model.addAttribute("ends",ends);
+		model.addAttribute("forDate",forDate);
 		
 		return "/bossERP/employeeManage/employeeCalenderInsert";
 	}

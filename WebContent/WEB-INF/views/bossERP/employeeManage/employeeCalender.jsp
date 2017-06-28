@@ -217,7 +217,7 @@ $(document).ready(function() {
 //////////////////////////////////////////////////////////////////////////////////////////   		  
    		  select:function(start,end){
 			window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
-	 		"width=450, height=300,status=no,toolbar=no,directories=no,location=no,scrollbars=no, resizable=no")
+	 		"width=500, height=400,status=no,toolbar=no,directories=no,location=no,scrollbars=no, resizable=no")
    		  },
 //////////////////////////////////////////////////////////////////////////////////////////
    		  eventDragStart: function(event, eventDropF){
