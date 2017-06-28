@@ -91,7 +91,6 @@
 	<select id="getUserAccount" parameterClass="String" resultClass="uadto">
 		select * from userAccount where id = #id#;
 	</select>	
-</sqlMap>
 
 	<!-- 사용자 이용 내역 -->
 	<select id="usageHistory" resultClass="usageHistoryDTO">
