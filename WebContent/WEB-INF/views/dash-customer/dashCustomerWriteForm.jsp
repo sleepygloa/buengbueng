@@ -8,9 +8,10 @@
 <title>Q & A</title>
 </head>
 <div>자주 묻는 질문</div>
-<form action="dashCustomerWriteFormPro.do" method="post" name="dashCustomer">
+<form action="dashCustomerWriteFormPro.do" method="post" onsubmit="return emptyCheck();" name="dashCustomer">
 <input type="hidden" name="pageNum" value="${pageNum}">
-<input type="hidden" name="snum" value="${snum}">
+<input type="hidden" name="pageNum2" value="${pageNum2}">
+<input type="hidden" name="pageNum3" value="${pageNum3}">
 <input type="hidden" name="num" value="${num}">
 <input type="hidden" name="ref" value="${ref}">
 <input type="hidden" name="re_step" value="${re_step}">
@@ -43,3 +44,20 @@
 </div>
 </form>
 <jsp:include page="../dashFooter.jsp"/>
+
+<script>
+function emptyCheck(){
+	if(document.dashCustomer.email.value == ""){
+		alert('메일을 입력하세요');
+		return false;
+	}
+	if(document.dashCustomer.title.value == ""){
+		alert('제목을 입력하세요');
+		return false;
+	}
+	if(document.dashCustomer.content.value == ""){
+		alert('내용을 입력하세요');
+		return false;
+	}
+}	
+</script>

@@ -23,7 +23,7 @@
 		<span>
 		<c:out value="${number}"/>
 		</span>
-		<span><a href="dashFranchiseContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
+		<span><a href="dashFranchiseContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&number=${number}">${list.title}</a></span>
 		<span>${list.writer}</span>
 		<span>${list.email}</span>
 		<span>${dates[d]}</span>
@@ -37,21 +37,20 @@
 </c:forEach>
 	
 	<c:if test="${startPage > 10}">
-        <a href="dashList.do?snum=${snum}&pageNum=${ startPage - 10 }">[이전]</a>
+        <a href="dashList.do?snum=${snum}&snum2=${snum2}&snum3=${snum3}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum=${ startPage - 10 }">[이전]</a>
 	</c:if>
 	<c:forEach var="i" begin="${startPage}" end="${endPage}">
-		<a href="dashList.do?snum=${snum}&pageNum=${i}">[${i}]</a>
+		<a href="dashList.do?snum=${snum}&snum2=${snum2}&snum3=${snum3}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum=${i}">[${i}]</a>
 	</c:forEach>
 	<c:if test="${endPage < pageCount}">
-    	<a href="dashList.do?snum=${snum}&pageNum=${ startPage + 10 }">[다음]</a>
+    	<a href="dashList.do?snum=${snum}&snum2=${snum2}&snum3=${snum3}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum=${ startPage + 10 }">[다음]</a>
 	</c:if>
 </c:if>
 </div>
-
 <!-------------------------------------------------------------------------------------------------->
 
 <div>
-<div>자주 묻는 질문</div><div><a href="dashCustomerWriteForm.do?snum=2&pageNum=1">글쓰기</a></div>
+<div>자주 묻는 질문</div><div><a href="dashCustomerWriteForm.do?snum=${snum2}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}">글쓰기</a></div>
 	<span>번호</span>
 	<span>제목</span>
 	<span>작성자</span>
@@ -70,7 +69,7 @@
 		<span>
 		<c:out value="${number2}"/>
 		</span>
-		<span><a href="dashCustomerContent.do?num=${list2.num}&snum=${snum2}&pageNum=${pageNum2}&number=${number2}">${list2.title}</a></span>
+		<span><a href="dashCustomerContent.do?num=${list2.num}&snum=${snum2}&pageNum=${pageNum}&pageNum=${pageNum2}&pageNum3=${pageNum3}&number=${number2}">${list2.title}</a></span>
 		<span>${list2.writer}</span>
 		<span>${list2.email}</span>
 		<span>${dates2[d]}</span>
@@ -81,13 +80,13 @@
 </c:forEach>
 	
 	<c:if test="${startPage2 > 10}">
-        <a href="dashList.do?snum2=${snum2}&pageNum2=${ startPage2 - 10 }">[이전]</a>
+        <a href="dashList.do?snum=${snum}&snum2=${snum2}&snum3=${snum3}&pageNum=${pageNum}&pageNum3=${pageNum3}&pageNum2=${ startPage2 - 10 }">[이전]</a>
 	</c:if>
 	<c:forEach var="i2" begin="${startPage2}" end="${endPage2}">
-		<a href="dashList.do?snum2=${snum2}&pageNum2=${i2}">[${i2}]</a>
+		<a href="dashList.do?snum=${snum}&snum2=${snum2}&snum3=${snum3}&pageNum=${pageNum}&pageNum3=${pageNum3}&pageNum2=${i2}">[${i2}]</a>
 	</c:forEach>
 	<c:if test="${endPage2 < pageCount2}">
-    	<a href="dashList.do?snum2=${snum2}&pageNum2=${ startPage2 + 10 }">[다음]</a>
+    	<a href="dashList.do?snum=${snum}&snum2=${snum2}&snum3=${snum3}&pageNum=${pageNum}&pageNum3=${pageNum3}&pageNum2=${ startPage2 + 10 }">[다음]</a>
 	</c:if>
 </c:if>
 </div>
@@ -114,7 +113,7 @@
 		<span>
 		<c:out value="${number3}"/>
 		</span>
-		<span><a href="dashCustomerContent.do?num=${list3.num}&snum=${snum3}&pageNum=${pageNum3}&number=${number3}">${list3.title}</a></span>
+		<span><a href="dashCustomerContent.do?num=${list3.num}&snum=${snum3}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum=${pageNum3}&number=${number3}">${list3.title}</a></span>
 		<span>${list3.writer}</span>
 		<span>${list3.email}</span>
 		<span>${dates3[d]}</span>
@@ -125,13 +124,13 @@
 </c:forEach>
 
 	<c:if test="${startPage3 > 10}">
-        <a href="dashList.do?snum3=${snum3}&pageNum3=${ startPage3 - 10 }">[이전]</a>
+        <a href="dashList.do?snum=${snum}&snum2=${snum2}&snum3=${snum3}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${ startPage3 - 10 }">[이전]</a>
 	</c:if>
 	<c:forEach var="i3" begin="${startPage3}" end="${endPage3}">
 		<a href="dashList.do?snum=${snum}&snum2=${snum2}&snum3=${snum3}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${i3}">[${i3}]</a>
 	</c:forEach>
 	<c:if test="${endPage3 < pageCount3}">
-    	<a href="dashList.do?snum3=${snum3}&pageNum3=${ startPage3 + 10 }">[다음]</a>
+    	<a href="dashList.do?snum=${snum}&snum2=${snum2}&snum3=${snum3}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${ startPage3 + 10 }">[다음]</a>
 	</c:if>
 </c:if>
 </div>

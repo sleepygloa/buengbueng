@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import login.user.bean.CustomerDTO;
 import login.user.bean.UserInfoDataDTO;
-import sun.invoke.empty.Empty;
 
 @Controller
 public class DashCustomerBean extends BoardMethodBean{
@@ -26,14 +24,14 @@ public class DashCustomerBean extends BoardMethodBean{
 	SqlMapClientTemplate sqlMap;
 	
 	@RequestMapping("dashList.do")
-	public String dashList(HttpServletRequest request,HashMap map){
+	public String dashList(HttpServletRequest request){
 		Alarm(request);
 		int pageSize = 10; // 한페이지 크기
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 		Date day = new Date();
 		String today = sdf.format(day); // java에서 오늘 날짜 출력
 		
-		int snum = Integer.parseInt(request.getParameter("snum"));
+		int snum = 1;
 		String pageNum = request.getParameter("pageNum");
 		
 		if(pageNum==null){pageNum = "1";}
@@ -45,6 +43,7 @@ public class DashCustomerBean extends BoardMethodBean{
 		String[] dates = null;
 		int count = (Integer)sqlMap.queryForObject("customer.customercount", snum);
 		if(count>0){
+			HashMap map = new HashMap();
 			map.put("snum",snum);
 			map.put("startRow",startRow);
 			map.put("pageSize",pageSize);
@@ -79,7 +78,7 @@ public class DashCustomerBean extends BoardMethodBean{
 		
 		///////////////////////////////////////////////////
 
-		int snum2 = Integer.parseInt(request.getParameter("snum2"));
+		int snum2 = 2;
 		String pageNum2 = request.getParameter("pageNum2");
 				
 		if(pageNum2==null){pageNum2 = "1";}
@@ -91,10 +90,11 @@ public class DashCustomerBean extends BoardMethodBean{
 		String[] dates2 = null;
 		int count2 = (Integer)sqlMap.queryForObject("customer.customercount", snum2);
 		if(count2>0){
-			map.put("snum",snum2);
-			map.put("startRow",startRow2);
-			map.put("pageSize",pageSize);
-			list2 = sqlMap.queryForList("customer.customerlist", map);
+			HashMap map2 = new HashMap();
+			map2.put("snum",snum2);
+			map2.put("startRow",startRow2);
+			map2.put("pageSize",pageSize);
+			list2 = sqlMap.queryForList("customer.customerlist", map2);
 			dates2=new String[count2];
 			for(int i=0;i<list2.size();i++){
 				dates2[i]=sdf.format(((CustomerDTO)list2.get(i)).getReg_date());
@@ -124,7 +124,7 @@ public class DashCustomerBean extends BoardMethodBean{
 		
 		///////////////////////////////////////////////////////////
 
-		int snum3 = Integer.parseInt(request.getParameter("snum3"));
+		int snum3 = 3;
 		String pageNum3 = request.getParameter("pageNum3");
 				
 		if(pageNum3==null){pageNum3 = "1";}
@@ -136,10 +136,11 @@ public class DashCustomerBean extends BoardMethodBean{
 		String[] dates3 = null;
 		int count3 = (Integer)sqlMap.queryForObject("customer.customercount", snum3);
 		if(count3>0){
-			map.put("snum",snum3);
-			map.put("startRow",startRow3);
-			map.put("pageSize",pageSize);
-			list3 = sqlMap.queryForList("customer.customerlist", map);
+			HashMap map3=new HashMap();
+			map3.put("snum",snum3);
+			map3.put("startRow",startRow3);
+			map3.put("pageSize",pageSize);
+			list3 = sqlMap.queryForList("customer.customerlist", map3);
 			dates3=new String[count3];
 			for(int i=0;i<list3.size();i++){
 				dates3[i]=sdf.format(((CustomerDTO)list3.get(i)).getReg_date());
@@ -219,9 +220,11 @@ public class DashCustomerBean extends BoardMethodBean{
 		Alarm(request);
 		String id = (String)session.getAttribute("loginId");
 		UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
-		
-		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		int snum=Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
+		String pageNum2 = request.getParameter("pageNum2");
+		String pageNum3 = request.getParameter("pageNum3");
+				
 		int num=0,ref=1,re_step=0;
 		if(request.getParameter("num")!=null){
 			String title=request.getParameter("title");
@@ -235,8 +238,9 @@ public class DashCustomerBean extends BoardMethodBean{
 		request.setAttribute("num", new Integer(num));
 		request.setAttribute("ref", new Integer(ref));
 		request.setAttribute("re_step", new Integer(re_step));
-		request.setAttribute("snum", snum);
 		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("pageNum2", pageNum2);
+		request.setAttribute("pageNum3", pageNum3);
 		return "/dash-customer/dashCustomerWriteForm";
 	}
 	//관리자 자주 묻는 질문 글쓰기
@@ -244,6 +248,8 @@ public class DashCustomerBean extends BoardMethodBean{
 	public String dashCustomerWriteFormPro(HttpServletRequest request,HashMap map,CustomerDTO dto){
 		Alarm(request);
 		String pageNum = request.getParameter("pageNum");
+		String pageNum2 = request.getParameter("pageNum2");
+		String pageNum3 = request.getParameter("pageNum3");
 
 		int num=dto.getNum(); 
 		int ref=dto.getRef();
@@ -268,7 +274,8 @@ public class DashCustomerBean extends BoardMethodBean{
 
 		sqlMap.insert("customer.writePro", dto);
 		request.setAttribute("pageNum", pageNum);
-		request.setAttribute("snum", snum);
+		request.setAttribute("pageNum2", pageNum2);
+		request.setAttribute("pageNum3", pageNum3);
 		return "/dash-customer/dashCustomerWriteFormPro";
 	}
 	
