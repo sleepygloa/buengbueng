@@ -21,6 +21,15 @@ public class FxRentBean {
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
 	
+	@RequestMapping("fxdeleteorder.do")
+	public String fxdeleteorder(){
+		// 로그인 시에 바로 재고의 유통기한 확인하는 sql
+		sqlMap.delete("order.lastdayDelete",null);
+		//
+		
+		return "menu.fxdeleteorder";
+	}
+	
 	@RequestMapping("fxGetRentList.do")
 	public String getRentList(String key, Model model){
 		ArrayList<RentDataDTO> rentList = (ArrayList)sqlMap.queryForList("rent.getRentAll",key);

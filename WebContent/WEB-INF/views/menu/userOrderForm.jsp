@@ -34,5 +34,35 @@
 	
 		</table>
 	</div>
+	<div><br><br></div>
+	
+			<div class="userMenuStatus">
+		<table>
+			<tr>
+			<td>주문 상황</td>
+			</tr>
+			<tr>
+			<td>가맹점</td><td>주문메뉴</td><td>가격</td><td>주문현황</td>
+			<c:forEach var="userOrder" items="${userOrderList}">
+			<tr>
+			<td>${userOrder.l_key}</td>
+			<td>${userOrder.menuname}</td>
+			<td>${userOrder.ordermoney}</td>
+			<td>
+			<c:if test="${userOrder.orderstatus==1}">주문 중
+				<button onclick="window.location='userOrderCancel.do?id=${id}&ordertime=${userOrder.ordertime}&l_key=${l_key}'">주문 취소</button>
+			</c:if>
+			<c:if test="${userOrder.orderstatus==2}">주문 승인
+				<button onclick="window.location='userOrderRefund.do'">환불 요청</button>
+			</c:if>
+			<c:if test="${userOrder.orderstatus==3}">주문 취소</c:if>
+			
+			</td>
+			</tr>
+			</c:forEach>
+			
+			</table>
+		</div>		
+	
 	
     </body>

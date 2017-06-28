@@ -16,9 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.orm.ibatis.SqlMapTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mysql.fabric.xmlrpc.base.Data;
+
+import sun.rmi.transport.proxy.HttpReceiveSocket;
 
 @Controller
 
@@ -60,17 +63,30 @@ public class MenuOrderBean {
 	
 	/* 사용자 주문 페이지*/
 	@RequestMapping("userOrderForm.do")
-	public String userOrderForm(HttpServletRequest request, String name){
+	public String userOrderForm(HttpSession session,HttpServletRequest request, String name){
 		try{
+		String id=(String)session.getAttribute("loginId");
 		String l_key = (String)sqlMap.queryForObject("order.getLicenseKey",name);
 		List menuList= sqlMap.queryForList("menu.getMenu",l_key);
 		request.setAttribute("menuList", menuList);
+		
+		//사용자가 주문 주문내역 가져오기
+		HashMap map = new HashMap();
+		map.put("l_key",l_key);
+		map.put("id",id);
+		List<OrderDTO> userOrderList=(List<OrderDTO>)sqlMap.queryForList("order.getUserOrder", map);
+		request.setAttribute("userOrderList", userOrderList);
+		request.setAttribute("id", id);
+
+		
 		List categoryList =sqlMap.queryForList("menu.getCategory",l_key);
 		if(categoryList!=null){
 			request.setAttribute("categoryList",categoryList);
 			request.setAttribute("l_key",l_key);
 			request.setAttribute("name", name);
 		}
+		
+		
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -79,7 +95,7 @@ public class MenuOrderBean {
 	
 	@RequestMapping("userOrderPro.do")
 	public String userOrderPro(String name,String order,HttpServletRequest request,String l_key, HttpSession session){
-		System.out.println("이름"+name+order);
+
 		int check;
 		int num;
 		int orderMoney = 0;
@@ -116,14 +132,10 @@ public class MenuOrderBean {
 				
 				if(menuOrderList.size()==0){
 					num=0;
-					System.out.println(num+"여기인가");
-				}else{
-					
-					
+					}else{				
 					Date nowtime=new Date();
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					String nowTime = sdf.format(nowtime);
-					System.out.println(nowTime+"newtime");
 					
 					// 마지막 주문의 날짜 가져오기.
 					String lastOrdertime=(String)sqlMap.queryForObject("order.getLastOrder",l_key);
@@ -132,17 +144,13 @@ public class MenuOrderBean {
 					if(lastOrdertime.equals(nowTime)){ 
 						OrderDTO odto=(OrderDTO) menuOrderList.get(0);
 						num=odto.getNum();
-						System.out.println(num+"넌아닐거같아");
-						
+					
 					}else{
 						num=0;
-						System.out.println(num+"이곳인가");
 					}
-
 				}
 				num=num+1;		
-				System.out.println("더해졌니"+num);
-				
+							
 				HashMap map=new HashMap();
 				map.put("num",num);
 				map.put("id",id);
@@ -200,6 +208,32 @@ public class MenuOrderBean {
 		request.setAttribute("name",name);
 		return "/menu/userCategoryAll";
 	}
+	
+	/* 사용자 주문창에서 취소 창 */
+	@RequestMapping("userOrderCancel.do")
+	public String userOrderDelete(HttpServletRequest request, String id, Timestamp ordertime, String l_key){
+		try{
+			d
+			
+			
+		}catch{
+			
+		}
+		return "menu/userOrderCancel";
+	}
+	
+	/* 사용자 주문승된 후 환불 요청 페이지 */
+	@RequestMapping("userOrderRefund.do")
+	public String userOrderRefund(){
+		return "menu/userOrderRefund";
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	////// 사장님 주문 //////
 	
