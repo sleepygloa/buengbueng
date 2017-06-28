@@ -7,9 +7,9 @@
 	<link rel="stylesheet" type="text/css" media="all" href="css/userInfo/userInfoForm.css">
 </head>
 <jsp:include page="../header.jsp" />
-<body onload="alert('ddd')">
-	<div>
-		<p>회원가입</p>
+<body>
+	<div class="userInfoSign_form_titlebox">
+		<span>회원가입</span>
 	</div>
 	
 	<div class="userInfoSign_Container">
@@ -60,7 +60,7 @@
 			<tr>
 				<th class="userInfoSign_Container_th"><p>이메일</p></th>
 				<td class="userInfoSign_Container_tr2">
-					<input class="signup_email_input" type="text" name="email" placeholder="이메일 입력" onblur="return checkEmail();"/>@
+					<input class="signup_email_input" type="text" name="email" placeholder="이메일 입력" onblur="return checkEmail();"/>
 					<select class="signup_email_input" name="email_addr_select" onchange="emailSelect();">
 						<option selected="selected">직접입력</option>
 						<option>@naver.com</option>
@@ -70,27 +70,33 @@
 					</select>
 				</td>
 			</tr>
+			
+			
 			<tr>
 				<th class="userInfoSign_Container_th"><p>등급</p></th>
 				<td class="userInfoSign_Container_tr2">
-					<input type="radio" value="3" name="grade" class="user" checked="checked" />사용자
-					<input type="radio" value="1" name="grade" id="boss" />사장
-					<input type="radio" value="2" name="grade" id="employee" />알바
-					<input type="radio" value="0" name="grade" class="user" />관리자
+					<div class="userInfoSign_Container_gradebox">
+						<input class="userInfoSign_Container_grade" type="radio" value="3" name="grade" class="user" checked="checked" id="user1" />
+						<label class="userInfoSign_Container_grade_label" for='user1'>사용자</label>
+						<span style="margin-left: 20px;">
+							<input class="userInfoSign_Container_grade2" type="radio" value="1" name="grade" id="boss" />
+							<label class="userInfoSign_Container_grade_label" for='boss'>사장</label>
+						</span>
+						<span style="margin-left: 20px;">
+							<input class="userInfoSign_Container_grade2" type="radio" value="0" name="grade" class="user" id="user" />
+							<label class="userInfoSign_Container_grade_label" for='user'>관리자</label>
+						</span>
+					</div>
 				</td>
 			</tr>
-			<tr><td></td>
-				<td><div id="grade" ></div></td>
-				</tr>	
-			<tr>
-				<td>
-					<input type="submit" value="가입" />&emsp;&emsp;
-					<input type="button" value="취소" onclick="cancel();" />
-			</tr>
-		</table>
-		
+			</table>
+			</div>
+			<div class="userInfoSign_Container_btnbox">
+				<input class="userInfoSign_Container_btn" type="submit" value="가입" />
+				<input class="userInfoSign_Container_btn2" stype="button" value="취소" onclick="cancel();" />
+			</div>			
 		</form>
-	</div>
+	
 	<script type="text/javascript" src="/buengbueng/js/userInfo/bossSignForm.js"></script>
 	
 	

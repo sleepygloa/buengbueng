@@ -130,21 +130,33 @@
 	cursor: pointer;
 }
 /*회원가입*/
+.userInfoSign_form_titlebox{
+	float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.userInfoSign_form_titlebox span{
+	float: left;
+    font-size: 22px;
+}
 .userInfoSign_Container{
-	border:1px red solid;
+	border:none;
+	border-top: 1px solid #222;
 	width:100%;
-	height:700px;
+	height:580px;
+	float:left;
 }
 .userInfoSign_table{
-	border:1px red solid;
 	width:100%;
 	text-align: center;
+	font-size: 14px;
 }
 .userInfoSign_Container_th{
 	width:180px;
 	height:60px;
-	
-	border:1px red solid;
+	background: #f8f8f8;
+	border-bottom:1px solid #ddd;
+	color:#555;
 }
 .userInfoSign_Container_th p{
 	text-align:left;
@@ -153,8 +165,9 @@
 }
 .userInfoSign_Container_tr{
 	height:60px;
-	border:1px blue solid;
+	border-bottom:1px solid #ddd;
 	text-align: left;
+	
 }
 .userInfoSign_Container_tr input{
 	width:400px;
@@ -164,12 +177,12 @@
 	margin:14px auto;
 	margin-left:20px;
 	text-indent: 10px;
+	font-size: 12px;
 }
 .userInfoSign_Container_tr2{
 	text-align: left;
 	line-height: 2;
-	
-    border:1px blue solid;
+	border-bottom:1px solid #ddd;
 }
 .signup_phone_input{
 	width:70px;
@@ -178,6 +191,7 @@
 	text-indent: 10px;
 	outline: none;
 	margin-left:20px;
+	font-size:12px;
 }
 .signup_phone_input2{
 	width:70px;
@@ -188,6 +202,27 @@
 	vertical-align: middle;
 	word-wrap: break-word;
     word-break: break-all;
+    font-size:12px;
+}
+.signup_bossphone_input{
+	width:70px;
+	height:30px;
+	border:1px #ddd solid;
+	text-indent: 10px;
+	outline: none;
+	margin-left:20px;
+	font-size:12px;
+}
+.signup_bossphone_input2{
+	width:70px;
+	height:30px;
+	border:1px red solid;
+	text-indent: 10px;
+	outline: none;
+	vertical-align: middle;
+	word-wrap: break-word;
+    word-break: break-all;
+    font-size:12px;
 }
 .phone_box{
 	margin:0 auto;
@@ -199,9 +234,64 @@
 	height:30px;
 	border:1px #ddd solid;
 	text-indent: 10px;
+	font-size:12px;
 }
-
-
-
-
-
+.userInfoSign_Container_grade{
+	vertical-align: 0px;
+	text-indent: 10px;
+}
+.userInfoSign_Container_grade_label{
+	font-weight: normal;
+}
+.userInfoSign_Container_grade2{
+	vertical-align: 0px;
+	text-indent: 10px;
+}
+.userInfoSign_Container_gradebox{
+	margin-left:20px;
+}
+.userInfoSign_Container_tr input::-webkit-input-placeholder { /* Chrome */
+  color: #b7b7b7;
+  font-size: 12px;
+}
+.signup_email_input::-webkit-input-placeholder { /* Chrome */
+  color: #b7b7b7;
+  font-size: 12px;
+}
+.userInfoSign_Container_btnbox{
+	width:100%;
+	height:60px;
+	text-align: center;
+}
+.userInfoSign_Container_btn{
+    border: 1px solid #263238;
+    background: none;
+    width: 160px;
+    height: 40px;
+    border-radius: 4px;
+    transition: 0.5s;
+    color: #222;
+}
+.userInfoSign_Container_btn:hover{
+	background: #263238;
+	border-radius: 4px;
+	transition: 0.5s;
+	color: #fff;
+}
+.userInfoSign_Container_btn2{
+    border: none;
+    border: 1px solid #263238;
+    background: #263238;
+    width: 160px;
+    height: 40px;
+    border-radius: 4px;
+    color: #fff;
+    transition: 0.5s;
+    text-align: center;
+}
+.userInfoSign_Container_btn2:hover{
+	background: black;
+	border-radius: 4px;
+	transition: 0.5s;
+	color: #fff;
+}

@@ -17,7 +17,7 @@
 	</select>	
 	
 	<insert id="cash_input" parameterClass="dto">
-		 insert into paymentList(paying_price,buyer_chatid,payment_type,pg_name,confirmation,paying_name,error_msg,imp_uid,merchant_uid,payment_date) values(#paying_price#,#buyer_chatid#,#payment_type#,#pg_name#,#confirmation#,#paying_name#,#error_msg#,#imp_uid#,#merchant_uid#,now());
+		 insert into paymentList(paying_price,buyer_chatid,payment_type,pg_name,confirmation,paying_name,error_msg,imp_uid,merchant_uid,pg_tid,payment_date) values(#paying_price#,#buyer_chatid#,#payment_type#,#pg_name#,#confirmation#,#paying_name#,#error_msg#,#imp_uid#,#merchant_uid#,#pg_tid#,now());
 	</insert>
 	
 	<select id="cash_payment_useInfoLoad" resultClass="userDto" parameterClass="String">
@@ -25,7 +25,7 @@
 	</select>
 	
 	<update id="cash_stack" parameterClass="java.util.HashMap">
-		update userAccount set money=#paying_price# where id=#id#;
+			
 	</update>
 	
 	<select id="getArticleCount" resultClass="int">
@@ -50,8 +50,8 @@
 	 </select>
 	 
 	 <select id="getArticles" parameterClass="java.util.HashMap" resultClass="dto">
-      select r,idx,buyer_chatid,payment_date,payment_type,paying_name,paying_price,confirmation,error_msg,pg_name,imp_uid,merchant_uid 
-      from (select @rownum:= @rownum+1 as r, idx,buyer_chatid,payment_date,payment_type,paying_name,paying_price,confirmation,error_msg,pg_name,imp_uid,merchant_uid 
+      select r,idx,buyer_chatid,payment_date,payment_type,paying_name,paying_price,confirmation,error_msg,pg_name,imp_uid,merchant_uid,pg_tid 
+      from (select @rownum:= @rownum+1 as r, idx,buyer_chatid,payment_date,payment_type,paying_name,paying_price,confirmation,error_msg,pg_name,imp_uid,merchant_uid,pg_tid 
       from paymentList,(select @rownum:=0)i where buyer_chatid=#id# and confirmation = #confirmation# order by idx desc)yz where r between #startRow# and #endRow#;
      </select>
 
@@ -81,7 +81,6 @@
 		]]>
 	</select>
 	
-<!-- ========================================================================================================================================== -->
 	
 	<!-- 사용자 이용내역 추가 (usageHistory) -->
 	<insert id="addUsageHistory" parameterClass="historyDTO">
@@ -94,3 +93,94 @@
 	</select>	
 </sqlMap>
 
+	<!-- 사용자 이용 내역 -->
+	<select id="usageHistory" resultClass="usageHistoryDTO">
+		select * from usageHistory where bossId= #id#;
+	</select>
+	
+	<select id="usageHistoryCount" resultClass="int">
+		select count(*) from usageHistory where affiliateCode=#affiliateCode#;
+	 </select>
+	 
+	 <!-- 
+	 <select id="getUsageHistory" parameterClass="java.util.HashMap" resultClass="usageHistoryDTO">
+      select r,idx,userId,userName,affiliateCode,usageTime,endTime,amountUsed,etc
+      from (select @rownum:= @rownum+1 as r, idx,userId,userName,affiliateCode,usageTime,endTime,amountUsed,etc
+      from usageHistory,(select @rownum:=0)i where bossId=#id# order by idx desc)yz where r between #startRow# and #endRow#;
+     </select>
+      -->
+     <select id="getB_key" resultClass="String">
+    	 select b_key from franchiseeInfo where b_id=#id#;
+     </select>
+	 
+	 <select id="getB-keyList" resultClass="String">
+		select b_key from franchiseeInfo where b_id	= #id#; 
+	 </select>
+	 <select id="B_keyValidity" resultClass="int">
+	 	select count(*) from usageHistory where affiliateCode = #affiliateCodeList#;
+	 </select>
+	 
+	 <select id="SelectedList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+   <![CDATA[
+           select r,idx,userId,userName,affiliateCode,usageTime,endTime,format(amountUsed, 0) amountUsed,etc,businessName,bossId
+            from (select @rownum:= @rownum+1 as r, idx,userId,userName,affiliateCode,usageTime,endTime,amountUsed,etc,businessName,bossId
+            from usageHistory,(select @rownum:=0)i where affiliateCode=#affiliateCodeList# and usageTime >=#startDate# and endTime <=#endDate# order by idx desc)yz where r between #startRow# and #endRow#;
+       ]]>
+   </select>
+	<!-- 일일정산시 총 합계 금액 -->
+	<select id="dailyAmount" resultClass="String">
+	<![CDATA[
+		select format(sum(amountUsed), 0) from usageHistory where affiliateCode=#affiliateCode# and usageTime >=#startDate# and endTime <= #endDate#;
+	]]>
+	</select>
+	
+	<select id="dailyPureAmount" resultClass="String">
+	<![CDATA[
+		select sum(amountUsed) from usageHistory where affiliateCode=#affiliateCode# and usageTime >=#startDate# and endTime <= #endDate#;
+	]]>
+	</select>
+
+	<select id="dailyCount" resultClass="int">
+	<![CDATA[
+		select count(*) from usageHistory where affiliateCode = #affiliateCode# and usageTime >=#startDate# and endTime <= #endDate#;
+	  ]]>
+	</select>
+	
+	<insert id="dailySettlement" parameterClass="DailySettlementDTO" >
+		 insert into dailySettlement(settlementDate,bossId,companyName,settlementMethod,settlementNumber,requestedAccount,settlementAmount,settlementStatus,resultValue,b_key) 
+		 values(now(),#bossId#,#companyName#,#settlementMethod#,#settlementNumber#,#requestedAccount#,#settlementAmount#,#settlementStatus#,#resultValue#,#b_key#);
+	</insert>
+	
+	<select id="resultValueCount" resultClass="int">
+	<![CDATA[
+		select count(resultValue) from dailySettlement where affiliateCode = #affiliateCode# and usageTime >=#startDate# and endTime <= #endDate#;
+	]]>
+	</select>
+	
+	<select id="settlementDate" resultClass="String">
+		select settlementDate from dailySettlement where affiliateCode = #affiliateCode# and settlementDate=#settlementDate#;
+	</select>
+	
+	<select id="accept" resultClass="DailySettlementDTO">
+	<![CDATA[
+		select  r,idx,settlementDate,bossId,companyName,settlementMethod,settlementNumber,requestedAccount,settlementAmount,settlementStatus
+	  from (select @rownum:= @rownum+1 as r, idx,settlementDate,bossId,companyName,settlementMethod,settlementNumber,requestedAccount,settlementAmount,settlementStatus
+      from dailySettlement,(select @rownum:=0)i where resultValue = #check# order by idx desc )yz
+      ]]>
+	</select>
+
+	<select id="acceptCount" resultClass="int">
+		select count(*) from dailySettlement where resultValue = 2;
+	</select>
+	
+	<update id="approval" parameterClass="java.util.HashMap">
+		update dailySettlement set resultValue=3, settlementStatus='정산완료'  where idx=#idx#;
+	 </update>
+	 
+	 <select id="checkValue"  resultClass="int">
+	 <![CDATA[
+	 	select count(*) from dailySettlement where b_key = #b_key# and settlementDate <= #settlementDate#;
+	 ]]>
+	 </select>
+	
+</sqlMap>

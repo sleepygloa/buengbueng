@@ -119,7 +119,7 @@
 								
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="cashPro.do">
+									<a href="userbilling/cash.do">
 										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">결제</h6>
@@ -133,7 +133,7 @@
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
 								<div class="menu_menu col-sm-6-12">
-									<a href="">
+									<a href="userbilling/usageHistory.do">
 										<span class="menu_icon"> <img src="img/ux-heatmaps-gnb@2x.png"> </span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">예약</h6>
