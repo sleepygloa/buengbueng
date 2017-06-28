@@ -2,6 +2,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<style>
+.my_side_ul li{
+display:box;
+text-align:center;
+
+}
+.my_side_ul li select{
+width:100%;
+margin:10 0;
+padding:0 0 0 10;
+}
+.my_side_ul li select option{
+width:100%;
+padding:0 0 0 10;
+}
+.my_side_ul li a:link{
+color:black;
+text-decoration:none;
+}
+.my_side_ul li a:hover{
+font-size:1.05em;
+}
+</style>
 <script type="text/javascript">
 window.onload=function(){
 	var id = '${sessionScope.loginId}';
@@ -11,8 +34,8 @@ window.onload=function(){
 		data : {id : id},
 		success:function(data){
 			$('.flist').html(data);
-								}
-			});
+		}
+	});
 }
 $(document).ready(function(){
 	$("#franchiseeSelect").change(function(){
@@ -25,9 +48,9 @@ $(document).ready(function(){
         		window.location="bossErpMain.do";
         	}
         });
+	})
 })
-})
-
+	var b_key = ${sessionScope.b_key};
 </script>
 ${sessionScope.b_key}
 
@@ -45,11 +68,10 @@ ${sessionScope.b_key}
 		</c:if>
 		
 		<c:if test="${sidemenu == 3}">
-			<li><a href="bossErpMain.do" >ERP관리 MAIN</a></li>
+			<li><a href="bossErpMain.do">ERP관리 MAIN</a></li>
 			<li>
-				<select id="franchiseeSelect" class="flist">
-				</select>
-			
+					<select id="franchiseeSelect" class="flist">
+					</select>
 			</li>
 			<li><hr /></li>
 			<li>알바생 관리</li>

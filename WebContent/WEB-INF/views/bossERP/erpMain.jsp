@@ -15,28 +15,28 @@ float:left;
 font-weight:600;
 font-size:1.1em;
 }
-.employee_icon{
+.erp_employee_icon{
 background:url(/buengbueng/img/erp/ic_person_black_24dp_2x.png) no-repeat;
 width:50px;
 height:50px;
 }
-.menu_icon{
+.erp_menu_icon{
 background:url(/buengbueng/img/erp/ic_restaurant_menu_black_24dp_2x.png) no-repeat;
 width:50px;
 height:50px;
 }
-.stock_icon{
+.erp_stock_icon{
 background:url(/buengbueng/img/erp/ic_business_center_black_24dp_2x.png) no-repeat;
 width:50px;
 height:50px;
 }
-.seat_icon{
+.erp_seat_icon{
 background:url(/buengbueng/img/erp/ic_airline_seat_recline_normal_black_24dp_2x.png) no-repeat;
 width:50px;
 height:50px;
 }
-.borrow_icon{
-background:url(/buengbueng/img/erp/ic_device_hub_black_24dp_2x.png) no-repeat;
+.erp_borrow_icon{
+background:url(/buengbueng/img/erp/ic_headset_black_24dp_2x.png) no-repeat;
 width:50px;
 height:50px;
 }
@@ -56,35 +56,35 @@ height:50px;
 					
 				<div class="row">
 					<div class="col-md-10-12 col-xs-12-12 erp_content">
-						<div class="employee_icon"></div>
+						<div class="erp_employee_icon"></div>
 						<div class="erp_sub_title">아르바이트생 관리</div>
 						<div>아르바이트생 고용 및 퇴사, 출근 및 퇴근, 급여, 일정 관리 등 손쉽게 관리 할 수 있습니다.</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12">
-						<div class="menu_icon"></div>
+					<div class="col-md-10-12 col-xs-12-12 erp_content">
+						<div class="erp_menu_icon"></div>
 						<div class="erp_sub_title">PC방 판매 메뉴 관리</div>
 						<div>아르바이트생 고용 및 퇴사, 출근 및 퇴근, 급여, 일정 관리 등 손쉽게 관리 할 수 있습니다.</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12">
-						<div class="stock_icon"></div>
+					<div class="col-md-10-12 col-xs-12-12 erp_content">
+						<div class="erp_stock_icon"></div>
 						<div class="erp_sub_title">재고 관리</div>
 						<div>아르바이트생 고용 및 퇴사, 출근 및 퇴근, 급여, 일정 관리 등 손쉽게 관리 할 수 있습니다.</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12">
-						<div class="seat_icon"></div>
+					<div class="col-md-10-12 col-xs-12-12 erp_content">
+						<div class="erp_seat_icon"></div>
 						<div class="erp_sub_title">PC방 좌석 관리</div>
 						<div>아르바이트생 고용 및 퇴사, 출근 및 퇴근, 급여, 일정 관리 등 손쉽게 관리 할 수 있습니다.</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12">
-						<div class="borrow_icon"></div>
+					<div class="col-md-10-12 col-xs-12-12 erp_content">
+						<div class="erp_borrow_icon"></div>
 						<div class="erp_sub_title">PC방 대여품 메뉴 관리</div>
 						<div>아르바이트생 고용 및 퇴사, 출근 및 퇴근, 급여, 일정 관리 등 손쉽게 관리 할 수 있습니다.</div>
 					</div>

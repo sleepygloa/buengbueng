@@ -55,9 +55,9 @@
 	</update>
 
 	<!-- 가맹점 승인시 가맹점 정책 추가 -->
-	<select id="insertFranchiseePolicy" parameterClass="java.util.HashMap">
+	<insert id="insertFranchiseePolicy" parameterClass="java.util.HashMap">
 		insert into franchiseePolicy (b_key) values(#b_key#);
-	</select>
+	</insert>
 	
 	<!-- 가맹점 로그에서 정보 불러오기 : num -->
 	<select id="getFranchiseeLastConfirmLog" resultClass="franchiseeDTO" parameterClass="int">

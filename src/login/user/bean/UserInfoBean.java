@@ -50,6 +50,7 @@ public class UserInfoBean {
 			if(pw.equals(dto.getPw())){
 				session.setAttribute("loginId", dto.getId());
 				session.setAttribute("grade", dto.getGrade());
+				session.setAttribute("webLogin", 1);
 				
 				//////////////////////////////////
 				//접속장소의 IP를 검색하고,로그인 LOG 를 남긴다.
@@ -105,15 +106,17 @@ public class UserInfoBean {
 			
 			System.out.println(ip); //192.168.91.1 192.168.111.1 192.168.10.1
 			UseTimeLogDTO utlDto = null;
+			if((Integer)sqlMap.queryForObject("test.getGradeInfo", id) == 3 && (Integer)session.getAttribute("webLogin") == 1){
+			
 			//유저가 사용한 PC방 이용시간 디테일정보 찾기(계산)
 			utlDto = (UseTimeLogDTO)sqlMap.queryForObject("cash.userPcUseTimePay", map);
 
-			sqlMap.insert("log.logoutLog", utlDto);//이용로그남기기
-			sqlMap.insert("log.logoutPayLog", utlDto);//결제로그남기기
+			sqlMap.insert("log.logoutLog", utlDto);//이용로그남기기, pc방
+			sqlMap.insert("log.logoutPayLog", utlDto);//결제로그남기기,
 			
 			sqlMap.update("log.userGiveBossMoneyUserAccount", utlDto);//사용자 계좌에 반영
 			sqlMap.update("log.userGiveBossMoneyBossAccount", utlDto);//사장님계좌에 반영
-	
+			}else{}
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{

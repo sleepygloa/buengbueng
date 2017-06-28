@@ -71,12 +71,12 @@
 		<![CDATA[
 	select 
 	    round((logoutTime - loginTime))  as usePcUseTime, 
-        round((logoutTime - loginTime) * c.moneyPolicy)  as usePcUseTimePay, 
+        round((logoutTime - loginTime) * c.IdMoneyPolicy)  as usePcUseTimePay, 
 	    b.money as userAccountMoney,
-	    b.money - (round((logoutTime - loginTime) * c.moneyPolicy))  as payAfterMoney, 
+	    b.money - (round((logoutTime - loginTime) * c.IdMoneyPolicy))  as payAfterMoney, 
 	    loginTime, logoutTime, b_key  
    	from useTimeLog a INNER JOIN (select id, money from userAccount where id = #id#) b ON a.id = b.id ,
-   	(select c.moneyPolicy, c.b_key from franchiseePolicy c, (select b_key from franchiseeLog where b_ip = #b_ip#) d where c.b_key = d.b_key ) c
+   	(select c.IdMoneyPolicy, c.b_key from franchiseePolicy c, (select b_key from franchiseeLog where b_ip = #b_ip#) d where c.b_key = d.b_key ) c
    	where a.id = #id# order by loginTime desc limit 0,1;
 		]]>
 	</select>
