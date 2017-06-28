@@ -24,8 +24,8 @@
     	<option selected="selected" >나의 가맹점 선택</option>
     	<c:forEach var="fl" items="${franchiseeList}" >
     	<option name="name" value="${fl.b_name}" >${fl.b_name}</option>
-    	
     	</c:forEach>
+    	<input type="hidden" name="l_key" value="${fl.b_key}"/>
     </select>
     <div>
     

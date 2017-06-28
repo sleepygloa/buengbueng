@@ -10,9 +10,8 @@
 	</head>
 
 <body>
-
 <!-- HEADER TEMPLATE -->
-<jsp:include page="../header.jsp" />
+	<jsp:include page="/WEB-INF/views/header.jsp" />
 
 	<!-- 페이지 제목 -->
 	<div class=" margin_bottom50">
@@ -27,31 +26,28 @@
 <div class=" margin_bottom50">	
 		<div class="col-xs-12-12">
 	
+	<div>
+		<table>
+		<tr>
+		<td>
+		<button onclick="window.location='menuInsertForm.do?l_key=${l_key}'">메 뉴 추 가</button>
+		</td>
+		
+		<td>
+		<button onclick="window.location='menuModify.do?l_key=${l_key}'">메 뉴 수 정</button>
+		</td>
 	
-	
-   	<div>
-		<button onclick="window.location='product.do'">재 고</button>
-	</div>
+		<td>
+		<button onclick="window.location='menuDeleteForm.do?l_key=${l_key}'">메 뉴 삭 제</button>
+		</td>
 
-	<div>
-		<button onclick="window.location='menuInsertForm.do?l_key=${l_key}&name=${name}'">메 뉴 추 가</button>
-	</div>
-	
-	<div>
-		<button onclick="window.location='menuModify.do?l_key=${l_key}&name=${name}'">메 뉴 수 정</button>
-	</div>
-	
-	<div>
-		<button onclick="window.location='menuDeleteForm.do?l_key=${l_key}&name=${name}'">메 뉴 삭 제</button>
-	</div>
-	<div>
-		<button onclick="alls('${l_key}')">전 체</button>
+	</table>
 	</div>
 	
 	
 	<div>
 		<table>
-		<tr>
+		<tr><td><button onclick="alls('${l_key}')">전 체</button></td>
 		<c:forEach var="category" items="${categoryList}">
 			<td><input type="button" name="${category}" onclick="category('${category}','${l_key}')" value="${category}" /> </td>
 		</c:forEach>
@@ -63,7 +59,22 @@
 
 		<table >	
 		<tr><td>
-		<div id="categoryMenu"></div>	
+		<div id="categoryMenu">
+		
+				
+		<tr>
+		<td>카테고리</td><td>제 품</td><td>제조사</td><td>가 격</td>
+		</tr>
+		
+				
+		<c:forEach var="menu" items="${menuList}">
+		<tr>
+		<td>${menu.category}</td>			<td>${menu.name}</td>	<td>${menu.company}</td> 	<td>${menu.price}</td>
+			
+		</tr>
+		</c:forEach>
+		
+		</div>	
 		</td></tr>
 
 	

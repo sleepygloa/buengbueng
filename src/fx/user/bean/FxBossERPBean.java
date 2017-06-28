@@ -42,8 +42,6 @@ public class FxBossERPBean {
 						useSeatId.append(",");
 					}
 				}
-				
-				System.out.println(useSeatId.toString());
 				model.addAttribute("useSeatId",useSeatId.toString());
 			}
 			model.addAttribute("useSeatNum",useSeatNum.toString());

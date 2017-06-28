@@ -3,12 +3,15 @@
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
-	
+	<script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
 </head>
 
 <body>
+
+<!-- HEADER TEMPLATE -->
+	<jsp:include page="/WEB-INF/views/header.jsp" />
 <div>
-<form action="menuDeletePro.do" method="post">
+<form action="menuDeletePro.do" method="post" onsubmit="return menuDelete()">
 <table>
 	<tr>
 	<td>카테고리</td> <td>메뉴명</td> <td>회사명</td> <td>가격</td>

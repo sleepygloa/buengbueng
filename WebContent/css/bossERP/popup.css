@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+
+
+.popup_container{
+	/* padding:30 0 0 0 ; */
+}
+.popup_title{
+	font-size:1.5em;
+	text-align:center;
+	color:white;
+	background-color:#339966;
+	margin-bottom:30px;
+}
+.popup_id{
+	width:95%;
+	padding-left:10px;
+	margin-bottom:30px;
+}
+.popup_content{
+	width:95%;
+	padding:0 auto;
+	
+}
+.col-xs-6-12{
+	width:45%;
+	float:left;
+	position:relative;
+}
+.popup-btn{
+	width:100%;
+	padding:10 10 0 10;
+	float:left;
+	position:relative;
+}
+.btn{
+	width:95%;
+	background-color:#339966;
+	font-size:1.2em;
+	text-align:center;
+	color:white;
+	
+}

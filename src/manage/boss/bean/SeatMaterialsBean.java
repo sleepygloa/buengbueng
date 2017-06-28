@@ -233,7 +233,7 @@ public class SeatMaterialsBean {
 	
 	/* pc방 좌석 이용 현황 */
 	@RequestMapping("seatState.do")
-	public String seatState(HttpSession session, Model model){
+	public String seatState(HttpSession session, String tf, Model model){
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
 		int sidemenu = 3; //사이드메뉴의 내용을 선택
@@ -281,8 +281,11 @@ public class SeatMaterialsBean {
 			model.addAttribute("seatCon",seatCon);
 			model.addAttribute("useSeatNum",useSeatNum);
 		}
-		
-		return "/bossERP/seatMaterials/seatState";
+		if(tf == null){
+			return "/bossERP/seatMaterials/seatState";
+		}else{
+			return "/bossERP/seatMaterials/seatState2";
+		}
 	}
 
 	/* pc방 좌석 정보 확인 */

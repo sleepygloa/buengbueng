@@ -63,13 +63,13 @@ public class UserInfoBean {
 				
 				////////////////////////////////////
 				//임시 만든 이벤트 코드, 사용자가 방문(로그인) 했을때 1000원씩준다.
-				int eventMoney = 1000; //이벤트 충전 머니
+				/*int eventMoney = 1000; //이벤트 충전 머니
 				if(eventMoney != 0){
 					HashMap map1 = new HashMap();
 					map1.put("id", id);
 					map1.put("eventMoney", eventMoney);
 					check = eventGetMoney.eventGetMoney(map1);
-				}
+				}*/
 			}
 			
 		}catch(Exception e){

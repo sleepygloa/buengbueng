@@ -16,3 +16,11 @@
 		history.go(-1);
 	</script>
 </c:if>
+
+
+<c:if test="${check==-1}">
+	<script>
+		alert("예기치 않은 오류가 발생하였습니다.");
+		history.go(-1);
+	</script>
+</c:if>

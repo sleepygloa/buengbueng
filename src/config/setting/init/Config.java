@@ -10,6 +10,9 @@ import java.util.StringTokenizer;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -17,22 +20,31 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class Config  {
-
+	HttpServletRequest re;
+	
 	@PostConstruct
 	public  void init() throws Exception, IOException {
 		// TODO Auto-generated method stub
 		try{
+			
+			
 //			String destination = "C:\\Users\\user2\\Documents\\workspace\\buengbueng\\WebContent\\log\\";
 //			String destination = "C:\\Users\\KO\\Documents\\eclipse\\Spring\\buengbueng\\WebContent\\log\\";
-			File file = new File("..\\..\\workspace\\buengbueng");
-			String destination = 
-					"" + file.getCanonicalPath() + 
-					"\\WebContent\\log\\";
-			String logText = "log.txt";
+			File file = new File("..\\buengbueng\\WebContent\\log\\log.txt");
+//			String dd = re.getServletContext().getRealPath("\\buengbueng\\WebContent\\log\\log.txt");
+//			System.out.println(dd);
+//			String rr = re.getServletContext().getRealPath("\\buengbueng\\WebContent\\log\\");
+			String destination = ""+ file.getCanonicalPath();
+//			FilterConfig fd = 	fd.getServletContext().getRealPath(fd.getInitParameter("\\buengbueng\\WebContent\\log\\log.txt"));  
+//			System.out.println(rr);
+//					+ 
+//					"\\WebContent\\log\\";
+			System.out.println(destination);
+//			String logText = "log.txt";
 			String fileName= "";
 			String fileNamee[] = null; 
 			
-			File f = new File(destination+logText);
+			File f = new File(destination);
 			BufferedReader b = new BufferedReader(new FileReader(f));
 			ArrayList<File> f_list = new ArrayList<File>();
 			

@@ -19,4 +19,8 @@
 	<select id="getUseUserInfo" parameterClass="java.util.HashMap" resultClass="useTimeDTO">
 		select * from useTimeLog where licenseKey = #licenseKey# and id = #id# and loginTime = #loginTime#;
 	</select>
+	<!-- 사용자 로그인 시간 불러옴 -->
+	<select id="getUserStartTime" parameterClass="String" resultClass="String">
+		select date_format(loginTime,"%Y-%c-%d %r") loginTime from useTimeLog where id = #id# and logoutTime = '0000-00-00 00:00:00';
+	</select>
 </sqlMap>

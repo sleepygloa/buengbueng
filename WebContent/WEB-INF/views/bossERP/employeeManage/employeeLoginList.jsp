@@ -24,22 +24,10 @@
 				<div class="col-xs-4-12 col-sm-2-12 ">상황</div>
 		</div>
 	</div>
-		<c:forEach var="article" items="${articleList}">
+		<c:forEach var="list" items="${list}">
 		<div class="row">
 			<div class="col-xs-12-12 col-sm-12-12">
-				<div class="col-xs-4-12 col-sm-2-12 ">${article.id}</div>
-				<div class="col-xs-4-12 col-sm-2-12 ">${article.loginTime}</div>
-				<div class="xs_hidden col-sm-2-12 ">${article.logoutTime}</div>
-				<div class="xs_hidden col-sm-2-12 ">${article.workTime}</div>
-				<div class="xs_hidden col-sm-2-12 ">${article.ip}</div>
-				<div class="col-xs-4-12 col-sm-2-12 ">
-					<c:if test="${article.logoutTime == article.loginTime}">
-					알바중.
-					</c:if>
-					<c:if test="${article.logoutTime != article.loginTime}">
-					퇴근함.
-					</c:if>
-				</div>
+				가가가 : ${list.num}
 			</div>
 		</div>
 		

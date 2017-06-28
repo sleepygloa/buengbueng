@@ -53,14 +53,14 @@ ${sessionScope.b_key}
 			</li>
 			<li><hr /></li>
 			<li>알바생 관리</li>
-			<li><a href="employeeManage.do" >알바아이디 관리</a></li>
+			<li><a href="employeeManageInfo.do" >알바아이디 관리</a></li>
 			<li><a href="employeeInfoList.do" >신상 관리</a></li>
 			<li><a href="" >알바 근태관리</a>
 				<ul>
 					<li><a class="minor-minor" href="employeeCalender.do">근무달력</a></li>
-					<li><a class="minor-minor" href="">출근하기</a></li>
-					<li><a class="minor-minor" href="">퇴근하기</a></li>
-					<li><a class="minor-minor" href="">출근 기록 확인</a></li>
+					<li><a class="minor-minor" href="employeeCommute.do">출근하기</a></li>
+					<li><a class="minor-minor" href="employeeOffWork.do">퇴근하기</a></li>
+					<li><a class="minor-minor" href="employeeWorkTimeList.do">출근 기록 확인</a></li>
 					<li><a class="minor-minor" href="employeeLoginList.do">알바 로그인 기록확인</a></li>
 					<li><a class="minor-minor" href="">휴가 관리</a></li>
 				</ul>
@@ -89,11 +89,11 @@ ${sessionScope.b_key}
 			
 			<li><hr /></li>
 			<li>PC방 관리</li>
-			<li><a href="seatDispose.do" >PC방 좌석 정보 관리</a></li>
-			<li><a href="seatState.do" >PC방 좌석 이용 관리</a></li>
+			<li><a href="seatDisposeMain.do" >PC방 좌석 정보 관리</a></li>
+			<li><a href="seatStateMain.do" >PC방 좌석 이용 관리</a></li>
 			<li><hr /></li>
 			<li>대여 관리</li>
-			<li><a href="rentManage.do" >대여물품 관리</a></li>
+			<li><a href="rentMain.do" >대여물품 관리</a></li>
 		</c:if>	
 			
 		<c:if test="${sidemenu == 4}">

@@ -14,6 +14,11 @@
 	<typeAlias alias="dto" type="payment.all.bean.UserBillingHistoryDTO"/>
     <typeAlias alias="franchiseeDTO" type="manage.boss.bean.FranchiseeDataDTO"/>
     <typeAlias alias="uadto" type="payment.all.bean.UserAccountDTO"/>
+    <typeAlias alias="workTimeDto" type="erp.boss.bean.EmployeeWorkTimeDTO" />
+    <typeAlias alias="workTimeLIstDto" type="erp.boss.bean.EmployeeWorkTimeListDTO" />
+
+    <typeAlias alias="usageHistoryDTO" type="payment.all.bean.UsageHistory"/>
+    <typeAlias alias="DailySettlementDTO" type="payment.all.bean.DailySettlementDTO"/>
 
 	<typeAlias alias="seatInfo" type="manage.boss.bean.SeatStateDataDTO"/>
 	<typeAlias alias="pcInfoDto" type="pc.materials.bean.PcInfoDataDTO"/>

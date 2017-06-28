@@ -38,7 +38,7 @@
 	<script>
 		alert('알바생아이디가 삭제되었습니다.')
 	</script>
-	<meta http-equiv="refresh" content="1;url=manageEmployee.do" />
+	<meta http-equiv="refresh" content="1;url=employeeManageInfo.do" />
 </c:if>
 
 <!-- BEAN 오류, 메인페이지로이동 -->

@@ -61,31 +61,39 @@
 	</select>
 	<!-- 사용자의 대여 중인 물품 추가하기 -->
 	<insert id="addUserRent" parameterClass="rentLogDTO">
-		insert into rentLog (b_key, name, id, rentdate, returndate) values(#b_key#,#name#,#id#,'0000-00-00 00:00:00','0000-00-00 00:00:00');
+		insert into rentLog (b_key, name, id, pcNum, rentdate, returndate) values(#b_key#,#name#,#id#,#pcNum#,'0000-00-00 00:00:00','0000-00-00 00:00:00');
 	</insert>
 <!-- ================================================================================================================= -->
 	<!-- 사용자들이 대여 신청한 것들 보기(아직 대여 중 X) -->
 	<select id="getUserRentOrder" parameterClass="String" resultClass="rentLogDTO">
-		select name,id from rentLog where b_key = #b_key# and rentdate = '0000-00-00 00:00:00';
+		select name,id,code,pcNum from rentLog where b_key = #b_key# and rentdate = '0000-00-00 00:00:00';
 	</select>
 	<!-- 사용자들이 대여 중인 것들 보기 (대여 O) -->
 	<select id="getUsersRentList" parameterClass="String" resultClass="rentLogDTO">
-		select name,id,code from rentLog where b_key = #b_key# and code != 0 and returndate = '0000-00-00 00:00:00';
+		select name,id,code,pcNum from rentLog where b_key = #b_key# and code != 0 and returndate = '0000-00-00 00:00:00';
 	</select>
 	<!-- 해당 물품을 사용자가 대여 신청 또는 대여 중인 것인지 확인 -->
 	<select id="getUserRentCheck" parameterClass="rentLogDTO" resultClass="int">
-		select count(name) from rentLog where b_key = #b_key# and id = #id# and name = #name# and (code = 0 or rentdate != '0000-00-00 00:00:00');
+		select count(name) from rentLog where b_key = #b_key# and id = #id# and name = #name# and (code = 0 or (rentdate != '0000-00-00 00:00:00' and returndate = '0000-00-00 00:00:00'));
 	</select>
 	<!-- 사용자의 대여 신청 승인 -->
 	<update id="userRentOk" parameterClass="rentLogDTO">
 		update rentLog set code = #code#, rentdate = now() where b_key = #b_key# and id = #id# and name = #name#;
 	</update>
+	<!-- 사용자의 대여 신청 취소 -->
+	<delete id="userRentCancel">
+		delete from rentLog where b_key = #b_key# and id = #id# and name = #name# and code = 0; 
+	</delete>
 	<!-- 대여 물품 대여 상태 변경 -->
-	<update id="updateRentState" parameterClass="java.util.HashMap">
+	<update id="updateRentState" parameterClass="rentProdDTO">
 		update rentProduct set rentCheck = #rentCheck# where b_key = #b_key# and code = #code#;
 	</update>
 	<!-- 사용자의 대여 반납 승인 -->
 	<update id="userReturnOK" parameterClass="rentLogDTO">
 		update rentLog set returndate = now() where b_key = #b_key# and code = #code# and id = #id#;
 	</update>
+	<!-- 1명의 사용자의 현재 대여 중인 물품 리스트 가져오기 -->
+	<select id="getOneUserRentList" parameterClass="String" resultClass="rentLogDTO">
+		select name,code from rentLog where id = #id# and code != 0 and returndate = '0000-00-00 00:00:00';
+	</select>
 </sqlMap>

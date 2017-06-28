@@ -132,7 +132,7 @@ header, section, footer{
 /* 로고 */
 .header  div{padding:auto;}
 .header  div h1{text-align: center;}
-.header .logo{float:left;width:180px;height:40px;position:relative;font-size:16px; padding:auto;margin:20 20 0 20;}
+.header .logo{float:left;width:120px;height:40px;position:relative;font-size:16px; padding:auto;margin:20 20 0 20;}
 /* 대 메뉴 */
 .header .menu_area{display:block;line-height:60px}
 .header_wrap .header .menu_area .item > a{position:relative;display:block;font-size:20px;height:60px;line-height:60px} /* 대메뉴링크 */
