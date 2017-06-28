@@ -213,10 +213,8 @@ public class MenuOrderBean {
 	@RequestMapping("userOrderCancel.do")
 	public String userOrderDelete(HttpServletRequest request, String id, Timestamp ordertime, String l_key){
 		try{
-			d
 			
-			
-		}catch{
+		}catch(Exception e){
 			
 		}
 		return "menu/userOrderCancel";

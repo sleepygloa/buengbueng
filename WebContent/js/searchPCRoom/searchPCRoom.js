@@ -45,8 +45,7 @@ function searchPCRoom(){
 		}
 	});
 }
-function searchPCNear(addr){
-	$(".seatState").html('');
+function searchPCNear(addr){	
 	$.ajax({
 		url: "searchPCRoom.do",
 		type: "post",
@@ -62,6 +61,9 @@ function searchPCNear(addr){
 var b_name;
 var b_id;
 function pcRoomInfo(name,id){
+	$(".seatState").html('');
+	$(".pcInfo").html('');
+	$(".pcRoomInfo").html('');
 	b_name = name;
 	b_id = id;
 	$.ajax({

@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" media="all" href="css/userInfo/userInfoForm.css">
 </head>
 <jsp:include page="../header.jsp" />
-<body>
+<body onload="alert('ddd')">
 	<div>
 		<p>회원가입</p>
 	</div>

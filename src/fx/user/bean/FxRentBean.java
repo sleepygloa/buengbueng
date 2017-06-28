@@ -92,25 +92,43 @@ public class FxRentBean {
 	public String fxGetUserRentOrder(String b_key, Model model){
 		try{
 			ArrayList<RentLogDataDTO> rentOrderList = (ArrayList<RentLogDataDTO>)sqlMap.queryForList("rent.getUserRentOrder", b_key);
+			ArrayList<RentLogDataDTO> rentOrderList2 = (ArrayList<RentLogDataDTO>)sqlMap.queryForList("rent.getUsersRentList", b_key);
 			StringBuffer sb = new StringBuffer("[");
 			StringBuffer sb2 = new StringBuffer("[");
 			StringBuffer sb3 = new StringBuffer("[");
+			StringBuffer sb4 = new StringBuffer("[");
 			for(int i=0; i<rentOrderList.size(); i++){
 				sb.append("\""+URLEncoder.encode(rentOrderList.get(i).getName(),"UTF-8")+"\"");
 				sb2.append("\""+URLEncoder.encode(rentOrderList.get(i).getId(),"UTF-8")+"\"");
 				sb3.append(rentOrderList.get(i).getPcNum());
+				sb4.append(rentOrderList.get(i).getCode());
 				if(i != rentOrderList.size()-1){
 					sb.append(",");
 					sb2.append(",");
 					sb3.append(",");
+					sb4.append(",");
+				}
+			}
+			for(int i=0; i<rentOrderList2.size(); i++){
+				sb.append("\""+URLEncoder.encode(rentOrderList2.get(i).getName(),"UTF-8")+"\"");
+				sb2.append("\""+URLEncoder.encode(rentOrderList2.get(i).getId(),"UTF-8")+"\"");
+				sb3.append(rentOrderList2.get(i).getPcNum());
+				sb4.append(rentOrderList2.get(i).getCode());
+				if(i != rentOrderList2.size()-1){
+					sb.append(",");
+					sb2.append(",");
+					sb3.append(",");
+					sb4.append(",");
 				}
 			}
 			sb.append("]");
 			sb2.append("]");
 			sb3.append("]");
+			sb4.append("]");
 			model.addAttribute("name", sb.toString());
 			model.addAttribute("id", sb2.toString());
 			model.addAttribute("pcNum", sb3.toString());
+			model.addAttribute("code", sb4.toString());
 		}catch(Exception e){
 			
 		}
@@ -195,4 +213,32 @@ public class FxRentBean {
 		return "/fxRent/fxResult";
 	}
 	
+	@RequestMapping("fxGetOneUserInfo.do")
+	public String fxGetOneUserInfo(String id, Model model){
+		try{
+			String startTime = (String)sqlMap.queryForObject("useSeat.getUserStartTime", id);
+			
+			model.addAttribute("startTime", startTime);
+			
+			ArrayList<RentLogDataDTO> rentOrderList = (ArrayList<RentLogDataDTO>)sqlMap.queryForList("rent.getOneUserRentList", id);
+			StringBuffer sb = new StringBuffer("[");
+			StringBuffer sb2 = new StringBuffer("[");
+			for(int i=0; i<rentOrderList.size(); i++){
+				sb.append("\""+URLEncoder.encode(rentOrderList.get(i).getName(),"UTF-8")+"\"");
+				sb2.append("\""+URLEncoder.encode(String.valueOf(rentOrderList.get(i).getCode()),"UTF-8")+"\"");
+				if(i != rentOrderList.size()-1){
+					sb.append(",");
+					sb2.append(",");
+				}
+			}
+			sb.append("]");
+			sb2.append("]");
+			model.addAttribute("name", sb.toString());
+			model.addAttribute("code", sb2.toString());
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return "/fxRent/fxGetOneUserInfo";
+	}
 }
