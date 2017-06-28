@@ -335,7 +335,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 	public String employeeDeleteAdminConfirm(Model model, String e_id){
 		int check = 0;
 		try{
-			sqlMap.update("erpEmp.deleteIdLogAddConfirm", e_id);
+				sqlMap.update("erpEmp.deleteIdLogAddConfirm", e_id);
 			sqlMap.delete("erpEmp.deleteEidEmployeeInfo", e_id);
 			sqlMap.delete("erpEmp.deleteEidUserInfo", e_id);
 			check  = 4;
