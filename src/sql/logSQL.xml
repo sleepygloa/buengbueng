@@ -18,7 +18,7 @@
 		UPDATE userAccount SET money = money + #usePcUseTimePay# where id = (select b_id from bossInfo where b_key = #b_key#);
 	</update>
 
-	<!-- 로그아웃 완료시 userAccount 테이블에 거래금액이 결제됨 --> <!-- 사자ㅑㅇ님 -->
+	<!-- 로그아웃 완료시 userAccount 테이블에 거래금액이 결제됨 --> <!-- 사장님 -->
 	<update id="userGiveBossMoneyBossAccount" parameterClass="useTimeDto">
 		UPDATE userAccount SET money = money + #usePcUseTimePay# where id = #id#;
 	</update>
@@ -40,5 +40,30 @@
 	<update id="updateEmployeeCommuteLog" parameterClass="workTimeDto">
 		UPDATE employeeWorkTimeCommuteLog SET offWorkTime = now(), result = '2', ex = if(now() > #ex#, now(), '1970-01-01 00:00:00') WHERE num = #num#;
 	</update>	
+	
+	<!-- 알바 퇴근 : offWorkPayDetailLog 테이블에 로그를 남김 -->
+	<insert id="offWorkLog" parameterClass="useTimeDto">
+		INSERT INTO logoutPayDetailLog (e_id, employeeWorkTime, employeeWorkTimePay, employeeAccountMoney, payAfterMoney)
+		VALUES(#e_id#, #employeeWorkTime#, #employeeWorkTimePay#, #employeeAccountMoney#, #payAfterMoney#);
+	</insert>
+	
+	<!-- 알바 퇴근 : accountLog 테이블에 로그를 남김 -->
+	<insert id="offWorkPayLog" parameterClass="useTimeDto">
+		INSERT INTO accountLog (giveId, getId, money, method, reason, signdate) VALUES(#b_id#, #e_id#, -#employeeWorkTimePay#, '1', '6', now());
+	</insert>
+
+	<!-- 알바 퇴근 :  userAccount 테이블에 거래금액이 결제됨 --> <!-- 사용자 -->
+	<update id="userGiveBossMoneyEmployeeAccount" parameterClass="useTimeDto">
+		UPDATE userAccount SET money = money + #employeeWorkTimePay# where id = #e_id#;
+	</update>
+
+	<!-- 알바 퇴근 :  userAccount 테이블에 거래금액이 결제됨 --> <!-- 사장님 -->
+	<update id="userGiveBossMoneyBossAccount" parameterClass="useTimeDto">
+		UPDATE userAccount SET money = money + #employeeWorkTimePay# where id = #b_id#;
+	</update>	
+	
+	
+	
+	
 
 </sqlMap>

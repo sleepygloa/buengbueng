@@ -172,7 +172,7 @@
 
 	<!-- 알바생 접속 LOG 찾기 -->
 	<select id="findLoginLogLogoutNull"  parameterClass="String">
-		SELECT count(*) from useTimeLog WHERE id = #id# ORDER BY loginTime desc;
+		SELECT count(*) from useTimeLog WHERE id = #id# and logoutTime = '0000-00-00 00:00:00' ORDER BY loginTime desc limit 0,1 ;
 	</select>
 
 	<!-- 알바생 접속 LOG 추가 -->
@@ -182,7 +182,7 @@
 	
 	<!-- 알바생 접속해제 LOG 변경 -->
 	<update id="updateEmployeeLogoutLog" parameterClass="String">
-		update useTimeLog set logoutTime = now() where id = #id# order by loginTime desc limit 1
+		update useTimeLog set logoutTime = now() where id = #id# and logoutTime = '0000-00-00 00:00:00'  order by loginTime desc limit 1
 	</update>
 
 	<!-- 알바생 접속 LOG LIST Count -->

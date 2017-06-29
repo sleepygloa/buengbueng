@@ -87,8 +87,9 @@ public class UserInfoBean {
 		try{
 			//세션 아이디를 페이지로전달
 			String id = (String)session.getAttribute("loginId");
-			if(sqlMap.queryForObject("erpEmp.findLoginLogLogoutNull", id) == null){
-				sqlMap.update("erpEmp.updateEmployeeLogoutLog", id);
+			
+			if(sqlMap.queryForObject("erpEmp.findLoginLogLogoutNull", id) == null){//로그인한 이력 중 접속중인 가장 최신의 데이터를 찾는다.
+				sqlMap.update("erpEmp.updateEmployeeLogoutLog", id);//위에 것에 로그아웃시간을 기록한다.
 			};
 			
 			/////////////////////////////
@@ -106,10 +107,10 @@ public class UserInfoBean {
 			
 			System.out.println(ip); //192.168.91.1 192.168.111.1 192.168.10.1
 			UseTimeLogDTO utlDto = null;
-			if((Integer)sqlMap.queryForObject("test.getGradeInfo", id) == 3 && (Integer)session.getAttribute("webLogin") != 1){
+			if((Integer)sqlMap.queryForObject("test.getGradeInfo", id) == 3 && (Integer)session.getAttribute("webLogin") != 1){//웹에서 로그인시 막는다.
 			
 			//유저가 사용한 PC방 이용시간 디테일정보 찾기(계산)
-			utlDto = (UseTimeLogDTO)sqlMap.queryForObject("cash.userPcUseTimePay", map);
+			utlDto = (UseTimeLogDTO)sqlMap.queryForObject("cash.userPcUseTimePay", map);//이용시간 정보를 계산하여 가져온다.
 
 			sqlMap.insert("log.logoutLog", utlDto);//이용로그남기기, pc방
 			sqlMap.insert("log.logoutPayLog", utlDto);//결제로그남기기,

@@ -182,4 +182,20 @@
 	 ]]>
 	 </select>
 	
+<!-- 알바 관리 -->	
+ 	<!-- 알바 퇴근시 근무수당 계산-->
+	<select id="employeeTimePay" resultClass="useTimeDto" parameterClass="java.util.HashMap">
+		<![CDATA[
+	select 
+	    round((offWorkTime - commuteTime))  as employeeWorkTime, 
+        round((offWorkTime - commuteTime) * c.EidMoneyPolicy)  as employeeWorkTimePay, 
+	    b.money as employeeAccountMoney,
+	    b.money - (round((offWorkTime - commuteTime) * c.EidMoneyPolicy))  as payAfterMoney, 
+	    commuteTime, offWorkTime, b_key  
+   	from useTimeLog a INNER JOIN (select id, money from userAccount where id = #id#) b ON a.id = b.id ,
+   	(select c.EidMoneyPolicy, c.b_key from franchiseePolicy c, (select b_key from franchiseeLog where b_ip = #b_ip#) d where c.b_key = d.b_key ) c
+   	where a.id = #id# order by loginTime desc limit 0,1;
+		]]>
+	</select>
+	
 </sqlMap>
