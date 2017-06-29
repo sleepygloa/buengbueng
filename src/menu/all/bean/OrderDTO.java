@@ -12,8 +12,15 @@ public class OrderDTO {
 	private int orderstatus;
 	private int ordermoney;
 	private String l_key;
+	private String code;
 	
 
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
 	public String getL_key() {
 		return l_key;
 	}

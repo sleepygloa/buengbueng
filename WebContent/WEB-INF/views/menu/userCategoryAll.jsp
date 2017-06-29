@@ -6,7 +6,7 @@
     <script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
     	
     	
-    	
+    	<div>
     	<table>
 			<tr>
 			<td>제 품</td><td>제조사</td><td>가 격</td>
@@ -18,5 +18,6 @@
 			</td>
 		</tr>		
 		</c:forEach>
-		</table>		
-	
+		</table>
+		</div>
+		

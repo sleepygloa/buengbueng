@@ -53,13 +53,14 @@ public class SeatMaterialsBean {
 	}
 	
 	/* 좌석 추가인지 좌석 수정인지 체크 */
-	private void checkAddModi(String b_key, int num, String os, String ip, ComputerDataDTO cdto, MonitorDataDTO mdto, KeyboardDataDTO kdto,
+	private void checkAddModi(String b_key, int num, String os, String ip, String state, ComputerDataDTO cdto, MonitorDataDTO mdto, KeyboardDataDTO kdto,
 			MouseDataDTO modto, SpeakerDataDTO sdto){
 		PcInfoDataDTO pdto = getPcInfo(b_key, num);
 		/* 좌석 수정 */
 		if(pdto != null){
 			pdto.setOs(os);
 			pdto.setIp(ip);
+			pdto.setState(state);
 			addModifyPcInfo(pdto,cdto,mdto,kdto,modto,sdto,true,b_key);
 		}else{
 			PcInfoDataDTO dto = new PcInfoDataDTO();
@@ -233,7 +234,7 @@ public class SeatMaterialsBean {
 	
 	/* pc방 좌석 이용 현황 */
 	@RequestMapping("seatState.do")
-	public String seatState(HttpSession session, Model model){
+	public String seatState(HttpSession session, String tf, Model model){
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
 		int sidemenu = 3; //사이드메뉴의 내용을 선택
@@ -281,8 +282,11 @@ public class SeatMaterialsBean {
 			model.addAttribute("seatCon",seatCon);
 			model.addAttribute("useSeatNum",useSeatNum);
 		}
-		
-		return "/bossERP/seatMaterials/seatState";
+		if(tf == null){
+			return "/bossERP/seatMaterials/seatState";
+		}else{
+			return "/bossERP/seatMaterials/seatState2";
+		}
 	}
 
 	/* pc방 좌석 정보 확인 */
@@ -334,13 +338,13 @@ public class SeatMaterialsBean {
 			mdto.setM_date(java.sql.Date.valueOf(request.getParameter("monitor_date")));
 			// pc방 좌석 정보 1개 수정
 			if(pcNum == null){
-				checkAddModi(dto.getB_key(), dto.getNum(), request.getParameter("os"), request.getParameter("ip"), cdto, mdto, kdto, modto, sdto);
+				checkAddModi(dto.getB_key(), dto.getNum(), request.getParameter("os"), request.getParameter("ip"), request.getParameter("state"), cdto, mdto, kdto, modto, sdto);
 			}
 			// pc방 좌석 정보 1개 또는 여러 개 수정
 			else{
 				String[] buf = pcNum.split(",");
 				for(int i = 0; i < buf.length; i++){
-					checkAddModi(dto.getB_key(), Integer.parseInt(buf[i]), request.getParameter("os"), request.getParameter("ip"), cdto, mdto, kdto, modto, sdto);
+					checkAddModi(dto.getB_key(), Integer.parseInt(buf[i]), request.getParameter("os"), request.getParameter("ip"), request.getParameter("state"), cdto, mdto, kdto, modto, sdto);
 				}
 			}
 		} catch (Exception e) {

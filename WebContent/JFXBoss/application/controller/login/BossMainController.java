@@ -8,14 +8,15 @@ import org.json.simple.JSONObject;
 
 import all.info.dto.UserInfo;
 import application.ConnectServer;
-import application.controller.order.RentOrder;
+import application.Main;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class BossMainController {
@@ -28,13 +29,14 @@ public class BossMainController {
 		try{
 			menu = bossMenu;
 			view = bossView;
-			String	param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8");
+			String	param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+
+							"&grade="+UserInfo.getInstance().getGrade();
 			String urlInfo = "http://localhost:8080/buengbueng/fxGetModule.do";
 			bossMenu.getChildren().add(setBossMenu(param,urlInfo));
+			Main.getSocketT().start();
 		}catch(Exception e){	
 		}
 	}
-	
 	
 	public static AnchorPane getMenu(){
 		return menu;
@@ -44,9 +46,9 @@ public class BossMainController {
 		return view;
 	}
 	
-	public static VBox setBossMenu(String param, String urlInfo){
+	public static HBox setBossMenu(String param, String urlInfo){
 		menu.getChildren().clear();
-		VBox vbox = new VBox();
+		HBox hbox = new HBox();
 		try{
 			JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 			JSONArray jsonModule = (JSONArray)jsonObj.get("module");
@@ -66,18 +68,22 @@ public class BossMainController {
 						public void handle(MouseEvent event) {
 							try {
 								String url = "/application/controller/module/"+btn.getText()+".fxml";
-								Node node = (Node)FXMLLoader.load(getClass().getResource(url));
+								Parent node = (Parent)FXMLLoader.load(getClass().getResource(url));
 								view.getChildren().setAll(node);
 							} catch (Exception e) {
 							}
 						}
 					});
-					vbox.getChildren().add(btn);
+					hbox.getChildren().add(btn);
 				}
 			}
 		} catch (Exception e) {
 			// 추후 수정
 		}
-		return vbox;
+		return hbox;
+	}
+	
+	public static AnchorPane view(){
+		return view;
 	}
 }

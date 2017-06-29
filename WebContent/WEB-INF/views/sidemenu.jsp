@@ -2,7 +2,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
+<style>
+.my_side_ul li{
+display:box;
+text-align:center;
+
+}
+.my_side_ul li select{
+width:100%;
+margin:10 0;
+padding:0 0 0 10;
+}
+.my_side_ul li select option{
+width:100%;
+padding:0 0 0 10;
+}
+.my_side_ul li a:link{
+color:black;
+text-decoration:none;
+}
+.my_side_ul li a:hover{
+font-size:1.05em;
+}
+</style>
 <script type="text/javascript">
 window.onload=function(){
 	var id = '${sessionScope.loginId}';
@@ -12,8 +34,8 @@ window.onload=function(){
 		data : {id : id},
 		success:function(data){
 			$('.flist').html(data);
-								}
-			});
+		}
+	});
 }
 $(document).ready(function(){
 	$("#franchiseeSelect").change(function(){
@@ -26,9 +48,8 @@ $(document).ready(function(){
         		window.location="bossErpMain.do";
         	}
         });
+	})
 })
-})
-
 </script>
 ${sessionScope.b_key}
 
@@ -46,11 +67,10 @@ ${sessionScope.b_key}
 		</c:if>
 		
 		<c:if test="${sidemenu == 3}">
-			<li><a href="bossErpMain.do" >ERP관리 MAIN</a></li>
+			<li><a href="bossErpMain.do">ERP관리 MAIN</a></li>
 			<li>
-				<select id="franchiseeSelect" class="flist">
-				</select>
-			
+					<select id="franchiseeSelect" class="flist">
+					</select>
 			</li>
 			<li><hr /></li>
 			<li>알바생 관리</li>
@@ -59,10 +79,9 @@ ${sessionScope.b_key}
 			<li><a href="" >알바 근태관리</a>
 				<ul>
 					<li><a class="minor-minor" href="employeeCalender.do">근무달력</a></li>
-					<li><a class="minor-minor" href="">출근하기</a></li>
-					<li><a class="minor-minor" href="">퇴근하기</a></li>
-					<li><a class="minor-minor" href="">출근 기록 확인</a></li>
-					<li><a class="minor-minor" href="employeeLoginList.do">알바 로그인 기록확인</a></li>
+					<li><a class="minor-minor" href="employeeCommute.do">출근하기</a></li>
+					<li><a class="minor-minor" href="employeeOffWork.do">퇴근하기</a></li>
+					<li><a class="minor-minor" href="employeeWorkTimeList.do">출근 기록 확인</a></li>
 					<li><a class="minor-minor" href="">휴가 관리</a></li>
 				</ul>
 			</li>
@@ -79,17 +98,13 @@ ${sessionScope.b_key}
 			
 			<li><hr /></li>
 			<li>메뉴</li>
-			<li><a href="menu.do" onclick="return getL_keyCheck(${sessionScope.b_key})">메뉴 관리</a></li>
-			<li><a href="product.do">재고 관리</a></li>
-			
-			<li><hr /></li>
-			<li>주문 확인</li>
-			<li><a href="menuOrderListForm.do">주문 내역 확인</a></li>			
+			<li><a href="menu.do">메뉴 관리</a></li>
+			<li><a href="product.do">재고 리스트</a></li>
 			
 			<li><hr /></li>
 			<li>주문 확인 (이거는 삭제할거예영)</li>
 			<li><a href="userSelectFranchisee.do">사용자 주문창</a></li>
-			
+			<li><a href="menuOrderListForm.do" >사장님 주문내역확인</a></li>
 			
 			<li><hr /></li>
 			<li>PC방 관리</li>
@@ -97,7 +112,7 @@ ${sessionScope.b_key}
 			<li><a href="seatState.do" >PC방 좌석 이용 관리</a></li>
 			<li><hr /></li>
 			<li>대여 관리</li>
-			<li><a href="rentManage.do" >대여물품 관리</a></li>
+			<li><a href="rentMain.do" >대여물품 관리</a></li>
 		</c:if>	
 			
 		<c:if test="${sidemenu == 4}">

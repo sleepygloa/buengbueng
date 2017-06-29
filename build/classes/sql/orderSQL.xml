@@ -14,7 +14,6 @@
 	</delete>	
 	
 	
-	
 	<!-- 사용자가 로그인하는 피씨방 정보 가져오는 sql -->
 	<select id="selectFranchisee" resultClass="franchiseeDTO">
 		select * from franchiseeInfo;
@@ -25,7 +24,7 @@
 		select b_key from franchiseeInfo where b_name=#b_name#;
 	</select>
 	
-	
+
 	<!-- MenuOrderPro 에서 주문한 메뉴와 그 메뉴의 재고판매현황이 1인 재고를 꺼내는 sql -->
 	<select id="selectProduct" parameterClass="java.util.HashMap" resultClass="int">
 		select count(*) from product where name=#order# and l_key=#l_key# and salecheck=1;
@@ -42,18 +41,43 @@
 		select price from menu where name=#order# and l_key=#l_key#;
 	</select> 
 	
+	<!-- 가맹점 메뉴의 가격 가지고 오기 (menuOrderComplete) -->
+	<select id="getMenuPrice" parameterClass="java.util.HashMap" resultClass="int">
+		select price from menu where name=#name# and l_key=#l_key#;
+	</select>
+	
 	
 	   <!-- 주문내역가지고오기 , 사용: userOrderPro.do  -->
    <select id="orderCount" resultClass="orderDto" parameterClass="String">
    		select * from menuOrder where l_key=#l_key# order by ordertime desc;
    </select>  
 	
+	<!-- 사용자가 자신이 주문한 내역 가지고 오기(userOrderForm)-->
+	<select	id="getUserOrderList" parameterClass="java.util.HashMap"  resultClass="orderDto">
+		select * from menuOrder where id=#id# and l_key=#l_key#;
 	
+	</select>
 	
 	<!-- 주문재고 있으면 주문현황에 추가 -->	
 	<insert id="insertMenuOrder" parameterClass="java.util.HashMap">
-		insert into menuOrder values(#num#,#id#,#menuname#,now(),#orderstatus#,#ordermoney#,#l_key#);
+		insert into menuOrder values(#num#,#id#,#menuname#,now(),#orderstatus#,#ordermoney#,#l_key#,'');
 	</insert>
+	
+	<!-- 사용자 주문 정보 가져오기 -->
+	<select id="getUserOrder" parameterClass="java.util.HashMap" resultClass="int">
+		select orderstatus from menuOrder where id=#id# and l_key=#l_key# and ordertime=#ordertime#;
+	</select>
+	
+	<!-- 사용자가 주문취소를 했을 때 menuOrder에서 statusl를 3으로 바꿔줌 -->
+	<update id="userOrderCancel" parameterClass="java.util.HashMap">
+		update menuOrder set orderstatus=3 where id=#id# and ordertime=#ordertime# and l_key=#l_key#;
+	</update>
+	
+	<!-- 사용자가 환불요청을 했을 때 menuOrder의 status를 4로 바꿔줌 -->
+	<update id="userOrderRefund" parameterClass="java.util.HashMap">
+		update menuOrder set orderstatus=4 where id=#id# and ordertime=#ordertime# and l_key=#l_key#;
+	</update>
+	
 	
 	
 	<!-- 사용자가 주문한 내역을 사장이 열어 볼 리스트. 주문현황리스트 -->
@@ -68,7 +92,7 @@
 	
 	<!-- 주문한 사용자 아이디 가져오기  -->
 	<select id="getOrderUserId" parameterClass="java.util.HashMap" resultClass="String">
-		select id from menuOrder where num=#num# and l_key=#l_key# and (select code from product where code=#barcode#);
+		select id from menuOrder where num=#num# and l_key=#l_key# and menuname=#name# and orderstatus=1;
 	</select>
 	
 	<!-- 받은 바코드가 메뉴이름과 일치하며 판매유무가 1이라면 주문완료-->
@@ -78,7 +102,7 @@
 	
 	<!--주문현황 주문중에서 주문완료로 바꾸기 위함-->
 	<update id="updateStatus" parameterClass="java.util.HashMap">
-		update menuOrder set orderstatus=2 where num=#num# and l_key=#l_key#;
+		update menuOrder set orderstatus=2, code=#barcode# where num=#num# and l_key=#l_key# and id=#id#;
 	</update>
 	
 	<!-- 재고 판매여부 1에서 0으로 판매되었음을 알리기 위함 -->
@@ -86,9 +110,10 @@
 		update product set salecheck=0 where name=#name# and code=#barcode# and l_key=#l_key#;
 	</update>
 	
+	
 	<!-- sellBuyLog에 재고 판매시점 입력 -->
 	<update id="productsaleregistdate" parameterClass="java.util.HashMap">
-		update sellBuyLog set productsaleregistdate=now() where name=#name# and code=#barcode# and l_key=#l_key#;
+		update sellBuyLog set productsaleregistdate=now(),price=#price#,customer=#userId# where name=#name# and code=#barcode# and l_key=#l_key#;
 	</update>
 	
 	<!-- 사용자 잔액 가져오기 -->
@@ -102,8 +127,8 @@
 	</select>
 	
 	<!-- 메뉴 값 가져오기 -->
-	<select id="getOrderMoney" parameterClass="String" resultClass="int">
-		select distinct ordermoney from menuOrder where menuname=#name#;
+	<select id="getOrderMoney" parameterClass="java.util.HashMap" resultClass="int">
+		select distinct ordermoney from menuOrder where menuname=#name# and l_key=#l_key#;
 	</select>
 
 	<!-- 사장이 주문승인시 주문한 사용자 메뉴값 잔액에서 차감--> 
@@ -111,7 +136,24 @@
 		update userAccount set money=#money# where id=#userId#;
 	</update> 
 	
+	<!-- 사용자가 환불을 요청했을 때 승인하면서 status 값을 5로 바꿔주는데 사용 -->
+	<update id="refundStatus" parameterClass="orderDto">
+		update menuOrder set orderstatus=5 where num=#num# and menuname=#menuname# and id=#id# and l_key=#l_key#;
+	</update>
 	
+	<!-- 사용자가 환불을 요청했을 때 승인하면서 sellBuyLog의 판매시간 0000-00-00으로 초기화 -->
+	<update id="refundResetproductsaleregistdate" parameterClass="orderDto">
+		update sellBuyLog set productsaleregistdate='0000-00-00' where customer=#id# and code=#code# and l_key=#l_key# and name=#menuname#;
+	</update>
 
+	<!-- 사용자가 환불한 상품재고를 다시 판매전인 1로 돌려놓는다 -->
+	<update id="refundProduct" parameterClass="orderDto">
+		update product set salecheck=1 where code=#code# and salecheck=0 and name=#menuname#;
+	</update>
+	
+	<!-- 사용자가 환불을 요청했을 때 거절하면서 status 값을 6으로 바꿔주는데 사용 -->
+	<update id="notRefundStatus" parameterClass="orderDto">
+		update menuOrder set orderstatus=6 where num=#num# and code=#code# name=#menuname# and l_key=#l_key#;
+	</update>
 
 </sqlMap>

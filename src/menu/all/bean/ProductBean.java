@@ -65,6 +65,7 @@ public class ProductBean {
 		try{
 			HashMap map=new HashMap();
 			map.put("code",pdto.getCode());
+			map.put("name", pdto.getName());
 			map.put("l_key",l_key);
 			ProductDTO codeDto =(ProductDTO)sqlMap.queryForObject("menu.getProductName",map);
 			if(codeDto==null){

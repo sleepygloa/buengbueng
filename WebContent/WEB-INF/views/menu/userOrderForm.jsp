@@ -6,6 +6,7 @@
     	<title>사용자 주문창</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
+    <script type="text/javascript" src="/buengbueng/js/menu/menuStatus.js"></script>
     </head>
     
     <body>
@@ -34,5 +35,36 @@
 	
 		</table>
 	</div>
+	<div><br><br></div>
+	
+			<div class="userMenuStatus">
+			<input type="hidden" id ="name" value="${name}" />
+		<table>
+			<tr>
+			<td>주문 상황</td>
+			</tr>
+			<tr>
+			<td>가맹점</td><td>주문메뉴</td><td>가격</td><td>주문현황</td>
+			<c:forEach var="userOrder" items="${userOrderList}">
+			<tr>
+			<td>${userOrder.l_key}</td>
+			<td>${userOrder.menuname}</td>
+			<td>${userOrder.ordermoney}</td>
+			<td>
+			<c:if test="${userOrder.orderstatus==1}">주문 중
+				<button onclick="window.location='userOrderCancel.do?id=${id}&ordertime=${userOrder.ordertime}&l_key=${l_key}&name=${name}'">주문 취소</button>
+			</c:if>
+			<c:if test="${userOrder.orderstatus==2}">주문 승인
+				<button onclick="window.location='userOrderRefund.do?id=${id}&l_key=${l_key}&ordertime=${userOrder.ordertime}&name=${name}'">환불 요청</button>
+			</c:if>
+			<c:if test="${userOrder.orderstatus==3}">주문 취소</c:if>
+			
+			</td>
+			</tr>
+			</c:forEach>
+			
+			</table>
+		</div>		
+	
 	
     </body>

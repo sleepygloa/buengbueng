@@ -30,7 +30,15 @@ public class BossEmployeeManageDataDTO {
 	private Timestamp startTime;
 	private Timestamp endTime;
 	
+	private String forDate; //알바 기간 (일)
 	
+	
+	public String getForDate() {
+		return forDate;
+	}
+	public void setForDate(String forDate) {
+		this.forDate = forDate;
+	}
 	public String getStartDate() {
 		return startDate;
 	}

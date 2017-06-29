@@ -7,6 +7,7 @@ public class UserInfo {
 	private int grade; // 사용자 등급
 	private String loginTime; // 사용자 로그인 시간
 	private String b_key = "b7fd755f";
+	private String bossIP;
 
 	private static UserInfo instance = new UserInfo();
 
@@ -62,6 +63,12 @@ public class UserInfo {
 	}
 	public void setB_key(String b_key) {
 		this.b_key = b_key;
+	}
+	public String getBossIP() {
+		return bossIP;
+	}
+	public void setBossIP(String bossIP) {
+		this.bossIP = bossIP;
 	}
 	
 }
