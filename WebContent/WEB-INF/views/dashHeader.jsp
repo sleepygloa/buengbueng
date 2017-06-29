@@ -103,6 +103,42 @@ setInterval("autoRefresh2()", 3000);
                                 </li>
                             </ul>
                         </li>
+                        <li class="mt-has-menu">
+                            <a href="javascript:void(0)" class="rippler rippler-default">
+                            <i class="fa fa-home"></i>
+                            <span class="menu-text">일일정산  관리</span>
+                            <span class="selected"></span>
+                        </a>
+                            <ul class="mt-sub-menu">
+                             	<li>
+                                    <a href="AcceptingRequest.do" class="rippler rippler-default">
+                                    <span class="menu-text">일일정산 승인허가</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="rippler rippler-default">
+                                    <span class="menu-text">일일정산 완료내역</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="mt-has-menu">
+                            <a href="javascript:void(0)" class="rippler rippler-default">
+                            <i class="fa fa-home"></i>
+                            <span class="menu-text">결제 관리</span>
+                            <span class="selected"></span>
+                        </a>
+                            <ul class="mt-sub-menu">
+                             	<li>
+                                    <a href="dashUser.do?grade=3&pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">결제 내역</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li>
                             <a href="grid.html" class="rippler rippler-default">
                             <i class="fa fa-th"></i>

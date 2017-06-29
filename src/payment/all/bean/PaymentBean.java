@@ -28,7 +28,7 @@ import login.user.bean.UserInfoDataDTO;
 
 
 @Controller
-@RequestMapping("/userbilling/*")
+//@RequestMapping("/userbilling/*")
 public class PaymentBean {
 	
 	private static final Object Accept = null;
@@ -222,7 +222,6 @@ public class PaymentBean {
 		System.out.println("card_code =" + card_code);
 		String merchant_uid = request.getParameter("merchant_uid");
 		String imp_uid = request.getParameter("imp_uid");
-		
 		//session과 일치하는 회원정보 수집
 		UserInfoDataDTO info1 = (UserInfoDataDTO)sqlMap.queryForObject("cash.cash_payment_useInfoLoad", id);
 		UserAccountDTO account = (UserAccountDTO)sqlMap.queryForObject("cash.cash_userAccount", id);

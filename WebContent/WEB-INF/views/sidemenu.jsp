@@ -67,7 +67,16 @@ ${sessionScope.b_key}
 				</ul>
 			</li>
 			<li><a href="bossEmployeeAccountManage.do" >장부 관리</a></li>
-		
+			
+			<li><hr /></li>
+			<li>PC이용 현황</li>
+			<li><a class="minor-minor" href="pcUseStatusList.do">가맹점 PC이용 현황</a></li>
+			
+			<li><hr /></li>
+			<li>일일정산</li>
+			<li><a class="minor-minor" href="applyForSettlement.do">일일정산 요청</a></li>
+			<li><a class="minor-minor" href="dailySettlementList.do">일일정산 내역</a></li>
+			
 			<li><hr /></li>
 			<li>메뉴</li>
 			<li><a href="menu.do" onclick="return getL_keyCheck(${sessionScope.b_key})">메뉴 관리</a></li>

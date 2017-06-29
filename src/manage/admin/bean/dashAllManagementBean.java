@@ -345,4 +345,77 @@ public class dashAllManagementBean extends BoardMethodBean{
 		
 		return "/dash-Agree/reLoad";
 	}
+	
+	//일일정산 요청 승인 
+	@RequestMapping("/AcceptingRequest.do")
+	public String AcceptingRequest(String pageNum, HttpServletRequest request){
+		
+		int check = 2;
+		
+		List accept = sqlMap.queryForList("cash.accept", check);
+		
+		System.out.println("accept = " + accept);
+		
+		/*내역 리스트 *********************************************************************/
+		if (pageNum == null) {
+            pageNum = "1";
+        }
+        int pageSize = 5;
+        int currentPage = Integer.parseInt(pageNum);
+        int startRow = (currentPage - 1) * pageSize + 1;
+        int endRow = currentPage * pageSize;
+        int count = 0;
+        int number= 0;
+        
+        count = (Integer)sqlMap.queryForObject("cash.acceptCount", check);
+        System.out.println("가맹점에서 이용한 사용한 내역 카운트 =" + count);
+        List articleList = null;
+        
+        
+        
+        if(count > 0){
+        	HashMap r = new HashMap<>();
+     	    r.put("startRow", startRow);
+     	    r.put("endRow", endRow);
+     	    r.put("check", check);
+     	   
+     	    articleList = sqlMap.queryForList("cash.accept", r);
+     	    
+        } else {
+        	articleList = Collections.EMPTY_LIST;
+        }
+        
+        number = count - (currentPage - 1) * pageSize;
+        /**************************************************************************************************/
+        request.setAttribute("articleList", articleList);
+        request.setAttribute("currentPage", new Integer(currentPage));
+        request.setAttribute("startRow", new Integer(startRow));
+        request.setAttribute("endRow", new Integer(endRow));
+        request.setAttribute("count", new Integer(count));
+        request.setAttribute("pageSize", new Integer(pageSize));
+		request.setAttribute("number", new Integer(number));
+		
+		return "/dash-AcceptingRequest/AcceptingRequest";
+	}
+	@RequestMapping("/AcceptingRequestPro.do")
+	public String AcceptingRequestPro(HttpServletRequest request){
+		String[] chbox = request.getParameterValues("chbox") ;
+		System.out.println("방의 길이" + chbox.length);
+
+		ArrayList<String> arrayList = new ArrayList<>();
+		for(String temp : chbox){
+		  arrayList.add(temp);
+		}		
+		
+		System.out.println("방의 값" + arrayList);
+		
+		
+		for(int i=0; i<chbox.length; i++){
+			HashMap idx = new HashMap<>();
+			idx.put("idx", chbox[i]);
+			 sqlMap.update("cash.approval", idx);
+		}
+		
+		return "redirect:/AcceptingRequest.do";
+	}
 }

@@ -255,5 +255,91 @@
 		select b_name, b_key from franchiseeInfo where b_id = #b_id#;
 	</select>
 	
+	
+	<!-- 일일정산 내역 리스트========================================================== -->
+	
+	<!-- 일일정산시 총 합계 금액(통롸표기 o) -->
+	<select id="dailyAmount" resultClass="String">
+	<![CDATA[
+		select format(sum(amountUsed), 0) from usageHistory where affiliateCode=#affiliateCode# and usageTime >=#startDate# and endTime <= #endDate#;
+	]]>
+	</select>
+	
+	<!-- 일일정산시 총 합계 금액 (통화표기 x) -->
+	<select id="dailyPureAmount" resultClass="String">
+	<![CDATA[
+		select sum(amountUsed) from usageHistory where affiliateCode=#affiliateCode# and usageTime >=#startDate# and endTime <= #endDate#;
+	]]>
+	</select>
+	
+	<!-- 오늘날 pc방 이용 토탈 건수 카운트 -->
+	<select id="dailyCount" resultClass="int">
+	<![CDATA[
+		select count(*) from usageHistory where affiliateCode = #affiliateCode# and usageTime >=#startDate# and endTime <= #endDate#;
+	  ]]>
+	</select>
+	
+	<!-- 가맹점에서 이용한 사용한 내역 카운트 -->
+	<select id="B_keyValidity" resultClass="int">
+	 	select count(*) from usageHistory where affiliateCode = #affiliateCodeList#;
+	 </select>
+	
+	<!-- 가맹점에서 이용한 유저들 사용현황정보 리스트 -->
+	<select id="SelectedList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+   	 <![CDATA[
+           select r,idx,userId,userName,affiliateCode,usageTime,endTime,format(amountUsed, 0) amountUsed,businessName,bossId
+            from (select @rownum:= @rownum+1 as r, idx,userId,userName,affiliateCode,usageTime,endTime,amountUsed,businessName,bossId
+            from usageHistory,(select @rownum:=0)i where affiliateCode=#affiliateCodeList# and usageTime >=#startDate# and endTime <=#endDate# order by idx desc)yz where r between #startRow# and #endRow#;
+     ]]>
+     </select>
+     
+     <!-- 정산요청 시 중복 방지를 위한 resultValue 체크값 -->
+     <select id="checkValue"  resultClass="int">
+	 <![CDATA[
+	 	select count(*) from dailySettlement where b_key = #b_key# and settlementDate <= #settlementDate#;
+	 ]]>
+	 </select>
+	 
+	<!-- 일일정산 내역 데이터 삽입========================================================== -->
+	
+	<!-- 이일정산 내역 데이터 삽입ㄴ -->
+	<insert id="dailySettlement" parameterClass="DailySettlementDTO" >
+		 insert into dailySettlement(settlementDate,bossId,companyName,settlementMethod,settlementNumber,requestedAccount,settlementAmount,settlementStatus,resultValue,b_key) 
+		 values(now(),#bossId#,#companyName#,#settlementMethod#,#settlementNumber#,#requestedAccount#,#settlementAmount#,#settlementStatus#,#resultValue#,#b_key#);
+	</insert>
+	
+	
+	<!-- 일일정산 내역 리스트========================================================== -->
+	<select id="dailySettlementCount" resultClass="int">
+		select count(*) from dailySettlement where b_key=#b_key#;
+	</select>
+	
+	<select id="dailySettlementList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	<![CDATA[
+		 select r,idx,settlementDate,bossId,companyName,settlementMethod,settlementNumber,requestedAccount,format(settlementAmount, 0) settlementAmount,settlementStatus,resultValue,b_key
+            from (select @rownum:= @rownum+1 as r, idx,settlementDate,bossId,companyName,settlementMethod,settlementNumber,requestedAccount,settlementAmount,settlementStatus,resultValue,b_key
+            from dailySettlement,(select @rownum:=0)i where b_key=#b_key# order by idx desc)yz where r between #startRow# and #endRow#;
+    ]]>
+	</select>
+	
+	<!-- 상품주문  상세리스트========================================================== -->
+
+	<select id="menuOrderCount" resultClass="int">
+	<![CDATA[
+		select count(*) from sellBuyLog where productsaleregistdate>=#startDate# and productsaleregistdate<=#endDate# and l_key=#b_key#;
+	]]>
+	</select>
+
+	 <!-- 가맹 pc사용 현황========================================================== -->
+	 <!-- 가맹점 PC사용현황 카운트 -->
+	<select id="useStatusCount" resultClass="int">
+		SELECT count(*) FROM usageHistory where affiliateCode = #b_key#;
+	</select>
+	
+	<select id="useStatusList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+			select r,userId,userName,usageTime,endTime,amountUsed,pcAmount,businessName,menuAmount    
+		  	from (select @rownum:= @rownum+1 as r, userId,userName,usageTime,endTime,amountUsed,pcAmount,businessName,menuAmount
+	      	from usageHistory,(select @rownum:=0)i where affiliateCode = #b_key# order by idx desc )yz where r between #startRow# and #endRow#;
+	</select>
 </sqlMap>
 	
