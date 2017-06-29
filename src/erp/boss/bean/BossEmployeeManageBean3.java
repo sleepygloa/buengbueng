@@ -144,17 +144,17 @@ public class BossEmployeeManageBean3 {
 				utlDto = (UseTimeLogDTO)sqlMap.queryForObject("cash.employeeTimePay", map);//이용시간 정보를 계산하여 가져온다.
 
 				utlDto.setB_id(b_id);
+				utlDto.setE_id(e_id);
 				
 				sqlMap.insert("log.offWorkLog", utlDto);//이용로그남기기, pc방
 				sqlMap.insert("log.offWorkPayLog", utlDto);//결제로그남기기,
 				
-				sqlMap.update("log.userGiveBossMoneyEmployeeAccount", utlDto);//사용자 계좌에 반영
-				sqlMap.update("log.userGiveBossMoneyBossAccount", utlDto);//사장님계좌에 반영
+				sqlMap.update("log.EmployeeGiveBossMoneyEmployeeAccount", utlDto);//사용자 계좌에 반영
+				sqlMap.update("log.EmployeeGiveBossMoneyBossAccount", utlDto);//사장님계좌에 반영
 //				}else{}
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally{
-				session.invalidate();
 			}
 			
 			//////////////////////////////////////////

@@ -186,15 +186,21 @@
  	<!-- 알바 퇴근시 근무수당 계산-->
 	<select id="employeeTimePay" resultClass="useTimeDto" parameterClass="java.util.HashMap">
 		<![CDATA[
-	select 
+  	select 
 	    round((offWorkTime - commuteTime))  as employeeWorkTime, 
         round((offWorkTime - commuteTime) * c.EidMoneyPolicy)  as employeeWorkTimePay, 
 	    b.money as employeeAccountMoney,
-	    b.money - (round((offWorkTime - commuteTime) * c.EidMoneyPolicy))  as payAfterMoney, 
+	    b.money + (round((offWorkTime - commuteTime) * c.EidMoneyPolicy))  as payAfterMoney, 
 	    commuteTime, offWorkTime, b_key  
-   	from useTimeLog a INNER JOIN (select id, money from userAccount where id = #id#) b ON a.id = b.id ,
-   	(select c.EidMoneyPolicy, c.b_key from franchiseePolicy c, (select b_key from franchiseeLog where b_ip = #b_ip#) d where c.b_key = d.b_key ) c
-   	where a.id = #id# order by loginTime desc limit 0,1;
+   	from 
+	   	(select a.num, a.title, b.commuteTime, b.offworkTime, b.ex 
+	   		from (select num,title from employeeWorkTime where title = #e_id# and result = 2 order by num desc limit 0,1) a 
+	   		INNER JOIN (select * from employeeWorkTimeCommute) b on a.num = b.num) a 
+	    INNER JOIN (select id, money from userAccount where id = #e_id#) b ON a.title = b.id ,
+		   	(select c.EidMoneyPolicy, c.b_key 
+		   		from franchiseePolicy c, (select b_key from employeeInfo where e_id = #e_id#) d where c.b_key = d.b_key ) c
+   	where a.title = #e_id# order by commuteTime desc limit 0,1
+   	
 		]]>
 	</select>
 	
