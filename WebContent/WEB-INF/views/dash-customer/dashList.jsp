@@ -25,7 +25,7 @@
 		<c:out value="${number}"/>
 		</span>
 		<span><a href="dashBoardContent.do?num=${list.num}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}&number=${number}"
-		target="_blank" onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no')"
+		onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no'); return false;"
 		>${list.title}</a></span>
 		<span>${list.writer}</span>
 		<span>${list.email}</span>
@@ -55,7 +55,7 @@
 <div style="width:50%;height:auto;float:left;">
 <div>자주 묻는 질문</div>
 	<div><a href="dashBoardWriteForm.do?snum=${snum2}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}"
-	target="_blank" onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no')"
+	onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no'); return false;"
 	>글쓰기</a>
 	</div>
 	<span>번호</span>
@@ -77,7 +77,7 @@
 		<c:out value="${number2}"/>
 		</span>
 		<span><a href="dashBoardContent.do?num=${list2.num}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}&number=${number2}"
-		target="_blank" onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no')"
+		onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no'); return false;"
 		>${list2.title}</a></span>
 		<span>${list2.writer}</span>
 		<span>${list2.email}</span>
@@ -123,7 +123,7 @@
 		<c:out value="${number3}"/>
 		</span>
 		<span><a href="dashBoardContent.do?num=${list3.num}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}&number=${number3}"
-		target="_blank" onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no')"
+		onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no'); return false;"
 		>${list3.title}</a></span>
 		<span>${list3.writer}</span>
 		<span>${list3.email}</span>
@@ -167,7 +167,7 @@
 		<c:out value="${number4}"/>
 		</span>
 		<span><a href="dashBoardContent.do?num=${list4.num}&number=${number4}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}"
-		target="_blank" onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no')"
+		onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no'); return false;"
 		>${list4.title}</a></span>
 		<span>${list4.writer}</span>
 		<span>${list4.email}</span>
@@ -221,7 +221,7 @@
 		<c:out value="${number}"/>
 		</span>
 		<span><a href="dashBoardContent.do?num=${list.num}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}&number=${number}"
-		target="_blank" onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no')"
+		onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no'); return false;"
 		>${list.title}</a></span>
 		<span>${list.writer}</span>
 		<span>${list.email}</span>
@@ -269,7 +269,7 @@
 		<c:out value="${number2}"/>
 		</span>
 		<span><a href="dashBoardContent.do?num=${list2.num}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}&number=${number2}"
-		target="_blank" onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no')"
+		onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no'); return false;"
 		>${list2.title}</a></span>
 		<span>${list2.writer}</span>
 		<span>${list2.email}</span>
@@ -315,7 +315,7 @@
 		<c:out value="${number3}"/>
 		</span>
 		<span><a href="dashBoardContent.do?num=${list3.num}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}&number=${number3}"
-		target="_blank" onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no')"
+		onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no'); return false;"
 		>${list3.title}</a></span>
 		<span>${list3.writer}</span>
 		<span>${list3.email}</span>
@@ -359,7 +359,7 @@
 		<c:out value="${number4}"/>
 		</span>
 		<span><a href="dashBoardContent.do?num=${list4.num}&number=${number4}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}"
-		target="_blank" onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no')"
+		onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no'); return false;"
 		>${list4.title}</a></span>
 		<span>${list4.writer}</span>
 		<span>${list4.email}</span>

@@ -17,7 +17,7 @@
 	</delete>
 	
 	<!-- 회원 삭제 시 계좌정보 삭제 -->
-	<delete id="userAccountDelete" parameterClass="userDto">
+	<delete id="userAccountDelete" parameterClass="String">
 		delete from userAccount where id = #id#;
 	</delete>
 	

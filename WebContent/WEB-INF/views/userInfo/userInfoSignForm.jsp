@@ -83,7 +83,7 @@
 							<label class="userInfoSign_Container_grade_label" for='boss'>사장</label>
 						</span>
 						<span style="margin-left: 20px;">
-							<input class="userInfoSign_Container_grade2" type="radio" value="0" name="grade" class="user" id="user" />
+							<input class="userInfoSign_Container_grade2" type="radio" value="4" name="grade" class="user" id="user" />
 							<label class="userInfoSign_Container_grade_label" for='user'>관리자</label>
 						</span>
 					</div>
