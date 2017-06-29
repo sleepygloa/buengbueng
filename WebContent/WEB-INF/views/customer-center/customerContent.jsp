@@ -50,6 +50,7 @@ function bossDel(){
 	${dto.content}
 </div>
 <div>
+	<c:if test="${sessionScope.grade == 4}">
 	<c:if test="${re_step == 1}">
 		<span>
 			<input type="button" value="답글쓰기" onclick=
@@ -58,6 +59,7 @@ function bossDel(){
 	</c:if>
 	<span><button onclick="return bossDel();">글삭제</button></span>
 	<span><input type="button" value="글수정" onclick="window.location='customerModify.do?snum=${dto.snum}&num=${dto.num}&pageNum=${pageNum}'"></span>
+	</c:if>
 	<span><input type="button" value="뒤로가기" onclick="window.location='customerQA.do?snum=${dto.snum}&pageNum=${pageNum}'"></span>
 </div>
 </div>
