@@ -47,11 +47,6 @@ setInterval("autoRefresh1()", 3000);
 		var currentLocation = window.location;
 		$('#autoRe1').load(currentLocation+" #autoRe1");
 		}
-setInterval("autoRefresh2()", 3000);
-	function autoRefresh2(){		
-		var currentLocation = window.location;
-		$('#autoRe2').load(currentLocation+" #autoRe2");
-		}	
 </script>
             <div id="mtapp-container" data-mt-color-type="lpanel-bg3" data-mt-lpanel-effect="shrink">
                 <aside id="mt-left-panel" data-mt-position-type="absolute">
@@ -196,23 +191,11 @@ setInterval("autoRefresh2()", 3000);
                         </a>
                             <ul class="mt-sub-menu">
                                 <li>
-                                    <a href="dashList.do?pageNum=1&pageNum2=1&pageNum3=1" class="rippler rippler-default">
+                                    <a href="dashList.do?pageNum=1&pageNum2=1&pageNum3=1&pageNum4=1" class="rippler rippler-default">
                                     <span class="menu-text">게시판 모아보기</span>
                                     <c:if test="${franchiseAlarm >0}">
                                     	<span class="badge badge-danger m-left-xs "><div id="autoRe1">${franchiseAlarm}</div></span>
                                     </c:if>
-                                    <span class="selected"></span>
-                                </a>
-                                </li>
-                                 <li>
-                                    <a href="dashReply.do?pageNum=1" class="rippler rippler-default">
-                                    <span class="menu-text">답변 대기중<span class="badge badge-danger m-left-xs ">${noReply}</span>
-                                    <span class="selected"></span>
-                                </a>
-                                </li>
-                                <li>
-                                    <a href="dashBoardSearch.do?pageNum=1" class="rippler rippler-default">
-                                    <span class="menu-text">게시판 검색</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>

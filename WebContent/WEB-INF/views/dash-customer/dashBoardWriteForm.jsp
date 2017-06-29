@@ -2,20 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="/buengbueng/js/userInfo/customerForm.js"></script>
-<!-- HEADER TEMPLATE -->
-<jsp:include page="../dashHeader.jsp" />
 <head>
 <title>Q & A</title>
 </head>
 <div>자주 묻는 질문</div>
-<form action="dashCustomerWriteFormPro.do" method="post" onsubmit="return emptyCheck();" name="dashCustomer">
+<form action="dashBoardWriteFormPro.do" method="post" onsubmit="return emptyCheck();" name="dashCustomer">
 <input type="hidden" name="pageNum" value="${pageNum}">
 <input type="hidden" name="pageNum2" value="${pageNum2}">
 <input type="hidden" name="pageNum3" value="${pageNum3}">
+<input type="hidden" name="pageNum4" value="${pageNum4}">
 <input type="hidden" name="num" value="${num}">
 <input type="hidden" name="ref" value="${ref}">
 <input type="hidden" name="re_step" value="${re_step}">
-
+<input type="hidden" name="snum" value="${snum}">
 
 <div>
 <div>
@@ -39,11 +38,10 @@
 <div>
 	<span><input type="submit" value="작성하기"></span>
 	<span><input type="reset" value="다시쓰기"></span>
-	<span><input type="button" value="돌아가기" onclick="history.go(-1);"></span>
+	<span><input type="button" value="창 끄기" onclick="window.close();"></span>
 </div>
 </div>
 </form>
-<jsp:include page="../dashFooter.jsp"/>
 
 <script>
 function emptyCheck(){
