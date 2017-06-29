@@ -52,10 +52,10 @@
 			<td>${userOrder.ordermoney}</td>
 			<td>
 			<c:if test="${userOrder.orderstatus==1}">주문 중
-				<button onclick="window.location='userOrderCancel.do?id=${id}&ordertime=${userOrder.ordertime}&l_key=${l_key}'">주문 취소</button>
+				<button onclick="window.location='userOrderCancel.do?id=${id}&ordertime=${userOrder.ordertime}&l_key=${l_key}&name=${name}'">주문 취소</button>
 			</c:if>
 			<c:if test="${userOrder.orderstatus==2}">주문 승인
-				<button onclick="window.location='userOrderRefund.do?id=${id}&l_key=${l_key}&ordertime=${userOrder.ordertime}'">환불 요청</button>
+				<button onclick="window.location='userOrderRefund.do?id=${id}&l_key=${l_key}&ordertime=${userOrder.ordertime}&name=${name}'">환불 요청</button>
 			</c:if>
 			<c:if test="${userOrder.orderstatus==3}">주문 취소</c:if>
 			

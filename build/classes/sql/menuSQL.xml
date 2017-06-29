@@ -79,12 +79,12 @@
 	
 	<!-- saleBuyLog 추가 -->
 	<insert id="insertSaleBuyLog" parameterClass="productDto">
-		insert into sellBuyLog values(#name#,#code#,now(),'0000-00-00',0,#l_key#);
+		insert into sellBuyLog values(#name#,#code#,'',now(),'0000-00-00',0,#l_key#);
 	</insert>
 	
 	<!-- product 수정하기 위해 재고명에 맞는 정보 가져오기, 바코드 중복 방지-->
 	<select id="getProductName" parameterClass="java.util.HashMap" resultClass="productDto">
-		select * from product where code=#code# and l_key=#l_key#;
+		select * from product where code=#code# and l_key=#l_key# and name=#name#;
 	</select>
 	
 	<!-- product 수정 -->

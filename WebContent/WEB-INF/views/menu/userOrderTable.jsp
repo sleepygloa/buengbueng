@@ -18,9 +18,12 @@
 				<button onclick="window.location='userOrderCancel.do?id=${id}&ordertime=${userOrder.ordertime}&l_key=${l_key}'">주문 취소</button>
 			</c:if>
 			<c:if test="${userOrder.orderstatus==2}">주문 승인
-				<button onclick="window.location='userOrderRefund.do'">환불 요청</button>
+				<button onclick="window.location='userOrderRefund.do?id=${id}&ordertime=${userOrder.ordertime}&l_key=${l_key}'">환불 요청</button>
 			</c:if>
 			<c:if test="${userOrder.orderstatus==3}">주문 취소</c:if>
+			<c:if test="${userOrder.orderstatus==4}">환불 요청중</c:if>
+			<c:if test="${userOrder.orderstatus==5}">환불 완료</c:if>
+			<c:if test="${userOrder.orderstatus==6}">환불 불가</c:if>
 			
 			</td>
 			</tr>

@@ -5,11 +5,18 @@ import java.sql.Date;
 public class SellBuyLogDTO {
 	private String name;
 	private String code;
+	private String customer;
 	private Date productregistdate;
 	private Date productsaleregistdate;
 	private int price;
 	private String l_key;
 	
+	public String getCostomer() {
+		return customer;
+	}
+	public void setCostomer(String costomer) {
+		this.customer = costomer;
+	}
 	public int getPrice() {
 		return price;
 	}
