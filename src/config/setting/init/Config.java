@@ -30,7 +30,7 @@ public class Config  {
 			
 //			String destination = "C:\\Users\\user2\\Documents\\workspace\\buengbueng\\WebContent\\log\\";
 //			String destination = "C:\\Users\\KO\\Documents\\eclipse\\Spring\\buengbueng\\WebContent\\log\\";
-			File file = new File("..\\buengbueng\\WebContent\\log\\log.txt");
+			File file = new File(".\\buengbueng\\WebContent\\log\\log.txt");
 //			String dd = re.getServletContext().getRealPath("\\buengbueng\\WebContent\\log\\log.txt");
 //			System.out.println(dd);
 //			String rr = re.getServletContext().getRealPath("\\buengbueng\\WebContent\\log\\");
