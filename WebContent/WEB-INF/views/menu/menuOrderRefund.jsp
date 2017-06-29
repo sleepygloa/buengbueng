@@ -5,16 +5,16 @@
 <c:if test="${check==1}">
 	
 	<script>
-		alert("환불이 요청되었습니다.");
-		window.location.href="userOrderForm.do?l_key=${l_key}&name=${name}";
+		alert("환불 승인이 완료되었습니다.");
+		window.location.href="menuOrderListForm.do";
 	</script>
 </c:if>
 
 <c:if test="${check==0}">
 
 	<script>
-		alert("환불 요청에 실패하였습니다.");
-		window.location.href="userOrderForm.do?l_key=${l_key}&name=${name}";
+		alert("환불 승인에 실패하였습니다.");
+		window.location.href="menuOrderListForm.do";
 	</script>
 </c:if>
 
@@ -22,7 +22,7 @@
 
 	<script>
 		alert("오류. 사용에 불편을 끼쳐 죄송합니다.");
-		window.location.href="productInsertForm.do?l_key=${l_key}&name=${name}";
+		window.location.href="menuOrderListForm.do";
 	</script>
 </c:if>
      
