@@ -13,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import login.user.bean.UseTimeLogDTO;
+import superclass.all.bean.FindIpBean;
+
 @Controller
 public class BossEmployeeManageBean3 {
 
@@ -110,6 +113,57 @@ public class BossEmployeeManageBean3 {
 			
 			model.addAttribute("commuteTime", commuteTime);
 			model.addAttribute("checkCommute", checkCommute);
+			
+			
+			
+			
+			//////////////////////////////////////////
+			try{
+				
+				/////////////////////////////
+//				퇴근시 사용시간 결제
+				/////////////////////////////테스트하기위해서는 가맹점을 그자리에서 만들어야한다.
+				//로그아웃PC의 IP -> LicenseKey 조회 -> 키로 가맹점 요금정책 -> 요금정책을 이용하여
+				//로그아웃시간 - 로그인 시간 = 이용시간 * 요금정책 = 사용금액 
+				//현재금액 - 사용금액 = 남은돈
+				FindIpBean findIpBean = new FindIpBean();
+				String ip = findIpBean.findIp();
+				
+				HashMap map = new HashMap();
+				map.put("e_id",e_id);
+				map.put("b_ip", ip);
+				
+				String b_id = (String)sqlMap.queryForObject("erpEmp.getEidBid", e_id);
+				
+				
+				System.out.println(ip); //192.168.91.1 192.168.111.1 192.168.10.1
+				UseTimeLogDTO utlDto = null;
+//				if((Integer)sqlMap.queryForObject("test.getGradeInfo", e_id) == 3 && (Integer)session.getAttribute("webLogin") != 1){//웹에서 로그인시 막는다.
+				
+				//유저가 사용한 PC방 이용시간 디테일정보 찾기(계산)
+				utlDto = (UseTimeLogDTO)sqlMap.queryForObject("cash.employeeTimePay", map);//이용시간 정보를 계산하여 가져온다.
+
+				utlDto.setB_id(b_id);
+				utlDto.setE_id(e_id);
+				
+				sqlMap.insert("log.offWorkLog", utlDto);//이용로그남기기, pc방
+				sqlMap.insert("log.offWorkPayLog", utlDto);//결제로그남기기,
+				
+				sqlMap.update("log.EmployeeGiveBossMoneyEmployeeAccount", utlDto);//사용자 계좌에 반영
+				sqlMap.update("log.EmployeeGiveBossMoneyBossAccount", utlDto);//사장님계좌에 반영
+//				}else{}
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+			}
+			
+			//////////////////////////////////////////
+			
+			
+			
+			
+			
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}

@@ -73,6 +73,14 @@
 	<select id="getUserAddr" parameterClass="String" resultClass="String">
 		select address from userInfo where id = #id#;
 	</select>
+	
+	<!-- 회원 주소 가져오기 -->
+	<select id="getGradeInfo" parameterClass="String" resultClass="int">
+		select grade from userInfo where id = #id#;
+	</select>	
+	
+	
+	
 </sqlMap>
 
 

@@ -43,7 +43,7 @@
 		<title>BuengBueng</title>
 		
 	</head>
- 
+
  
 
 	 	<!-- LOGIN SECTION -->
@@ -52,6 +52,43 @@
 				<!-- 로고 : BUENGBUENG 또는 그림 -->
 				<div><h1 class="logo"><a href="index.do">buengbueng</a></h1></div>
 
+				<div id="respon_menu" class="respon_menu" ><div class="respon_menu_icon"><span>menu</span></div></div>
+				<div id="respon_menu_area" class="respon_menu_area" style="display:none">
+					<div class="respon_menu_ul">
+						<div id="respon_menu_intro" class="respon_menu_list"><a href="">회사소개</a></div>
+							<div id="respon_submenu_intro" class="respon_submenu" style="display:none">
+								<div><a href="">가맹점 찾기</a></div>
+								<div><a href="">프로그램 기능소개</a></div>
+							</div>
+						<div id="respon_menu_user" class="respon_menu_list"><a href="">사용자 PC방 이용</a></div>
+							<div id="respon_submenu_user" class="respon_submenu" style="display:none">
+								<div><a href="searchPCForm.do">PC방 찾기</a></div>
+								<div><a href="favoritePCRoom.do">즐겨찾는 PC방</a></div>								
+								<div><a href="userbilling/cash.do">결제</a></div>
+								<div><a href="">이용현황</a></div>								
+							</div>
+						<div id="respon_menu_boss" class="respon_menu_list"><a href="">사장님 PC방 관리</a></div>
+							<div id="respon_submenu_boss" class="respon_submenu" style="display:none">
+								<div><a href="">원격 조종</a></div>
+								<div><a href="bossErpMain.do">ERP 관리</a></div>								
+								<div><a href="franchiseeList.do">가맹점 관리</a></div>
+							</div>						
+						<div id="respon_menu_admin" class="respon_menu_list"><a href="">관리자 프로그램 관리</a></div>
+							<div id="respon_submenu_admin" class="respon_submenu" style="display:none">
+								<div><a href="">챗봇 관리</a></div>
+								<div><a href="">ERP 관리</a></div>								
+								<div><a href="">회원 관리</a></div>
+								<div><a href="">페이지 관리</a></div>
+							</div>							
+						<div id="respon_menu_question" class="respon_menu_list"><a href="">고객센터</a></div>
+							<div id="respon_submenu_question" class="respon_submenu"  style="display:none">
+								<div><a href="">가맹 문의</a></div>
+								<div><a href="">자주묻는 질문</a></div>								
+								<div><a href="">1:1 관리</a></div>
+							</div>							
+					</div>
+				</div>
+				
 				<!-- NAV SECTION -->
 				<!-- BIG NAV : 대 제목 : 메인 NAV : 메인 메뉴 -->				
 				<ul class="menu_area"> 
@@ -133,11 +170,11 @@
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
 								<div class="menu_menu col-sm-6-12">
-									<a href="userbilling/usageHistory.do">
-										<span class="menu_icon"> <img src="img/ux-heatmaps-gnb@2x.png"> </span>
+									<a href="favoritePCRoom.do">
+										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
-											<h6 class="menu_name minor-minor">예약</h6>
-											<p class="menu_desc">원하는자리 미리 예약하기</p>
+											<h6 class="menu_name minor-minor">즐겨찾는 PC방</h6>
+											<p class="menu_desc">자주찾는 PC방을 지정하여 그곳의 정보를 먼저 파악</p>
 										</span>
 									</a>
 								</div>
@@ -157,15 +194,7 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
-								<div class="menu_menu col-sm-6-12">
-									<a href="favoritePCRoom.do">
-										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">즐겨찾는 PC방</h6>
-											<p class="menu_desc">자주찾는 PC방을 지정하여 그곳의 정보를 먼저 파악</p>
-										</span>
-									</a>
-								</div>
+								
 							</li>
 						</ul>	
 					</li>
@@ -187,7 +216,7 @@
 									<a href="">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
-											<h6 class="menu_name minor-minor">원격 조정</h6>
+											<h6 class="menu_name minor-minor">원격 조종</h6>
 											<p class="menu_desc">멀리서 사장님 PC 관리</p>
 										</span>
 									</a>
@@ -378,4 +407,41 @@
 			<div class="side_scontent container">
 			
 		</c:if>
- 
+  
+  <script>
+ $("#respon_menu").click(function () {
+	 $("#respon_menu_area").toggle("show"); 
+ });
+ $("#respon_menu_intro").click(function(){
+	 $("#respon_submenu_intro").toggle("show");
+	 var check = 1;
+	 return closeman(check);
+ });
+ $("#respon_menu_user").click(function(){
+	 $("#respon_submenu_user").toggle("show");
+	 var check = 2;
+	 return closeman(check);
+ });
+ $("#respon_menu_boss").click(function(){
+	 $("#respon_submenu_boss").toggle("show");
+	 var check = 3;
+	 return closeman(check);
+ });
+ $("#respon_menu_admin").click(function(){
+	 $("#respon_submenu_admin").toggle("show");
+	 var check = 4;
+	 return closeman(check);
+ });
+ $("#respon_menu_question").click(function(){
+	 $("#respon_submenu_question").toggle("show");
+	 var check = 5;
+	 return closeman(check);
+ });
+ function closeman(check){
+	 if(check == 1){$("#respon_submenu_user").hide();$("#respon_submenu_boss").hide();$("#respon_submenu_admin").hide();$("#respon_submenu_question").hide();}
+	 if(check == 2){$("#respon_submenu_intro").hide();$("#respon_submenu_boss").hide();$("#respon_submenu_admin").hide();$("#respon_submenu_question").hide();}
+	 if(check == 3){$("#respon_submenu_intro").hide();$("#respon_submenu_user").hide();$("#respon_submenu_admin").hide();$("#respon_submenu_question").hide();}
+	 if(check == 4){$("#respon_submenu_intro").hide();$("#respon_submenu_user").hide();$("#respon_submenu_boss").hide();$("#respon_submenu_question").hide();}
+	 if(check == 5){$("#respon_submenu_intro").hide();$("#respon_submenu_user").hide();$("#respon_submenu_boss").hide();$("#respon_submenu_admin").hide();}
+ }
+ </script>

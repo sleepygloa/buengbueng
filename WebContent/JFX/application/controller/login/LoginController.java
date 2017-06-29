@@ -87,8 +87,9 @@ public class LoginController {
 					UserInfo.getInstance().setPoint(Double.parseDouble((String)jsonObj.get("point")));
 					UserInfo.getInstance().setGrade(Integer.parseInt((String)jsonObj.get("grade")));
 					UserInfo.getInstance().setLoginTime((String)jsonObj.get("loginTime"));
-					Parent main = null;
+					UserInfo.getInstance().setBossIP((String)jsonObj.get("bossIP"));
 					UserInfo.getInstance().setPcNum((String)jsonObj.get("pcNum"));
+					Parent main = null;
 					main =  FXMLLoader.load(getClass().getResource("/application/controller/login/MainApp.fxml"));
 					// 메인화면 레이아웃을 화면에 등록
 					Scene scene = new Scene(main);
@@ -96,7 +97,7 @@ public class LoginController {
 					// Main.getStage() = Main.java에 있는 메인스테이지 사용(현재 launch된 애)
 					Main.getStage().setFullScreen(false);
 					Main.getStage().setWidth(600);	// 창 가로 크기
-					Main.getStage().setHeight(300);	// 창 세로 크기
+					Main.getStage().setHeight(350);	// 창 세로 크기
 					Main.getStage().setX(1300);	// 모니터 상에 창이 위치할 X 좌표
 					Main.getStage().setY(50);	// 모니터 상에 창이 위치할 Y 좌표
 					Main.getStage().setScene(scene); // 창에 화면 넣기

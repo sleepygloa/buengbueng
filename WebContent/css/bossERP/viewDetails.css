@@ -1,0 +1,34 @@
+@CHARSET "UTF-8";
+body{
+	margin:0 auto;
+	text-align: center;
+}
+.wrap{
+	border:1px black solid;
+	vertical-align:middle;
+	height:500px;
+}
+.title_box{
+	border:1px red solid;
+	height: 60px;
+}
+.menu_container{
+	background:green;
+	height:auto;
+	width:100%;
+}
+.menu_container_piece{
+	border:1px blue solid;
+	width:100%;
+	height:40px;
+	float:left;
+}
+.menu_container_piece2{
+	width:49.5%;
+	float:left;
+	height:40px;
+}
+.menu_container_piece2 p{
+	margin: 1 auto;
+	line-height: 1.4px;
+}
