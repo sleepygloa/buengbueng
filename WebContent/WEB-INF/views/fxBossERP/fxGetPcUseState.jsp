@@ -2,5 +2,7 @@
 	"count" : "${count}",
 	"seatCon" : [${seatCon}],
 	"useSeatId" : [${useSeatId}],
-	"useSeatNum" : [${useSeatNum}]
+	"useSeatNum" : [${useSeatNum}],
+	"franchiseeName" : "${franchiseeName}",
+	"state" : [${state}]
 }

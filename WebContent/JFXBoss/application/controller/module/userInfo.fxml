@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="404.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.module.UserInfoController">
+   <children>
+      <HBox layoutX="153.0" layoutY="29.0" prefHeight="24.0" prefWidth="99.0" spacing="10.0">
+         <children>
+            <Label prefHeight="21.0" prefWidth="37.0" text="No.">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Text fx:id="pcNum" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="49.12109375">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+      <HBox layoutX="194.0" layoutY="63.0" prefHeight="24.0" prefWidth="182.0" spacing="10.0">
+         <children>
+            <Text fx:id="id" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="153.12109375">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Label text="님">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox layoutX="28.0" layoutY="105.0" prefHeight="24.0" prefWidth="350.0" spacing="20.0">
+         <children>
+            <Label prefHeight="21.0" prefWidth="100.0" text="로그인 시간">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Text fx:id="startTime" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="229.12109375">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+      <VBox layoutX="26.0" layoutY="148.0" prefHeight="151.0" prefWidth="350.0" spacing="10.0">
+         <children>
+            <Label prefHeight="15.0" prefWidth="250.0" text="대여물품" textAlignment="CENTER" />
+            <TableView fx:id="rentList" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="name" maxWidth="1.7976931348623157E308" prefWidth="141.0" text="물품명" />
+                  <TableColumn fx:id="code" maxWidth="1.7976931348623157E308" prefWidth="208.0" text="코드번호" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+      <VBox layoutX="26.0" layoutY="324.0" prefHeight="151.0" prefWidth="350.0" spacing="10.0">
+         <children>
+            <Label prefHeight="15.0" prefWidth="250.0" text="메뉴" textAlignment="CENTER" />
+            <TableView fx:id="menuList" prefHeight="200.0" prefWidth="200.0">
+               <columns>
+                  <TableColumn fx:id="mname" maxWidth="1.7976931348623157E308" prefWidth="123.0" resizable="false" text="메뉴명" />
+                  <TableColumn fx:id="mcode" maxWidth="1.7976931348623157E308" prefWidth="110.0" resizable="false" text="코드번호" />
+                  <TableColumn fx:id="mprice" maxWidth="1.7976931348623157E308" prefWidth="116.0" resizable="false" text="가격" />
+               </columns>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

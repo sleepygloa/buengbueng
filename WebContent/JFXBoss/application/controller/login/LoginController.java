@@ -6,6 +6,8 @@ import java.net.URLEncoder;
 
 import org.json.simple.JSONObject;
 
+import com.sun.glass.ui.Window;
+
 import all.info.dto.UserInfo;
 import application.ConnectServer;
 import application.Main;
@@ -86,18 +88,18 @@ public class LoginController {
 					UserInfo.getInstance().setId(id);
 					UserInfo.getInstance().setGrade(Integer.parseInt((String)jsonObj.get("grade")));
 					UserInfo.getInstance().setLoginTime((String)jsonObj.get("loginTime"));
+					// 소켓 ON
+					if(Main.getSocketCheck() == false){
+						Main.getSocket().start();
+						Main.setSocketCheck(true);
+					}
+					// 메인화면 레이아웃을 화면에 등록
 					Parent main = null;
 					main =  FXMLLoader.load(getClass().getResource("/application/controller/login/BossMainApp.fxml"));
-					// 메인화면 레이아웃을 화면에 등록
 					Scene scene = new Scene(main);
 					scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
-					// Main.getStage() = Main.java에 있는 메인스테이지 사용(현재 launch된 애)
-					Main.getStage().setFullScreen(false);
-					Main.getStage().setWidth(600);	// 창 가로 크기
-					Main.getStage().setHeight(300);	// 창 세로 크기
-					Main.getStage().setX(1300);	// 모니터 상에 창이 위치할 X 좌표
-					Main.getStage().setY(50);	// 모니터 상에 창이 위치할 Y 좌표
 					Main.getStage().setScene(scene); // 창에 화면 넣기
+					Main.getStage().setFullScreen(true);
 				}
 				// 서버로부터 값을 전달 받지 못했거나, 전달받은 값이 fail이라면 = 로그인 실패
 				else{
