@@ -3,6 +3,7 @@ package pc.materials.bean;
 public class PcInfoDataDTO {
 	private int num;
 	private String b_key;
+	private String state;
 	private String os;
 	private String ip;
 	
@@ -18,6 +19,12 @@ public class PcInfoDataDTO {
 	}
 	public void setB_key(String b_key) {
 		this.b_key = b_key;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 	public String getOs() {
 		return os;

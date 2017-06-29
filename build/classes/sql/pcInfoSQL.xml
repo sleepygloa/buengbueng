@@ -37,7 +37,7 @@
 <!-- ============================================================================================================================================== -->
 	<!-- 좌석 정보 수정 -->
 	<update id="modifyPcInfo" parameterClass="pcInfoDto">
-		update pcInfo set os = #os#, ip = #ip# where num = #num# and b_key = #b_key#;
+		update pcInfo set os = #os#, ip = #ip#, state = #state# where num = #num# and b_key = #b_key#;
 	</update>
 	<!-- 좌석 본체 정보 수정 -->
 	<update id="modifyConputerInfo" parameterClass="comInfo">
@@ -135,5 +135,9 @@
 		select ip, os, c_code, m_code, k_code, mo_code, s_code from pcInfo, computer, monitor, keyboard, mouse, speaker 
 		where c_num = #num# and m_num = #num# and mo_num = #num# and s_num = #num# and k_num = #num# and num = #num#
 		and c_bossKey = #b_key# and m_bossKey = #b_key# and mo_bossKey = #b_key# and s_bossKey = #b_key# and k_bossKey = #b_key# and b_key = #b_key#;
+	</select>
+	<!-- 좌석 상태 가져오기 -->
+	<select id="getState" parameterClass="String" resultClass="String">
+		select state from pcInfo where b_key = #b_key#;
 	</select>
 </sqlMap>
