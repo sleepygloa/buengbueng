@@ -50,7 +50,6 @@ $(document).ready(function(){
         });
 	})
 })
-	var b_key = ${sessionScope.b_key};
 </script>
 ${sessionScope.b_key}
 
