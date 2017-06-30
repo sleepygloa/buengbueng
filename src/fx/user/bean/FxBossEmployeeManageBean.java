@@ -20,7 +20,7 @@ public class FxBossEmployeeManageBean {
 	private SqlMapClientTemplate sqlMap;
 	
 	//1. 좌상
-	@RequestMapping("fxEmployeeManage.do")
+	@RequestMapping("fxEmployeeIdList.do")
 	public String fxEmployeeManage(Model model, String b_key, String b_id){
 		System.out.println("연결됐음:");
 		ModelAndView mv = new ModelAndView();
@@ -35,7 +35,6 @@ public class FxBossEmployeeManageBean {
 		ObjectMapper mapper = new ObjectMapper();
 		
 		String jsonList = mapper.writeValueAsString(list);
-//		mv.setViewName("/fxBossERP/fxEmployeeManageJson");
 		//굳이 ModelAndView를 사용했다. String으로 반환해도되는데
 		model.addAttribute("jsonList", jsonList);
 		
@@ -43,5 +42,68 @@ public class FxBossEmployeeManageBean {
 		
 		return "/fxBossERP/fxEmployeeManageJson";
 	}
+	
+	//1. 좌상
+	@RequestMapping("fxEmployeeIdListCount.do")
+	public String fxEmployeeIdListCount(Model model, String b_key, String b_id){
+		System.out.println("연결됐음:");
+		ModelAndView mv = new ModelAndView();
+		try{
+		HashMap map = new HashMap();
+		map.put("id", b_id);
+		map.put("b_key", b_key);
+		
+		List list = new ArrayList();
+		list = (List)sqlMap.queryForList("erpEmp.getFxEmployeeList", map);
+		model.addAttribute("list",list);
+		ObjectMapper mapper = new ObjectMapper();
+		
+		String jsonList = mapper.writeValueAsString(list);
+		//굳이 ModelAndView를 사용했다. String으로 반환해도되는데
+		model.addAttribute("jsonList", jsonList);
+		
+		}catch(Exception e){e.printStackTrace();}
+		
+		return "/fxBossERP/fxEmployeeManageJson";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//2. 좌하
+	@RequestMapping("fxEmployeeTotalIdList.do")
+	public String fxEmployeeTotalIdList(Model model, String b_key, String b_id){
+		System.out.println("연결됐음:");
+		ModelAndView mv = new ModelAndView();
+		try{
+		HashMap map = new HashMap();
+		map.put("id", b_id);
+		map.put("b_key", b_key);
+		
+		List list = new ArrayList();
+		list = (List)sqlMap.queryForList("erpEmp.getFxEmployeeTotalIdList", map);
+		model.addAttribute("list",list);
+		ObjectMapper mapper = new ObjectMapper();
+		
+		String jsonList = mapper.writeValueAsString(list);
+		//굳이 ModelAndView를 사용했다. String으로 반환해도되는데
+		model.addAttribute("jsonList", jsonList);
+		
+		}catch(Exception e){e.printStackTrace();}
+		
+		return "/fxBossERP/fxEmployeeManageJson";
+	}
+	
+	
+	
+	
+	
 	
 }

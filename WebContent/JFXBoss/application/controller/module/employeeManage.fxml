@@ -55,9 +55,22 @@
                         </AnchorPane>
                       <AnchorPane fx:id="employeeInfoSection" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <TabPane prefHeight="535.0" prefWidth="594.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TabPane id="totalIdInfo" prefHeight="535.0" prefWidth="594.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <tabs>
-                                  <Tab text="Untitled Tab 1" />
+                                  <Tab id="totalIdInfoList" text="전체">
+                                       <content>
+                                          <TableView id="totalTable" prefHeight="200.0" prefWidth="200.0">
+                                            <columns>
+                                              <TableColumn id="totalId" prefWidth="75.0" text="id" />
+                                              <TableColumn id="totalName" prefWidth="75.0" text="name" />
+                                                <TableColumn id="totalBirth" prefWidth="75.0" text="birth" />
+                                                <TableColumn id="totalPhone" prefWidth="75.0" text="phone" />
+                                                <TableColumn id="TotalAddress" prefWidth="297.0" text="address" />
+                                                <TableColumn id="TotalEmail" prefWidth="64.0" text="email" />
+                                                <TableColumn id="totalGoogleId" prefWidth="70.0" text="googleid" />
+                                            </columns>
+                                          </TableView>
+                                       </content></Tab>
                                   <Tab text="Untitled Tab 2" />
                                 </tabs>
                               </TabPane>

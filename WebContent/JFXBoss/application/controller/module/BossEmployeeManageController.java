@@ -16,6 +16,7 @@ import all.info.dto.UserInfo;
 import application.ConnectServer;
 import application.controller.etc.EmployeeList;
 import application.controller.etc.RentOrderList;
+import application.controller.etc.StringToJson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -44,39 +45,68 @@ public class BossEmployeeManageController {
 	@FXML private TableView<EmployeeList> e_idListTable;
 	@FXML private TableColumn<EmployeeList,String> e_id; //테이블 컴럼 추가
 	private static ObservableList<EmployeeList> e_idListData =FXCollections.observableArrayList();
+	@FXML private TableView<EmployeeList> totalTable;
+	@FXML private TableColumn<EmployeeList,String> totalId; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeList,String> totalName; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeList,String> totalBirth; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeList,String> totalPhone; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeList,String> totalAddress; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeList,String> totalEmail; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeList,String> totalGoogleId; //테이블 컴럼 추가
 	
 	@FXML private Button idInsertApplyBtn;
 	
 	@FXML
-	public void initialize() {
+	public void initialize(){
+		StringToJson jsonTo = new StringToJson();
 		try{
+			e_idListTable.getItems().clear();
+			e_idListData.clear();
+			
+			
 			//좌상 아이디 리스트
 			String param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8"); 
-			String urlInfo = "http://localhost:8080/buengbueng/fxEmployeeManage.do";
-			
+			String urlInfo = "http://localhost:8080/buengbueng/fxEmployeeIdList.do";
 			String jsonString = ConnectServer.connectS(param, urlInfo);
 			
-			JSONParser jsonParser = new JSONParser();
-			JSONArray jsonEid = new JSONArray();
-			jsonEid = (JSONArray)jsonParser.parse(jsonString);
-			JSONObject jsonObj = null;
-			for (int i = 0 ; i < jsonEid.size(); i++){
-				jsonObj = (JSONObject)jsonEid.get(i);
-			}
-			System.out.println("================================");
+			JSONArray jsonEid = jsonTo.stringToJsonArray(jsonString);
 			
-			EmployeeList eDto = new EmployeeList();
-			for(int i = 0;i<jsonEid.size(); i++){
-				jsonObj = (JSONObject)jsonEid.get(i);
-				eDto.setE_id((String)jsonObj.get("e_id"));
-				e_idListData.add(eDto);
-			}
-
+			String eDtoString = "EmployeeList";
+			e_idListData = jsonTo.jsonArrayToJsonObject(jsonEid, eDtoString);
+			
 			e_id.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("e_id")); //테이블 컬럼 이름과 형식
 			
-			
+
 			//TABLE을 VIEW에 포함하기
 			e_idListTable.setItems(e_idListData);
+			
+			///////////////////////////////////////////////////////////////////////////////////////////////////////
+		}catch(Exception e ){e.printStackTrace();}
+		
+		try{
+			totalTable.getItems().clear();
+			e_idListData.clear();
+			//좌하 알바 신상 리스트
+			String param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8"); 
+			String urlInfo = "http://localhost:8080/buengbueng/fxEmployeeIdListCount.do";
+			String jsonString = ConnectServer.connectS(param, urlInfo);
+			
+			JSONArray jsonEid = jsonTo.stringToJsonArray(jsonString);
+			
+			String eDtoString = "EmployeeTotalIdInfoList";
+			e_idListData = jsonTo.jsonArrayToJsonObject(jsonEid, eDtoString);
+			
+			totalId.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("totalId")); //테이블 컬럼 이름과 형식
+			totalName.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("totalName")); //테이블 컬럼 이름과 형식
+			totalBirth.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("totalBirth")); //테이블 컬럼 이름과 형식
+			totalPhone.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("totalPhone")); //테이블 컬럼 이름과 형식
+			totalAddress.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("totalAddress")); //테이블 컬럼 이름과 형식
+			totalEmail.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("totalEmail")); //테이블 컬럼 이름과 형식
+			totalGoogleId.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("totalGoogleId")); //테이블 컬럼 이름과 형식
+			
+			totalTable.setItems(e_idListData);
+			
+			employeeInfoSection.getChildren().add(totalIdInfo);
 			
 			idInsertApplyBtn = new Button();
 			idInsertApplyBtn.setOnMouseClicked(new EventHandler<MouseEvent>(){
@@ -106,6 +136,8 @@ public class BossEmployeeManageController {
 			splitRightHorizon  = new SplitPane();
 			e_idListSection = new AnchorPane();
 			employeeInfoSection = new AnchorPane();
+			
+
 			
 			//각종 VIEW 연동
 			e_idListSection.getChildren().add(e_idListTable);

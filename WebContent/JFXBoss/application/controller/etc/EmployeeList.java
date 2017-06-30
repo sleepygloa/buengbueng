@@ -11,7 +11,6 @@ public class EmployeeList {
 	}
 
 	public void setE_id(String e_id) {
-		System.out.println("e_id : "+e_id);
 		this.e_id = new SimpleStringProperty(e_id);
 	}
 	
