@@ -411,5 +411,15 @@
 		  	from (select @rownum:= @rownum+1 as r, userId,userName,usageTime,endTime,amountUsed,pcAmount,businessName,menuAmount
 	      	from usageHistory,(select @rownum:=0)i where affiliateCode = #b_key# order by idx desc )yz where r between #startRow# and #endRow#;
 	</select>
+	
+<!-- FX용 -->
+	<!-- 알바생 리스트 -->
+	<select id="getFxEmployeeList" resultClass="fxEidListDTO" parameterClass="java.util.HashMap">
+		select e_id, pw,num,  b_key from userInfo a INNER JOIN 
+		(select e_id,num,b_key from employeeInfo where e_bossid = #id# and b_key = #b_key#) b on a.id = b.e_id;
+	</select>
+	
+	
+	
 </sqlMap>
 	
