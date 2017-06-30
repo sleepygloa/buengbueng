@@ -220,6 +220,20 @@ setInterval("autoRefresh1()", 3000);
                             </ul>
                         </li>
                         <li class="mt-has-menu">
+                            <a href="javascript:void(0)">
+                            <i class="fa fa-pencil-square-o"></i>
+                            <span class="menu-text">정보 복구</span>
+                            <span class="selected"></span>
+                        </a>
+                            <ul class="mt-sub-menu">
+                                <li>
+                                    <a href="dashReverse.do" class="rippler rippler-default">
+                                    <span class="menu-text">회원 정보 복구</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                            </ul>
+                        <li class="mt-has-menu">
                             <a href="javascript:void(0)" class="rippler rippler-default">
                             <i class="fa fa-table"></i>
                             <span class="menu-text">고객센터</span>

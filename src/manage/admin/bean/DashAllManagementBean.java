@@ -72,21 +72,25 @@ public class DashAllManagementBean extends BoardMethodBean{
 			param.remove("num");
 			param.put("check", sb.toString());
 			sqlMap.insert("bossERP.addSeatState", param);
-			ModuleDataDTO defaultModule = (ModuleDataDTO)sqlMap.queryForObject("module.getOfferMenu", null);
-			FranchiseeModuleDataDTO module = new FranchiseeModuleDataDTO();
-			module.setB_id(franchiseeDto.getB_id());
-			module.setM_name("기본");
-			module.setMenu(defaultModule.getModuleName());
-			sb = new StringBuffer();
-			for(int i=0; i<defaultModule.getModuleCount(); i++){
-				sb.append("1");
-				if(i != defaultModule.getModuleCount()-1){
-					sb.append(",");
+			
+			int count = (Integer)sqlMap.queryForObject("module.getModuleCount", franchiseeDto.getB_id());
+			if(count == 0){
+				ModuleDataDTO defaultModule = (ModuleDataDTO)sqlMap.queryForObject("module.getOfferMenu", null);
+				FranchiseeModuleDataDTO module = new FranchiseeModuleDataDTO();
+				module.setB_id(franchiseeDto.getB_id());
+				module.setM_name("기본");
+				module.setMenu(defaultModule.getModuleName());
+				sb = new StringBuffer();
+				for(int i=0; i<defaultModule.getModuleCount(); i++){
+					sb.append("1");
+					if(i != defaultModule.getModuleCount()-1){
+						sb.append(",");
+					}
 				}
+				module.setModule(sb.toString());
+				sqlMap.insert("module.setModule", module);
+				// 혜민 코드 추가 끝
 			}
-			module.setModule(sb.toString());
-			sqlMap.insert("module.setModule", module);
-			// 혜민 코드 추가 끝
 			
 			
 		}catch (Exception e){
@@ -283,7 +287,6 @@ public class DashAllManagementBean extends BoardMethodBean{
 				 checkId = (beDTO2.getE_id()); //아이디 제일 마지막 숫자만 출력한다.
 				 checkIdInt = Integer.parseInt(checkId); //숫자를 인트로 형변환한다.
 			}
-				
 				for(int i = 0; i < applyCount; i ++){
 					//checkIdInt 가 겹치기 않게 +1을 한다.
 					checkIdInt += 1;
@@ -296,6 +299,7 @@ public class DashAllManagementBean extends BoardMethodBean{
 								map.put("e_bossid", b_id);
 								map.put("e_id", e_id);
 								map.put("b_key", beDTO.getB_key());
+								System.out.println("s:"+e_id);
 								sqlMap.insert("erpEmp.insertEmployeeIdUserInfo", e_id);
 								sqlMap.insert("erpEmp.insertEmployeeIdEmployeeInfo", map);
 								sqlMap.insert("test.userAccountInsertE", e_id);

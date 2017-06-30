@@ -6,8 +6,23 @@ public class ChattingLogDto {
 
 	private int questionNum;
 	private String answer;
+	private String question;
+	private String keyword;
 	private Timestamp time;
 	
+	
+	public String getQuestion() {
+		return question;
+	}
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 	public int getQuestionNum() {
 		return questionNum;
 	}

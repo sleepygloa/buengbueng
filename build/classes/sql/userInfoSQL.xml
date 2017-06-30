@@ -10,6 +10,10 @@
 	<delete id="deleteUserInfo" parameterClass="String">
 		delete from userInfo where id=#id#;
 	</delete>
+	<!-- 회원 삭제시 로그 -->
+	<insert id="userDeleteLog" parameterClass="userDto">
+		insert into userInfoLog values(#id#, #pw#, #name#, #birth#, #phone#, #grade#, #address#, #email#, now(), #googleId#);
+	</insert>
 
 	<!-- 알바 계좌 정보 삭제 -->
 	<delete id="userAccountDeleteE" parameterClass="String">

@@ -133,4 +133,28 @@
 	<select id="getBossFranchiseeList" resultClass="franchiseeDTO" parameterClass="java.util.HashMap">
 		select b_id,b_name, b_key from franchiseeInfo order by b_id desc limit #startRow#,#pageSize#;
 	</select>
+	
+	
+	<!-- 회원 삭제 로그 호출 -->
+	<select id="getUserDeleteLog" parameterClass="String" resultClass="userDto" >
+		select * from userInfoLog where id=#reverse#
+	</select>
+	<!-- 회원 정보 복구시 회원 탈퇴 로그 삭제 -->
+	<delete id="userLogDelete" parameterClass="String">
+		delete from userInfoLog where id=#id#;		
+	</delete>
+	<!-- 회원 복구시 탈퇴 날짜 입력-->			
+	<insert id="userInfoInsert" parameterClass="userDto">
+		insert into userInfo values(#id#, #pw#, #name#, #birth#, #phone#, #grade#, #address#, #email#, #signdate#, #googleId#);
+	</insert>
+	<!-- 가맹 정보 갯수 출력 -->
+	<select id="getFranchiseeLogListCount" resultClass="int" parameterClass="String">
+		select count(*) from franchiseeLog where b_id=#b_id#;
+	</select>
+	<!-- 가맹 정보 목록 출력 -->
+	<select id="getFranchiseeLogList" resultClass="franchiseeDTO" parameterClass="String">
+		select *,@rownum:=@rownum+1 as rownum from franchiseeLog,(select @rownum:=0)r where result=1 and b_id=#b_id#;
+	</select>
+	
+	
 </sqlMap>

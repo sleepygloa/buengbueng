@@ -27,5 +27,8 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<div>
+	<div>많이 물어보는 질문</div>
+	</div>
 	<jsp:include page="/WEB-INF/views/dashFooter.jsp"/>
 </body>
