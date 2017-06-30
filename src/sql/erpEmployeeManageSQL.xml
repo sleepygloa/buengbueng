@@ -426,8 +426,8 @@
 	</select>	
 	
 	<!-- 신상관리 알바생 이름 리스트 -->
-	<select id="getFxEmployeeTotalIdList" resultClass="userDto" parameterClass="String">
-		select id, pw, name, birth, phone, grade, address, email, signdate, googleid 
+	<select id="getFxEmployeeTotalIdList" resultClass="fxUserInfoDTO" parameterClass="String">
+		select id as totalId, name as totalName, birth as totalBirth, phone as totalPhone, address as totalAddress, email as totalEmail, googleid as totalGoogleId 
 		from userInfo a inner Join(select e_id from employeeInfo where b_key = #b_key#) b 
 		on a.id = b.e_id;
 	</select>

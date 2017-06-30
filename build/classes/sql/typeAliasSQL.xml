@@ -40,6 +40,7 @@
 	<typeAlias alias="chattingLogDto" type="manage.admin.bean.ChattingLogDto"/>
 	
 	<typeAlias alias="fxEidListDTO" type="fx.user.bean.FxBossEmployeeManageIdListDTO"/>
+	<typeAlias alias="fxUserInfoDTO" type="fx.user.bean.FxUserInfoDTO"/>
 	
 	
 </sqlMap>

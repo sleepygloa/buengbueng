@@ -15,6 +15,7 @@ import org.json.simple.parser.JSONParser;
 import all.info.dto.UserInfo;
 import application.ConnectServer;
 import application.controller.etc.EmployeeList;
+import application.controller.etc.EmployeeTotalIdInfoList;
 import application.controller.etc.RentOrderList;
 import application.controller.etc.StringToJson;
 import javafx.collections.FXCollections;
@@ -26,6 +27,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -45,14 +48,21 @@ public class BossEmployeeManageController {
 	@FXML private TableView<EmployeeList> e_idListTable;
 	@FXML private TableColumn<EmployeeList,String> e_id; //테이블 컴럼 추가
 	private static ObservableList<EmployeeList> e_idListData =FXCollections.observableArrayList();
-	@FXML private TableView<EmployeeList> totalTable;
-	@FXML private TableColumn<EmployeeList,String> totalId; //테이블 컴럼 추가
-	@FXML private TableColumn<EmployeeList,String> totalName; //테이블 컴럼 추가
-	@FXML private TableColumn<EmployeeList,String> totalBirth; //테이블 컴럼 추가
-	@FXML private TableColumn<EmployeeList,String> totalPhone; //테이블 컴럼 추가
-	@FXML private TableColumn<EmployeeList,String> totalAddress; //테이블 컴럼 추가
-	@FXML private TableColumn<EmployeeList,String> totalEmail; //테이블 컴럼 추가
-	@FXML private TableColumn<EmployeeList,String> totalGoogleId; //테이블 컴럼 추가
+	private static ObservableList<EmployeeTotalIdInfoList> e_idListData2 =FXCollections.observableArrayList();
+	
+	
+	@FXML private TabPane totalIdInfo; //좌하 의 탭페이지
+	@FXML private Tab totalIdInfoList; //좌하의 탭 중 TOTAL
+	@FXML private TableView<EmployeeTotalIdInfoList> totalTable;
+	@FXML private TableColumn<EmployeeTotalIdInfoList,String> totalId; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeTotalIdInfoList,String> totalName; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeTotalIdInfoList,String> totalBirth; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeTotalIdInfoList,String> totalPhone; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeTotalIdInfoList,String> totalAddress; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeTotalIdInfoList,String> totalEmail; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeTotalIdInfoList,String> totalGoogleId; //테이블 컴럼 추가
+	
+	
 	
 	@FXML private Button idInsertApplyBtn;
 	
@@ -85,45 +95,44 @@ public class BossEmployeeManageController {
 		
 		try{
 			totalTable.getItems().clear();
-			e_idListData.clear();
+			e_idListData2.clear();
 			//좌하 알바 신상 리스트
 			String param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8"); 
-			String urlInfo = "http://localhost:8080/buengbueng/fxEmployeeIdListCount.do";
+			String urlInfo = "http://localhost:8080/buengbueng/fxEmployeeTotalIdList.do";
 			String jsonString = ConnectServer.connectS(param, urlInfo);
-			
 			JSONArray jsonEid = jsonTo.stringToJsonArray(jsonString);
-			
 			String eDtoString = "EmployeeTotalIdInfoList";
-			e_idListData = jsonTo.jsonArrayToJsonObject(jsonEid, eDtoString);
+			e_idListData2 = jsonTo.jsonArrayToJsonObject(jsonEid, eDtoString);
 			
-			totalId.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("totalId")); //테이블 컬럼 이름과 형식
-			totalName.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("totalName")); //테이블 컬럼 이름과 형식
-			totalBirth.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("totalBirth")); //테이블 컬럼 이름과 형식
-			totalPhone.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("totalPhone")); //테이블 컬럼 이름과 형식
-			totalAddress.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("totalAddress")); //테이블 컬럼 이름과 형식
-			totalEmail.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("totalEmail")); //테이블 컬럼 이름과 형식
-			totalGoogleId.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("totalGoogleId")); //테이블 컬럼 이름과 형식
+			totalId.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalId")); //테이블 컬럼 이름과 형식
+			totalName.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalName")); //테이블 컬럼 이름과 형식
+			totalBirth.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalBirth")); //테이블 컬럼 이름과 형식
+			totalPhone.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalPhone")); //테이블 컬럼 이름과 형식
+			totalAddress.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalAddress")); //테이블 컬럼 이름과 형식
+			totalEmail.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalEmail")); //테이블 컬럼 이름과 형식
+			totalGoogleId.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalGoogleId")); //테이블 컬럼 이름과 형식
 			
-			totalTable.setItems(e_idListData);
-			
+			totalTable.setItems(e_idListData2);
+			totalIdInfoList.setContent(totalTable);
+			totalIdInfo.getTabs().add(totalIdInfoList);
 			employeeInfoSection.getChildren().add(totalIdInfo);
 			
-			idInsertApplyBtn = new Button();
-			idInsertApplyBtn.setOnMouseClicked(new EventHandler<MouseEvent>(){
-				@Override
-				public void handle(MouseEvent event) {
-					//여기서나는 신청 수와 신청사유를 가져갈 것이야
-					try{
-						String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")
-								+"&what="+URLEncoder.encode("return","UTF-8");
-						String urlInfo = "http://localhost:8080/buengbueng/employeeAddPro.do";
-						ConnectServer.connect(param, urlInfo);
-					}catch(UnsupportedEncodingException uee){
-						uee.printStackTrace();
-					}
-				}
-			});	
-					idInsertApply();
+//			idInsertApplyBtn = new Button();
+//			idInsertApplyBtn.setOnMouseClicked(new EventHandler<MouseEvent>(){
+//				@Override
+//				public void handle(MouseEvent event) {
+//					//여기서나는 신청 수와 신청사유를 가져갈 것이야
+//					try{
+//						String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")
+//								+"&what="+URLEncoder.encode("return","UTF-8");
+//						String urlInfo = "http://localhost:8080/buengbueng/employeeAddPro.do";
+//						ConnectServer.connect(param, urlInfo);
+//					}catch(UnsupportedEncodingException uee){
+//						uee.printStackTrace();
+//					}
+//				}
+//			});	
+//					idInsertApply();
 			
 					
 			
@@ -131,13 +140,12 @@ public class BossEmployeeManageController {
 			
 			
 			//각종 VIEW 생성
-			splitVertical = new SplitPane();
-			splitLeftHorizon = new SplitPane();
-			splitRightHorizon  = new SplitPane();
+//			splitVertical = new SplitPane();
+//			splitLeftHorizon = new SplitPane();
+//			splitRightHorizon  = new SplitPane();
 			e_idListSection = new AnchorPane();
 			employeeInfoSection = new AnchorPane();
 			
-
 			
 			//각종 VIEW 연동
 			e_idListSection.getChildren().add(e_idListTable);
