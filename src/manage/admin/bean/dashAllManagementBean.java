@@ -40,6 +40,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 		
 		try{
 			sqlMap.update("franchisee.franchiseeConfirm", map);	
+			sqlMap.insert("franchisee.insertFranchiseePolicy", map); //가맹점 추가시 가맹점 금액정책 테이블 추가
 			
 			FranchiseeDataDTO franchiseeDto = null;
 			franchiseeDto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeLastConfirmLog", num);
@@ -177,6 +178,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 	@RequestMapping("dashAgreeDelete.do")
 	public String dashAgreeDelete(String b_key,HashMap map){
 		map.put("b_key", b_key);
+		sqlMap.delete("franchisee.deleteFranchiseePolicy", map); //가맹점 삭제시 가맹점 정책 테이블 삭제
 		sqlMap.delete("franchisee.deleteFranchisee", map); 
 		return "/dash-Agree/dashAgreeDelete";
 	}
@@ -296,7 +298,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 								map.put("b_key", beDTO.getB_key());
 								sqlMap.insert("erpEmp.insertEmployeeIdUserInfo", e_id);
 								sqlMap.insert("erpEmp.insertEmployeeIdEmployeeInfo", map);
-								
+								sqlMap.insert("test.userAccountInsertE", e_id);
 								id = e_id;		
 								break;
 							}else{
@@ -309,7 +311,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 									map.put("b_key", beDTO.getB_key());
 									sqlMap.insert("erpEmp.insertEmployeeIdUserInfo", e_id);
 									sqlMap.insert("erpEmp.insertEmployeeIdEmployeeInfo", map);
-									
+									sqlMap.insert("test.userAccountInsertE", e_id);
 									id = e_id;		
 									break;
 								}
@@ -318,7 +320,8 @@ public class dashAllManagementBean extends BoardMethodBean{
 						}
 					
 				}
-				sqlMap.update("erpEmp.updateEmployeeAddLog", id);	
+				sqlMap.update("erpEmp.updateEmployeeAddLog", id);
+				
 				check = 1;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -335,6 +338,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 	public String employeeDeleteAdminConfirm(Model model, String e_id){
 		int check = 0;
 		try{
+			sqlMap.delete("test.userAccountDeleteE",e_id);
 			sqlMap.update("erpEmp.deleteIdLogAddConfirm", e_id);
 			sqlMap.delete("erpEmp.deleteEidEmployeeInfo", e_id);
 			sqlMap.delete("erpEmp.deleteEidUserInfo", e_id);
@@ -344,5 +348,78 @@ public class dashAllManagementBean extends BoardMethodBean{
 		model.addAttribute("check", check);
 		
 		return "/dash-Agree/reLoad";
+	}
+	
+	//일일정산 요청 승인 
+	@RequestMapping("/AcceptingRequest.do")
+	public String AcceptingRequest(String pageNum, HttpServletRequest request){
+		
+		int check = 2;
+		
+		List accept = sqlMap.queryForList("cash.accept", check);
+		
+		System.out.println("accept = " + accept);
+		
+		/*내역 리스트 *********************************************************************/
+		if (pageNum == null) {
+            pageNum = "1";
+        }
+        int pageSize = 5;
+        int currentPage = Integer.parseInt(pageNum);
+        int startRow = (currentPage - 1) * pageSize + 1;
+        int endRow = currentPage * pageSize;
+        int count = 0;
+        int number= 0;
+        
+        count = (Integer)sqlMap.queryForObject("cash.acceptCount", check);
+        System.out.println("가맹점에서 이용한 사용한 내역 카운트 =" + count);
+        List articleList = null;
+        
+        
+        
+        if(count > 0){
+        	HashMap r = new HashMap<>();
+     	    r.put("startRow", startRow);
+     	    r.put("endRow", endRow);
+     	    r.put("check", check);
+     	   
+     	    articleList = sqlMap.queryForList("cash.accept", r);
+     	    
+        } else {
+        	articleList = Collections.EMPTY_LIST;
+        }
+        
+        number = count - (currentPage - 1) * pageSize;
+        /**************************************************************************************************/
+        request.setAttribute("articleList", articleList);
+        request.setAttribute("currentPage", new Integer(currentPage));
+        request.setAttribute("startRow", new Integer(startRow));
+        request.setAttribute("endRow", new Integer(endRow));
+        request.setAttribute("count", new Integer(count));
+        request.setAttribute("pageSize", new Integer(pageSize));
+		request.setAttribute("number", new Integer(number));
+		
+		return "/dash-AcceptingRequest/AcceptingRequest";
+	}
+	@RequestMapping("/AcceptingRequestPro.do")
+	public String AcceptingRequestPro(HttpServletRequest request){
+		String[] chbox = request.getParameterValues("chbox") ;
+		System.out.println("방의 길이" + chbox.length);
+
+		ArrayList<String> arrayList = new ArrayList<>();
+		for(String temp : chbox){
+		  arrayList.add(temp);
+		}		
+		
+		System.out.println("방의 값" + arrayList);
+		
+		
+		for(int i=0; i<chbox.length; i++){
+			HashMap idx = new HashMap<>();
+			idx.put("idx", chbox[i]);
+			 sqlMap.update("cash.approval", idx);
+		}
+		
+		return "redirect:/AcceptingRequest.do";
 	}
 }

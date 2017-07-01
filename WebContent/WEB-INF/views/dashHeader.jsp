@@ -47,11 +47,6 @@ setInterval("autoRefresh1()", 3000);
 		var currentLocation = window.location;
 		$('#autoRe1').load(currentLocation+" #autoRe1");
 		}
-setInterval("autoRefresh2()", 3000);
-	function autoRefresh2(){		
-		var currentLocation = window.location;
-		$('#autoRe2').load(currentLocation+" #autoRe2");
-		}	
 </script>
             <div id="mtapp-container" data-mt-color-type="lpanel-bg3" data-mt-lpanel-effect="shrink">
                 <aside id="mt-left-panel" data-mt-position-type="absolute">
@@ -98,6 +93,42 @@ setInterval("autoRefresh2()", 3000);
                                 <li>
                                     <a href="dashUserSearch.do?pageNum=1" class="rippler rippler-default">
                                     <span class="menu-text">회원 검색</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="mt-has-menu">
+                            <a href="javascript:void(0)" class="rippler rippler-default">
+                            <i class="fa fa-home"></i>
+                            <span class="menu-text">일일정산  관리</span>
+                            <span class="selected"></span>
+                        </a>
+                            <ul class="mt-sub-menu">
+                             	<li>
+                                    <a href="AcceptingRequest.do" class="rippler rippler-default">
+                                    <span class="menu-text">일일정산 승인허가</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="rippler rippler-default">
+                                    <span class="menu-text">일일정산 완료내역</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="mt-has-menu">
+                            <a href="javascript:void(0)" class="rippler rippler-default">
+                            <i class="fa fa-home"></i>
+                            <span class="menu-text">결제 관리</span>
+                            <span class="selected"></span>
+                        </a>
+                            <ul class="mt-sub-menu">
+                             	<li>
+                                    <a href="dashUser.do?grade=3&pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">결제 내역</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>
@@ -196,38 +227,11 @@ setInterval("autoRefresh2()", 3000);
                         </a>
                             <ul class="mt-sub-menu">
                                 <li>
-                                    <a href="dashFranchiseList.do?snum=1&pageNum=1" class="rippler rippler-default">
-                                    <span class="menu-text">가맹 문의</span>
+                                    <a href="dashList.do?pageNum=1&pageNum2=1&pageNum3=1&pageNum4=1" class="rippler rippler-default">
+                                    <span class="menu-text">게시판 모아보기</span>
                                     <c:if test="${franchiseAlarm >0}">
                                     	<span class="badge badge-danger m-left-xs "><div id="autoRe1">${franchiseAlarm}</div></span>
                                     </c:if>
-                                    <span class="selected"></span>
-                                </a>
-                                </li>
-                                <li>
-                                    <a href="dashCustomerList.do?snum=2&pageNum=1" class="rippler rippler-default">
-                                    <span class="menu-text">자주 묻는 질문</span>
-                                    <span class="selected"></span>
-                                </a>
-                                </li>
-                                <li>
-                                    <a href="dashOneList.do?snum=3&pageNum=1" class="rippler rippler-default">
-                                    <span class="menu-text">1:1 문의</span>
-                                    <c:if test="${oneAlarm >0 }">
-                                    	<span class="badge badge-danger m-left-xs "><div id="autoRe2">${oneAlarm}</div></span>
-                                    </c:if>
-                                    <span class="selected"></span>
-                                </a>
-                                </li>
-                                 <li>
-                                    <a href="dashReply.do?pageNum=1" class="rippler rippler-default">
-                                    <span class="menu-text">답변 대기중<span class="badge badge-danger m-left-xs ">${noReply}</span>
-                                    <span class="selected"></span>
-                                </a>
-                                </li>
-                                <li>
-                                    <a href="dashBoardSearch.do?pageNum=1" class="rippler rippler-default">
-                                    <span class="menu-text">게시판 검색</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>

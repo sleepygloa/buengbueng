@@ -14,7 +14,7 @@
 		<c:forEach var="menu" items="${menuList}">
 		<tr>
 			<td>${menu.name}</td>	<td>${menu.company}</td> 	<td>${menu.price}</td>
-			<td><input type="button" name="order" value="주 문" onclick="window.location='userOrderPro.do?order=${menu.name}&l_key=${l_key}&name=${name}'">
+			<td><input type="button" name="order" value="주 문" onclick="window.location='userOrderPro.do?order=${menu.name}&l_key=${l_key}&name=${name}&id=${id}'">
 			</td>
 		</tr>		
 		</c:forEach>

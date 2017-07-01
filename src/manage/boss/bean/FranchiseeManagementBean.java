@@ -379,9 +379,9 @@ public class FranchiseeManagementBean {
 				e.printStackTrace();
 				////////////////////////////////////////////////////////////
 				//TEXT파일로 로그를 남기는 코드
-				String fileName = "\\franchisee\\deleteErrorLog\\deleteErrorLog.txt";
-				String fileCheck = "franchiseeDelete";
-				read.readDb(dto, fileName, fileCheck);
+//				String fileName = "\\franchisee\\deleteErrorLog\\deleteErrorLog.txt";
+//				String fileCheck = "franchiseeDelete";
+//				read.readDb(dto, fileName, fileCheck);
 				////////////////////////////////////////////////////////////
 			}
 		}

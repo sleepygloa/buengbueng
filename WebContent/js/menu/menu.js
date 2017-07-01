@@ -40,22 +40,22 @@ function alls(l_key){
 }
 
 /* 사용자가 각 카테고리버튼을 눌렀을 시 카테고리별로 리스트 보이도록  */
-function usercategory(category,l_key,name){
+function usercategory(category,l_key,name,id){
 	$.ajax({
 		url:"userCategoryClick.do",
 		type:"post",
-		data: {category: category, l_key:l_key, name:name},
+		data: {category: category, l_key:l_key, name:name, id:id},
 		success:function(data){
 			$("#usercategoryMenu").html(data);
 		}
 	});
 }
 /* 사용자가 전체버튼을 눌렀을 때 전체메뉴가 리스트 보이도록  */
-function useralls(l_key,name){
+function useralls(l_key,name,id){
 	$.ajax({
 		url:"userCategoryAll.do",
 		type:"post",
-		data : {l_key : l_key , name:name},
+		data : {l_key : l_key , name:name, id:id},
 		success:function(data){
 			$("#usercategoryMenu").html(data);
 		}

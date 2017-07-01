@@ -19,7 +19,7 @@
 			<td>${cm.name}</td>
 			<td>${cm.company}</td>
 			<td>${cm.price}</td>
-			<td><input type="button" name="order" value="주 문" onclick="window.location='userOrderPro.do?order=${cm.name}&l_key=${l_key}&name=${name}'"/>	</td>
+			<td><input type="button" name="order" value="주 문" onclick="window.location='userOrderPro.do?order=${cm.name}&l_key=${l_key}&name=${name}&id=${id}'"/>	</td>
 		</tr>
 		</c:forEach>
 		</table>

@@ -1,0 +1,3 @@
+{
+	"franchiseeName" : "${franchiseeName}"
+}

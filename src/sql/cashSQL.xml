@@ -9,8 +9,6 @@
 	<select id="cash_articleList" resultClass="dto" parameterClass="java.util.HashMap">
 		select * from paymentList where buyer_chatid = #id# and confirmation = #confirmation#;
 	</select>
-	
-	
 
 	<select id="cash_userAccount" resultClass="uadto">
 		select * from userAccount where  id = #id#;
@@ -25,8 +23,8 @@
 	</select>
 	
 	<update id="cash_stack" parameterClass="java.util.HashMap">
-			
-	</update>
+      update userAccount set money=#paying_price# where id=#id#;
+   </update>
 	
 	<select id="getArticleCount" resultClass="int">
 		select count(*) from paymentList where buyer_chatid = #id#;
@@ -71,26 +69,16 @@
 		<![CDATA[
 	select 
 	    round((logoutTime - loginTime))  as usePcUseTime, 
-        round((logoutTime - loginTime) * c.moneyPolicy)  as usePcUseTimePay, 
+        round((logoutTime - loginTime) * c.IdMoneyPolicy)  as usePcUseTimePay, 
 	    b.money as userAccountMoney,
-	    b.money - (round((logoutTime - loginTime) * c.moneyPolicy))  as payAfterMoney, 
+	    b.money - (round((logoutTime - loginTime) * c.IdMoneyPolicy))  as payAfterMoney, 
 	    loginTime, logoutTime, b_key  
    	from useTimeLog a INNER JOIN (select id, money from userAccount where id = #id#) b ON a.id = b.id ,
-   	(select c.moneyPolicy, c.b_key from franchiseePolicy c, (select b_key from franchiseeLog where b_ip = #b_ip#) d where c.b_key = d.b_key ) c
+   	(select c.IdMoneyPolicy, c.b_key from franchiseePolicy c, (select b_key from franchiseeLog where b_ip = #b_ip#) d where c.b_key = d.b_key ) c
    	where a.id = #id# order by loginTime desc limit 0,1;
 		]]>
 	</select>
 	
-	
-	<!-- 사용자 이용내역 추가 (usageHistory) -->
-	<insert id="addUsageHistory" parameterClass="historyDTO">
-		insert into usageHistory values(#idx#, #userId#, #userName#, #affiliateCode#, #usageTime#, #endTime#, #amountUsed#, #etc#, #businessName#, #bossId#);
-	</insert>
-
-	<!-- 사용자의 잔액 가져오기 (15번째 코드에서 parameterClass 빠져있음) -->
-	<select id="getUserAccount" parameterClass="String" resultClass="uadto">
-		select * from userAccount where id = #id#;
-	</select>	
 
 	<!-- 사용자 이용 내역 -->
 	<select id="usageHistory" resultClass="usageHistoryDTO">
@@ -115,29 +103,12 @@
 	 <select id="getB-keyList" resultClass="String">
 		select b_key from franchiseeInfo where b_id	= #id#; 
 	 </select>
-	 <select id="B_keyValidity" resultClass="int">
-	 	select count(*) from usageHistory where affiliateCode = #affiliateCodeList#;
-	 </select>
 	 
-	 <select id="SelectedList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
-   <![CDATA[
-           select r,idx,userId,userName,affiliateCode,usageTime,endTime,format(amountUsed, 0) amountUsed,etc,businessName,bossId
-            from (select @rownum:= @rownum+1 as r, idx,userId,userName,affiliateCode,usageTime,endTime,amountUsed,etc,businessName,bossId
-            from usageHistory,(select @rownum:=0)i where affiliateCode=#affiliateCodeList# and usageTime >=#startDate# and endTime <=#endDate# order by idx desc)yz where r between #startRow# and #endRow#;
-       ]]>
-   </select>
-	<!-- 일일정산시 총 합계 금액 -->
-	<select id="dailyAmount" resultClass="String">
-	<![CDATA[
-		select format(sum(amountUsed), 0) from usageHistory where affiliateCode=#affiliateCode# and usageTime >=#startDate# and endTime <= #endDate#;
-	]]>
-	</select>
+	 
+	 
 	
-	<select id="dailyPureAmount" resultClass="String">
-	<![CDATA[
-		select sum(amountUsed) from usageHistory where affiliateCode=#affiliateCode# and usageTime >=#startDate# and endTime <= #endDate#;
-	]]>
-	</select>
+	
+	
 
 	<select id="dailyCount" resultClass="int">
 	<![CDATA[
@@ -145,10 +116,7 @@
 	  ]]>
 	</select>
 	
-	<insert id="dailySettlement" parameterClass="DailySettlementDTO" >
-		 insert into dailySettlement(settlementDate,bossId,companyName,settlementMethod,settlementNumber,requestedAccount,settlementAmount,settlementStatus,resultValue,b_key) 
-		 values(now(),#bossId#,#companyName#,#settlementMethod#,#settlementNumber#,#requestedAccount#,#settlementAmount#,#settlementStatus#,#resultValue#,#b_key#);
-	</insert>
+	
 	
 	<select id="resultValueCount" resultClass="int">
 	<![CDATA[
@@ -176,10 +144,45 @@
 		update dailySettlement set resultValue=3, settlementStatus='정산완료'  where idx=#idx#;
 	 </update>
 	 
-	 <select id="checkValue"  resultClass="int">
-	 <![CDATA[
-	 	select count(*) from dailySettlement where b_key = #b_key# and settlementDate <= #settlementDate#;
-	 ]]>
-	 </select>
+	 
 	
+
+
+<!-- ========================================================================================================================================== -->
+	
+
+<!-- 알바 관리 -->	
+ 	<!-- 알바 퇴근시 근무수당 계산-->
+	<select id="employeeTimePay" resultClass="useTimeDto" parameterClass="java.util.HashMap">
+		<![CDATA[
+  	select 
+	    round((offWorkTime - commuteTime))  as employeeWorkTime, 
+        round((offWorkTime - commuteTime) * c.EidMoneyPolicy)  as employeeWorkTimePay, 
+	    b.money as employeeAccountMoney,
+	    b.money + (round((offWorkTime - commuteTime) * c.EidMoneyPolicy))  as payAfterMoney, 
+	    commuteTime, offWorkTime, b_key  
+   	from 
+	   	(select a.num, a.title, b.commuteTime, b.offworkTime, b.ex 
+	   		from (select num,title from employeeWorkTime where title = #e_id# and result = 2 order by num desc limit 0,1) a 
+	   		INNER JOIN (select * from employeeWorkTimeCommute) b on a.num = b.num) a 
+	    INNER JOIN (select id, money from userAccount where id = #e_id#) b ON a.title = b.id ,
+		   	(select c.EidMoneyPolicy, c.b_key 
+		   		from franchiseePolicy c, (select b_key from employeeInfo where e_id = #e_id#) d where c.b_key = d.b_key ) c
+   	where a.title = #e_id# order by commuteTime desc limit 0,1
+   	
+		]]>
+	</select>
+	
+<!-- ========================================================================================================================================== -->
+	
+	<!-- 사용자 이용내역 추가 (usageHistory) -->
+	<insert id="addUsageHistory" parameterClass="historyDTO">
+		insert into usageHistory values(#idx#, #userId#, #userName#, #affiliateCode#, #usageTime#, #endTime#, #amountUsed#, 0, #businessName#, #bossId#, 0);
+	</insert>
+
+	<!-- 사용자의 잔액 가져오기 (15번째 코드에서 parameterClass 빠져있음) -->
+	<select id="getUserAccount" parameterClass="String" resultClass="uadto">
+		select * from userAccount where id = #id#;
+	</select>	
 </sqlMap>
+

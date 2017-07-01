@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<div>
-		<table class="cash_table">
+		<table class="cash_table" border="1">
 			<tr class="table_header">
 				<td class="td_title">번호</td>
 				<td class="td_title">결제일</td>

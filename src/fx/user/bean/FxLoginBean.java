@@ -1,5 +1,6 @@
 package fx.user.bean;
 
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,14 +18,18 @@ import login.user.bean.UserInfoDataDTO;
 import manage.boss.bean.SeatStateDataDTO;
 import payment.all.bean.UsageHistoryDataDTO;
 import payment.all.bean.UserAccountDTO;
+import superclass.all.bean.FindIpBean;
 
 @Controller
 public class FxLoginBean {
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
 	
+	@Autowired
+	private FindIpBean fib;
+	
 	private void modifySeatState(String key, int pcNum, String value){
-		SeatStateDataDTO sdto = (SeatStateDataDTO)sqlMap.queryForObject("bossERP.getSeatCount", key);
+		SeatStateDataDTO sdto = (SeatStateDataDTO)sqlMap.queryForObject("bossERP.getSeatCount", key); //좌석이용현황
 		String[] check = sdto.getSeatCheck().split(",");
 		StringBuffer sb = new StringBuffer();
 		for(int i = 0; i < check.length; i++){
@@ -40,6 +45,17 @@ public class FxLoginBean {
 		map.put("key", key);
 		map.put("seatCheck", sb.toString());
 		sqlMap.update("bossERP.modiSeatCount", map);
+	}
+	
+	@RequestMapping("fxUserStart.do")
+	public String fxStart(String key, Model model){
+		try{
+			String franchiseeName = (String)sqlMap.queryForObject("bossERP.getFranchiseeName", key);
+			model.addAttribute("franchiseeName", URLEncoder.encode(franchiseeName,"UTF-8"));
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "/fxUserInfo/fxUserStart";
 	}
 	
 	@RequestMapping("fxSearchId.do")
@@ -79,27 +95,31 @@ public class FxLoginBean {
 			UseTimeLogDTO udto = new UseTimeLogDTO();
 			udto.setId(info.getId());
 			udto.setGrade(info.getGrade());
+			
+			System.out.println(udto.getGrade());
+			
 			SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
-			Calendar cal = Calendar.getInstance();
-			String today = null;
-			today = formatter.format(cal.getTime());
-			Timestamp ts = Timestamp.valueOf(today);
+				Calendar cal = Calendar.getInstance();
+				String today = null;
+				today = formatter.format(cal.getTime());
+				Timestamp ts = Timestamp.valueOf(today);
 			udto.setLoginTime(ts);
 			udto.setIp(ip);
 			udto.setLicenseKey(key);
 			sqlMap.insert("useSeat.useTimeLogin", udto);
+			
 			HashMap<String,Object> map = new HashMap<String,Object>();
 			map.put("ip", ip);
 			map.put("key", key);
 			int pcNum = 0;
 			int money = 0;
 			String bossIP  = null;
-			if(info.getGrade() == 3){
-				pcNum = (Integer)sqlMap.queryForObject("bossERP.getPcNum", map);
-				modifySeatState(key, pcNum, "1");
-				UserAccountDTO uadto = (UserAccountDTO)sqlMap.queryForObject("cash.getUserAccount", info.getId());
+			if(info.getGrade() == 3){ //자리정보 계좌정보를 불러오는듯?
+				pcNum = (Integer)sqlMap.queryForObject("bossERP.getPcNum", map);//좌석 갯수 불러오기
+				modifySeatState(key, pcNum, "1"); //좌석 이용현황 초기화
+				UserAccountDTO uadto = (UserAccountDTO)sqlMap.queryForObject("cash.getUserAccount", info.getId()); //아이디의 계좌를 불러옴.
 				money = uadto.getMoney();
-				bossIP = (String)sqlMap.queryForObject("bossERP.getBossIP", key);
+				bossIP = (String)sqlMap.queryForObject("bossERP.getBossIP", key); //가맹점 IP 불러오기
 			}
 			model.addAttribute("result", info.getId());
 			model.addAttribute("money", money);
