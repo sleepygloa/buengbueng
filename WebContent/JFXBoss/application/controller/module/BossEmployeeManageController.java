@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -16,6 +17,7 @@ import all.info.dto.UserInfo;
 import application.ConnectServer;
 import application.controller.etc.EmployeeList;
 import application.controller.etc.EmployeeTotalIdInfoList;
+import application.controller.etc.EmployeeWorkTimeList;
 import application.controller.etc.RentOrderList;
 import application.controller.etc.StringToJson;
 import javafx.collections.FXCollections;
@@ -31,6 +33,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -38,19 +41,28 @@ import javafx.stage.Stage;
 
 public class BossEmployeeManageController {
 	
+	//영역(PANE)
 	@FXML private AnchorPane employeeManage;
 	@FXML private SplitPane splitVertical;
+	//좌측
 	@FXML private SplitPane splitLeftHorizon;
+	@FXML private AnchorPane splitLeftHorizonPane;
 	@FXML private AnchorPane e_idListSection;
 	@FXML private AnchorPane employeeInfoSection;
-
+	//우측
 	@FXML private SplitPane splitRightHorizon;
+	@FXML private AnchorPane commuteSection;
+	@FXML private TitledPane commuteTitlePane;
+	@FXML private AnchorPane commuteTablePane;
+	
+	
+	//좌상 
 	@FXML private TableView<EmployeeList> e_idListTable;
 	@FXML private TableColumn<EmployeeList,String> e_id; //테이블 컴럼 추가
 	private static ObservableList<EmployeeList> e_idListData =FXCollections.observableArrayList();
-	private static ObservableList<EmployeeTotalIdInfoList> e_idListData2 =FXCollections.observableArrayList();
 	
 	
+	//좌하
 	@FXML private TabPane totalIdInfo; //좌하 의 탭페이지
 	@FXML private Tab totalIdInfoList; //좌하의 탭 중 TOTAL
 	@FXML private TableView<EmployeeTotalIdInfoList> totalTable;
@@ -61,8 +73,21 @@ public class BossEmployeeManageController {
 	@FXML private TableColumn<EmployeeTotalIdInfoList,String> totalAddress; //테이블 컴럼 추가
 	@FXML private TableColumn<EmployeeTotalIdInfoList,String> totalEmail; //테이블 컴럼 추가
 	@FXML private TableColumn<EmployeeTotalIdInfoList,String> totalGoogleId; //테이블 컴럼 추가
+	private static ObservableList<EmployeeTotalIdInfoList> e_idListData2 =FXCollections.observableArrayList();
 	
-	
+	//우하
+	@FXML private TableView<EmployeeWorkTimeList> commuteTable;
+	@FXML private TableColumn<EmployeeWorkTimeList,Long> wtNum; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeWorkTimeList,Timestamp> wtTodayDate; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeWorkTimeList,String> wtTitle; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeWorkTimeList,Timestamp> wtStart; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeWorkTimeList,Timestamp> wtEnd; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeWorkTimeList,Timestamp> wtCommuteTime; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeWorkTimeList,Timestamp> wtOffWorkTime; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeWorkTimeList,Long> wtResult; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeWorkTimeList,String> wtColor; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeeWorkTimeList,Timestamp> wtEx; //테이블 컴럼 추가
+	private static ObservableList<EmployeeWorkTimeList> e_idListData3 =FXCollections.observableArrayList();
 	
 	@FXML private Button idInsertApplyBtn;
 	
@@ -73,49 +98,20 @@ public class BossEmployeeManageController {
 			e_idListTable.getItems().clear();
 			e_idListData.clear();
 			
-			
 			//좌상 아이디 리스트
-			String param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8"); 
-			String urlInfo = "http://localhost:8080/buengbueng/fxEmployeeIdList.do";
-			String jsonString = ConnectServer.connectS(param, urlInfo);
-			
-			JSONArray jsonEid = jsonTo.stringToJsonArray(jsonString);
-			
-			String eDtoString = "EmployeeList";
-			e_idListData = jsonTo.jsonArrayToJsonObject(jsonEid, eDtoString);
+			String jsonString = jsonTo.urlConntectToReturnString("fxEmployeeIdList.do"); //Bean에 연결
+			JSONArray jsonEid = jsonTo.stringToJsonArray(jsonString);//String 을 JsonArray 변경
+			String eDtoString = "EmployeeList"; //구분 변수 
+			e_idListData = jsonTo.jsonArrayToJsonObject(jsonEid, eDtoString); //JsonArray를 JsonObject로 변경하고 dto에 넣음.
 			
 			e_id.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("e_id")); //테이블 컬럼 이름과 형식
-			
 
 			//TABLE을 VIEW에 포함하기
 			e_idListTable.setItems(e_idListData);
-			
-			///////////////////////////////////////////////////////////////////////////////////////////////////////
+			e_idListSection.getChildren().add(e_idListTable);
 		}catch(Exception e ){e.printStackTrace();}
 		
-		try{
-			totalTable.getItems().clear();
-			e_idListData2.clear();
-			//좌하 알바 신상 리스트
-			String param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8"); 
-			String urlInfo = "http://localhost:8080/buengbueng/fxEmployeeTotalIdList.do";
-			String jsonString = ConnectServer.connectS(param, urlInfo);
-			JSONArray jsonEid = jsonTo.stringToJsonArray(jsonString);
-			String eDtoString = "EmployeeTotalIdInfoList";
-			e_idListData2 = jsonTo.jsonArrayToJsonObject(jsonEid, eDtoString);
-			
-			totalId.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalId")); //테이블 컬럼 이름과 형식
-			totalName.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalName")); //테이블 컬럼 이름과 형식
-			totalBirth.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalBirth")); //테이블 컬럼 이름과 형식
-			totalPhone.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalPhone")); //테이블 컬럼 이름과 형식
-			totalAddress.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalAddress")); //테이블 컬럼 이름과 형식
-			totalEmail.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalEmail")); //테이블 컬럼 이름과 형식
-			totalGoogleId.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalGoogleId")); //테이블 컬럼 이름과 형식
-			
-			totalTable.setItems(e_idListData2);
-			totalIdInfoList.setContent(totalTable);
-			totalIdInfo.getTabs().add(totalIdInfoList);
-			employeeInfoSection.getChildren().add(totalIdInfo);
+
 			
 //			idInsertApplyBtn = new Button();
 //			idInsertApplyBtn.setOnMouseClicked(new EventHandler<MouseEvent>(){
@@ -143,17 +139,11 @@ public class BossEmployeeManageController {
 //			splitVertical = new SplitPane();
 //			splitLeftHorizon = new SplitPane();
 //			splitRightHorizon  = new SplitPane();
-			e_idListSection = new AnchorPane();
-			employeeInfoSection = new AnchorPane();
+//			e_idListSection = new AnchorPane();
+//			employeeInfoSection = new AnchorPane();
 			
 			
-			//각종 VIEW 연동
-			e_idListSection.getChildren().add(e_idListTable);
-			
-			splitVertical.getItems().add(e_idListSection);//좌상
-			splitVertical.getItems().add(employeeInfoSection);//좌하
-			
-			employeeManage.getChildren().add(splitVertical);
+
 			
 			//좌상 추가신청 폼
 			
@@ -164,15 +154,78 @@ public class BossEmployeeManageController {
 			//좌상 보유중인 아이디개수
 			
 			//좌하 알바 신상 현황
+		try{
+			totalTable.getItems().clear();
+			e_idListData2.clear();
+			//좌하 알바 신상 리스트
+			String jsonString = jsonTo.urlConntectToReturnString("fxEmployeeTotalIdList.do"); //Bean에 연결
+			JSONArray jsonEid = jsonTo.stringToJsonArray(jsonString);//String 을 JsonArray 변경
+			String eDtoString = "EmployeeTotalIdInfoList"; //구분 변수 
+			e_idListData2 = jsonTo.jsonArrayToJsonObject(jsonEid, eDtoString); //JsonArray를 JsonObject로 변경하고 dto에 넣음.
 			
+			totalId.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalId")); //테이블 컬럼 이름과 형식
+			totalName.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalName")); //테이블 컬럼 이름과 형식
+			totalBirth.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalBirth")); //테이블 컬럼 이름과 형식
+			totalPhone.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalPhone")); //테이블 컬럼 이름과 형식
+			totalAddress.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalAddress")); //테이블 컬럼 이름과 형식
+			totalEmail.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalEmail")); //테이블 컬럼 이름과 형식
+			totalGoogleId.setCellValueFactory(new PropertyValueFactory<EmployeeTotalIdInfoList,String>("totalGoogleId")); //테이블 컬럼 이름과 형식
+			
+			//View 연결
+			totalTable.setItems(e_idListData2);
+			totalIdInfoList.setContent(totalTable);
+			totalIdInfo.getTabs().add(totalIdInfoList);
+			employeeInfoSection.getChildren().add(totalIdInfo);
+		}catch(Exception e){e.printStackTrace();}
+		
 			//우상 달력
 			
 			//우하 근무일정
+		try{
+			commuteTable.getItems().clear();
+			e_idListData3.clear();
 			
+			String jsonString = jsonTo.urlConntectToReturnString("fxEmployeeCommuteList.do"); //Bean에 연결
+			JSONArray jsonEid = jsonTo.stringToJsonArray(jsonString);//String 을 JsonArray 변경
+			String eDtoString = "EmployeeCommuteList"; //구분 변수 
+			e_idListData3 = jsonTo.jsonArrayToJsonObject(jsonEid, eDtoString); //JsonArray를 JsonObject로 변경하고 dto에 넣음.
+			
+			wtNum.setCellValueFactory(new PropertyValueFactory<EmployeeWorkTimeList,Long>("wtNum")); //테이블 컬럼 이름과 형식
+			wtTodayDate.setCellValueFactory(new PropertyValueFactory<EmployeeWorkTimeList,Timestamp>("wtTodayDate")); //테이블 컬럼 이름과 형식
+			wtTitle.setCellValueFactory(new PropertyValueFactory<EmployeeWorkTimeList,String>("wtTitle")); //테이블 컬럼 이름과 형식
+			wtStart.setCellValueFactory(new PropertyValueFactory<EmployeeWorkTimeList,Timestamp>("wtStart")); //테이블 컬럼 이름과 형식
+			wtEnd.setCellValueFactory(new PropertyValueFactory<EmployeeWorkTimeList,Timestamp>("wtEnd")); //테이블 컬럼 이름과 형식
+			wtCommuteTime.setCellValueFactory(new PropertyValueFactory<EmployeeWorkTimeList,Timestamp>("wtCommuteTime")); //테이블 컬럼 이름과 형식
+			wtOffWorkTime.setCellValueFactory(new PropertyValueFactory<EmployeeWorkTimeList,Timestamp>("wtOffWorkTime")); //테이블 컬럼 이름과 형식
+			wtResult.setCellValueFactory(new PropertyValueFactory<EmployeeWorkTimeList,Long>("wtResult")); //테이블 컬럼 이름과 형식
+			wtColor.setCellValueFactory(new PropertyValueFactory<EmployeeWorkTimeList,String>("wtColor")); //테이블 컬럼 이름과 형식
+			wtEx.setCellValueFactory(new PropertyValueFactory<EmployeeWorkTimeList,Timestamp>("wtEx")); //테이블 컬럼 이름과 형식
+			
+			commuteTable.setItems(e_idListData3);
+			commuteTablePane.getChildren().add(commuteTable);
+			commuteTitlePane.setContent(commuteTablePane);
+			commuteSection.getChildren().add(commuteTitlePane);
+			
+		}catch(Exception e){e.printStackTrace();}
 			//우하 근무비 지금 대장
+		try{
 			
+		}catch(Exception e){e.printStackTrace();}
+		
+		
+		
+		try{	
+			//각종 VIEW 연동
 			
+			splitLeftHorizon.getItems().addAll(e_idListSection,employeeInfoSection);
+			
+			splitLeftHorizonPane.getChildren().add(splitLeftHorizon);
+			splitVertical.getItems().add(commuteSection);//우하
+			splitVertical.getItems().addAll(splitLeftHorizonPane,commuteSection);//좌하
+			
+			employeeManage.getChildren().add(splitVertical);
 		}catch(Exception e ){e.printStackTrace();}
+		
 	}
 	
 	

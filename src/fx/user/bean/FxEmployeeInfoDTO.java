@@ -1,6 +1,6 @@
 package fx.user.bean;
 
-public class FxUserInfoDTO {
+public class FxEmployeeInfoDTO {
 	
 	private String totalId;
 	private String totalName;

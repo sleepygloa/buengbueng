@@ -19,13 +19,13 @@
 
 <AnchorPane fx:id="employeeManage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.module.BossEmployeeManageController">
    <children>
-      <SplitPane fx:id="splitVertical" dividerPositions="0.5" prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane fx:id="splitVertical" dividerPositions="0.48" prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane fx:id="splitLeftHorizonPane" minHeight="1078.0" minWidth="596.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <SplitPane fx:id="splitLeftHorizon" dividerPositions="0.5" orientation="VERTICAL" prefHeight="1078.0" prefWidth="596.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane fx:id="e_idListSection" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <AnchorPane fx:id="e_idListSection" minHeight="539.0" minWidth="596.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
                               <TableView fx:id="e_idListTable" layoutX="29.0" layoutY="39.0" prefHeight="472.0" prefWidth="140.0">
                                 <columns>
@@ -57,7 +57,7 @@
                               </Group>
                            </children>
                         </AnchorPane>
-                      <AnchorPane fx:id="employeeInfoSection" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <AnchorPane fx:id="employeeInfoSection" minHeight="539.0" minWidth="596.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
                               <TabPane fx:id="totalIdInfo" prefHeight="535.0" prefWidth="594.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <tabs>
@@ -65,12 +65,12 @@
                                        <content>
                                           <TableView fx:id="totalTable" prefHeight="200.0" prefWidth="200.0">
                                             <columns>
-                                              <TableColumn fx:id="totalId" prefWidth="75.0" text="id" />
-                                              <TableColumn fx:id="totalName" prefWidth="75.0" text="name" />
-                                                <TableColumn fx:id="totalBirth" prefWidth="75.0" text="birth" />
-                                                <TableColumn fx:id="totalPhone" prefWidth="75.0" text="phone" />
-                                                <TableColumn fx:id="totalAddress" prefWidth="297.0" text="address" />
-                                                <TableColumn fx:id="totalEmail" prefWidth="64.0" text="email" />
+                                              <TableColumn fx:id="totalId" prefWidth="85.0" text="id" />
+                                              <TableColumn fx:id="totalName" prefWidth="85.0" text="name" />
+                                                <TableColumn fx:id="totalBirth" prefWidth="85.0" text="birth" />
+                                                <TableColumn fx:id="totalPhone" prefWidth="85.0" text="phone" />
+                                                <TableColumn fx:id="totalAddress" prefWidth="300.0" text="address" />
+                                                <TableColumn fx:id="totalEmail" prefWidth="65.0" text="email" />
                                                 <TableColumn fx:id="totalGoogleId" prefWidth="70.0" text="googleId" />
                                             </columns>
                                           </TableView>
@@ -84,29 +84,34 @@
                   </SplitPane>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="1078.0" minWidth="596.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <SplitPane fx:id="splitRightHorizon" dividerPositions="0.5" orientation="VERTICAL" prefHeight="1078.0" prefWidth="596.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <AnchorPane minHeight="539.0" minWidth="596.0" prefHeight="100.0" prefWidth="160.0" />
+                      <AnchorPane fx:id="commuteSection" minHeight="539.0" minWidth="596.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
                               <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="535.0" prefWidth="594.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                        <children>
-                                          <TitledPane animated="false" prefHeight="264.0" prefWidth="592.0" text="근무 달력" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <TitledPane fx:id="commuteTitlePane" animated="false" prefHeight="264.0" prefWidth="592.0" text="근무 달력" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <content>
-                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                              <AnchorPane fx:id="commuteTablePane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <TableView prefHeight="264.0" prefWidth="592.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                      <TableView fx:id="commuteTable" prefHeight="264.0" prefWidth="592.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                         <columns>
-                                                          <TableColumn prefWidth="75.0" text="num" />
-                                                          <TableColumn prefWidth="75.0" text="id" />
-                                                            <TableColumn prefWidth="75.0" text="name" />
-                                                            <TableColumn prefWidth="75.0" text="start" />
-                                                            <TableColumn prefWidth="75.0" text="end" />
-                                                            <TableColumn prefWidth="216.0" text="etc" />
+                                                          <TableColumn fx:id="wtNum" prefWidth="35.0" text="num" />
+                                                          <TableColumn fx:id="wtTitle" prefWidth="65.0" text="id" />
+                                                            <TableColumn prefWidth="65.0" text="name" />
+                                                            <TableColumn fx:id="wtStart" prefWidth="120.0" text="start" />
+                                                            <TableColumn fx:id="wtEnd" prefWidth="120.0" text="end" />
+                                                            <TableColumn fx:id="wtCommuteTime" prefWidth="120.0" text="commute" />
+                                                            <TableColumn fx:id="wtOffWorkTime" prefWidth="120.0" text="offWork" />
+                                                            <TableColumn fx:id="wtEx" prefWidth="120.0" text="ex" />
+                                                            <TableColumn fx:id="wtResult" prefWidth="41.0" text="result" />
+                                                            <TableColumn fx:id="wtColor" prefWidth="38.0" text="color" />
+                                                            <TableColumn fx:id="wtTodayDate" prefWidth="120.0" text="etc" />
                                                         </columns>
                                                       </TableView>
                                                    </children>

@@ -312,7 +312,7 @@
 	<!-- 사장님  알바생 일한 시간 계산 -->
 	<select id="employeeWorkCount" resultClass="bossErpTotalDTO" parameterClass="java.util.HashMap">
 		<![CDATA[
-		select (case when id = 1 then 'hello' else id end) as id,
+		select (case when id = null then 'total' else id end) as id,
 		date_format(loginTime, "%Y-%m-%d") AS loginTime, sum(round(logoutTime - loginTime)) as count 
 		from useTimeLog as a INNER JOIN employeeInfo as b ON a.id = b.e_id 
 		where loginTime >= #minDate# and loginTime <= #maxDate#
@@ -324,7 +324,6 @@
 	<select id="getBossFranchiseeList" resultClass="franchiseeDTO" parameterClass="String">
 		select b_name, b_key from franchiseeInfo where b_id = #b_id#;
 	</select>
-	
 	
 	<!-- 일일정산 내역 리스트========================================================== -->
 	
@@ -426,10 +425,26 @@
 	</select>	
 	
 	<!-- 신상관리 알바생 이름 리스트 -->
-	<select id="getFxEmployeeTotalIdList" resultClass="fxUserInfoDTO" parameterClass="String">
+	<select id="getFxEmployeeTotalIdList" resultClass="fxEmployeeInfoDTO" parameterClass="String">
 		select id as totalId, name as totalName, birth as totalBirth, phone as totalPhone, address as totalAddress, email as totalEmail, googleid as totalGoogleId 
 		from userInfo a inner Join(select e_id from employeeInfo where b_key = #b_key#) b 
 		on a.id = b.e_id;
+	</select>
+	
+	<!-- 알바생 근무일정 리스트 출력 -->
+	<select id="getFxEmployeeCommuteList" resultClass="fxEWTLDTO" parameterClass="String">
+		SELECT 
+			a.num as wtNum,
+			a.todayDate as wtTodayDate, 
+			a.title as wtTitle,
+			a.start as wtStart, 
+			a.end as wtEnd, 
+			a.result as wtResult,
+			a.color as wtColor,
+			b.commuteTime as wtCommuteTime,
+			b.offWorkTime as wtOffWorkTime,
+			b.ex as wtEx
+		from employeeWorkTime a LEFT OUTER JOIN employeeWorkTimeCommute b ON a.num = b.num where b_key = #b_key#;
 	</select>
 	
 </sqlMap>

@@ -87,7 +87,6 @@ public class FxBossEmployeeManageBean {
 		list = (List)sqlMap.queryForList("erpEmp.getFxEmployeeTotalIdList", b_key);
 		model.addAttribute("list",list);
 		ObjectMapper mapper = new ObjectMapper();
-		System.out.println("list :"+list);
 		String jsonList = mapper.writeValueAsString(list);
 		//굳이 ModelAndView를 사용했다. String으로 반환해도되는데
 		model.addAttribute("jsonList", jsonList);
@@ -97,7 +96,25 @@ public class FxBossEmployeeManageBean {
 		return "/fxBossERP/fxEmployeeManageJson";
 	}
 	
-	
+	//4. 우하
+	@RequestMapping("fxEmployeeCommuteList.do")
+	public String fxEmployeeCommuteList(Model model, String b_key, String b_id){
+		System.out.println("연결됐음:");
+		ModelAndView mv = new ModelAndView();
+		try{
+		
+		List list = new ArrayList();
+		list = (List)sqlMap.queryForList("erpEmp.getFxEmployeeCommuteList", b_key);
+		model.addAttribute("list",list);
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonList = mapper.writeValueAsString(list);
+		//굳이 ModelAndView를 사용했다. String으로 반환해도되는데
+		model.addAttribute("jsonList", jsonList);
+		
+		}catch(Exception e){e.printStackTrace();}
+		
+		return "/fxBossERP/fxEmployeeManageJson";
+	}
 	
 	
 	
