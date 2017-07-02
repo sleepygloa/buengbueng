@@ -42,6 +42,7 @@
 	<typeAlias alias="fxEidListDTO" type="fx.user.bean.FxBossEmployeeManageIdListDTO"/>
 	<typeAlias alias="fxEmployeeInfoDTO" type="fx.user.bean.FxEmployeeInfoDTO"/>
 	<typeAlias alias="fxEWTLDTO" type="fx.user.bean.FxEmployeeWorkTimeListDTO"/>
+	<typeAlias alias="fxEPLDTO" type="fx.user.bean.FxEmployeePayListDTO"/>
 	
 	
 </sqlMap>

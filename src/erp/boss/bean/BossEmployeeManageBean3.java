@@ -145,7 +145,7 @@ public class BossEmployeeManageBean3 {
 
 				utlDto.setB_id(b_id);
 				utlDto.setE_id(e_id);
-				
+				System.out.println(utlDto.getNum());
 				sqlMap.insert("log.offWorkLog", utlDto);//이용로그남기기, pc방
 				sqlMap.insert("log.offWorkPayLog", utlDto);//결제로그남기기,
 				

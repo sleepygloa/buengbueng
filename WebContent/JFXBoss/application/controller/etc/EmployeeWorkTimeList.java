@@ -92,7 +92,6 @@ public class EmployeeWorkTimeList {
 	//Long to Timestamp 
 	public Timestamp longToTimestamp(Long date){
 		Timestamp t = null;
-		
 		t = new Timestamp(date);
 		return t;
 	}

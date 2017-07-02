@@ -50,9 +50,10 @@ public class StringToJson {
 				jsonObj = (JSONObject)jsonArray.get(i);
 			}
 			
-			EmployeeList eDto1 = null;
-			EmployeeTotalIdInfoList eDto2 = null;
-			EmployeeWorkTimeList eDto3 = null;
+			EmployeeList eDto1 = null; //알바생 아이디리스트
+			EmployeeTotalIdInfoList eDto2 = null; //알바생 신상정보리스트
+			EmployeeWorkTimeList eDto3 = null; //알바생 일정 및 출근 대장
+			EmployeePayList eDto4 = null; //알바생 알바비 지급 대장
 			for(int i = 0;i<jsonArray.size(); i++){
 				if(eDtoString.equals("EmployeeList")){ //좌상 아이디리스트
 					eDto1 = new EmployeeList();
@@ -84,15 +85,19 @@ public class StringToJson {
 						eDto3.setWtColor((String)jsonObj.get("wtColor"));
 						eDto3.setWtEx((Long)jsonObj.get("wtEx"));
 					data.add(eDto3);
+				}else if(eDtoString.equals("EmployeePayList")){ //우하 알바비 지급대장
+					eDto4 = new EmployeePayList();
+					jsonObj = (JSONObject)jsonArray.get(i);
+						eDto4.setPayNum((Long)jsonObj.get("payNum"));
+						eDto4.setPayId((String)jsonObj.get("payId"));
+						eDto4.setPayName((String)jsonObj.get("payName"));
+						eDto4.setPayWorkTime((Long)jsonObj.get("payWorkTime"));
+						eDto4.setPayPayment((Long)jsonObj.get("payPayment"));
+						eDto4.setPayCommute((Long)jsonObj.get("payCommute"));
+						eDto4.setPayOffWork((Long)jsonObj.get("payOffWork"));
+					data.add(eDto4);
 				}
-				
-
 			}
-			
-			
-			
-			
-			
 			
 		}catch(Exception e){
 			e.printStackTrace();

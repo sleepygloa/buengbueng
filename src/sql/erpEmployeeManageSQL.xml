@@ -444,7 +444,25 @@
 			b.commuteTime as wtCommuteTime,
 			b.offWorkTime as wtOffWorkTime,
 			b.ex as wtEx
-		from employeeWorkTime a LEFT OUTER JOIN employeeWorkTimeCommute b ON a.num = b.num where b_key = #b_key#;
+		from employeeWorkTime a LEFT OUTER JOIN employeeWorkTimeCommute b ON a.num = b.num where b_key = #b_key# and a.result = 2;
+	</select>
+	
+	<!-- 알바생 알바비 지급대장 -->
+	<select id="getFxEmployeePayList" resultClass="fxEPLDTO" parameterClass="String">
+	select 
+		b.num as payNum,
+        (case when a.id = null then 'none' else id end) as payId,
+		a.name as payName,
+        round((offWorkTime - commuteTime))  as payWorkTime, 
+        round((offWorkTime - commuteTime) * a.EidMoneyPolicy)  as payPayment, 
+	    commuteTime as payCommute,
+        offWorkTime as payOffWork  
+    from 
+    (select a.id, a.name, a.b_key, b.EidMoneyPolicy from (
+    select b.*, a.b_key from (select e_id, b_key from employeeInfo where b_key = #b_key#) a INNER JOIN (select * from userInfo) b ON a.e_id = b.id
+    ) a LEFT OUTER JOIN (select * from franchiseePolicy where b_key = #b_key#) b ON a.b_key = b.b_key
+    ) a INNER JOIN (select a.num, a.commuteTime, a.offWorkTime,a.ex,b.e_id, b.employeeWorkTime, b.employeeWorkTimePay, b.employeeAccountMoney, b.payAfterMoney  from employeeWorkTimeCommute a INNER JOIN offWorkPayDetailLog b ON a.num = b.num)
+    b on a.id = b.e_id;
 	</select>
 	
 </sqlMap>

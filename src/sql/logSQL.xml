@@ -43,8 +43,8 @@
 	
 	<!-- 알바 퇴근 : offWorkPayDetailLog 테이블에 로그를 남김 -->
 	<insert id="offWorkLog" parameterClass="useTimeDto">
-		INSERT INTO offWorkPayDetailLog (e_id, employeeWorkTime, employeeWorkTimePay, employeeAccountMoney, payAfterMoney)
-		VALUES(#e_id#, #employeeWorkTime#, #employeeWorkTimePay#, #employeeAccountMoney#, #payAfterMoney#);
+		INSERT INTO offWorkPayDetailLog (num, e_id, employeeWorkTime, employeeWorkTimePay, employeeAccountMoney, payAfterMoney)
+		VALUES(#num#, #e_id#, #employeeWorkTime#, #employeeWorkTimePay#, #employeeAccountMoney#, #payAfterMoney#);
 	</insert>
 	
 	<!-- 알바 퇴근 : accountLog 테이블에 로그를 남김 -->

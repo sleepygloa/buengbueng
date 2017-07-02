@@ -16,6 +16,7 @@ import org.json.simple.parser.JSONParser;
 import all.info.dto.UserInfo;
 import application.ConnectServer;
 import application.controller.etc.EmployeeList;
+import application.controller.etc.EmployeePayList;
 import application.controller.etc.EmployeeTotalIdInfoList;
 import application.controller.etc.EmployeeWorkTimeList;
 import application.controller.etc.RentOrderList;
@@ -50,11 +51,15 @@ public class BossEmployeeManageController {
 	@FXML private AnchorPane e_idListSection;
 	@FXML private AnchorPane employeeInfoSection;
 	//우측
+	@FXML private SplitPane splitRightBottomHorizon;
 	@FXML private SplitPane splitRightHorizon;
+	@FXML private AnchorPane splitRightHorizonPane;
 	@FXML private AnchorPane commuteSection;
 	@FXML private TitledPane commuteTitlePane;
 	@FXML private AnchorPane commuteTablePane;
-	
+	@FXML private TitledPane payTitlePane;
+	@FXML private AnchorPane payTablePane;
+	@FXML private AnchorPane dialySection;
 	
 	//좌상 
 	@FXML private TableView<EmployeeList> e_idListTable;
@@ -88,6 +93,21 @@ public class BossEmployeeManageController {
 	@FXML private TableColumn<EmployeeWorkTimeList,String> wtColor; //테이블 컴럼 추가
 	@FXML private TableColumn<EmployeeWorkTimeList,Timestamp> wtEx; //테이블 컴럼 추가
 	private static ObservableList<EmployeeWorkTimeList> e_idListData3 =FXCollections.observableArrayList();
+	
+	@FXML private TableView<EmployeePayList> payTable;
+	@FXML private TableColumn<EmployeePayList,Long> payNum; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeePayList,String> payId; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeePayList,String> payName; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeePayList,Long> payWorkTime; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeePayList,Long> payPayment; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeePayList,Timestamp> payCommute; //테이블 컴럼 추가
+	@FXML private TableColumn<EmployeePayList,Timestamp> payOffWork; //테이블 컴럼 추가
+	
+	
+	private static ObservableList<EmployeePayList> e_idListData4 =FXCollections.observableArrayList();
+	
+	
+	
 	
 	@FXML private Button idInsertApplyBtn;
 	
@@ -175,7 +195,7 @@ public class BossEmployeeManageController {
 			totalTable.setItems(e_idListData2);
 			totalIdInfoList.setContent(totalTable);
 			totalIdInfo.getTabs().add(totalIdInfoList);
-			employeeInfoSection.getChildren().add(totalIdInfo);
+			
 		}catch(Exception e){e.printStackTrace();}
 		
 			//우상 달력
@@ -202,26 +222,47 @@ public class BossEmployeeManageController {
 			wtEx.setCellValueFactory(new PropertyValueFactory<EmployeeWorkTimeList,Timestamp>("wtEx")); //테이블 컬럼 이름과 형식
 			
 			commuteTable.setItems(e_idListData3);
-			commuteTablePane.getChildren().add(commuteTable);
-			commuteTitlePane.setContent(commuteTablePane);
-			commuteSection.getChildren().add(commuteTitlePane);
+			commuteTitlePane.setContent(commuteTable);
 			
 		}catch(Exception e){e.printStackTrace();}
 			//우하 근무비 지금 대장
 		try{
+			payTable.getItems().clear();
+			e_idListData4.clear();
 			
+			String jsonString = jsonTo.urlConntectToReturnString("fxEmployeePayList.do"); //Bean에 연결
+			JSONArray jsonEid = jsonTo.stringToJsonArray(jsonString);//String 을 JsonArray 변경
+			String eDtoString = "EmployeePayList"; //구분 변수 
+			e_idListData4 = jsonTo.jsonArrayToJsonObject(jsonEid, eDtoString); //JsonArray를 JsonObject로 변경하고 dto에 넣음.
+			
+			payNum.setCellValueFactory(new PropertyValueFactory<EmployeePayList,Long>("payNum")); //테이블 컬럼 이름과 형식
+			payId.setCellValueFactory(new PropertyValueFactory<EmployeePayList,String>("payId")); //테이블 컬럼 이름과 형식
+			payName.setCellValueFactory(new PropertyValueFactory<EmployeePayList,String>("payName")); //테이블 컬럼 이름과 형식
+			payWorkTime.setCellValueFactory(new PropertyValueFactory<EmployeePayList,Long>("payWorkTime")); //테이블 컬럼 이름과 형식
+			payPayment.setCellValueFactory(new PropertyValueFactory<EmployeePayList,Long>("payPayment")); //테이블 컬럼 이름과 형식
+			payCommute.setCellValueFactory(new PropertyValueFactory<EmployeePayList,Timestamp>("payCommute")); //테이블 컬럼 이름과 형식
+			payOffWork.setCellValueFactory(new PropertyValueFactory<EmployeePayList,Timestamp>("payOffWork")); //테이블 컬럼 이름과 형식
+			payTable.setItems(e_idListData4);
+			payTitlePane.setContent(payTable);
 		}catch(Exception e){e.printStackTrace();}
-		
+//		
 		
 		
 		try{	
 			//각종 VIEW 연동
 			
-			splitLeftHorizon.getItems().addAll(e_idListSection,employeeInfoSection);
+			employeeInfoSection.getChildren().add(e_idListSection);
 			
+			splitRightBottomHorizon.getItems().addAll(commuteTitlePane,payTitlePane);
+			commuteSection.getChildren().add(splitRightBottomHorizon);
+			
+			splitLeftHorizon.getItems().addAll(e_idListSection,employeeInfoSection);
 			splitLeftHorizonPane.getChildren().add(splitLeftHorizon);
-			splitVertical.getItems().add(commuteSection);//우하
-			splitVertical.getItems().addAll(splitLeftHorizonPane,commuteSection);//좌하
+			
+			splitRightHorizon.getItems().addAll(dialySection,commuteSection); //한개더넣어야됨
+			splitRightHorizonPane.getChildren().add(splitRightHorizon);
+			
+			splitVertical.getItems().addAll(splitLeftHorizonPane,splitRightHorizonPane);//좌하
 			
 			employeeManage.getChildren().add(splitVertical);
 		}catch(Exception e ){e.printStackTrace();}
