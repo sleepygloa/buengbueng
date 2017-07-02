@@ -156,7 +156,6 @@ public class FxBossERPBean {
 			param.put("afterCode", request.getParameter("afterCode"));
 			param.put("beforeCode", request.getParameter("beforeCode"));
 			param.put("rentCheck", request.getParameter("rentCheck"));
-			param.put("beginRegist", java.sql.Timestamp.valueOf(request.getParameter("beginRegist")));	
 			sqlMap.update("rent.modifyRentProduct", param);
 			result = "succ";
 		}catch(Exception e){

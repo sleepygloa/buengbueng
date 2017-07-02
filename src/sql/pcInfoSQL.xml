@@ -140,4 +140,52 @@
 	<select id="getState" parameterClass="String" resultClass="String">
 		select state from pcInfo where b_key = #b_key#;
 	</select>
+<!-- ============================================================================================================================================== -->
+	<!-- 좌석 기본 정보 수정 -->
+	<update id="modifyPcInfoDefault" parameterClass="String">
+		alter table pcInfo alter column os set default #os#;
+	</update>
+	<!-- 좌석 기본 본체 정보 수정 -->
+	<update id="modifyConputerInfoDefault" parameterClass="comInfo">
+		alter table computer alter column c_company set default #c_company#
+		, alter column c_name set default #c_name# 
+		, alter column c_model set default #c_model# 
+		, alter column c_cpu set default #c_cpu# 
+		, alter column c_graphic set default #c_graphic# 
+		, alter column c_hard set default #c_hard# 
+		, alter column c_ram set default #c_ram# 
+		, alter column c_power set default #c_power# 
+		, alter column c_lan set default #c_lan# 
+		, alter column c_cooler set default #c_cooler#;
+	</update>
+	<!-- 좌석 기본 모니터 정보 수정 -->
+	<update id="modifyMonitorInfoDefault" parameterClass="moniInfo">
+		alter table monitor alter column m_company set default #m_company#
+		, alter column m_name set default #m_name# 
+		, alter column m_model set default #m_model# 
+		, alter column m_inch set default #m_inch# 
+		, alter column m_resolution set default #m_resolution# 
+		, alter column m_connector set default #m_connector# 
+		, alter column m_display set default #m_display#;
+	</update>
+	<!-- 좌석 기본 키보드 정보 수정 -->
+	<update id="modifyKeyboardInfoDefault" parameterClass="keyInfo">
+		alter table keyboard alter column k_company set default #k_company# 
+		, alter column k_name set default #k_name# 
+		, alter column k_connector set default #k_connector# 
+		, alter column k_type set default #k_type#;
+	</update>
+	<!-- 좌석 기본 마우스 정보 수정 -->
+	<update id="modifyMouseInfoDefault" parameterClass="mouInfo">
+		alter table mouse alter column mo_company set default #mo_company# 
+		, alter column mo_name set default #mo_name# 
+		, alter column mo_connector set default #mo_connector# 
+		, alter column mo_type set default #mo_type#;
+	</update>
+	<!-- 좌석 기본 스피커 정보 수정 -->
+	<update id="modifySpeakerInfoDefault" parameterClass="speInfo">
+		alter table speaker alter column s_company set default #s_company# 
+		, alter column s_name set default #s_name# 
+		, alter column s_connector set default #s_connector#; 
+	</update>
 </sqlMap>

@@ -3,7 +3,7 @@ package pc.materials.bean;
 public class SpeakerDataDTO {
 	private int s_num;
 	private String s_bossKey;
-	private int s_code;
+	private String s_code;
 	private String s_company;
 	private String s_name;
 	private String s_connector;
@@ -21,10 +21,10 @@ public class SpeakerDataDTO {
 	public void setS_bossKey(String s_bossKey) {
 		this.s_bossKey = s_bossKey;
 	}
-	public int getS_code() {
+	public String getS_code() {
 		return s_code;
 	}
-	public void setS_code(int s_code) {
+	public void setS_code(String s_code) {
 		this.s_code = s_code;
 	}
 	public String getS_company() {

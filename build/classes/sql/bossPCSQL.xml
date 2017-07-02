@@ -55,4 +55,8 @@
 	<select id="getMoneyPolicy" parameterClass="String" resultClass="double">
 		select IdMoneyPolicy from franchiseePolicy where b_key = #key#;
 	</select>
+	<!-- 라이센스키 유무 체크 -->
+	<select id="checkLicenseKey" parameterClass="String" resultClass="int">
+		select count(b_key) from franchiseeInfo where b_key = #b_key#;
+	</select>
 </sqlMap>

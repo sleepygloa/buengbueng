@@ -47,6 +47,21 @@ public class FxLoginBean {
 		sqlMap.update("bossERP.modiSeatCount", map);
 	}
 	
+	@RequestMapping("fxCheckLicenseKey.do")
+	public String fxCheckLicenseKey(String b_key, Model model){
+		String result = "fail";
+		try{
+			int chk = (Integer)sqlMap.queryForObject("bossERP.checkLicenseKey", b_key);
+			if(chk != 0){
+				result = "succ";
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		model.addAttribute("result", result);
+		return "/fxUserInfo/fxLogoutPro";
+	}
+	
 	@RequestMapping("fxUserStart.do")
 	public String fxStart(String key, Model model){
 		try{

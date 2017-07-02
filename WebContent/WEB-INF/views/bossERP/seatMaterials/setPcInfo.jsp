@@ -2,19 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
 	<title>${pcNum}번 좌석 정보</title>
+	<script type="text/javascript" src="/buengbueng/js/bossERP/seatDispose.js"></script>
+	<link rel="stylesheet" type="text/css" href="/buengbueng/css/bossERP/seatDispose.css">
 </head>
 
 <body>
 	<p>좌석 정보 수정</p>
-	<form action="addModiPcInfo.do" method="post">
+	<input type="text" id="alert" readonly="readonly"/>
+	<form action="addModiPcInfo.do" name="pcInfoForm" method="post" onsubmit="return checkPCInfo();">
 	<c:if test="${all == false}">
-		pc 번호 : <input type="text" value="${pcNum}" name="num" readonly /><br/>
-	</c:if>
-	<c:if test="${all == true}">
 		pc 번호 : <input type="text" value="${pcNum}" name="pcNum" readonly /><br/>
-	</c:if>
-		OS : <input type="text" value="${pcInfo.os}" name="os" /><br/>
-		IP : <input type="text" value="${pcInfo.ip}" name="ip" /><br/>
 		상태 : <select name="state">
 				<option>${pcInfo.state}</option>
 				<c:if test="${pcInfo.state == '정상'}">
@@ -24,7 +21,17 @@
 					<option>정상</option>
 				</c:if>
 			 </select><br/>
-		
+	</c:if>
+	<c:if test="${all == true}">
+		pc 번호 : <input type="text" value="${pcNum}" name="pcNum" readonly /><br/>
+		상태 : <select name="state">
+				<option>정상</option>
+				<option>고장</option>
+			 </select><br/>
+	</c:if>
+		OS : <input type="text" value="${pcInfo.os}" name="os" /><br/>
+		IP : <input type="text" value="${pcInfo.ip}" name="ip" /><br/>
+
 		<p>본체 정보<p/>
 		제품코드 : <input type="text" value="${computer.c_code}" name="c_code"/><br/>
 		제조사 : <input type="text" value="${computer.c_company}" name="c_company"/><br/>

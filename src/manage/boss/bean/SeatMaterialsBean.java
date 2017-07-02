@@ -336,20 +336,33 @@ public class SeatMaterialsBean {
 			dto.setB_key(b_key);
 			cdto.setC_date(java.sql.Date.valueOf(request.getParameter("computer_date")));
 			mdto.setM_date(java.sql.Date.valueOf(request.getParameter("monitor_date")));
-			// pc방 좌석 정보 1개 수정
-			if(pcNum == null){
-				checkAddModi(dto.getB_key(), dto.getNum(), request.getParameter("os"), request.getParameter("ip"), request.getParameter("state"), cdto, mdto, kdto, modto, sdto);
-			}
-			// pc방 좌석 정보 1개 또는 여러 개 수정
-			else{
-				String[] buf = pcNum.split(",");
-				for(int i = 0; i < buf.length; i++){
-					checkAddModi(dto.getB_key(), Integer.parseInt(buf[i]), request.getParameter("os"), request.getParameter("ip"), request.getParameter("state"), cdto, mdto, kdto, modto, sdto);
-				}
+			String[] buf = pcNum.split(",");
+			for(int i = 0; i < buf.length; i++){
+				checkAddModi(dto.getB_key(), Integer.parseInt(buf[i]), request.getParameter("os"), request.getParameter("ip"), request.getParameter("state"), cdto, mdto, kdto, modto, sdto);
 			}
 		} catch (Exception e) {
 			// 추후 수정
 		}
 		return "/bossERP/seatMaterials/modifyPcInfo";
 	}
+	
+	/* 관리자 - pc방 좌석 기본 정보 관리 페이지 */
+	@RequestMapping("managePcInfo.do")
+	public String managePcInfo(){
+		return "/bossERP/seatMaterials/setPcInfoDefault";
+	}
+	
+	/* 관리자 - pc방 좌석 기본 정보 관리 수정 */
+	@RequestMapping("managePcInfoPro.do")
+	public String managePcInfoPro(String os, ComputerDataDTO cdto, MonitorDataDTO mdto, KeyboardDataDTO kdto,
+			MouseDataDTO modto, SpeakerDataDTO sdto){
+		sqlMap.update("pcInfo.modifyPcInfoDefault", os);
+		sqlMap.update("pcInfo.modifyConputerInfoDefault", cdto);
+		sqlMap.update("pcInfo.modifyMonitorInfoDefault", mdto);
+		sqlMap.update("pcInfo.modifyKeyboardInfoDefault", kdto);
+		sqlMap.update("pcInfo.modifyMouseInfoDefault", modto);
+		sqlMap.update("pcInfo.modifySpeakerInfoDefault", sdto);
+		return "redirect: managePcInfo.do";
+	}
+	
 }

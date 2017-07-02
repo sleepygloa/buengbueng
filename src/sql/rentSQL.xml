@@ -46,13 +46,9 @@
 	<select id="getRentProduct" parameterClass="rentProdDTO" resultClass="rentProdDTO">
 		select * from rentProduct where b_key = #b_key# and code = #code#;
 	</select>
-	<!-- 대여물품 정보 수정하기 (사용 X) -->
-	<update id="modiRentProduct" parameterClass="java.util.HashMap">
-		update rentProduct set code = #afterCode#, rentProduct = #afterProduct# where b_key = #b_key# and code = #beforeCode#;
-	</update>
-	<!-- 대여물품 정보 수정하기 (이거 사용) -->
+	<!-- 대여물품 정보 수정하기 -->
 	<update id="modifyRentProduct" parameterClass="java.util.HashMap">
-		update rentProduct set code = #afterCode#, rentCheck = #rentCheck#, beginRegist = #beginRegist# where b_key = #b_key# and code = #beforeCode#;
+		update rentProduct set code = #afterCode#, rentCheck = #rentCheck# where b_key = #b_key# and code = #beforeCode#;
 	</update>
 	<!-- 대여물품 삭제하기 -->
 	<delete id="deleteRentProduct" parameterClass="rentProdDTO">

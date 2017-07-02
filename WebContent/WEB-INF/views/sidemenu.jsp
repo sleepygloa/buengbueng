@@ -109,7 +109,7 @@ ${sessionScope.b_key}
 			<li><hr /></li>
 			<li>PC방 관리</li>
 			<li><a href="seatDispose.do" >PC방 좌석 정보 관리</a></li>
-			<li><a href="seatState.do" >PC방 좌석 이용 관리</a></li>
+			<li><a href="seatState.do" >PC방 좌석 이용 현황</a></li>
 			<li><hr /></li>
 			<li>대여 관리</li>
 			<li><a href="rentManage.do" >대여물품 관리</a></li>

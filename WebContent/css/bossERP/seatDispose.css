@@ -20,3 +20,9 @@
 	float:left;
 }
 
+#alert{
+	border: none;
+	color: red;
+	width: 50%;
+	background-color: transparent;
+}
