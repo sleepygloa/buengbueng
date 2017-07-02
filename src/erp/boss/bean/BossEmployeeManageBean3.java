@@ -15,12 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import login.user.bean.UseTimeLogDTO;
 import superclass.all.bean.FindIpBean;
+import superclass.all.bean.SuperClass;
 
 @Controller
 public class BossEmployeeManageBean3 {
 
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
+	
+	@Autowired
+	protected SuperClass sc;
 	
 	//알바생 출근하기
 	//알바생이 계획된 시간이 아니면 출근하지 못한다.
@@ -30,12 +34,7 @@ public class BossEmployeeManageBean3 {
 		String e_id = (String)session.getAttribute("loginId");
 		String b_key = (String)session.getAttribute("b_key");
 		
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
 		Timestamp commuteTime = null;
 		int checkCommute = 1; //1. 출근, 2. 퇴근
@@ -79,12 +78,7 @@ public class BossEmployeeManageBean3 {
 		String e_id = (String)session.getAttribute("loginId");
 		String b_key = (String)session.getAttribute("b_key");
 		
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
 		Timestamp commuteTime = null;
 		int checkCommute = 2; //1. 출근, 2. 퇴근
@@ -115,8 +109,6 @@ public class BossEmployeeManageBean3 {
 			model.addAttribute("checkCommute", checkCommute);
 			
 			
-			
-			
 			//////////////////////////////////////////
 			try{
 				
@@ -145,7 +137,7 @@ public class BossEmployeeManageBean3 {
 
 				utlDto.setB_id(b_id);
 				utlDto.setE_id(e_id);
-				System.out.println(utlDto.getNum());
+				
 				sqlMap.insert("log.offWorkLog", utlDto);//이용로그남기기, pc방
 				sqlMap.insert("log.offWorkPayLog", utlDto);//결제로그남기기,
 				
@@ -179,12 +171,7 @@ public class BossEmployeeManageBean3 {
 		String id = (String)session.getAttribute("loginId");
 		String b_key = (String)session.getAttribute("b_key");
 		
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
 		try{
 			int check = (Integer)sqlMap.queryForObject("erpEmp.getUserGrade", id);//알바인지, 사장님인지 구분한다.

@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import payment.all.bean.DailySettlementDTO;
+import superclass.all.bean.SuperClass;
 
 @Controller
 
@@ -25,6 +26,9 @@ public class BossEmployeeManageBean4 {
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
 	
+	@Autowired
+	protected SuperClass sc;
+	
 	@RequestMapping("/applyForSettlement.do")
 	public String applyForSettlement (String pageNum, HttpSession session, HttpServletRequest request, Model model)throws Exception{
 		String id = (String)session.getAttribute("loginId");
@@ -32,12 +36,8 @@ public class BossEmployeeManageBean4 {
 		
 		String affiliateCodeList = b_key;
 		System.out.println("affiliateCodeList" + affiliateCodeList);
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
+		
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
 		/***********************************************************************************************/
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
@@ -188,11 +188,7 @@ public class BossEmployeeManageBean4 {
 		String b_key = (String)session.getAttribute("b_key");
 		System.out.println(b_key);
 		
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
 		//내역 리스트
 		if (pageNum == null) {
@@ -302,11 +298,7 @@ public class BossEmployeeManageBean4 {
 		String b_key = (String)session.getAttribute("b_key");
 		System.out.println(b_key);
 		
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
 		//내역 리스트
 		if (pageNum == null) {
