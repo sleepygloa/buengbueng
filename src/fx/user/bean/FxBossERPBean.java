@@ -379,4 +379,18 @@ public class FxBossERPBean {
 		model.addAttribute("result", result);
 		return "/fxRent/fxResult";
 	}
+	
+	@RequestMapping("fxDeleteLastProduct.do")
+	public String fxDeleteLastProduct(String l_key, Model model){
+		String result = "result";
+		try{
+			sqlMap.delete("order.lastdayDelete", l_key);
+			result = "true";
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		model.addAttribute("result", result);
+		return "/fxRent/fxResult";
+	}
+	
 }

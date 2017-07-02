@@ -1,6 +1,10 @@
 package application;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 import application.controller.login.MainController;
+import javafx.application.Platform;
 import user.info.dto.UserInfo;
 
 // 사용자 이용시간 카운트
@@ -10,9 +14,15 @@ public class UseCount implements Runnable{
 	private static Thread useTime;
 	private boolean time;
 	private static int secs = 0;
+	private DecimalFormat df = new DecimalFormat("#.###");
 	
 	private UseCount(){
 		time = false;
+		df.setRoundingMode(RoundingMode.CEILING);
+	}
+	
+	public static Thread useTime(){
+		return useTime;
 	}
 	
 	public static void stopTime(){
@@ -20,6 +30,7 @@ public class UseCount implements Runnable{
 		instance.time = false;
 		instance = null;
 		useTime = null;
+		secs = 0;
 	}
 	
 	public static Thread getUseTime(int count){
@@ -40,10 +51,12 @@ public class UseCount implements Runnable{
 				int hour = secs / 3600;
 				
 				// 사용 가능 시간이 없으면
-				if(sec==0 && min ==0 && hour ==0){
-					time = false;
-					MainController main = new MainController();
-					main.Logout();
+				if(UserInfo.getInstance().getPoint() < UserInfo.getInstance().getMoneyPolicy()){
+					UseCount.stopTime();
+					Platform.runLater(() -> {
+						MainController main = new MainController();
+						main.Logout();
+					});
 				}
 				// 사용 가능 시간이 있으면
 				else{
@@ -54,14 +67,13 @@ public class UseCount implements Runnable{
 					
 					// 1초 당 포인트 0.25원 씩 차감
 					double usePoint = UserInfo.getInstance().getPoint();
-					UserInfo.getInstance().setPoint(usePoint-0.25);
+					UserInfo.getInstance().setPoint(Double.parseDouble(df.format(usePoint-UserInfo.getInstance().getMoneyPolicy())));
 					usePoint = UserInfo.getInstance().getPoint();
 					MainController.getPoint().setText(String.valueOf(usePoint)+"원");
-					
 					Thread.sleep(1000);
 				}
 			}catch(Exception e){
-				// 추후...수정
+				e.printStackTrace();
 			}
 		}
 	}

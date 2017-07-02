@@ -90,14 +90,13 @@ public class FxLoginBean {
 	
 	@RequestMapping("fxLoginPro.do")
 	public String fxLoginPro(UserInfoDataDTO dto, String ip, String key, Model model){
+		String result = "";
 		UserInfoDataDTO info = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", dto.getId());
 		if(info != null && info.getPw().equals(dto.getPw())){
 			UseTimeLogDTO udto = new UseTimeLogDTO();
 			udto.setId(info.getId());
 			udto.setGrade(info.getGrade());
-			
-			System.out.println(udto.getGrade());
-			
+
 			SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 				Calendar cal = Calendar.getInstance();
 				String today = null;
@@ -113,29 +112,40 @@ public class FxLoginBean {
 			map.put("key", key);
 			int pcNum = 0;
 			int money = 0;
+			double moneyPolicy = 0;
 			String bossIP  = null;
-			if(info.getGrade() == 3){ //자리정보 계좌정보를 불러오는듯?
-				pcNum = (Integer)sqlMap.queryForObject("bossERP.getPcNum", map);//좌석 갯수 불러오기
-				modifySeatState(key, pcNum, "1"); //좌석 이용현황 초기화
+			result = info.getId();
+			if(info.getGrade() == 3){ //자리정보 계좌정보 + 사용 가능 유무
 				UserAccountDTO uadto = (UserAccountDTO)sqlMap.queryForObject("cash.getUserAccount", info.getId()); //아이디의 계좌를 불러옴.
 				money = uadto.getMoney();
+				moneyPolicy = (double)sqlMap.queryForObject("bossERP.getMoneyPolicy", key);
+				if(money*2 < moneyPolicy){
+					result = "fail,충전 후 사용해 주십시오.";
+				}
+				pcNum = (Integer)sqlMap.queryForObject("bossERP.getPcNum", map);//좌석 갯수 불러오기
+				modifySeatState(key, pcNum, "1"); //좌석 이용현황 초기화
 				bossIP = (String)sqlMap.queryForObject("bossERP.getBossIP", key); //가맹점 IP 불러오기
 			}
-			model.addAttribute("result", info.getId());
 			model.addAttribute("money", money);
 			model.addAttribute("grade", info.getGrade());
 			model.addAttribute("loginTime", udto.getLoginTime());
 			model.addAttribute("pcNum", pcNum);
 			model.addAttribute("bossIP", bossIP);
+			model.addAttribute("moneyPolicy", moneyPolicy);
 		}else{
-			model.addAttribute("result", "fail");
+			result = "fail,로그인 실패";
+		}
+		try{
+			model.addAttribute("result", URLEncoder.encode(result,"UTF-8"));
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 		return "/fxUserInfo/fxLoginPro";
 	}
 	
 	@RequestMapping("fxLogoutPro.do")
-	public String fxLogoutPro(String id, String loginTime, String key, String pcNum, Model model){
-		HashMap<String, String> map = new HashMap<String, String>();
+	public String fxLogoutPro(String id, String loginTime, String key, String pcNum, Double useAmount, Model model){
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("loginTime", loginTime);
 		map.put("licenseKey", key);
@@ -149,6 +159,11 @@ public class FxLoginBean {
 			if(udto.getGrade() == 3){
 				UseTimeLogDTO utdto = (UseTimeLogDTO)sqlMap.queryForObject("useSeat.getUseUserInfo", map);
 				BossInfoDataDTO fdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getFranchiseeOne", key);
+				String menuAmount = (String)sqlMap.queryForObject("order.getUserMenuOrderSum", map);
+				if(menuAmount == null){
+					menuAmount = "0";
+				}
+				
 				UsageHistoryDataDTO uhdto = new UsageHistoryDataDTO();
 				uhdto.setUserId(id);
 				uhdto.setUserName(udto.getName());
@@ -157,9 +172,15 @@ public class FxLoginBean {
 				uhdto.setEndTime(utdto.getLogoutTime());
 				uhdto.setBusinessName(fdto.getB_name());
 				uhdto.setBossId(fdto.getB_id());
-				uhdto.setEtc("etc");
-				uhdto.setAmountUsed(1000);
+				uhdto.setAmountUsed(useAmount);
+				uhdto.setPcAmount(useAmount-Double.parseDouble(menuAmount));
+				uhdto.setMenuAmount(Integer.parseInt(menuAmount));
 				sqlMap.insert("cash.addUsageHistory", uhdto);
+				
+				map.clear();
+				map.put("id", id);
+				map.put("cash", useAmount-Double.parseDouble(menuAmount));
+				sqlMap.update("cash.deductMoney", map);
 			}
 			result = "succ";
 			model.addAttribute("result", result);
@@ -167,5 +188,13 @@ public class FxLoginBean {
 			e.printStackTrace();
 		}
 		return "/fxUserInfo/fxLogoutPro";
+	}
+	
+	@RequestMapping("fxGetUserPoint.do")
+	public String fxGetUserPoint(String id, Model model){
+		UserAccountDTO uadto = (UserAccountDTO)sqlMap.queryForObject("cash.getUserAccount", id);
+		double money = uadto.getMoney();
+		model.addAttribute("point", money);
+		return "/fxUserInfo/fxGetUserPoint";
 	}
 }

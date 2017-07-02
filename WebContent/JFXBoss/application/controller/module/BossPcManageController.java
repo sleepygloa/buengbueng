@@ -19,7 +19,6 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,20 +32,23 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class BossPcManageController {
 	@FXML private AnchorPane pcAlertView;
 	@FXML private AnchorPane pcUseView;
 	@FXML private AnchorPane pcRentView;
+	@FXML private WebView pcMenuView;
 	@FXML private TableView<RentOrderList> rentTable;
 	@FXML private TableColumn<RentOrderList,String> id;
 	@FXML private TableColumn<RentOrderList,String> orderName;
 	@FXML private TableColumn<RentOrderList,String> orderState;
 	@FXML private TableColumn<RentOrderList,Button> orderBtn;
 	@FXML private AnchorPane pcCountView;
+	@FXML private AnchorPane userInfoView;
 	@FXML private Text pcCheck;
 	@FXML private Text orderCount;
 	@FXML private Text rentCount;
@@ -55,6 +57,7 @@ public class BossPcManageController {
 	private static Text pcOrderCount;
 	private static Text pcRentCount;
 	private static Text pcCount;
+	private static AnchorPane pcUserInfoView;
 	private static ArrayList<AnchorPane> pcList = new ArrayList<AnchorPane>();
 	private static ObservableList<RentOrderList> data =FXCollections.observableArrayList();
 	private static Stage rentStage;
@@ -68,6 +71,7 @@ public class BossPcManageController {
 			RentDTO.getInstance().setReturnOrderNum(0);
 			PCCheckDTO.getInstance().setCurrentCount(0);
 			PCCheckDTO.getInstance().setPcAllCount(0);
+			pcUserInfoView = userInfoView;
 			pcRentTable = rentTable;
 			pcOrderCount = orderCount;
 			pcRentCount = rentCount;
@@ -97,8 +101,8 @@ public class BossPcManageController {
 				label.getStyleClass().add("pcNum");
 				AnchorPane pcUseCheck = new AnchorPane();
 				pcUseCheck.setId(String.valueOf(k));
-				pcUseCheck.setMaxWidth(128); pcUseCheck.setMinWidth(128);
-				pcUseCheck.setMaxHeight(128); pcUseCheck.setMinHeight(128);
+				pcUseCheck.setMaxWidth(117); pcUseCheck.setMinWidth(117);
+				pcUseCheck.setMaxHeight(117); pcUseCheck.setMinHeight(117);
 				pcUseCheck.getChildren().add(label);
 				String stateChk = iteratorState.next();
 				if(stateChk.equals("고장")){
@@ -106,7 +110,7 @@ public class BossPcManageController {
 					state.setTextFill(Color.RED);
 					Font font = Font.loadFont(getClass().getResourceAsStream("/application/css/font.ttf"), 20);
 					state.setFont(font);
-					state.setTranslateX(45); state.setTranslateY(10);
+					state.setTranslateX(40); state.setTranslateY(10);
 					pcUseCheck.getChildren().add(state);
 				}
 				if(chkUse == 0){
@@ -124,13 +128,10 @@ public class BossPcManageController {
 								@Override
 								public void handle(MouseEvent event) {
 									try{
+										userInfoView.getChildren().clear();
 										UserInfoController.setNum(label.getText());
 										UserInfoController.setUid(userId.getText());
-										Parent main =  FXMLLoader.load(getClass().getResource("/application/controller/module/userInfo.fxml"));
-										Scene scene = new Scene(main);
-										Stage userInfoStage = new Stage();
-										userInfoStage.setScene(scene);
-										userInfoStage.show();
+										userInfoView.getChildren().add(FXMLLoader.load(getClass().getResource("/application/controller/module/userInfo.fxml")));
 									}catch(Exception e){
 										e.printStackTrace();
 									}
@@ -175,7 +176,7 @@ public class BossPcManageController {
 			Iterator<Long> iteratorRNum = jsonRentPcNum.iterator();
 			Iterator<Long> iteratorRCode = jsonRentCode.iterator();
 			
-			while(iteratorRName.hasNext() && iteratorRId.hasNext() && iteratorRNum.hasNext() && iteratorRCode.hasNext()){
+			while(iteratorRCode.hasNext()){
 				String userId = iteratorRId.next();
 				Long pcNum = iteratorRNum.next();
 				Long code = iteratorRCode.next();
@@ -215,7 +216,7 @@ public class BossPcManageController {
 										"&code="+code+"&what="+URLEncoder.encode("return","UTF-8");
 								String urlInfo = "http://localhost:8080/buengbueng/fxUserRentReturnOk.do";
 								ConnectServer.connect(param, urlInfo);
-								int selectedIndex = rentTable.getSelectionModel().getSelectedIndex();
+								int selectedIndex = rentTable.getFocusModel().getFocusedIndex();
 							    if (selectedIndex >= 0) {
 							    	rentTable.getItems().remove(selectedIndex);
 							    	RentDTO.getInstance().setReturnOrderNum(RentDTO.getInstance().getReturnOrderNum()-1);
@@ -234,6 +235,12 @@ public class BossPcManageController {
 			orderCount.setText(String.valueOf(RentDTO.getInstance().getRentOrderNum()));
 			rentCount.setText(String.valueOf(RentDTO.getInstance().getReturnOrderNum()));
 			rentTable.setItems(data);
+			
+			// 메뉴
+			WebEngine webEngine = pcMenuView.getEngine();
+			// 웹 사이트에서 아이디 중복확인할 때 새 창 띄우는 거 없애고, Ajax 써야할 듯 -> load()가 여러 페이지를 보여주지 않고, 현재 페이지에 새로 띄우는 페이지를 덮어씌움
+			webEngine.load("http://localhost:8080/buengbueng/menuOrderListForm.do?l_key="+UserInfo.getInstance().getB_key());
+			webEngine.setJavaScriptEnabled(true);
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -262,17 +269,33 @@ public class BossPcManageController {
 	public static void userLogin(String[] txt){	
 		pcList.get(Integer.parseInt(txt[1])-1).getStyleClass().add("use");
 		Label userId = new Label(txt[2]);
+		userId.setTextFill(Color.WHITE);
 		userId.setTranslateX(30); userId.setTranslateY(10);
 		pcList.get(Integer.parseInt(txt[1])-1).getChildren().add(userId);
 		PCCheckDTO.getInstance().setCurrentCount(PCCheckDTO.getInstance().getCurrentCount()+1);
 		String check = PCCheckDTO.getInstance().getCurrentCount()+"/"+PCCheckDTO.getInstance().getPcAllCount();
 		pcCount.setText(check);
+		
+		pcList.get(Integer.parseInt(txt[1])-1).setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				try{
+					pcUserInfoView.getChildren().clear();
+					UserInfoController.setNum(txt[1]);
+					UserInfoController.setUid(userId.getText());
+					pcUserInfoView.getChildren().add(FXMLLoader.load(getClass().getResource("/application/controller/module/userInfo.fxml")));
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	public static void userLogout(String[] txt){
 		pcList.get(Integer.parseInt(txt[1])-1).getStyleClass().clear();
 		pcList.get(Integer.parseInt(txt[1])-1).getStyleClass().add("notUse");
 		pcList.get(Integer.parseInt(txt[1])-1).getChildren().remove(1);
+		pcList.get(Integer.parseInt(txt[1])-1).setOnMouseClicked(null);
 		PCCheckDTO.getInstance().setCurrentCount(PCCheckDTO.getInstance().getCurrentCount()-1);
 		String check = PCCheckDTO.getInstance().getCurrentCount()+"/"+PCCheckDTO.getInstance().getPcAllCount();
 		pcCount.setText(check);

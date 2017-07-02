@@ -6,8 +6,6 @@ import java.net.URLEncoder;
 
 import org.json.simple.JSONObject;
 
-import com.sun.glass.ui.Window;
-
 import all.info.dto.UserInfo;
 import application.ConnectServer;
 import application.Main;

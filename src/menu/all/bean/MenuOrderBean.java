@@ -40,9 +40,12 @@ public class MenuOrderBean {
 		request.setAttribute("menuList", menuList);
 		
 		//사용자가 주문 주문내역 가져오기
+		String loginTime = (String)sqlMap.queryForObject("useSeat.getUserStartTime2", id);
+		
 		HashMap map = new HashMap();
 		map.put("l_key",l_key);
 		map.put("id",id);
+		map.put("loginTime", loginTime);
 		List<OrderDTO> userOrderList=(List<OrderDTO>)sqlMap.queryForList("order.getUserOrderList", map);
 		request.setAttribute("userOrderList", userOrderList);
 		request.setAttribute("id", id);
@@ -114,6 +117,10 @@ public class MenuOrderBean {
 					// 마지막 주문의 날짜 가져오기.
 					String lastOrdertime=(String)sqlMap.queryForObject("order.getLastOrder",l_key);
 				
+					HashMap map4 = new HashMap();
+					map4.put("userId",id);
+					map4.put("money",price);
+					sqlMap.update("order.menuPayment", map4);
 					
 					if(lastOrdertime.equals(nowTime)){ 
 						OrderDTO odto=(OrderDTO) menuOrderList.get(0);
@@ -190,7 +197,7 @@ public class MenuOrderBean {
 	
 	/* 사용자 주문창에서 취소 창 */
 	@RequestMapping("userOrderCancel.do")
-	public String userOrderCancel(HttpServletRequest request, String id, String l_key, String name){
+	public String userOrderCancel(HttpServletRequest request, String id, String l_key, String name, String ordermoney){
 		int check=0;
 		String ordertime=request.getParameter("ordertime");
 		System.out.println(ordertime);
@@ -202,6 +209,13 @@ public class MenuOrderBean {
 			int status = (Integer)sqlMap.queryForObject("order.getUserOrder", map);
 			if(status==1){
 				sqlMap.update("order.userOrderCancel", map);
+				map.clear();
+				map.put("id", id);
+				map.put("ordermoney",ordermoney);
+				
+				System.out.println("ordermoney "+ordermoney);
+				
+				sqlMap.update("order.cancelMenuOrder", map);
 				check=1;
 			}else{
 				check=0;
@@ -295,11 +309,11 @@ public class MenuOrderBean {
 				int money = usermoney-ordermoney;
 				
 		
-				
-				HashMap map4 = new HashMap();
-				map4.put("userId",userId);
-				map4.put("money",money);
-				sqlMap.update("order.menuPayment", map4);
+//				
+//				HashMap map4 = new HashMap();
+//				map4.put("userId",userId);
+//				map4.put("money",money);
+//				sqlMap.update("order.menuPayment", map4);
 				
 				HashMap map1=new HashMap();
 				map1.put("num",num);

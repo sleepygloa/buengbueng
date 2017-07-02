@@ -21,7 +21,7 @@ import manage.boss.bean.FranchiseeDataDTO;
 import superclass.all.bean.Random;
 
 @Controller
-public class dashAllManagementBean extends BoardMethodBean{
+public class DashAllManagementBean extends BoardMethodBean{
 	@Autowired
 	SqlMapClientTemplate sqlMap;
 	@Autowired
@@ -44,7 +44,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 			
 			FranchiseeDataDTO franchiseeDto = null;
 			franchiseeDto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeLastConfirmLog", num);
-			System.out.println(franchiseeDto.getB_key());
+			
 			sqlMap.insert("franchisee.insertFranchiseeInfo", franchiseeDto);
 			
 			// 혜민 코드 추가 시작
@@ -168,7 +168,7 @@ public class dashAllManagementBean extends BoardMethodBean{
 	@RequestMapping("dashAgreeInfo.do")
 	public String dashAgreeInfo(String b_name, Model model){
 		FranchiseeDataDTO dto = null;
-		dto = (FranchiseeDataDTO)sqlMap.queryForObject("admin.getFranchiseeInfo", b_name);
+		dto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeInfo", b_name);
 
 		model.addAttribute("dto", dto);
 

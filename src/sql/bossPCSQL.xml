@@ -51,4 +51,8 @@
 	<select id="getPcNum" parameterClass="java.util.HashMap" resultClass="int">
 		select num from pcInfo where ip = #ip# and b_key = #key#;
 	</select>
+	<!-- 가맹점의 이용요금정책 가져오기 -->
+	<select id="getMoneyPolicy" parameterClass="String" resultClass="double">
+		select IdMoneyPolicy from franchiseePolicy where b_key = #key#;
+	</select>
 </sqlMap>

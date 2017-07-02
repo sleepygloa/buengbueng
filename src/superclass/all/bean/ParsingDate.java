@@ -67,7 +67,6 @@ public class ParsingDate {
 		Timestamp t = null;
 		
 		t = new Timestamp(date);
-		System.out.println("t"+t);
 		return t;
 	}
 	

@@ -22,6 +22,18 @@ public class LoginController {
 	@FXML private PasswordField pw;
 	@FXML private Text alertTxt;
 	
+	@FXML
+	public void initialize(){
+		try{
+			String param="key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8");
+			String urlInfo = "http://localhost:8080/buengbueng/fxUserStart.do";
+			JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+			UserInfo.getInstance().setFranchiseeName((String)jsonObj.get("franchiseeName"));
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	public void searchId(){
 		try {
 			Parent main =  FXMLLoader.load(getClass().getResource("/application/controller/login/SearchIDApp.fxml"));
@@ -81,16 +93,17 @@ public class LoginController {
 				String id = (String)jsonObj.get("id");
 				
 				// 서버로부터 값을 전달 받았고, 그 값이 fail이 아니라면 = 로그인 성공
-				if(!id.isEmpty() && !id.equals("fail")){
+				if(!id.isEmpty() && !id.contains("fail")){
 					// 사용자 정보 저장
 					UserInfo.getInstance().setId(id);
+					UserInfo.getInstance().setStartPoint(Double.parseDouble((String)jsonObj.get("point")));
 					UserInfo.getInstance().setPoint(Double.parseDouble((String)jsonObj.get("point")));
 					UserInfo.getInstance().setGrade(Integer.parseInt((String)jsonObj.get("grade")));
 					UserInfo.getInstance().setLoginTime((String)jsonObj.get("loginTime"));
 					UserInfo.getInstance().setBossIP((String)jsonObj.get("bossIP"));
 					UserInfo.getInstance().setPcNum((String)jsonObj.get("pcNum"));
-					Parent main = null;
-					main =  FXMLLoader.load(getClass().getResource("/application/controller/login/MainApp.fxml"));
+					UserInfo.getInstance().setMoneyPolicy((double)jsonObj.get("moneyPolicy"));
+					Parent main =  FXMLLoader.load(getClass().getResource("/application/controller/login/MainApp.fxml"));
 					// 메인화면 레이아웃을 화면에 등록
 					Scene scene = new Scene(main);
 					scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
@@ -104,7 +117,7 @@ public class LoginController {
 				}
 				// 서버로부터 값을 전달 받지 못했거나, 전달받은 값이 fail이라면 = 로그인 실패
 				else{
-					alertTxt.setText("로그인 실패");
+					alertTxt.setText(id.substring(id.indexOf(",")+1, id.length()));
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

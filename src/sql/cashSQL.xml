@@ -177,12 +177,17 @@
 	
 	<!-- 사용자 이용내역 추가 (usageHistory) -->
 	<insert id="addUsageHistory" parameterClass="historyDTO">
-		insert into usageHistory values(#idx#, #userId#, #userName#, #affiliateCode#, #usageTime#, #endTime#, #amountUsed#, 0, #businessName#, #bossId#, 0);
+		insert into usageHistory values(#idx#, #userId#, #userName#, #affiliateCode#, #usageTime#, #endTime#, #amountUsed#, #pcAmount#, #businessName#, #bossId#, #menuAmount#);
 	</insert>
 
 	<!-- 사용자의 잔액 가져오기 (15번째 코드에서 parameterClass 빠져있음) -->
 	<select id="getUserAccount" parameterClass="String" resultClass="uadto">
 		select * from userAccount where id = #id#;
 	</select>	
+	
+	<!-- 로그아웃 시 사용자 잔액 차감 -->
+	<update id="deductMoney" parameterClass="java.util.HashMap">
+		update userAccount set money = money - #cash# where id = #id#;
+	</update>
 </sqlMap>
 

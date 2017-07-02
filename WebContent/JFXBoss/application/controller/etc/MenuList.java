@@ -7,7 +7,7 @@ public class MenuList {
 	private SimpleStringProperty mcode;
 	private SimpleStringProperty mprice;
 	
-	MenuList(String mname, String mcode, String mprice){
+	public MenuList(String mname, String mcode, String mprice){
 		this.mname = new SimpleStringProperty(mname);
 		this.mcode = new SimpleStringProperty(mcode);
 		this.mprice = new SimpleStringProperty(mprice);

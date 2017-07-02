@@ -85,7 +85,7 @@
 		update rentLog set code = #code#, rentdate = now() where b_key = #b_key# and id = #id# and name = #name#;
 	</update>
 	<!-- 사용자의 대여 신청 취소 -->
-	<delete id="userRentCancel">
+	<delete id="userRentCancel" parameterClass="rentLogDTO">
 		delete from rentLog where b_key = #b_key# and id = #id# and name = #name# and code = 0; 
 	</delete>
 	<!-- 대여 물품 대여 상태 변경 -->

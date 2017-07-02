@@ -2,7 +2,9 @@ package fx.user.bean;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import manage.boss.bean.RentDataDTO;
 import manage.boss.bean.RentLogDataDTO;
 import manage.boss.bean.RentProductDataDTO;
+import menu.all.bean.OrderDTO;
 
 @Controller
 public class FxRentBean {
@@ -61,7 +64,7 @@ public class FxRentBean {
 		StringBuffer sb = new StringBuffer();
 		StringBuffer sb2 = new StringBuffer();
 		try{
-			String[] name = rentList.split(" ");
+			String[] name = rentList.split(",");
 			for(int i=0; i<name.length; i++){
 				rentLog.setName(name[i]);
 				int count = (Integer)sqlMap.queryForObject("rent.getUserRentCheck", rentLog);
@@ -78,6 +81,7 @@ public class FxRentBean {
 			}
 			if(sb2.length() != 0){
 				suc = sb2.toString().substring(0,sb2.toString().length()-1);
+				System.out.println(suc);
 			}
 			model.addAttribute("result", URLEncoder.encode(result, "UTF-8"));
 			model.addAttribute("suc", URLEncoder.encode(suc, "UTF-8"));
@@ -102,12 +106,10 @@ public class FxRentBean {
 				sb2.append("\""+URLEncoder.encode(rentOrderList.get(i).getId(),"UTF-8")+"\"");
 				sb3.append(rentOrderList.get(i).getPcNum());
 				sb4.append(rentOrderList.get(i).getCode());
-				if(i != rentOrderList.size()-1){
-					sb.append(",");
-					sb2.append(",");
-					sb3.append(",");
-					sb4.append(",");
-				}
+				sb.append(",");
+				sb2.append(",");
+				sb3.append(",");
+				sb4.append(",");
 			}
 			for(int i=0; i<rentOrderList2.size(); i++){
 				sb.append("\""+URLEncoder.encode(rentOrderList2.get(i).getName(),"UTF-8")+"\"");
@@ -129,6 +131,7 @@ public class FxRentBean {
 			model.addAttribute("id", sb2.toString());
 			model.addAttribute("pcNum", sb3.toString());
 			model.addAttribute("code", sb4.toString());
+
 		}catch(Exception e){
 			
 		}
@@ -214,7 +217,7 @@ public class FxRentBean {
 	}
 	
 	@RequestMapping("fxGetOneUserInfo.do")
-	public String fxGetOneUserInfo(String id, Model model){
+	public String fxGetOneUserInfo(String id, String b_key, Model model){
 		try{
 			String startTime = (String)sqlMap.queryForObject("useSeat.getUserStartTime", id);
 			
@@ -236,6 +239,31 @@ public class FxRentBean {
 			model.addAttribute("name", sb.toString());
 			model.addAttribute("code", sb2.toString());
 			
+			HashMap<String,Object> param = new HashMap<String,Object>();
+			param.put("id", id);
+			param.put("l_key", b_key);
+			
+			ArrayList<OrderDTO> menuOrderList = (ArrayList<OrderDTO>)sqlMap.queryForList("order.getOneUserMenuOrder", param);
+			
+			StringBuffer sb3 = new StringBuffer("[");
+			StringBuffer sb4 = new StringBuffer("[");
+			StringBuffer sb5 = new StringBuffer("[");
+			for(int i=0; i<menuOrderList.size(); i++){
+				sb3.append("\""+URLEncoder.encode(menuOrderList.get(i).getMenuname(),"UTF-8")+"\"");
+				sb4.append("\""+URLEncoder.encode(String.valueOf(menuOrderList.get(i).getCode()),"UTF-8")+"\"");
+				sb5.append("\""+URLEncoder.encode(String.valueOf(menuOrderList.get(i).getOrdermoney()),"UTF-8")+"\"");
+				if(i != menuOrderList.size()-1){
+					sb3.append(",");
+					sb4.append(",");
+					sb5.append(",");
+				}
+			}
+			sb3.append("]");
+			sb4.append("]");
+			sb5.append("]");
+			model.addAttribute("mName", sb3.toString());
+			model.addAttribute("mCode", sb4.toString());
+			model.addAttribute("mMoney", sb5.toString());
 		}catch(Exception e){
 			e.printStackTrace();
 		}
