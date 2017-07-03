@@ -120,26 +120,19 @@ public class BossEmployeeManageBean2 {
 		
 		HashMap map = new HashMap();
 		map.put("id", id);
-		map.put("start", pd.longToTimestamp(start));
-		map.put("end", pd.longToTimestamp(end));
-		System.out.println("start : "+pd.longToTimestamp(start));
-		System.out.println("end : "+pd.longToTimestamp(end));
-		System.out.println("start : "+start);
+		map.put("start", pd.longToTimestamp(start-32400000));
+		map.put("end", pd.longToTimestamp(end-32400000));
 		try{
 			int check = (Integer)sqlMap.queryForObject("erpEmp.calenderInsertTimeCheck", map);
-			System.out.println("check"+ check);
 			if(check == 0){
-				returnText = "";
 			}else{//check != 0 뭔가 있을때
-				returnText = "선택한 일정에는 이미 "+check+" 개의 일정이 추가 되어있습니다. 일정을 추가하시겠습니까(추가하면 기존의 일정은 변경되게 됩니다)?, 기존의 일정 외의 일정만 추가하시겠습니까?";
+				returnText = "선택한 일정에는 이미 "+check+" 개의 일정이 추가 되어있습니다. ";
 			}
-			System.out.println("returnText : "+returnText);
 			model.addAttribute("jsonList", returnText);
 			mv.setViewName("/bossERP/employeeManage/employeeCalenderJSON");
 		}catch(Exception e){
 			
 		}
-		
 		return mv;
 	}
 	
@@ -167,7 +160,7 @@ public class BossEmployeeManageBean2 {
 	
 	//알바생 일정 추가 처리
 	@RequestMapping("employeeCalenderInsertPro.do")
-	public String employeeCalenderInsertPro(HttpSession session, Model model, BossEmployeeManageDataDTO beDTO){
+	public ModelAndView employeeCalenderInsertPro(HttpSession session, Model model, BossEmployeeManageDataDTO beDTO){
 		
 		int check = 9;
 		
@@ -223,7 +216,7 @@ public class BossEmployeeManageBean2 {
 		
 		model.addAttribute("check", check);
 		
-		return "/bossERP/employeeManage/employeeCalenderInsert";	
+		return new ModelAndView("redirect:/employeeCalender.do");	
 	}
 	
 	//알바생 일정 JSON으로 불러오기 AJAX
