@@ -30,6 +30,19 @@ public class ChatbotListBean extends BoardMethodBean {
 		}else{
 			model.addAttribute("max", 0);
 		}
+		// 질문 리스트 출력
+		//최신 3일간 질문
+		ArrayList<ChattingLogDto> ldto = (ArrayList)sqlMap.queryForList("chatbot.newChatLog", null);
+		request.setAttribute("ldto", ldto);
+		//자주 묻는 질문
+		ArrayList<ChattingLogDto> ldto1 = (ArrayList)sqlMap.queryForList("chatbot.inChatLog", null);
+		request.setAttribute("ldto1", ldto1);
+		//답변할 수 없는 질문
+		ArrayList<ChattingLogDto> ldto2 = (ArrayList)sqlMap.queryForList("chatbot.noReChatLog", null);
+		request.setAttribute("ldto2", ldto2);
+		//자주 나오는 키워드
+		ArrayList<ChattingLogDto> ldto3 = (ArrayList)sqlMap.queryForList("chatbot.chatLogKeyword", null);
+		request.setAttribute("ldto3", ldto3);
 		return "/chatbot/chatbotList";
 	}
 	
