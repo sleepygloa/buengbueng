@@ -105,6 +105,15 @@
 							</div>
 					</div>
 				</div>
+				<!-- 가맹주 계좌-->
+				<div class="row">
+					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+							<label>계좌번호<br /></label>
+							<div class="form-group">
+								<input class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" type="text" name="b_requestedAccount" placeholder="계좌번호 입력" onblur="return checkB_size();">	
+							</div>
+					</div>
+				</div>
 				<!-- 보유 컴퓨터수 -->
 				<div class="row">
 

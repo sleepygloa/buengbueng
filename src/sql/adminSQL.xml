@@ -111,7 +111,7 @@
 	<!-- 관리자 페이지 가맹점 신청 리스트 목록 -->
 	<select id="getFranchiseeAddList" resultClass="franchiseeDTO" parameterClass="java.util.HashMap">
 		<![CDATA[
-		select num,date, result, date, b_id, finishDate, b_name, b_number, b_address, b_tel, b_size, b_pccount, b_ip, b_key,@rownum:=@rownum+1 as rownum
+		select num,date, result, date, b_id, finishDate, b_name, b_number, b_address, b_tel, b_size, b_pccount, b_ip, b_key,b_requestedAccount,@rownum:=@rownum+1 as rownum
 		 from franchiseeLog,(select @rownum:=0)r where result = 0 order by date asc limit #startRow#,#pageSize#;
 		 ]]> 	
 	</select>
@@ -148,4 +148,28 @@
 	<select id="getBossFranchiseeList" resultClass="franchiseeDTO" parameterClass="java.util.HashMap">
 		select b_id,b_name, b_key from franchiseeInfo order by b_id desc limit #startRow#,#pageSize#;
 	</select>
+	
+	<!-- 정산시 해당 가맹점 라이센스키 뽑기 -->
+	<select id="getAcceptingRequestB_key" resultClass="String">
+		select b_key from dailySettlement where idx=#idx#;
+	</select>
+	
+	
+	<select id="getTitle"  resultClass="String">
+		<![CDATA[
+		select a.num
+		from employeeWorkTime as a 
+		inner join employeeWorkTimeCommute as b
+		on a.num = b.num
+ 		where a.b_key=#b_key# and start >=#start# and end <= #end#;
+ 		]]>
+	</select>
+	<!-- 
+	<select id="WorkTimeCommuteNum" resultClass="int">
+	<![CDATA[
+		SELECT num FROM employeeWorkTimeCommute where commuteTime >= #start# and offWorkTime <=#end#;
+	]]>
+	</select>
+	 -->
+	
 </sqlMap>

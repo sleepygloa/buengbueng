@@ -1,6 +1,8 @@
 package manage.admin.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -403,9 +405,26 @@ public class dashAllManagementBean extends BoardMethodBean{
 	}
 	@RequestMapping("/AcceptingRequestPro.do")
 	public String AcceptingRequestPro(HttpServletRequest request){
-		String[] chbox = request.getParameterValues("chbox") ;
-		System.out.println("방의 길이" + chbox.length);
+		String[] chbox = request.getParameterValues("chbox"); 
+		
+		
+		Calendar day = Calendar.getInstance();
+        day.add(Calendar.DATE , -1);
+        
+        //현재 오늘일 기준으로 어제 시작 일 00:00:00  코드
+    	String startDate = new java.text.SimpleDateFormat("yyyy-MM-dd 00:00:00").format(day.getTime());
+    	System.out.println("startDate" + startDate);
+    	//현재 오늘일 기준으로 어제 종료 일 23:59:59  코드
+    	String endDate = new java.text.SimpleDateFormat("yyyy-MM-dd 23:59:59").format(day.getTime());
+    	System.out.println("endDate" + endDate);
+    	
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+		SimpleDateFormat end = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
+    	Calendar c1 = Calendar.getInstance();
 
+        String Today = sdf.format(c1.getTime());
+        String Endday = end.format(c1.getTime());
+    	
 		ArrayList<String> arrayList = new ArrayList<>();
 		for(String temp : chbox){
 		  arrayList.add(temp);
@@ -417,9 +436,20 @@ public class dashAllManagementBean extends BoardMethodBean{
 		for(int i=0; i<chbox.length; i++){
 			HashMap idx = new HashMap<>();
 			idx.put("idx", chbox[i]);
+			 String b_key = (String)sqlMap.queryForObject("admin.getAcceptingRequestB_key", idx);
+			 System.out.println("b_key" + b_key);
+			 
+			 HashMap info = new HashMap<>();
+			 info.put("b_key", b_key);
+			 info.put("start", Today);
+			 info.put("end", Endday);
+			 
+			 List employee = (List) sqlMap.queryForList("admin.getTitle", info);
+			 System.out.println("employee" + employee);
 			 sqlMap.update("cash.approval", idx);
+			
 		}
 		
-		return "redirect:/AcceptingRequest.do";
+		return "/dash-AcceptingRequest/AcceptingRequestPro";
 	}
 }

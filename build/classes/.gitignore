@@ -1,3 +1,4 @@
+/config/
 /erp/
 /fx/
 /index/
@@ -7,5 +8,5 @@
 /payment/
 /pc/
 /pcRoom/
-/superclass/
 /sql/
+/superclass/

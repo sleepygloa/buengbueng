@@ -14,6 +14,7 @@ public class FranchiseeDataDTO {
 	private String b_pccount; //사업장 내 보유 PC수
 	private String b_ip; //사업장 사장님 PC IP
 	private String b_key; //프로그램 License Key
+	private String b_requestedAccount; //가맹주 계좌번호
 	
 	private int num; //신청번호 //가맹점 list에서 사용
 	private Timestamp date; //신청날짜
@@ -24,6 +25,12 @@ public class FranchiseeDataDTO {
 	private String pw; //삭제비밀번호
 	
 	
+	public String getB_requestedAccount() {
+		return b_requestedAccount;
+	}
+	public void setB_requestedAccount(String b_requestedAccount) {
+		this.b_requestedAccount = b_requestedAccount;
+	}
 	public String getPw() {
 		return pw;
 	}

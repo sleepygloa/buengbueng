@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import payment.all.bean.DailySettlementDTO;
+import superclass.all.bean.FranchiseeSelect;
 
 @Controller
 
@@ -24,6 +25,7 @@ public class BossEmployeeManageBean4 {
 	
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
+	
 	
 	@RequestMapping("/applyForSettlement.do")
 	public String applyForSettlement (String pageNum, HttpSession session, HttpServletRequest request, Model model)throws Exception{
@@ -80,7 +82,7 @@ public class BossEmployeeManageBean4 {
 		if (pageNum == null) {
             pageNum = "1";
         }
-        int pageSize = 5;
+        int pageSize = 40;
         int currentPage = Integer.parseInt(pageNum);
         int startRow = (currentPage - 1) * pageSize + 1;
         int endRow = currentPage * pageSize;
@@ -122,7 +124,9 @@ public class BossEmployeeManageBean4 {
         System.out.println("check" + check);
         int checkPoint = 0;
 		if(check < 1){ //  check 0 일결우 삽입
+			
 			checkPoint = 1;
+			System.out.println("checkPoint" + checkPoint);
 		}else if(check >= 1){ //  check 0이 아닐 경우에 블럭
 			checkPoint = 2;
 		}
@@ -302,11 +306,14 @@ public class BossEmployeeManageBean4 {
 		String b_key = (String)session.getAttribute("b_key");
 		System.out.println(b_key);
 		
+		//////////////////////////////////////////
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
 		int sidemenu = 3; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
+		
+
 		
 		//내역 리스트
 		if (pageNum == null) {
@@ -351,4 +358,9 @@ public class BossEmployeeManageBean4 {
 		return "/bossERP/pcUseStatus/pcUseStatusList";
 	}
 	
+	@RequestMapping("/erpMain.do")
+	public String erpMain(){
+		
+		return "/bossERP/pcUseStatus/erpMain";
+	}
 }

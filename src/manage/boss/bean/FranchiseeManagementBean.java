@@ -130,10 +130,10 @@ public class FranchiseeManagementBean {
 				
 				////////////////////////////////////////////////////////////
 				//TEXT파일로 로그를 남기는 코드
-				String fileName = "\\franchisee\\addSuccessLog\\addSuccessLog.txt";
-				String fileCheck = "franchisee";
-				franchiseeDto.setB_id(id);
-				read.readDb(franchiseeDto, fileName, fileCheck);
+//				String fileName = "\\franchisee\\addSuccessLog\\addSuccessLog.txt";
+//				String fileCheck = "franchisee";
+//				franchiseeDto.setB_id(id);
+//				read.readDb(franchiseeDto, fileName, fileCheck);
 				////////////////////////////////////////////////////////////
 			}catch(Exception e){
 				check = 2;
@@ -141,10 +141,10 @@ public class FranchiseeManagementBean {
 				System.out.println(e);
 				////////////////////////////////////////////////////////////
 				//TEXT파일로 로그를 남기는 코드
-				String fileName = "\\franchisee\\addErrorLog\\addErrorLog.txt";
-				String fileCheck = "franchisee";
-				franchiseeDto.setB_id(id);
-				read.readDb(franchiseeDto, fileName, fileCheck);
+//				String fileName = "\\franchisee\\addErrorLog\\addErrorLog.txt";
+//				String fileCheck = "franchisee";
+//				franchiseeDto.setB_id(id);
+//				read.readDb(franchiseeDto, fileName, fileCheck);
 				////////////////////////////////////////////////////////////
 			}
 		

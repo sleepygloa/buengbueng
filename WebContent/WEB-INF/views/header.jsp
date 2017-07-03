@@ -385,7 +385,8 @@
       </header>
       
 <section class="main_wrap"> 
-  	<div class="main container">
+	<!-- css로 추가활것 -->
+  	<div class="main container" style="width:100%; background: #E7EAEB;">
  
 		 <!-- SIDEMENU TEMPLATE -->
 		<c:if test="${sidemenuCheck == 1}">

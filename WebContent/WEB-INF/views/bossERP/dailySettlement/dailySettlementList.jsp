@@ -25,7 +25,6 @@
 				<th>계좌번호</th>
 				<th>정산금액</th>
 				<th>상품상세보기</th>
-				<th>사용자 이용내역</th>
 				<th>현황</th>
 			</tr>
 			<c:if test="${count > 0}">
@@ -42,7 +41,6 @@
 					<td>${articleList.requestedAccount}</td>
 					<td>${articleList.settlementAmount}</td>
 					<td><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do', '_blank', 'width=550 height=500')" >상세보기</a></td>
-					<td><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do?settlementDate=${articleList.settlementDate}', '_blank', 'width=550 height=500')" >상세보기</a></td>
 					<td>${articleList.settlementStatus}</td>
 				</tr>
 			</c:forEach>
