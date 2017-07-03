@@ -5,20 +5,25 @@
 	<c:forEach begin="1" end="${count}" var="pcNum" step="1">
 		<c:if test="${seatCon[pcNum-1] == '0'}">
 			<div id="seatDisposeSecondDiv">
-				<input type="checkBox" value="${pcNum}" name="checkPC"/>${pcNum}
+				&nbsp;${pcNum}
+				<c:if test="${pcState[pcNum-1] eq '고장'}">
+					&nbsp;<b style="color: red;">고장</b>
+				</c:if>
 			</div>
 		</c:if>
 		<c:if test="${seatCon[pcNum-1] == '1'}">
-			<div id="seatDisposeSecondDiv2">
-				<input type="checkBox" value="${pcNum}" name="checkPC"/>${pcNum}<br/>
+				<div id="seatDisposeSecondDiv2" onclick="getUserInfo('${pcNum}','${useSeatId.get(usePcCount)}');">
+				<c:set var="usePcCount" value="0" />
+				&nbsp;${pcNum}<br/>
 				<c:forEach var="num" items="${useSeatNum}">
 					<c:if test="${num == (pcNum)}">
 						${useSeatId.get(usePcCount)}님<br/>
-						${useSeatRent.get(usePcCount)}
+					</c:if>
+					<c:if test="${num != (pcNum)}">
+						<c:set var="usePcCount" value="${usePcCount+1}" />
 					</c:if>
 				</c:forEach>
 			</div>
-			<c:set var="usePcCount" value="${usePcCount+1}" />
 		</c:if>
 	</c:forEach>
 	<br/>
