@@ -121,10 +121,21 @@ public class BossEmployeeManageBean2 {
 		HashMap map = new HashMap();
 		map.put("id", id);
 		map.put("start", pd.longToTimestamp(start-32400000));
+		map.put("startBeforDay", pd.longToTimestamp(start-86400000-32400000));
 		map.put("end", pd.longToTimestamp(end-32400000));
+		map.put("endAfterDay", pd.longToTimestamp(end+86400000-32400000));
 		try{
 			int check = (Integer)sqlMap.queryForObject("erpEmp.calenderInsertTimeCheck", map);
 			if(check == 0){
+				check = (Integer)sqlMap.queryForObject("erpEmp.calenderInsertTimeCheckNight", map);
+				if(check == 1){
+					returnText = "선택한 일정에는 이미 "+check+" 개의 일정이 추가 되어있습니다. ";
+				}else{
+					check = (Integer)sqlMap.queryForObject("erpEmp.calenderInsertTimeCheckNight2", map);
+					if(check == 1){
+						returnText = "선택한 일정에는 이미 "+check+" 개의 일정이 추가 되어있습니다. ";
+					}
+				}
 			}else{//check != 0 뭔가 있을때
 				returnText = "선택한 일정에는 이미 "+check+" 개의 일정이 추가 되어있습니다. ";
 			}

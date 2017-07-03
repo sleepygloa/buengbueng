@@ -211,6 +211,22 @@
 	]]>
 	</select>
 
+	<!-- 알바생 근무 일정 추가 하기전에 일정이 있는지 확인(야간근무확인:전날 밤 클릭) -->
+	<select id="calenderInsertTimeCheckNight" resultClass="int" parameterClass="java.util.HashMap">
+	<![CDATA[
+		select count(*) from employeeWorkTime where title = #id# and
+		 (start >= #start# and end >= #end# and end < #endAfterDay#);
+	]]>
+	</select>
+	
+		<!-- 알바생 근무 일정 추가 하기전에 일정이 있는지 확인(야간근무확인:다음날 새벽 클릭) -->
+	<select id="calenderInsertTimeCheckNight2" resultClass="int" parameterClass="java.util.HashMap">
+	<![CDATA[
+		select count(*) from employeeWorkTime where title = #id# and
+		 (start >= #startBeforDay# and end >= #start# and end < #end#);
+	]]>
+	</select>
+
 	<!-- 알바생 근무 일정 추가 -->
 	<insert id="calenderInsertTime" parameterClass="beDto">
 	 INSERT INTO employeeWorkTime( b_key, todayDate, title, start, end)
