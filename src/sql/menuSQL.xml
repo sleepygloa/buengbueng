@@ -49,11 +49,10 @@
 		update menu set name=#name#, price=#price#, category=#category#, company=#company# where name=#beforeName#;
 	</update>
 	
-	
-	<!-- menu 삭제 -->
-	<delete id="deleteMenu" parameterClass="String">
-		delete from menu where name=#name#;
-	</delete>
+   <!-- menu 삭제 -->
+   <delete id="deleteMenu" parameterClass="java.util.HashMap">
+      delete from menu where name=#name# and l_key=#l_key#;
+   </delete>
 	
 	
 	
@@ -99,8 +98,8 @@
 	</delete>
 	
 	
-	
 
+	
 	
 </sqlMap>
 	

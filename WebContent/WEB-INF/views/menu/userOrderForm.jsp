@@ -38,6 +38,7 @@
 	<div><br><br></div>
 	
 			<div class="userMenuStatus">
+			
 			<input type="hidden" id ="name" value="${name}" />
 		<table>
 			<tr>
@@ -64,6 +65,7 @@
 			</c:forEach>
 			
 			</table>
+			
 		</div>		
 	
 	
