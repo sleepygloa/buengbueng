@@ -43,10 +43,5 @@ function successModi(){
 	<span><input type="text" id="googleId" class="size" value="${googleId}" placeholder="구글Id"></span>
 	<span>${date}</span>
 	<span><button onclick="return successModi();">수정완료</button></span>
-	<c:if test="${keyword == ''}">
-		<span><input type="button" value="취소" onclick="window.location='dashUser.do?grade=${dto.grade}&pageNum=${pageNum}';"></span>
-	</c:if>
-	<c:if test="${keyword != ''}">
-		<span><input type="button" value="취소" onclick="window.location='dashUserSearch.do?keyword=${keyword}&pageNum=${pageNum}';"></span>
-	</c:if>
+		<span><input type="button" value="취소" onclick="history.go(0);"></span>
 </div>

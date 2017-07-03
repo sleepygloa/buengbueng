@@ -1,8 +1,14 @@
 package application.controller.login;
 
+import java.awt.Desktop;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.URI;
 import java.net.URLEncoder;
 
 import org.json.simple.JSONArray;
@@ -19,6 +25,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import user.info.dto.UserInfo;
 
@@ -35,12 +43,24 @@ public class MainController {
 	// 메인창(로그인 후 뜨는 창) 나타날 때 실행됨
 	@FXML
 	public void initialize(){
-		id.setText(UserInfo.getInstance().getId());
-		point.setText(UserInfo.getInstance().getPoint()+"원");
-		pcNum.setText(UserInfo.getInstance().getPcNum());
-		useTime2 = useTime;
-		point2 = point;
-		count();
+		try{
+            Socket sock = new Socket(UserInfo.getInstance().getBossIP(), 7778);
+            OutputStream out = sock.getOutputStream();
+            PrintWriter pw = new PrintWriter(new OutputStreamWriter(out));
+            
+            pw.println("login,"+UserInfo.getInstance().getPcNum()+","+UserInfo.getInstance().getId());
+           
+            pw.close();
+            sock.close();
+			id.setText(UserInfo.getInstance().getId());
+			point.setText(UserInfo.getInstance().getPoint()+"원");
+			pcNum.setText("No."+UserInfo.getInstance().getPcNum());
+			useTime2 = useTime;
+			point2 = point;
+			count();
+	     }catch(Exception e){
+	            System.out.println(e);
+	     }
 	}
 	
 	// 사용 가능 시간 타이머
@@ -52,6 +72,17 @@ public class MainController {
 	
 	// 메뉴 주문 -> 포인트 차감 -> 사용 가능 시간 깎임
 	public void menuOrder(){
+		
+		WebView menuWeb = new WebView();
+		WebEngine webEngine = menuWeb.getEngine();
+		webEngine.load("http://localhost:8080/buengbueng/userOrderForm.do");
+		webEngine.setJavaScriptEnabled(true);
+		Scene scene = new Scene(menuWeb);
+		Stage menuStage = new Stage();
+		menuStage.setScene(scene);
+		menuStage.show();
+		
+		/* 나중에 주석 해제
 		// 타이머 멈춤
 		UseCount.stopTime();
 		// 주문한 메뉴가 2000원이라고 치고...
@@ -64,6 +95,7 @@ public class MainController {
 			alert.setText("충전 후 이용해주십시오.");
 			count();
 		}
+		*/
 	}
 	
 	// 
@@ -99,6 +131,15 @@ public class MainController {
 			
 			// 로그아웃 정상적으로 되면 초기 화면(로그인 화면)으로 전환
 			if(jsonObj.get("result").equals("succ")){
+				Socket sock = new Socket(UserInfo.getInstance().getBossIP(), 7778);
+	            OutputStream out = sock.getOutputStream();
+	            PrintWriter pw = new PrintWriter(new OutputStreamWriter(out));
+	            
+	            pw.println("logout,"+UserInfo.getInstance().getPcNum()+","+UserInfo.getInstance().getId());
+	           
+	            pw.close();
+	            sock.close();
+	            
 				UserInfo.getInstance().clear();
 				BorderPane root = new BorderPane();
 				Parent login = FXMLLoader.load(getClass().getResource("/application/controller/login/LoginApp.fxml"));
@@ -107,16 +148,22 @@ public class MainController {
 				GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 				Scene scene = new Scene(root);
 				scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
-				Main.getStage().setWidth(gd.getDisplayMode().getWidth());
-				Main.getStage().setHeight(gd.getDisplayMode().getHeight());
-				Main.getStage().setX(0);	// 모니터 상에 창이 위치할 X 좌표
-				Main.getStage().setY(0);	// 모니터 상에 창이 위치할 Y 좌표
 				Main.getStage().setScene(scene);
+				Main.getStage().setFullScreen(true);
 			}
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	// 충전
+	public void cash(){
+		try{
+			Desktop.getDesktop().browse(new URI("http://localhost:8080/buengbueng/cash.do"));
+		}catch(Exception e){
+			
 		}
 	}
 	

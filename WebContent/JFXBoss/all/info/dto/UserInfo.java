@@ -18,7 +18,7 @@ public class UserInfo {
 	
 	public void clear(){
 		id = null;
-		grade = 3;
+		grade = 0;
 		loginTime = null;
 	}
 	

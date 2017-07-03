@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -15,14 +22,88 @@
                     <items>
                       <AnchorPane fx:id="pcCountView" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="160.0" style="-fx-background-color: #222;">
                            <children>
-                              <Text fx:id="pcCheck" fill="WHITE" layoutX="118.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" AnchorPane.bottomAnchor="48.63671875" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="123.2734375" AnchorPane.topAnchor="54.5859375">
-                                 <font>
-                                    <Font size="72.0" />
-                                 </font>
-                              </Text>
+                              <VBox prefHeight="200.0" prefWidth="398.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label fx:id="franchiseeName" alignment="CENTER" prefHeight="44.0" prefWidth="398.0" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Text fx:id="pcCheck" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="399.0">
+                                       <font>
+                                          <Font size="72.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </Text>
+                                 </children>
+                              </VBox>
                            </children>
                         </AnchorPane>
-                      <AnchorPane fx:id="pcRentView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: #222;" />
+                      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <VBox layoutX="149.0" layoutY="256.0" prefHeight="882.0" prefWidth="398.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <HBox prefHeight="26.0" prefWidth="398.0">
+                                       <children>
+                                          <Label text="대여 현황 |">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label text="신청">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Text fx:id="orderCount" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="69.57551956176758">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <Label text="| 사용 중">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <Text fx:id="rentCount" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="69.57551956176758">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <AnchorPane fx:id="pcRentView" prefHeight="443.0" prefWidth="398.0">
+                                       <children>
+                                          <TableView fx:id="rentTable" fixedCellSize="0.0" layoutX="99.0" layoutY="62.0" prefHeight="409.0" prefWidth="398.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                              <TableColumn fx:id="id" prefWidth="109.0" text="사용자" />
+                                              <TableColumn fx:id="orderName" prefWidth="135.0" text="대여 물품" />
+                                                <TableColumn fx:id="orderState" minWidth="0.0" prefWidth="84.0" text="상태" />
+                                                <TableColumn fx:id="orderBtn" minWidth="0.0" prefWidth="68.0" text="확인" />
+                                            </columns>
+                                          </TableView>
+                                       </children></AnchorPane>
+                                    <AnchorPane prefHeight="446.0" prefWidth="398.0" />
+                                 </children>
+                              </VBox>
+                           </children></AnchorPane>
                     </items>
                   </SplitPane>
                </children></AnchorPane>

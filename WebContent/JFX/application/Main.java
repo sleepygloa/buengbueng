@@ -23,6 +23,7 @@ public class Main extends Application {
 			primaryStage.setFullScreen(true);
 			primaryStage.setFullScreenExitHint("");
 			primaryStage.setScene(scene);
+			
 			primaryStage.show();
 			
 		} catch(Exception e) {

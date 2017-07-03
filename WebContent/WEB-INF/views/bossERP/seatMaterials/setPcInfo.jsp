@@ -15,6 +15,15 @@
 	</c:if>
 		OS : <input type="text" value="${pcInfo.os}" name="os" /><br/>
 		IP : <input type="text" value="${pcInfo.ip}" name="ip" /><br/>
+		상태 : <select name="state">
+				<option>${pcInfo.state}</option>
+				<c:if test="${pcInfo.state == '정상'}">
+					<option>고장</option>
+				</c:if>
+				<c:if test="${pcInfo.state == '고장'}">
+					<option>정상</option>
+				</c:if>
+			 </select><br/>
 		
 		<p>본체 정보<p/>
 		제품코드 : <input type="text" value="${computer.c_code}" name="c_code"/><br/>

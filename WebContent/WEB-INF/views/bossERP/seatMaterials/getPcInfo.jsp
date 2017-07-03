@@ -9,6 +9,7 @@
 		pc 번호 : <input type="text" value="${pcInfo.num}" name="num" readonly /><br/>
 		OS : <input type="text" value="${pcInfo.os}" name="os" readonly/><br/>
 		IP : <input type="text" value="${pcInfo.ip}" name="ip" readonly/><br/>
+		상태 : <input type="text" value="${pcInfo.state}" name="state" readonly/><br/>
 		
 		<p>본체 정보<p/>
 		제품코드 : <input type="text" value="${computer.c_code}" name="c_code" readonly/><br/>

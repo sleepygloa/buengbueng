@@ -2,6 +2,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<style>
+.my_side_ul li{
+display:box;
+text-align:center;
+
+}
+.my_side_ul li select{
+width:100%;
+margin:10 0;
+padding:0 0 0 10;
+}
+.my_side_ul li select option{
+width:100%;
+padding:0 0 0 10;
+}
+.my_side_ul li a:link{
+color:black;
+text-decoration:none;
+}
+.my_side_ul li a:hover{
+font-size:1.05em;
+}
+</style>
 <script type="text/javascript">
 window.onload=function(){
 	var id = '${sessionScope.loginId}';
@@ -11,8 +34,8 @@ window.onload=function(){
 		data : {id : id},
 		success:function(data){
 			$('.flist').html(data);
-								}
-			});
+		}
+	});
 }
 $(document).ready(function(){
 	$("#franchiseeSelect").change(function(){
@@ -25,9 +48,8 @@ $(document).ready(function(){
         		window.location="bossErpMain.do";
         	}
         });
+	})
 })
-})
-
 </script>
 ${sessionScope.b_key}
 
@@ -45,11 +67,10 @@ ${sessionScope.b_key}
 		</c:if>
 		
 		<c:if test="${sidemenu == 3}">
-			<li><a href="bossErpMain.do" >ERP관리 MAIN</a></li>
+			<li><a href="bossErpMain.do">ERP관리 MAIN</a></li>
 			<li>
-				<select id="franchiseeSelect" class="flist">
-				</select>
-			
+					<select id="franchiseeSelect" class="flist">
+					</select>
 			</li>
 			<li><hr /></li>
 			<li>알바생 관리</li>
@@ -61,12 +82,20 @@ ${sessionScope.b_key}
 					<li><a class="minor-minor" href="employeeCommute.do">출근하기</a></li>
 					<li><a class="minor-minor" href="employeeOffWork.do">퇴근하기</a></li>
 					<li><a class="minor-minor" href="employeeWorkTimeList.do">출근 기록 확인</a></li>
-					<li><a class="minor-minor" href="employeeLoginList.do">알바 로그인 기록확인</a></li>
 					<li><a class="minor-minor" href="">휴가 관리</a></li>
 				</ul>
 			</li>
 			<li><a href="bossEmployeeAccountManage.do" >장부 관리</a></li>
-		
+			
+			<li><hr /></li>
+			<li>PC이용 현황</li>
+			<li><a class="minor-minor" href="pcUseStatusList.do">가맹점 PC이용 현황</a></li>
+			
+			<li><hr /></li>
+			<li>일일정산</li>
+			<li><a class="minor-minor" href="applyForSettlement.do">일일정산 요청</a></li>
+			<li><a class="minor-minor" href="dailySettlementList.do">일일정산 내역</a></li>
+			
 			<li><hr /></li>
 			<li>메뉴</li>
 			<li><a href="menu.do">메뉴 관리</a></li>
@@ -79,8 +108,8 @@ ${sessionScope.b_key}
 			
 			<li><hr /></li>
 			<li>PC방 관리</li>
-			<li><a href="seatDisposeMain.do" >PC방 좌석 정보 관리</a></li>
-			<li><a href="seatStateMain.do" >PC방 좌석 이용 관리</a></li>
+			<li><a href="seatDispose.do" >PC방 좌석 정보 관리</a></li>
+			<li><a href="seatState.do" >PC방 좌석 이용 관리</a></li>
 			<li><hr /></li>
 			<li>대여 관리</li>
 			<li><a href="rentMain.do" >대여물품 관리</a></li>

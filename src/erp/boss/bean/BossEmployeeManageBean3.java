@@ -13,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import login.user.bean.UseTimeLogDTO;
+import superclass.all.bean.FindIpBean;
+
 @Controller
 public class BossEmployeeManageBean3 {
 
@@ -42,6 +45,9 @@ public class BossEmployeeManageBean3 {
 			ewtDTO = (EmployeeWorkTimeDTO)sqlMap.queryForObject("erpEmp.employeeCommuteCheck", e_id);
 			
 			if(ewtDTO == null){
+				int check = 10;
+				model.addAttribute("check", check);
+				return "/bossERP/employeeManage/employeeCalender";
 			}else if(ewtDTO.getResult() != 0){
 				ewtDTO = (EmployeeWorkTimeDTO)sqlMap.queryForObject("erpEmp.getCommute", ewtDTO);
 				int check = -1;
@@ -54,14 +60,13 @@ public class BossEmployeeManageBean3 {
 				sqlMap.update("erpEmp.updateEmployeeCommute", e_id);
 				ewtDTO = (EmployeeWorkTimeDTO)sqlMap.queryForObject("erpEmp.getCommute", ewtDTO);
 			}
+			commuteTime = ewtDTO.getCommuteTime();
+			
+			model.addAttribute("commuteTime", commuteTime);
+			model.addAttribute("checkCommute", checkCommute);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		commuteTime = ewtDTO.getCommuteTime();
-		
-		model.addAttribute("commuteTime", commuteTime);
-		model.addAttribute("checkCommute", checkCommute);
 		
 		return "/bossERP/employeeManage/employeeCommute";
 	}
@@ -89,6 +94,9 @@ public class BossEmployeeManageBean3 {
 			ewtDTO = (EmployeeWorkTimeDTO)sqlMap.queryForObject("erpEmp.employeeOffWorkCheck", e_id);
 			
 			if(ewtDTO == null){
+				int check = 10;
+				model.addAttribute("check", check);
+				return "/bossERP/employeeManage/employeeCalender";
 			}else if(ewtDTO.getResult() == 2){
 				ewtDTO = (EmployeeWorkTimeDTO)sqlMap.queryForObject("erpEmp.getCommute", ewtDTO);
 				int check = -1;
@@ -101,14 +109,64 @@ public class BossEmployeeManageBean3 {
 				sqlMap.update("erpEmp.updateEmployeeOffWork2", e_id);
 				ewtDTO = (EmployeeWorkTimeDTO)sqlMap.queryForObject("erpEmp.getCommute", ewtDTO);
 			}
+			commuteTime = ewtDTO.getCommuteTime();
+			
+			model.addAttribute("commuteTime", commuteTime);
+			model.addAttribute("checkCommute", checkCommute);
+			
+			
+			
+			
+			//////////////////////////////////////////
+			try{
+				
+				/////////////////////////////
+//				퇴근시 사용시간 결제
+				/////////////////////////////테스트하기위해서는 가맹점을 그자리에서 만들어야한다.
+				//로그아웃PC의 IP -> LicenseKey 조회 -> 키로 가맹점 요금정책 -> 요금정책을 이용하여
+				//로그아웃시간 - 로그인 시간 = 이용시간 * 요금정책 = 사용금액 
+				//현재금액 - 사용금액 = 남은돈
+				FindIpBean findIpBean = new FindIpBean();
+				String ip = findIpBean.findIp();
+				
+				HashMap map = new HashMap();
+				map.put("e_id",e_id);
+				map.put("b_ip", ip);
+				
+				String b_id = (String)sqlMap.queryForObject("erpEmp.getEidBid", e_id);
+				
+				
+				System.out.println(ip); //192.168.91.1 192.168.111.1 192.168.10.1
+				UseTimeLogDTO utlDto = null;
+//				if((Integer)sqlMap.queryForObject("test.getGradeInfo", e_id) == 3 && (Integer)session.getAttribute("webLogin") != 1){//웹에서 로그인시 막는다.
+				
+				//유저가 사용한 PC방 이용시간 디테일정보 찾기(계산)
+				utlDto = (UseTimeLogDTO)sqlMap.queryForObject("cash.employeeTimePay", map);//이용시간 정보를 계산하여 가져온다.
+
+				utlDto.setB_id(b_id);
+				utlDto.setE_id(e_id);
+				
+				sqlMap.insert("log.offWorkLog", utlDto);//이용로그남기기, pc방
+				sqlMap.insert("log.offWorkPayLog", utlDto);//결제로그남기기,
+				
+				sqlMap.update("log.EmployeeGiveBossMoneyEmployeeAccount", utlDto);//사용자 계좌에 반영
+				sqlMap.update("log.EmployeeGiveBossMoneyBossAccount", utlDto);//사장님계좌에 반영
+//				}else{}
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+			}
+			
+			//////////////////////////////////////////
+			
+			
+			
+			
+			
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		commuteTime = ewtDTO.getCommuteTime();
-		
-		model.addAttribute("commuteTime", commuteTime);
-		model.addAttribute("checkCommute", checkCommute);
 		
 		return "/bossERP/employeeManage/employeeCommute";
 	}
@@ -129,17 +187,17 @@ public class BossEmployeeManageBean3 {
 		//변수들을 페이지로 전달
 		
 		try{
-			int check = (Integer)sqlMap.queryForObject("erpEmp.getUserGrade", id);
+			int check = (Integer)sqlMap.queryForObject("erpEmp.getUserGrade", id);//알바인지, 사장님인지 구분한다.
 			//리스트를 뽑는다.
 			List list = new ArrayList();
 			
 			if(check == 1){
 				//사장님이면	
-				list = (List)sqlMap.queryForObject("erpEmp.getEmployeeWorkTimeList", id);
+				list = (List)sqlMap.queryForList("erpEmp.getEmployeeWorkTimeList", id);
 			}else if(check == 2){
 				//알바생이면				
 				id = (String)sqlMap.queryForObject("erpEmp.getEidBid", id);
-				list = (List)sqlMap.queryForObject("erpEmp.getEmployeeWorkTimeList", id);
+				list = (List)sqlMap.queryForList("erpEmp.getEmployeeWorkTimeList", id);
 			}else{}
 		
 			model.addAttribute("list", list);
@@ -148,7 +206,7 @@ public class BossEmployeeManageBean3 {
 			e.printStackTrace();
 		}
 		
-		return "/bossERP/employeeManage/employeeLoginList";
+		return "/bossERP/employeeManage/employeeWorkTimeList";
 	}	
 	
 }

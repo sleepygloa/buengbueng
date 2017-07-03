@@ -10,6 +10,17 @@
 	<delete id="deleteUserInfo" parameterClass="String">
 		delete from userInfo where id=#id#;
 	</delete>
+
+	<!-- 알바 계좌 정보 삭제 -->
+	<delete id="userAccountDeleteE" parameterClass="String">
+		delete from userAccount where id=#e_id#;
+	</delete>
+	
+	<!-- 회원 삭제 시 계좌정보 삭제 -->
+	<delete id="userAccountDelete" parameterClass="userDto">
+		delete from userAccount where id = #id#;
+	</delete>
+	
 	
 	<select id="loginCheck" resultClass="userDto" parameterClass="userDto">
 		select * from userInfo;
@@ -42,6 +53,11 @@
 		insert into userAccount values(#id#, 0);
 	</insert>
 	
+		<!-- 회원 가입 -->
+	<insert id="userAccountInsertE" parameterClass="String">
+		insert into userAccount values(#e_id#, 0);
+	</insert>
+	
 	
 	<!-- 알바가 사장님을 찾을 겁니다 -->
 	<select id="searchBossId" parameterClass="String" resultClass="String">
@@ -57,6 +73,14 @@
 	<select id="getUserAddr" parameterClass="String" resultClass="String">
 		select address from userInfo where id = #id#;
 	</select>
+	
+	<!-- 회원 주소 가져오기 -->
+	<select id="getGradeInfo" parameterClass="String" resultClass="int">
+		select grade from userInfo where id = #id#;
+	</select>	
+	
+	
+	
 </sqlMap>
 
 
