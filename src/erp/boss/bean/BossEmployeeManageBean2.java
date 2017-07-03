@@ -107,8 +107,40 @@ public class BossEmployeeManageBean2 {
 		
 		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
-		
 		return "/bossERP/employeeManage/employeeCalender";
+	}
+	
+	//알바생 일정 추가하기전에 검색하기
+	@RequestMapping("employeeCalenderEventInsertCheck.do")
+	public ModelAndView employeeCalenderEventInsertCheck(HttpSession session, Model model, Long start, Long end){
+		
+		String id = sc.getSessionIdModelId(model, session); //sessionId, model.addAttribute(id) template
+		String returnText = "";
+		ModelAndView mv = new ModelAndView();
+		
+		HashMap map = new HashMap();
+		map.put("id", id);
+		map.put("start", pd.longToTimestamp(start));
+		map.put("end", pd.longToTimestamp(end));
+		System.out.println("start : "+pd.longToTimestamp(start));
+		System.out.println("end : "+pd.longToTimestamp(end));
+		System.out.println("start : "+start);
+		try{
+			int check = (Integer)sqlMap.queryForObject("erpEmp.calenderInsertTimeCheck", map);
+			System.out.println("check"+ check);
+			if(check == 0){
+				returnText = "";
+			}else{//check != 0 뭔가 있을때
+				returnText = "선택한 일정에는 이미 "+check+" 개의 일정이 추가 되어있습니다. 일정을 추가하시겠습니까(추가하면 기존의 일정은 변경되게 됩니다)?, 기존의 일정 외의 일정만 추가하시겠습니까?";
+			}
+			System.out.println("returnText : "+returnText);
+			model.addAttribute("jsonList", returnText);
+			mv.setViewName("/bossERP/employeeManage/employeeCalenderJSON");
+		}catch(Exception e){
+			
+		}
+		
+		return mv;
 	}
 	
 	//알바생 일정 추가하기
@@ -189,8 +221,6 @@ public class BossEmployeeManageBean2 {
 
 		}
 		
-		
-		
 		model.addAttribute("check", check);
 		
 		return "/bossERP/employeeManage/employeeCalenderInsert";	
@@ -203,12 +233,13 @@ public class BossEmployeeManageBean2 {
 		List list = new ArrayList();
 		
 		String id = sc.getSessionIdModelId(model, session); //sessionId, model.addAttribute(id) template
+		String b_key = (String)session.getAttribute("b_key");
 		
 		try{
 			ObjectMapper mapper = new ObjectMapper();
 			
 			String b_id = (String)sqlMap.queryForObject("erpEmp.getEidBid", id);
-			list = (List)sqlMap.queryForList("erpEmp.getCalenderWorkTimeList", b_id);
+			list = (List)sqlMap.queryForList("erpEmp.getCalenderWorkTimeList", b_key);
 
 			String jsonList = mapper.writeValueAsString(list);
 			mv.setViewName("/bossERP/employeeManage/employeeCalenderJSON");
