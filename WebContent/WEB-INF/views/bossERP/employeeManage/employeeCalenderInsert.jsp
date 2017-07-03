@@ -1,18 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:if test="${check == 9}">
- <script>
- opener.parent.location.reload();
-   function sc(){
-      
-      opener=self;
-      
-      setTimeout('self.close()',500);
-   }
-</script> 
-<body onload="sc()"></body>
-</c:if>
 
 
 <c:if test="${check != 9}">
@@ -83,7 +71,7 @@
             근무일수 :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input class="date_button" type="button" value="${forDate}"/> 일<input  type="hidden" name="forDate" value="${forDate}"/><br /><br />
             <span class="date_minor_minor">*. 야근근무자는 기간 체크를 해주세요.<br />(근무시간 중 24시간이 지나는 타임만!!)</span>
             <br /><br />
-            <input class="btn btn-default col-xs-12-12" type="submit" value="신청하기"  /> 
+            <input class="date_submit col-xs-12-12" type="submit" value="신청하기"  /> 
       </form>
 
 </c:if>

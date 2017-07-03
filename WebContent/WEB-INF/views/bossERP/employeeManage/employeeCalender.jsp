@@ -160,6 +160,12 @@ width:50px;
 .date_minor_minor{
 font-size:0.8em;
 }
+.date_submit{
+background-color:#555;
+}
+.date_submit:hover{
+background-color:#616161;
+}
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
     from {opacity: 0;} 
