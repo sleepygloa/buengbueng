@@ -69,7 +69,14 @@
             
             종료일 : <input type="hidden" name="endDate" value="${ends}"/><input type="button" name="endDate" value="${ends}"/><br />
             근무일수 :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input class="date_button" type="button" value="${forDate}"/> 일<input  type="hidden" name="forDate" value="${forDate}"/><br /><br />
-            <span class="date_minor_minor">*. 야근근무자는 기간 체크를 해주세요.<br />(근무시간 중 24시간이 지나는 타임만!!)</span>
+            표시 색상 : <select  class="date_selectbox" name="eventColor"  id="sel" onchange="backgroundCh();" style="background-color:#7092BE;color:#7092BE">
+				<option class="date_selectbox_blue" value="#7092BE" selected="selected" >파랑</option>
+            	<option class="date_selectbox_red" value="#FFAEC9">분홍</option>
+            	<option class="date_selectbox_brown" value="#B97A57">갈색</option>
+            	<option class="date_selectbox_yellow" value="#EFE4B0">연노랑</option>
+            	<option class="date_selectbox_green" value="#B5E61D">초록</option>
+            </select><br /><br />
+                     
             <br /><br />
             <input class="date_submit col-xs-12-12" type="submit" value="신청하기"  /> 
       </form>

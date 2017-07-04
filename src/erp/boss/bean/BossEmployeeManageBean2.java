@@ -172,7 +172,6 @@ public class BossEmployeeManageBean2 {
 	//알바생 일정 추가 처리
 	@RequestMapping("employeeCalenderInsertPro.do")
 	public ModelAndView employeeCalenderInsertPro(HttpSession session, Model model, BossEmployeeManageDataDTO beDTO){
-		
 		int check = 9;
 		
 		String id = (String)session.getAttribute("loginId");

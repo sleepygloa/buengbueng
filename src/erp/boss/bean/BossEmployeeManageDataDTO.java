@@ -22,17 +22,27 @@ public class BossEmployeeManageDataDTO {
 	private String b_key; //가맹점 
 	private String b_name; // 가맹점 이름
 	
-	private String startDate;
-	private String endDate;
-	private String startHour;
-	private String endHour;
+	//연산을 위해 변수를 쪼갬
+	private String startDate; //알바시작일
+	private String endDate; //알바끝나는일
+	private String startHour; //알바시작시간
+	private String endHour; //알바끝나는 시간
 	
-	private Timestamp startTime;
-	private Timestamp endTime;
+	private Timestamp startTime; //반환하기 위한 값, 알바시작시간
+	private Timestamp endTime; //반환하기 위한 값, 알바 끝나는 시간
 	
 	private String forDate; //알바 기간 (일)
 	
+	private String eventColor; //이벤트 색상
 	
+	
+	
+	public String getEventColor() {
+		return eventColor;
+	}
+	public void setEventColor(String eventColor) {
+		this.eventColor = eventColor;
+	}
 	public String getForDate() {
 		return forDate;
 	}

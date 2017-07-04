@@ -81,7 +81,7 @@ ${sessionScope.b_key}
 					<li><a class="minor-minor" href="employeeCalender.do">근무달력</a></li>
 					<li><a class="minor-minor" href="employeeCommute.do">출근하기</a></li>
 					<li><a class="minor-minor" href="employeeOffWork.do">퇴근하기</a></li>
-					<li><a class="minor-minor" href="employeeWorkTimeList.do">출근 기록 확인</a></li>
+					<li><a class="minor-minor" href="employeeWorkTimeList.do">출근  확인</a></li>
 					<li><a class="minor-minor" href="">휴가 관리</a></li>
 				</ul>
 			</li>

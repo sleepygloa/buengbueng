@@ -184,6 +184,11 @@ border:none;
 outline: none;
 width:125px;
 }
+.date_selectbox_blue,.date_selectbox_blue:hover{background-color:#7092BE;color:#7092BE;}
+.date_selectbox_red{background-color:#FFAEC9;color:#FFAEC9;}
+.date_selectbox_brown{background-color:#B97A57;color:#B97A57;}
+.date_selectbox_yellow{background-color:#EFE4B0;color:#EFE4B0;}
+.date_selectbox_green{background-color:#B5E61D;color:#B5E61D;}
 </style>
 
 <link href="/buengbueng/js/calender/fullcalendar.css" rel="stylesheet"/>
@@ -191,6 +196,11 @@ width:125px;
 <script type="text/javascript" src="/buengbueng/js/calender/lib/moment.min.js"></script>
 <script type="text/javascript" src="/buengbueng/js/calender/fullcalendar.js" charset="utf-8"></script>
 <script type="text/javascript">
+backgroundCh = function() { 
+    var sel = document.getElementById('sel'); 
+    sel.style.backgroundColor = sel.value;
+    sel.style.color = sel.value; 
+};
   var eventInfoDateStart = "";
   var eventInfoDateEnd = ""; 
 function moveConfirm(date){
@@ -347,7 +357,7 @@ $(document).ready(function() {
 
 //////////////////////////////////////////////////////////////////////////////////////////   		  
    		  select:function(start,end){
-   			eventInsertCheck(start, end); 
+   			  eventInsertCheck(start, end); 
    		  },
 //////////////////////////////////////////////////////////////////////////////////////////
    		  eventDragStart: function(event, eventDropF){
