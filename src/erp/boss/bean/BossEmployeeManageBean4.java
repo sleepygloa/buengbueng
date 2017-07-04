@@ -1,8 +1,11 @@
 package erp.boss.bean;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import menu.all.bean.SellBuyLogDTO;
 import menu.all.bean.TotalMenuPriceDTO;
 import payment.all.bean.DailySettlementDTO;
 
@@ -353,6 +357,66 @@ public class BossEmployeeManageBean4 {
 	}
 	
 	
+	@RequestMapping("userviewDetails.do")
+	public String userviewDetails(String id,HttpSession session,String starttime, String endtime, HttpServletRequest request){
+		try{
+		String l_key=(String)session.getAttribute("b_key");
+		ArrayList countList=new ArrayList();
+		List priceList=null;
+		List totalpriceList=null;
+		List menunameList=null;
+		int total=0;
+				
+		String startTime=starttime.substring(0,10);
+		String endTime=endtime.substring(0,10);
+		
+		
+		
+		HashMap map = new HashMap();
+		map.put("id", id);
+		map.put("l_key",l_key);
+		map.put("startTime", startTime);
+		map.put("endTime", endTime);
+		List<SellBuyLogDTO> idMatchList = (List)sqlMap.queryForList("erpEmp.sellBuyLogIdMatch", map);
+		
+		if(idMatchList!=null){
+			menunameList = (List)sqlMap.queryForList("erpEmp.getMenuname",map);
+			for(int i=0; i<menunameList.size();i++){
+				String name = (String)menunameList.get(i);
+				
+				HashMap map1=new HashMap();
+				map1.put("l_key",l_key);
+				map1.put("name", name);
+				map1.put("id",id);
+				map1.put("startTime",startTime);
+				map1.put("endTime", endTime);
+				int count =(Integer)sqlMap.queryForObject("erpEmp.getCountMenu",map1);
+				System.out.println(countList);
+				countList.add(count);
+				int price=(Integer)sqlMap.queryForObject("erpEmp.getPriceMenu", map1);
+			
+				priceList.add(price);
+				int totalprice=price*count;
+			
+				totalpriceList.add(totalprice);				
+			}
+			//총합
+			
+			for(int i=0;i<totalpriceList.size();i++){
+				total= total+(Integer)totalpriceList.get(i);
+			}
+		}else{
+			idMatchList=Collections.EMPTY_LIST;
+		}
+		request.setAttribute("menunameList",menunameList);
+		request.setAttribute("countList",countList);
+		request.setAttribute("priceList",priceList);
+		request.setAttribute("totalpriceList", totalpriceList);
+		request.setAttribute("total", total);
+		}catch(Exception e){ e.printStackTrace();}
+		return "/bossERP/dailySettlement/userviewDetails";
+	}
 	
 	
+
 }

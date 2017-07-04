@@ -377,7 +377,7 @@ public class MenuOrderBean {
 				sqlMap.update("order.productsaleregistdate", map6);
 				
 				
-
+				//여기서부터는 정산
 				Date nowtime=new Date();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				String nowTime = sdf.format(nowtime);
@@ -393,7 +393,8 @@ public class MenuOrderBean {
 				tmp2.put("l_key", l_key);
 				tmp2.put("saledate", nowTime);
 				
-				//여기서부터는 정산
+			
+				
 				int sellbuylogcheck=(Integer)sqlMap.queryForObject("order.sellBuyLogCheck",l_key);
 				if(sellbuylogcheck==0){ // TotalMenuPrice 처음 등록. (각 가맹점마다 한번만 실행됨.)
 				

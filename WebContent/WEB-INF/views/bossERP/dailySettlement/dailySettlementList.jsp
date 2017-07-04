@@ -41,7 +41,7 @@
 					<td>${articleList.settlementNumber}</td>
 					<td>${articleList.requestedAccount}</td>
 					<td>${articleList.settlementAmount}</td>
-					<td><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do', '_blank', 'width=550 height=500')" >상세보기</a></td>
+					<td><a href="#" onclick="window.open('http://localhost:8080/buengbueng//viewDetails.do?settlementDate=${articleList.settlementDate}', '_blank', 'width=550 height=500')" >상세보기</a></td>
 					<td><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do?settlementDate=${articleList.settlementDate}', '_blank', 'width=550 height=500')" >상세보기</a></td>
 					<td>${articleList.settlementStatus}</td>
 				</tr>
