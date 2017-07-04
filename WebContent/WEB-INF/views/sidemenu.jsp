@@ -9,20 +9,19 @@
 @import url('http://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
 @import url('http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css');
 body {
-  
   color: #5D5F63;
   background: #293949;
   font-family: 'Open Sans', sans-serif;
-  padding: 0;
-  margin: 0;
+  float:lett;
+  height:100%;
+  border:1px green solid;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 .sidebar-toggle {
-  margin-left: -240px;
 }
 .sidebar {
-  width: 240px;
+  width: 100%;
   height: 100%;
   background: #293949;
   /* position: absolute; */
@@ -32,6 +31,7 @@ body {
   -ms-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   z-index: 9;
+  float:left;
 }
 .sidebar #leftside-navigation ul,
 .sidebar #leftside-navigation ul ul {
@@ -129,14 +129,14 @@ $(document).ready(function(){
 	})
 })
 </script>
-${sessionScope.b_key}
+<input type="hidden" value="${sessionScope.b_key}">
 </head>
 
-<body>
+<body style="height:100%;">
 <!-- SIDEMENU 위치에서 실제로 사용할 영역 지정하는 DIV -->
 	<div class="sidemenu xs_hidden">
 	<!-- 링크 LIST -->
-		<ul class="my_side_ul">
+		
 <!-- --------------------------------------------------------- -->
 
 <aside class="sidebar">
@@ -239,7 +239,7 @@ ${sessionScope.b_key}
   </div>
 </aside>
 <!-- --------------------------------------------------------- -->		
-		</ul>
+	
 	</div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>

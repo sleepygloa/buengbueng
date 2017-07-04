@@ -4,6 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
 		<title>Insert title here</title>
 		<style type="text/css">
 			.tabl tr{border:1px red solid; width:auto;}
@@ -12,39 +13,91 @@
 		</style>
 	</head>
 	
-	<jsp:include page="../../header.jsp" />
+	<jsp:include page="../../erp_header.jsp" />
 	
 	<body >
-		<table border="1" class="tabl">
-			<tr>
-				<th>번호</th>
-				<th>정산일자</th>
-				<th>가맹주 아이디</th>
-				<th>가맹점</th>
-				<th>정산 내역 수</th>
-				<th>계좌번호</th>
-				<th>정산금액</th>
-				<th>상품상세보기</th>
-				<th>현황</th>
-			</tr>
-			<c:if test="${count > 0}">
-			<c:forEach items="${articleList}" var="articleList">
+		<div class="ERP_Navigator">
+			<ul>
+				<li>ERP 관리</li>
+				<li>></li>
+				<li>일일정산</li>
+				<li>></li>
+				<li>일일정산 내역</li>
+			</ul>
+		</div>
+		<div class="boss_con">
+			<p>일일정산 내역</p>
+			<hr>
+			<table border="1" class="dailySettlementList_table">
 				<tr>
-					<td>
-						<c:out value="${number}"/>
-						<c:set var="number" value="${number-1}"/>
-					</td>
-					<td>${articleList.settlementDate}</td> 	
-					<td>${articleList.bossId}</td>
-					<td>${articleList.companyName}</td>
-					<td>${articleList.settlementNumber}</td>
-					<td>${articleList.requestedAccount}</td>
-					<td>${articleList.settlementAmount}</td>
-					<td><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do', '_blank', 'width=550 height=500')" >상세보기</a></td>
-					<td>${articleList.settlementStatus}</td>
+					<th>번호</th>
+					<th>정산일자</th>
+					<th>가맹주 아이디</th>
+					<th>가맹점</th>
+					<th>정산 내역 수</th>
+					<th>계좌번호</th>
+					<th>정산금액</th>
+					<th>상품상세보기</th>
+					<th>현황</th>
 				</tr>
-			</c:forEach>
-			</c:if>
-		</table>
+				<c:if test="${count < 1}">
+					<tr class="dailySettlementList_NoCount">
+						<td colspan="9">
+							<p>
+							<img src="/buengbueng/img/bossERP/bg_alert.gif" width="40" height="40">
+								조회결과가 없습니다.
+							</p>
+						</td>
+					</tr>
+				</c:if>
+				<c:if test="${count > 0}">
+				<c:forEach items="${articleList}" var="articleList">
+					<tr>
+						<td>
+							<c:out value="${number}"/>
+							<c:set var="number" value="${number-1}"/>
+						</td>
+						<td>${articleList.settlementDate}</td> 	
+						<td>${articleList.bossId}</td>
+						<td>${articleList.companyName}</td>
+						<td>${articleList.settlementNumber}</td>
+						<td>${articleList.requestedAccount}</td>
+						<td>${articleList.settlementAmount}</td>
+						<td><div class="bt_1"><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do', '_blank', 'width=550 height=500')" >상세보기</a></div></td>
+						<td>${articleList.settlementStatus}</td>
+					</tr>
+				</c:forEach>
+				</c:if>
+			</table>
+			<div class="paging_con">
+				<div class="paging_con_box">
+				    <c:if test="${count > 0}">
+			        <c:set var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}"/>
+			        <c:set var="pageBlock" value="${10}"/>
+			        <fmt:parseNumber var="result" value="${currentPage / 10}" integerOnly="true" />
+			        <c:set var="startPage" value="${result * 10 + 1}" />
+			        <c:set var="endPage" value="${startPage + pageBlock-1}"/>
+			        <c:if test="${endPage > pageCount}">
+			            <c:set var="endPage" value="${pageCount}"/>
+			   		</c:if> 
+			          
+			   		<c:if test="${startPage > 10}">
+			        		<a href="/buengbueng/dailySettlementList.do?pageNum=${startPage - 10 }">[이전]</a>
+			   		</c:if>
+			
+			   		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			   			<div class="paging_part">
+			       		<a class="pageing-ing" href="/buengbueng/dailySettlementList.do?pageNum=${i}">${i}</a>
+			       		</div>
+			   		</c:forEach>
+			
+			   		<c:if test="${endPage < pageCount}">
+			        	<a href="/buengbueng/dailySettlementList.do?pageNum=${startPage + 10}">[다음]</a>
+			   		</c:if>
+					</c:if>
+				</div>
+			</div>
+		</div>
 	</body>
+	<jsp:include page="../../footer.jsp" />
 </html>

@@ -25,13 +25,14 @@
 	<!-- 가맹점 선택하지 않는 경우 -->
 	
 	
-	<body>
+	<body >
 		<!-- 가맹점 선택하지 않는 경우 -->
 		<c:if test="${affiliateCodeList == null }">
 			가맹지점을 선택하여 주세요.
 		</c:if>
 		<c:if test="${affiliateCodeList != null }">
-			<div class="wrap">
+		
+			
 				<div class="title_box">
 					<p>일일정산 - 일일정산 요청</p>
 				</div>
@@ -49,10 +50,13 @@
 					<th>기타</th>
 				
 				</tr>
-				<c:if test="${count < 1}">
-					<tr>
-						<td class="applyForSettlement_noCount" colspan="8">
-							<p>검색결과가 없습니다.</p>
+				<c:if test="${count > 0}">
+					<tr class="applyForSettlement_noCount">
+						<td colspan="8">
+							<p>
+							<img src="/buengbueng/img/bossERP/bg_alert.gif" widtd="40"height="40">
+								조회결과가 없습니다.
+							</p>
 						</td>
 					</tr>
 				</c:if>
@@ -115,7 +119,7 @@
 					<input type="hidden" name="affiliateCodeList" id="affiliateCodeList" value="${affiliateCodeList}">
 					<input class="applyForSettlement_button" type="submit" value="정산하기" onclick="return acpet();">
 				</form>
-			</div>
+			
 		</c:if>
 	</body>
 </html>

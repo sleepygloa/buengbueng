@@ -39,6 +39,9 @@
 	border:1px #eef1f5 solid;
 	height:36px;
 }
+.applyForSettlement_Count p{
+	font-size: 24px;
+}
 .applyForSettlement_noCount{
 	height:200px;
 }
@@ -72,4 +75,97 @@
 	margin-left:4px;
 	line-height: 2;
 	cursor: pointer;
+}
+/**/
+.boss_con{
+	border:1px #e7ecf1 solid;
+	width:97%; 
+	margin:16px auto; 
+	background: #fff; 
+	text-align: center;
+}
+.boss_con p{
+	text-align: left;
+	margin: 10px 10px auto;
+	margin-bottom:10px;
+	font-weight: bold;
+	font-size: 16px;
+}
+.boss_con hr{
+	margin:0 auto;
+	width:98%;
+	border-bottom:0.5px #eee solid;
+	margin-bottom:20px;
+}
+.dailySettlementList_table{
+	margin:0 auto;
+	width:98%;
+	border:1px #e7ecf1 solid;
+}
+.dailySettlementList_table tr,.dailySettlementList_table td,.dailySettlementList_table th{
+	border:1px #e7ecf1 solid;
+	text-align: center;
+}
+.dailySettlementList_NoCount{
+	height:160px;
+}
+.dailySettlementList_NoCount p{
+	text-align: center;
+	line-height: 8;
+}
+.dailySettlementList_table th{
+	height:38px;
+	font-size: 14px;
+	line-height: 3.2;
+}
+.dailySettlementList_table td{
+	height:36px;
+	font-size:12px;
+	line-height: 4;
+}
+.bt_1{
+	background-color: #659be0;
+	color:#fff;
+	font-size: 13px;
+	margin:0 auto;
+	width:60px;
+	height:24px;
+}
+.bt_1 a{color:#fff; line-height: 2}
+.bt_1 a:VISITED{color:#fff; line-height: 2; text-decoration: none;}
+.paging_con{
+	width:100%;
+	height:32px;
+	margin:10px auto;
+}
+.paging_con_box{
+	float:right;
+	height:32px;
+	width:auto;
+	margin-right: 7px;
+}
+.paging_part{
+	height:32px;
+	width:32px;
+	border: 1px solid #ddd;
+	color:#337ab7;
+	margin-right:4px;
+	line-height: 1.9;
+	float:left;
+}
+.ERP_Navigator{
+	width:100%;
+	height:40px;
+	border-bottom:1px blue solid;
+	line-height: 1;
+}
+.ERP_Navigator ul{
+	margin-left:10px;
+	line-height: 1.8;
+}
+.ERP_Navigator ul li{
+	float:left;
+	font-size: 16px;
+	margin-left:6px;
+	
 }

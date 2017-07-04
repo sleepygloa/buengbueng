@@ -126,7 +126,7 @@ header, section, footer{
 
 
 /* HEADER 영역 */
-.header_wrap{display:block;position:fixed;z-index:10;top:0;width:100%;background-color:#fff; color:#101010; border-bottom:1px #eee solid; }
+.header_wrap{display:block;/* position:fixed */;z-index:10;top:0;width:100%;background-color:#fff; color:#101010; border-bottom:1px #eee solid; float:left; }
 /* HEADER 사용영역 : 내부영역*/
 .header{position:relative;height:0px}
 .header,.header_wrap{height:60px}	
@@ -246,7 +246,7 @@ header, section, footer{
 
 /*  MAIN ----------------------------------------------*/
 /* 전광판 영역 */
-.main_ad{background:linear-gradient(to bottom,#ff4061,#f73859,#cb2a4a); width:100%; text-align: center;}
+.main_ad{background:linear-gradient(to bottom,#ff4061,#f73859,#cb2a4a); width:100%; text-align: center; float:left;}
 .main_ad_content{position:relative;background:blue;background-position:center;background-size:cover;width:100%; margin:0 auto; text-align: center; vertical-align: middle;}
 .container.main_ad_text_wrap{position:relative;top:136px}
 .mainContent_left{border:1px blue solid; width:700px;height:620px;float:left;}

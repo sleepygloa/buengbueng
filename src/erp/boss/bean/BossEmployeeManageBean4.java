@@ -199,7 +199,7 @@ public class BossEmployeeManageBean4 {
 		if (pageNum == null) {
             pageNum = "1";
         }
-        int pageSize = 4;
+        int pageSize = 40;
         int currentPage = Integer.parseInt(pageNum);
         int startRow = (currentPage - 1) * pageSize + 1;
         int endRow = currentPage * pageSize;

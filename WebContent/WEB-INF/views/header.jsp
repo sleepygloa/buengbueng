@@ -22,6 +22,7 @@
         <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap-theme.min.css" />
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
 		<!-- <link rel="stylesheet" type="text/css"  href="/buengbueng/css/reset.css">  -->
 	
 		<!-- main -->
@@ -46,7 +47,7 @@
  
 
 	 	<!-- LOGIN SECTION -->
-	 	<header class="header_wrap ">
+	 	<header class="header_wrap">
 			<div class="header container ">
 				<!-- 로고 : BUENGBUENG 또는 그림 -->
 				<div><h1 class="logo" ><a style="color:#ed1c24;" href="index.do"><b>bueng</b>bueng</a></h1></div>
@@ -385,14 +386,14 @@
       
 <section class="main_wrap" style="float:left;"> 
 	<!-- css로 추가활것 -->
-  	<div class="main container" style="width:100%; background: #E7EAEB;">
+  	<div class="main container" style="width:100%;">
  
 		 <!-- SIDEMENU TEMPLATE -->
 		<c:if test="${sidemenuCheck == 1}">
 		
 		<!-- 가맹점 -->
 		<link rel="stylesheet" type="text/css" media="all" href="css/bosspcuse/franchisee.css">
-		
+			
 			<jsp:include page="sidemenu.jsp" />
 			
 			<!-- ARTICLE -->
@@ -407,7 +408,6 @@
 			<div class="side_scontent container">
 			
 		</c:if>
-  
   <script>
  $("#respon_menu").click(function () {
 	 $("#respon_menu_area").toggle("show"); 
@@ -445,3 +445,5 @@
 	 if(check == 5){$("#respon_submenu_intro").hide();$("#respon_submenu_user").hide();$("#respon_submenu_boss").hide();$("#respon_submenu_admin").hide();}
  }
  </script>
+ 
+ 
