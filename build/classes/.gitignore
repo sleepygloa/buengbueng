@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /config/
 /erp/
 /fx/
@@ -9,3 +10,8 @@
 /pc/
 /pcRoom/
 /superclass/
+=======
+/fx/
+/manage/
+/sql/
+>>>>>>> 50cc56186d1759882655b2c52d031fcf42d97549
