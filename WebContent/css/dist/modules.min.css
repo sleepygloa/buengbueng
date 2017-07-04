@@ -267,13 +267,16 @@ header, section, footer{
 	.main_ad{padding-top:3em;}
 }
 
+
 .col_height10{height:10px;}.col_height20{height:20px;}.col_height20{height:20px;}.col_height30{height:30px;}.col_height40{height:40px;}.col_height50{height:50px;}.col_height60{height:60px;}.col_height70{height:70px;}.col_height80{height:80px;}.col_height90{height:90px;}
 .col_height100{height:100px;}.col_height110{height:110px;}.col_height120{height:120px;}.col_height130{height:130px;}.col_height140{height:140px;}.col_height150{height:150px;}.col_height160{height:160px;}.col_height170{height:170px;}.col_height180{height:180px;}.col_height190{height:190px;}
 .col_height200{height:200px;}.col_height210{height:210px;}.col_height220{height:220px;}.col_height230{height:230px;}.col_height240{height:240px;}.col_height250{height:250px;}.col_height260{height:260px;}.col_height270{height:270px;}.col_height280{height:280px;}.col_height290{height:290px;}
 .col_height300{height:300px;}.col_height310{height:310px;}.col_height320{height:320px;}.col_height330{height:330px;}.col_height340{height:340px;}.col_height350{height:350px;}.col_height360{height:360px;}.col_height370{height:370px;}.col_height380{height:380px;}.col_height390{height:390px;}
 .col_height400{height:400px;}
 
+.col_height600{height:600px;}
 
+.bg0{background-color:#ffffff}
 .bg1{background-color:#e3e3e3}
 .bg2{background-color:#F2F2F2}
 .bg3{background-color:#A3A3A3}
@@ -290,11 +293,13 @@ header, section, footer{
 .bg14{background-color:#Cd3d33}
 .bg15{background-color:#fded33}
 
-.main_ad_contentBox .contentBox_outline{padding:30px;}
+.main_ad_contentBox > div{margin-bottom:0px;}
+.main_ad_contentBox > .contentBox_outline{padding:10px;}
 
-.contentBox{text-align:center;}
+.contentBox{text-align:center;height:100%;width:100%;padding:20px;background-color:#fff;}
 .contentBox .contentBox_a {margin-bottom:20px;}
 .contentBox .contentBox_a a{font-size:1.8em;}
 
+.contentBox_right{float:right;}
 
 /* index 반응형 끝----------------------------------------*/
