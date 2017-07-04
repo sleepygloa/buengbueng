@@ -9,6 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>${chbox}</h1>
+<h1>${FinalAmount}</h1>
 </body>
 </html>

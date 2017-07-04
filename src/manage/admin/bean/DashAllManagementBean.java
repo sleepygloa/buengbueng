@@ -1,6 +1,9 @@
 package manage.admin.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -403,23 +406,86 @@ public class DashAllManagementBean extends BoardMethodBean{
 	}
 	@RequestMapping("/AcceptingRequestPro.do")
 	public String AcceptingRequestPro(HttpServletRequest request){
-		String[] chbox = request.getParameterValues("chbox") ;
-		System.out.println("방의 길이" + chbox.length);
-
+		//가맹키 배열로 받음
+		String[] chbox = request.getParameterValues("chbox"); 
+		
+		// 시간계산 코드
+		Calendar day = Calendar.getInstance();
+        day.add(Calendar.DATE , -1);
+        
+        //현재 오늘일 기준으로 어제 시작 일 00:00:00  코드
+    	String startDate = new java.text.SimpleDateFormat("yyyy-MM-dd 00:00:00").format(day.getTime());
+    	System.out.println("startDate" + startDate);
+    	//현재 오늘일 기준으로 어제 종료 일 23:59:59  코드
+    	String endDate = new java.text.SimpleDateFormat("yyyy-MM-dd 23:59:59").format(day.getTime());
+    	System.out.println("endDate" + endDate);
+    	
+    	//chbox를 배열로 받아 리스트로 변경 해주는 코드
 		ArrayList<String> arrayList = new ArrayList<>();
 		for(String temp : chbox){
 		  arrayList.add(temp);
-		}		
-		
-		System.out.println("방의 값" + arrayList);
+		}
 		
 		
 		for(int i=0; i<chbox.length; i++){
+			System.out.println("chbox ㄴㅇ" + chbox[i]);
 			HashMap idx = new HashMap<>();
 			idx.put("idx", chbox[i]);
-			 sqlMap.update("cash.approval", idx);
+			 String b_key = (String)sqlMap.queryForObject("admin.getAcceptingRequestB_key", idx);
+			 System.out.println("b_key" + b_key);
+			 
+			 HashMap info = new HashMap<>();
+			 info.put("b_key", b_key);
+			 info.put("start", startDate);
+			 info.put("end", endDate);
+			 
+			 
+			 List num = (List) sqlMap.queryForList("admin.getTitle", info);
+			 
+			 //알바비 포함하고 정산하는 경우
+			 if(num != null){
+				 int sum=0; // 알바들의 알바비 총합
+				 int Amount=0; // 가맹점 요청 정산 금액
+				 int settlementAmount=0; // 최종 정산 승인시 삽입될 금액
+				 
+				 //알바들 num값  각각 돌리기
+				 for (int p = 0; p<num.size(); p++) {		       
+		           
+		            HashMap nupm = new HashMap<>();
+		            nupm.put("num", num.get(p));
+		            
+		            //각각 받은 num값으로 하루 일한 금액 추출 
+		            List paySum = (List) sqlMap.queryForList("admin.getSumEmployeeWorkTimePay", nupm);
+		            
+		            //각각 받은 금액을 가맹점별로 따른 계산을 하여 일일 정산신 요청금액 - 합금액 = 최종금액 구하기 
+		            for(int pay=0; pay<paySum.size(); pay++){
+		            	
+		            	// 가맹점당 알바비 합산 금액 코드
+		            	int payValue = (int) paySum.get(pay);
+		            	sum += payValue;
+		            	
+		            	// 가맹점의 정산요청시 금액 코드
+		            	Amount = (int)sqlMap.queryForObject("cash.getSettlementAmount", idx);
+		            	
+		            	// 최종 승인에 삽입될 금액 코드
+		            	settlementAmount = Amount-sum;
+		            	
+		            	HashMap FinalAmountValues = new HashMap<>();
+		            	FinalAmountValues.put("idx", chbox[i]); // 가맹점 고유 키
+		            	FinalAmountValues.put("settlementAmount", settlementAmount); // 최종정산에 들어갈 금액 (알바비 - 가맹점 요청 금액)
+		            	
+		            	//알바비를 포함하여 정산 하는 쿼리
+		            	sqlMap.update("cash.approval2", FinalAmountValues);
+		            
+		            }
+			     } 
+			 //알바비 없이 정산하는 경우
+			 }else{
+				//알바비를 포함하지 않고 정산 하는 쿼리
+				 sqlMap.update("cash.approval", idx);
+			 }
 		}
 		
-		return "redirect:/AcceptingRequest.do";
+		return "/dash-AcceptingRequest/AcceptingRequestPro";
 	}
 }

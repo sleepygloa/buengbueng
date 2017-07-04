@@ -40,7 +40,6 @@
 
 		
 		<!-- 홈페이지 제목 -->
-		<title>BuengBueng</title>
 		
 	</head>
 
@@ -50,7 +49,7 @@
 	 	<header class="header_wrap ">
 			<div class="header container ">
 				<!-- 로고 : BUENGBUENG 또는 그림 -->
-				<div><h1 class="logo"><a href="index.do">buengbueng</a></h1></div>
+				<div><h1 class="logo" ><a style="color:#ed1c24;" href="index.do"><b>bueng</b>bueng</a></h1></div>
 
 				<div id="respon_menu" class="respon_menu" ><div class="respon_menu_icon"><span>menu</span></div></div>
 				<div id="respon_menu_area" class="respon_menu_area" style="display:none">
@@ -64,8 +63,8 @@
 							<div id="respon_submenu_user" class="respon_submenu" style="display:none">
 								<div><a href="searchPCForm.do">PC방 찾기</a></div>
 								<div><a href="favoritePCRoom.do">즐겨찾는 PC방</a></div>								
-								<div><a href="userbilling/cash.do">결제</a></div>
-								<div><a href="">이용현황</a></div>								
+								<div><a href="cash.do">결제</a></div>
+								<div><a href="cashHistory.do">포인트조회</a></div>								
 							</div>
 						<div id="respon_menu_boss" class="respon_menu_list"><a href="">사장님 PC방 관리</a></div>
 							<div id="respon_submenu_boss" class="respon_submenu" style="display:none">
@@ -181,10 +180,10 @@
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
 								<div class="menu_menu col-sm-6-12">
-									<a href="">
+									<a href="cashHistory.do">
 										<span class="menu_icon "><img src="img/ux-heatmaps-gnb@2x.png"> </span>
 										<span class="menu_text">
-											<h6 class="menu_name minor-minor">이용현황</h6>
+											<h6 class="menu_name minor-minor">포인트 조회</h6>
 											<p class="menu_desc">현재 실시간 자리현황 파악</p>
 										</span>
 									</a>
@@ -384,8 +383,9 @@
          </div>
       </header>
       
-<section class="main_wrap"> 
-  	<div class="main container">
+<section class="main_wrap" style="float:left;"> 
+	<!-- css로 추가활것 -->
+  	<div class="main container" style="width:100%; background: #E7EAEB;">
  
 		 <!-- SIDEMENU TEMPLATE -->
 		<c:if test="${sidemenuCheck == 1}">

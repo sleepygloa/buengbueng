@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 /* --- 기본 설정 CSS ---*/
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
 html{overflow-y:scroll;overflow-x:scroll} /* x y 축 스크롤링 가능 */
 .clearfix::after{display:block;content:'';clear:both}W
 section{height:100%;min-height: 100vh;} /* 세로 100% 최대크기 */
@@ -18,7 +19,7 @@ p.major-fourth{font-size:1.375em;line-height:1.5;margin-bottom:1.3636em}
 .minor{font-size:1.15em;line-height:1.3;margin-bottom:1.3043em}.
 minor-minor{font-size:1em;line-height:1.5;margin-bottom:1.5em}
 .minor-minor{font-size:.847em;line-height:1.5}
-a,a:visited,h1,h2,h3,h4,h5,h6,p{color:#5c5c5c}
+a,a:visited,h1,h2,h3,h4,h5,h6,p{color:#5c5c5c; font-family:'Nanum Gothic';}
 .row::after{display:block;clear:both;content:''}
 
 /* 버튼 - 부트스트랩*/
@@ -125,14 +126,15 @@ header, section, footer{
 
 
 /* HEADER 영역 */
-.header_wrap{display:block;position:fixed;z-index:10;top:0;width:100%;background-color: rgba( 255, 255, 255, 0.2 );}
+.header_wrap{display:block;position:fixed;z-index:10;top:0;width:100%;background-color:#fff; color:#101010; border-bottom:1px #eee solid; }
 /* HEADER 사용영역 : 내부영역*/
 .header{position:relative;height:0px}
 .header,.header_wrap{height:60px}	
 /* 로고 */
 .header  div{padding:auto;}
 .header  div h1{text-align: center;}
-.header .logo{float:left;width:120px;height:40px;position:relative;font-size:16px; padding:auto;margin:20 20 0 20;}
+.header  div h1 a{color: #ed1c24; font-size: 20px;}
+.header .logo{float:left;width:120px;height:40px;position:relative;font-size:18px; padding:auto;margin:20 20 0 20; color:#ed1c24;}
 /* 대 메뉴 */
 .header .menu_area{display:block;line-height:60px}
 .header_wrap .header .menu_area .item > a{position:relative;display:block;font-size:20px;height:60px;line-height:60px} /* 대메뉴링크 */
@@ -202,7 +204,7 @@ header, section, footer{
 	/* 대메뉴  */
 	.header_wrap .header .menu_area .item{position:relative;display:inline-block;padding-left:0}
 	/* 대메뉴들 List */
-	.header .menu_area .item.normal>a{color:gray;margin-left:5px}
+	.header .menu_area .item.normal>a{color:black;margin-left:5px}
 	.header .menu_area .item.normal:first-child{margin-left:0}
 	.header .menu_area .item.normal.on{border-top:2px solid #fff}
 	.header .menu_area .item.normal.on>a{color:#fff}
@@ -244,9 +246,74 @@ header, section, footer{
 
 /*  MAIN ----------------------------------------------*/
 /* 전광판 영역 */
-.main_ad{background:linear-gradient(to bottom,#ff4061,#f73859,#cb2a4a)}
-.main_ad_content{position:relative;background:url(/css/img/rocket@2x.png) no-repeat;background-position:center;background-size:cover;width:100%}
+.main_ad{background:linear-gradient(to bottom,#ff4061,#f73859,#cb2a4a); width:100%; text-align: center;}
+.main_ad_content{position:relative;background:blue;background-position:center;background-size:cover;width:100%; margin:0 auto; text-align: center; vertical-align: middle;}
 .container.main_ad_text_wrap{position:relative;top:136px}
+.mainContent_left{border:1px blue solid; width:700px;height:620px;float:left;}
+.mainContent_right{background:red; width:380px;height:620px; float:left; margin-left:20px;}
+.right_container1{width:380px; height:200px; background:#fff;}
+.login_title p{ font-size:13px; }
+.Login_button{width:380px; height:70px; background: #3C556E;border:none; color:#fff; font-weight: bold;margin-top:20px;}
+.Login_button_point{color:#00A0DF; font-weight: bold; font-size: 21px;}
+.Login_other ul li{font-size: 13px; font-weight: bold;}
+.Login_other1{float:left;margin-left:6px;}
+.Login_other2{float:right; margin-right:6px;}
+.right_container2{width:380px; height:420px; background:#fff;margin-top:20px;}
+.left_container1{width:700px; height:200px; background: green; text-align: center; line-height: 11; color:black; font-size: 18px; font-weight: bold; cursor: pointer;}
+.left_container2{width:700px; height:200px; background: black; margin-top:20px; text-align: center; line-height: 11; color:black; font-size: 18px; font-weight: bold; cursor: pointer;}
+.left_container3{width:700px; height:200px; background: #666; margin-top:20px; text-align: center; line-height: 11; color:black; font-size: 18px; font-weight: bold; cursor: pointer;}
+.left_container1_box1{ 
+	background: #fff; 
+	height:200px; 
+	width:220px;
+	float:left;
+	margin: 0 0 17px 0;
+}
+.left_container1_box2{ 
+	background: #fff; 
+	height:200px; 
+	width:220px;
+	float:left;
+	margin-left:19px;
+}
+.left_container1_box3{ 
+	background: #fff; 
+	height:200px; 
+	width:220px;
+	float:left;
+	margin-left:19px;
+}
+.left_container2_box2{ 
+	background: #fff; 
+	height:200px; 
+	width:220px;
+	float:left;
+	margin: 0 0 17px 0;
+}
+.left_container2_box2_1{ 
+	background: #fff; 
+	height:200px; 
+	width:220px;
+	float:left;
+	margin-left:20px;
+}
+.left_container2_box1{ 
+	background: #fff; 
+	height:200px; 
+	width:460px;
+	float:left;
+	margin-left:19px;
+}
+.left_container2_box1_1{ 
+	background: #0DA6E3; 
+	height:200px; 
+	width:460px;
+	float:left;
+	
+}
+
+
+
 
 /* 전광판 그림 */
 .ie .main_ad_content,.window .main_ad_content{background-image:url(/css/css/img/rocket@2x.png);background-repeat:no-repeat}
@@ -265,9 +332,10 @@ header, section, footer{
 	.main_ad{height:500px}.main_ad_content{height:500px}
 	.main_ad .main_ad_title_desc{display:block}
 }
-@media screen and (min-width:1200px){
-	.main_ad{height:624px}
-	.main_ad_content{height:624px}
+@media screen and (max-width:1200px){
+	.main_ad{height:640px}
+	.main_ad_content{height:640px}
+	.mainContent_right{visibility: hidden;}
 }
 @media screen and (min-width:250px) and (max-width:767px){
 	.main_ad .main_ad_title{top:-41px}

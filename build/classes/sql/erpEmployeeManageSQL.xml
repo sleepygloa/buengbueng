@@ -32,9 +32,10 @@
 							 VALUES(0, 0, #b_id#, #applyCount#, now(), #content#,#b_key#);
 	</insert>
 	
-	<!-- 알바생 정보테이블에서 사장님이 보유한 알바생아이디를 찾고, 갯수를 센다. -->
+	
+	<!-- 알바생 정보테이블에서 알바생아이디를 찾고, 갯수를 센다.  수정-->
 	<select id="getEmployeeId" resultClass="beDto" parameterClass="String">
-		SELECT substring(e_id, 9,11)+0 as e_id,(select count(*) FROM employeeInfo WHERE e_bossid = #b_id#) +1 AS count FROM employeeInfo WHERE e_bossid = #b_id# ORDER BY e_id DESC LIMIT 1; 
+		SELECT substring(e_id, 9,11)+0 as e_id,(select count(*) FROM employeeInfo WHERE e_bossid = #b_id#) +1 AS count FROM employeeInfo ORDER BY e_id DESC LIMIT 1; 
 	</select>	
 	
 	<!-- 알바생 정보테이블에서 사장님이 보유한 알바생아이디를 찾고, 갯수를 센다. -->

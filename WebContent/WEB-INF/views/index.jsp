@@ -15,9 +15,66 @@ history.go(-1);
 <!-- 메인 화면 전광판  ------------------------------------------------------------>
 <div class="main_ad row">
 	<div class="main_ad_content">
+		<div class="mainContent_left">
+			<div class="left_container1">
+				<div class="left_container1_box1">
+					<a href="#">포인트 결제</a>
+				</div>
+				<div class="left_container1_box2">
+					<a href="#">결제내역 조회</a>
+				</div>
+				<div class="left_container1_box3">
+					<a href="#">이용내역 조회</a>
+				</div>
+			</div>
+			
+			<div class="left_container2">
+				<div class="left_container2_box2">
+					<a href="#">가맹신청</a>
+				</div>
+				<div class="left_container2_box1">
+					<a href="#">공지사항</a>
+				</div>
+			</div>
+			<div class="left_container2">
+				<div class="left_container2_box1_1">
+					<a href="#">가맹신청</a>
+				</div>
+				<div class="left_container2_box2_1">
+					<a href="#">공지사항</a>
+				</div>
+			</div>
+		</div>
+		<div class="mainContent_right">	
+			<div class="right_container1">
+				<div class="login_title">
+					<p>PC방에 오신 것을 환영합니다.원활한 이용을 위해 로그인이 필요합니다.</p>
+				</div>
+				<button class="Login_button">BuengBueng <span class="Login_button_point">PC방</span> 로그인</button>
+				<div class="Login_other">
+					<ul>
+						<li class="Login_other1"><a href="#">회원가입</a></li>
+						<li class="Login_other2"><a href="#">비밀번호 찾기</a></li>
+						<li class="Login_other2">|</li>
+						<li class="Login_other2"><a href="#">아이디 찾기</a></li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="right_container2">
+				<p>배너</p>
+			</div>
+		</div>
+		
 		<div class="container main_ad_text_wrap">
-			<h1 class="main_ad_title">NEW PC방 관리프로그램 출시!!</h1>
-			<p class="main_ad_title_desc p_strongfont">통합회원관리시스템!</p>
+			<!-- <h1 class="main_ad_title">NEW PC방 관리프로그램 출시!!</h1>
+			<p class="main_ad_title_desc p_strongfont">통합회원관리시스템!</p> -->
+			
+<!-- 			<video id="videobcg" preload="auto" autoplay="true" loop="loop" volume="5" style="background: red;">
+				<source src="/buengbueng/video/sample.mp4" type="video/mp4">
+				<source src="video.webm" type="video/webm">
+			</video> -->
+			
 		</div>
 	</div>
 </div>
