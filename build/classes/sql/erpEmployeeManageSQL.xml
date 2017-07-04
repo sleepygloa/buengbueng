@@ -151,7 +151,7 @@
 	<select id="getEmployeeIdList" resultClass="userDto" parameterClass="String">
 		select id, pw, name, birth, phone, grade, address, email, signdate, googleid 
 		from userInfo a inner Join(select e_id from employeeInfo where b_key = #b_key#) b 
-		on a.id = b.e_id;;
+		on a.id = b.e_id;
 	</select>
 
 	<!-- 알바생 아이디 정보 보기 -->
@@ -204,6 +204,14 @@
 	</select>	
 
 <!-- Calender ==================================================== -->
+
+	<!-- 알바생 근무 일정 추가 하기전에 일정이 있는지 확인 -->
+	<select id="calenderInsertTimeCheck" resultClass="int" parameterClass="java.util.HashMap">
+	<![CDATA[
+		select count(*) from employeeWorkTime where title = #id# and start >= #start# and end <= #end#;
+	]]>
+	</select>
+
 	<!-- 알바생 근무 일정 추가 -->
 	<insert id="calenderInsertTime" parameterClass="beDto">
 	 INSERT INTO employeeWorkTime( b_key, todayDate, title, start, end)
@@ -218,7 +226,7 @@
 	<!-- 알바생 근무 일정 리스트를 달력에 뽑아냄 -->
 	<select id="getCalenderWorkTimeList" resultClass="workTimeListDTO" parameterClass="String">
 		select a.num, a.title, DATE_FORMAT(a.start, '%Y-%m-%d %H:%i:%s') as start, DATE_FORMAT(a.end, '%Y-%m-%d %H:%i:%s') as end from employeeWorkTime a INNER JOIN 
-		(select e_id from employeeInfo where e_bossid = #id#) b ON a.title = b.e_id;
+		(select e_id from employeeInfo where b_key = #b_key#) b ON a.title = b.e_id;
 	</select>
 	
 	<!-- 알바생 근무 일정 변경 log : eventDropLog -->
@@ -313,7 +321,7 @@
 	<!-- 사장님  알바생 일한 시간 계산 -->
 	<select id="employeeWorkCount" resultClass="bossErpTotalDTO" parameterClass="java.util.HashMap">
 		<![CDATA[
-		select (case when id = 1 then 'hello' else id end) as id,
+		select (case when id = null then 'total' else id end) as id,
 		date_format(loginTime, "%Y-%m-%d") AS loginTime, sum(round(logoutTime - loginTime)) as count 
 		from useTimeLog as a INNER JOIN employeeInfo as b ON a.id = b.e_id 
 		where loginTime >= #minDate# and loginTime <= #maxDate#
@@ -325,7 +333,6 @@
 	<select id="getBossFranchiseeList" resultClass="franchiseeDTO" parameterClass="String">
 		select b_name, b_key from franchiseeInfo where b_id = #b_id#;
 	</select>
-	
 	
 	<!-- 일일정산 내역 리스트========================================================== -->
 	
@@ -412,5 +419,60 @@
 		  	from (select @rownum:= @rownum+1 as r, userId,userName,usageTime,endTime,amountUsed,pcAmount,businessName,menuAmount
 	      	from usageHistory,(select @rownum:=0)i where affiliateCode = #b_key# order by idx desc )yz where r between #startRow# and #endRow#;
 	</select>
+	
+<!-- FX용 -->
+	<!-- 알바생 리스트 -->
+	<select id="getFxEmployeeList" resultClass="fxEidListDTO" parameterClass="java.util.HashMap">
+		select e_id, pw,num,  b_key from userInfo a INNER JOIN 
+		(select e_id,num,b_key from employeeInfo where e_bossid = #id# and b_key = #b_key#) b on a.id = b.e_id;
+	</select>
+	
+	<!-- 알바생 리스트 수 -->
+	<select id="getFxEmployeeListCount" resultClass="fxEidListDTO" parameterClass="java.util.HashMap">
+		select count(*) from userInfo a INNER JOIN 
+		(select e_id,num,b_key from employeeInfo where e_bossid = #id# and b_key = #b_key#) b on a.id = b.e_id;
+	</select>	
+	
+	<!-- 신상관리 알바생 이름 리스트 -->
+	<select id="getFxEmployeeTotalIdList" resultClass="fxEmployeeInfoDTO" parameterClass="String">
+		select id as totalId, name as totalName, birth as totalBirth, phone as totalPhone, address as totalAddress, email as totalEmail, googleid as totalGoogleId 
+		from userInfo a inner Join(select e_id from employeeInfo where b_key = #b_key#) b 
+		on a.id = b.e_id;
+	</select>
+	
+	<!-- 알바생 근무일정 리스트 출력 -->
+	<select id="getFxEmployeeCommuteList" resultClass="fxEWTLDTO" parameterClass="String">
+		SELECT 
+			a.num as wtNum,
+			a.todayDate as wtTodayDate, 
+			a.title as wtTitle,
+			a.start as wtStart, 
+			a.end as wtEnd, 
+			a.result as wtResult,
+			a.color as wtColor,
+			b.commuteTime as wtCommuteTime,
+			b.offWorkTime as wtOffWorkTime,
+			b.ex as wtEx
+		from employeeWorkTime a LEFT OUTER JOIN employeeWorkTimeCommute b ON a.num = b.num where b_key = #b_key# and a.result = 2;
+	</select>
+	
+	<!-- 알바생 알바비 지급대장 -->
+	<select id="getFxEmployeePayList" resultClass="fxEPLDTO" parameterClass="String">
+	select 
+		b.num as payNum,
+        (case when a.id = null then 'none' else id end) as payId,
+		a.name as payName,
+        round((offWorkTime - commuteTime))  as payWorkTime, 
+        round((offWorkTime - commuteTime) * a.EidMoneyPolicy)  as payPayment, 
+	    commuteTime as payCommute,
+        offWorkTime as payOffWork  
+    from 
+    (select a.id, a.name, a.b_key, b.EidMoneyPolicy from (
+    select b.*, a.b_key from (select e_id, b_key from employeeInfo where b_key = #b_key#) a INNER JOIN (select * from userInfo) b ON a.e_id = b.id
+    ) a LEFT OUTER JOIN (select * from franchiseePolicy where b_key = #b_key#) b ON a.b_key = b.b_key
+    ) a INNER JOIN (select a.num, a.commuteTime, a.offWorkTime,a.ex,b.e_id, b.employeeWorkTime, b.employeeWorkTimePay, b.employeeAccountMoney, b.payAfterMoney  from employeeWorkTimeCommute a INNER JOIN offWorkPayDetailLog b ON a.num = b.num)
+    b on a.id = b.e_id;
+	</select>
+	
 </sqlMap>
 	

@@ -1,12 +1,3 @@
-/config/
 /erp/
-/fx/
-/index/
-/login/
-/manage/
-/menu/
-/payment/
-/pc/
-/pcRoom/
 /sql/
-/superclass/
+/manage/

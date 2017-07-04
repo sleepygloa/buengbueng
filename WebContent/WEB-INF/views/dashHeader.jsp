@@ -196,7 +196,7 @@ setInterval("autoRefresh1()", 3000);
                                 </li>
                             </ul>
                         </li>
-                                                <li class="mt-has-menu">
+                        <li class="mt-has-menu">
                             <a href="javascript:void(0)">
                             <i class="fa fa-pencil-square-o"></i>
                             <span class="menu-text">신청 목록</span>
@@ -230,7 +230,7 @@ setInterval("autoRefresh1()", 3000);
                                     <a href="dashList.do?pageNum=1&pageNum2=1&pageNum3=1&pageNum4=1" class="rippler rippler-default">
                                     <span class="menu-text">게시판 모아보기</span>
                                     <c:if test="${franchiseAlarm >0}">
-                                    	<span class="badge badge-danger m-left-xs "><div id="autoRe1">${franchiseAlarm}</div></span>
+                                    	<span class="badge badge-danger m-left-xs "><div id="autoRe1">${franchiseAlarm+oneAlarm}</div></span>
                                     </c:if>
                                     <span class="selected"></span>
                                 </a>

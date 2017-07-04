@@ -42,7 +42,7 @@ public class UserInfoBean {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		
-		int check = -1;
+		int check = 1;
 		
 		try{
 			//ID로 사용자 정보 불러온다음 입력한 PW와 DB의 PW와 비교한다.
@@ -51,7 +51,7 @@ public class UserInfoBean {
 				session.setAttribute("loginId", dto.getId());
 				session.setAttribute("grade", dto.getGrade());
 				session.setAttribute("webLogin", 1);
-				
+				check=0;
 				//////////////////////////////////
 				//접속장소의 IP를 검색하고,로그인 LOG 를 남긴다.
 				FindIpBean fib = new FindIpBean();
@@ -189,6 +189,7 @@ public class UserInfoBean {
 		String asd = (String)sqlMap.queryForObject("test.checkPasswd",id);
 		if(asd.equals(pw)){
 			try{
+				UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id); // 회원정보 호출
 				sqlMap.delete("test.userAccountDelete",id); //회원의 계좌정보 삭제
 				sqlMap.delete("test.deleteUserInfo",id);
 				session.invalidate();

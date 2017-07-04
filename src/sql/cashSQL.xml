@@ -142,10 +142,18 @@
 		select count(*) from dailySettlement where resultValue = 2;
 	</select>
 	
+	<!-- 알바생없이 정산 할 경우 -->
 	<update id="approval" parameterClass="java.util.HashMap">
 		update dailySettlement set resultValue=3, settlementStatus='정산완료'  where idx=#idx#;
 	 </update>
+	 <!-- 알바비 제외하고 정산을 할 경우 -->
+	 <update id="approval2" parameterClass="java.util.HashMap">
+		update dailySettlement set resultValue=3, settlementStatus='정산완료', settlementAmount=#settlementAmount#  where idx=#idx#;
+	 </update>
 	 
+	 <select id="getSettlementAmount" resultClass="int">
+	 	select settlementAmount from dailySettlement where idx=#idx#
+	 </select>
 	 
 	
 
@@ -158,6 +166,7 @@
 	<select id="employeeTimePay" resultClass="useTimeDto" parameterClass="java.util.HashMap">
 		<![CDATA[
   	select 
+  		a.num,
 	    round((offWorkTime - commuteTime))  as employeeWorkTime, 
         round((offWorkTime - commuteTime) * c.EidMoneyPolicy)  as employeeWorkTimePay, 
 	    b.money as employeeAccountMoney,
@@ -170,8 +179,7 @@
 	    INNER JOIN (select id, money from userAccount where id = #e_id#) b ON a.title = b.id ,
 		   	(select c.EidMoneyPolicy, c.b_key 
 		   		from franchiseePolicy c, (select b_key from employeeInfo where e_id = #e_id#) d where c.b_key = d.b_key ) c
-   	where a.title = #e_id# order by commuteTime desc limit 0,1
-   	
+   	where a.title = #e_id# order by commuteTime desc limit 0,1;
 		]]>
 	</select>
 	

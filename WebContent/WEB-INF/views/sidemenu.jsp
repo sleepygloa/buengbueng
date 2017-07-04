@@ -42,12 +42,12 @@ body {
   list-style-type: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
-.sidebar #leftside-navigation ul li.active > a {
+/* .sidebar #leftside-navigation ul li.active > a {
   color: #1abc9c;
 }
 .sidebar #leftside-navigation ul li.active ul {
-  display: block;
-}
+  display: hidden;
+} */
 .sidebar #leftside-navigation ul li a {
   color: #aeb2b7;
   text-decoration: none;

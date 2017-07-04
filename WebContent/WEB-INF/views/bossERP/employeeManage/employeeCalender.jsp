@@ -129,8 +129,18 @@ function moveConfirm(date){
     	}
 	})
 }
+function eventInsertCheck(start, end){
+	$.ajax({
+		url: "employeeCalenderEventInsertCheck.do?start="+start+"&end="+end,
+		type: "post",
+		success: function(data){
+			alert(data);
+/* 			window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
+	 		"width=550, height=500,status=no,toolbar=no,directories=no,location=no,scrollbars=no, resizable=no") */
+		}
+	});
+}
 function eventInfoAjax(eventInfoDateStart,eventInfoDateEnd){
-
 	$.ajax({
 		url: "employeeCalenderEventInfo.do",
 		type:"post",
@@ -231,7 +241,7 @@ $(document).ready(function() {
 
 //////////////////////////////////////////////////////////////////////////////////////////   		  
    		  select:function(start,end){
-			window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
+   			window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
 	 		"width=550, height=500,status=no,toolbar=no,directories=no,location=no,scrollbars=no, resizable=no")
    		  },
 //////////////////////////////////////////////////////////////////////////////////////////

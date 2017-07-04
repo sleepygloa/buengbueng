@@ -37,17 +37,7 @@
 		googleId like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
 		birth like concat('%',#keyword#,'%') order by signdate desc limit #startRow#,#pageSize#;  
 	</select>
-	
-	<!-- 회원 삭제 -->
-	<delete id="userDelete" parameterClass="String">
-		delete from userInfo where id=#id#;
-	</delete>	
-	
-	<!-- 회원 정보 호출 -->
-	<select id="getUser" parameterClass="String" resultClass="userDto" >
-		select * from userInfo where id=#id#;
-	</select>
-	
+
 	<!-- 회원 정보 수정 -->
 	<update id="userUp" parameterClass="userDto">
 		update userInfo set pw=#pw#,name=#name#,birth=#birth#,phone=#phone#,email=#email#,address=#address#,grade=#grade#,googleId=#googleId#
@@ -116,11 +106,6 @@
 		 ]]> 	
 	</select>
 	
-	<!-- 가맹점 정보 불러오기:이름으로 -->
-	<select id="getFranchiseeInfo" resultClass="franchiseeDTO" parameterClass="String">
-		select * from franchiseeLog where b_name = #b_name#;
-	</select>
-	
 	<!-- 관리자 페이지 가맹점 리스트 갯수 보기 -->
 	<select id="getFranchiseeListCount" resultClass="int">
 		select count(*) from franchiseeInfo;
@@ -155,7 +140,7 @@
 	</select>
 	
 	
-	<select id="getTitle"  resultClass="String">
+	<select id="getTitle"  resultClass="int" parameterClass="java.util.HashMap">
 		<![CDATA[
 		select a.num
 		from employeeWorkTime as a 
@@ -164,12 +149,13 @@
  		where a.b_key=#b_key# and start >=#start# and end <= #end#;
  		]]>
 	</select>
-	<!-- 
-	<select id="WorkTimeCommuteNum" resultClass="int">
-	<![CDATA[
-		SELECT num FROM employeeWorkTimeCommute where commuteTime >= #start# and offWorkTime <=#end#;
-	]]>
+		
+	<select id="getSumEmployeeWorkTimePay" resultClass="int" parameterClass="java.util.HashMap">
+		select sum(employeeWorkTimePay)
+		from offWorkPayDetailLog as a 
+		inner join employeeInfo as b
+		on a.e_id = b.e_id
+		where a.num=#num#;
 	</select>
-	 -->
 	
 </sqlMap>

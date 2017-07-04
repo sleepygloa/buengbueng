@@ -83,7 +83,9 @@ public class DashUserBean extends BoardMethodBean{
 	public String dashDelete(HttpServletRequest request){
 		Alarm(request);// 알람 메서드
 		String id = request.getParameter("id");
-		sqlMap.delete("admin.userDelete", id);
+		UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id); // 회원정보 호출
+		sqlMap.insert("admin.userDeleteLog", dto); // 탈퇴시 로그
+		sqlMap.delete("test.deleteUserInfo", id); // 회원 삭제
 		return "/dash-userInfo/dashDelete";
 	}
 	
