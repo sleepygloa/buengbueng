@@ -212,10 +212,26 @@
 	]]>
 	</select>
 
+	<!-- 알바생 근무 일정 추가 하기전에 일정이 있는지 확인(야간근무확인:전날 밤 클릭) -->
+	<select id="calenderInsertTimeCheckNight" resultClass="int" parameterClass="java.util.HashMap">
+	<![CDATA[
+		select count(*) from employeeWorkTime where title = #id# and
+		 (start >= #start# and end >= #end# and end < #endAfterDay#);
+	]]>
+	</select>
+	
+		<!-- 알바생 근무 일정 추가 하기전에 일정이 있는지 확인(야간근무확인:다음날 새벽 클릭) -->
+	<select id="calenderInsertTimeCheckNight2" resultClass="int" parameterClass="java.util.HashMap">
+	<![CDATA[
+		select count(*) from employeeWorkTime where title = #id# and
+		 (start >= #startBeforDay# and end >= #start# and end < #end#);
+	]]>
+	</select>
+
 	<!-- 알바생 근무 일정 추가 -->
 	<insert id="calenderInsertTime" parameterClass="beDto">
-	 INSERT INTO employeeWorkTime( b_key, todayDate, title, start, end)
-	  VALUES( #b_key#, now(), #id#, #startTime#, #endTime#);
+	 INSERT INTO employeeWorkTime( b_key, todayDate, title, start, end, eventColor)
+	  VALUES( #b_key#, now(), #id#, #startTime#, #endTime#, #eventColor#);
 	</insert>
 	
 	<!-- 알바생 근무 일정 리스트 를 뽑기 위해 사장님아이디 검색 -->
@@ -225,7 +241,7 @@
 	
 	<!-- 알바생 근무 일정 리스트를 달력에 뽑아냄 -->
 	<select id="getCalenderWorkTimeList" resultClass="workTimeListDTO" parameterClass="String">
-		select a.num, a.title, DATE_FORMAT(a.start, '%Y-%m-%d %H:%i:%s') as start, DATE_FORMAT(a.end, '%Y-%m-%d %H:%i:%s') as end from employeeWorkTime a INNER JOIN 
+		select a.num, a.title, DATE_FORMAT(a.start, '%Y-%m-%d %H:%i:%s') as start, DATE_FORMAT(a.end, '%Y-%m-%d %H:%i:%s') as end, eventColor from employeeWorkTime a INNER JOIN 
 		(select e_id from employeeInfo where b_key = #b_key#) b ON a.title = b.e_id;
 	</select>
 	
