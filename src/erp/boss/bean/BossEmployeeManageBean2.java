@@ -174,6 +174,7 @@ public class BossEmployeeManageBean2 {
 	public ModelAndView employeeCalenderInsertPro(HttpSession session, Model model, BossEmployeeManageDataDTO beDTO){
 		int check = 9;
 		
+		beDTO.setBorderColor(beDTO.getBackgroundColor()); //이벤트 선택된 배경과 경계선 생상이 같다.
 		String id = (String)session.getAttribute("loginId");
 		String b_key = (String)session.getAttribute("b_key");
 		beDTO.setId(id);
@@ -239,6 +240,7 @@ public class BossEmployeeManageBean2 {
 		String b_key = (String)session.getAttribute("b_key");
 		
 		try{
+			
 			ObjectMapper mapper = new ObjectMapper();
 			
 			String b_id = (String)sqlMap.queryForObject("erpEmp.getEidBid", id);
@@ -248,7 +250,6 @@ public class BossEmployeeManageBean2 {
 			mv.setViewName("/bossERP/employeeManage/employeeCalenderJSON");
 			//굳이 ModelAndView를 사용했다. String으로 반환해도되는데
 			model.addAttribute("jsonList", jsonList);
-			
 		}catch(Exception e){
 			e.printStackTrace();
 		}

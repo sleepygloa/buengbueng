@@ -32,8 +32,8 @@
 <!-- 알바 -->
 	<!-- 알바 출근 : 출근시 log테이블에 레코드추가 -->
 	<insert id="insertEmployeeCommuteLog" parameterClass="workTimeDto">
-		INSERT INTO employeeWorkTimeCommuteLog(num,b_key, todayDate, title, start, end, commuteTime, color, result, ex)
-					VALUES(#num#, #b_key#, #todayDate#, #title#, #start#, #end#, now(), #color#, '1', '1970-01-01 00:00:00');
+		INSERT INTO employeeWorkTimeCommuteLog(num,b_key, todayDate, title, start, end, commuteTime, backgroundColor, borderColor, result, ex)
+					VALUES(#num#, #b_key#, #todayDate#, #title#, #start#, #end#, now(), #backgroundColor#,#borderColor#, '1', '1970-01-01 00:00:00');
 	</insert>
 	
 	<!-- 알바 퇴근 : 퇴근시 log테이블에 레코드추가 -->

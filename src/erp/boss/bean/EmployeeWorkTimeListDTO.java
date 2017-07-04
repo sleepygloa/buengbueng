@@ -8,11 +8,24 @@ public class EmployeeWorkTimeListDTO {
 	private String title;
 	private String start;
 	private String end;
+	private String backgroundColor;
+	private String borderColor;
 	
 	
 	
 	
-	
+	public String getBorderColor() {
+		return borderColor;
+	}
+	public void setBorderColor(String borderColor) {
+		this.borderColor = borderColor;
+	}
+	public String getBackgroundColor() {
+		return backgroundColor;
+	}
+	public void setBackgroundColor(String backgroundColor) {
+		this.backgroundColor = backgroundColor;
+	}
 	public int getNum() {
 		return num;
 	}

@@ -12,7 +12,8 @@ public class EmployeeWorkTimeDTO {
 	private Timestamp end;
 	private Timestamp ex;
 	private int result;
-	private String color;
+	private String backgroundColor;
+	private String borderColor;
 	
 	//출근관리
 	private Timestamp commuteTime;
@@ -21,6 +22,18 @@ public class EmployeeWorkTimeDTO {
 	
 	
 	
+	public String getBorderColor() {
+		return borderColor;
+	}
+	public void setBorderColor(String borderColor) {
+		this.borderColor = borderColor;
+	}
+	public String getBackgroundColor() {
+		return backgroundColor;
+	}
+	public void setBackgroundColor(String backgroundColor) {
+		this.backgroundColor = backgroundColor;
+	}
 	public Timestamp getCommuteTime() {
 		return commuteTime;
 	}
@@ -33,12 +46,6 @@ public class EmployeeWorkTimeDTO {
 	}
 	public void setOffWorkTime(Timestamp offWorkTime) {
 		this.offWorkTime = offWorkTime;
-	}
-	public String getColor() {
-		return color;
-	}
-	public void setColor(String color) {
-		this.color = color;
 	}
 	public int getNum() {
 		return num;

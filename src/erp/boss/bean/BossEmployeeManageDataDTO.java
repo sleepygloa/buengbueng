@@ -33,15 +33,22 @@ public class BossEmployeeManageDataDTO {
 	
 	private String forDate; //알바 기간 (일)
 	
-	private String eventColor; //이벤트 색상
+	private String backgroundColor; //이벤트 색상
+	private String borderColor; //이벤트 색상
 	
 	
 	
-	public String getEventColor() {
-		return eventColor;
+	public String getBorderColor() {
+		return borderColor;
 	}
-	public void setEventColor(String eventColor) {
-		this.eventColor = eventColor;
+	public void setBorderColor(String borderColor) {
+		this.borderColor = borderColor;
+	}
+	public String getBackgroundColor() {
+		return backgroundColor;
+	}
+	public void setBackgroundColor(String backgroundColor) {
+		this.backgroundColor = backgroundColor;
 	}
 	public String getForDate() {
 		return forDate;

@@ -69,7 +69,7 @@
             
             종료일 : <input type="hidden" name="endDate" value="${ends}"/><input type="button" name="endDate" value="${ends}"/><br />
             근무일수 :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input class="date_button" type="button" value="${forDate}"/> 일<input  type="hidden" name="forDate" value="${forDate}"/><br /><br />
-            표시 색상 : <select  class="date_selectbox" name="eventColor"  id="sel" onchange="backgroundCh();" style="background-color:#7092BE;color:#7092BE">
+            표시 색상 : <select  class="date_selectbox" name="backgroundColor"  id="sel" onchange="backgroundCh();" style="background-color:#7092BE;color:#7092BE">
 				<option class="date_selectbox_blue" value="#7092BE" selected="selected" >파랑</option>
             	<option class="date_selectbox_red" value="#FFAEC9">분홍</option>
             	<option class="date_selectbox_brown" value="#B97A57">갈색</option>

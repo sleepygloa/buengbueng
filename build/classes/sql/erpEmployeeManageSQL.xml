@@ -229,8 +229,8 @@
 
 	<!-- 알바생 근무 일정 추가 -->
 	<insert id="calenderInsertTime" parameterClass="beDto">
-	 INSERT INTO employeeWorkTime( b_key, todayDate, title, start, end, eventColor)
-	  VALUES( #b_key#, now(), #id#, #startTime#, #endTime#, #eventColor#);
+	 INSERT INTO employeeWorkTime( b_key, todayDate, title, start, end, backgroundColor,borderColor)
+	  VALUES( #b_key#, now(), #id#, #startTime#, #endTime#, #backgroundColor#,#borderColor#);
 	</insert>
 	
 	<!-- 알바생 근무 일정 리스트 를 뽑기 위해 사장님아이디 검색 -->
@@ -240,7 +240,7 @@
 	
 	<!-- 알바생 근무 일정 리스트를 달력에 뽑아냄 -->
 	<select id="getCalenderWorkTimeList" resultClass="workTimeListDTO" parameterClass="String">
-		select a.num, a.title, DATE_FORMAT(a.start, '%Y-%m-%d %H:%i:%s') as start, DATE_FORMAT(a.end, '%Y-%m-%d %H:%i:%s') as end, eventColor from employeeWorkTime a INNER JOIN 
+		select a.num, a.title, DATE_FORMAT(a.start, '%Y-%m-%d %H:%i:%s') as start, DATE_FORMAT(a.end, '%Y-%m-%d %H:%i:%s') as end, backgroundColor, borderColor from employeeWorkTime a INNER JOIN 
 		(select e_id from employeeInfo where b_key = #b_key#) b ON a.title = b.e_id;
 	</select>
 	
@@ -325,8 +325,8 @@
 	
 	<!-- 알바 근태 리스트 -->
 	<select id="getEmployeeWorkTimeList" resultClass="workTimeDto" parameterClass="String">
-		select c.num, c.b_key, c.todayDate, c.title, c.start, c.end, c.result, c.color, c.commuteTime, c.offWorkTime, c.ex from employeeInfo a 
-			 INNER JOIN	(select a.num, a.b_key, a.todayDate, a.title, a.start, a.end, a.result, a.color, b.commuteTime, b.offWorkTime, b.ex from employeeWorkTime a INNER JOIN employeeWorkTimeCommute b ON a.num = b.num WHERE a.result = 2) c 
+		select c.num, c.b_key, c.todayDate, c.title, c.start, c.end, c.result, c.backgroundColor,c.borderColor, c.commuteTime, c.offWorkTime, c.ex from employeeInfo a 
+			 INNER JOIN	(select a.num, a.b_key, a.todayDate, a.title, a.start, a.end, a.result, a.backgroundColor,c.borderColor, b.commuteTime, b.offWorkTime, b.ex from employeeWorkTime a INNER JOIN employeeWorkTimeCommute b ON a.num = b.num WHERE a.result = 2) c 
 		ON a.e_id = c.title WHERE a.e_bossid = #id#;
 	</select>	
 	
@@ -464,7 +464,7 @@
 			a.start as wtStart, 
 			a.end as wtEnd, 
 			a.result as wtResult,
-			a.color as wtColor,
+			a.backgroundColor as wtColor,
 			b.commuteTime as wtCommuteTime,
 			b.offWorkTime as wtOffWorkTime,
 			b.ex as wtEx
