@@ -47,12 +47,9 @@
 		  between date_format(date_add(now(),interval -7 day),'%Y%m%d')  
 		 and date_format(now(),'%Y%m%d') and answer like "%${답변할 수 없는}%";
 	</select>
-	<!-- 자주 쓰이는 키워드 추출 -->
+	<!-- 키워드 추출 -->
 	<select id="chatLogKeyword" resultClass="chattingLogDto">
-		select keyword from chatLog where 
-         length(keyword)=(select max(length(keyword)) from chatLog where 
-         date_format(time,'%Y%m%d') between date_format(date_add(now(),interval -7 day),'%Y%m%d') and 
-         date_format(now(),'%Y%m%d') and questionNum not in 
-		 ( SELECT questionNum from chatLog where questionNum=0));
+		select questionNum, group_concat(keyword) as keyword from chatLog where date_format(time,'%Y%m%d') between date_format(date_add(now(),interval -7 day),'%Y%m%d') and 
+        date_format(now(),'%Y%m%d') group by questionNum;
 	</select>
 </sqlMap>

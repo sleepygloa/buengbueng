@@ -69,7 +69,6 @@ public class DashCustomerBean extends BoardMethodBean{
 		request.setAttribute("list", list);
 		request.setAttribute("number", number);
 		request.setAttribute("pageNum", pageNum);
-		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
@@ -115,7 +114,6 @@ public class DashCustomerBean extends BoardMethodBean{
 		request.setAttribute("list2", list2);
 		request.setAttribute("number2", number2);
 		request.setAttribute("pageNum2", pageNum2);
-		request.setAttribute("currentPage2", currentPage2);
 		request.setAttribute("pageCount2", pageCount2);
 		request.setAttribute("startPage2", startPage2);
 		request.setAttribute("endPage2", endPage2);
@@ -161,7 +159,6 @@ public class DashCustomerBean extends BoardMethodBean{
 		request.setAttribute("list3", list3);
 		request.setAttribute("number3", number3);
 		request.setAttribute("pageNum3", pageNum3);
-		request.setAttribute("currentPage3", currentPage3);
 		request.setAttribute("pageCount3", pageCount3);
 		request.setAttribute("startPage3", startPage3);
 		request.setAttribute("endPage3", endPage3);
@@ -204,7 +201,6 @@ public class DashCustomerBean extends BoardMethodBean{
 		request.setAttribute("list4", list4);
 		request.setAttribute("number4", number4);
 		request.setAttribute("pageNum4", pageNum4);
-		request.setAttribute("currentPage4", currentPage4);
 		request.setAttribute("pageCount4", pageCount4);
 		request.setAttribute("startPage4", startPage4);
 		request.setAttribute("endPage4", endPage4);

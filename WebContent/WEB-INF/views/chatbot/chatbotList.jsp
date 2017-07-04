@@ -36,38 +36,29 @@
 	<div>
    <div id="myCarousel" class="carousel slide"  style="width:50%">
     <!-- Indicators -->
-    <ol class="">
-    </ol>
-	<div>
+ 	<div>
      <button type="button" data-target="#myCarousel" data-slide-to="0">최신 질문</button>
-     <button type="button" data-target="#myCarousel" data-slide-to="1">자주 묻는 질문</button>
-     <button type="button" data-target="#myCarousel" data-slide-to="2">미답변 질문</button>
-	 <button type="button" data-target="#myCarousel" data-slide-to="3">키워드</button>
+     <button type="button" data-target="#myCarousel" data-slide-to="1">미답변 질문</button>
+	 <button type="button" data-target="#myCarousel" data-slide-to="2">키워드</button>
 	</div>
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="item active">
-       	<c:forEach var="ldto" items="${ldto}">
+       	<c:forEach var="ldto" items="${ldto}" end="9">
        		<div>${ldto.question}</div>
        	</c:forEach>
       </div>
-
+ 
       <div class="item">
-       	<c:forEach var="ldto1" items="${ldto1}">
-       		<div>${ldto1.question}</div>
-       	</c:forEach>
-      </div>
-    
-      <div class="item">
-    	<c:forEach var="ldto2" items="${ldto2}">
+    	<c:forEach var="ldto2" items="${ldto2}" end="9">
        		<div>${ldto2.question}</div>
        	</c:forEach>
       </div>
       
       <div class="item">
-    	<c:forEach var="ldto3" items="${ldto3}">
-       		<div>${ldto3.keyword}</div>
+    	<c:forEach var="countList" items="${countList}" end="9">
+    		<div>${countList}</div>
        	</c:forEach>
       </div>
     </div>

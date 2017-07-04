@@ -37,7 +37,10 @@
 		googleId like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
 		birth like concat('%',#keyword#,'%') order by signdate desc limit #startRow#,#pageSize#;  
 	</select>
-
+	<!-- 회원 정보 호출 -->
+	<select id="getUser" parameterClass="String" resultClass="userDto">
+		select * from userInfo where id=#id#;
+	</select>
 	<!-- 회원 정보 수정 -->
 	<update id="userUp" parameterClass="userDto">
 		update userInfo set pw=#pw#,name=#name#,birth=#birth#,phone=#phone#,email=#email#,address=#address#,grade=#grade#,googleId=#googleId#
@@ -133,8 +136,6 @@
 	<select id="getBossFranchiseeList" resultClass="franchiseeDTO" parameterClass="java.util.HashMap">
 		select b_id,b_name, b_key from franchiseeInfo order by b_id desc limit #startRow#,#pageSize#;
 	</select>
-	
-	
 	<!-- 회원 삭제 로그 호출 -->
 	<select id="getUserDeleteLog" parameterClass="String" resultClass="userDto" >
 		select * from userInfoLog where id=#reverse#
