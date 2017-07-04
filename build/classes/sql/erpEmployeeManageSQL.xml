@@ -408,7 +408,7 @@
 
 	<select id="getMenuname" parameterClass="java.util.HashMap" resultClass="String">
 		<![CDATA[
-		select name from sellBuyLog where customer=#id# and productsaleregistdate>=#startTime# and productsaleregistdate<=#endTime# and l_key=#l_key#;
+		select distinct name from sellBuyLog where customer=#id# and productsaleregistdate>=#startTime# and productsaleregistdate<=#endTime# and l_key=#l_key#;
 		]]>
 	</select>
 	
@@ -420,7 +420,7 @@
 	
 	<select id="getPriceMenu" parameterClass="java.util.HashMap" resultClass="int">
 	<![CDATA[
-		select price from sellBuyLog where l_key=#l_key# and name=#name# and productsaleregistdate>=#startTime# and productsaleregistdate<=#endTime# and customer=#id#;
+		select distinct price from sellBuyLog where l_key=#l_key# and name=#name# and productsaleregistdate>=#startTime# and productsaleregistdate<=#endTime# and customer=#id#;
 		]]>
 	</select>
 

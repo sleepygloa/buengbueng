@@ -362,9 +362,9 @@ public class BossEmployeeManageBean4 {
 		try{
 		String l_key=(String)session.getAttribute("b_key");
 		ArrayList countList=new ArrayList();
-		List priceList=null;
-		List totalpriceList=null;
-		List menunameList=null;
+		ArrayList priceList=new ArrayList();
+		ArrayList totalpriceList=new ArrayList();
+		ArrayList menunameList=new ArrayList();
 		int total=0;
 				
 		String startTime=starttime.substring(0,10);
@@ -380,7 +380,7 @@ public class BossEmployeeManageBean4 {
 		List<SellBuyLogDTO> idMatchList = (List)sqlMap.queryForList("erpEmp.sellBuyLogIdMatch", map);
 		
 		if(idMatchList!=null){
-			menunameList = (List)sqlMap.queryForList("erpEmp.getMenuname",map);
+			menunameList = (ArrayList)sqlMap.queryForList("erpEmp.getMenuname",map);
 			for(int i=0; i<menunameList.size();i++){
 				String name = (String)menunameList.get(i);
 				
@@ -391,10 +391,10 @@ public class BossEmployeeManageBean4 {
 				map1.put("startTime",startTime);
 				map1.put("endTime", endTime);
 				int count =(Integer)sqlMap.queryForObject("erpEmp.getCountMenu",map1);
-				System.out.println(countList);
+				System.out.println(count+"count");
 				countList.add(count);
 				int price=(Integer)sqlMap.queryForObject("erpEmp.getPriceMenu", map1);
-			
+				System.out.println(count+"count");
 				priceList.add(price);
 				int totalprice=price*count;
 			
