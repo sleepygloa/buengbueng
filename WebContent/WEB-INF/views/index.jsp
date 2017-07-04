@@ -8,78 +8,71 @@ history.go(-1);
 </script>
 </c:if>
 <!-- HEADER TEMPLATE -->
-<jsp:include page="header.jsp" />
+<jsp:include page="header.jsp" /> 
 
 <!-- ARTICLE -->
-
 <!-- 메인 화면 전광판  ------------------------------------------------------------>
-<div class="main_ad row">
+<div class="main_ad">
 	<div class="main_ad_content">
-		<div class="mainContent_left">
-			<div class="left_container1">
-				<div class="left_container1_box1">
-					<a href="#">포인트 결제</a>
+			<div class="col-xs-10-10 main_ad_contentBox">
+				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  bg1 col_height200 contentBox_outline">
+					<div class="contentBox">
+						<div class="contentBox_a"><a href="#">포인트 결제</a></div>
+						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
+					</div>
 				</div>
-				<div class="left_container1_box2">
-					<a href="#">결제내역 조회</a>
+				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  bg2 col_height200 contentBox_outline">
+					<div class="contentBox">
+						<div class="contentBox_a"><a href="#">결제내역 조회</a></div>
+						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
+					</div>
 				</div>
-				<div class="left_container1_box3">
+				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  bg3 col_height200">
 					<a href="#">이용내역 조회</a>
 				</div>
+				
+				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10 col_height200 bg2">
+					<div class="login_title">
+						<p>PC방에 오신 것을 환영합니다.원활한 이용을 위해 로그인이 필요합니다.</p>
+					</div>
+					<button class="Login_button">BuengBueng <span class="Login_button_point">PC방</span> 로그인</button>
+					<div class="Login_other">
+						<ul>
+							<li class="Login_other1"><a href="#">회원가입</a></li>
+							<li class="Login_other2"><a href="#">비밀번호 찾기</a></li>
+							<li class="Login_other2">|</li>
+							<li class="Login_other2"><a href="#">아이디 찾기</a></li>
+						</ul>
+					</div>
+				</div>
+				
 			</div>
 			
-			<div class="left_container2">
-				<div class="left_container2_box2">
+			<!-- <div class="col-xs-12-12 col-sm-6-12 col-md-3-12  bg5 col_height100">
+				<div class="left_container2_box2 bg13">
 					<a href="#">가맹신청</a>
 				</div>
-				<div class="left_container2_box1">
+				<div class="left_container2_box1 bg12">
 					<a href="#">공지사항</a>
 				</div>
 			</div>
-			<div class="left_container2">
-				<div class="left_container2_box1_1">
-					<a href="#">가맹신청</a>
+			<div class="left_container2 bg9">
+				<div class="left_container2_box1_1 bg10">
+					<a href="#">하하하하하</a>
 				</div>
-				<div class="left_container2_box2_1">
-					<a href="#">공지사항</a>
+				<div class="left_container2_box2_1 bg11"> 
+					<a href="#">호호호히히</a>
 				</div>
-			</div>
-		</div>
-		<div class="mainContent_right">	
-			<div class="right_container1">
-				<div class="login_title">
-					<p>PC방에 오신 것을 환영합니다.원활한 이용을 위해 로그인이 필요합니다.</p>
-				</div>
-				<button class="Login_button">BuengBueng <span class="Login_button_point">PC방</span> 로그인</button>
-				<div class="Login_other">
-					<ul>
-						<li class="Login_other1"><a href="#">회원가입</a></li>
-						<li class="Login_other2"><a href="#">비밀번호 찾기</a></li>
-						<li class="Login_other2">|</li>
-						<li class="Login_other2"><a href="#">아이디 찾기</a></li>
-					</ul>
-				</div>
-			</div>
+			</div> -->
 			
 			<div class="right_container2">
 				<p>배너</p>
 			</div>
 		</div>
 		
-		<div class="container main_ad_text_wrap">
-			<!-- <h1 class="main_ad_title">NEW PC방 관리프로그램 출시!!</h1>
-			<p class="main_ad_title_desc p_strongfont">통합회원관리시스템!</p> -->
-			
-<!-- 			<video id="videobcg" preload="auto" autoplay="true" loop="loop" volume="5" style="background: red;">
-				<source src="/buengbueng/video/sample.mp4" type="video/mp4">
-				<source src="video.webm" type="video/webm">
-			</video> -->
-			
-		</div>
 	</div>
-</div>
 <!-- 끝 : 메인화면 전광판 ---------------------------------------------------------->	
-	
+	<%-- 
 <!-- 메인 주요기능 : 카드 섹션? 영역 -------------------------------------------------->
 <div class="main_card_wrap row">
     <div class="main_card_content">
@@ -144,6 +137,6 @@ history.go(-1);
     </div>
 </div>
 <!-- 메인 주요기능 : 카드 섹션? 영역 --------------------------------------------------->
-
+--%>
 <!-- FOOTER TEMPLATE -->
-<jsp:include page="footer.jsp" />
+<jsp:include page="footer.jsp" /> 

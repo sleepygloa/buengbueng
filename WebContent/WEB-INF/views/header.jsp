@@ -17,12 +17,13 @@
 		<!-- <link rel="shortcut icon" type="image/png" href="img/favicon/beuLogo.ico"/> -->
 
 		<!-- CSS RESET -->
-    	<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/style_v2.css" />
+    	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/reset.css">
 		<!-- INDEX CSS 2 -->    
-        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap-theme.min.css" />
-		<!-- <link rel="stylesheet" type="text/css"  href="/buengbueng/css/reset.css">  -->
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css" />
+		
 	
 		<!-- main -->
 		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/sidemain_main.css" />
@@ -48,6 +49,7 @@
 	 	<!-- LOGIN SECTION -->
 	 	<header class="header_wrap ">
 			<div class="header container ">
+			
 				<!-- 로고 : BUENGBUENG 또는 그림 -->
 				<div><h1 class="logo" ><a style="color:#ed1c24;" href="index.do"><b>bueng</b>bueng</a></h1></div>
 
@@ -380,6 +382,7 @@
 			      <li class="item sign"><a href="/buengbueng/dashIndex.do">관리자 페이지</a></li>
 			   </c:if>               
             </ul>
+            
          </div>
       </header>
       
@@ -407,7 +410,6 @@
 			<div class="side_scontent container">
 			
 		</c:if>
-  
   <script>
  $("#respon_menu").click(function () {
 	 $("#respon_menu_area").toggle("show"); 
