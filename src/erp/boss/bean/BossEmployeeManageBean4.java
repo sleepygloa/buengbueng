@@ -255,7 +255,7 @@ public class BossEmployeeManageBean4 {
     	//현재 오늘일 기준으로 어제 종료 일 23:59:59  코드
     	String endDate = new java.text.SimpleDateFormat("yyyy-MM-dd 23:59:59").format(day.getTime());
     	
-    	String yesterday=new java.text.SimpleDateFormat("yyyy-MM-dd").format(day.getTime());  
+    	String yesterday=settlementDate.substring(0,10);  
 		
 		//내역 리스트
 		if (pageNum == null) {
