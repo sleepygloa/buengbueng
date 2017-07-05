@@ -349,6 +349,11 @@
 	<select id="getBossFranchiseeList" resultClass="franchiseeDTO" parameterClass="String">
 		select b_name, b_key from franchiseeInfo where b_id = #b_id#;
 	</select>
+
+	<!-- 사장님의 가맹점 b_key 반환-->
+	<select id="getBossFranchiseeListB" resultClass="String" parameterClass="String">
+		select b_key from franchiseeInfo where b_id = #b_id# limit 0, 1;
+	</select>
 	
 	<!-- 일일정산 내역 리스트========================================================== -->
 	

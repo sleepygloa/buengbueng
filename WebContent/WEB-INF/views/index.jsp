@@ -48,12 +48,10 @@ history.go(-1);
 						<div><i class="fa fa-bar-chart fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>
-				
-
 
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10 col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">가맹점 신청</a></div>
+						<div class="contentBox_a"><a href="franchiseeManagementMain.do">가맹점 관리</a></div>
 						<div><i class="fa fa-pencil-square-o fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>
