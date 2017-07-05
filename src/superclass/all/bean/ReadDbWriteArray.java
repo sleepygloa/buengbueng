@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -30,11 +31,10 @@ public class ReadDbWriteArray {
 	public  void readDb(Object dto, String fileName, String fileCheck)throws IOException {
 		////////////////////////////////
 		//각 Log의 TEXT파일의 Line 수를 세는 코드
-		File file = new File("..\\..\\workspace\\buengbueng");
-//		File file = new File("C:\\Users\\KO\\Documents\\eclipse\\Spring\\buengbueng");
+		
+		File file = new File(System.getProperty("user.home")+"\\Documents\\buengbueng\\log\\log.txt");
 		String totalFileName = 
-				"" + file.getCanonicalPath() + 
-				"\\WebContent\\log"+ fileName;
+				"" + file.getCanonicalPath();
 		
 		 InputStream is = new BufferedInputStream(new FileInputStream(totalFileName));
 		 int count = 0;

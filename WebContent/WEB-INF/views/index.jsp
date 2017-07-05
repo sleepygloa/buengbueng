@@ -15,6 +15,21 @@ history.go(-1);
 <div class="main_ad">
 	<div class="main_ad_content">
 			<div class="col-xs-10-10 main_ad_contentBox">
+				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10 col_height200 contentBox_outline contentBox_right">
+					<div class="contentBox col_height0" >
+						<div class="login_title">
+							<p>환영합니다. 원활한 이용을 위해 로그인이 필요합니다.</p>
+						</div>
+						<div class="contentBox_img_banner"><a href="loginForm.do"><img src="/buengbueng/img/index/login_banner.png" width="100%;" height="50px;" /></a></div>
+						<div class="contentBox_login_other">
+							<ul>
+								<li class="col-xs-4-12 mb0"><a href="userInfoSignForm.do">회원가입</a></li>
+								<li class="col-xs-4-12 mb0"><a href="userInfoSearchPwForm.do">비밀번호 찾기</a></li>
+								<li class="col-xs-4-12 mb0"><a href="userInfoSearchIdForm.do">아이디 찾기</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
 						<div class="contentBox_a"><a href="#">포인트 결제</a></div>
@@ -34,21 +49,7 @@ history.go(-1);
 					</div>
 				</div>
 				
-				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10 col_height200 contentBox_outline">
-					<div class="contentBox col_height0" >
-						<div class="login_title">
-							<p>환영합니다. 원활한 이용을 위해 로그인이 필요합니다.</p>
-						</div>
-						<div class="contentBox_img_banner"><a href="loginForm.do"><img src="/buengbueng/img/index/login_banner.png" width="100%;" height="50px;" /></a></div>
-						<div class="contentBox_login_other">
-							<ul>
-								<li class="col-xs-4-12 mb0"><a href="userInfoSignForm.do">회원가입</a></li>
-								<li class="col-xs-4-12 mb0"><a href="userInfoSearchPwForm.do">비밀번호 찾기</a></li>
-								<li class="col-xs-4-12 mb0"><a href="userInfoSearchIdForm.do">아이디 찾기</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
+
 
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10 col_height200 contentBox_outline">
 					<div class="contentBox col_height0">

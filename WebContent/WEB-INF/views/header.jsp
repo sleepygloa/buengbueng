@@ -43,7 +43,343 @@
 		<!-- 홈페이지 제목 -->
 		
 	</head>
+<!-- LOGIN SECTION -->
+	 	<header class="header_wrap ">
+			<div class="header container ">
+				<!-- 로고 : BUENGBUENG 또는 그림 -->
+				<div><h1 class="logo"><a href="index.do">buengbueng</a></h1></div>
 
+				<div id="respon_menu" class="respon_menu" ><div class="respon_menu_icon"><span>menu</span></div></div>
+				<div id="respon_menu_area" class="respon_menu_area" style="display:none">
+					<div class="respon_menu_ul">
+						<div id="respon_menu_intro" class="respon_menu_list"><a href="">회사소개</a></div>
+							<div id="respon_submenu_intro" class="respon_submenu" style="display:none">
+								<div><a href="">가맹점 찾기</a></div>
+								<div><a href="">프로그램 기능소개</a></div>
+							</div>
+						<div id="respon_menu_user" class="respon_menu_list"><a href="">사용자 PC방 이용</a></div>
+							<div id="respon_submenu_user" class="respon_submenu" style="display:none">
+								<div><a href="searchPCForm.do">PC방 찾기</a></div>
+								<div><a href="favoritePCRoom.do">즐겨찾는 PC방</a></div>								
+								<div><a href="userbilling/cash.do">결제</a></div>
+								<div><a href="">이용현황</a></div>								
+							</div>
+						<div id="respon_menu_boss" class="respon_menu_list"><a href="">사장님 PC방 관리</a></div>
+							<div id="respon_submenu_boss" class="respon_submenu" style="display:none">
+								<div><a href="">원격 조종</a></div>
+								<div><a href="bossErpMain.do">ERP 관리</a></div>								
+								<div><a href="franchiseeList.do">가맹점 관리</a></div>
+							</div>						
+						<div id="respon_menu_admin" class="respon_menu_list"><a href="">관리자 프로그램 관리</a></div>
+							<div id="respon_submenu_admin" class="respon_submenu" style="display:none">
+								<div><a href="">챗봇 관리</a></div>
+								<div><a href="">ERP 관리</a></div>								
+								<div><a href="">회원 관리</a></div>
+								<div><a href="">페이지 관리</a></div>
+							</div>							
+						<div id="respon_menu_question" class="respon_menu_list"><a href="">고객센터</a></div>
+							<div id="respon_submenu_question" class="respon_submenu"  style="display:none">
+								<div><a href="">가맹 문의</a></div>
+								<div><a href="">자주묻는 질문</a></div>								
+								<div><a href="">1:1 관리</a></div>
+							</div>							
+					</div>
+				</div>
+				
+				<!-- NAV SECTION -->
+				<!-- BIG NAV : 대 제목 : 메인 NAV : 메인 메뉴 -->				
+				<ul class="menu_area"> 
+					<li class="item normal product" onClick="return true">
+						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
+<!-- -------------------------------------------------------------------------------------------------------- -->						
+ 						<a class="ctgr" href="">
+회사 소개
+						</a>
+						<!-- 드롭다운메뉴 : 소메뉴 -->
+						<ul class="menu_list">
+						<!-- 	소메뉴 타이틀 -->
+							<h6 class="menu_subject minor-minor">회사소개&nbsp; | &nbsp;<span class="list__title__desc">PC방이용자님이 사용할수 있는 메뉴입니다.</span></h6>
+							<!-- 소메뉴 의 각 링크들 -->
+							<li class="row">
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">가맹점 찾기</h6>
+											<p class="menu_desc">시스템을 제공하는 가맹점 찾기</p>
+										</span>
+									</a>
+								</div>
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">프로그램 기능소개</h6>
+											<p class="menu_desc">BUENGBUENG 모든 기능 소개</p>
+										</span>
+									</a>
+								</div>
+							</li>
+						</ul>	
+					</li> 
+<!-- ------------------------------------------------------------------------------------------------------ -->
+					<li class="item normal product" onClick="return true">
+						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
+						<a class="ctgr" href="">
+사용자 PC방 이용
+						</a>
+						<!-- 드롭다운메뉴 : 소메뉴 -->
+						<ul class="menu_list ">
+							<!-- 소메뉴 타이틀 -->
+							<h6 class="menu_subject minor-minor">
+								PC방이용&nbsp; | &nbsp;
+								<span class="list__title__desc">PC방이용자님이 사용할수 있는 메뉴입니다.</span>
+							</h6>
+							
+							<!-- 소메뉴 의 각 링크들 -->
+							<li class="row">
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="searchPCForm.do">
+										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">PC방 찾기</h6>
+											<p class="menu_desc">우리동네, 지역 가맹 피시방찾기</p>
+										</span>
+									</a>
+								</div>
+								
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="userbilling/cash.do">
+										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">결제</h6>
+											<p class="menu_desc">PC이용요금 결제</p>
+										</span>
+									</a>
+								</div>
+							</li>
+							<!-- 소메뉴 의 각 링크들 -->
+							<li class="row">
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+							
+								<div class="menu_menu col-sm-6-12">
+									<a href="favoritePCRoom.do">
+										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">즐겨찾는 PC방</h6>
+											<p class="menu_desc">자주찾는 PC방을 지정하여 그곳의 정보를 먼저 파악</p>
+										</span>
+									</a>
+								</div>
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+							
+								<div class="menu_menu col-sm-6-12">
+									<a href="">
+										<span class="menu_icon "><img src="img/ux-heatmaps-gnb@2x.png"> </span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">이용현황</h6>
+											<p class="menu_desc">현재 실시간 자리현황 파악</p>
+										</span>
+									</a>
+								</div>
+							</li>
+							<!-- 소메뉴 의 각 링크들 -->
+							<li class="row">
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+							
+								
+							</li>
+						</ul>	
+					</li>
+<!-- ---------------------------------------------------------------------------------------------------- -->
+ 					<li class="item normal product" onClick="return true">
+						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
+						
+						<a class="ctgr" href="">
+사장님 PC방 관리
+						</a>
+						<!-- 드롭다운메뉴 : 소메뉴 -->
+						<ul class="menu_list ">
+							<!-- 소메뉴 타이틀 -->
+							<h6 class="menu_subject minor-minor">사장님관리&nbsp; | &nbsp;<span class="list__title__desc">사장님께서 PC방관리를 할 수 있습니다.</span></h6>
+							<!-- 소메뉴 의 각 링크들 -->
+							<li class="row">
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">원격 조종</h6>
+											<p class="menu_desc">멀리서 사장님 PC 관리</p>
+										</span>
+									</a>
+								</div>
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="bossErpMain.do">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">ERP 관리</h6>
+											<p class="menu_desc">PC방 내 모든 현황 관리</p>
+										</span>
+									</a>
+								</div>
+							</li>
+							<!-- 소메뉴 의 각 링크들 -->
+							<li class="row">
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="franchiseeList.do">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">가맹점 관리</h6>
+											<p class="menu_desc">가맹점 등록 및 삭제</p>
+										</span>
+									</a>
+								</div>
+							</li>
+						</ul>	
+					</li>					
+<!-- ---------------------------------------------------------------------------------------------------- -->
+					<li class="item normal product" onClick="return true">
+						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
+						
+						<a class="ctgr" href="">
+관리자 프로그램 관리
+						</a>
+						<!-- 드롭다운메뉴 : 소메뉴 -->
+						<ul class="menu_list">
+							<!-- 소메뉴 타이틀 -->
+							<h6 class="menu_subject minor-minor">관리자&nbsp; | &nbsp;<span class="list__title__desc">모든 사항을 관리합니다.</span></h6>
+							<!-- 소메뉴 의 각 링크들 -->
+							
+							<li class="row">
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">회원 관리</h6>
+											<p class="menu_desc">멀리서 가맹중인 PC방 관리</p>
+										</span>
+									</a>
+								</div>
+								
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">챗봇 관리</h6>
+											<p class="menu_desc">PC방 내 모든 현황 관리</p>
+										</span>
+									</a>
+								</div>
+							</li>
+							
+							<!-- 소메뉴 의 각 링크들 -->
+							<li class="row">
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">ERP 관리</h6>
+											<p class="menu_desc">전체 ERP 모듈 관리</p>
+										</span>
+									</a>
+								</div>
+								
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">페이지 관리</h6>
+											<p class="menu_desc">웹 페이지기능 추가 및 삭제</p>
+										</span>
+									</a>
+								</div>
+							</li>
+							
+						</ul>	
+					</li>		
+<!-- ----------------------------------------------------------------------------------------------------								 -->
+					<li class="item normal product" onClick="return true">
+						<a href="">
+고객센터
+						</a>
+						<!-- 드롭다운메뉴 : 소메뉴 -->
+						<ul class="menu_list ">
+							<!-- 소메뉴 타이틀 -->
+							<h6 class="menu_subject minor-minor">All people&nbsp; | &nbsp;<span class="list__title__desc">모든 문의는 여기에서 확인할 수 있습니다.</span></h6>
+							<!-- 소메뉴 의 각 링크들 -->
+							<li class="row">
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="franchiseQA.do?snum=1&pageNum=1">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">가맹 문의</h6>
+											<p class="menu_desc">가맹시 궁금한 문의 여기로</p>
+										</span>
+									</a>
+								</div>
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="customerQA.do?snum=2&pageNum=1">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">자주 묻는 질문</h6>
+											<p class="menu_desc">자주 물어보는 질문들 여기로</p>
+										</span>
+									</a>
+								</div>
+							</li>
+							<!-- 소메뉴 의 각 링크들 -->
+							<li class="row">
+								<!-- 컨텐츠당 하나의 div로 구성 -->
+								<div class="menu_menu col-sm-6-12">
+									<a href="oneQA.do?snum=3&pageNum=1">
+										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">1:1 문의</h6>
+											<p class="menu_desc">사소한것까지 궁금한건 여기로</p>
+										</span>
+									</a>
+								</div>
+							</li>
+						</ul>	
+					</li>							
+               
+               
+            <!-- 로그인상태와 로그아웃상태일때 환영메세지, 관리자 일때 관리자페이지 링크가 보이게 한다. -->
+               <c:if test="${sessionScope.loginId != null}" >
+                  <li class="item sign"><a href="/buengbueng/logout.do">로그아웃</a></li>
+                  <li class="item sign"><a href="/buengbueng/userInfoForm.do">회원 정보보기</a></li>
+                  <li class="item sign"><a href="#">${sessionScope.loginId}님 환영해요</a></li>
+                  <c:if test="${sessionScope.grade!=4}" >
+                  	<li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
+                  </c:if>
+               </c:if>
+
+               <c:if test="${sessionScope.loginId == null}" >
+                  <li class="item sign"><a href="/buengbueng/userInfoSignForm.do">회원가입</a></li>
+                  <li class="item sign"><a href="">비밀번호찾기</a></li>
+                  <li class="item sign"><a href="/buengbueng/loginForm.do">로그인</a></li>
+                  <li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
+               </c:if>
+               
+               <c:if test="${sessionScope.grade==4}" >
+			      <li class="item sign"><a href="/buengbueng/dashIndex.do">관리자 페이지</a></li>
+			   </c:if>               
+            </ul>
+         </div>
+      </header>
  
 <section class="main_wrap" style="float:left;"> 
 	<!-- css로 추가활것 -->
