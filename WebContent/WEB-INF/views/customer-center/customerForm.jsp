@@ -5,9 +5,12 @@
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
 <head>
-<title>가맹 문의</title>
+<title>Q & A</title>
 </head>
-<div>가맹 문의</div>
+<c:if test="${sessionScope.grade!=4}">
+	<script>alert("관리자 등급만 작성 가능"); history.go(-1);</script>
+</c:if>
+<div>Q & A</div>
 <form action="customerPro.do" method="post" onsubmit="return customerCheck();" name="customer">
 <input type="hidden" name="pageNum" value="${pageNum}">
 <input type="hidden" name="snum" value="${snum}">
@@ -19,21 +22,11 @@
 <div>
 <div>
 	<span>이름</span>
-	<c:if test="${sessionScope.loginId != null}">
-		<span><input type="text" name="writer" value="${dto.name}" readonly></span>
-	</c:if>
-	<c:if test="${sessionScope.loginId == null}">
-		<span><input type="text" name="writer"></span>
-	</c:if>
+	<span><input type="text" name="writer" value="${user.name}" readonly></span>
 </div>
 <div>
 	<span>이메일</span>
-	<c:if test="${sessionScope.loginId != null}">
-		<span><input type="text" name="email" value="${dto.email}"></span>
-	</c:if>
-	<c:if test="${sessionScope.loginId == null}">
-		<span><input type="text" name="email"></span>
-	</c:if>
+	<span><input type="text" name="email" value="${user.email}"></span>
 </div>
 <div>
 	<span>제목</span>
@@ -46,12 +39,6 @@
 </div>
 	<textarea name="content"></textarea>
 <div>
-<div>
-	<c:if test="${sessionScope.loginId != 'admin'}">
-	<span>비밀번호</span>
-	<span><input type="password" name="passwd" ></span>
-	</c:if>
-</div>
 	<span><input type="submit" value="작성하기"></span>
 	<span><input type="reset" value="다시쓰기"></span>
 	<span><input type="button" value="돌아가기" onclick="window.location='customerQA.do?snum=${snum}&pageNum=${pageNum}'"></span>

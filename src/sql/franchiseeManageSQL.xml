@@ -8,10 +8,11 @@
 		select * from userInfo where id = #id# and grade = '1';
 	</select>
 	
-	<!-- 가맹점 신청 : 신청시 franchiseeInfo테이블에 레코드 추가 -->
-	<insert id="insertFranchiseeInfo" parameterClass="franchiseeDTO">
-		insert INTO franchiseeInfo (b_key, b_id, b_name, b_number,b_address,b_tel,b_size,b_pccount,b_ip)
-					 VALUES( #b_key#,#b_id#,#b_name#,#b_number#,#b_address#,#b_tel#,#b_size#,#b_pccount#,#b_ip#);
+
+	<!-- 가맹점 신청 : 신청시 log테이블에 레코드 추가 -->
+	<insert id="insertFranchiseeAddLog" parameterClass="bossDTO">
+		insert into franchiseeAddLog (result, Date, b_id, b_name, b_number,b_address,b_tel,b_size,b_pccount,b_ip) VALUES(0,now(), #b_id#,#b_name#,#b_number#,#b_address#,#b_tel#,#b_size#,#b_pccount#,#b_ip#);
+
 	</insert>	
 
 	<!-- 가맹점 리스트 갯수 보기 -->

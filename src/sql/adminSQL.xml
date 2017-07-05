@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="admin">
+	<!-- 등급별 회원 수 -->
+	<select id="userCount" parameterClass="int" resultClass="int">
+		select count(*) from userInfo where grade=#grade#;
+	</select>
+	
+	<!-- 등급별 회원 목록 -->
+	<select id="userList" parameterClass="int" resultClass="userDto">
+		<![CDATA[
+		select id,pw,name,birth,phone,grade,address,email,signdate,googleId,@rownum:=@rownum+1 as rownum
+		from userInfo,(select @rownum:=0)r where grade=#grade# order by signdate desc;
+		]]>
+	</select>
+	
+	<!-- 회원 삭제 -->
+	<delete id="userDelete" parameterClass="String">
+		delete from userInfo where id=#id#;
+	</delete>	
+	
+	<!-- 회원 정보 호출 -->
+	<select id="getUser" parameterClass="String" resultClass="userDto" >
+		select * from userInfo where id=#id#;
+	</select>
+	
+	<update id="userUp" parameterClass="userDto">
+		update userInfo set pw=#pw#,name=#name#,birth=#birth#,phone=#phone#,email=#email#,address=#address#,grade=#grade#,googleId=#googleId#
+		where id=#id#
+	</update>
+</sqlMap>

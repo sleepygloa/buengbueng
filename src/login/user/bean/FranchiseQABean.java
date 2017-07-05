@@ -19,7 +19,7 @@ public class FranchiseQABean { // 가맹 문의
 	private SqlMapClientTemplate sqlMap;
 	
 	@RequestMapping("franchiseQA.do")  // 게시판 리스트
-	public String franchiseQA(HttpServletRequest request,HashMap map){
+	public String franchiseQA(HttpServletRequest request,HttpSession session,HashMap map){
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		
@@ -65,10 +65,10 @@ public class FranchiseQABean { // 가맹 문의
 	
 	@RequestMapping("franchiseForm.do")
 	public String franchiseForm(HttpServletRequest request,HttpSession session){   // 문의 작성 폼 
-		if(session.getAttribute("loginId") != null){
+		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출
 			String id = (String)session.getAttribute("loginId");
-			UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
-			request.setAttribute("dto", dto);
+			UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+			request.setAttribute("user", user);
 		}
 		
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
@@ -92,12 +92,21 @@ public class FranchiseQABean { // 가맹 문의
 	@RequestMapping("franchisePro.do")  // 문의 작성 DB insert 
 	public String franchisePro(CustomerDTO dto,HashMap map,HttpServletRequest request) throws Exception{
 		String pageNum = request.getParameter("pageNum");
-		
+
 		int num=dto.getNum(); 
 		int ref=dto.getRef();
 		int re_step=dto.getRe_step();
 		int snum=dto.getSnum();
 		int number=0;
+		
+		// 답글 작성시 기존 글과 비밀번호 통일
+		if(request.getParameter("b_passwd")==""){
+			map.put("snum", snum);
+			map.put("num",num);
+			String passwd = (String)sqlMap.queryForObject("customer.getPasswd", map);
+			dto.setPasswd(passwd);
+		}
+		
 		
 		number = (Integer)sqlMap.queryForObject("customer.maxNum", snum);
 		
@@ -120,21 +129,49 @@ public class FranchiseQABean { // 가맹 문의
 		return "/customer-center/franchisePro";
 	}
 	
-	@RequestMapping("franchiseContent.do")  // 게시글 내용 호출
-	public String franchiseContent(HttpServletRequest request,HashMap map,CustomerDTO dto){
+	@RequestMapping("franchiseWriteCheck.do")  //  게시글 호출시 패스워드 검사 창
+	public String franchiseWriteCheck(HttpServletRequest request,HttpSession session,HashMap map) {
 		String pageNum = request.getParameter("pageNum");
 		String number = request.getParameter("number");
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		Integer num = Integer.parseInt(request.getParameter("num"));
+				
+		map.put("num", num);
+		map.put("snum",snum);
+		CustomerDTO dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", map);
+		
+		request.setAttribute("dto", dto);
+		request.setAttribute("number", number);
+		request.setAttribute("snum", snum);
+		request.setAttribute("num", num);
+		request.setAttribute("pageNum", pageNum);
+		return "/customer-center/franchiseWriteCheck";
+	}
 
+	@RequestMapping("franchiseContent.do")  // 게시글 내용 호출
+	public String franchiseContent(HttpServletRequest request,HashMap map,CustomerDTO dto,HttpSession session,UserInfoDataDTO user){
+		String passwd = request.getParameter("passwd");
+		String pageNum = request.getParameter("pageNum");
+		String number = request.getParameter("number");
+		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		Integer num = Integer.parseInt(request.getParameter("num"));
+		int check = 0;
+		int grade = 0;
 		map.put("snum",snum);
 		map.put("num",num);
-	
-		sqlMap.update("customer.contentUp", map);
 		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent", map);
-		int re_step = (Integer)sqlMap.queryForObject("customer.getReply",dto.getRef()); // 답글의 여부 확인
-	
+		
+		// 등급이 관리자 or 해당글 비밀번호 일치시 ...
+		if(session.getAttribute("grade")!=null){grade = (Integer)session.getAttribute("grade");}
+		if(dto.getPasswd().equals(passwd) || grade==4){check=1; sqlMap.update("customer.contentUp", map);
+		}else{ check =0;}
+				
+		map.put("ref", dto.getRef());
+		map.put("snum",snum);
+		int re_step = (Integer)sqlMap.queryForObject("customer.getReply",map); // 답글의 여부 확인 1일때만 답변 쓸수있음.	
 		request.setAttribute("re_step", re_step);
+
+		request.setAttribute("check", check);
 		request.setAttribute("dto", dto);
 		request.setAttribute("number", number);
 		request.setAttribute("pageNum", pageNum);
@@ -168,7 +205,7 @@ public class FranchiseQABean { // 가맹 문의
 			// 해당 글의 ref 그룹 호출 후 해당글 삭제
 			int ref = (Integer)sqlMap.queryForObject("customer.getRef", map);  
 			int re_step = (Integer)sqlMap.queryForObject("customer.getRe_step", map);
-		
+			map.put("snum", snum);
 			map.put("ref",ref);
 			map.put("re_step",re_step);
 			sqlMap.delete("customer.delRef", map);
@@ -215,34 +252,27 @@ public class FranchiseQABean { // 가맹 문의
 	}
 	
 	@RequestMapping("bossDelete.do")  // 관리자 권한 삭제 확인
-	public String bossDelete(HttpServletRequest request){
-		Integer snum = Integer.parseInt(request.getParameter("snum"));
-		Integer num = Integer.parseInt(request.getParameter("num"));
-		String pageNum=request.getParameter("pageNum");
-		
-		request.setAttribute("snum", snum);
-		request.setAttribute("num", num);
-		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/bossDelete";
-	}
-	
-	@RequestMapping("bossDeletePro.do") //관리자 권한 삭제 완료
-	public String bossDeletePro(HttpServletRequest request,HashMap map){
+	public String bossDelete(HttpServletRequest request,HashMap map){
 		int num = Integer.parseInt(request.getParameter("num"));
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
-		
+		String addr=null;
 		map.put("num", num);
 		map.put("snum",snum);
 		int ref = (Integer)sqlMap.queryForObject("customer.getRef", map);
 		int re_step = (Integer)sqlMap.queryForObject("customer.getRe_step", map);
-		
+		map.put("snum",snum);
 		map.put("ref",ref);
 		map.put("re_step",re_step);
 		sqlMap.delete("customer.bossDel", map);
 		
+		if(snum == 1){addr="franchiseQA";}
+		if(snum == 2){addr="customerQA";}
+		if(snum == 3){addr="oneQA";}
+		
+		request.setAttribute("addr", addr);
 		request.setAttribute("snum", snum);
 		request.setAttribute("pageNum", pageNum);
-		return "/customer-center/bossDeletePro";
+		return "/customer-center/bossDelete";
 	}
 }

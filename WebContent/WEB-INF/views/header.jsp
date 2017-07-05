@@ -316,8 +316,17 @@
 											<p class="menu_desc">사소한것까지 궁금한건 여기로</p>
 										</span>
 									</a>
-								</div>
-							</li>
+								</div>							
+							<!-- 컨텐츠당 하나의 div로 구성 -->
+							<div class="menu_menu col-sm-6-12">
+							      <a href = "notice.do?snum=4&pageNum=1">
+							      	 <span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">공지사항</h6>
+											<p class="menu_desc">사이트 공지는  여기로</p>
+										</span>
+									</a>
+							</div>
 						</ul>	
 					</li>							
                

@@ -16,6 +16,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import login.user.bean.BossInfoDataDTO;
+import login.user.bean.EmployeeInfoDataDTO;
+import login.user.bean.UseTimeLogDTO;
+import login.user.bean.UserInfoDataDTO;
 import superclass.all.bean.CheckInfo;
 import superclass.all.bean.EventGetMoney;
 import superclass.all.bean.FindIpBean;
@@ -46,39 +50,19 @@ public class UserInfoBean {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		
-		int check = -1;
-		
-		try{
-			//ID로 사용자 정보 불러온다음 입력한 PW와 DB의 PW와 비교한다.
-			UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+		//ID로 사용자 정보 불러온다음 입력한 PW와 DB의 PW와 비교한다.
+		UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+		if(dto!=null){
 			if(pw.equals(dto.getPw())){
 				session.setAttribute("loginId", dto.getId());
-				
-				//////////////////////////////////
-				//접속장소의 IP를 검색하고,로그인 LOG 를 남긴다.
+				session.setAttribute("grade", dto.getGrade());
+				//로그인 LOG 남김
 				FindIpBean fib = new FindIpBean();
 				String ip = (String)fib.findIp();
+			}else{
 				
-				HashMap map = new HashMap();
-				map.put("id", id);
-				map.put("ip", ip);
-				sqlMap.insert("erpEmp.insertEmployeeLoginLog", map); //로그인 LOG 남김
-				
-				////////////////////////////////////
-				//임시 만든 이벤트 코드, 사용자가 방문(로그인) 했을때 1000원씩준다.
-				int eventMoney = 1000; //이벤트 충전 머니
-				if(eventMoney != 0){
-					HashMap map1 = new HashMap();
-					map1.put("id", id);
-					map1.put("eventMoney", eventMoney);
-					check = eventGetMoney.eventGetMoney(map1);
-				}
 			}
-			
-		}catch(Exception e){
-			
 		}
-		
 		return "/index";
 	}
 	

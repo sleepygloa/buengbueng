@@ -4,13 +4,13 @@
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
 <head>
-	<title>가맹 문의</title>
+	<title>Q & A</title>
 </head>
 
 <div>
-<div>가맹 문의</div>
-<c:if test="${sessionScope.loginId != 'admin' }">
-<div><a href="customerForm.do?snum=${snum}&pageNum=${pageNum}">문의하기</a></div>
+<div>Q & A</div>
+<c:if test="${sessionScope.grade == 4}">
+<div><a href="customerForm.do?snum=${snum}&pageNum=${pageNum}">QA작성</a></div>
 </c:if>
 	<span>번호</span>
 	<span>제목</span>
