@@ -156,7 +156,10 @@
 		update menuOrder set orderstatus=6 where num=#num# and code=#code# name=#menuname# and l_key=#l_key#;
 	</update>
 	
-	
+	<!-- 취소때 가맹점 이름넘기기위함 -->
+	<select id="getfranchiseeName" parameterClass="String" resultClass="String">
+		select b_name from franchiseeInfo where b_key=#l_key#;
+	</select>
 	
 	
 	

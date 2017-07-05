@@ -37,10 +37,10 @@
 	</div>
 	<div><br><br></div>
 	
-			<div class="userMenuStatus">
+			
 			
 			<input type="hidden" id ="name" value="${name}" />
-		<table>
+		<table class="userMenuStatus">
 			<tr>
 			<td>주문 상황</td>
 			</tr>
@@ -66,7 +66,7 @@
 			
 			</table>
 			
-		</div>		
+		
 	
 	
     </body>

@@ -216,7 +216,7 @@ public class MenuOrderBean {
 	
 	/* 사용자 주문창에서 취소 창 */
 	@RequestMapping("userOrderCancel.do")
-	public String userOrderCancel(HttpServletRequest request, String id, String l_key, String name){
+	public String userOrderCancel(HttpServletRequest request, String id, String l_key){
 		int check=0;
 		String ordertime=request.getParameter("ordertime");
 		System.out.println(ordertime);
@@ -226,6 +226,8 @@ public class MenuOrderBean {
 			map.put("l_key",l_key);
 			map.put("ordertime",ordertime);
 			int status = (Integer)sqlMap.queryForObject("order.getUserOrder", map);
+			String fcname=(String)sqlMap.queryForObject("order.getfranchiseeName", l_key);
+			
 			if(status==1){
 				sqlMap.update("order.userOrderCancel", map);
 				check=1;
@@ -234,17 +236,18 @@ public class MenuOrderBean {
 			}
 			request.setAttribute("check", check);
 			request.setAttribute("l_key", l_key);
-			request.setAttribute("name",name);
+			request.setAttribute("name",fcname);
 		}catch(Exception e){e.printStackTrace(); check=-1; request.setAttribute("check",check); request.setAttribute("l_key", l_key);}
 		return "/menu/userOrderCancel";
 	}
 	
 	/* 사용자 주문승된 후 환불 요청 페이지 */
 	@RequestMapping("userOrderRefund.do")
-	public String userOrderRefund(HttpServletRequest request, String id, String l_key, String name){
+	public String userOrderRefund(HttpServletRequest request, String id, String l_key){
 		int check=0;
 		try{
 			String ordertime=request.getParameter("ordertime");
+			String fcname=(String)sqlMap.queryForObject("order.getfranchiseeName", l_key);
 			HashMap map = new HashMap();
 			map.put("ordertime", ordertime);
 			map.put("id", id);
@@ -258,7 +261,7 @@ public class MenuOrderBean {
 			}
 			request.setAttribute("check", check);
 			request.setAttribute("l_key", l_key);
-			request.setAttribute("name",name);
+			request.setAttribute("name",fcname);
 		}catch(Exception e){e.printStackTrace(); check=-1; request.setAttribute("check", check);}
 		return "menu/userOrderRefund";
 	}
