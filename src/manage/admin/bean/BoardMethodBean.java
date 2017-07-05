@@ -40,10 +40,12 @@ public class BoardMethodBean {
 		String pageNum2 = request.getParameter("pageNum2");
 		String pageNum3 = request.getParameter("pageNum3");
 		String pageNum4 = request.getParameter("pageNum4");
+		String pageNum5 = request.getParameter("pageNum5");
 		
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("pageNum2", pageNum2);
 		request.setAttribute("pageNum3", pageNum3);
 		request.setAttribute("pageNum4", pageNum4);
+		request.setAttribute("pageNum5", pageNum5);
 	}
 }

@@ -241,7 +241,7 @@ setInterval("autoRefresh1()", 3000);
                         </a>
                             <ul class="mt-sub-menu">
                                 <li>
-                                    <a href="dashList.do?pageNum=1&pageNum2=1&pageNum3=1&pageNum4=1" class="rippler rippler-default">
+                                    <a href="dashList.do?pageNum=1&pageNum2=1&pageNum3=1&pageNum4=1&pageNum=5" class="rippler rippler-default">
                                     <span class="menu-text">게시판 모아보기</span>
                                     <c:if test="${franchiseAlarm >0}">
                                     	<span class="badge badge-danger m-left-xs "><div id="autoRe1">${franchiseAlarm+oneAlarm}</div></span>

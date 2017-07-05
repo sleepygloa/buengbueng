@@ -23,6 +23,8 @@ public class UseTimeLogDTO {
 	private String b_key; //라이센스키
 	
 	//FX호환 DTO
+	
+	private int num; //Log 출퇴근 num 을 log테이블에 남김
 	private int employeeWorkTime; //로그인해서 로그아웃까지 근무시간(초)
 	private int employeeWorkTimePay; //근무시간 * 근무정책 = 결제금액, 지불금액, 알바비
 	private int employeeAccountMoney; //알바에게 적립된 금액
@@ -33,6 +35,12 @@ public class UseTimeLogDTO {
 	
 	
 	
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public String getB_id() {
 		return b_id;
 	}

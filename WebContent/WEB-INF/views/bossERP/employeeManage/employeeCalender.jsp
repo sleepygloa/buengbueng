@@ -9,10 +9,22 @@
 	margin:0 auto;
 }
 
-.ghost-btn{
+.ghost-btn-info{
 color:#E0E2E3;
 font-weight:800;
 background-color:#319DBC;
+border:white 1px solid;
+width: 100px;
+height:30px;
+font-size:1.2em;
+vertical-align:middle;
+float:right;
+margin-right:10px;
+}
+.ghost-btn-warning{
+color:#E0E2E3;
+font-weight:800;
+background-color:#F79E1F;
 border:white 1px solid;
 width: 100px;
 height:30px;
@@ -49,7 +61,8 @@ margin-right:10px;
 
 /* The actual popup */
 .popup .popuptext {
-    visibility: hidden;
+	display:none;
+/*     visibility: hidden; */
     width: 300px;
     background-color: #555;
     color: #fff;
@@ -83,9 +96,75 @@ margin-right:10px;
 
 /* Toggle this class - hide and show the popup */
 .popup .show {
-    visibility: visible;
+	display:block;
+    /* visibility: visible; */
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
+}
+
+/* The actual popup */
+.popup .popuptext1 {
+	display:none;
+    /* visibility: hidden; */
+    width: 300px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: relative;
+    z-index: 99999;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+.popup .popuptext1 h2{
+ text-decoration: underline;
+ font-size:1.5em;
+ font-weight:800;
+ }
+
+/* Popup arrow */
+.popup .popuptext1::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+	display:block;
+    /* visibility: visible; */
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+.date_selectbox{
+background-color:#555;
+color:#fff;
+width:100px;
+padding-left:15px;
+letter-spacing:2px;
+margin: 0 auto;
+border-color:#555;
+}
+.date_button{
+width:50px;
+}
+.date_minor_minor{
+font-size:0.8em;
+}
+.date_submit{
+background-color:#555;
+}
+.date_submit:hover{
+background-color:#616161;
 }
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
@@ -105,6 +184,11 @@ border:none;
 outline: none;
 width:125px;
 }
+.date_selectbox_blue,.date_selectbox_blue:hover{background-color:#7092BE;color:#7092BE;}
+.date_selectbox_red{background-color:#FFAEC9;color:#FFAEC9;}
+.date_selectbox_brown{background-color:#B97A57;color:#B97A57;}
+.date_selectbox_yellow{background-color:#EFE4B0;color:#EFE4B0;}
+.date_selectbox_green{background-color:#B5E61D;color:#B5E61D;}
 </style>
 
 <link href="/buengbueng/js/calender/fullcalendar.css" rel="stylesheet"/>
@@ -112,6 +196,11 @@ width:125px;
 <script type="text/javascript" src="/buengbueng/js/calender/lib/moment.min.js"></script>
 <script type="text/javascript" src="/buengbueng/js/calender/fullcalendar.js" charset="utf-8"></script>
 <script type="text/javascript">
+backgroundCh = function() { 
+    var sel = document.getElementById('sel'); 
+    sel.style.backgroundColor = sel.value;
+    sel.style.color = sel.value; 
+};
   var eventInfoDateStart = "";
   var eventInfoDateEnd = ""; 
 function moveConfirm(date){
@@ -129,8 +218,39 @@ function moveConfirm(date){
     	}
 	})
 }
-function eventInfoAjax(eventInfoDateStart,eventInfoDateEnd){
+function eventInsertCheck(start, end){
+	var id = $('#id').val();
+	var start = start;
+	var end = end;
+	$.ajax({
+		url: "employeeCalenderEventInsertCheck.do?start="+start+"&end="+end,
+		type: "post",
+		success: function(data){
+			if(data.length != 6){
+				var toasts = new Toast('warning','toast-top-full-width',
+						"<div><label class=\"toast-title\">"+id+"님!</label><span class=\"toast-message\">"+data+"</div> <div><button class=\"ghost-btn-warning\" onClick=\"revert()\">닫기</button></div><div><button class=\"ghost-btn-warning\" "+
+								"onClick=\"()\">확인</button></div> ");
+				showToast(toasts);
+			}else{
+				eventInfoInsertAjax(start, end);
+			}
+ 			 
+		}
+	});
+}
+function eventInfoInsertAjax(start, end){
+	$.ajax({
+		url: "employeeCalenderInsert.do?start="+start+"&end="+end,
+		type:"post",
+		success:function(data){
+			$('#myPopup1').html(data);
+			eventInfov()
+		}
+	})
+}
 
+
+function eventInfoAjax(eventInfoDateStart,eventInfoDateEnd){
 	$.ajax({
 		url: "employeeCalenderEventInfo.do",
 		type:"post",
@@ -145,11 +265,17 @@ function eventInfoAjax(eventInfoDateStart,eventInfoDateEnd){
 }
 function revert(){} // 추가
 function eventInfof() {
+	$("#myPopup1").hide();
 	var popup = document.getElementById("myPopup");
 	popup.classList.toggle("show");
-}	
+}
+function eventInfov() {
+	$("#myPopup1").hide();
+	var popup = document.getElementById("myPopup1");
+	popup.classList.toggle("show");
+}
 function employeeEventDelete(){
-	$(".popup").hide(); 
+	$(".popup").hide();
 	$.ajax({
 		url: "employeeCalenderEventDelete.do",
 		type:"post",
@@ -231,8 +357,7 @@ $(document).ready(function() {
 
 //////////////////////////////////////////////////////////////////////////////////////////   		  
    		  select:function(start,end){
-			window.open("employeeCalenderInsert.do?start="+start+"&end="+end,"",
-	 		"width=550, height=500,status=no,toolbar=no,directories=no,location=no,scrollbars=no, resizable=no")
+   			  eventInsertCheck(start, end); 
    		  },
 //////////////////////////////////////////////////////////////////////////////////////////
    		  eventDragStart: function(event, eventDropF){
@@ -244,7 +369,7 @@ $(document).ready(function() {
 
   			revert = revertFunc; // 추가
 			var toasts = new Toast('info','toast-top-full-width',
-			"<div><label class=\"toast-title\">"+event.title+"님!</label><span class=\"toast-message\">일정을  ["+dragPlanStart+" ~ "+dragPlanEnd+"] 에서   ["+event.start.format()+" ~ "+event.end.format()+"] 로 변경하겠습니까?</div> <div><button class=\"ghost-btn\" onClick=\"revert()\">닫기</button></div><div><button class=\"ghost-btn\" "+
+			"<div><label class=\"toast-title\">"+event.title+"님!</label><span class=\"toast-message\">일정을  ["+dragPlanStart+" ~ "+dragPlanEnd+"] 에서   ["+event.start.format()+" ~ "+event.end.format()+"] 로 변경하겠습니까?</div> <div><button class=\"ghost-btn-info\" onClick=\"self.close()\">닫기</button></div><div><button class=\"ghost-btn-info\" "+
 					"onClick=\"moveConfirm(\'{&quot;dragPlanStart&quot;:&quot;"+dragPlanStart+"&quot;,&quot;dragPlanEnd&quot;:&quot;"+dragPlanEnd+"&quot;,&quot;start&quot;:&quot;"+event.start.format()+"&quot;,&quot;end&quot;:&quot;"+event.end.format()+"&quot;}\')\">확인</button></div> ");
 			showToast(toasts); // 추가
    	    },
@@ -253,41 +378,14 @@ $(document).ready(function() {
    		  slotEventOverlap:true,
    		  events:eventData
 	})
-function Toast(type, css, msg){
-			this.type = type;
-			this.css = css;
-			this.msg = msg 
-		}
-		
-	    toastr.options.positionClass = 'toast-top-full-width';
-	    toastr.options.extendedTimeOut = 0; //1000;
-	    toastr.options.timeOut = 10000;
-	    toastr.options.fadeOut = 250;
-	    toastr.options.fadeIn = 250;
-	    toastr.options.preventDuplicates=true;
-	    
-	    function delayToasts() {
-	        var delay = 0;
-	        window.setTimeout(function () { showToast(); }, delay);
-	    }
-
-	    function showToast(toasts) {
-	        var t = toasts;
-	        toastr.options.positionClass = t.css;
-	        toastr[t.type](t.msg);
-	    }
-    
-		    
-		    
 }
-    
-
 </script>
+<script type="text/javascript" src="/buengbueng/css/toast/toastAlert.js" charset="utf-8"></script>
+
 <input type="hidden" id="id" value="${sessionScope.loginId} " />
    <div id="calendar"></div>
    
    <div class="popup">
-	   <div class="popuptext" id="myPopup">
-	   		
-	   </div>
+	   <div class="popuptext" id="myPopup"></div>
+	   <div class="popuptext" id="myPopup1"></div>
    </div>

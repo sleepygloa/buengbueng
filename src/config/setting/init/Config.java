@@ -2,6 +2,8 @@ package config.setting.init;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,31 +23,49 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class Config  {
 	HttpServletRequest re;
+	FileInputStream fis = null;
+	FileOutputStream fos = null;
+	BufferedReader b = null;
+	String fileRealName = "\\log.txt";
+	
+	File path = new File(Config.class.getResource("").getPath());
 	
 	@PostConstruct
 	public  void init() throws Exception, IOException {
 		// TODO Auto-generated method stub
+		String logAdminPath = path.getAbsolutePath();
+		String logFilePath = System.getProperty("user.home")+"\\Documents\\buengbueng\\log";
+		FileOutputStream fos = null;
+		
+		BufferedReader b = null;
 		try{
-			
-			
-//			String destination = "C:\\Users\\user2\\Documents\\workspace\\buengbueng\\WebContent\\log\\";
-//			String destination = "C:\\Users\\KO\\Documents\\eclipse\\Spring\\buengbueng\\WebContent\\log\\";
-			File file = new File(".\\buengbueng\\WebContent\\log\\log.txt");
-//			String dd = re.getServletContext().getRealPath("\\buengbueng\\WebContent\\log\\log.txt");
-//			System.out.println(dd);
-//			String rr = re.getServletContext().getRealPath("\\buengbueng\\WebContent\\log\\");
+			File f = new File(logFilePath);
+			if(!f.exists()){
+				f.mkdirs();
+				fis = new FileInputStream(logAdminPath + fileRealName);
+				fos = new FileOutputStream(logFilePath + fileRealName);
+				   
+				int data = 0;
+				
+				while((data=fis.read())!=-1) {
+					fos.write(data);
+			   }
+
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			if( fis != null){fis.close();}
+			if( fos != null){fos.close();}
+		}
+		
+		try{
+			File file = new File(logFilePath);
 			String destination = ""+ file.getCanonicalPath();
-//			FilterConfig fd = 	fd.getServletContext().getRealPath(fd.getInitParameter("\\buengbueng\\WebContent\\log\\log.txt"));  
-//			System.out.println(rr);
-//					+ 
-//					"\\WebContent\\log\\";
-			System.out.println(destination);
-//			String logText = "log.txt";
 			String fileName= "";
 			String fileNamee[] = null; 
 			
-			File f = new File(destination);
-			BufferedReader b = new BufferedReader(new FileReader(f));
+			b = new BufferedReader(new FileReader(file + fileRealName));
 			ArrayList<File> f_list = new ArrayList<File>();
 			
 			String readLine = "";
@@ -55,8 +75,8 @@ public class Config  {
 			while((str = b.readLine()) != null){
 				//폴더만들기
 				f_list.add(new File(str));
-				String mkFolder = destination + f_list.get(i);
-				
+				String mkFolder = destination +"\\"+ f_list.get(i);
+				System.out.println(" 경로 찾자"+mkFolder);
 				File desti = new File(mkFolder);
 				if(!desti.exists()){
 					desti.mkdirs();
@@ -76,16 +96,18 @@ public class Config  {
 			}
 			System.out.println("Log 디렉토리 생성 완료");
 			
-			b.close();
-			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
+			if( b != null){b.close();}
 		}
 	}
 	
 	@PreDestroy
 	public void destroy() throws Exception, IOException{
+		if( fis != null){fis.close();}
+		if( fos != null){fos.close();}
+		if( b != null){b.close();}
 	}
 
 }

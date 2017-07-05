@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import login.user.bean.UseTimeLogDTO;
 import superclass.all.bean.ParsingDate;
+import superclass.all.bean.SuperClass;
 
 @Controller
 public class BossEmployeeManageBean2 {
@@ -35,20 +36,16 @@ public class BossEmployeeManageBean2 {
 	@Autowired
 	protected ParsingDate pd;
 	
+	@Autowired
+	protected SuperClass sc;
+	
 	//사장님 알바생관리 메인 페이지
 	@RequestMapping("employeeLoginList.do")
 	public String employeeLoginList(Model model, HttpSession session, String pageNum, String num){
 		
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
-		//세션 아이디를 페이지로전달
-		String id = (String)session.getAttribute("loginId");
-		model.addAttribute("id",id);
+		String id = sc.getSessionIdModelId(model, session); //sessionId, model.addAttribute(id) template
 		
 		///////////////////////////////////////////////////////
 		//알바생 로그인 로그아웃 한 것에 대한 리스트//
@@ -108,23 +105,53 @@ public class BossEmployeeManageBean2 {
 	@RequestMapping("employeeCalender.do")
 	public String employeeCalender(Model model){
 		
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
 		return "/bossERP/employeeManage/employeeCalender";
+	}
+	
+	//알바생 일정 추가하기전에 검색하기
+	@RequestMapping("employeeCalenderEventInsertCheck.do")
+	public ModelAndView employeeCalenderEventInsertCheck(HttpSession session, Model model, Long start, Long end){
+		
+		String id = sc.getSessionIdModelId(model, session); //sessionId, model.addAttribute(id) template
+		String returnText = "";
+		ModelAndView mv = new ModelAndView();
+		
+		HashMap map = new HashMap();
+		map.put("id", id);
+		map.put("start", pd.longToTimestamp(start-32400000));
+		map.put("startBeforDay", pd.longToTimestamp(start-86400000-32400000));
+		map.put("end", pd.longToTimestamp(end-32400000));
+		map.put("endAfterDay", pd.longToTimestamp(end+86400000-32400000));
+		try{
+			int check = (Integer)sqlMap.queryForObject("erpEmp.calenderInsertTimeCheck", map);
+			if(check == 0){
+				check = (Integer)sqlMap.queryForObject("erpEmp.calenderInsertTimeCheckNight", map);
+				if(check == 1){
+					returnText = "선택한 일정에는 이미 "+check+" 개의 일정이 추가 되어있습니다. ";
+				}else{
+					check = (Integer)sqlMap.queryForObject("erpEmp.calenderInsertTimeCheckNight2", map);
+					if(check == 1){
+						returnText = "선택한 일정에는 이미 "+check+" 개의 일정이 추가 되어있습니다. ";
+					}
+				}
+			}else{//check != 0 뭔가 있을때
+				returnText = "선택한 일정에는 이미 "+check+" 개의 일정이 추가 되어있습니다. ";
+			}
+			model.addAttribute("jsonList", returnText);
+			mv.setViewName("/bossERP/employeeManage/employeeCalenderJSON");
+		}catch(Exception e){
+			
+		}
+		return mv;
 	}
 	
 	//알바생 일정 추가하기
 	@RequestMapping("employeeCalenderInsert.do")
 	public String employeeCalenderInsert(HttpSession session, Model model, Long start, Long end){
 		
-		//세션 아이디를 페이지로전달
-		String id = (String)session.getAttribute("loginId");
-		model.addAttribute("id",id);
+		String id = sc.getSessionIdModelId(model, session); //sessionId, model.addAttribute(id) template
 		
 		model.addAttribute("start",start);
 		model.addAttribute("end",end);
@@ -144,10 +171,10 @@ public class BossEmployeeManageBean2 {
 	
 	//알바생 일정 추가 처리
 	@RequestMapping("employeeCalenderInsertPro.do")
-	public String employeeCalenderInsertPro(HttpSession session, Model model, BossEmployeeManageDataDTO beDTO){
-		
+	public ModelAndView employeeCalenderInsertPro(HttpSession session, Model model, BossEmployeeManageDataDTO beDTO){
 		int check = 9;
 		
+		beDTO.setBorderColor(beDTO.getBackgroundColor()); //이벤트 선택된 배경과 경계선 생상이 같다.
 		String id = (String)session.getAttribute("loginId");
 		String b_key = (String)session.getAttribute("b_key");
 		beDTO.setId(id);
@@ -198,11 +225,9 @@ public class BossEmployeeManageBean2 {
 
 		}
 		
-		
-		
 		model.addAttribute("check", check);
 		
-		return "/bossERP/employeeManage/employeeCalenderInsert";	
+		return new ModelAndView("redirect:/employeeCalender.do");	
 	}
 	
 	//알바생 일정 JSON으로 불러오기 AJAX
@@ -211,19 +236,20 @@ public class BossEmployeeManageBean2 {
 		ModelAndView mv = new ModelAndView();
 		List list = new ArrayList();
 		
-		String id = (String)session.getAttribute("loginId");
+		String id = sc.getSessionIdModelId(model, session); //sessionId, model.addAttribute(id) template
+		String b_key = (String)session.getAttribute("b_key");
 		
 		try{
+			
 			ObjectMapper mapper = new ObjectMapper();
 			
 			String b_id = (String)sqlMap.queryForObject("erpEmp.getEidBid", id);
-			list = (List)sqlMap.queryForList("erpEmp.getCalenderWorkTimeList", b_id);
+			list = (List)sqlMap.queryForList("erpEmp.getCalenderWorkTimeList", b_key);
 
 			String jsonList = mapper.writeValueAsString(list);
 			mv.setViewName("/bossERP/employeeManage/employeeCalenderJSON");
 			//굳이 ModelAndView를 사용했다. String으로 반환해도되는데
 			model.addAttribute("jsonList", jsonList);
-			
 		}catch(Exception e){
 			e.printStackTrace();
 		}

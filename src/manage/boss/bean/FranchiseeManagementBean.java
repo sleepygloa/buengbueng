@@ -22,6 +22,7 @@ import superclass.all.bean.CheckInfo;
 import superclass.all.bean.FindIpBean;
 import superclass.all.bean.Random;
 import superclass.all.bean.ReadDbWriteArray;
+import superclass.all.bean.SuperClass;
 
 @Controller
 public class FranchiseeManagementBean {
@@ -46,17 +47,14 @@ public class FranchiseeManagementBean {
 	@Autowired
 	public ReadDbWriteArray read;
 	
+	@Autowired
+	protected SuperClass sc;
+	
 	//대메뉴에서 '사장님 가맹점 관리 버튼 클릭시' 이동
 	@RequestMapping("franchiseeManagementMain.do")
 	public String franchiseeManagementMain(Model model){
 		
-		//////////////////////////////////////////
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 1; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
+		sc.sideMenuTemp(model, 1, 1); //sidemenu template
 		
 		return "/bosspcuse/franchiseeManagementMain";
 	}
@@ -65,13 +63,7 @@ public class FranchiseeManagementBean {
 	@RequestMapping("franchiseeAdd.do")
 	public String franchiseeAdd(HttpSession session, BossInfoDataDTO bossDto, Model model){
 		
-		//////////////////////////////////////////
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 0; //사이드메뉴 를 보여줄건지
-		int sidemenu = 1; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
+		sc.sideMenuTemp(model, 0, 1); //sidemenu template
 		
 		//세션의 아이디와 BossInfo Table의 아이디가 동일한 것이 있는지 부터 검사를 한다.
 		UserInfoDataDTO userDto;
@@ -130,10 +122,10 @@ public class FranchiseeManagementBean {
 				
 				////////////////////////////////////////////////////////////
 				//TEXT파일로 로그를 남기는 코드
-				String fileName = "\\franchisee\\addSuccessLog\\addSuccessLog.txt";
-				String fileCheck = "franchisee";
-				franchiseeDto.setB_id(id);
-				read.readDb(franchiseeDto, fileName, fileCheck);
+//				String fileName = "\\franchisee\\addSuccessLog\\addSuccessLog.txt";
+//				String fileCheck = "franchisee";
+//				franchiseeDto.setB_id(id);
+//				read.readDb(franchiseeDto, fileName, fileCheck);
 				////////////////////////////////////////////////////////////
 			}catch(Exception e){
 				check = 2;
@@ -141,10 +133,10 @@ public class FranchiseeManagementBean {
 				System.out.println(e);
 				////////////////////////////////////////////////////////////
 				//TEXT파일로 로그를 남기는 코드
-				String fileName = "\\franchisee\\addErrorLog\\addErrorLog.txt";
-				String fileCheck = "franchisee";
-				franchiseeDto.setB_id(id);
-				read.readDb(franchiseeDto, fileName, fileCheck);
+//				String fileName = "\\franchisee\\addErrorLog\\addErrorLog.txt";
+//				String fileCheck = "franchisee";
+//				franchiseeDto.setB_id(id);
+//				read.readDb(franchiseeDto, fileName, fileCheck);
 				////////////////////////////////////////////////////////////
 			}
 		
@@ -224,13 +216,7 @@ public class FranchiseeManagementBean {
 	@RequestMapping("franchiseeList.do")
 	public String franchiseeList(String pageNum , HttpServletRequest request, Model model, HttpSession session){
 		
-		//////////////////////////////////////////
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 0; //사이드메뉴 를 보여줄건지
-		int sidemenu = 1; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
+		sc.sideMenuTemp(model, 0, 1); //sidemenu template
 		
 		//현재 로그인한 사용자의 아이디를 불러온다.
 		String id = (String)session.getAttribute("loginId");

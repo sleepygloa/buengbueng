@@ -17,6 +17,7 @@ import login.user.bean.UserInfoDataDTO;
 import manage.boss.bean.FranchiseeDataDTO;
 import superclass.all.bean.FranchiseeSelect;
 import superclass.all.bean.MenuCategoryDivResponse;
+import superclass.all.bean.SuperClass;
 
 @Controller
 public class BossEmployeeManageBean {
@@ -30,24 +31,17 @@ public class BossEmployeeManageBean {
 	@Autowired
 	public FranchiseeSelect fs;
 	
+	@Autowired
+	protected SuperClass sc;
+	
 	
 	//사장님 알바생관리 메인 페이지
 	@RequestMapping("bossErpMain.do")
 	public String bossEmployeeInfoMain(Model model, HttpSession session){
 
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
-		//////////////////////////////////////////
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
-		
-		//////////////////////////////////////////
-		//세션 아이디를 페이지로전달
-		String id = (String)session.getAttribute("loginId");
-		model.addAttribute("id",id);
+		String id = sc.getSessionIdModelId(model, session); //sessionId, model.addAttribute(id) template
 		
 		fs.franchiseeList(session, id, model);
 		
@@ -58,18 +52,10 @@ public class BossEmployeeManageBean {
 	//사장님 알바생 관리 페이지로이동 (가맹점 선택)
 	@RequestMapping("employeeManageInfo.do")
 	public String employeeManageInfo(Model model, HttpSession session){
-		//////////////////////////////////////////
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
 		
-		//////////////////////////////////////////
-		//세션 아이디를 페이지로전달
-		String id = (String)session.getAttribute("loginId");
-		model.addAttribute("id",id);
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
+		
+		String id = sc.getSessionIdModelId(model, session); //sessionId, model.addAttribute(id) template
 		
 		//가맹점 키를 세션으로 받음
 		String b_key = (String)session.getAttribute("b_key");
@@ -104,10 +90,7 @@ public class BossEmployeeManageBean {
 	@RequestMapping("employeeAddInfo.do")
 	public String employeeAddInfo(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO){
 			
-		//////////////////////////////////////////
-		//세션 아이디를 페이지로전달
-		String b_id = (String)session.getAttribute("loginId");
-		model.addAttribute("b_id",b_id);
+		sc.getSessionBidModelBid(model, session); //session b_id, model.addAttribute(b_id) template
 		
 		beDTO = (BossEmployeeManageDataDTO)sqlMap.queryForObject("erpEmp.getEmployeeAddLogLastNum", null);
 		model.addAttribute("beDTO", beDTO);
@@ -119,10 +102,7 @@ public class BossEmployeeManageBean {
 	@RequestMapping("employeeAddPro.do")
 	public String employeeAddPro(Model model, HttpSession session, BossEmployeeManageDataDTO beDTO){
 		
-		//////////////////////////////////////////
-		//세션 아이디를 페이지로전달
-		String b_id = (String)session.getAttribute("loginId");
-		model.addAttribute("b_id",b_id);
+		String b_id = sc.getSessionBidModelBid(model, session); //session b_id, model.addAttribute(b_id) template
 		
 		//가맹점 키를 세션으로 받음
 		String b_key = (String)session.getAttribute("b_key");
@@ -231,10 +211,7 @@ public class BossEmployeeManageBean {
 	@RequestMapping("employeeIdUP.do")
 	public String employeeIdUp(Model model, HttpSession session,int num){
 		
-		//////////////////////////////////////////
-		//세션 아이디를 페이지로전달
-		String b_id = (String)session.getAttribute("loginId");
-		model.addAttribute("b_id",b_id);
+		String b_id = sc.getSessionBidModelBid(model, session); //session b_id, model.addAttribute(b_id) template
 		
 		System.out.println(num);
 		int indexNum = 0;
@@ -274,10 +251,7 @@ public class BossEmployeeManageBean {
 	@RequestMapping("employeeIdDOWN.do")
 	public String employeeIdDOWN(Model model, HttpSession session,int num){
 		
-		//////////////////////////////////////////
-		//세션 아이디를 페이지로전달
-		String b_id = (String)session.getAttribute("loginId");
-		model.addAttribute("b_id",b_id);
+		String b_id = sc.getSessionBidModelBid(model, session); //session b_id, model.addAttribute(b_id) template
 		
 		System.out.println(num);
 		int indexNum = 0;
@@ -318,10 +292,8 @@ public class BossEmployeeManageBean {
 	//알바생 아이디 삭제 폼
 	@RequestMapping("employeeDeleteInfo.do")
 	public String employeeDeleteInfo(Model model, HttpSession session, int num, BossEmployeeManageDataDTO beDTO){
-		//////////////////////////////////////////
-		//세션 아이디를 페이지로전달
-		String b_id = (String)session.getAttribute("loginId");
-		model.addAttribute("b_id",b_id);
+		
+		String b_id = sc.getSessionBidModelBid(model, session); //session b_id, model.addAttribute(b_id) template
 		
 		int logNum = 0;
 		
@@ -341,10 +313,8 @@ public class BossEmployeeManageBean {
 	//알바생 아이디 삭제 신청
 	@RequestMapping("employeeDeleteInfoPro.do")
 	public String employeeDeleteInfoPro(Model model, HttpSession session, BossEmployeeManageDataDTO beDto){
-		//////////////////////////////////////////
-		//세션 아이디를 페이지로전달
-		String b_id = (String)session.getAttribute("loginId");
-		model.addAttribute("b_id",b_id);
+
+		String b_id = sc.getSessionBidModelBid(model, session); //session b_id, model.addAttribute(b_id) template
 		
 		//////////////////////////////////////////
 		//b_key로 가맹점 이름 알바 정보에 입력
@@ -384,18 +354,9 @@ public class BossEmployeeManageBean {
 	@RequestMapping("employeeInfoList.do")
 	public String employeeInfoList(Model model, HttpSession session){
 		
-		//////////////////////////////////////////
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
-		//////////////////////////////////////////
-		//세션 아이디를 페이지로전달
-		String id = (String)session.getAttribute("loginId");
-		model.addAttribute("id",id);
+		String id = sc.getSessionIdModelId(model, session); //sessionId, model.addAttribute(id) template
 		
 		//가맹점 키를 세션으로 받음
 		String b_key = (String)session.getAttribute("b_key");
@@ -414,14 +375,8 @@ public class BossEmployeeManageBean {
 	//알바생 정보 보기
 	@RequestMapping("employeeInfo.do")
 	public String bossEmployeeInfo(Model model, String id){
-		System.out.println(id);
-		//////////////////////////////////////////
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
+		
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
 		////////////////////////////////////////////////////////////////////////////////
 		//알바생 리스트에서 클릭했을 때 정보를 불러온다.
@@ -437,14 +392,7 @@ public class BossEmployeeManageBean {
 	@RequestMapping("employeeUpdateInfo.do")
 	public String employeeUpdateInfo(Model model, String id){
 		
-		//////////////////////////////////////////
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
-		
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
 		////////////////////////////////////////////////////////////////////////////////
 		//알바생 리스트에서 클릭했을 때 정보를 불러온다.
@@ -459,13 +407,7 @@ public class BossEmployeeManageBean {
 	@RequestMapping("employeeUpdateInfoPro.do")
 	public String employeeUpdatePro(Model model, UserInfoDataDTO userDto){
 		
-		//////////////////////////////////////////
-		//사이드메뉴 템플릿
-		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 3; //사이드메뉴의 내용을 선택
-		model.addAttribute("sidemenuCheck", sidemenuCheck);
-		model.addAttribute("sidemenu", sidemenu);
-		//변수들을 페이지로 전달
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
 		int check = 0;
 		////////////////////////////////////////////////////////////////////////////////

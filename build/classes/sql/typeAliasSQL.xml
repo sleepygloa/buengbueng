@@ -38,4 +38,11 @@
 	<typeAlias alias="historyDTO" type="payment.all.bean.UsageHistoryDataDTO"/>
 	<typeAlias alias="chattingDto" type="manage.admin.bean.ChattingDto"/>
 	<typeAlias alias="chattingLogDto" type="manage.admin.bean.ChattingLogDto"/>
+	
+	<typeAlias alias="fxEidListDTO" type="fx.user.bean.FxBossEmployeeManageIdListDTO"/>
+	<typeAlias alias="fxEmployeeInfoDTO" type="fx.user.bean.FxEmployeeInfoDTO"/>
+	<typeAlias alias="fxEWTLDTO" type="fx.user.bean.FxEmployeeWorkTimeListDTO"/>
+	<typeAlias alias="fxEPLDTO" type="fx.user.bean.FxEmployeePayListDTO"/>
+	
+	
 </sqlMap>

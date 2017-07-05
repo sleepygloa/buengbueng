@@ -70,7 +70,7 @@
 </div>
 </c:if>
 <c:if test="${count2>0}">
-<c:set var="d2" value="0"/>
+<c:set var="d" value="0"/>
 <c:forEach var="list2" items="${list2}">
 <div>
 		<span>
@@ -85,7 +85,7 @@
 		<span>${list2.readcount}</span>
 </div>
 		<c:set var="number2" value="${number2-1}"/>
-		<c:set value="${d2+1}" var="d2" />
+		<c:set value="${d+1}" var="d" />
 </c:forEach>
 	
 	<c:if test="${startPage2 > 10}">
@@ -116,7 +116,7 @@
 </div>
 </c:if>
 <c:if test="${count3>0}">
-<c:set var="d3" value="0"/>
+<c:set var="d" value="0"/>
 <c:forEach var="list3" items="${list3}">
 <div>
 		<span>
@@ -127,11 +127,14 @@
 		>${list3.title}</a></span>
 		<span>${list3.writer}</span>
 		<span>${list3.email}</span>
-		<span>${dates3[d]}</span>
+		<span>${dates3[d3]}</span>
 		<span>${list3.readcount}</span>
+		<c:if test="${dates[d] == today && list3.re_step == 0}">
+			<span class="label bg-warning">${alarm}</span>
+		</c:if>
 </div>
 		<c:set var="number3" value="${number3-1}"/>
-		<c:set value="${d3+1}" var="d3" />
+		<c:set value="${d+1}" var="d" />
 </c:forEach>
 
 	<c:if test="${startPage3 > 10}">
@@ -145,7 +148,57 @@
 	</c:if>
 </div>
 </c:if>
+<!-- ----------------------------------------------------------------------- -->
 
+<div style="width:50%;height:auto;float:left;">
+<div>공지 사항</div>
+	<div><a href="dashBoardWriteForm.do?snum=${snum4}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}&pageNum5=${pageNum5}"
+	onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no'); return false;"
+	>글쓰기</a>
+	</div>
+	<span>번호</span>
+	<span>제목</span>
+	<span>작성자</span>
+	<span>email</span>
+	<span>작성일</span>
+	<span>조회수</span>
+<c:if test="${count5==0}">
+<div>
+	<span>등록된 게시물이 없습니다.</span>
+</div>
+</c:if>
+<c:if test="${count5>0}">
+<c:set var="d" value="0"/>
+<c:forEach var="list5" items="${list5}">
+<div>
+		<span>
+		<c:out value="${number5}"/>
+		</span>
+		<span><a href="dashBoardContent.do?num=${list5.num}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}&pageNum5=${pageNum5}&number=${number5}"
+		onclick="window.open(this.href,'_blank','width=700, height=400, left=30, top=30, scrollbars=no,titlebar=no,status=no,resizable=no,fullscreen=no'); return false;"
+		>${list5.title}</a></span>
+		<span>${list5.writer}</span>
+		<span>${list5.email}</span>
+		<span>${dates5[d5]}</span>
+		<span>${list5.readcount}</span>
+</div>
+		<c:set var="number5" value="${number5-1}"/>
+		<c:set value="${d+1}" var="d" />
+</c:forEach>
+	
+	<c:if test="${startPage5 > 10}">
+        <a href="dashList.do?pageNum=${pageNum}&pageNum3=${pageNum3}&pageNum4=${pageNum4}&pageNum5=${pageNum5}&pageNum2=${ startPage5 - 10 }">[이전]</a>
+	</c:if>
+	<c:forEach var="i5" begin="${startPage5}" end="${endPage5}">
+		<a href="dashList.do?pageNum=${pageNum}&pageNum3=${pageNum3}&pageNum4=${pageNum4}&pageNum5=${pageNum5}&pageNum2=${i5}">[${i5}]</a>
+	</c:forEach>
+	<c:if test="${endPage5 < pageCount5}">
+    	<a href="dashList.do?pageNum=${pageNum}&pageNum3=${pageNum3}&pageNum4=${pageNum4}&pageNum5=${pageNum5}&pageNum2=${ startPage5 + 10 }">[다음]</a>
+	</c:if>
+</c:if>
+</div>
+
+<!-- --------------------------------------------------------------------------------------- -->
 <div style="width:50%;height:auto;float:left;">
 <div>답변중인 글</div>
 	<span>번호</span>
@@ -160,7 +213,7 @@
 </div>
 </c:if>
 <c:if test="${count4>0}">
-<c:set var="d4" value="0"/>
+<c:set var="d" value="0"/>
 <c:forEach var="list4" items="${list4}">
 <div>
 		<span>
@@ -183,7 +236,7 @@
 		</c:if>
 </div>
 		<c:set var="number4" value="${number4-1}"/>
-		<c:set value="${d4+1}" var="d4" />
+		<c:set value="${d+1}" var="d" />
 </c:forEach>
 	
 	<c:if test="${startPage4 > 10}">
@@ -198,6 +251,7 @@
 </div>
 </c:if>
 </c:if>
+<!-- ------------------------------------------------------------------------------------------ -->
 
 <c:if test="${check==2}">
 <div style="width:50%;height:auto;float:left;">
@@ -262,7 +316,7 @@
 </div>
 </c:if>
 <c:if test="${count2>0}">
-<c:set var="d2" value="0"/>
+<c:set var="d" value="0"/>
 <c:forEach var="list2" items="${list2}">
 <div>
 		<span>
@@ -273,11 +327,11 @@
 		>${list2.title}</a></span>
 		<span>${list2.writer}</span>
 		<span>${list2.email}</span>
-		<span>${dates2[d]}</span>
+		<span>${dates2[d2]}</span>
 		<span>${list2.readcount}</span>
 </div>
 		<c:set var="number2" value="${number2-1}"/>
-		<c:set value="${d2+1}" var="d2" />
+		<c:set value="${d+1}" var="d" />
 </c:forEach>
 	
 	<c:if test="${startPage2 > 10}">
@@ -308,7 +362,7 @@
 </div>
 </c:if>
 <c:if test="${count3>0}">
-<c:set var="d3" value="0"/>
+<c:set var="d" value="0"/>
 <c:forEach var="list3" items="${list3}">
 <div>
 		<span>
@@ -319,11 +373,14 @@
 		>${list3.title}</a></span>
 		<span>${list3.writer}</span>
 		<span>${list3.email}</span>
-		<span>${dates3[d]}</span>
+		<span>${dates3[d3]}</span>
 		<span>${list3.readcount}</span>
+		<c:if test="${dates[d3] == today && list3.re_step ==0}">
+			<span class="label bg-warning">${alarm}</span>
+		</c:if>
 </div>
 		<c:set var="number3" value="${number3-1}"/>
-		<c:set value="${d3+1}" var="d3" />
+		<c:set value="${d+1}" var="d" />
 </c:forEach>
 
 	<c:if test="${startPage3 > 10}">
@@ -352,7 +409,7 @@
 </div>
 </c:if>
 <c:if test="${count4>0}">
-<c:set var="d4" value="0"/>
+<c:set var="d" value="0"/>
 <c:forEach var="list4" items="${list4}">
 <div>
 		<span>
@@ -363,7 +420,7 @@
 		>${list4.title}</a></span>
 		<span>${list4.writer}</span>
 		<span>${list4.email}</span>
-		<span>${dates4[d]}</span>
+		<span>${dates4[d4]}</span>
 		<c:if test="${list4.snum == 1}">
 			<span>가맹문의</span>
 		</c:if>
@@ -375,7 +432,7 @@
 		</c:if>
 </div>
 		<c:set var="number4" value="${number4-1}"/>
-		<c:set value="${d4+1}" var="d4" />
+		<c:set value="${d+1}" var="d" />
 </c:forEach>
 	
 	<c:if test="${startPage4 > 10}">

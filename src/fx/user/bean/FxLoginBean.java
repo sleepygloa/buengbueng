@@ -100,7 +100,7 @@ public class FxLoginBean {
 			int pcNum = 0;
 			int money = 0;
 			String bossIP  = null;
-			if(info.getGrade() == 3 &&info.getGrade() == 2){ //자리정보 계좌정보를 불러오는듯?
+			if(info.getGrade() == 3){ //자리정보 계좌정보를 불러오는듯?
 				pcNum = (Integer)sqlMap.queryForObject("bossERP.getPcNum", map);//좌석 갯수 불러오기
 				modifySeatState(key, pcNum, "1"); //좌석 이용현황 초기화
 				UserAccountDTO uadto = (UserAccountDTO)sqlMap.queryForObject("cash.getUserAccount", info.getId()); //아이디의 계좌를 불러옴.

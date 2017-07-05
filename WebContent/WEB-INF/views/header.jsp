@@ -17,12 +17,13 @@
 		<!-- <link rel="shortcut icon" type="image/png" href="img/favicon/beuLogo.ico"/> -->
 
 		<!-- CSS RESET -->
-    	<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/style_v2.css" />
+    	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/reset.css">
 		<!-- INDEX CSS 2 -->    
-        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css" />
         <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap-theme.min.css" />
-		<!-- <link rel="stylesheet" type="text/css"  href="/buengbueng/css/reset.css">  -->
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css" />
+		
 	
 		<!-- main -->
 		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/sidemain_main.css" />
@@ -40,13 +41,9 @@
 
 		
 		<!-- 홈페이지 제목 -->
-		<title>BuengBueng</title>
 		
 	</head>
-
- 
-
-	 	<!-- LOGIN SECTION -->
+<!-- LOGIN SECTION -->
 	 	<header class="header_wrap ">
 			<div class="header container ">
 				<!-- 로고 : BUENGBUENG 또는 그림 -->
@@ -128,6 +125,7 @@
 						</ul>	
 					</li> 
 <!-- ------------------------------------------------------------------------------------------------------ -->
+				<c:if test="${sessionScope.grade==3}">
 					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 						<a class="ctgr" href="">
@@ -198,7 +196,9 @@
 							</li>
 						</ul>	
 					</li>
+				</c:if>
 <!-- ---------------------------------------------------------------------------------------------------- -->
+				<c:if test="${sessionScope.grade==1}">
  					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 						
@@ -246,71 +246,19 @@
 								</div>
 							</li>
 						</ul>	
-					</li>					
+					</li>				
+				</c:if>	
 <!-- ---------------------------------------------------------------------------------------------------- -->
+<c:if test="${sessionScope.grade==4}">					
 					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 						
-						<a class="ctgr" href="">
+						<a class="ctgr" href="/buengbueng/dashIndex.do">
 관리자 프로그램 관리
 						</a>
-						<!-- 드롭다운메뉴 : 소메뉴 -->
-						<ul class="menu_list">
-							<!-- 소메뉴 타이틀 -->
-							<h6 class="menu_subject minor-minor">관리자&nbsp; | &nbsp;<span class="list__title__desc">모든 사항을 관리합니다.</span></h6>
-							<!-- 소메뉴 의 각 링크들 -->
-							
-							<li class="row">
-								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="menu_menu col-sm-6-12">
-									<a href="">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">회원 관리</h6>
-											<p class="menu_desc">멀리서 가맹중인 PC방 관리</p>
-										</span>
-									</a>
-								</div>
-								
-								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="menu_menu col-sm-6-12">
-									<a href="">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">챗봇 관리</h6>
-											<p class="menu_desc">PC방 내 모든 현황 관리</p>
-										</span>
-									</a>
-								</div>
-							</li>
-							
-							<!-- 소메뉴 의 각 링크들 -->
-							<li class="row">
-								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="menu_menu col-sm-6-12">
-									<a href="">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">ERP 관리</h6>
-											<p class="menu_desc">전체 ERP 모듈 관리</p>
-										</span>
-									</a>
-								</div>
-								
-								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="menu_menu col-sm-6-12">
-									<a href="">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">페이지 관리</h6>
-											<p class="menu_desc">웹 페이지기능 추가 및 삭제</p>
-										</span>
-									</a>
-								</div>
-							</li>
-							
-						</ul>	
+						
 					</li>		
+</c:if>
 <!-- ----------------------------------------------------------------------------------------------------								 -->
 					<li class="item normal product" onClick="return true">
 						<a href="">
@@ -324,7 +272,7 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="franchiseQA.do?snum=1&pageNum=1">
+									<a href="franchiseQA.do?snum=1">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">가맹 문의</h6>
@@ -334,7 +282,7 @@
 								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="customerQA.do?snum=2&pageNum=1">
+									<a href="customerQA.do?snum=2">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">자주 묻는 질문</h6>
@@ -347,15 +295,24 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="oneQA.do?snum=3&pageNum=1">
+									<a href="oneQA.do?snum=3">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">1:1 문의</h6>
 											<p class="menu_desc">사소한것까지 궁금한건 여기로</p>
 										</span>
 									</a>
-								</div>
-							</li>
+								</div>							
+							<!-- 컨텐츠당 하나의 div로 구성 -->
+							<div class="menu_menu col-sm-6-12">
+							      <a href = "notice.do?snum=4&pageNum=1">
+							      	 <span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">공지사항</h6>
+											<p class="menu_desc">사이트 공지는  여기로</p>
+										</span>
+									</a>
+							</div>
 						</ul>	
 					</li>							
                
@@ -369,23 +326,23 @@
                   	<li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
                   </c:if>
                </c:if>
-
                <c:if test="${sessionScope.loginId == null}" >
                   <li class="item sign"><a href="/buengbueng/userInfoSignForm.do">회원가입</a></li>
                   <li class="item sign"><a href="">비밀번호찾기</a></li>
                   <li class="item sign"><a href="/buengbueng/loginForm.do">로그인</a></li>
                   <li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
                </c:if>
+               <c:if test="" >
+                  <li class="item sign">관리자페이지</li>
+               </c:if>
                
-               <c:if test="${sessionScope.grade==4}" >
-			      <li class="item sign"><a href="/buengbueng/dashIndex.do">관리자 페이지</a></li>
-			   </c:if>               
             </ul>
          </div>
       </header>
-      
-<section class="main_wrap"> 
-  	<div class="main container">
+ 
+<section class="main_wrap" style="float:left;"> 
+	<!-- css로 추가활것 -->
+  	<div class="main container" style="width:100%; background: #E7EAEB;">
  
 		 <!-- SIDEMENU TEMPLATE -->
 		<c:if test="${sidemenuCheck == 1}">
@@ -407,7 +364,6 @@
 			<div class="side_scontent container">
 			
 		</c:if>
-  
   <script>
  $("#respon_menu").click(function () {
 	 $("#respon_menu_area").toggle("show"); 

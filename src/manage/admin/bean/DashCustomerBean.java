@@ -192,7 +192,7 @@ public class DashCustomerBean extends BoardMethodBean{
 		
 		int pageCount4 = count4 / pageSize + (count4%pageSize == 0? 0:1);
 		
-		int startPage4 = ((Integer.parseInt(pageNum)-1)/10)*10+1;
+		int startPage4 = ((Integer.parseInt(pageNum4)-1)/10)*10+1;
 		int pageBlock4 = 10;
 		int endPage4 = startPage4 + pageBlock4 - 1;
 		if(endPage4 > pageCount4){endPage4 = pageCount4;}
@@ -205,8 +205,54 @@ public class DashCustomerBean extends BoardMethodBean{
 		request.setAttribute("startPage4", startPage4);
 		request.setAttribute("endPage4", endPage4);
 		request.setAttribute("dates4", dates4);
+		
+		//////////////////////////////////////////////////////
+		
+		String pageNum5 = request.getParameter("pageNum5");
+		int snum4=4;
+		if(pageNum5==null){pageNum5 = "1";}
+		int currentPage5= Integer.parseInt(pageNum5);
+		int startRow5 = (currentPage5-1)*pageSize;
+		int number5 = 0;
+		
+		List list5 = null;
+		String[] dates5 = null;
+		int count5 = (Integer)sqlMap.queryForObject("admin.customerReplyCount",null );
+		if(count5>0){
+			HashMap map5 = new HashMap();
+			map5.put("snum",snum4);
+			map5.put("startRow", startRow5);
+			map5.put("pageSize",pageSize);
+			list5 = sqlMap.queryForList("admin.customerReplyList", map5);
+			dates5=new String[count5];
+			for(int i=0;i<list5.size();i++){
+				dates5[i]=sdf.format(((CustomerDTO)list5.get(i)).getReg_date());
+			}
+		}else{
+			list5 = Collections.EMPTY_LIST;
+		}
+		number5=count5-(currentPage5-1)*pageSize;
+		
+		int pageCount5 = count5 / pageSize + (count5%pageSize == 0? 0:1);
+		
+		int startPage5 = ((Integer.parseInt(pageNum5)-1)/10)*10+1;
+		int pageBlock5 = 10;
+		int endPage5 = startPage5 + pageBlock5 - 1;
+		if(endPage5 > pageCount5){endPage5 = pageCount5;}
+		
+		request.setAttribute("snum4", snum4);
+		request.setAttribute("count5", count5);
+		request.setAttribute("list5", list5);
+		request.setAttribute("number5", number5);
+		request.setAttribute("pageNum5", pageNum5);
+		request.setAttribute("pageCount5", pageCount5);
+		request.setAttribute("startPage5", startPage5);
+		request.setAttribute("endPage5", endPage5);
+		request.setAttribute("dates5", dates5);
+		
 		int check = 1;
 		request.setAttribute("check", check);
+
 		return "/dash-customer/dashList";
 	}
 	
@@ -216,13 +262,12 @@ public class DashCustomerBean extends BoardMethodBean{
 		pageNum(request);
 		String number = request.getParameter("number");
 		int num = Integer.parseInt(request.getParameter("num"));
-
+		
 		sqlMap.update("customer.contentUp", num);
 	
 		dto = (CustomerDTO)sqlMap.queryForObject("customer.getContent",num);
 		
 		map.put("ref", dto.getRef());
-		map.put("snum",dto.getSnum());
 		int re_step = (Integer)sqlMap.queryForObject("customer.getReply",map); // 답글의 여부 확인 1일때만 답변 쓸수있음.
 
 		request.setAttribute("re_step", re_step);

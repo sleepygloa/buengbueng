@@ -12,6 +12,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import login.user.bean.BossInfoDataDTO;
+import login.user.bean.EmployeeInfoDataDTO;
+import login.user.bean.UseTimeLogDTO;
+import login.user.bean.UserInfoDataDTO;
 import superclass.all.bean.CheckInfo;
 import superclass.all.bean.EventGetMoney;
 import superclass.all.bean.FindIpBean;
@@ -43,7 +47,7 @@ public class UserInfoBean {
 		String pw = request.getParameter("pw");
 		
 		int check = 1;
-		
+		String ip = null;
 		try{
 			//ID로 사용자 정보 불러온다음 입력한 PW와 DB의 PW와 비교한다.
 			UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
@@ -55,7 +59,8 @@ public class UserInfoBean {
 				//////////////////////////////////
 				//접속장소의 IP를 검색하고,로그인 LOG 를 남긴다.
 				FindIpBean fib = new FindIpBean();
-				String ip = (String)fib.findIp();
+				ip = (String)fib.findIp();
+			}else{
 				
 				HashMap map = new HashMap();
 				map.put("id", id);
@@ -105,7 +110,7 @@ public class UserInfoBean {
 			map.put("id",id);
 			map.put("b_ip", ip);
 			
-			System.out.println(ip); //192.168.91.1 192.168.111.1 192.168.10.1
+			System.out.println("로그인폼, 자신의 아이디 : "+ip); //192.168.91.1 192.168.111.1 192.168.10.1
 			UseTimeLogDTO utlDto = null;
 			if((Integer)sqlMap.queryForObject("test.getGradeInfo", id) == 3 && (Integer)session.getAttribute("webLogin") != 1){//웹에서 로그인시 막는다.
 			
