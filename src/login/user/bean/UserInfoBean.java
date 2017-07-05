@@ -105,7 +105,7 @@ public class UserInfoBean {
 			map.put("id",id);
 			map.put("b_ip", ip);
 			
-			System.out.println(ip); //192.168.91.1 192.168.111.1 192.168.10.1
+			System.out.println("로그인폼, 자신의 아이디 : "+ip); //192.168.91.1 192.168.111.1 192.168.10.1
 			UseTimeLogDTO utlDto = null;
 			if((Integer)sqlMap.queryForObject("test.getGradeInfo", id) == 3 && (Integer)session.getAttribute("webLogin") != 1){//웹에서 로그인시 막는다.
 			

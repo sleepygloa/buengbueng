@@ -302,4 +302,12 @@ header, section, footer{
 
 .contentBox_right{float:right;}
 
+.contentBox_img_banner{width:100%;margin:20 0 20 0;}
+
+.contentBox_login_other ul{display:inlice-block;}
+.contentBox_login_other ul li{float:left;margin-bottom:0px;}
+.mb0{margin-bottom:0px;}
+
+.contentBox_board_list{text-align:left;padding-left:10px;}
+
 /* index 반응형 끝----------------------------------------*/
