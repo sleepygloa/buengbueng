@@ -3,6 +3,7 @@
 <head>
 	<title>챗봇 리스트</title>
 	<script type="text/javascript" src="/buengbueng/js/chatbot/chatbotList.js"></script>
+	<link rel="stylesheet" type="text/css" href="/buengbueng/css/chatbot/chatbot.css" />
 </head>
 
 <body>

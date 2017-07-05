@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script type="text/javascript" src="/buengbueng/js/chatbot/chatbotList.js"></script>
-<form action="addChatPro.do" method="post">
+
+<input type="text" id="alert" readonly="readonly" />
+<form action="addChatPro.do" method="post" name="addChatbot" onsubmit="return checkChatbot();">
 		<%-- 질문 번호 --%>
 		<input type="hidden" name="questionNum" value="${max+1}" />
 		<%-- 질문 키워드 --%>

@@ -111,15 +111,18 @@ public class SeatMaterialsBean {
 		plog.setNum(num);
 		plog.setB_key(b_key);
 		plog.setWhat(what);
+
+		HashMap<String,String> map = (HashMap<String,String>) sqlMap.queryForObject("pcInfo.getAllPcInfo",plog);
+		plog.setC_code(map.get("c_code"));
+		plog.setM_code(map.get("m_code"));
+		plog.setMo_code(map.get("mo_code"));
+		plog.setS_code(map.get("s_code"));
 		
-		HashMap map = (HashMap) sqlMap.queryForObject("pcInfo.getAllPcInfo",plog);
-		plog.setC_code((Integer)map.get("c_code"));
-		plog.setM_code((Integer)map.get("m_code"));
-		plog.setMo_code((Integer)map.get("mo_code"));
-		plog.setS_code((Integer)map.get("s_code"));
-		plog.setK_code((Integer)map.get("k_code"));
-		plog.setIp((String)map.get("ip"));
-		plog.setOs((String)map.get("os"));
+		System.out.println(map.get("s_code"));
+		
+		plog.setK_code(map.get("k_code"));
+		plog.setIp(map.get("ip"));
+		plog.setOs(map.get("os"));
 		sqlMap.insert("pcInfo.setPcInfoLog", plog);
 	}
 	
