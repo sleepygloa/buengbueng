@@ -28,13 +28,10 @@ public class Config  {
 	BufferedReader b = null;
 	String fileRealName = "\\log.txt";
 	
-	File test = new File("buengbueng/WebContent/log/log.txt");
-	
-	File path = new File(System.getProperty("user.home")+"\\Documents\\workspace\\buengbueng\\WebContent\\log");
+	File path = new File(Config.class.getResource("").getPath());
 	
 	@PostConstruct
 	public  void init() throws Exception, IOException {
-		System.out.println("이젠되겠지 :"+test.getCanonicalPath());
 		// TODO Auto-generated method stub
 		String logAdminPath = path.getAbsolutePath();
 		String logFilePath = System.getProperty("user.home")+"\\Documents\\buengbueng\\log";
@@ -78,8 +75,8 @@ public class Config  {
 			while((str = b.readLine()) != null){
 				//폴더만들기
 				f_list.add(new File(str));
-				String mkFolder = destination + f_list.get(i);
-				
+				String mkFolder = destination +"\\"+ f_list.get(i);
+				System.out.println(" 경로 찾자"+mkFolder);
 				File desti = new File(mkFolder);
 				if(!desti.exists()){
 					desti.mkdirs();
