@@ -17,7 +17,7 @@ $.ajax({
 		re_step:re_step,
 		ref:$("#ref").val(),	
 	    passwd:$("#passwd").val(),
-		snum:$("#snum").val()
+		snum:$("#snum_se").val()
 	},
 	success:function(data)
 	    {
@@ -31,7 +31,7 @@ $.ajax({
 	<span>${content}</span><br/>
 	<span><input type="password" id="passwd"/></span>
 	<input type="hidden" id="ref" value="${ref}"/>
-	<input type="hidden" id="snum" value="${snum}"/>
+	<input type="hidden" id="snum_se" value="${snum}"/>
 
 
 

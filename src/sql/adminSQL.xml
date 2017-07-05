@@ -95,6 +95,12 @@
 	<select id="searchDashOne" parameterClass="java.util.HashMap" resultClass="customerDTO" remapResults="true">
 		select * from customerBoard where snum=3 and $column$ like concat('%',#keyword#,'%') collate utf8_general_ci order by ref desc, re_step asc limit #startRow#,#pageSize#;
 	</select>
+	<select id="searchDashNoticeCount" parameterClass="java.util.HashMap" resultClass="int" remapResults="true">
+		select count(*) from customerBoard where snum=4 and $column$ like concat('%',#keyword#,'%') collate utf8_general_ci;
+	</select>
+	<select id="searchDashNotice" parameterClass="java.util.HashMap" resultClass="customerDTO" remapResults="true">
+		select * from customerBoard where snum=4 and $column$ like concat('%',#keyword#,'%') collate utf8_general_ci order by ref desc, re_step asc limit #startRow#,#pageSize#;
+	</select>
 		
 	<!-- 관리자 페이지 가맹점 신청 리스트 갯수 보기 -->
 	<select id="getFranchiseeAddListCount" resultClass="int">

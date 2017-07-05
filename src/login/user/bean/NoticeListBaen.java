@@ -133,11 +133,9 @@ public String noticeForm(HttpServletRequest request){
 		int count =0;
 		List CmList = null;
 		
-		sqlMap.update("customer.contentUp",article);
+		sqlMap.update("customer.contentUp",num);
 		
-		r.put("snum",snum);//4
-		r.put("num",num);//535
-		article=(CustomerDTO)sqlMap.queryForObject("customer.getContent", r);//snum怨펝um�쑝濡� 李얠쓬
+		article=(CustomerDTO)sqlMap.queryForObject("customer.getContent", num);//snum怨펝um�쑝濡� 李얠쓬
 	
 		snum = 5; //�씠�쟾源뚯� num�� 4
 		count = (Integer)sqlMap.queryForObject("customer.customercount",snum);
@@ -171,11 +169,8 @@ public String noticeForm(HttpServletRequest request){
 		String pageNum = request.getParameter("pageNum");
 		int num = Integer.parseInt(request.getParameter("num"));
 		int number = Integer.parseInt(request.getParameter("number"));
-		
-		r.put("snum",snum);
-		r.put("num",num);
-		
-		article = (CustomerDTO)sqlMap.queryForObject("customer.getContent",r);
+				
+		article = (CustomerDTO)sqlMap.queryForObject("customer.getContent",num);
 		
 		request.setAttribute("snum", snum);
 		request.setAttribute("pageNum", pageNum);

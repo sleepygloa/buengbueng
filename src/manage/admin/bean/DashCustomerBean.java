@@ -217,13 +217,13 @@ public class DashCustomerBean extends BoardMethodBean{
 		
 		List list5 = null;
 		String[] dates5 = null;
-		int count5 = (Integer)sqlMap.queryForObject("admin.customerReplyCount",null );
+		int count5 = (Integer)sqlMap.queryForObject("customer.customercount",snum4 );
 		if(count5>0){
 			HashMap map5 = new HashMap();
 			map5.put("snum",snum4);
 			map5.put("startRow", startRow5);
 			map5.put("pageSize",pageSize);
-			list5 = sqlMap.queryForList("admin.customerReplyList", map5);
+			list5 = sqlMap.queryForList("customer.customerlist", map5);
 			dates5=new String[count5];
 			for(int i=0;i<list5.size();i++){
 				dates5[i]=sdf.format(((CustomerDTO)list5.get(i)).getReg_date());
@@ -273,6 +273,16 @@ public class DashCustomerBean extends BoardMethodBean{
 		request.setAttribute("re_step", re_step);
 		request.setAttribute("dto", dto);
 		request.setAttribute("number", number);
+		
+		map.put("snum", 5);
+		List CmList = sqlMap.queryForList("customer.commentList", map);
+				    	
+		map.put("re_step", re_step);
+		int countRe = (Integer)sqlMap.queryForObject("customer.commentListCount",map );
+		
+		request.setAttribute("CmList",CmList);
+		request.setAttribute("countRe", countRe);
+		
 		return "/dash-customer/dashBoardContent";
 	}
 	//관리자 글 수정 폼
@@ -581,6 +591,53 @@ public class DashCustomerBean extends BoardMethodBean{
 		request.setAttribute("startPage4", startPage4);
 		request.setAttribute("endPage4", endPage4);
 		request.setAttribute("dates4", dates4);
+		///////////////////////////////////////////////////////////
+		String pageNum5=request.getParameter("pageNum5");
+		
+		if(pageNum5==null){pageNum5 = "1";}
+		int currentPage5= Integer.parseInt(pageNum5);
+		int startRow5 = (currentPage5-1)*pageSize;
+		int number5 = 0;
+		int count5 = 0;
+		List list5=null;
+		String dates5[]=null;
+				
+		if(keyword!=null){
+			map.put("column", column);
+			map.put("keyword", keyword);
+			count5 = (Integer)sqlMap.queryForObject("admin.searchDashNoticeCount", map);
+		if(count5>0){
+			map.put("column", column);
+			map.put("keyword", keyword);
+			map.put("startRow", startRow5);
+			map.put("pageSize",pageSize);
+			list5 = sqlMap.queryForList("admin.searchDashNotice", map);
+			dates5=new String[count5];
+			for(int i = 0;i<list5.size();i++){
+				dates5[i]=sdf.format(((CustomerDTO)list5.get(i)).getReg_date());
+			}
+		}else{
+			list5 =Collections.EMPTY_LIST;
+		}}		
+		
+		number5=count5-(currentPage5-1)*pageSize;
+		
+		int pageCount5 = count5 / pageSize + (count5%pageSize == 0? 0:1);
+		
+		int startPage5 = ((Integer.parseInt(pageNum5)-1)/10)*10+1;
+		int pageBlock5 = 10;
+		int endPage5 = startPage5 + pageBlock5 - 1;
+		if(endPage5 > pageCount5){endPage5 = pageCount5;}
+
+		request.setAttribute("number5", number5);
+		request.setAttribute("currentPage5", currentPage5);
+		request.setAttribute("pageCount5", pageCount5);
+		request.setAttribute("startPage5", startPage5);
+		request.setAttribute("endPage5", endPage5);
+		request.setAttribute("count5", count5);
+		request.setAttribute("list5", list5);
+		request.setAttribute("pageNum5", pageNum5);		
+		request.setAttribute("dates5", dates5);
 		
 		int check = 2;
 		request.setAttribute("check", check);		
