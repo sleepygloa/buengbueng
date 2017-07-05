@@ -171,7 +171,7 @@ public class DashAllManagementBean extends BoardMethodBean{
 	@RequestMapping("dashAgreeInfo.do")
 	public String dashAgreeInfo(String b_name, Model model){
 		FranchiseeDataDTO dto = null;
-		dto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeInfo", b_name);
+		dto = (FranchiseeDataDTO)sqlMap.queryForObject("franchisee.getFranchiseeLog", b_name);
 
 		model.addAttribute("dto", dto);
 

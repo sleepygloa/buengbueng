@@ -68,6 +68,11 @@
 	<select id="getFranchiseeInfo" resultClass="franchiseeDTO" parameterClass="String">
 		select * from franchiseeInfo where b_name = #b_name#;
 	</select>
+	
+	<!-- 가맹점 정보 불러오기:이름으로 -->
+	<select id="getFranchiseeLog" resultClass="franchiseeDTO" parameterClass="String">
+		select * from franchiseeLog where b_name = #b_name#;
+	</select>
 		
 	<!-- 가맹점 정보 수정하기 -->
 	<update id="updateFranchiseeInfo"  parameterClass="franchiseeDTO">

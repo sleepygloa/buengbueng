@@ -97,7 +97,6 @@ public String noticeForm(HttpServletRequest request){
 	int number = 0;
 	int ref = 0;
 	int asd =(Integer)sqlMap.queryForObject("customer.maxNum", null);
-	System.out.println(asd);
 	if(asd !=0){
 		number =asd+1;
 	}else{
@@ -142,7 +141,6 @@ public String noticeForm(HttpServletRequest request){
 	
 		snum = 5; //�씠�쟾源뚯� num�� 4
 		count = (Integer)sqlMap.queryForObject("customer.customercount",snum);
-	System.out.println(count);
 		
 		if(count > 0){	
 			
@@ -231,16 +229,12 @@ public String noticeForm(HttpServletRequest request){
 		int num = Integer.parseInt(request.getParameter("num"));
 		int ref = Integer.parseInt(request.getParameter("ref"));
 		String pw = request.getParameter("pw");
-		System.out.println("pw="+pw);
-		System.out.println("snum="+snum);
-		System.out.println("ref="+ref);
 		int check2=0;
 		
 		String id = (String)session.getAttribute("loginId");
 		
 		String pw2 = (String)sqlMap.queryForObject("test.checkPasswd",id);
 		
-		System.out.println("pw2="+pw2);
 		if(pw2.equals(pw)){ 
 			r.put("snum", snum);
 			r.put("ref", ref);

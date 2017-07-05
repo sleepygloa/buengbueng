@@ -47,8 +47,8 @@
 	</update>
 	
 	<!-- 게시글 불러오기 -->
-	<select id="getContent" parameterClass="int" resultClass="customerDTO">
-		select * from customerBoard where num=#num#
+	<select id="getContent" parameterClass="java.util.HashMap" resultClass="customerDTO">
+		select * from customerBoard where snum=#snum# and num=#num#
 	</select>
 	
 	<!-- 답글 여부 확인 -->

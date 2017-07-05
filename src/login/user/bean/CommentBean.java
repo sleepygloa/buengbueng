@@ -22,31 +22,24 @@ public class CommentBean {
 	int num =Integer.parseInt(request.getParameter("num"));//535
 
 	String writer =request.getParameter("writer");
-	System.out.println("writer="+writer);
 	String content = request.getParameter("content");
 	int ref = 	Integer.parseInt(request.getParameter("ref"));//14
-	System.out.println(ref);
 	int re_step = 	Integer.parseInt(request.getParameter("re_step"));//0	
 	String passwd = request.getParameter("passwd");	
-	System.out.println("passwd="+passwd);
 	
 	
 		
 		
 	      num=article.getNum(); 
-	     System.out.println(num);//535
 	      ref=article.getRef();
-	      System.out.println(ref);//14
 	      re_step=article.getRe_step();
 	      snum=article.getSnum();
 	      int number=0;
 	      
 	    
-	      System.out.println("number="+number);//0
 	      if(number!=0){
 	    	  
 	         number=number;
-	         System.out.println(number);//number!=0�씠 �븘�땺�븣
 	      }else{
 	         number=1;
 	      }
@@ -68,11 +61,9 @@ public class CommentBean {
 		
 		r.put("snum", 5);
 		r.put("ref",ref);  //14
-		System.out.println(ref);
 		
 	 List CmList = (List)sqlMap.queryForList("customer.commentList", r);
 			    	
-	System.out.println(CmList);
 	
 	r.put("ref",ref);
 	r.put("re_step", re_step);
@@ -115,13 +106,11 @@ public String CommentDeletePRo(HttpServletRequest request,HttpSession session,Ha
 	String passwd = request.getParameter("passwd");	
 	
 	int asd = 0;
-	System.out.println("passwd="+passwd);
    	
 	
 	r.put("ref",ref);
 	r.put("re_step",re_step);
 	String passwd3 =(String)sqlMap.queryForObject("customer.commentPasswd", r);
-	System.out.println("passwd3="+passwd3);
 	if(passwd3.equals(passwd)){
 		
 		r.put("snum",snum);
@@ -160,9 +149,7 @@ String content=(String)sqlMap.queryForObject("customer.getCommentContent", r);
 public String commentModifyPro(Model model, HttpServletRequest request,HashMap r,HttpSession session){
 	int snum = Integer.parseInt(request.getParameter("snum"));
 	int ref = Integer.parseInt(request.getParameter("ref"));
-	System.out.println("pro ref : "+ref);
 	int re_step = Integer.parseInt(request.getParameter("re_step"));
-	System.out.println("pro re_step : "+re_step);
 	String content = request.getParameter("content");
 	String passwd = request.getParameter("passwd");	
 	int check = 0;
@@ -175,8 +162,6 @@ String passwd2 = (String)sqlMap.queryForObject("customer.commentPasswd", r);
 	
 	
 	
-	System.out.println("passwd="+passwd);
-	System.out.println("passwd2="+passwd2);
 	if(passwd2.equals(passwd)){
 	r.put("ref", ref);
 	r.put("re_step",re_step);
