@@ -3,7 +3,7 @@
 <sqlMap namespace="customer">
 
 	<resultMap class="int" id="intnull">
-		<result property="num" column="num" nullValue="0"/>
+		<result property="ref" column="ref" nullValue="0"/>
 	</resultMap>
 	
 	<!-- 게시판의 총 게시글 -->
@@ -14,16 +14,25 @@
 	<!-- 게시판 리스트 -->
 	<select id="customerlist" parameterClass="java.util.HashMap" resultClass="customerDTO">
 		<![CDATA[
-		select num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount,@rownum:=@rownum+1 as rownum
-		from (SELECT num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount
-		from (SELECT num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount
-		from customerBoard,(select @rownum:=0)r WHERE snum=#snum# order by ref desc, re_step asc limit #startRow#,#pageSize#)a order by ref desc, re_step asc)b;
+		SELECT num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount,@rownum:=@rownum+1 as rownum
+		FROM (SELECT num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount
+		FROM (SELECT num,snum,title,content,passwd,writer,email,reg_date,ref,re_step,readcount
+		FROM customerBoard,(select @rownum:=0)r WHERE snum=#snum# order by ref desc, re_step asc limit #startRow#,#pageSize#)a order by ref desc, re_step asc)b;
 		]]>
 	</select>
 	
+	<!-- 공지사항 리스트 -->
+	<select id="noticelist" parameterClass="java.util.HashMap" resultClass="customerDTO">
+		<![CDATA[
+		select num,snum,title,content,writer,email,reg_date,ref,re_step,readcount,rownum from
+		(select num,snum,title,content,writer,email,reg_date,ref,re_step,readcount,@rownum:=@rownum+1 as rownum from customerBoard,(select @rownum:=0)r where snum=#snum# order by ref desc,re_step asc limit #startRow#,#pageSize#)a;
+		]]>
+	</select>	
+	
+	
 	<!-- 게시판  num의 최대 값 -->
-	<select id="maxNum" parameterClass="int" resultMap="intnull">
-		select max(ref) as num from customerBoard where re_step=0;
+	<select id="maxNum" resultMap="intnull">
+		select max(ref) as ref from customerBoard;
 	</select>
 	
 	<!-- 글 작성 -->
@@ -33,8 +42,8 @@
 	</insert>
 	
 	<!-- 조회수 증가 -->
-	<update id="contentUp" parameterClass="int">
-		update customerBoard set readcount=readcount+1 where num=#num#
+	<update id="contentUp" parameterClass="customerDTO">
+		update customerBoard set readcount=readcount+1 where num= #num# and snum=#snum#    
 	</update>
 	
 	<!-- 게시글 불러오기 -->
@@ -43,8 +52,8 @@
 	</select>
 	
 	<!-- 답글 여부 확인 -->
-	<select id="getReply" parameterClass="java.util.HashMap" resultClass="int">
-		select count(*) from customerBoard where ref=#ref# and snum=#snum#;
+	<select id="getReply" parameterClass="int" resultClass="int">
+		select count(*) from customerBoard where ref=#ref#;
 	</select>
 		
 	<!-- 글 비밀번호 조회 -->
@@ -66,7 +75,7 @@
 	<!-- 게시글과 답글 삭제 -->
 	<delete id="delRef" parameterClass="java.util.HashMap">
 	<![CDATA[
-		delete from customerBoard where ref=#ref# and re_step>=#re_step# and snum=#snum#
+		delete from customerBoard where ref=#ref# and re_step>=#re_step#;
 	]]>
 	</delete>
 	
@@ -75,11 +84,58 @@
 		update customerBoard set email=#email#,title=#title#,content=#content# where num=#num# and snum=#snum#
 	</update>
 	
+		<!-- 공지사항 게시글 내용 수정 -->
+	<update id="noticeModify" parameterClass="customerDTO">
+		update customerBoard set title=#title#,content=#content# where num=#num# and snum=#snum#
+	</update>
+	
 	<!-- 관리자 글 삭제 -->
 	<delete id="bossDel" parameterClass="java.util.HashMap">
 	<![CDATA[
-		delete from customerBoard where ref=#ref# and re_step>=#re_step# and snum=#snum#;
+		delete from customerBoard where ref=#ref# and re_step>=#re_step#;
 	]]>
 	</delete>
 	
+	<!-- 공지사항 글 삭제 -->
+	<delete id="deleteCustomerBoard" parameterClass="java.util.HashMap">
+		delete from customerBoard where snum = #snum# and ref = #ref#;
+	</delete>
+	
+	<select id="commentListCount" parameterClass="java.util.HashMap" resultClass="int">
+		<![CDATA[
+		select count(*) from customerBoard where ref=#ref# and re_step !=0;
+		]]>
+	</select>
+	<select id="commentList" parameterClass="java.util.HashMap" resultClass="CustomerDTO">
+		select * from customerBoard where snum=#snum# and ref = #ref#;
+	</select>
+	
+	
+	<insert id="commentInsert" parameterClass="CustomerDTO">
+		insert into customerBoard(snum,content,passwd,writer,reg_date,ref,re_step)values(#snum#,#content#,#passwd#,#writer#,now(),#ref#,#re_step#);
+	</insert>
+	
+	<delete id="commentDelete" parameterClass="java.util.HashMap">
+	<![CDATA[
+	delete from customerBoard where ref=#ref# and re_step = #re_step# and snum=#snum#;
+	]]>
+	</delete>
+	
+	<select id="Max(re_step)" parameterClass="int" resultClass="int">
+	select max(re_step) as re_step from customerBoard where ref = #ref#;
+	</select>
+	
+	<update id="commentModifyUpdate" parameterClass="java.util.HashMap">
+	update customerBoard set content = #content# where ref=#ref# and re_step = #re_step#;
+	</update>
+	
+	<select id="getCommentContent" parameterClass="java.util.HashMap" resultClass="String">
+	select content from customerBoard where ref = #ref# and re_step = #re_step#
+	</select>
+	
+   <select id="commentPasswd" parameterClass="java.util.HashMap" resultClass="String">
+   select passwd from customerBoard where  ref = #ref# and re_step = #re_step#
+   </select>
+	
+
 </sqlMap>

@@ -321,7 +321,7 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="franchiseQA.do?snum=1&pageNum=1">
+									<a href="franchiseQA.do?snum=1">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">가맹 문의</h6>
@@ -331,7 +331,7 @@
 								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="customerQA.do?snum=2&pageNum=1">
+									<a href="customerQA.do?snum=2">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">자주 묻는 질문</h6>
@@ -344,15 +344,24 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="oneQA.do?snum=3&pageNum=1">
+									<a href="oneQA.do?snum=3">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">1:1 문의</h6>
 											<p class="menu_desc">사소한것까지 궁금한건 여기로</p>
 										</span>
 									</a>
-								</div>
-							</li>
+								</div>							
+							<!-- 컨텐츠당 하나의 div로 구성 -->
+							<div class="menu_menu col-sm-6-12">
+							      <a href = "notice.do?snum=4&pageNum=1">
+							      	 <span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">공지사항</h6>
+											<p class="menu_desc">사이트 공지는  여기로</p>
+										</span>
+									</a>
+							</div>
 						</ul>	
 					</li>							
                
@@ -366,17 +375,16 @@
                   	<li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
                   </c:if>
                </c:if>
-
                <c:if test="${sessionScope.loginId == null}" >
                   <li class="item sign"><a href="/buengbueng/userInfoSignForm.do">회원가입</a></li>
                   <li class="item sign"><a href="">비밀번호찾기</a></li>
                   <li class="item sign"><a href="/buengbueng/loginForm.do">로그인</a></li>
                   <li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
                </c:if>
+               <c:if test="" >
+                  <li class="item sign">관리자페이지</li>
+               </c:if>
                
-               <c:if test="${sessionScope.grade==4}" >
-			      <li class="item sign"><a href="/buengbueng/dashIndex.do">관리자 페이지</a></li>
-			   </c:if>               
             </ul>
          </div>
       </header>
