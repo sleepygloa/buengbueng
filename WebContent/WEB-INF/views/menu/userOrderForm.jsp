@@ -11,7 +11,7 @@
     
     <body>
     <div>
-		<button name="menuAll" onclick="useralls('${l_key}','${name}')">전 체</button>
+		<button name="menuAll" onclick="useralls('${l_key}','${name}','${id}')">전 체</button>
 	</div>
 	
     	
@@ -19,7 +19,7 @@
 		<table>
 		<tr>
 		<c:forEach var="category" items="${categoryList}">
-			<td><input type="button" name="${category}" onclick="usercategory('${category}','${l_key}','${name}')" value="${category}" /> </td>
+			<td><input type="button" name="${category}" onclick="usercategory('${category}','${l_key}','${name}','${id}')" value="${category}" /> </td>
 		</c:forEach>
 		</tr>	
 		</table>
@@ -36,11 +36,10 @@
 		</table>
 	</div>
 	<div><br><br></div>
-	
-			
-			
-			<input type="hidden" id ="name" value="${name}" />
-		<table class="userMenuStatus">
+		<input type="hidden" id ="name" value="${name}" />
+		<input type="hidden" id ="id" value="${id}" />
+		<div class="userMenuStatus">
+		<table>
 			<tr>
 			<td>주문 상황</td>
 			</tr>
@@ -53,7 +52,7 @@
 			<td>${userOrder.ordermoney}</td>
 			<td>
 			<c:if test="${userOrder.orderstatus==1}">주문 중
-				<button onclick="window.location='userOrderCancel.do?id=${id}&ordertime=${userOrder.ordertime}&l_key=${l_key}&name=${name}'">주문 취소</button>
+				<button onclick="window.location='userOrderCancel.do?id=${id}&ordertime=${userOrder.ordertime}&l_key=${l_key}&name=${name}&ordermoney=${userOrder.ordermoney}'">주문 취소</button>
 			</c:if>
 			<c:if test="${userOrder.orderstatus==2}">주문 승인
 				<button onclick="window.location='userOrderRefund.do?id=${id}&l_key=${l_key}&ordertime=${userOrder.ordertime}&name=${name}'">환불 요청</button>

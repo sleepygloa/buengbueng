@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import all.info.dto.UserInfo;
 import application.ConnectServer;
 import application.controller.etc.MenuList;
 import application.controller.etc.RentList;
@@ -36,7 +37,7 @@ public class UserInfoController {
 		pcNum.setText(num);
 		id.setText(uid);
 		try{
-			String param = "id="+URLEncoder.encode(uid,"UTF-8");
+			String param = "id="+URLEncoder.encode(uid,"UTF-8")+"&b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8");
 			String urlInfo = "http://localhost:8080/buengbueng/fxGetOneUserInfo.do";
 			JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 			
@@ -67,6 +68,24 @@ public class UserInfoController {
 			mname.setCellValueFactory(new PropertyValueFactory<MenuList,String>("mname"));
 			mcode.setCellValueFactory(new PropertyValueFactory<MenuList,String>("mcode"));
 			mprice.setCellValueFactory(new PropertyValueFactory<MenuList,String>("mprice"));
+			
+			JSONArray jsonMName = (JSONArray)jsonObj.get("mName");
+			JSONArray jsonMCode = (JSONArray)jsonObj.get("mCode");
+			JSONArray jsonMMoney = (JSONArray)jsonObj.get("mMoney");
+			
+			Iterator<String> iteratorMName = jsonMName.iterator();
+			Iterator<String> iteratorMCode = jsonMCode.iterator();
+			Iterator<String> iteratorMMoney = jsonMMoney.iterator();
+			
+			while(iteratorMName.hasNext()){
+				String name = iteratorMName.next();
+				String code = iteratorMCode.next();
+				String money = iteratorMMoney.next();
+				MenuList ml = new MenuList(name,code,money);
+				data2.add(ml);
+			}
+			
+			menuList.setItems(data2);
 			
 		}catch(Exception e){
 			e.printStackTrace();

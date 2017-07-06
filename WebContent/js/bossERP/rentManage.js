@@ -98,9 +98,6 @@ function gotoURL2(url,name1,value1,name2,value2){
 	   form.submit();
 }
 
-function rentSelect(){
-	document.rentProductForm.rentProduct.value = document.rentProductForm.rent.value;
-}
 
 function modiRent(rentProduct,b_key){
 	$.ajax({
@@ -141,4 +138,33 @@ function modiRentProduct(rentCode,b_key){
 			$("#rentDiv").html(data);
 		}
 	});
+}
+
+function checkRentProduct(){
+	if(document.rentProductForm.code.value == ""){
+		document.getElementById("alert").value = "바코드 번호를 입력하십시오.";
+		return false;
+	}
+	if(document.rentProductForm.rentProduct.value == "선택"){
+		document.getElementById("alert").value = "물품을 선택하십시오.";
+		return false;
+	}
+}
+
+function checkRentProductModi(){
+	if(document.rentProductModiForm.code.value == ""){
+		document.getElementById("alert").value = "바코드 번호를 입력하십시오.";
+		return false;
+	}
+	if(document.rentProductModiForm.rentCheck.value == ""){
+		document.getElementById("alert").value = "대여유무를 입력하십시오.(대여 가능 = 0 / 대여 중 = 1)";
+		return false;
+	}
+}
+
+function checkRent(){
+	if(document.getElementById("rentProduct").value == ""){
+		document.getElementById("alert").value = "대여물품 이름를 입력하십시오.";
+		return false;
+	}
 }

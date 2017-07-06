@@ -11,14 +11,14 @@
 
 
 <c:if test="${check==1}">
-	<body onload="succ('${name}이(가) 주문승인되었습니다.','menuOrderListForm.do')" />
+	<body onload="succ('${name}이(가) 주문승인되었습니다.','menuOrderListForm.do?l_key=${l_key}')" />
 </c:if>
 
 <c:if test="${check==0}">
-	<body onload="succ('주문승인이 올바르지 않습니다.','menuOrderListForm.do')"/>
+	<body onload="succ('주문승인이 올바르지 않습니다.','menuOrderListForm.do?l_key=${l_key}')"/>
 </c:if>
 
 
 <c:if test="${check==-1}">
-	<body onload="succ('오류. 사용에 불편을 드려서 죄송합니다.','menuOrderListForm.do')"/>
+	<body onload="succ('오류. 사용에 불편을 드려서 죄송합니다.','menuOrderListForm.do?l_key=${l_key}')"/>
 </c:if>

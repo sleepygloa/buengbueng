@@ -7,9 +7,9 @@
 
 	
 	<!-- 재고 유통기한이 지났을 경우 자동으로 삭제 (로그인이 되는 순간) -->	
-	<delete id="lastdayDelete">
+	<delete id="lastdayDelete" parameterClass="String">
 	<![CDATA[
-		delete from product where lastday < now();
+		delete from product where lastday < now() and l_key = #l_key#;
 	]]>
 	</delete>	
 	
@@ -54,8 +54,9 @@
 	
 	<!-- 사용자가 자신이 주문한 내역 가지고 오기(userOrderForm)-->
 	<select	id="getUserOrderList" parameterClass="java.util.HashMap"  resultClass="orderDto">
-		select * from menuOrder where id=#id# and l_key=#l_key#;
-	
+		<![CDATA[
+		select * from menuOrder where id=#id# and l_key=#l_key# and ordertime >= #loginTime# and date_format(ordertime, '%Y-%c-%d') <= curdate();
+		]]>
 	</select>
 	
 	<!-- 주문재고 있으면 주문현황에 추가 -->	
@@ -78,11 +79,9 @@
 		update menuOrder set orderstatus=4 where id=#id# and ordertime=#ordertime# and l_key=#l_key#;
 	</update>
 	
-	
-	
 	<!-- 사용자가 주문한 내역을 사장이 열어 볼 리스트. 주문현황리스트 -->
 	<select id="getMenuOrder" parameterClass="String" resultClass="orderDto">
-		select * from (select * from menuOrder where l_key=#l_key# order by orderstatus asc) menuOrder order by ordertime asc;
+		select * from (select * from menuOrder where l_key=#l_key# order by orderstatus asc) menuOrder where date_format(ordertime, '%Y-%c-%d') = (curdate() - INTERVAL 1 DAY) or date_format(ordertime, '%Y-%c-%d') = curdate() order by ordertime desc;
 	</select>
 	
 	<!-- 마지막 주문 시간 가져오기 -->
@@ -133,7 +132,7 @@
 
 	<!-- 사장이 주문승인시 주문한 사용자 메뉴값 잔액에서 차감--> 
 	<update id="menuPayment" parameterClass="java.util.HashMap">
-		update userAccount set money=#money# where id=#userId#;
+		update userAccount set money= money - #money# where id=#userId#;
 	</update> 
 	
 	<!-- 사용자가 환불을 요청했을 때 승인하면서 status 값을 5로 바꿔주는데 사용 -->
@@ -153,7 +152,7 @@
 	
 	<!-- 사용자가 환불을 요청했을 때 거절하면서 status 값을 6으로 바꿔주는데 사용 -->
 	<update id="notRefundStatus" parameterClass="orderDto">
-		update menuOrder set orderstatus=6 where num=#num# and code=#code# name=#menuname# and l_key=#l_key#;
+		update menuOrder set orderstatus=6 where num=#num# and code=#code# and menuname=#menuname# and l_key=#l_key#;
 	</update>
 	
 	<!-- 취소때 가맹점 이름넘기기위함 -->
@@ -210,4 +209,20 @@
 	
 	
 
+<!-- ========================================================================================================================= -->
+
+	<!-- 사용자 메뉴 주문 완료 현황 가져오기 -->
+	<select id="getOneUserMenuOrder" parameterClass="java.util.HashMap" resultClass="orderDto">
+		select * from menuOrder where id = #id# and l_key = #l_key# and orderstatus = 2 and date_format(ordertime, '%Y-%c-%d') = (curdate() - INTERVAL 1 DAY) or date_format(ordertime, '%Y-%c-%d') = curdate();
+	</select>
+	<!-- 사용자 주문 취소 시 사용자 잔액 돌려놓기 -->
+	<update id="cancelMenuOrder" parameterClass="java.util.HashMap">
+		update userAccount set money= money + #ordermoney# where id=#id#;
+	</update>
+	<!-- 사용자 총 주문 금액 -->
+	<select id="getUserMenuOrderSum" parameterClass="java.util.HashMap" resultClass="String">
+		<![CDATA[
+		select SUM(ordermoney) from menuOrder where id = #id# and l_key = #licenseKey# and orderstatus = 2 and ordertime >= #loginTime#;
+		 ]]>
+	</select>
 </sqlMap>

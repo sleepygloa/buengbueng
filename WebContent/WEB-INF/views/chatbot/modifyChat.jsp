@@ -2,13 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
-	<title>챗봇 질답 수정</title>
+    <title>챗봇 질답 수정</title>
+    <script type="text/javascript" src="/buengbueng/js/chatbot/chatbotList.js"></script>
+    <link rel="stylesheet" type="text/css" href="/buengbueng/css/chatbot/chatbot.css" />
 </head>
 
 <body>
-	<jsp:include page="/WEB-INF/views/dashHeader.jsp"/>
+    <jsp:include page="/WEB-INF/views/dashHeader.jsp"/>
 
-	<form action="modifyChatPro.do" method="post">
+    <input type="text" id="alert" readonly="readonly" />
+    <form action="modifyChatPro.do" method="post" name="modifyChatbot" onsubmit="return checkModifyChatbot();">
 		<table>
 			<tr>
 				<td>번호</td>

@@ -144,10 +144,10 @@ public class RentMaterialsBean {
 				if(check == 0){
 					HashMap<String,Object> param = new HashMap<String,Object>();
 					param.put("b_key", rdto.getB_key());
-					param.put("afterProduct", rdto.getRentProduct());
+					param.put("rentCheck", rdto.getRentCheck());
 					param.put("beforeCode", request.getParameter("beforeCode"));
 					param.put("afterCode", rdto.getCode());	
-					sqlMap.update("rent.modiRentProduct", param);
+					sqlMap.update("rent.modifyRentProduct", param);
 					check = 1;
 				}else{
 					check = 0;
@@ -156,7 +156,7 @@ public class RentMaterialsBean {
 			model.addAttribute("check", check);
 			model.addAttribute("b_key", rdto.getB_key());
 		}catch(Exception e){
-			// 추후 수정
+			e.printStackTrace();
 		}
 		return "/bossERP/rentMaterials/gotoRentManage";
 	}

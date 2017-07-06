@@ -135,7 +135,7 @@ setInterval("autoRefresh1()", 3000);
                             </ul>
                         </li>
                         <li>
-                            <a href="grid.html" class="rippler rippler-default">
+                            <a href="managePcInfo.do" class="rippler rippler-default">
                             <i class="fa fa-th"></i>
                             <span class="menu-text">좌석 관리</span>
                             <span class="selected"></span>

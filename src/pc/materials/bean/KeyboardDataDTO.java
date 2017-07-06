@@ -3,7 +3,7 @@ package pc.materials.bean;
 public class KeyboardDataDTO {
 	private int k_num;
 	private String k_bossKey;
-	private int k_code;
+	private String k_code;
 	private String k_company;
 	private String k_name;
 	private String k_type;
@@ -22,10 +22,10 @@ public class KeyboardDataDTO {
 	public void setK_bossKey(String k_bossKey) {
 		this.k_bossKey = k_bossKey;
 	}
-	public int getK_code() {
+	public String getK_code() {
 		return k_code;
 	}
-	public void setK_code(int k_code) {
+	public void setK_code(String k_code) {
 		this.k_code = k_code;
 	}
 	public String getK_company() {

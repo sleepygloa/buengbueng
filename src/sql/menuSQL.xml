@@ -46,20 +46,19 @@
 	
 	<!-- menu 수정 -->
 	<update id="updateMenu" parameterClass="java.util.HashMap">
-		update menu set name=#name#, price=#price#, category=#category#, company=#company# where name=#beforeName#;
+		update menu set name=#name#, price=#price#, category=#category#, company=#company# where name=#beforeName# and l_key = #l_key#;
 	</update>
 	
-   <!-- menu 삭제 -->
+	<!-- menu 삭제 -->
    <delete id="deleteMenu" parameterClass="java.util.HashMap">
       delete from menu where name=#name# and l_key=#l_key#;
    </delete>
-	
-	
-	
+
 	<!-- 카테고리별 메뉴 List -->
 	<select id="categoryMenuList" parameterClass="java.util.HashMap" resultClass="menuDto">
 		select * from menu where category=#category# and l_key=#l_key#;
 	</select>	
+	
 	
 	<!-- 등록된 product 내역 보여주기 -->
 	<select id="getProduct" parameterClass="String" resultClass="productDto">
@@ -98,6 +97,12 @@
 	</delete>
 	
 	
+<!-- =========================================================================================================== -->
+
+	<!-- FX product 추가 -->
+	<insert id="insertProductFX" parameterClass="productDto">
+		insert into product values(#code#, #name#, #lastday#, #salecheck#, #beginregist#, #l_key#);
+	</insert>	
 
 	
 	

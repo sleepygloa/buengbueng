@@ -14,3 +14,17 @@ function state() {
 		}
 	});
 }
+
+function getUserInfo(pcNum, id){
+	$.ajax({
+		url : "getUseUserInfo.do",
+		type : "post",
+		data : {
+			pcNum : pcNum,
+			id : id
+		},
+		success : function(data) {
+			$(".userInfo").html(data);
+		}
+	});s
+}

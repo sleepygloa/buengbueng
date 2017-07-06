@@ -5,7 +5,7 @@ import java.sql.Date;
 public class ComputerDataDTO {
 	private int c_num;
 	private String c_bossKey;
-	private int c_code;
+	private String c_code;
 	private String c_company;
 	private Date c_date;
 	private String c_name;
@@ -31,10 +31,10 @@ public class ComputerDataDTO {
 	public void setC_bossKey(String c_bossKey) {
 		this.c_bossKey = c_bossKey;
 	}
-	public int getC_code() {
+	public String getC_code() {
 		return c_code;
 	}
-	public void setC_code(int c_code) {
+	public void setC_code(String c_code) {
 		this.c_code = c_code;
 	}
 	public String getC_company() {

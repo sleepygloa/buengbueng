@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.module.BossRentManageController" />
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.module.BossRentManageController">
+   <children>
+      <VBox layoutX="-2.0" layoutY="-4.0" prefHeight="1084.0" prefWidth="1922.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-4.0">
+         <children>
+            <HBox prefHeight="36.0" prefWidth="1192.0" spacing="200.0">
+               <children>
+                  <HBox prefHeight="50.0" prefWidth="570.0" spacing="30.0">
+                     <children>
+                        <TextField fx:id="rentName" prefHeight="19.0" prefWidth="248.0" promptText="대여물품명">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                        <Button mnemonicParsing="false" onMouseClicked="#addRent" prefHeight="33.0" prefWidth="138.0" text="대여물품목록 등록" />
+                        <Button mnemonicParsing="false" onMouseClicked="#delRent" prefHeight="33.0" prefWidth="136.0" text="대여물품목록 삭제" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="36.0" prefWidth="429.0" spacing="50.0">
+                     <children>
+                        <TextField fx:id="rentProductCode" prefHeight="19.0" prefWidth="248.0" promptText="대여물품 바코드">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                        <Button mnemonicParsing="false" onMouseClicked="#addRentProduct" prefHeight="53.0" prefWidth="131.0" text="대여물품목록 등록" />
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="350.0" right="350.0" top="100.0" />
+               </VBox.margin>
+            </HBox>
+            <TabPane fx:id="rentProductTab" prefHeight="742.0" prefWidth="1722.0" tabClosingPolicy="UNAVAILABLE">
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" />
+               </VBox.margin>
+            </TabPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

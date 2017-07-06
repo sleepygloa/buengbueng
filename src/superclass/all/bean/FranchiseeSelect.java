@@ -21,7 +21,7 @@ public class FranchiseeSelect {
 	
 	@RequestMapping("franchiseeSelect.do")
 	public String franchiseeSelect(HttpSession session, String b_key){
-		
+		System.out.println("????");
 		if(session.getAttribute(b_key) != null){
 			session.removeAttribute("b_key");
 		}
@@ -55,12 +55,9 @@ public class FranchiseeSelect {
 				e.printStackTrace();
 			}
 		}else if(gradeCheck == 1){
+			System.out.println("사장님테스트");
 			list = (List)sqlMap.queryForList("erpEmp.getBossFranchiseeList", id);
 			fdto = list.get(0);
-			if(session.getAttribute("b_key") != null){
-				session.removeAttribute("b_key");
-			}
-			session.setAttribute("b_key", fdto.getB_key());
 		}else{
 			list = sqlMap.queryForList("franchisee.getFirstFranchiseeInfo", id);
 		}

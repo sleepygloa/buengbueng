@@ -9,10 +9,11 @@ public class UsageHistoryDataDTO {
 	private String affiliateCode;
 	private Timestamp usageTime;
 	private Timestamp endTime;
-	private int amountUsed;
-	private String etc;
+	private double amountUsed;
+	private double pcAmount;
 	private String businessName;
 	private String bossId;
+	private int menuAmount;
 	
 	public int getIdx() {
 		return idx;
@@ -50,17 +51,17 @@ public class UsageHistoryDataDTO {
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
-	public int getAmountUsed() {
+	public double getAmountUsed() {
 		return amountUsed;
 	}
-	public void setAmountUsed(int amountUsed) {
+	public void setAmountUsed(double amountUsed) {
 		this.amountUsed = amountUsed;
 	}
-	public String getEtc() {
-		return etc;
+	public double getPcAmount() {
+		return pcAmount;
 	}
-	public void setEtc(String etc) {
-		this.etc = etc;
+	public void setPcAmount(double pcAmount) {
+		this.pcAmount = pcAmount;
 	}
 	public String getBusinessName() {
 		return businessName;
@@ -74,4 +75,11 @@ public class UsageHistoryDataDTO {
 	public void setBossId(String bossId) {
 		this.bossId = bossId;
 	}
+	public int getMenuAmount() {
+		return menuAmount;
+	}
+	public void setMenuAmount(int menuAmount) {
+		this.menuAmount = menuAmount;
+	}
+	
 }

@@ -3,29 +3,45 @@ package user.info.dto;
 public class UserInfo {
 	private String pcNum; // 사용자가 앉은 PC 좌석 번호
 	private String id; // 사용자 ID
+	private double startPoint;
 	private double point; // 사용자 잔액
 	private int grade; // 사용자 등급
 	private String loginTime; // 사용자 로그인 시간
-	private String b_key = "b7fd755f";
+	private String b_key;
 	private String bossIP;
+	private String franchiseeName;
+	private double moneyPolicy;
+	private int historyNum;
 
 	private static UserInfo instance = new UserInfo();
 
 	private UserInfo(){
+		pcNum = null;
 		id = null;
+		startPoint = 0;
 		point = 0;
-		grade = 3;
+		grade = 0;
 		loginTime = null;
+		bossIP = null;
+		franchiseeName = null;
+		moneyPolicy = 0;
+		historyNum = 0;
 	}
 	public static UserInfo getInstance(){
 		return instance;
 	}
 	
 	public void clear(){
+		pcNum = null;
 		id = null;
+		startPoint = 0;
 		point = 0;
-		grade = 3;
+		grade = 0;
 		loginTime = null;
+		bossIP = null;
+		franchiseeName = null;
+		moneyPolicy = 0;
+		historyNum = 0;
 	}
 	
 	public String getId() {
@@ -33,6 +49,12 @@ public class UserInfo {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public double getStartPoint() {
+		return startPoint;
+	}
+	public void setStartPoint(double startPoint) {
+		this.startPoint = startPoint;
 	}
 	public void setPoint(double point){
 		this.point = point;
@@ -69,6 +91,24 @@ public class UserInfo {
 	}
 	public void setBossIP(String bossIP) {
 		this.bossIP = bossIP;
+	}
+	public String getFranchiseeName() {
+		return franchiseeName;
+	}
+	public void setFranchiseeName(String franchiseeName) {
+		this.franchiseeName = franchiseeName;
+	}
+	public double getMoneyPolicy() {
+		return moneyPolicy;
+	}
+	public void setMoneyPolicy(double moneyPolicy) {
+		this.moneyPolicy = moneyPolicy;
+	}
+	public int getHistoryNum() {
+		return historyNum;
+	}
+	public void setHistoryNum(int historyNum) {
+		this.historyNum = historyNum;
 	}
 	
 }

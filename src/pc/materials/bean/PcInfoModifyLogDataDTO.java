@@ -6,11 +6,11 @@ public class PcInfoModifyLogDataDTO {
 
 	private int num;
 	private String b_key;
-	private int c_code;
-	private int m_code;
-	private int k_code;
-	private int mo_code;
-	private int s_code;
+	private String c_code;
+	private String m_code;
+	private String k_code;
+	private String mo_code;
+	private String s_code;
 	private String os;
 	private String ip;
 	private Timestamp time;
@@ -28,34 +28,34 @@ public class PcInfoModifyLogDataDTO {
 	public void setB_key(String b_key) {
 		this.b_key = b_key;
 	}
-	public int getC_code() {
+	public String getC_code() {
 		return c_code;
 	}
-	public void setC_code(int c_code) {
+	public void setC_code(String c_code) {
 		this.c_code = c_code;
 	}
-	public int getM_code() {
+	public String getM_code() {
 		return m_code;
 	}
-	public void setM_code(int m_code) {
+	public void setM_code(String m_code) {
 		this.m_code = m_code;
 	}
-	public int getK_code() {
+	public String getK_code() {
 		return k_code;
 	}
-	public void setK_code(int k_code) {
+	public void setK_code(String k_code) {
 		this.k_code = k_code;
 	}
-	public int getMo_code() {
+	public String getMo_code() {
 		return mo_code;
 	}
-	public void setMo_code(int mo_code) {
+	public void setMo_code(String mo_code) {
 		this.mo_code = mo_code;
 	}
-	public int getS_code() {
+	public String getS_code() {
 		return s_code;
 	}
-	public void setS_code(int s_code) {
+	public void setS_code(String s_code) {
 		this.s_code = s_code;
 	}
 	public String getOs() {

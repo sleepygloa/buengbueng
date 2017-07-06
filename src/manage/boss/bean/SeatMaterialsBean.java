@@ -1,5 +1,6 @@
 package manage.boss.bean;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import login.user.bean.BossInfoDataDTO;
+import menu.all.bean.OrderDTO;
 import pc.materials.bean.ComputerDataDTO;
 import pc.materials.bean.KeyboardDataDTO;
 import pc.materials.bean.MonitorDataDTO;
@@ -109,15 +111,18 @@ public class SeatMaterialsBean {
 		plog.setNum(num);
 		plog.setB_key(b_key);
 		plog.setWhat(what);
+
+		HashMap<String,String> map = (HashMap<String,String>) sqlMap.queryForObject("pcInfo.getAllPcInfo",plog);
+		plog.setC_code(map.get("c_code"));
+		plog.setM_code(map.get("m_code"));
+		plog.setMo_code(map.get("mo_code"));
+		plog.setS_code(map.get("s_code"));
 		
-		HashMap map = (HashMap) sqlMap.queryForObject("pcInfo.getAllPcInfo",plog);
-		plog.setC_code((Integer)map.get("c_code"));
-		plog.setM_code((Integer)map.get("m_code"));
-		plog.setMo_code((Integer)map.get("mo_code"));
-		plog.setS_code((Integer)map.get("s_code"));
-		plog.setK_code((Integer)map.get("k_code"));
-		plog.setIp((String)map.get("ip"));
-		plog.setOs((String)map.get("os"));
+		System.out.println(map.get("s_code"));
+		
+		plog.setK_code(map.get("k_code"));
+		plog.setIp(map.get("ip"));
+		plog.setOs(map.get("os"));
 		sqlMap.insert("pcInfo.setPcInfoLog", plog);
 	}
 	
@@ -244,12 +249,13 @@ public class SeatMaterialsBean {
 		String b_key = (String)session.getAttribute("b_key");
 		SeatStateDataDTO sdto = (SeatStateDataDTO)sqlMap.queryForObject("bossERP.getSeatCount", b_key);
 		int pcCount = (Integer)sqlMap.queryForObject("bossERP.getPcCount", b_key);
+		ArrayList<String> pcState = (ArrayList<String>)sqlMap.queryForList("pcInfo.getState", b_key);
+		model.addAttribute("pcState",pcState);
 		model.addAttribute("count",pcCount);
 		if(sdto != null){
 			String[] seatCon = sdto.getSeatCheck().split(",");
 			ArrayList<HashMap<String,String>> param = (ArrayList<HashMap<String,String>>)sqlMap.queryForList("useSeat.getUseUserId", b_key);
 			ArrayList<String> useSeatId = new ArrayList<String>();
-			ArrayList<String> useSeatRent = new ArrayList<String>();
 			ArrayList<Integer> useSeatNum = new ArrayList<Integer>();
 			// 해당 가맹점을 사용하고 있는 유저가 있으면
 			if(param != null){
@@ -262,22 +268,9 @@ public class SeatMaterialsBean {
 					useSeatNum.add(num);
 					a.remove("ip");
 					a.put("id", param.get(i).get("id").toString());
-					// 사용자의 대여 중인 물품 알아내기
-					ArrayList<String> rentList = (ArrayList<String>)sqlMap.queryForList("rent.getUserRentList",a);
-					if(rentList != null){
-						StringBuffer sb = new StringBuffer();
-						for(int j=0; j<rentList.size(); j++){
-							sb.append(rentList.get(j));
-							if(j != rentList.size()-1){
-								sb.append(",");
-							}
-						}
-						useSeatRent.add(sb.toString());
-					}
 					useSeatId.add(param.get(i).get("id").toString());
 				}
 				model.addAttribute("useSeatId",useSeatId);
-				model.addAttribute("useSeatRent",useSeatRent);
 			}
 			model.addAttribute("seatCon",seatCon);
 			model.addAttribute("useSeatNum",useSeatNum);
@@ -287,6 +280,30 @@ public class SeatMaterialsBean {
 		}else{
 			return "/bossERP/seatMaterials/seatState2";
 		}
+	}
+	
+	/* 좌석 사용 중인 사용자의 정보 가져오기 */
+	@RequestMapping("getUseUserInfo.do")
+	public String getUseUserInfo(HttpSession session, String pcNum, String id, Model model){
+		String b_key = (String)session.getAttribute("b_key");
+		String startTime = (String)sqlMap.queryForObject("useSeat.getUserStartTime", id);
+		
+		model.addAttribute("pcNum", pcNum);
+		model.addAttribute("id", id);
+		model.addAttribute("startTime", startTime);
+		
+		ArrayList<RentLogDataDTO> rentOrderList = (ArrayList<RentLogDataDTO>)sqlMap.queryForList("rent.getOneUserRentList", id);
+				
+		HashMap<String,Object> param = new HashMap<String,Object>();
+		param.put("id", id);
+		param.put("l_key", b_key);
+		param.put("loginTime", startTime);
+		ArrayList<OrderDTO> menuOrderList = (ArrayList<OrderDTO>)sqlMap.queryForList("order.getOneUserMenuOrder", param);
+		
+		model.addAttribute("rentOrderList", rentOrderList);
+		model.addAttribute("menuOrderList", menuOrderList);
+		
+		return "/bossERP/seatMaterials/getUseUserInfo";
 	}
 
 	/* pc방 좌석 정보 확인 */
@@ -336,20 +353,32 @@ public class SeatMaterialsBean {
 			dto.setB_key(b_key);
 			cdto.setC_date(java.sql.Date.valueOf(request.getParameter("computer_date")));
 			mdto.setM_date(java.sql.Date.valueOf(request.getParameter("monitor_date")));
-			// pc방 좌석 정보 1개 수정
-			if(pcNum == null){
-				checkAddModi(dto.getB_key(), dto.getNum(), request.getParameter("os"), request.getParameter("ip"), request.getParameter("state"), cdto, mdto, kdto, modto, sdto);
-			}
-			// pc방 좌석 정보 1개 또는 여러 개 수정
-			else{
-				String[] buf = pcNum.split(",");
-				for(int i = 0; i < buf.length; i++){
-					checkAddModi(dto.getB_key(), Integer.parseInt(buf[i]), request.getParameter("os"), request.getParameter("ip"), request.getParameter("state"), cdto, mdto, kdto, modto, sdto);
-				}
+			String[] buf = pcNum.split(",");
+			for(int i = 0; i < buf.length; i++){
+				checkAddModi(dto.getB_key(), Integer.parseInt(buf[i]), request.getParameter("os"), request.getParameter("ip"), request.getParameter("state"), cdto, mdto, kdto, modto, sdto);
 			}
 		} catch (Exception e) {
 			// 추후 수정
 		}
 		return "/bossERP/seatMaterials/modifyPcInfo";
+	}
+	
+	/* 관리자 - pc방 좌석 기본 정보 관리 페이지 */
+	@RequestMapping("managePcInfo.do")
+	public String managePcInfo(){
+		return "/bossERP/seatMaterials/setPcInfoDefault";
+	}
+	
+	/* 관리자 - pc방 좌석 기본 정보 관리 수정 */
+	@RequestMapping("managePcInfoPro.do")
+	public String managePcInfoPro(String os, ComputerDataDTO cdto, MonitorDataDTO mdto, KeyboardDataDTO kdto,
+			MouseDataDTO modto, SpeakerDataDTO sdto){
+		sqlMap.update("pcInfo.modifyPcInfoDefault", os);
+		sqlMap.update("pcInfo.modifyConputerInfoDefault", cdto);
+		sqlMap.update("pcInfo.modifyMonitorInfoDefault", mdto);
+		sqlMap.update("pcInfo.modifyKeyboardInfoDefault", kdto);
+		sqlMap.update("pcInfo.modifyMouseInfoDefault", modto);
+		sqlMap.update("pcInfo.modifySpeakerInfoDefault", sdto);
+		return "redirect: managePcInfo.do";
 	}
 }

@@ -9,8 +9,6 @@
 	<select id="cash_articleList" resultClass="dto" parameterClass="java.util.HashMap">
 		select * from paymentList where buyer_chatid = #id# and confirmation = #confirmation#;
 	</select>
-	
-	
 
 	<select id="cash_userAccount" resultClass="uadto">
 		select * from userAccount where  id = #id#;
@@ -183,5 +181,40 @@
 		]]>
 	</select>
 	
+<!-- ========================================================================================================================================== -->
+	
+	<!-- 사용자 이용내역 추가 (usageHistory) -->
+	<insert id="addUsageHistory" parameterClass="historyDTO">
+		insert into usageHistory values(#idx#, #userId#, #userName#, #affiliateCode#, #usageTime#, '0000-00-00 00:00:00', #amountUsed#, #pcAmount#, #businessName#, #bossId#, #menuAmount#);
+	</insert>
+
+	<!-- 사용자의 현재 이용내역 번호 가져오기 -->
+	<select id="getUserHistoryNum" parameterClass="String" resultClass="int">
+		select idx from usageHistory where userId = #id# and idx = (select max(idx) from usageHistory where userId = #id#);
+	</select>
+
+	<!-- 사용자의 잔액 가져오기 (15번째 코드에서 parameterClass 빠져있음) -->
+	<select id="getUserAccount" parameterClass="String" resultClass="uadto">
+		select * from userAccount where id = #id#;
+	</select>	
+	
+	<select id="getpcAmount" parameterClass="int" resultClass="String">
+		select pcAmount from usageHistory where idx = #idx#;
+	</select>
+	
+	<!-- 사용자 이용내역 추가 : pc 사용 금액 -->
+	<update id="addUserPcAmount" parameterClass="java.util.HashMap">
+		update usageHistory set pcAmount = pcAmount + #cash# where idx = #idx#;
+	</update>
+	
+	<!-- 사용자 이용내역 추가 : 나머지 -->
+	<update id="addUserEtc" parameterClass="historyDTO">
+		update usageHistory set pcAmount = pcAmount + #pcAmount#, menuAmount = #menuAmount#, endTime = #endTime#, amountUsed = #amountUsed# where idx = #idx#;
+	</update>
+	
+	<!-- 로그아웃 시 사용자 잔액 차감 -->
+	<update id="deductMoney" parameterClass="java.util.HashMap">
+		update userAccount set money = money - #cash# where id = #id#;
+	</update>
 </sqlMap>
 

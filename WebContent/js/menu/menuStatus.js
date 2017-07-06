@@ -14,7 +14,8 @@ function state() {
       type : "post",
       data : {
          tf : "1",
-         name: document.getElementById("name").value
+         name: document.getElementById("name").value,
+         id: document.getElementById("id").value
       },
       success : function(data) {
          $(".userMenuStatus").html(data);
@@ -27,7 +28,8 @@ function bossstate() {
       url : "menuOrderListForm.do",
       type : "post",
       data : {
-         tf : "1"
+         tf : "1",
+         l_key : document.getElementById("l_key").value
       },
       success : function(data) {
          $(".bossMenuStatus").html(data);

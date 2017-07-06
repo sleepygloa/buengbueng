@@ -4,5 +4,8 @@
 	"grade" : "${grade}",
 	"loginTime" "${loginTime}",
 	"pcNum": "${pcNum}",
-	"bossIP" : "${bossIP}"
+	"bossIP" : "${bossIP}",
+	"moneyPolicy" : ${moneyPolicy},
+	"historyNum" : "${historyNum}"
+	
 }

@@ -41,6 +41,9 @@ public class RentOK extends AnchorPane{
 		hbox.setSpacing(20);
 		hbox2.setSpacing(20);
 		vbox.setSpacing(20);
+		
+		HBox btnBox = new HBox();
+		btnBox.setSpacing(20);
 		Button rent = new Button("승인");
 		rent.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -61,22 +64,21 @@ public class RentOK extends AnchorPane{
 											"&code="+codeTxt.getText()+"&what="+URLEncoder.encode("return","UTF-8");
 									String urlInfo = "http://localhost:8080/buengbueng/fxUserRentReturnOk.do";
 									ConnectServer.connect(param, urlInfo);
-									int selectedIndex = rentTable.getSelectionModel().getSelectedIndex();
+									int selectedIndex = rentTable.getFocusModel().getFocusedIndex();
 								    if (selectedIndex >= 0) {
 								    	rentTable.getItems().remove(selectedIndex);
 								    	RentDTO.getInstance().setReturnOrderNum(RentDTO.getInstance().getReturnOrderNum()-1);
 								    	BossPcManageController.getRentCount().setText(String.valueOf(RentDTO.getInstance().getReturnOrderNum()));
+										RentDTO.getInstance().setRentOrderNum(RentDTO.getInstance().getRentOrderNum()-1);
+										RentDTO.getInstance().setReturnOrderNum(RentDTO.getInstance().getReturnOrderNum()+1);
+										BossPcManageController.getOrderCount().setText(String.valueOf(RentDTO.getInstance().getRentOrderNum()));
+										BossPcManageController.getRentCount().setText(String.valueOf(RentDTO.getInstance().getReturnOrderNum()));
 								    }
 								}catch(Exception e){
 									e.printStackTrace();
 								}
 							}
 						});
-						rentTable.refresh();
-						RentDTO.getInstance().setRentOrderNum(RentDTO.getInstance().getRentOrderNum()-1);
-						RentDTO.getInstance().setReturnOrderNum(RentDTO.getInstance().getReturnOrderNum()+1);
-						BossPcManageController.getOrderCount().setText(String.valueOf(RentDTO.getInstance().getRentOrderNum()));
-						BossPcManageController.getRentCount().setText(String.valueOf(RentDTO.getInstance().getReturnOrderNum()));
 						BossPcManageController.getStage().close();
 					}else {
 						alert.setText((String)jsonObj.get("result"));
@@ -87,7 +89,36 @@ public class RentOK extends AnchorPane{
 				}
 			}
 		});
-		vbox.getChildren().addAll(alert,hbox,hbox2,rent);
+		Button cancel = new Button("대여 취소");
+		cancel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				try {
+					String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+"&id="+URLEncoder.encode(userId,"UTF-8")+
+							"&name="+URLEncoder.encode(rentName,"UTF-8")+"&what="+URLEncoder.encode("cancel","UTF-8");
+					String urlInfo ="http://localhost:8080/buengbueng/fxGetUserRentCancel.do";
+					JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+					if(jsonObj.get("result").equals("succ")){
+						int selectedIndex = rentTable.getFocusModel().getFocusedIndex();
+					    if (selectedIndex >= 0) {
+					    	rentTable.getItems().remove(selectedIndex);
+						    RentDTO.getInstance().setRentOrderNum(RentDTO.getInstance().getRentOrderNum()-1);
+							BossPcManageController.getOrderCount().setText(String.valueOf(RentDTO.getInstance().getRentOrderNum()));
+					    }
+						BossPcManageController.getStage().close();
+					}else {
+						alert.setText((String)jsonObj.get("result"));
+					}
+				}catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		btnBox.getChildren().addAll(rent,cancel);
+		
+		vbox.getChildren().addAll(alert,hbox,hbox2,btnBox);
 		r.getChildren().add(vbox);
 		return r;
 	}

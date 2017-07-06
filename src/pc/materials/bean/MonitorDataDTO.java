@@ -5,10 +5,10 @@ import java.sql.Date;
 public class MonitorDataDTO {
 	private int m_num;
 	private String m_bossKey;
-	private int m_code;
+	private String m_code;
 	private String m_company;
-	private int m_inch;
-	private int m_resolution;
+	private String m_inch;
+	private String m_resolution;
 	private Date m_date;
 	private String m_name;
 	private String m_connector;
@@ -28,10 +28,10 @@ public class MonitorDataDTO {
 	public void setM_bossKey(String m_bossKey) {
 		this.m_bossKey = m_bossKey;
 	}
-	public int getM_code() {
+	public String getM_code() {
 		return m_code;
 	}
-	public void setM_code(int m_code) {
+	public void setM_code(String m_code) {
 		this.m_code = m_code;
 	}
 	public String getM_company() {
@@ -40,16 +40,16 @@ public class MonitorDataDTO {
 	public void setM_company(String m_company) {
 		this.m_company = m_company;
 	}
-	public int getM_inch() {
+	public String getM_inch() {
 		return m_inch;
 	}
-	public void setM_inch(int m_inch) {
+	public void setM_inch(String m_inch) {
 		this.m_inch = m_inch;
 	}
-	public int getM_resolution() {
+	public String getM_resolution() {
 		return m_resolution;
 	}
-	public void setM_resolution(int m_resolution) {
+	public void setM_resolution(String m_resolution) {
 		this.m_resolution = m_resolution;
 	}
 	public Date getM_date() {

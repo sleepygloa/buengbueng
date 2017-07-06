@@ -138,7 +138,6 @@ ${sessionScope.b_key}
 	<!-- 링크 LIST -->
 		<ul class="my_side_ul">
 <!-- --------------------------------------------------------- -->
-
 <aside class="sidebar">
   <div id="leftside-navigation" class="nano">
     <ul class="nano-content">
@@ -220,7 +219,7 @@ ${sessionScope.b_key}
       <li class="sub-menu">
         <a href="javascript:void(0);"><i class="fa fa-map-marker"></i><span>대여 관리</span><i class="arrow fa fa-angle-right pull-right"></i></a>
         <ul>
-          <li><a href="rentMain.do">대여물품 관리</a>
+          <li><a href="rentManage.do">대여물품 관리</a>
           </li>
         </ul>
       </li>

@@ -82,3 +82,289 @@ function showModiPcInfo(pcNum,page){
 		}
 	});
 }
+
+// 좌석 정보 입력 확인
+function checkPCInfo(){
+	if(document.pcInfoForm.pcNum.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.os.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.ip.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	
+	if(document.pcInfoForm.c_code.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_company.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.computer_date.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_model.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_cpu.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_graphic.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_hard.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_ram.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_power.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_lan.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_cooler.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	
+	if(document.pcInfoForm.m_code.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.m_company.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.monitor_date.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.m_name.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.monitor_date.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.m_model.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.m_inch.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.m_resolution.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.m_display.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.m_connector.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	
+	if(document.pcInfoForm.k_code.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.k_company.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.k_name.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.k_type.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.k_connector.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	
+	if(document.pcInfoForm.mo_code.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.mo_company.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.mo_name.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.mo_type.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.mo_connector.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	
+	if(document.pcInfoForm.s_code.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.s_company.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.s_name.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.s_connector.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+}
+
+//좌석 기본 정보 입력 확인
+function checkPCInfoDefault(){
+	if(document.pcInfoForm.os.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	
+	if(document.pcInfoForm.c_company.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_model.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_cpu.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_graphic.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_hard.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_ram.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_power.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_lan.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.c_cooler.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	
+	if(document.pcInfoForm.m_company.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.m_name.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.monitor_date.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.m_model.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.m_inch.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.m_resolution.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.m_display.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.m_connector.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	
+	if(document.pcInfoForm.k_company.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.k_name.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.k_type.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.k_connector.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	
+	if(document.pcInfoForm.mo_company.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.mo_name.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.mo_type.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.mo_connector.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	
+	if(document.pcInfoForm.s_company.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.s_name.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(document.pcInfoForm.s_connector.value == ""){
+		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+}

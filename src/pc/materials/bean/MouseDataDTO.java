@@ -3,12 +3,11 @@ package pc.materials.bean;
 public class MouseDataDTO {
 	private int mo_num;
 	private String mo_bossKey;
-	private int mo_code;
+	private String mo_code;
 	private String mo_company;
 	private String mo_name;
 	private String mo_connector;
 	private String mo_type;
-	
 	
 	public int getMo_num() {
 		return mo_num;
@@ -22,10 +21,10 @@ public class MouseDataDTO {
 	public void setMo_bossKey(String mo_bossKey) {
 		this.mo_bossKey = mo_bossKey;
 	}
-	public int getMo_code() {
+	public String getMo_code() {
 		return mo_code;
 	}
-	public void setMo_code(int mo_code) {
+	public void setMo_code(String mo_code) {
 		this.mo_code = mo_code;
 	}
 	public String getMo_company() {
