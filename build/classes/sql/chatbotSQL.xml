@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="chatbot">
+
+	<select id="getChats" resultClass="chattingDto">
+		select * from chatbot;
+	</select>
+	
+	<select id="getChat" parameterClass="int" resultClass="chattingDto">
+		select * from chatbot where questionNum = #questionNum#;
+	</select>
+
+	<insert id="addChat" parameterClass="chattingDto">
+		insert into chatbot values(#questionNum#,#question#,#answer#,now());
+	</insert>
+
+	<delete id="removeChat" parameterClass="int">
+		delete from chatbot where questionNum = #questionNum#;
+	</delete>
+
+	<update id="updateChat" parameterClass="chattingDto">
+		update chatbot set question = #question#, answer = #answer# where questionNum = #questionNum#;
+	</update>
+	
+	<select id="getChatlog" resultClass="chattingLogDto">
+		select * from chatLog;
+	</select>
+	
+	<!-- 최근 3일 질문 추출 -->
+	<select id="newChatLog" resultClass="chattingLogDto">
+		select question from chatLog where 
+		 date_format(time,'%Y%m%d') 
+		  between date_format(date_add(now(),interval -3 day),'%Y%m%d')  
+		 and date_format(now(),'%Y%m%d');
+	</select>
+	<!-- 자주 묻는 질문 -->
+	<select id="inChatLog" resultClass="chattingLogDto">
+		select question,count(*) from chatLog where 
+		 questionNum not in 
+		 ( SELECT questionNum from chatLog where questionNum=0) 
+		 group by questionNum;
+	</select>
+	<!-- 답변 할수없는 질문 -->
+	<select id="noReChatLog" resultClass="chattingLogDto" remapResults="true">
+	     select question from chatLog where date_format(time,'%Y%m%d') 
+		  between date_format(date_add(now(),interval -7 day),'%Y%m%d')  
+		 and date_format(now(),'%Y%m%d') and answer like "%${답변할 수 없는}%";
+	</select>
+	<!-- 키워드 추출 -->
+	<select id="chatLogKeyword" resultClass="chattingLogDto">
+		select questionNum, group_concat(keyword) as keyword from chatLog where date_format(time,'%Y%m%d') between date_format(date_add(now(),interval -7 day),'%Y%m%d') and 
+        date_format(now(),'%Y%m%d') group by questionNum;
+	</select>
+</sqlMap>

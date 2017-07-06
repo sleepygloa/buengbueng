@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class BossEmployeeManageDataDTO {
 
-
+	
 	private String id;	//회원아이디
 	private String b_id;	//사장님아이디
 	private int applyCount;	//사장님이 알바생아이디수 신청갯수
@@ -12,13 +12,110 @@ public class BossEmployeeManageDataDTO {
 	private Timestamp confirmTime;	//확인한 시각
 	private String content;	//신청사유
 	
+	private int num; // 순번
 	private int count; //주고받을 SQL결과의 count수, 알바생과 사장님아이디가 매칭된 갯수
 	private String e_bossid;	//사장님아이디
 	private String e_id;	//알바생아이디
 
+	private String e_name; //알바생 관리에서 사용할 List에서 사용, name으로하면 오류나나?
+	
+	private String b_key; //가맹점 
+	private String b_name; // 가맹점 이름
+	
+	//연산을 위해 변수를 쪼갬
+	private String startDate; //알바시작일
+	private String endDate; //알바끝나는일
+	private String startHour; //알바시작시간
+	private String endHour; //알바끝나는 시간
+	
+	private Timestamp startTime; //반환하기 위한 값, 알바시작시간
+	private Timestamp endTime; //반환하기 위한 값, 알바 끝나는 시간
+	
+	private String forDate; //알바 기간 (일)
+	
+	private String backgroundColor; //이벤트 색상
+	private String borderColor; //이벤트 색상
 	
 	
 	
+	public String getBorderColor() {
+		return borderColor;
+	}
+	public void setBorderColor(String borderColor) {
+		this.borderColor = borderColor;
+	}
+	public String getBackgroundColor() {
+		return backgroundColor;
+	}
+	public void setBackgroundColor(String backgroundColor) {
+		this.backgroundColor = backgroundColor;
+	}
+	public String getForDate() {
+		return forDate;
+	}
+	public void setForDate(String forDate) {
+		this.forDate = forDate;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getStartHour() {
+		return startHour;
+	}
+	public void setStartHour(String startHour) {
+		this.startHour = startHour;
+	}
+	public String getEndHour() {
+		return endHour;
+	}
+	public void setEndHour(String endHour) {
+		this.endHour = endHour;
+	}
+	public Timestamp getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
+	}
+	public Timestamp getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(Timestamp endTime) {
+		this.endTime = endTime;
+	}
+	public String getB_name() {
+		return b_name;
+	}
+	public void setB_name(String b_name) {
+		this.b_name = b_name;
+	}
+	public String getB_key() {
+		return b_key;
+	}
+	public void setB_key(String b_key) {
+		this.b_key = b_key;
+	}
+	public String getE_name() {
+		return e_name;
+	}
+	public void setE_name(String e_name) {
+		this.e_name = e_name;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public String getE_bossid() {
 		return e_bossid;
 	}

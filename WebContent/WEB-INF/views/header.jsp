@@ -17,32 +17,75 @@
 		<!-- <link rel="shortcut icon" type="image/png" href="img/favicon/beuLogo.ico"/> -->
 
 		<!-- CSS RESET -->
-    	<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/style_v2.css">
+    	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/reset.css">
 		<!-- INDEX CSS 2 -->    
-        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css">
-        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap-theme.min.css">
-		<link rel="stylesheet" type="text/css"  href="/buengbueng/css/reset.css"> 
+        <link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap-theme.min.css" />
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css" />
+		
 	
 		<!-- main -->
-		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/sidemain_main.css">
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/sidemain_main.css" />
 		<!-- 구글 MATERIAL ICON -->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+		
+		<!-- 알람 toast API CSS -->
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/toast/toast.css" />
+		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		
+		<!-- 알람 toast API JS 임시 -->
+		<script src="/buengbueng/css/toast/toast.js"></script>
+	
 
 		
 		<!-- 홈페이지 제목 -->
-		<title>BuengBueng</title>
 		
 	</head>
- 
- 
-
-	 	<!-- LOGIN SECTION -->
+<!-- LOGIN SECTION -->
 	 	<header class="header_wrap ">
 			<div class="header container ">
 				<!-- 로고 : BUENGBUENG 또는 그림 -->
 				<div><h1 class="logo"><a href="index.do">buengbueng</a></h1></div>
 
+				<div id="respon_menu" class="respon_menu" ><div class="respon_menu_icon"><span>menu</span></div></div>
+				<div id="respon_menu_area" class="respon_menu_area" style="display:none">
+					<div class="respon_menu_ul">
+						<div id="respon_menu_intro" class="respon_menu_list"><a href="">회사소개</a></div>
+							<div id="respon_submenu_intro" class="respon_submenu" style="display:none">
+								<div><a href="">가맹점 찾기</a></div>
+								<div><a href="">프로그램 기능소개</a></div>
+							</div>
+						<div id="respon_menu_user" class="respon_menu_list"><a href="">사용자 PC방 이용</a></div>
+							<div id="respon_submenu_user" class="respon_submenu" style="display:none">
+								<div><a href="searchPCForm.do">PC방 찾기</a></div>
+								<div><a href="favoritePCRoom.do">즐겨찾는 PC방</a></div>								
+								<div><a href="userbilling/cash.do">결제</a></div>
+								<div><a href="">이용현황</a></div>								
+							</div>
+						<div id="respon_menu_boss" class="respon_menu_list"><a href="">사장님 PC방 관리</a></div>
+							<div id="respon_submenu_boss" class="respon_submenu" style="display:none">
+								<div><a href="">원격 조종</a></div>
+								<div><a href="bossErpMain.do">ERP 관리</a></div>								
+								<div><a href="franchiseeList.do">가맹점 관리</a></div>
+							</div>						
+						<div id="respon_menu_admin" class="respon_menu_list"><a href="">관리자 프로그램 관리</a></div>
+							<div id="respon_submenu_admin" class="respon_submenu" style="display:none">
+								<div><a href="">챗봇 관리</a></div>
+								<div><a href="">ERP 관리</a></div>								
+								<div><a href="">회원 관리</a></div>
+								<div><a href="">페이지 관리</a></div>
+							</div>							
+						<div id="respon_menu_question" class="respon_menu_list"><a href="">고객센터</a></div>
+							<div id="respon_submenu_question" class="respon_submenu"  style="display:none">
+								<div><a href="">가맹 문의</a></div>
+								<div><a href="">자주묻는 질문</a></div>								
+								<div><a href="">1:1 관리</a></div>
+							</div>							
+					</div>
+				</div>
+				
 				<!-- NAV SECTION -->
 				<!-- BIG NAV : 대 제목 : 메인 NAV : 메인 메뉴 -->				
 				<ul class="menu_area"> 
@@ -82,6 +125,7 @@
 						</ul>	
 					</li> 
 <!-- ------------------------------------------------------------------------------------------------------ -->
+				<c:if test="${sessionScope.grade==3}">
 					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 						<a class="ctgr" href="">
@@ -110,7 +154,7 @@
 								
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="">
+									<a href="userbilling/cash.do">
 										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">결제</h6>
@@ -124,11 +168,11 @@
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
 								<div class="menu_menu col-sm-6-12">
-									<a href="">
-										<span class="menu_icon"> <img src="img/ux-heatmaps-gnb@2x.png"> </span>
+									<a href="favoritePCRoom.do">
+										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
-											<h6 class="menu_name minor-minor">예약</h6>
-											<p class="menu_desc">원하는자리 미리 예약하기</p>
+											<h6 class="menu_name minor-minor">즐겨찾는 PC방</h6>
+											<p class="menu_desc">자주찾는 PC방을 지정하여 그곳의 정보를 먼저 파악</p>
 										</span>
 									</a>
 								</div>
@@ -148,19 +192,13 @@
 							<li class="row">
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
-								<div class="product__item col-sm-12-12">
-									<a href="">
-										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">즐겨찾는 PC방</h6>
-											<p class="menu_desc">자주찾는 PC방을 지정하여 그곳의 정보를 먼저 파악</p>
-										</span>
-									</a>
-								</div>
+								
 							</li>
 						</ul>	
 					</li>
+				</c:if>
 <!-- ---------------------------------------------------------------------------------------------------- -->
+				<c:if test="${sessionScope.grade==1}">
  					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 						
@@ -178,14 +216,14 @@
 									<a href="">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
-											<h6 class="menu_name minor-minor">원격 조정</h6>
+											<h6 class="menu_name minor-minor">원격 조종</h6>
 											<p class="menu_desc">멀리서 사장님 PC 관리</p>
 										</span>
 									</a>
 								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="bossErpManageMain.do">
+									<a href="bossErpMain.do">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">ERP 관리</h6>
@@ -208,71 +246,19 @@
 								</div>
 							</li>
 						</ul>	
-					</li>					
+					</li>				
+				</c:if>	
 <!-- ---------------------------------------------------------------------------------------------------- -->
+<c:if test="${sessionScope.grade==4}">					
 					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 						
-						<a class="ctgr" href="">
+						<a class="ctgr" href="/buengbueng/dashIndex.do">
 관리자 프로그램 관리
 						</a>
-						<!-- 드롭다운메뉴 : 소메뉴 -->
-						<ul class="menu_list">
-							<!-- 소메뉴 타이틀 -->
-							<h6 class="menu_subject minor-minor">관리자&nbsp; | &nbsp;<span class="list__title__desc">모든 사항을 관리합니다.</span></h6>
-							<!-- 소메뉴 의 각 링크들 -->
-							
-							<li class="row">
-								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="menu_menu col-sm-6-12">
-									<a href="">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">회원 관리</h6>
-											<p class="menu_desc">멀리서 가맹중인 PC방 관리</p>
-										</span>
-									</a>
-								</div>
-								
-								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="menu_menu col-sm-6-12">
-									<a href="">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">챗봇 관리</h6>
-											<p class="menu_desc">PC방 내 모든 현황 관리</p>
-										</span>
-									</a>
-								</div>
-							</li>
-							
-							<!-- 소메뉴 의 각 링크들 -->
-							<li class="row">
-								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="menu_menu col-sm-6-12">
-									<a href="">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">ERP 관리</h6>
-											<p class="menu_desc">전체 ERP 모듈 관리</p>
-										</span>
-									</a>
-								</div>
-								
-								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="menu_menu col-sm-6-12">
-									<a href="">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">페이지 관리</h6>
-											<p class="menu_desc">웹 페이지기능 추가 및 삭제</p>
-										</span>
-									</a>
-								</div>
-							</li>
-							
-						</ul>	
+						
 					</li>		
+</c:if>
 <!-- ----------------------------------------------------------------------------------------------------								 -->
 					<li class="item normal product" onClick="return true">
 						<a href="">
@@ -299,7 +285,7 @@
 									<a href="customerQA.do?snum=2">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
-											<h6 class="menu_name minor-minor">Q & A</h6>
+											<h6 class="menu_name minor-minor">자주 묻는 질문</h6>
 											<p class="menu_desc">자주 물어보는 질문들 여기로</p>
 										</span>
 									</a>
@@ -316,8 +302,17 @@
 											<p class="menu_desc">사소한것까지 궁금한건 여기로</p>
 										</span>
 									</a>
-								</div>
-							</li>
+								</div>							
+							<!-- 컨텐츠당 하나의 div로 구성 -->
+							<div class="menu_menu col-sm-6-12">
+							      <a href = "notice.do?snum=4&pageNum=1">
+							      	 <span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_text">
+											<h6 class="menu_name minor-minor">공지사항</h6>
+											<p class="menu_desc">사이트 공지는  여기로</p>
+										</span>
+									</a>
+							</div>
 						</ul>	
 					</li>							
                
@@ -327,11 +322,15 @@
                   <li class="item sign"><a href="/buengbueng/logout.do">로그아웃</a></li>
                   <li class="item sign"><a href="/buengbueng/userInfoForm.do">회원 정보보기</a></li>
                   <li class="item sign"><a href="#">${sessionScope.loginId}님 환영해요</a></li>
+                  <c:if test="${sessionScope.grade!=4}" >
+                  	<li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
+                  </c:if>
                </c:if>
                <c:if test="${sessionScope.loginId == null}" >
                   <li class="item sign"><a href="/buengbueng/userInfoSignForm.do">회원가입</a></li>
                   <li class="item sign"><a href="">비밀번호찾기</a></li>
                   <li class="item sign"><a href="/buengbueng/loginForm.do">로그인</a></li>
+                  <li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
                </c:if>
                <c:if test="" >
                   <li class="item sign">관리자페이지</li>
@@ -340,9 +339,10 @@
             </ul>
          </div>
       </header>
-      
-<section class="main_wrap"> 
-  	<div class="main container">
+ 
+<section class="main_wrap" style="float:left;"> 
+	<!-- css로 추가활것 -->
+  	<div class="main container" style="width:100%; background: #E7EAEB;">
  
 		 <!-- SIDEMENU TEMPLATE -->
 		<c:if test="${sidemenuCheck == 1}">
@@ -364,4 +364,40 @@
 			<div class="side_scontent container">
 			
 		</c:if>
- 
+  <script>
+ $("#respon_menu").click(function () {
+	 $("#respon_menu_area").toggle("show"); 
+ });
+ $("#respon_menu_intro").click(function(){
+	 $("#respon_submenu_intro").toggle("show");
+	 var check = 1;
+	 return closeman(check);
+ });
+ $("#respon_menu_user").click(function(){
+	 $("#respon_submenu_user").toggle("show");
+	 var check = 2;
+	 return closeman(check);
+ });
+ $("#respon_menu_boss").click(function(){
+	 $("#respon_submenu_boss").toggle("show");
+	 var check = 3;
+	 return closeman(check);
+ });
+ $("#respon_menu_admin").click(function(){
+	 $("#respon_submenu_admin").toggle("show");
+	 var check = 4;
+	 return closeman(check);
+ });
+ $("#respon_menu_question").click(function(){
+	 $("#respon_submenu_question").toggle("show");
+	 var check = 5;
+	 return closeman(check);
+ });
+ function closeman(check){
+	 if(check == 1){$("#respon_submenu_user").hide();$("#respon_submenu_boss").hide();$("#respon_submenu_admin").hide();$("#respon_submenu_question").hide();}
+	 if(check == 2){$("#respon_submenu_intro").hide();$("#respon_submenu_boss").hide();$("#respon_submenu_admin").hide();$("#respon_submenu_question").hide();}
+	 if(check == 3){$("#respon_submenu_intro").hide();$("#respon_submenu_user").hide();$("#respon_submenu_admin").hide();$("#respon_submenu_question").hide();}
+	 if(check == 4){$("#respon_submenu_intro").hide();$("#respon_submenu_user").hide();$("#respon_submenu_boss").hide();$("#respon_submenu_question").hide();}
+	 if(check == 5){$("#respon_submenu_intro").hide();$("#respon_submenu_user").hide();$("#respon_submenu_boss").hide();$("#respon_submenu_admin").hide();}
+ }
+ </script>

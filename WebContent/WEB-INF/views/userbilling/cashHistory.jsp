@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -28,7 +29,7 @@
 			</div>
 		</div>
 		<div class="history_point_List ">
-		<p class="history_point_List_title">포인트 결제 내역 총 ${count}건</p>
+		<p class="history_point_List_title">포인트 결제 내역 총 ${count - failure_count}건</p>
 		<c:if test="${count > 0}">
 			<table class="cash_history" border=1;>
 				<tr class="table_header">
@@ -37,19 +38,19 @@
 					<td>구매일</td>
 					<td>결제수단</td>
 					<td>가격</td>
-					<td>비고</td>
+					<td>영수증 보기</td>
 				</tr>
 				<c:forEach  items="${articleList}" var="articleList">
 				<tr class="table_content">
 					<td>
-						<c:out value="${number-1}"/>
+						<c:out value="${number-failure}"/>
 						<c:set var="number" value="${number-1}"/>
 					</td>
 					<td><p>${articleList.imp_uid}/${articleList.merchant_uid}</p></td>
 					<td>${articleList.payment_date}</td>
 					<td>${articleList.pg_name}</td>
 					<td>${articleList.paying_price}</td>
-					<td>${articleList.confirmation}</td>
+					<td><a href="#" onClick="javascript:window.open('https:\/\/iniweb.inicis.com\/DefaultWebApp\/mall\/cr\/cm\/mCmReceipt_head.jsp?noTid=${articleList.pg_tid}&noMethod=1','popup','scrollbars=no, resizable=no, width=420,height=750')"> 영수증 </a></td>
 				</tr>
 				</c:forEach>
 			</table>

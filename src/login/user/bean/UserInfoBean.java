@@ -1,9 +1,5 @@
 package login.user.bean;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +12,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import login.user.bean.BossInfoDataDTO;
+import login.user.bean.EmployeeInfoDataDTO;
+import login.user.bean.UseTimeLogDTO;
+import login.user.bean.UserInfoDataDTO;
 import superclass.all.bean.CheckInfo;
 import superclass.all.bean.EventGetMoney;
 import superclass.all.bean.FindIpBean;
@@ -46,18 +46,23 @@ public class UserInfoBean {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		
-		int check = -1;
-		
+		int check = 1;
+		String ip = null;
 		try{
 			//ID로 사용자 정보 불러온다음 입력한 PW와 DB의 PW와 비교한다.
 			UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
 			if(pw.equals(dto.getPw())){
 				session.setAttribute("loginId", dto.getId());
-				
+				session.setAttribute("grade", dto.getGrade());
+				session.setAttribute("webLogin", 1);
+				check=0;
+
+
 				//////////////////////////////////
 				//접속장소의 IP를 검색하고,로그인 LOG 를 남긴다.
 				FindIpBean fib = new FindIpBean();
-				String ip = (String)fib.findIp();
+				ip = (String)fib.findIp();
+			}else{
 				
 				HashMap map = new HashMap();
 				map.put("id", id);
@@ -66,19 +71,19 @@ public class UserInfoBean {
 				
 				////////////////////////////////////
 				//임시 만든 이벤트 코드, 사용자가 방문(로그인) 했을때 1000원씩준다.
-				int eventMoney = 1000; //이벤트 충전 머니
+				/*int eventMoney = 1000; //이벤트 충전 머니
 				if(eventMoney != 0){
 					HashMap map1 = new HashMap();
 					map1.put("id", id);
 					map1.put("eventMoney", eventMoney);
 					check = eventGetMoney.eventGetMoney(map1);
-				}
+				}*/
 			}
 			
 		}catch(Exception e){
 			
 		}
-		
+		request.setAttribute("check", check);
 		return "/index";
 	}
 	
@@ -89,8 +94,9 @@ public class UserInfoBean {
 		try{
 			//세션 아이디를 페이지로전달
 			String id = (String)session.getAttribute("loginId");
-			if(sqlMap.queryForObject("erpEmp.findLoginLogLogoutNull", id) == null){
-				sqlMap.update("erpEmp.updateEmployeeLogoutLog", id);
+			
+			if(sqlMap.queryForObject("erpEmp.findLoginLogLogoutNull", id) == null){//로그인한 이력 중 접속중인 가장 최신의 데이터를 찾는다.
+				sqlMap.update("erpEmp.updateEmployeeLogoutLog", id);//위에 것에 로그아웃시간을 기록한다.
 			};
 			
 			/////////////////////////////
@@ -106,18 +112,19 @@ public class UserInfoBean {
 			map.put("id",id);
 			map.put("b_ip", ip);
 			
-			System.out.println(ip); //192.168.91.1 192.168.111.1 192.168.10.1
+			System.out.println("로그인폼, 자신의 아이디 : "+ip); //192.168.91.1 192.168.111.1 192.168.10.1
 			UseTimeLogDTO utlDto = null;
+			if((Integer)sqlMap.queryForObject("test.getGradeInfo", id) == 3 && (Integer)session.getAttribute("webLogin") != 1){//웹에서 로그인시 막는다.
+			
 			//유저가 사용한 PC방 이용시간 디테일정보 찾기(계산)
-			utlDto = (UseTimeLogDTO)sqlMap.queryForObject("cash.userPcUseTimePay", map);
-			utlDto.setId(id);
-			System.out.println(utlDto.getId());
-			sqlMap.insert("log.logoutLog", utlDto);//이용로그남기기
-			sqlMap.insert("log.logoutPayLog", utlDto);//결제로그남기기
+			utlDto = (UseTimeLogDTO)sqlMap.queryForObject("cash.userPcUseTimePay", map);//이용시간 정보를 계산하여 가져온다.
+
+			sqlMap.insert("log.logoutLog", utlDto);//이용로그남기기, pc방
+			sqlMap.insert("log.logoutPayLog", utlDto);//결제로그남기기,
 			
 			sqlMap.update("log.userGiveBossMoneyUserAccount", utlDto);//사용자 계좌에 반영
 			sqlMap.update("log.userGiveBossMoneyBossAccount", utlDto);//사장님계좌에 반영
-	
+			}else{}
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
@@ -189,10 +196,12 @@ public class UserInfoBean {
 		String asd = (String)sqlMap.queryForObject("test.checkPasswd",id);
 		if(asd.equals(pw)){
 			try{
+				UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id); // 회원정보 호출
+				sqlMap.insert("test.userDeleteLog", dto); // 회원 삭제 로그
+				sqlMap.delete("test.userAccountDelete",id); //회원의 계좌정보 삭제
 				sqlMap.delete("test.deleteUserInfo",id);
 				session.invalidate();
 				check=1;
-				System.out.println(check);
 				model.addAttribute("check",check);
 			}catch(Exception e){e.printStackTrace();
 		}
@@ -200,7 +209,6 @@ public class UserInfoBean {
 		return "userInfo/userInfoDeletePro";
 	}
 	
-
 	
 	@RequestMapping("userInfoForm.do")
 	public String userInfoForm(HttpSession session, Model model){
@@ -213,14 +221,17 @@ public class UserInfoBean {
 	
 	//----- 회원 정보 수정 페이지로 -----
 	@RequestMapping("userInfoFormUpdate.do")
-	public String userInfoFormUpdate(){
-		
+	public String userInfoFormUpdate(HttpSession session, Model model){
+		String id = (String)session.getAttribute("loginId");
+		UserInfoDataDTO user = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
+		model.addAttribute("user", user);
 		return "/userInfo/userInfoFormUpdate";
 	}
 	
 	//----- 회원 정보 수정 -----
 	@RequestMapping("userInfoFormUpdatePro.do")
 	public String userInfoFormUpdatePro(UserInfoDataDTO dto, Model model){
+		
 		//정보수정 결과 확인 변수
 		int check = -1;
 		

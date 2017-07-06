@@ -10,7 +10,7 @@ function franchiseCheck(){
 		document.franchise.email.focus();
 		return false;
 	}
-	if(document.franchise.title.value==""){
+	if(document.franchise.title.value=="" ){
 		alert("제목을 입력해주세요.");
 		document.franchise.title.focus();
 		return false;

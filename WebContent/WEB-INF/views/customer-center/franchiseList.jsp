@@ -6,10 +6,9 @@
 <head>
 	<title>가맹 문의</title>
 </head>
-
 <div>
 <div>가맹 문의</div>
-<c:if test="${sessionScope.loginId != 'admin' }">
+<c:if test="${sessionScope.grade != 4 }">
 <div><a href="franchiseForm.do?snum=${snum}&pageNum=${pageNum}">문의하기</a></div>
 </c:if>
 	<span>번호</span>
@@ -24,18 +23,25 @@
 </div>
 </c:if>
 <c:if test="${count>0}">
+<c:set var="d" value="0"/>
 <c:forEach var="list" items="${list}">
 <div>
 		<span>
-			<c:out value="${number}"/>
+		<c:out value="${number}"/>
 		</span>
-		<span><a href="franchiseContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
+		<c:if test="${sessionScope.grade != 4 }">
+			<span><a href="franchiseWriteCheck.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
+		</c:if>
+		<c:if test="${sessionScope.grade == 4 }">
+			<span><a href="franchiseContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
+		</c:if>
 		<span>${list.writer}</span>
 		<span>${list.email}</span>
-		<span>${list.reg_date}</span>
+		<span>${dates[d]}</span>
 		<span>${list.readcount}</span>
 </div>
-<c:set var="number" value="${number-1}"/>
+		<c:set var="number" value="${number-1}"/>
+		<c:set value="${d+1}" var="d" />
 </c:forEach>
 	
 	<c:if test="${startPage > 10}">

@@ -4,13 +4,13 @@
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
 <head>
-	<title>가맹 문의</title>
+	<title>Q & A</title>
 </head>
 
 <div>
-<div>가맹 문의</div>
-<c:if test="${sessionScope.loginId != 'admin' }">
-<div><a href="customerForm.do?snum=${snum}&pageNum=${pageNum}">문의하기</a></div>
+<div>Q & A</div>
+<c:if test="${sessionScope.grade == 4}">
+<div><a href="customerForm.do?snum=${snum}&pageNum=${pageNum}">QA작성</a></div>
 </c:if>
 	<span>번호</span>
 	<span>제목</span>
@@ -24,6 +24,7 @@
 </div>
 </c:if>
 <c:if test="${count>0}">
+<c:set value="0" var="d" />
 <c:forEach var="list" items="${list}">
 <div>
 		<span>
@@ -32,10 +33,11 @@
 		<span><a href="customerContent.do?num=${list.num}&snum=${snum}&pageNum=${pageNum}&number=${number}">${list.title}</a></span>
 		<span>${list.writer}</span>
 		<span>${list.email}</span>
-		<span>${list.reg_date}</span>
+		<span>${dates[d]}</span>
 		<span>${list.readcount}</span>
 </div>
 <c:set var="number" value="${number-1}"/>
+<c:set value="${d+1}" var="d" />
 </c:forEach>
 	
 	<c:if test="${startPage > 10}">

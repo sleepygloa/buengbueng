@@ -1,0 +1,3 @@
+{
+	"rentProduct" : [${rentProduct}]
+}

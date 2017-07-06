@@ -65,7 +65,7 @@
 				<div class="cash_Price_box_0 margin_r10">
 					<p>결제 금액</p>
 				</div>	
-				<div class="cash_Price_box_1 margin_l0" id="1"><button>10</button></div>
+				<div class="cash_Price_box_1 margin_l0" id="1"><button>100</button></div>
 				<div class="cash_Price_box_1 margin_l0" id="2"><button>10000</button></div>
 				<div class="cash_Price_box_1 margin_l0" id="3"><button>20000</button></div>
 				<div class="cash_Price_box_1 margin_l0" id="4"><button>35000</button></div>

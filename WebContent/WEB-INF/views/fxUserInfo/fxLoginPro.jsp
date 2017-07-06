@@ -1,6 +1,11 @@
 {
 	"id" : "${result}",
-	"point" : "10,000"
+	"point" : "${money}"
 	"grade" : "${grade}",
-	"loginTime" "${loginTime}"
+	"loginTime" "${loginTime}",
+	"pcNum": "${pcNum}",
+	"bossIP" : "${bossIP}",
+	"moneyPolicy" : ${moneyPolicy},
+	"historyNum" : "${historyNum}"
+	
 }

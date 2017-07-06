@@ -1,0 +1,99 @@
+@CHARSET "UTF-8";
+
+
+.popup_container{
+	/* padding:30 0 0 0 ; */
+}
+.popup_title{
+	font-size:1.5em;
+	text-align:center;
+	color:white;
+	background-color:#339966;
+	margin-bottom:30px;
+}
+.popup_id{
+	width:95%;
+	padding-left:10px;
+	margin-bottom:30px;
+}
+.popup_content{
+	width:95%;
+	padding:0 auto;
+	
+}
+.div{
+	float:left;
+	position:relative;
+}
+.popup-btn{
+	width:100%;
+	padding:10 10 0 10;
+	float:left;
+	position:relative;
+}
+.btn{
+	width:95%;
+	background-color:#339966;
+	font-size:1.2em;
+	text-align:center;
+	color:white;
+	
+}
+/* 기본 반응형 태그 */
+[class*=col]{float:left;position:relative;padding-right:0px;padding-left:0px;box-sizing:border-box;}
+@media screen and (min-width:250px){
+	[class*=col-]{margin-bottom:20px} /* 모든 클래스들 중 col- 로 시작하는 것들을 정의, grid간 아랫공간 띄우기*/
+	.col-xs-2-12{width:16.6%}
+	.col-xs-3-12{width:25%}
+	.col-xs-4-12{width:25%}
+	.col-xs-4-12{width:30%}
+	.col-xs-6-12{width:50%}
+	.col-xs-8-12{width:75%}
+	.col-xs-9-12{width:75%}
+	.col-xs-10-12{width:83.4%}
+	.col-xs-12-12{width:100%}
+}
+@media screen and (min-width:768px){
+	.col-sm-2-12{width:16.6%}
+	.col-sm-3-12{width:25%}
+	.col-sm-4-12{width:33.3333%}
+	.col-sm-5-12{width:40%}
+	.col-sm-6-12{width:50%}
+	.col-sm-8-12{width:66.6666%}
+	.col-sm-12-12{width:100%}
+}
+@media screen and (min-width:992px){
+}
+
+@media screen and (min-width:1200px){
+	/* [class*=col-]{margin-bottom:3em} 폰 size 20px * 3 배 = 60px */
+	.col-md-1-12{width:8.3333%}
+	.col-md-2-12{width:16.6666%}
+	.col-md-3-12{width:25%}
+	.col-md-4-12{width:33.3333%}
+	.col-md-5-12{width:41.6666%}
+	.col-md-6-12{width:50%}
+	.col-md-7-12{width:58.3333%}
+	.col-md-8-12{width:66.6666%}
+	.col-md-9-12{width:75%}
+	.col-md-10-12{width:83.3333%}
+	.col-md-11-12{width:91.6666%}
+	.col-md-12-12{width:100%}
+}
+
+/* 안보이게 하는 태그 */
+@media screen and (min-width:250px){
+	.xs_hidden{display:none;}
+	.md_hidden{display:block;}
+	.xsm_hidden{display:none;}
+	.sm_hidden{display:block;}
+}
+@media screen and (min-width:768px){
+	.xs_hidden{display:block;}
+	.sm_hidden{display:none;}
+}
+@media screen and (min-width:1200px){
+	.md_hidden{display:none;}
+	.xsm_hidden{display:block;}
+	.sm_hidden{display:none;}
+}

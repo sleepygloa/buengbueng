@@ -16,86 +16,149 @@
 	
 <!-- 알바생 관리 하는 부분 -->
 	
-
-	<!-- 사장님이 알바원하는 인원수만큼 신청(삭제도가능) -->
-
-	<insert id="insertBossEmployeeAddLog" parameterClass="beDto">
-		INSERT INTO bossEmployeeLog (b_id, applyCount, applyTime, content) VALUES(#b_id#, #applyCount#, now(), #content#);
-	</insert>
-
-	<!-- 알바생 회원 ID 를 찾음 -->
-	<select id="getEmployeeId" resultClass="beDto" parameterClass="String">
-		SELECT e_id, (select count(*) FROM employeeInfo WHERE e_bossid = #e_bossid#) AS count FROM employeeInfo WHERE e_bossid = #e_bossid# ORDER BY e_id DESC LIMIT 1; 
+	<!-- 알바생이 사장님 관리페이지를 들어갔을때 세션을 받아오기 -->
+	<select id="getEidBkey" resultClass="franchiseeDto" parameterClass="String">
+		select b.b_key, a.b_id, a.b_name,b.e_id from franchiseeInfo a INNER JOIN (select e_id, e_bossid, b_key from employeeInfo where e_id = #id#) b ON a.b_key = b.b_key;
 	</select>
-
-	<!-- 알바생 아이디를 생성 -->
+	
+	<!-- 알바생신청 로그의 제일 마지막 번호를 불러온다. 신청 폼의 신청 번호 -->
+	<select id="getEmployeeAddLogLastNum" resultClass="beDto">
+		select num, (select count(*) FROM employeeInfo WHERE e_bossid = #e_bossid#) AS count from employeeAddLog order by num desc limit 0, 1;
+	</select>
+	
+	<!-- 사장님이 알바원하는 인원수만큼 신청(삭제도가능) -->
+	<insert id="insertEmployeeAddLog" parameterClass="beDto">
+		INSERT INTO employeeAddLog (num, result, b_id, applyCount, applyTime, content,b_key)
+							 VALUES(0, 0, #b_id#, #applyCount#, now(), #content#,#b_key#);
+	</insert>
+	
+	<!-- 알바생 정보테이블에서 알바생아이디를 찾고, 갯수를 센다.  수정-->
+	<select id="getEmployeeId" resultClass="beDto" parameterClass="String">
+		<![CDATA[
+		SELECT substring(e_id, 9,11)+0 as e_id,(select count(*) FROM employeeInfo WHERE e_bossid = #b_id#) +1 AS count FROM employeeInfo ORDER BY e_id DESC LIMIT 1;
+		]]> 
+	</select>	
+	
+	<!-- 알바생 정보테이블에서 사장님이 보유한 알바생아이디를 찾고, 갯수를 센다. -->
+	<select id="getEmployeeAddLog" resultClass="beDto" parameterClass="java.util.HashMap" >
+		SELECT * from  employeeAddLog where result = '0' and b_key = #b_key#;
+	</select>		
+	<!-- 알바생 정보테이블에서 사장님이 보유한 알바생아이디를 찾고, 갯수를 센다. -->
+	<select id="getEmployeeAddLogCount" resultClass="int" parameterClass="java.util.HashMap" >
+		SELECT count(*) from  employeeAddLog where result = '0' and b_key = #b_key#;
+	</select>
+	
+	<!-- 알바생아이디를 생성하고자할때, 아이디가 중간에없는 아이디를 찾는다. -->
+	<select id="findE_idNull" resultClass="String" parameterClass="String">
+		select e_id from employeeInfo where e_id = #e_id#;
+	</select>
+	
+	<!-- 알바생 아이디를 회원테이블 생성 -->
 	<insert id="insertEmployeeIdUserInfo" parameterClass="String">
 		INSERT INTO userInfo (id, pw, grade, signdate) VALUES(#e_id#, 1234, 2, now());
 	</insert>
 	
-	<!-- 알바생 아이디를   -->
-	<insert id="connectEmployeeIdBossId" parameterClass="java.util.HashMap">
-		INSERT INTO employeeInfo (e_id, e_bossid) VALUES(#e_id#, #e_bossid#);
-	</insert>	
+	<!-- 알바생 아이디를  알바생정보테이블에 생성 -->
+	<insert id="insertEmployeeIdEmployeeInfo" parameterClass="java.util.HashMap">
+		INSERT INTO employeeInfo (e_id, e_bossid,b_key) VALUES(#e_id#, #e_bossid#,#b_key#);
+	</insert>		
 	
+	<!-- 아이디 신청한 수만큼 아이디 생성이 완료되면, 아이디 신청 컨펌 정보를 업데이트한다. -->
+	<update	id="updateEmployeeAddLog" parameterClass="String">
+		update employeeAddLog set result = 1, confirmTime = now(), e_id = #id#; 
+	</update>
 
-	<!-- 새로만들 알바아이디가 userInfo에 있는지 검색 -->
-	<select id="findEmployeeIdUserId" parameterClass="String">
-		select * from userInfo where id = #e_id#;
+	
+	<!-- 알바생 리스트 -->
+	<select id="getEmployeeList" resultClass="beDto" parameterClass="java.util.HashMap">
+		select e_id, pw,num, name, b_key AS e_name from userInfo a INNER JOIN 
+		(select e_id,num,b_key from employeeInfo where e_bossid = #id# and b_key = #b_key#) b on a.id = b.e_id;
 	</select>
 	
-	<!-- 사장아이디만 있는 것을 검색 -->
-	<select id="findEmployeeInfoNullBossId" resultClass="String" parameterClass="String">
-		select e_id from employeeInfo where e_id = '' and e_bossid = #e_bossid# Limit 0,1;
+<!-- ▲▼ 처리 구문 ======================== -->
+	<!-- 새로운 공간을 만들어준다 -->
+	<select id="getListNum" resultClass="int" parameterClass="String">
+		select num from employeeInfo where e_bossid = #b_id#;
 	</select>
 	
-	<!--  -->
-	<update id="updateEmployeeInfoNullBossId" parameterClass="String">
-		update employeeInfo set e_id = #e_id# where e_id = '' and e_bossid = #e_bossid#;
+	<!-- 앞번호에 space를 넣어준다. space = 9999 -->
+	<update id="changeSpace" parameterClass="java.util.HashMap">
+		update employeeInfo set num = #space# where num = #numb#;
 	</update>
 	
-
-	<!-- 알바생아이디는 있지만 보스아이디가 없는 것을 찾음 -->
-	<select id="findBossIdNull" resultClass="String">
-		SELECT e_id from employeeInfo where e_bossid = '' ORDER BY e_id desc; 
-	</select>
+	<!-- 앞번호에 변경될 수를 넣어준다. -->
+	<update id="changeBefore" parameterClass="java.util.HashMap">
+		update employeeInfo set num = #numb# where num = #numa#;
+	</update>
 	
-
-	<!-- 알바생아이디 있고, 보스 아이디도 있는 것 중 가장 높은 번호를 찾음 -->
-
-	<select id="findBossIdNotNull" resultClass="String">
-		SELECT e_id from employeeInfo where e_bossid = #e_bossid# ORDER BY e_id desc; 
-	</select>
-	
-	<!-- 삭제할 알바생 아이디의 정보를 찾는다.-->
-	<select id="findDeleteId" resultClass="String" parameterClass="String">
-		select pw from userInfo where id = #e_id#;
-	</select>
-
-	<!-- 알바생 아이디를 삭제한다..-->
-	<delete id="deleteEmployeeId" parameterClass="String">
-		delete from employeeInfo where e_id = #e_id#;
-	</delete>
-
-	<!-- 알바생 아이디를 삭제한다..-->
-	<delete id="deleteUserId" parameterClass="String">
-		delete from userInfo where id = #e_id#;
-	</delete>	
-	
-	<!-- 알바생 아이디 수 반환-->
-	<select id="getEmployeeIdCount" resultClass="int" parameterClass="String">
-		select count(*) from employeeInfo where e_bossid = #e_bossid#;
-	</select>
-	
-	<!-- 알바생 아이디 정보 리스트-->
-	<select id="getEmployeeIdInfoList" resultMap="userDtoMap" parameterClass="java.util.HashMap">
-		select * from userInfo where id = (select e_id from employeeInfo where e_bossid = #id# LIMIT #i#, 1);
-	</select>
+	<!-- 뒷번호에 변경될 수를 넣어준다. -->
+	<update id="changeAfter" parameterClass="java.util.HashMap">
+		update employeeInfo set num = #numa# where num = #space#;
+	</update>	
+<!-- 끝  -->
 	
 	<!-- 알바생 아이디로 정보를 볼러옴 AJAX-->
-	<select id="getEmployeeIdInfo" resultClass="userDto" parameterClass="String">
+	<select id="getEmployeeInfo" resultClass="userDto" parameterClass="String">
 		select * from userInfo where id = #id#;
+	</select>	
+	
+	<!-- 알바생 아이디로 회원정보를 볼러옴 AJAX-->
+	<select id="getEmployeeUpdateInfo" resultClass="userDto" parameterClass="String">
+		select * from userInfo where id = #id#;
+	</select>
+	
+	<!-- 삭제할 알바생 아이디를 찾는다.-->
+	<select id="getDeleteIdInfo" resultClass="beDto" parameterClass="int">
+		select e_id,b_key from employeeInfo where num = #num#;
+	</select>
+	
+	<!-- 알바생 아이디 삭제 신청 Log 중 마지막 번호를 출력 -->
+	<select id="getDeleteLogLastNum" resultClass="int">
+		SELECT num from employeeDeleteLog order by num desc limit 0, 1; 
+	</select>	
+	
+	<!-- 알바생의 아이디를 삭제 신청함.-->
+	<insert id="deleteIdLogAdd" >
+		insert into employeeDeleteLog (num, result, b_id, e_id, applyTime, content)
+			 VALUES(0, 0, #b_id#, #e_id#, now(), #content#);  
+	</insert>
+	
+	<!-- 알바생아이디 삭제 리스트 -->
+	<select id="getEmployeeDeleteList" resultClass="beDto" parameterClass="java.util.HashMap" >
+		SELECT * from  employeeDeleteLog where result = '0';
+	</select>	
+	
+	<select id="getEmployeeDeleteListCount" resultClass="int" parameterClass="java.util.HashMap" >
+		SELECT count(*) from  employeeDeleteLog where result = '0';
 	</select>		
+	
+	<!-- 알바생의 아이디를 삭제 확인 - 관리자.-->
+	<update id="deleteIdLogAddConfirm" parameterClass="String" >
+		update employeeDeleteLog set result = 1, confirmTime = now() where e_id = #e_id#;
+	</update>	
+	
+	<!-- 알바생의 아이디를 삭제 삭제1 - employeeInfo.-->
+	<delete id="deleteEidEmployeeInfo" parameterClass="String" >
+		delete from employeeInfo where e_id = #e_id#;
+	</delete>	
+	
+	<!-- 알바생의 아이디를 삭제 삭제2 - userInfo.-->
+	<delete id="deleteEidUserInfo" parameterClass="String" >
+		delete from userInfo where id = #e_id#;
+	</delete>
+
+<!-- 신상관리========================================================== -->
+	<!-- 신상관리 알바생 이름 리스트 -->
+	<select id="getEmployeeIdList" resultClass="userDto" parameterClass="String">
+		select id, pw, name, birth, phone, grade, address, email, signdate, googleid 
+		from userInfo a inner Join(select e_id from employeeInfo where b_key = #b_key#) b 
+		on a.id = b.e_id;
+	</select>
+
+	<!-- 알바생 아이디 정보 보기 -->
+	<select id="getEmplyeeInfo" resultClass="userDto" parameterClass="String">
+		select * from userInfo where id = #id#;
+	</select>
 
 	<!-- 알바생 아이디로 정보 수정-->
 	<update id="updateEmployeeId"  parameterClass="userDto">
@@ -111,7 +174,7 @@
 
 	<!-- 알바생 접속 LOG 찾기 -->
 	<select id="findLoginLogLogoutNull"  parameterClass="String">
-		SELECT count(*) from useTimeLog WHERE id = #id# ORDER BY loginTime desc;
+		SELECT count(*) from useTimeLog WHERE id = #id# and logoutTime = '0000-00-00 00:00:00' ORDER BY loginTime desc limit 0,1 ;
 	</select>
 
 	<!-- 알바생 접속 LOG 추가 -->
@@ -121,7 +184,7 @@
 	
 	<!-- 알바생 접속해제 LOG 변경 -->
 	<update id="updateEmployeeLogoutLog" parameterClass="String">
-		update useTimeLog set logoutTime = now() where id = #id# order by loginTime desc limit 1
+		update useTimeLog set logoutTime = now() where id = #id# and logoutTime = '0000-00-00 00:00:00'  order by loginTime desc limit 1
 	</update>
 
 	<!-- 알바생 접속 LOG LIST Count -->
@@ -141,17 +204,325 @@
 		]]>
 	</select>	
 
+<!-- Calender ==================================================== -->
+
+	<!-- 알바생 근무 일정 추가 하기전에 일정이 있는지 확인 -->
+	<select id="calenderInsertTimeCheck" resultClass="int" parameterClass="java.util.HashMap">
+	<![CDATA[
+		select count(*) from employeeWorkTime where title = #id# and start >= #start# and end <= #end#;
+	]]>
+	</select>
+
+	<!-- 알바생 근무 일정 추가 하기전에 일정이 있는지 확인(야간근무확인:전날 밤 클릭) -->
+	<select id="calenderInsertTimeCheckNight" resultClass="int" parameterClass="java.util.HashMap">
+	<![CDATA[
+		select count(*) from employeeWorkTime where title = #id# and
+		 (start >= #start# and end >= #end# and end < #endAfterDay#);
+	]]>
+	</select>
+	
+		<!-- 알바생 근무 일정 추가 하기전에 일정이 있는지 확인(야간근무확인:다음날 새벽 클릭) -->
+	<select id="calenderInsertTimeCheckNight2" resultClass="int" parameterClass="java.util.HashMap">
+	<![CDATA[
+		select count(*) from employeeWorkTime where title = #id# and
+		 (start >= #startBeforDay# and end >= #start# and end < #end#);
+	]]>
+	</select>
+
+	<!-- 알바생 근무 일정 추가 -->
+	<insert id="calenderInsertTime" parameterClass="beDto">
+	 INSERT INTO employeeWorkTime( b_key, todayDate, title, start, end, backgroundColor,borderColor)
+	  VALUES( #b_key#, now(), #id#, #startTime#, #endTime#, #backgroundColor#,#borderColor#);
+	</insert>
+	
+	<!-- 알바생 근무 일정 리스트 를 뽑기 위해 사장님아이디 검색 -->
+	<select id="getEidBid" resultClass="String" parameterClass="String">
+		select e_bossid from employeeInfo where e_id = #id#;
+	</select>
+	
+	<!-- 알바생 근무 일정 리스트를 달력에 뽑아냄 -->
+	<select id="getCalenderWorkTimeList" resultClass="workTimeListDTO" parameterClass="String">
+		select a.num, a.title, DATE_FORMAT(a.start, '%Y-%m-%d %H:%i:%s') as start, DATE_FORMAT(a.end, '%Y-%m-%d %H:%i:%s') as end, backgroundColor, borderColor from employeeWorkTime a INNER JOIN 
+		(select e_id from employeeInfo where b_key = #b_key#) b ON a.title = b.e_id;
+	</select>
+	
+	<!-- 알바생 근무 일정 변경 log : eventDropLog -->
+	<insert id="calenderUpdateTimeLog" parameterClass="java.util.HashMap">
+	 INSERT INTO employeeWorkTimeUpdateLog ( b_key, title, planStart, planEnd, start, end, updateDate)
+	  VALUES( #b_key#, #e_id#, #dragPlanStart#, #dragPlanEnd#, #start#, #end#, now());
+	</insert>
+	
+	<!-- 알바생 근무 일정 변경 : eventDrop -->
+	<update id="calenderUpdateTime" parameterClass="java.util.HashMap">
+	 UPDATE employeeWorkTime SET start = #start#, end = #end# WHERE title = #e_id# and start = #dragPlanStart# and end = #dragPlanEnd#;
+	</update>
+	
+	<!-- 알바생 근무 일정 삭제 log :eventInfo -->
+	<insert id="calenderDeleteTimeLog" parameterClass="java.util.HashMap">
+	INSERT INTO employeeWorkTimeDeleteLog (b_key, title, start, end, deleteDate) 	
+									VALUES(#b_key#, #e_id#, #dragPlanStart#, #dragPlanEnd#, now());
+	</insert>
+
+	<!-- 알바생 근무 일정 삭제 :eventInfo -->
+	<delete id="calenderDeleteTime" parameterClass="java.util.HashMap">
+		DELETE FROM employeeWorkTime WHERE title = #e_id# and start = #dragPlanStart# and end = #dragPlanEnd#;
+	</delete>	
+	
+	<!-- 알바 출근 유효성 검사 -->
+	<select id="employeeCommuteCheck" resultClass="workTimeDto" parameterClass="String">
+	 	<![CDATA[
+	 	select * from employeeWorkTime 
+	 	where title = #e_id# and date_add(start, interval - 10 minute) <= now() and date_add(end, interval + 10 minute)  >= now();
+	 	]]>
+	</select>
+	
+	<!-- 알바 출근 상태로 변경 -->
+	<update id="updateEmployeeCommute" parameterClass="String">
+	 	<![CDATA[	
+	 	update employeeWorkTime set result = 1
+	 	where title = #e_id# and date_add(start, interval - 10 minute) <= now() and date_add(end, interval + 10 minute) >= now();
+	 	]]>	 	
+	</update>	
+	
+	<!-- 알바 출근 상태로 출근시간 찍기 -->
+	<insert id="insertEmployeeCommute" parameterClass="workTimeDto">
+		INSERT INTO employeeWorkTimeCommute (num, result, commuteTime, ex)
+					VALUES(#num#, '1', now(), '1970-01-01 00:00:00');
+	</insert>	
+	
+	<!-- 알바 출근 상태로 출근시간 찍기 : 메세지 VIEW 출력 -->
+	<select id="getCommute" resultClass="workTimeDto" parameterClass="workTimeDto">
+		select commuteTime from employeeWorkTimeCommute where num = #num# ;
+	</select>	
+
+	<!-- 알바 퇴근 유효성 검사 -->
+	<select id="employeeOffWorkCheck" resultClass="workTimeDto" parameterClass="String">
+	 	<![CDATA[
+	 	select * from employeeWorkTime 
+	 	where title = #e_id# and date_add(start, interval - 10 minute) <= now() and date_add(end, interval + 3 hour)  >= now();
+	 	]]>
+	</select>
+	
+	<!-- 알바 퇴근 상태로 퇴근시간 찍기 -->
+	<update id="updateEmployeeOffWork" parameterClass="workTimeDto">
+		UPDATE employeeWorkTimeCommute SET 
+			result = '2',
+			offWorkTime = if(now() > #end#, #end#, now()),
+			ex = if(now() > #end#, now() - #end#, now()) 
+		WHERE num = #num#;  
+	</update>
+	
+	<!-- 알바 퇴근 상태로 변경 -->
+	<update id="updateEmployeeOffWork2" parameterClass="String">
+	 	<![CDATA[	
+	 	update employeeWorkTime set result = 2
+	 	where title = #e_id# and date_add(start, interval - 10 minute) <= now() and date_add(end, interval + 3 hour) >= now();
+	 	]]>	 	
+	</update>	
+	
+	<!-- 회원 등급 체크 -->
+	<select id="getUserGrade" resultClass="int" parameterClass="String">
+		 select grade from userInfo where id = #id#;
+	</select>
+	
+	<!-- 알바 근태 리스트 -->
+	<select id="getEmployeeWorkTimeList" resultClass="workTimeDto" parameterClass="String">
+		select c.num, c.b_key, c.todayDate, c.title, c.start, c.end, c.result, c.backgroundColor,c.borderColor, c.commuteTime, c.offWorkTime, c.ex from employeeInfo a 
+			 INNER JOIN	(select a.num, a.b_key, a.todayDate, a.title, a.start, a.end, a.result, a.backgroundColor,c.borderColor, b.commuteTime, b.offWorkTime, b.ex from employeeWorkTime a INNER JOIN employeeWorkTimeCommute b ON a.num = b.num WHERE a.result = 2) c 
+		ON a.e_id = c.title WHERE a.e_bossid = #id#;
+	</select>	
+	
+	
 	<!-- 사장님 총 통계 -->
 	
 	<!-- 사장님  알바생 일한 시간 계산 -->
 	<select id="employeeWorkCount" resultClass="bossErpTotalDTO" parameterClass="java.util.HashMap">
 		<![CDATA[
-		select (case when id = 1 then 'hello' else id end) as id,
+		select (case when id = null then 'total' else id end) as id,
 		date_format(loginTime, "%Y-%m-%d") AS loginTime, sum(round(logoutTime - loginTime)) as count 
 		from useTimeLog as a INNER JOIN employeeInfo as b ON a.id = b.e_id 
 		where loginTime >= #minDate# and loginTime <= #maxDate#
 		group by id with rollup;
 		]]>
+	</select>
+	
+	<!-- 사장님의 가맹점 리스트 반환 , 1군데서 사용-->
+	<select id="getBossFranchiseeList" resultClass="franchiseeDTO" parameterClass="String">
+		select b_name, b_key from franchiseeInfo where b_id = #b_id#;
+	</select>
+
+	<!-- 사장님의 가맹점 b_key 반환-->
+	<select id="getBossFranchiseeListB" resultClass="String" parameterClass="String">
+		select b_key from franchiseeInfo where b_id = #b_id# limit 0, 1;
+	</select>
+	
+	<!-- 일일정산 내역 리스트========================================================== -->
+	
+	<!-- 일일정산시 총 합계 금액(통롸표기 o) -->
+	<select id="dailyAmount" resultClass="String">
+	<![CDATA[
+		select format(sum(amountUsed), 0) from usageHistory where affiliateCode=#affiliateCode# and usageTime >=#startDate# and endTime <= #endDate#;
+	]]>
+	</select>
+	
+	<!-- 일일정산시 총 합계 금액 (통화표기 x) -->
+	<select id="dailyPureAmount" resultClass="String">
+	<![CDATA[
+		select sum(amountUsed) from usageHistory where affiliateCode=#affiliateCode# and usageTime >=#startDate# and endTime <= #endDate#;
+	]]>
+	</select>
+	
+	<!-- 오늘날 pc방 이용 토탈 건수 카운트 -->
+	<select id="dailyCount" resultClass="int">
+	<![CDATA[
+		select count(*) from usageHistory where affiliateCode = #affiliateCode# and usageTime >=#startDate# and endTime <= #endDate#;
+	  ]]>
+	</select>
+	
+	<!-- 가맹점에서 이용한 사용한 내역 카운트 -->
+	<select id="B_keyValidity" resultClass="int">
+	 	select count(*) from usageHistory where affiliateCode = #affiliateCodeList#;
+	 </select>
+	
+	<!-- 가맹점에서 이용한 유저들 사용현황정보 리스트 -->
+	<select id="SelectedList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+   	 <![CDATA[
+           select r,idx,userId,userName,affiliateCode,usageTime,endTime,format(amountUsed, 0) amountUsed,businessName,bossId
+            from (select @rownum:= @rownum+1 as r, idx,userId,userName,affiliateCode,usageTime,endTime,amountUsed,businessName,bossId
+            from usageHistory,(select @rownum:=0)i where affiliateCode=#affiliateCodeList# and usageTime >=#startDate# and endTime <=#endDate# order by idx desc)yz where r between #startRow# and #endRow#;
+     ]]>
+     </select>
+     
+     <!-- 정산요청 시 중복 방지를 위한 resultValue 체크값 -->
+     <select id="checkValue"  resultClass="int">
+	 <![CDATA[
+	 	select count(*) from dailySettlement where b_key = #b_key# and settlementDate <= #settlementDate#;
+	 ]]>
+	 </select>
+	 
+	<!-- 일일정산 내역 데이터 삽입========================================================== -->
+	
+	<!-- 이일정산 내역 데이터 삽입ㄴ -->
+	<insert id="dailySettlement" parameterClass="DailySettlementDTO" >
+		 insert into dailySettlement(settlementDate,bossId,companyName,settlementMethod,settlementNumber,requestedAccount,settlementAmount,settlementStatus,resultValue,b_key) 
+		 values(now(),#bossId#,#companyName#,#settlementMethod#,#settlementNumber#,#requestedAccount#,#settlementAmount#,#settlementStatus#,#resultValue#,#b_key#);
+	</insert>
+	
+	
+	<!-- 일일정산 내역 리스트========================================================== -->
+	<select id="dailySettlementCount" resultClass="int">
+		select count(*) from dailySettlement where b_key=#b_key#;
+	</select>
+	
+	<select id="dailySettlementList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	<![CDATA[
+		 select r,idx,settlementDate,bossId,companyName,settlementMethod,settlementNumber,requestedAccount,format(settlementAmount, 0) settlementAmount,settlementStatus,resultValue,b_key
+            from (select @rownum:= @rownum+1 as r, idx,settlementDate,bossId,companyName,settlementMethod,settlementNumber,requestedAccount,settlementAmount,settlementStatus,resultValue,b_key
+            from dailySettlement,(select @rownum:=0)i where b_key=#b_key# order by idx desc)yz where r between #startRow# and #endRow#;
+    ]]>
+	</select>
+	
+	<!-- 상품주문  상세리스트========================================================== -->
+
+	<select id="menuOrderCount" parameterClass="java.util.HashMap" resultClass="totalmenupriceDto">
+	<![CDATA[
+		select * from TotalMenuPrice where saledate=#yesterday# and l_key=#b_key#;
+	]]>
+	</select>
+
+	<select id="sellBuyLogIdMatch" parameterClass="java.util.HashMap" resultClass="sellbuylogDto">
+		<![CDATA[
+		select * from sellBuyLog where customer=#id# and productsaleregistdate>=#startTime# and productsaleregistdate<=#endTime# and l_key=#l_key#;
+		]]>
+	</select>
+
+	<select id="getMenuname" parameterClass="java.util.HashMap" resultClass="String">
+		<![CDATA[
+		select distinct name from sellBuyLog where customer=#id# and productsaleregistdate>=#startTime# and productsaleregistdate<=#endTime# and l_key=#l_key#;
+		]]>
+	</select>
+	
+	<select id="getCountMenu" parameterClass="java.util.HashMap" resultClass="int">
+	<![CDATA[
+		select count(*) from sellBuyLog where customer=#id# and l_key=#l_key# and productsaleregistdate>=#startTime# and productsaleregistdate<=#endTime# and name=#name#;
+		]]>
+	</select>
+	
+	<select id="getPriceMenu" parameterClass="java.util.HashMap" resultClass="int">
+	<![CDATA[
+		select distinct price from sellBuyLog where l_key=#l_key# and name=#name# and productsaleregistdate>=#startTime# and productsaleregistdate<=#endTime# and customer=#id#;
+		]]>
+	</select>
+
+	 <!-- 가맹 pc사용 현황========================================================== -->
+	 <!-- 가맹점 PC사용현황 카운트 -->
+	<select id="useStatusCount" resultClass="int">
+		SELECT count(*) FROM usageHistory where affiliateCode = #b_key#;
+	</select>
+	
+	<!-- 메뉴상품 판매 수량과 총정산된 가격 보여주는 테이블 -->
+	<select id="userStatusList2" parameterClass="java.util.HashMap" remapResults="true">
+	
+	</select>
+	
+	<select id="useStatusList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+			select r,userId,userName,usageTime,endTime,amountUsed,pcAmount,businessName,menuAmount    
+		  	from (select @rownum:= @rownum+1 as r, userId,userName,usageTime,endTime,amountUsed,pcAmount,businessName,menuAmount
+	      	from usageHistory,(select @rownum:=0)i where affiliateCode = #b_key# order by idx desc )yz where r between #startRow# and #endRow#;
+	</select>
+	
+<!-- FX용 -->
+	<!-- 알바생 리스트 -->
+	<select id="getFxEmployeeList" resultClass="fxEidListDTO" parameterClass="java.util.HashMap">
+		select e_id, pw,num,  b_key from userInfo a INNER JOIN 
+		(select e_id,num,b_key from employeeInfo where e_bossid = #id# and b_key = #b_key#) b on a.id = b.e_id;
+	</select>
+	
+	<!-- 알바생 리스트 수 -->
+	<select id="getFxEmployeeListCount" resultClass="fxEidListDTO" parameterClass="java.util.HashMap">
+		select count(*) from userInfo a INNER JOIN 
+		(select e_id,num,b_key from employeeInfo where e_bossid = #id# and b_key = #b_key#) b on a.id = b.e_id;
+	</select>	
+	
+	<!-- 신상관리 알바생 이름 리스트 -->
+	<select id="getFxEmployeeTotalIdList" resultClass="fxEmployeeInfoDTO" parameterClass="String">
+		select id as totalId, name as totalName, birth as totalBirth, phone as totalPhone, address as totalAddress, email as totalEmail, googleid as totalGoogleId 
+		from userInfo a inner Join(select e_id from employeeInfo where b_key = #b_key#) b 
+		on a.id = b.e_id;
+	</select>
+	
+	<!-- 알바생 근무일정 리스트 출력 -->
+	<select id="getFxEmployeeCommuteList" resultClass="fxEWTLDTO" parameterClass="String">
+		SELECT 
+			a.num as wtNum,
+			a.todayDate as wtTodayDate, 
+			a.title as wtTitle,
+			a.start as wtStart, 
+			a.end as wtEnd, 
+			a.result as wtResult,
+			a.backgroundColor as wtColor,
+			b.commuteTime as wtCommuteTime,
+			b.offWorkTime as wtOffWorkTime,
+			b.ex as wtEx
+		from employeeWorkTime a LEFT OUTER JOIN employeeWorkTimeCommute b ON a.num = b.num where b_key = #b_key# and a.result = 2;
+	</select>
+	
+	<!-- 알바생 알바비 지급대장 -->
+	<select id="getFxEmployeePayList" resultClass="fxEPLDTO" parameterClass="String">
+	select 
+		b.num as payNum,
+        (case when a.id = null then 'none' else id end) as payId,
+		a.name as payName,
+        round((offWorkTime - commuteTime))  as payWorkTime, 
+        round((offWorkTime - commuteTime) * a.EidMoneyPolicy)  as payPayment, 
+	    commuteTime as payCommute,
+        offWorkTime as payOffWork  
+    from 
+    (select a.id, a.name, a.b_key, b.EidMoneyPolicy from (
+    select b.*, a.b_key from (select e_id, b_key from employeeInfo where b_key = #b_key#) a INNER JOIN (select * from userInfo) b ON a.e_id = b.id
+    ) a LEFT OUTER JOIN (select * from franchiseePolicy where b_key = #b_key#) b ON a.b_key = b.b_key
+    ) a INNER JOIN (select a.num, a.commuteTime, a.offWorkTime,a.ex,b.e_id, b.employeeWorkTime, b.employeeWorkTimePay, b.employeeAccountMoney, b.payAfterMoney  from employeeWorkTimeCommute a INNER JOIN offWorkPayDetailLog b ON a.num = b.num)
+    b on a.id = b.e_id;
 	</select>
 	
 </sqlMap>

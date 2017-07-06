@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -30,7 +31,12 @@ public class ReadDbWriteArray {
 	public  void readDb(Object dto, String fileName, String fileCheck)throws IOException {
 		////////////////////////////////
 		//각 Log의 TEXT파일의 Line 수를 세는 코드
-		 InputStream is = new BufferedInputStream(new FileInputStream(fileName));
+		
+		File file = new File(System.getProperty("user.home")+"\\Documents\\buengbueng\\log\\log.txt");
+		String totalFileName = 
+				"" + file.getCanonicalPath();
+		
+		 InputStream is = new BufferedInputStream(new FileInputStream(totalFileName));
 		 int count = 0;
 		    try {
 		        byte[] c = new byte[1024];
@@ -59,16 +65,25 @@ public class ReadDbWriteArray {
 		//현재시각 불러오기
 		String nowDate = NowDate.nowDate();
 		
+		//////////////////////////////////////
+		FranchiseeDataDTO DTO =  (FranchiseeDataDTO)dto ;
+		/////////////////////////////////////
+		
 		content += "{";
 		switch (fileCheck){
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		case "franchisee" : 
-			FranchiseeDataDTO DTO =  (FranchiseeDataDTO)dto ;
 			content += count +","+ DTO.getB_id() +","+ DTO.getB_key() +","+ DTO.getB_name() +","+ DTO.getB_number() +","+ DTO.getB_pccount() +","+ DTO.getB_address() +","+ DTO.getB_pccount() +","+ DTO.getB_size() +","+ DTO.getB_tel() +","+ DTO.getB_ip()+","+nowDate;
+		case "franchiseeUpdate" :
+			content += count +","+ DTO.getB_id() +","+ DTO.getB_key() +","+ DTO.getB_name() +","+ DTO.getB_number() +","+ DTO.getB_pccount() +","+ DTO.getB_address() +","+ DTO.getB_pccount() +","+ DTO.getB_size() +","+ DTO.getB_tel() +","+ DTO.getB_ip()+","+nowDate;
+		case "franchiseeDelete" :
+			content += count +","+ DTO.getB_id() +","+ DTO.getB_key() +","+ DTO.getReason() +","+ nowDate;
+			
 		}
-		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		content += "}" ;
 		
-		File inFile = new File(fileName);
+		File inFile = new File(totalFileName);
 		BufferedWriter bw = null;
 		try{
 			bw = new BufferedWriter(new FileWriter(inFile,true));

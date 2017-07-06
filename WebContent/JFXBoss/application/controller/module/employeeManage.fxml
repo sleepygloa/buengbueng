@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="employeeManage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.module.BossEmployeeManageController">
+   <children>
+      <SplitPane fx:id="splitVertical" dividerPositions="0.48" prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane fx:id="splitLeftHorizonPane" minHeight="1078.0" minWidth="596.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <SplitPane fx:id="splitLeftHorizon" dividerPositions="0.5" orientation="VERTICAL" prefHeight="1078.0" prefWidth="596.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane fx:id="e_idListSection" minHeight="539.0" minWidth="596.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TableView fx:id="e_idListTable" layoutX="29.0" layoutY="39.0" prefHeight="472.0" prefWidth="140.0">
+                                <columns>
+                                  <TableColumn id="e_id" fx:id="e_id" prefWidth="139.0" text="아이디 리스트" />
+                                  
+                                </columns>
+                              </TableView>
+                              <Label layoutX="205.0" layoutY="39.0" text="신청 중인 아이디 리스트 :" />
+                              <Label layoutX="205.0" layoutY="64.0" text="보유 중인 아이디 리스트 :" />
+                              <Group layoutY="-41.0">
+                                 <children>
+                                    <Label layoutX="220.0" layoutY="234.0" text="신청할 아이디 수" />
+                                    <Label layoutX="220.0" layoutY="268.0" text="신청 사유" />
+                                    <TextArea layoutX="220.0" layoutY="296.0" prefHeight="48.0" prefWidth="283.0" />
+                                    <TextField layoutX="389.0" layoutY="230.0" prefHeight="23.0" prefWidth="115.0" />
+                                    <Button layoutX="218.0" layoutY="192.0" mnemonicParsing="false" text="신청하기" />
+                                    <Label layoutX="236.0" layoutY="160.0" prefHeight="15.0" prefWidth="249.0" text="아이디 신청하기" />
+                                 </children>
+                              </Group>
+                              <Group layoutY="160.0">
+                                 <children>
+                                    <Label layoutX="220.0" layoutY="234.0" text="삭제할 아이디" />
+                                    <Label layoutX="220.0" layoutY="268.0" text="신청 사유" />
+                                    <TextArea layoutX="220.0" layoutY="296.0" prefHeight="48.0" prefWidth="283.0" />
+                                    <TextField layoutX="389.0" layoutY="230.0" prefHeight="23.0" prefWidth="115.0" />
+                                    <Button fx:id="idInsertApplyBtn" layoutX="218.0" layoutY="192.0" mnemonicParsing="false" text="신청하기" />
+                                    <Label layoutX="237.0" layoutY="164.0" text="아이디 삭제하기" />
+                                 </children>
+                              </Group>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane fx:id="employeeInfoSection" minHeight="539.0" minWidth="596.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TabPane fx:id="totalIdInfo" prefHeight="535.0" prefWidth="594.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <tabs>
+                                  <Tab fx:id="totalIdInfoList" text="전체">
+                                       <content>
+                                          <TableView fx:id="totalTable" prefHeight="200.0" prefWidth="200.0">
+                                            <columns>
+                                              <TableColumn fx:id="totalId" prefWidth="85.0" text="id" />
+                                              <TableColumn fx:id="totalName" prefWidth="85.0" text="name" />
+                                                <TableColumn fx:id="totalBirth" prefWidth="85.0" text="birth" />
+                                                <TableColumn fx:id="totalPhone" prefWidth="85.0" text="phone" />
+                                                <TableColumn fx:id="totalAddress" prefWidth="300.0" text="address" />
+                                                <TableColumn fx:id="totalEmail" prefWidth="65.0" text="email" />
+                                                <TableColumn fx:id="totalGoogleId" prefWidth="70.0" text="googleId" />
+                                            </columns>
+                                          </TableView>
+                                       </content></Tab>
+                                  <Tab text="Untitled Tab 2" />
+                                </tabs>
+                              </TabPane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="splitRightHorizonPane" minHeight="1078.0" minWidth="596.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <SplitPane fx:id="splitRightHorizon" dividerPositions="0.5" orientation="VERTICAL" prefHeight="1078.0" prefWidth="596.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane fx:id="diarySection" minHeight="539.0" minWidth="596.0" prefHeight="100.0" prefWidth="160.0" />
+                      <AnchorPane fx:id="commuteSection" minHeight="539.0" minWidth="596.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <SplitPane fx:id="splitRightBottomHorizon" dividerPositions="0.5" orientation="VERTICAL" prefHeight="535.0" prefWidth="594.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                       <children>
+                                          <TitledPane fx:id="commuteTitlePane" animated="false" minHeight="264.0" minWidth="592.0" prefHeight="264.0" prefWidth="592.0" text="근무 달력" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <content>
+                                              <AnchorPane fx:id="commuteTablePane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <TableView fx:id="commuteTable" prefHeight="264.0" prefWidth="592.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <columns>
+                                                          <TableColumn fx:id="wtNum" prefWidth="35.0" text="num" />
+                                                          <TableColumn fx:id="wtTitle" prefWidth="65.0" text="id" />
+                                                            <TableColumn prefWidth="65.0" text="name" />
+                                                            <TableColumn fx:id="wtStart" prefWidth="120.0" text="start" />
+                                                            <TableColumn fx:id="wtEnd" prefWidth="120.0" text="end" />
+                                                            <TableColumn fx:id="wtCommuteTime" prefWidth="120.0" text="commute" />
+                                                            <TableColumn fx:id="wtOffWorkTime" prefWidth="120.0" text="offWork" />
+                                                            <TableColumn fx:id="wtEx" prefWidth="120.0" text="ex" />
+                                                            <TableColumn fx:id="wtResult" prefWidth="41.0" text="result" />
+                                                            <TableColumn fx:id="wtColor" prefWidth="38.0" text="color" />
+                                                            <TableColumn fx:id="wtTodayDate" prefWidth="120.0" text="etc" />
+                                                        </columns>
+                                                      </TableView>
+                                                   </children>
+                                                </AnchorPane>
+                                            </content>
+                                          </TitledPane>
+                                       </children>
+                                    </AnchorPane>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                       <children>
+                                          <TitledPane fx:id="payTitlePane" animated="false" minHeight="263.0" minWidth="592.0" prefHeight="263.0" prefWidth="592.0" text="근무 정산" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <content>
+                                              <AnchorPane fx:id="payTablePane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <TableView fx:id="payTable" prefHeight="263.0" prefWidth="592.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <columns>
+                                                          <TableColumn fx:id="payNum" prefWidth="75.0" text="num" />
+                                                          <TableColumn fx:id="payId" prefWidth="120.0" text="id" />
+                                                            <TableColumn fx:id="payName" prefWidth="75.0" text="name" />
+                                                            <TableColumn fx:id="payCommute" prefWidth="120.0" text="commute" />
+                                                            <TableColumn fx:id="payOffWork" prefWidth="120.0" text="offwork" />
+                                                            <TableColumn fx:id="payWorkTime" prefWidth="75.0" text="time" />
+                                                            <TableColumn fx:id="payPayment" prefWidth="75.0" text="payment" />
+                                                        </columns>
+                                                      </TableView>
+                                                   </children>
+                                                </AnchorPane>
+                                            </content>
+                                          </TitledPane>
+                                       </children>
+                                    </AnchorPane>
+                                </items>
+                              </SplitPane>
+                           </children></AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

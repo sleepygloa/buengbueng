@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="module">
+	<!-- 해당 사용자의 사용중인 모듈화 가져오기 -->
+	<select id="getModule" parameterClass="String" resultClass="moduleDTO">
+		select * from franchiseeModule where b_id = #b_id# and m_check = 1;
+	</select>
+	<!-- 해당 사용자의 선택된 모듈 이름들 가져오기 -->
+	<select id="getModuleForName" parameterClass="moduleDTO" resultClass="moduleDTO">
+		select * from franchiseeModule where b_id = #b_id# and m_name = #m_name#;
+	</select>
+	<!-- 해당 사용자의 저장된 모듈 이름들 가져오기 -->
+	<select id="getModuleNames" parameterClass="String" resultClass="String">
+		select m_name from franchiseeModule where b_id = #b_id# order by m_check = true desc;
+	</select>
+	<!-- 기존에  true인 모듈 false로 변경 -->
+	<update id="setModuleFalse">
+		update franchiseeModule set m_check = false where m_check = true and b_id = #b_id#;
+	</update>
+	<!-- 사용자가 사용 모듈을 변경함 -->
+	<update id="changeModule" parameterClass="moduleDTO">
+		update franchiseeModule set m_check = true where m_name = #m_name# and b_id = #b_id#;
+	</update>
+	<!-- 사용자의 새 모듈 저장하기 -->
+	<insert id="setModule" parameterClass="moduleDTO">
+		insert into franchiseeModule values(#b_id#,#m_name#,#module#,#menu#,true,now());
+	</insert>
+	<!-- 사용자 모듈 삭제하기 -->
+	<delete id="deleteModule" parameterClass="moduleDTO">
+		delete from franchiseeModule where m_name = #m_name# and b_id = #b_id#;
+	</delete>
+	<!-- 사용자 모듈 수정하기 -->
+	<update id="updateModule">
+		update franchiseeModule set module = #module#, menu = #menu# where m_name = #m_name# and b_id = #b_id#;
+	</update>
+	<!-- 모듈 한 개라도 있는지 확인 -->
+	<select id="getModuleCount" parameterClass="String" resultClass="int">
+		select count(b_id) from franchiseeModule where b_id = #b_id#;
+	</select>
+<!-- ======================================================================================================= -->
+	<!-- 사용자에게 제공하는 메뉴 가져오기 -->
+	<select id="getOfferMenu" resultClass="moduleDefaultDTO">	
+		select * from module where num = (select max(num) from module);
+	</select>
+<!-- ======================================================================================================= -->
+	<!-- 알바생의 사장님 id 가져오기 -->
+	<select id="getBossId" parameterClass="String" resultClass="String">
+		select e_bossid from employeeInfo where e_id = #id#;
+	</select>
+</sqlMap>

@@ -3,11 +3,14 @@ package login.user.bean;
 import java.sql.Timestamp;
 
 public class UseTimeLogDTO {
+	
 	private String id; //로그인로그아웃 아이디
+	private int grade; // 사용자 등급
 	private Timestamp loginTime; //로그인시간
 	private Timestamp logoutTime; //로그아웃시간
 	private String ip; //접속장소 IP
 	
+	private String licenseKey; //가맹점 라이센스
 	
 	private int r; //게시판 정렬카운트
 	private int workTime; //알바가 일한시간(초)
@@ -19,7 +22,67 @@ public class UseTimeLogDTO {
 	private int payAfterMoney; //지불하고 남은돈.
 	private String b_key; //라이센스키
 	
+	//FX호환 DTO
 	
+	private int num; //Log 출퇴근 num 을 log테이블에 남김
+	private int employeeWorkTime; //로그인해서 로그아웃까지 근무시간(초)
+	private int employeeWorkTimePay; //근무시간 * 근무정책 = 결제금액, 지불금액, 알바비
+	private int employeeAccountMoney; //알바에게 적립된 금액
+	private Timestamp commuteTime;
+	private Timestamp offWorkTime;
+	private String e_id;
+	private String b_id;
+	
+	
+	
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
+	public String getB_id() {
+		return b_id;
+	}
+	public void setB_id(String b_id) {
+		this.b_id = b_id;
+	}
+	public String getE_id() {
+		return e_id;
+	}
+	public void setE_id(String e_id) {
+		this.e_id = e_id;
+	}
+	public Timestamp getCommuteTime() {
+		return commuteTime;
+	}
+	public void setCommuteTime(Timestamp commuteTime) {
+		this.commuteTime = commuteTime;
+	}
+	public Timestamp getOffWorkTime() {
+		return offWorkTime;
+	}
+	public void setOffWorkTime(Timestamp offWorkTime) {
+		this.offWorkTime = offWorkTime;
+	}
+	public int getEmployeeWorkTime() {
+		return employeeWorkTime;
+	}
+	public void setEmployeeWorkTime(int employeeWorkTime) {
+		this.employeeWorkTime = employeeWorkTime;
+	}
+	public int getEmployeeWorkTimePay() {
+		return employeeWorkTimePay;
+	}
+	public void setEmployeeWorkTimePay(int employeeWorkTimePay) {
+		this.employeeWorkTimePay = employeeWorkTimePay;
+	}
+	public int getEmployeeAccountMoney() {
+		return employeeAccountMoney;
+	}
+	public void setEmployeeAccountMoney(int employeeAccountMoney) {
+		this.employeeAccountMoney = employeeAccountMoney;
+	}
 	public String getB_key() {
 		return b_key;
 	}
@@ -67,6 +130,18 @@ public class UseTimeLogDTO {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+	public String getLicenseKey() {
+		return licenseKey;
+	}
+	public void setLicenseKey(String licenseKey) {
+		this.licenseKey = licenseKey;
 	}
 	public Timestamp getLoginTime() {
 		return loginTime;

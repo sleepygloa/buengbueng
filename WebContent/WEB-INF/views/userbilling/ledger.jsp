@@ -9,14 +9,14 @@
 	</head>
 	<body>
 		<div>
-		<table class="cash_table">
+		<table class="cash_table" border="1">
 			<tr class="table_header">
 				<td class="td_title">번호</td>
 				<td class="td_title">결제일</td>
 				<td class="td_title">구분</td>
 				<td class="td_title">결제자 이름</td>
 				<td class="td_title">결제 금액</td>
-				<td class="td_title">상태</td>
+	    	    <td class="td_title">상태</td>
 				<td class="td_title">에러메세지</td>
 				<td class="td_title">buyChatID</td>
 				<td class="td_title">PG사</td>

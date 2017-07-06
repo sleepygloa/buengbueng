@@ -2,10 +2,17 @@ package payment.all.bean;
 
 
 
+import java.io.PrintStream;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,7 +28,7 @@ import login.user.bean.UserInfoDataDTO;
 
 
 @Controller
-@RequestMapping("/userbilling/*")
+//@RequestMapping("/userbilling/*")
 public class PaymentBean {
 	
 	private static final Object Accept = null;
@@ -97,9 +104,18 @@ public class PaymentBean {
 	}
 	
 	@RequestMapping("/cashHistory.do")
-	public String cashHistory(String pageNum,HttpServletRequest request, UserBillingHistoryDTO dto, UserAccountDTO accountDTO, HttpSession session)throws Exception{
+	public String cashHistory(String pageNum,HttpServletRequest request, HttpSession session)throws Exception{
 		String id = (String)session.getAttribute("loginId");
 		request.setCharacterEncoding("UTF-8");
+		
+		HashMap map = new HashMap();
+    	map.put("id", id);
+    	map.put("confirmation", "Accept");
+    	map.put("confirmation_f", "failure");
+		List payment = (List)sqlMap.queryForList("cash.cash_id", map);
+		int failure = (int) sqlMap.queryForObject("cash.cash_failureCount", map);
+		
+		
 		
         if (pageNum == null) {
             pageNum = "1";
@@ -115,7 +131,7 @@ public class PaymentBean {
        System.out.println("아이디" + id);
         
         count = (Integer)sqlMap.queryForObject("cash.cashCount", id);
- 
+        int listcount = count - failure;
         if(count > 0){
         	HashMap r = new HashMap<>();
      	    r.put("startRow", startRow);
@@ -128,7 +144,7 @@ public class PaymentBean {
         }
         System.out.println(startRow);
         System.out.println(endRow);
-        number = count - (currentPage - 1) * pageSize;
+        number = listcount - (currentPage - 1) * pageSize;
         
 	     System.out.println("number" + number);
 		request.setAttribute("articleList", articleList);
@@ -139,15 +155,13 @@ public class PaymentBean {
         request.setAttribute("pageSize", new Integer(pageSize));
 		request.setAttribute("number", new Integer(number));
 		
-		HashMap map = new HashMap();
-    	map.put("id", id);
-    	map.put("confirmation", "Accept");
-		List payment = (List)sqlMap.queryForList("cash.cash_id", map);
 		
+		
+		System.out.println("실패 횟수" + failure);
 		UserAccountDTO c = (UserAccountDTO)sqlMap.queryForObject("cash.cash_userAccount", id);
-		
+		request.setAttribute("listcount", listcount);
+		request.setAttribute("failure_count", failure);
 		request.setAttribute("c", c);
-		
 		request.setAttribute("payment", payment);
 		
 		request.setAttribute("id", id);
@@ -169,13 +183,17 @@ public class PaymentBean {
 		String id = (String)session.getAttribute("loginId"); 
 		Timestamp payment_date = new Timestamp(System.currentTimeMillis());	
 		String error_msg = request.getParameter("error_msg");
+		String pg_tid = request.getParameter("pg_tid");
+		String card_code = request.getParameter("card_code");
 		
 		UserInfoDataDTO c = (UserInfoDataDTO)sqlMap.queryForObject("cash.cash_payment_useInfoLoad", id);
 		
 		//view에서 사용할 것
+		request.setAttribute("card_code", card_code);
 		request.setAttribute("c", c);		
 		request.setAttribute("cardtype", cardtype);
 		request.setAttribute("error_msg", error_msg);
+		request.setAttribute("pg_tid", pg_tid);
 		request.setAttribute("id", id);
 		request.setAttribute("pay", pay);
 		request.setAttribute("payment_type", payment_type);
@@ -197,11 +215,13 @@ public class PaymentBean {
 		String confirmation = request.getParameter("confirmation");
 		String paying_price = request.getParameter("pay");
 		String payment_type = request.getParameter("cardtype");
-		
+		String pg_tid = request.getParameter("pg_tid");
+		System.out.println("pg_tid = s	" + pg_tid);
 		//API 부가적인 정보
+		String card_code = request.getParameter("card_code");
+		System.out.println("card_code =" + card_code);
 		String merchant_uid = request.getParameter("merchant_uid");
 		String imp_uid = request.getParameter("imp_uid");
-		
 		//session과 일치하는 회원정보 수집
 		UserInfoDataDTO info1 = (UserInfoDataDTO)sqlMap.queryForObject("cash.cash_payment_useInfoLoad", id);
 		UserAccountDTO account = (UserAccountDTO)sqlMap.queryForObject("cash.cash_userAccount", id);
@@ -261,5 +281,326 @@ public class PaymentBean {
 		System.out.println("결제 취소 사유" + dto.getError_msg());
 		
 		return "/userbilling/cashCancel";
+	}
+	
+	//사용자 내역
+	@RequestMapping("/usageHistory.do")
+	public String usageHistory(String pageNum, HttpServletRequest request, HttpSession session)throws Exception{
+		
+		request.setCharacterEncoding("UTF-8");
+		String id = (String)session.getAttribute("loginId");
+		System.out.println("id = " + id);
+		List usageHistory = (List)sqlMap.queryForList("cash.usageHistory", id);
+
+		System.out.println("usageHistory =" + usageHistory);
+		request.setAttribute("usageHistory", usageHistory);
+		
+		if (pageNum == null) {
+            pageNum = "1";
+        }
+        int pageSize = 10;
+        int currentPage = Integer.parseInt(pageNum);
+        int startRow = (currentPage - 1) * pageSize + 1;
+        int endRow = currentPage * pageSize;
+        int count = 0;
+        int number= 0;
+	
+        List articleList = null;
+        
+        count = (Integer)sqlMap.queryForObject("cash.usageHistoryCount", id);
+        int listcount = count;
+        if(count > 0){
+        	HashMap r = new HashMap<>();
+     	    r.put("startRow", startRow);
+     	    r.put("endRow", endRow);
+     	    r.put("id", id);
+     	    articleList = sqlMap.queryForList("cash.getUsageHistory", r);
+     	   
+        } else {
+        	articleList = Collections.EMPTY_LIST;
+        }
+        
+        
+        
+        number = count - (currentPage - 1) * pageSize;
+        
+		request.setAttribute("articleList", articleList);
+        request.setAttribute("currentPage", new Integer(currentPage));
+        request.setAttribute("startRow", new Integer(startRow));
+        request.setAttribute("endRow", new Integer(endRow));
+        request.setAttribute("count", new Integer(count));
+        request.setAttribute("pageSize", new Integer(pageSize));
+		request.setAttribute("number", new Integer(number));
+		
+		return "/userbilling/usageHistory";
+	}
+	
+	@RequestMapping("/usageHistoryPro.do")
+	public String usageHistoryPro()throws Exception{
+		
+		
+		return "/userbilling/usageHistoryPro";
+	}
+	
+	@RequestMapping("/dailySettlementLoad.do")
+	public String dailySettlementLoad(String pageNum, HttpServletRequest request,HttpSession session)throws Exception{
+		
+		request.setCharacterEncoding("UTF-8");
+		String id = (String)session.getAttribute("loginId");
+		
+		/*게시판*/
+		if (pageNum == null) {
+            pageNum = "1";
+        }
+        int pageSize = 10;
+        int currentPage = Integer.parseInt(pageNum);
+        int startRow = (currentPage - 1) * pageSize + 1;
+        int endRow = currentPage * pageSize;
+        int count = 0;
+        int number= 0;
+	
+        List articleList = null;
+        
+       
+        
+        List affiliateCodeList = sqlMap.queryForList("cash.getB-keyList", id);
+        ArrayList acList = new ArrayList();
+       System.out.println("11111111111" + affiliateCodeList);
+       	request.setAttribute("affiliateCodeList", affiliateCodeList);
+  
+
+		/**/
+		
+	
+		return "/userbilling/dailySettlementLoad";
+	}
+	
+	
+	
+	@RequestMapping("/dailySettlement.do")
+	public String dailySettlement (String pageNum, HttpSession session, HttpServletRequest request)throws Exception{
+		String id = (String)session.getAttribute("loginId");
+		//가맹코드 
+		String affiliateCodeList = request.getParameter("affiliateCodeList");
+		request.setAttribute("affiliateCode", affiliateCodeList);
+		
+		/***********************************************************************************************/
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+		SimpleDateFormat end = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
+
+        Calendar c1 = Calendar.getInstance();
+
+        String Today = sdf.format(c1.getTime());
+        request.setAttribute("Today", Today);
+        String TodayEndTime = end.format(c1.getTime());
+        request.setAttribute("TodayEndTime", TodayEndTime);
+        System.out.println("TodayEndTime" + TodayEndTime);
+
+		Calendar day = Calendar.getInstance();
+        day.add(Calendar.DATE , -1);
+        
+        //현재 오늘일 기준으로 어제 시작 일 00:00:00  코드
+    	String startDate = new java.text.SimpleDateFormat("yyyy-MM-dd 00:00:00").format(day.getTime());
+    	//현재 오늘일 기준으로 어제 종료 일 23:59:59  코드
+    	String endDate = new java.text.SimpleDateFormat("yyyy-MM-dd 23:59:59").format(day.getTime());
+    	
+    	/***********************************************************************************************/
+    	
+    	
+		/*가맹주 기본정보  *********************************************************************/
+    	
+    	HashMap time = new HashMap<>();
+		time.put("startDate", startDate);
+		time.put("endDate", endDate);
+		time.put("affiliateCode", affiliateCodeList);
+		
+		//일일정산시 총 합계금액 계산
+		
+		String dailyAmount = (String) sqlMap.queryForObject("cash.dailyAmount", time);
+		request.setAttribute("dailyAmount", dailyAmount);
+		
+		String dailyPureAmount = (String) sqlMap.queryForObject("cash.dailyPureAmount", time);
+		request.setAttribute("dailyPureAmount", dailyPureAmount);
+		
+		
+		
+		int dailyCount = 0;
+		dailyCount = (Integer) sqlMap.queryForObject("cash.dailyCount", time);
+		System.out.println("dailyCount" + dailyCount);
+		/*내역 리스트 *********************************************************************/
+		if (pageNum == null) {
+            pageNum = "1";
+        }
+        int pageSize = 5;
+        int currentPage = Integer.parseInt(pageNum);
+        int startRow = (currentPage - 1) * pageSize + 1;
+        int endRow = currentPage * pageSize;
+        int count = 0;
+        int number= 0;
+        
+        count = (Integer)sqlMap.queryForObject("cash.B_keyValidity", affiliateCodeList);
+        System.out.println("가맹점에서 이용한 사용한 내역 카운트 =" + count);
+        List articleList = null;
+        
+        
+        
+        if(count > 0){
+        	HashMap r = new HashMap<>();
+        	
+    		r.put("startDate", startDate);
+        	r.put("endDate", endDate);
+     	    r.put("startRow", startRow);
+     	    r.put("endRow", endRow);
+     	    //가맹점 코드
+     	    r.put("affiliateCodeList", affiliateCodeList);
+     	   
+     	    articleList = sqlMap.queryForList("cash.SelectedList", r);
+     	    
+        } else {
+        	articleList = Collections.EMPTY_LIST;
+        }
+        
+        number = count - (currentPage - 1) * pageSize;
+        /**************************************************************************************************/
+        HashMap checkValue = new HashMap<>();
+        checkValue.put("settlementDate", TodayEndTime);
+        checkValue.put("b_key", affiliateCodeList);
+        int check =  (int) sqlMap.queryForObject("cash.checkValue", checkValue);
+        System.out.println("check" + check);
+        int checkPoint = 0;
+		if(check < 1){ //  check 0 일결우 삽입
+			checkPoint = 1;
+		}else if(check == 1){ //  check 0이 아닐 경우에 블럭
+			checkPoint = 2;
+		}
+		
+		request.setAttribute("checkPoint", checkPoint);
+		System.out.println("checkPoint" + checkPoint);
+		
+        /*view에서 사용할 코드****************************************************************************/
+		//게시판
+		
+        request.setAttribute("articleList", articleList);
+        request.setAttribute("currentPage", new Integer(currentPage));
+        request.setAttribute("startRow", new Integer(startRow));
+        request.setAttribute("endRow", new Integer(endRow));
+        request.setAttribute("count", new Integer(count));
+        request.setAttribute("pageSize", new Integer(pageSize));
+		request.setAttribute("number", new Integer(number));
+		
+		//가맹주 기본 정보
+		request.setAttribute("id", id);
+		request.setAttribute("affiliateCodeList", affiliateCodeList);
+		request.setAttribute("dailyCount", dailyCount);
+		/****************************************************************************************************/
+		/*
+		String sCurTime = null;
+		String sMinTime = "20170623155200";
+		String sMaxTime = "20170623155300";
+		String sTime = "";
+		    
+		sCurTime = new java.text.SimpleDateFormat("yyyyMMddHHmmss", java.util.Locale.KOREA).format(new java.util.Date());
+		    
+		if (sCurTime.compareTo(sMinTime) >= 0 && sCurTime.compareTo(sMaxTime) < 0) {
+		        
+		}
+		*/
+		
+		
+		return "/userbilling/dailySettlement";
+	}
+	@RequestMapping("/dailySettlementPro.do")
+	public String dailySettlementPro(DailySettlementDTO dto, HttpSession session, HttpServletRequest request){
+		
+		String id = (String)session.getAttribute("loginId");
+		String affiliateCodeList = request.getParameter("affiliateCodeList");
+		System.out.println("affiliateCodeList"+ affiliateCodeList);
+    	
+		//String settlementDate = (String) sqlMap.queryForObject("cash.settlementDate", id);
+
+		
+		/*
+		int resultValue = 0;
+		resultValue = sqlMap.queryForObject("cash.resultValueCount", result);
+		*/
+		sqlMap.insert("cash.dailySettlement", dto);
+		
+		 
+		
+		return "/userbilling/dailySettlementPro";
+	}
+	
+	@RequestMapping("/request.do")
+	public String request(String pageNum, HttpServletRequest request){
+		
+		int check = 2;
+		
+		List accept = sqlMap.queryForList("cash.accept", check);
+		
+		System.out.println("accept = " + accept);
+		
+		/*내역 리스트 *********************************************************************/
+		if (pageNum == null) {
+            pageNum = "1";
+        }
+        int pageSize = 5;
+        int currentPage = Integer.parseInt(pageNum);
+        int startRow = (currentPage - 1) * pageSize + 1;
+        int endRow = currentPage * pageSize;
+        int count = 0;
+        int number= 0;
+        
+        count = (Integer)sqlMap.queryForObject("cash.acceptCount", check);
+        System.out.println("가맹점에서 이용한 사용한 내역 카운트 =" + count);
+        List articleList = null;
+        
+        
+        
+        if(count > 0){
+        	HashMap r = new HashMap<>();
+     	    r.put("startRow", startRow);
+     	    r.put("endRow", endRow);
+     	    r.put("check", check);
+     	   
+     	    articleList = sqlMap.queryForList("cash.accept", r);
+     	    
+        } else {
+        	articleList = Collections.EMPTY_LIST;
+        }
+        
+        number = count - (currentPage - 1) * pageSize;
+        /**************************************************************************************************/
+        request.setAttribute("articleList", articleList);
+        request.setAttribute("currentPage", new Integer(currentPage));
+        request.setAttribute("startRow", new Integer(startRow));
+        request.setAttribute("endRow", new Integer(endRow));
+        request.setAttribute("count", new Integer(count));
+        request.setAttribute("pageSize", new Integer(pageSize));
+		request.setAttribute("number", new Integer(number));
+		
+		return "/userbilling/request";
+	}
+	
+	@RequestMapping("/requestPro.do")
+	public String requestPro(HttpServletRequest request){
+		//String chbox = request.getParameter("chbox");
+		String[] chbox = request.getParameterValues("chbox") ;
+		System.out.println("방의 길이" + chbox.length);
+
+		ArrayList<String> arrayList = new ArrayList<>();
+		for(String temp : chbox){
+		  arrayList.add(temp);
+		}		
+		
+		System.out.println("방의 값" + arrayList);
+		
+		
+		for(int i=0; i<chbox.length; i++){
+			HashMap idx = new HashMap<>();
+			idx.put("idx", chbox[i]);
+			 sqlMap.update("cash.approval", idx);
+		}
+		
+		return "/userbilling/requestPro";
 	}
 }

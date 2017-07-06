@@ -1,23 +1,120 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:if test="${check==1}">
+<script>
+alert('정보가 틀립니다.');
+history.go(-1);
+</script>
+</c:if>
 <!-- HEADER TEMPLATE -->
-<jsp:include page="header.jsp" />
+<jsp:include page="header.jsp" /> 
 
 <!-- ARTICLE -->
-
 <!-- 메인 화면 전광판  ------------------------------------------------------------>
-<div class="main_ad row">
+<div class="main_ad">
 	<div class="main_ad_content">
-		<div class="container main_ad_text_wrap">
-			<h1 class="main_ad_title">NEW PC방 관리프로그램 출시!!</h1>
-			<p class="main_ad_title_desc p_strongfont">통합회원관리시스템!</p>
+			<div class="col-xs-10-10 main_ad_contentBox">
+				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10 col_height200 contentBox_outline contentBox_right">
+					<div class="contentBox col_height0" >
+						<div class="login_title">
+							<p>환영합니다. 원활한 이용을 위해 로그인이 필요합니다.</p>
+						</div>
+						<div class="contentBox_img_banner"><a href="loginForm.do"><img src="/buengbueng/img/index/login_banner.png" width="100%;" height="50px;" /></a></div>
+						<div class="contentBox_login_other">
+							<ul>
+								<li class="col-xs-4-12 mb0"><a href="userInfoSignForm.do">회원가입</a></li>
+								<li class="col-xs-4-12 mb0"><a href="userInfoSearchPwForm.do">비밀번호 찾기</a></li>
+								<li class="col-xs-4-12 mb0"><a href="userInfoSearchIdForm.do">아이디 찾기</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
+					<div class="contentBox col_height0">
+						<div class="contentBox_a"><a href="#">포인트 결제</a></div>
+						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
+					</div>
+				</div>
+				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10 col_height200 contentBox_outline">
+					<div class="contentBox col_height0">
+						<div class="contentBox_a"><a href="#">결제내역 조회</a></div>
+						<div><i class="fa fa-credit-card fa-4x" aria-hidden="true"></i></div>
+					</div>
+				</div>
+				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10 col_height200 contentBox_outline">
+					<div class="contentBox col_height0" >
+						<div class="contentBox_a"><a href="#">이용내역 조회</a></div>
+						<div><i class="fa fa-bar-chart fa-4x" aria-hidden="true"></i></div>
+					</div>
+				</div>
+
+				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10 col_height200 contentBox_outline">
+					<div class="contentBox col_height0">
+						<div class="contentBox_a"><a href="franchiseeManagementMain.do">가맹점 관리</a></div>
+						<div><i class="fa fa-pencil-square-o fa-4x" aria-hidden="true"></i></div>
+					</div>
+				</div>
+				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10 col_height200 contentBox_outline">
+					<div class="contentBox col_height0">
+						<div class="contentBox_a"><a href="#"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;공지사항</a></div>
+						<div><hr /></div>
+						<div class="contentBox_board_list">
+							1. 내용입니다.<br />
+							2. 내용입니다.<br />
+							3. 내용입니다?
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10  col_height600 contentBox_outline contentBox_right">
+					<div class="contentBox col_height0">
+						<div class="contentBox_a"><a href="#">이벤트 & 광고</a></div>
+						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
+					</div>
+				</div>					
+
+				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
+					<div class="contentBox col_height0">
+						<div class="contentBox_a"><a href="#">실시간 상담</a></div>
+						<div><i class="fa fa-comments fa-4x" aria-hidden="true"></i></div>
+					</div>
+				</div>	
+				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
+					<div class="contentBox col_height0">
+						<div class="contentBox_a"><a href="#">포인트 결제</a></div>
+						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
+					</div>
+				</div>					
+				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
+					<div class="contentBox col_height0">
+						<div class="contentBox_a"><a href="#">포인트 결제</a></div>
+						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
+					</div>
+				</div>	
+				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10  col_height200 contentBox_outline">
+					<div class="contentBox col_height0">
+						<div class="contentBox_a"><a href="#"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;고객센터</a></div>
+						<div><hr /></div>
+						<div class="contentBox_board_list">
+							1. 내용입니다.<br />
+							2. 내용입니다.<br />
+							3. 내용입니다?
+						</div>
+					</div>
+				</div>	
+				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
+					<div class="contentBox col_height0">
+						<div class="contentBox_a"><a href="#">원격 지원</a></div>
+						<div><i class="fa fa-desktop fa-4x" aria-hidden="true"></i></div>
+					</div>
+				</div>	
+				
+				
 		</div>
+		
 	</div>
-</div>
 <!-- 끝 : 메인화면 전광판 ---------------------------------------------------------->	
-	
-	
+	<%-- 
 <!-- 메인 주요기능 : 카드 섹션? 영역 -------------------------------------------------->
 <div class="main_card_wrap row">
     <div class="main_card_content">
@@ -29,7 +126,7 @@
 	            <h4 class="card_content_title">새로운 점주는 언제나 환영이지!!</h4>
 	            <div class="row">
 <!-- 카드섹션 컨텐츠------------------------------------------------------------ -->
-	                <div class="col-xs-12-12 col-sm-6-12 col-md-4-12">
+	                <div class="co\l-xs-12-12 col-sm-6-12 col-md-4-12">
 	                    <a class="offer__function__section scalable"  href="">
 	                        <div class="card_icon ux-heatmap"></div>
 	                        <h6 class=" minor">UX Heatmap</h6>
@@ -79,9 +176,9 @@
 	                </div>
 	            </div>
 		</div>
-    </div>	
+    </div>
 </div>
 <!-- 메인 주요기능 : 카드 섹션? 영역 --------------------------------------------------->
-
+--%>
 <!-- FOOTER TEMPLATE -->
-<jsp:include page="footer.jsp" />
+<jsp:include page="footer.jsp" /> 

@@ -5,9 +5,26 @@
 <sqlMap namespace="useSeat">
 	<!-- 사용자가 로그인 했을 때 사용자 좌석 이용 로그에 로그인 시간 남김 -->
 	<insert id="useTimeLogin" parameterClass="useTimeDTO">
-		insert into useTimeL values(#id#,#loginTime#,0,#ip#);
+		insert into useTimeLog values(#id#,#grade#,#licenseKey#,#loginTime#,0,#ip#);
 	</insert>
+	<!-- 사용자가 로그아웃 했을 때 사용좌 좌석 이용 로그에 로그아웃 시간 남김 -->
 	<update id="useTimeLogout" parameterClass="java.util.HashMap">
-		update useTimeL set logoutTime = now() where id = #id# and loginTime = #loginTime#;
+		update useTimeLog set logoutTime = now() where id = #id# and loginTime = #loginTime# and licenseKey = #licenseKey#;
 	</update>
+	<!-- 사용자가 로그인 했을 때 해당 사용자의 정보 불러옴 -->
+	<select id="getUseUserId" parameterClass="String" resultClass="java.util.HashMap">
+		select id,ip from useTimeLog where logoutTime = '0000-00-00 00:00:00' and licenseKey = #licenseKey# and grade = 3;
+	</select>
+	<!-- 사용자 가맹점 사용 정보 불러옴 -->
+	<select id="getUseUserInfo" parameterClass="java.util.HashMap" resultClass="useTimeDTO">
+		select * from useTimeLog where licenseKey = #licenseKey# and id = #id# and loginTime = #loginTime#;
+	</select>
+	<!-- 사용자 로그인 시간 불러옴(AM/PM) -->
+	<select id="getUserStartTime" parameterClass="String" resultClass="String">
+		select date_format(loginTime,"%Y-%c-%d %r") loginTime from useTimeLog where id = #id# and logoutTime = '0000-00-00 00:00:00';
+	</select>
+	<!-- 사용자 로그인 시간 불러옴 2 -->
+		<select id="getUserStartTime2" parameterClass="String" resultClass="String">
+		select loginTime loginTime from useTimeLog where id = #id# and logoutTime = '0000-00-00 00:00:00';
+	</select>
 </sqlMap>

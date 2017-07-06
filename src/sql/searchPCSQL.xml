@@ -2,5 +2,24 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 
 <sqlMap namespace="searchPC">
-
+	<!-- 주소로 PC방 정보 가져오기 -->
+	<select id="searchPCRoom" parameterClass="String" resultClass="bossDTO">
+		select * from franchiseeInfo where b_address like '%$addr$%';
+	</select>
+	<!-- 해당 가맹점이 사용자의 즐겨찾는 PC방에 있는지 확인 -->
+	<select id="searchFavoritePCRoom" parameterClass="favoriteDTO" resultClass="String">
+		select b_name from favoritePCRoom where id = #id# and b_key = #b_key#;
+	</select>
+	<!-- 사용자의 즐겨찾는 PC방 추가 -->
+	<insert id="addFavoritePCRoom" parameterClass="favoriteDTO">
+		insert into favoritePCRoom values(#id#,#b_key#,#b_name#);
+	</insert>
+	<!-- 사용자의 즐겨찾는 PC방 삭제 -->
+	<delete id="deleteFavoritePCRoom" parameterClass="favoriteDTO">
+		delete from favoritePCRoom where id = #id# and b_key = #b_key#;
+	</delete>
+	<!-- 사용자의 모든 즐겨찾는 PC방 가져오기 -->
+	<select id="getFavoritePCRoom" parameterClass="String" resultClass="bossDTO">
+		select * from franchiseeInfo where b_key = (select b_key from favoritePCRoom where id = #id#);
+	</select>
 </sqlMap>

@@ -8,7 +8,11 @@
 				
 					<div class="row md_hidden">
 						<div class="col-xs-12-12">피시방이름</div>
-						<div class="col-xs-12-12"><a href="franchiseeInfoUpdate.do?b_name=${dto.b_name}" >${dto.b_name}</a></div>
+						<div class="col-xs-12-12">
+							<a href="franchiseeInfoUpdate.do?b_name=${dto.b_name}" >${dto.b_name}
+							<input type="hidden" name="b_key" value="${dto.b_key}" />
+							</a>
+						</div>
 						<div class="col-xs-12-12">사업자번호</div>
 						<div class="col-xs-12-12">${dto.b_number}</div>
 						<div class="col-xs-12-12">주소</div>

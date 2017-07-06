@@ -48,7 +48,7 @@
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 						<label>삭제 신청 사유</label>
 						<div>
-							<textarea name="reason" cols="140" rows="5" ></textarea>
+							<textarea name="reason" class="col-xs-12-12 col-sm-12-12 col-md-12-12" rows="5"></textarea>
 						</div>
 					</div>
 				</div>

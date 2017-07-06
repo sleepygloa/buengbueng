@@ -4,8 +4,8 @@
 
 /* 바디 영역  */
 
-.main_wrap{height:100%;}
-.main_wrap .main{top:60px;position:relative; height:100%;}
+.main_wrap{height:100%; border:3px red solid;}
+.main_wrap .main{top:60px;position:relative; height:100%; border:3px green solid; float:left;}
 
 /* 사이드메뉴 */
 .main_wrap .main .sidemenu{float:left;height:100%; min-width:150px; width:15%; overflow:hidden;}
@@ -19,8 +19,8 @@
 }
 
 /* 메인 컨텐츠 */	
-.main_wrap .main .content{float:left; background-color:#fcfcfc;  margin-right:0; margin-left:0; width:100%;}
-.main_wrap .main .side_content{float:left; background-color:#fcfcfc; margin-right:0; margin-left:0; width:85%;}
+.main_wrap .main .content{float:left; background-color:#fff;  margin-right:0; margin-left:0; width:100%;}
+.main_wrap .main .side_content{float:left; background-color:#ffff; margin-right:0; margin-left:0; width:85%;}
 .main_wrap .main .side_content .margin_bottom50{margin-bottom:50px;}
 
 /* 메인 컨텐츠 반응형*/

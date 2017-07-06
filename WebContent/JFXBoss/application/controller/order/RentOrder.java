@@ -1,0 +1,50 @@
+package application.controller.order;
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
+import application.controller.module.BossPcManageController;
+import javafx.application.Platform;
+
+public class RentOrder implements Runnable{
+	private static RentOrder instance;
+	private static Thread rent;
+	
+	public static Thread getRent(){
+		instance = new RentOrder();
+		rent = new Thread(instance);
+		// true일 때 반복 실행
+		return rent;
+	}
+	
+	@Override
+	public void run() {
+		try{
+			// 상대방이 연결할수 있도록 UDP 소켓 생성
+			DatagramSocket socket = new DatagramSocket(7777);
+			// 전송받은 데이터를 지정할 바이트 배열선언
+			byte [] date = new byte[66536];
+   
+			// UDP 통신으로 전송을 받을 packet 객체생성
+			DatagramPacket dp = new DatagramPacket(date, date.length);
+			while(!socket.isClosed()){
+				System.out.println("데이터 수신 준비 완료....");
+				socket.receive(dp);
+				byte[] data = dp.getData();
+                String txt = URLDecoder.decode(new String(data, 0, dp.getLength()),"UTF-8");
+                Platform.runLater(() -> {
+                	rent(txt);
+                });
+                Thread.sleep(1000);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	private void rent(String txt){
+		BossPcManageController.addRentOrder(txt);
+	}
+}

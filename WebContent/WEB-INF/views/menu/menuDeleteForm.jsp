@@ -3,12 +3,15 @@
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
-	
+	<script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
 </head>
 
 <body>
+
+<!-- HEADER TEMPLATE -->
+	<jsp:include page="/WEB-INF/views/header.jsp" />
 <div>
-<form action="menuDeletePro.do" method="post">
+<form action="menuDeletePro.do" method="post" onsubmit="return menuDelete()">
 <table>
 	<tr>
 	<td>카테고리</td> <td>메뉴명</td> <td>회사명</td> <td>가격</td>
@@ -22,10 +25,11 @@
 	<td><button type="submit" name="name" value="${menu.name}">삭제</button>
 	</tr>
 	</c:forEach>
+	<input type="hidden" name="l_key" value="${l_key}" />
 </table>
 </form>
 </div>
 <div>
-	<button onclick="window.location='menu.do'">메뉴로 돌아가기</button>
+	<button onclick="window.location='menu.do?l_key=${l_key}'">메뉴로 돌아가기</button>
 </div>
 </body>
