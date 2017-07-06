@@ -102,6 +102,7 @@ public class LoginController {
 					UserInfo.getInstance().setLoginTime((String)jsonObj.get("loginTime"));
 					UserInfo.getInstance().setBossIP((String)jsonObj.get("bossIP"));
 					UserInfo.getInstance().setPcNum((String)jsonObj.get("pcNum"));
+					UserInfo.getInstance().setHistoryNum((Integer.parseInt((String)jsonObj.get("historyNum"))));
 					UserInfo.getInstance().setMoneyPolicy((double)jsonObj.get("moneyPolicy"));
 					Parent main =  FXMLLoader.load(getClass().getResource("/application/controller/login/MainApp.fxml"));
 					// 메인화면 레이아웃을 화면에 등록

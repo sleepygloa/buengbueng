@@ -70,6 +70,7 @@ public class BossPcManageController {
 			RentDTO.getInstance().setRentOrderNum(0);
 			RentDTO.getInstance().setReturnOrderNum(0);
 			PCCheckDTO.getInstance().setCurrentCount(0);
+			PCCheckDTO.getInstance().setUseCount(0);
 			PCCheckDTO.getInstance().setPcAllCount(0);
 			pcUserInfoView = userInfoView;
 			pcRentTable = rentTable;
@@ -117,6 +118,7 @@ public class BossPcManageController {
 					pcUseCheck.getStyleClass().add("notUse");
 				}else{
 					l++;
+					PCCheckDTO.getInstance().setUseCount(PCCheckDTO.getInstance().getUseCount()+1);
 					for(int sc = 0; sc < jsonSeatNum.size(); sc++){
 						int num = Integer.parseInt((String)jsonSeatNum.get(sc));
 						if(num == c){
@@ -137,10 +139,13 @@ public class BossPcManageController {
 									}
 								}
 							});
+							break;
+						}else{
+							PCCheckDTO.getInstance().setCurrentCount(PCCheckDTO.getInstance().getCurrentCount()+1);
 						}
 					}
 					pcUseCheck.getStyleClass().add("use");
-					PCCheckDTO.getInstance().setCurrentCount(PCCheckDTO.getInstance().getCurrentCount()+1);
+					PCCheckDTO.getInstance().setCurrentCount(0);
 				}
 				pcList.add(pcUseCheck);
 				gridPane.add(pcUseCheck, i, j);
@@ -152,7 +157,7 @@ public class BossPcManageController {
 				}
 			}
 			PCCheckDTO.getInstance().setPcAllCount(Integer.parseInt((String)jsonObj.get("count")));
-			String check = PCCheckDTO.getInstance().getCurrentCount()+"/"+PCCheckDTO.getInstance().getPcAllCount();
+			String check = PCCheckDTO.getInstance().getUseCount()+"/"+PCCheckDTO.getInstance().getPcAllCount();
 			pcCheck.setText(check);
 			pcUseView.getChildren().add(gridPane);
 			
@@ -272,8 +277,8 @@ public class BossPcManageController {
 		userId.setTextFill(Color.WHITE);
 		userId.setTranslateX(30); userId.setTranslateY(10);
 		pcList.get(Integer.parseInt(txt[1])-1).getChildren().add(userId);
-		PCCheckDTO.getInstance().setCurrentCount(PCCheckDTO.getInstance().getCurrentCount()+1);
-		String check = PCCheckDTO.getInstance().getCurrentCount()+"/"+PCCheckDTO.getInstance().getPcAllCount();
+		PCCheckDTO.getInstance().setUseCount(PCCheckDTO.getInstance().getUseCount()+1);
+		String check = PCCheckDTO.getInstance().getUseCount()+"/"+PCCheckDTO.getInstance().getPcAllCount();
 		pcCount.setText(check);
 		
 		pcList.get(Integer.parseInt(txt[1])-1).setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -296,8 +301,8 @@ public class BossPcManageController {
 		pcList.get(Integer.parseInt(txt[1])-1).getStyleClass().add("notUse");
 		pcList.get(Integer.parseInt(txt[1])-1).getChildren().remove(1);
 		pcList.get(Integer.parseInt(txt[1])-1).setOnMouseClicked(null);
-		PCCheckDTO.getInstance().setCurrentCount(PCCheckDTO.getInstance().getCurrentCount()-1);
-		String check = PCCheckDTO.getInstance().getCurrentCount()+"/"+PCCheckDTO.getInstance().getPcAllCount();
+		PCCheckDTO.getInstance().setUseCount(PCCheckDTO.getInstance().getUseCount()-1);
+		String check = PCCheckDTO.getInstance().getUseCount()+"/"+PCCheckDTO.getInstance().getPcAllCount();
 		pcCount.setText(check);
 	}
 	

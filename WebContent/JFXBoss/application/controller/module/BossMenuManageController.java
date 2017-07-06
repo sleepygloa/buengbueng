@@ -290,7 +290,7 @@ public class BossMenuManageController {
 					String mName = null;
 					String mCompany = null;
 					String mPrice = null;
-					int selectedIndex = tv.getSelectionModel().getSelectedIndex();
+					int selectedIndex = tv.getFocusModel().getFocusedIndex();
 					if (selectedIndex >= 0) {
 						mName = tv.getItems().get(selectedIndex).getName();
 						mCompany = tv.getItems().get(selectedIndex).getCompany();
@@ -323,7 +323,7 @@ public class BossMenuManageController {
 					JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 					String result = (String)jsonObj.get("result");
 					if(result.equals("succ")){
-						int selectedIndex = tv.getSelectionModel().getSelectedIndex();
+						int selectedIndex = tv.getFocusModel().getFocusedIndex();
 					    if (selectedIndex >= 0) {
 					    	tv.getItems().remove(selectedIndex);
 					    }
@@ -431,7 +431,7 @@ public class BossMenuManageController {
 				try{
 					String pCode = null;
 					String pLast = null;
-					int selectedIndex = tv.getSelectionModel().getSelectedIndex();
+					int selectedIndex = tv.getFocusModel().getFocusedIndex();
 					if (selectedIndex >= 0) {
 						pCode = tv.getItems().get(selectedIndex).getCode();
 						pLast = tv.getItems().get(selectedIndex).getLastDay();
@@ -462,7 +462,7 @@ public class BossMenuManageController {
 					JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 					String result = (String)jsonObj.get("result");
 					if(result.equals("succ")){
-						int selectedIndex = tv.getSelectionModel().getSelectedIndex();
+						int selectedIndex = tv.getFocusModel().getFocusedIndex();
 					    if (selectedIndex >= 0) {
 					    	tv.getItems().remove(selectedIndex);
 					    }

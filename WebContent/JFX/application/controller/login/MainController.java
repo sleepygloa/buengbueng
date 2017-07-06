@@ -33,7 +33,6 @@ public class MainController {
 	@FXML private Text point;
 	@FXML private Label pcNum;
 	@FXML private Text useTime;
-	@FXML private Text alert;
 	private static Text point2;
 	private static Text useTime2;
 	private static Stage rentStage;
@@ -71,32 +70,39 @@ public class MainController {
 	
 	// 메뉴 주문 -> 포인트 차감 -> 사용 가능 시간 깎임
 	public void menuOrder(){	
-		WebView menuWeb = new WebView();
-		WebEngine webEngine = menuWeb.getEngine();
-		webEngine.load("http://localhost:8080/buengbueng/userOrderForm.do?id="+UserInfo.getInstance().getId()+"&name="+UserInfo.getInstance().getFranchiseeName());
-		webEngine.setJavaScriptEnabled(true);
-		Scene scene = new Scene(menuWeb);
-		if(menuStage == null){
-			menuStage = new Stage();
-		}
-		menuStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent event) {
-				try{
-					String param="id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+
-							"&point="+UserInfo.getInstance().getPoint();
-					String urlInfo ="http://localhost:8080/buengbueng/fxGetUserPoint.do";
-					JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
-					if((double)jsonObj.get("point") != UserInfo.getInstance().getStartPoint()){
-						UserInfo.getInstance().setPoint((double)jsonObj.get("point"));
-					}
-				}catch(Exception e){
-					e.printStackTrace();
-				}
+		try{
+			WebView menuWeb = new WebView();
+			WebEngine webEngine = menuWeb.getEngine();
+			webEngine.load("http://localhost:8080/buengbueng/userOrderForm.do?id="+UserInfo.getInstance().getId()+"&name="+UserInfo.getInstance().getFranchiseeName());
+			webEngine.setJavaScriptEnabled(true);
+			Scene scene = new Scene(menuWeb);
+			if(menuStage == null){
+				menuStage = new Stage();
 			}
-		});
-		menuStage.setScene(scene);
-		menuStage.show();
+			// 메뉴 주문으로 캐쉬 빠져나간 시점 -> 현재까지 사용한 금액도 빼기
+			menuStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent event) {
+					try{
+						String param="id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+
+								"&point="+UserInfo.getInstance().getPoint()+"&startPoint="+UserInfo.getInstance().getStartPoint()+
+								"&historyNum="+UserInfo.getInstance().getHistoryNum();
+						String urlInfo ="http://localhost:8080/buengbueng/fxGetUserPoint.do";
+						JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+						if((double)jsonObj.get("point") != UserInfo.getInstance().getStartPoint()){
+							UserInfo.getInstance().setPoint((double)jsonObj.get("point"));
+							UserInfo.getInstance().setStartPoint((double)jsonObj.get("point"));
+						}
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}
+			});
+			menuStage.setScene(scene);
+			menuStage.show();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	// 대여
@@ -129,7 +135,7 @@ public class MainController {
 			// 사용자 로그아웃 시간 로그에 남기기
 			String param="id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&loginTime="+URLEncoder.encode(UserInfo.getInstance().getLoginTime(),"UTF-8")+
 					"&pcNum="+URLEncoder.encode(UserInfo.getInstance().getPcNum(),"UTF-8")+"&key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
-					"&useAmount="+useAmount;
+					"&useAmount="+useAmount+"&idx="+UserInfo.getInstance().getHistoryNum();
 			String urlInfo ="http://localhost:8080/buengbueng/fxLogoutPro.do";
 			JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 			
@@ -163,9 +169,38 @@ public class MainController {
 	// 충전
 	public void cash(){
 		try{
+			try{
+				String param="id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+
+						"&point="+UserInfo.getInstance().getPoint()+"&startPoint="+UserInfo.getInstance().getStartPoint()+
+						"&historyNum="+UserInfo.getInstance().getHistoryNum();
+				String urlInfo ="http://localhost:8080/buengbueng/fxGetUserPoint.do";
+				JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+				if((double)jsonObj.get("point") != UserInfo.getInstance().getStartPoint()){
+					UserInfo.getInstance().setPoint((double)jsonObj.get("point"));
+					UserInfo.getInstance().setStartPoint((double)jsonObj.get("point"));
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 			Desktop.getDesktop().browse(new URI("http://localhost:8080/buengbueng/cash.do"));
 		}catch(Exception e){
 			
+		}
+	}
+	
+	public void refresh(){
+		try{
+			String param="id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+
+					"&point="+UserInfo.getInstance().getPoint()+"&startPoint="+UserInfo.getInstance().getStartPoint()+
+					"&historyNum="+UserInfo.getInstance().getHistoryNum();
+			String urlInfo ="http://localhost:8080/buengbueng/fxGetUserPoint.do";
+			JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+			if((double)jsonObj.get("point") != UserInfo.getInstance().getStartPoint()){
+				UserInfo.getInstance().setPoint((double)jsonObj.get("point"));
+				UserInfo.getInstance().setStartPoint((double)jsonObj.get("point"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	

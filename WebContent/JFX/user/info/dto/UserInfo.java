@@ -7,10 +7,11 @@ public class UserInfo {
 	private double point; // 사용자 잔액
 	private int grade; // 사용자 등급
 	private String loginTime; // 사용자 로그인 시간
-	private String b_key = "b7fd755f";
+	private String b_key;
 	private String bossIP;
 	private String franchiseeName;
 	private double moneyPolicy;
+	private int historyNum;
 
 	private static UserInfo instance = new UserInfo();
 
@@ -24,6 +25,7 @@ public class UserInfo {
 		bossIP = null;
 		franchiseeName = null;
 		moneyPolicy = 0;
+		historyNum = 0;
 	}
 	public static UserInfo getInstance(){
 		return instance;
@@ -39,6 +41,7 @@ public class UserInfo {
 		bossIP = null;
 		franchiseeName = null;
 		moneyPolicy = 0;
+		historyNum = 0;
 	}
 	
 	public String getId() {
@@ -100,6 +103,12 @@ public class UserInfo {
 	}
 	public void setMoneyPolicy(double moneyPolicy) {
 		this.moneyPolicy = moneyPolicy;
+	}
+	public int getHistoryNum() {
+		return historyNum;
+	}
+	public void setHistoryNum(int historyNum) {
+		this.historyNum = historyNum;
 	}
 	
 }

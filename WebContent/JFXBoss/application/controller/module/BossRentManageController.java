@@ -74,16 +74,14 @@ public class BossRentManageController {
 							try{
 								String afterCode = null;
 								String rentCheck = null;
-								String beginRegist = null;
-								int selectedIndex = tv.getSelectionModel().getSelectedIndex();
+								int selectedIndex = tv.getFocusModel().getFocusedIndex();
 								if (selectedIndex >= 0) {
 									afterCode = tv.getItems().get(selectedIndex).getCode();
 									rentCheck = tv.getItems().get(selectedIndex).getRentCheck();
-									beginRegist = tv.getItems().get(selectedIndex).getBeginRegist();
 							    }
 								String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
 										"&beforeCode="+URLEncoder.encode(rentCode,"UTF-8")+"&afterCode="+URLEncoder.encode(afterCode,"UTF-8")+
-										"&rentCheck="+URLEncoder.encode(rentCheck,"UTF-8")+"&beginRegist="+URLEncoder.encode(beginRegist,"UTF-8");
+										"&rentCheck="+URLEncoder.encode(rentCheck,"UTF-8");
 								String urlInfo = "http://localhost:8080/buengbueng/fxModifyRentProduct.do";
 								JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 								String result = (String)jsonObj.get("result");
@@ -103,7 +101,7 @@ public class BossRentManageController {
 								JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 								String result = (String)jsonObj.get("result");
 								if(result.equals("succ")){
-									int selectedIndex = tv.getSelectionModel().getSelectedIndex();
+									int selectedIndex = tv.getFocusModel().getFocusedIndex();
 								    if (selectedIndex >= 0) {
 								    	tv.getItems().remove(selectedIndex);
 								    }
@@ -163,15 +161,6 @@ public class BossRentManageController {
 		
 		TableColumn<RentProductList,String> beginRegist = new TableColumn<RentProductList,String>("등록일");
 		beginRegist.setCellValueFactory(new PropertyValueFactory<RentProductList,String>("beginRegist"));
-		beginRegist.setCellFactory(cellFactory);
-		beginRegist.setOnEditCommit(
-	            new EventHandler<CellEditEvent<RentProductList, String>>() {
-	                @Override
-	                public void handle(CellEditEvent<RentProductList, String> t) {
-	                    ((RentProductList) t.getTableView().getItems().get(t.getTablePosition().getRow())).setBeginRegist(t.getNewValue());
-	                }
-	            }
-	    );
 		
 		TableColumn<RentProductList,Button> modi = new TableColumn<RentProductList,Button>("수정");
 		modi.setCellValueFactory(new PropertyValueFactory<RentProductList,Button>("modi"));	
@@ -252,16 +241,14 @@ public class BossRentManageController {
 							try{
 								String afterCode = null;
 								String rentCheck = null;
-								String beginRegist = null;
-								int selectedIndex = tv.getSelectionModel().getSelectedIndex();
+								int selectedIndex = tv.getFocusModel().getFocusedIndex();
 								if (selectedIndex >= 0) {
 									afterCode = tv.getItems().get(selectedIndex).getCode();
 									rentCheck = tv.getItems().get(selectedIndex).getRentCheck();
-									beginRegist = tv.getItems().get(selectedIndex).getBeginRegist();
 							    }
 								String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
 										"&beforeCode="+URLEncoder.encode(rentCode,"UTF-8")+"&afterCode="+URLEncoder.encode(afterCode,"UTF-8")+
-										"&rentCheck="+URLEncoder.encode(rentCheck,"UTF-8")+"&beginRegist="+URLEncoder.encode(beginRegist,"UTF-8");
+										"&rentCheck="+URLEncoder.encode(rentCheck,"UTF-8");
 								String urlInfo = "http://localhost:8080/buengbueng/fxModifyRentProduct.do";
 								JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 								String result = (String)jsonObj.get("result");
@@ -281,7 +268,7 @@ public class BossRentManageController {
 								JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 								String result = (String)jsonObj.get("result");
 								if(result.equals("succ")){
-									int selectedIndex = tv.getSelectionModel().getSelectedIndex();
+									int selectedIndex = tv.getFocusModel().getFocusedIndex();
 								    if (selectedIndex >= 0) {
 								    	tv.getItems().remove(selectedIndex);
 								    }
