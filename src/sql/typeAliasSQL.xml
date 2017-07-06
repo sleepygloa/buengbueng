@@ -18,7 +18,7 @@
     <typeAlias alias="workTimeLIstDto" type="erp.boss.bean.EmployeeWorkTimeListDTO" />
     <typeAlias alias="usageHistoryDTO" type="payment.all.bean.UsageHistory"/>
     <typeAlias alias="DailySettlementDTO" type="payment.all.bean.DailySettlementDTO"/>
-
+	<typeAlias alias="sellbuylogDto" type="menu.all.bean.SellBuyLogDTO"/>
 
 	<typeAlias alias="seatInfo" type="manage.boss.bean.SeatStateDataDTO"/>
 	<typeAlias alias="pcInfoDto" type="pc.materials.bean.PcInfoDataDTO"/>
@@ -43,6 +43,7 @@
 	<typeAlias alias="fxEmployeeInfoDTO" type="fx.user.bean.FxEmployeeInfoDTO"/>
 	<typeAlias alias="fxEWTLDTO" type="fx.user.bean.FxEmployeeWorkTimeListDTO"/>
 	<typeAlias alias="fxEPLDTO" type="fx.user.bean.FxEmployeePayListDTO"/>
+	<typeAlias alias="totalmenupriceDto" type="menu.all.bean.TotalMenuPriceDTO"/>
 	
 	
 </sqlMap>

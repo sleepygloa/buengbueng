@@ -104,7 +104,7 @@ public class ProductBean {
 	
 	
 	@RequestMapping("productModifyForm.do")
-	public String productModifyForm(HttpServletRequest request,String code, String l_key){
+	public String productModifyForm(HttpServletRequest request,String name,String code, String l_key){
 		try{
 
 			//사이드메뉴 템플릿
@@ -114,11 +114,13 @@ public class ProductBean {
 			request.setAttribute("sidemenu", sidemenu);
 			
 			HashMap map = new HashMap();
+			map.put("name", name);
 			map.put("code",code);
 			map.put("l_key", l_key);
 			ProductDTO pdto=(ProductDTO)sqlMap.queryForObject("menu.getProductName",map);
 			request.setAttribute("pdto",pdto);
 			List nameList = sqlMap.queryForList("menu.productName",pdto.getL_key());
+			request.setAttribute("pdto",pdto);
 			request.setAttribute("nameList",nameList);
 			request.setAttribute("l_key",l_key);
 		}catch(Exception e){e.printStackTrace();}

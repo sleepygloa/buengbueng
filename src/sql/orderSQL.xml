@@ -82,7 +82,7 @@
 	
 	<!-- 사용자가 주문한 내역을 사장이 열어 볼 리스트. 주문현황리스트 -->
 	<select id="getMenuOrder" parameterClass="String" resultClass="orderDto">
-		select * from (select * from menuOrder where l_key=#l_key# order by orderstatus asc) menuOrder order by ordertime desc;
+		select * from (select * from menuOrder where l_key=#l_key# order by orderstatus asc) menuOrder order by ordertime asc;
 	</select>
 	
 	<!-- 마지막 주문 시간 가져오기 -->
@@ -141,9 +141,9 @@
 		update menuOrder set orderstatus=5 where num=#num# and menuname=#menuname# and id=#id# and l_key=#l_key#;
 	</update>
 	
-	<!-- 사용자가 환불을 요청했을 때 승인하면서 sellBuyLog의 판매시간 0000-00-00으로 초기화 -->
+	<!-- 사용자가 환불을 요청했을 때 승인하면서 sellBuyLog의 판매시간 0000-00-00으로 초기화, customer 과 price도  -->
 	<update id="refundResetproductsaleregistdate" parameterClass="orderDto">
-		update sellBuyLog set productsaleregistdate='0000-00-00' where customer=#id# and code=#code# and l_key=#l_key# and name=#menuname#;
+		update sellBuyLog set productsaleregistdate='0000-00-00',customer='',price=0 where customer=#id# and code=#code# and l_key=#l_key# and name=#menuname#;
 	</update>
 
 	<!-- 사용자가 환불한 상품재고를 다시 판매전인 1로 돌려놓는다 -->
@@ -155,5 +155,59 @@
 	<update id="notRefundStatus" parameterClass="orderDto">
 		update menuOrder set orderstatus=6 where num=#num# and code=#code# name=#menuname# and l_key=#l_key#;
 	</update>
+	
+	<!-- 취소때 가맹점 이름넘기기위함 -->
+	<select id="getfranchiseeName" parameterClass="String" resultClass="String">
+		select b_name from franchiseeInfo where b_key=#l_key#;
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	<!-- 정산처리에서 사용. 메뉴 수량과 총합계 구함 -->
+	
+	
+	
+	<!-- sellBuyLog 에 판매가 되어 결제되어 있는게 있는지 확인 -->
+<select id="sellBuyLogCheck" parameterClass="String" resultClass="int">
+	<![CDATA[
+	select count(*) from sellBuyLog where price>0 and l_key=#l_key# and productsaleregistdate!='0000-00-00';
+	]]>
+</select>
+
+<!-- 처음 TotalMenuPrice에 저장 -->
+<insert id="firstTMPinsert" parameterClass="java.util.HashMap">
+	insert into TotalMenuPrice values(#menuname#,#menuprice#,1,now(),#menuprice#,#l_key#);
+</insert>
+
+<!-- TotalMenuPrice에 그날 주문 메뉴가 들어와있는지 확인 (ex.물 주문이 들어와있는데 또 들어오면 수량 늘려주려고 찾는거 -->
+<select id="tmpMenuCheck" parameterClass="java.util.HashMap" resultClass="totalmenupriceDto">
+	select * from TotalMenuPrice where menuname=#menuname# and saledate=#saledate# and l_key=#l_key#;
+</select>
+
+<!-- 수량 늘려주고 총액 늘려주는 sql -->
+<update id="updateTotalmenuCount" parameterClass="java.util.HashMap">
+	update TotalMenuPrice set menucount=#menucount#,totalprice=#totalprice# where menuname=#menuname# and saledate=#saledate# and l_key=#l_key#;
+</update>
+
+<!-- 환불. menuOrder내용으로 sellbuylog값 꺼내오기 -->
+<select id="getSellBuyLog" parameterClass="java.util.HashMap" resultClass="menu.all.bean.SellBuyLogDTO">
+	select * from sellBuyLog where customer=#id# and code=#code# and name=#menuname# and l_key=#l_key#;
+</select>
+
+<!-- 환불. 수량이 1였던 것은 아예삭제한다. -->
+<delete id="deleteTotalMenu" >
+	delete from TotalMenuPrice where menuname=#menuname# and saledate=#saledate# and l_key=#l_key#;
+</delete>
+
+<!-- 환불. 수량이 1이 아니였던 것은 수정한다. -->
+<update id="updateTotalMenu" parameterClass="java.util.HashMap" >
+	update TotalMenuPrice set menucount=#menucount# , totalprice=#totalprice# where menuname=#menuname# and l_key=#l_key# and saledate=#saledate#;
+</update>	
+	
+	
 
 </sqlMap>

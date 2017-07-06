@@ -206,7 +206,10 @@ public class MenuBean {
 	public String menuDeletePro(HttpServletRequest request, String l_key){
 		String name=request.getParameter("name");
 		try{
-			sqlMap.delete("menu.deleteMenu",name);
+			HashMap map=new HashMap();
+			map.put("name", name);
+			map.put("l_key", l_key);
+			sqlMap.delete("menu.deleteMenu",map);
 			request.setAttribute("l_key",l_key);
 		}catch(Exception e){e.printStackTrace();}
 		return "/menu/menuDeletePro";

@@ -20,7 +20,7 @@
 		<td>${product.lastday}
 		<td>${product.salecheck}
 		<td>${product.beginregist}
-		<td><button onclick="window.location='productModifyForm.do?code=${product.code}&l_key=${l_key}'">수 정</button></td>
+		<td><button onclick="window.location='productModifyForm.do?name=${product.name}&code=${product.code}&l_key=${l_key}'">수 정</button></td>
 		</tr>
 	</form>
 	</c:forEach>

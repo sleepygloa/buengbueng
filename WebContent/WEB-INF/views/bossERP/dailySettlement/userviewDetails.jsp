@@ -13,16 +13,17 @@
 				<h3>상품주문내역 상세리스트</h3>
 			</div>
 			<div class="menu_container">
-					<c:forEach var="sl" items="${FranchiseeStatusList}">
-						<div class="menu_container_piece">
-							<div class="menu_container_piece2"><p>${sl.menuname} x ${sl.menucount}개</p></div>
-							<div class="menu_container_piece2"><p>${sl.totalprice}원</p></div>
-						</div>
-					</c:forEach>
+			<c:forEach var="name" items="${menunameList}" varStatus="stat">
+					<div class="menu_container_piece">
+					<div class="menu_container_piece2"><p>${name} X ${countList[stat.index]}</p></div>
+					<div class="menu_container_piece2"><p>${totalpriceList[stat.index]}원</p></div>
+					</div>
+			</c:forEach>
+			
 					
 						<div class="menu_container_piece">
 							<div class="menu_container_piece2"><p>총 합계</p></div>
-							<div class="menu_container_piece2"><p>${TotalMoney}원</p></div>
+							<div class="menu_container_piece2"><p>${total}원</p></div>
 						</div>
 				
 					

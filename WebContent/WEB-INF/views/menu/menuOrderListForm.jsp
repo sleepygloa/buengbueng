@@ -37,8 +37,8 @@
     			<c:if test="${ol.orderstatus==3}"><td>주문취소</td></c:if>
     			<c:if test="${ol.orderstatus==4}"><td>환불 요청 중</td>
     			<td>
-    			<button onclick="window.location='menuOrderRefund.do?odto=${ol}&l_key=${l_key}'">환불 승인</button>
-    			<button onclick="window.location='menuOrderNotRefund.do?odto=${ol}&l_key=${l_key}'">환불 거절</button>
+    			<button onclick="window.location='menuOrderRefund.do?num=${ol.num}&menuname=${ol.menuname}&code=${ol.code}&id=${ol.id}&l_key=${ol.l_key}&orderstatus=${ol.orderstatus}&ordermoney=${ol.ordermoney}'">환불 승인</button>
+    			<button onclick="window.location='menuOrderNotRefund.do?num=${ol.num}&menuname=${ol.menuname}&code=${ol.code}&id=${ol.id}&l_key=${ol.l_key}&orderstatus=${ol.orderstatus}&ordermoney=${ol.ordermoney}'">환불 거절</button>
     			</td></c:if>
     			<c:if test="${ol.orderstatus==5}"><td>환불 승인</td></c:if>
     			<c:if test="${ol.orderstatus==6}"><td>환불 거절</td></c:if>

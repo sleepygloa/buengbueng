@@ -424,16 +424,45 @@
 	
 	<!-- 상품주문  상세리스트========================================================== -->
 
-	<select id="menuOrderCount" resultClass="int">
+	<select id="menuOrderCount" parameterClass="java.util.HashMap" resultClass="totalmenupriceDto">
 	<![CDATA[
-		select count(*) from sellBuyLog where productsaleregistdate>=#startDate# and productsaleregistdate<=#endDate# and l_key=#b_key#;
+		select * from TotalMenuPrice where saledate=#yesterday# and l_key=#b_key#;
 	]]>
+	</select>
+
+	<select id="sellBuyLogIdMatch" parameterClass="java.util.HashMap" resultClass="sellbuylogDto">
+		<![CDATA[
+		select * from sellBuyLog where customer=#id# and productsaleregistdate>=#startTime# and productsaleregistdate<=#endTime# and l_key=#l_key#;
+		]]>
+	</select>
+
+	<select id="getMenuname" parameterClass="java.util.HashMap" resultClass="String">
+		<![CDATA[
+		select distinct name from sellBuyLog where customer=#id# and productsaleregistdate>=#startTime# and productsaleregistdate<=#endTime# and l_key=#l_key#;
+		]]>
+	</select>
+	
+	<select id="getCountMenu" parameterClass="java.util.HashMap" resultClass="int">
+	<![CDATA[
+		select count(*) from sellBuyLog where customer=#id# and l_key=#l_key# and productsaleregistdate>=#startTime# and productsaleregistdate<=#endTime# and name=#name#;
+		]]>
+	</select>
+	
+	<select id="getPriceMenu" parameterClass="java.util.HashMap" resultClass="int">
+	<![CDATA[
+		select distinct price from sellBuyLog where l_key=#l_key# and name=#name# and productsaleregistdate>=#startTime# and productsaleregistdate<=#endTime# and customer=#id#;
+		]]>
 	</select>
 
 	 <!-- 가맹 pc사용 현황========================================================== -->
 	 <!-- 가맹점 PC사용현황 카운트 -->
 	<select id="useStatusCount" resultClass="int">
 		SELECT count(*) FROM usageHistory where affiliateCode = #b_key#;
+	</select>
+	
+	<!-- 메뉴상품 판매 수량과 총정산된 가격 보여주는 테이블 -->
+	<select id="userStatusList2" parameterClass="java.util.HashMap" remapResults="true">
+	
 	</select>
 	
 	<select id="useStatusList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">

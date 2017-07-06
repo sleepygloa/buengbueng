@@ -56,6 +56,8 @@ public class UserInfoBean {
 				session.setAttribute("grade", dto.getGrade());
 				session.setAttribute("webLogin", 1);
 				check=0;
+
+
 				//////////////////////////////////
 				//접속장소의 IP를 검색하고,로그인 LOG 를 남긴다.
 				FindIpBean fib = new FindIpBean();
