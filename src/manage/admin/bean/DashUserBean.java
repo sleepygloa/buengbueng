@@ -84,7 +84,7 @@ public class DashUserBean extends BoardMethodBean{
 		Alarm(request);// 알람 메서드
 		String id = request.getParameter("id");
 		UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id); // 회원정보 호출
-		sqlMap.insert("admin.userDeleteLog", dto); // 탈퇴시 로그
+		sqlMap.insert("test.userDeleteLog", dto); // 탈퇴시 로그
 		sqlMap.delete("test.deleteUserInfo", id); // 회원 삭제
 		return "/dash-userInfo/dashDelete";
 	}
@@ -161,4 +161,26 @@ public class DashUserBean extends BoardMethodBean{
 		request.setAttribute("endPage", endPage);
 		return "/dash-userInfo/dashUserSearch";
 	}
+	// 회원 정보 & 가맹 정보 복구 페이지
+	@RequestMapping("dashReverse.do")
+	public String dashUserReverse(HttpServletRequest request){
+		Alarm(request);
+		return "/dash-reverse/dashReverse";
+	}
+	// 회원 아이디 입력시 기본 정보만 복구 , 금액 및 가맹점은 완료가 안되서 추후 적용
+	@RequestMapping("dashInto.do")
+	public String dashInto(HttpServletRequest request){
+		Alarm(request);
+		String reverse = request.getParameter("reverse"); // 복구할 아이디
+		UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("admin.getUserDeleteLog", reverse);
+		int check= 0;
+		if(dto!=null){
+			sqlMap.insert("admin.userInfoInsert", dto);
+			sqlMap.delete("admin.userLogDelete", dto.getId());
+			check = 1;
+		}	
+		request.setAttribute("check", check);
+		return "/dash-reverse/dashInto";
+	}
+	
 }

@@ -87,7 +87,6 @@ public class CommentBean {
 		
 		r.put("ref", ref);
 		r.put("re_step", re_step);
-		
 		String content=(String)sqlMap.queryForObject("customer.getCommentContent", r);
 		
 		request.setAttribute("snum", snum);
@@ -111,6 +110,7 @@ public String CommentDeletePRo(HttpServletRequest request,HttpSession session,Ha
 	r.put("ref",ref);
 	r.put("re_step",re_step);
 	String passwd3 =(String)sqlMap.queryForObject("customer.commentPasswd", r);
+	System.out.println(ref+":"+re_step+":"+snum);
 	if(passwd3.equals(passwd)){
 		
 		r.put("snum",snum);

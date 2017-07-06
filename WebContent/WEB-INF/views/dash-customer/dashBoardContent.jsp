@@ -14,7 +14,8 @@ function bossDel(){
 				pageNum:${pageNum},
 				pageNum2:${pageNum2},
 				pageNum3:${pageNum3},
-				pageNum4:${pageNum4}	
+				pageNum4:${pageNum4},
+				pageNum5:${pageNum5}
 			},
 			success:function(data){
 					$("#form").html(data);
@@ -60,7 +61,7 @@ function bossDel(){
 	${dto.content}
 </div>
 <div>
-	<c:if test="${re_step == 1}">
+	<c:if test="${re_step == 1 && dto.snum!=4}">
 		<span>
 			<input type="button" value="답글쓰기" onclick=
 			"window.location='dashBoardWriteForm.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}'">
@@ -70,4 +71,35 @@ function bossDel(){
 	<span><input type="button" value="글수정" onclick="window.location='dashBoardModify.do?snum=${dto.snum}&num=${dto.num}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}&number=${number}'"></span>
 	<span><input type="button" value="창닫기" onclick="window.close();"></span>
 </div>
-</div>
+<c:if test="${dto.snum==4}">
+<div id="comment">
+	<div id="css${countRe}">
+		<c:forEach items="${CmList}" var="cl">
+			<div id="csss${countRe}">
+				<span>${cl.writer}</span><br/>
+				<span>${cl.content}</span>
+				<input type="hidden" id="ref${countRe}" value="${cl.ref}"/>
+				<input type="hidden" id="re_step${countRe}" value="${cl.re_step}"/>
+			</div>
+	<button onclick="return deletekey${countRe}();">삭제</button>
+<script type="text/javascript">
+	function deletekey${countRe}(){
+		   //확인
+			$.ajax({
+				url:"commentDeleteForm.do",
+				type:"post",
+				data:{
+					snum:5,
+					ref:$("#ref${countRe}").val(),
+					re_step:$("#re_step${countRe}").val(),
+				},
+				success:function(data){
+					 $("#comment").html(data); 
+				}
+			});
+		}
+</script>
+<c:set var="countRe" value="${countRe-1}"/>
+</c:forEach>
+</c:if>
+

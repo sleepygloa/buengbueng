@@ -58,17 +58,14 @@
 </div>  
 	
 <div id="comment">
-<div id=css>
 <div id="css${countRe}">
 <c:forEach items="${CmList}" var="cl">
-<div id="csss${countRe}">
+<div id="csss${countRe}">	
 	<span>${cl.writer}</span><br/>
 	<span>${cl.content}</span>
-	<input type="hidden" id="ref${countRe}" value="${sessionScope.loginId}"/>
+	<input type="hidden" id="ref${countRe}" value="${cl.ref}"/>
 	<input type="hidden" id="re_step${countRe}" value="${cl.re_step}"/>
-</c:forEach>
-<c:if test="${sessionScope.loginId!=null}">	
-<c:forEach items="${CmList}" var="cl">	
+	<c:if test="${sessionScope.loginId!=null}">	
 <script type="text/javascript">
 	function deletekey${countRe}(){
 		   //확인
@@ -103,8 +100,8 @@ function commentModifyForm${countRe}(){
 </script>
 <button onclick="return deletekey${countRe}();">삭제</button>
 <button onclick="return commentModifyForm${countRe}();">수정</button>
+</c:if>
 <c:set var="countRe" value="${countRe-1}"/>
-</div>
 </c:forEach>
 </div>
 
@@ -124,7 +121,7 @@ pw:&nbsp;&nbsp;&nbsp;<input type="password" id="passwd">
 <div>
 <button onclick="return button();">등록</button>
 </div>
-</c:if>
+
 
 <c:if test="${sessionScope.loginId=='admin'}">
 <div id="button">

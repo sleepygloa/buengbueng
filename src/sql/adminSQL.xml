@@ -37,7 +37,10 @@
 		googleId like concat('%',#keyword#,'%') COLLATE utf8_general_ci or 
 		birth like concat('%',#keyword#,'%') order by signdate desc limit #startRow#,#pageSize#;  
 	</select>
-
+	<!-- 회원 정보 호출 -->
+	<select id="getUser" parameterClass="String" resultClass="userDto">
+		select * from userInfo where id=#id#;
+	</select>
 	<!-- 회원 정보 수정 -->
 	<update id="userUp" parameterClass="userDto">
 		update userInfo set pw=#pw#,name=#name#,birth=#birth#,phone=#phone#,email=#email#,address=#address#,grade=#grade#,googleId=#googleId#
@@ -92,6 +95,12 @@
 	<select id="searchDashOne" parameterClass="java.util.HashMap" resultClass="customerDTO" remapResults="true">
 		select * from customerBoard where snum=3 and $column$ like concat('%',#keyword#,'%') collate utf8_general_ci order by ref desc, re_step asc limit #startRow#,#pageSize#;
 	</select>
+	<select id="searchDashNoticeCount" parameterClass="java.util.HashMap" resultClass="int" remapResults="true">
+		select count(*) from customerBoard where snum=4 and $column$ like concat('%',#keyword#,'%') collate utf8_general_ci;
+	</select>
+	<select id="searchDashNotice" parameterClass="java.util.HashMap" resultClass="customerDTO" remapResults="true">
+		select * from customerBoard where snum=4 and $column$ like concat('%',#keyword#,'%') collate utf8_general_ci order by ref desc, re_step asc limit #startRow#,#pageSize#;
+	</select>
 		
 	<!-- 관리자 페이지 가맹점 신청 리스트 갯수 보기 -->
 	<select id="getFranchiseeAddListCount" resultClass="int">
@@ -133,6 +142,28 @@
 	<select id="getBossFranchiseeList" resultClass="franchiseeDTO" parameterClass="java.util.HashMap">
 		select b_id,b_name, b_key from franchiseeInfo order by b_id desc limit #startRow#,#pageSize#;
 	</select>
+
+	<!-- 회원 삭제 로그 호출 -->
+	<select id="getUserDeleteLog" parameterClass="String" resultClass="userDto" >
+		select * from userInfoLog where id=#reverse#
+	</select>
+	<!-- 회원 정보 복구시 회원 탈퇴 로그 삭제 -->
+	<delete id="userLogDelete" parameterClass="String">
+		delete from userInfoLog where id=#id#;		
+	</delete>
+	<!-- 회원 복구시 탈퇴 날짜 입력-->			
+	<insert id="userInfoInsert" parameterClass="userDto">
+		insert into userInfo values(#id#, #pw#, #name#, #birth#, #phone#, #grade#, #address#, #email#, #signdate#, #googleId#);
+	</insert>
+	<!-- 가맹 정보 갯수 출력 -->
+	<select id="getFranchiseeLogListCount" resultClass="int" parameterClass="String">
+		select count(*) from franchiseeLog where b_id=#b_id#;
+	</select>
+	<!-- 가맹 정보 목록 출력 -->
+	<select id="getFranchiseeLogList" resultClass="franchiseeDTO" parameterClass="String">
+		select *,@rownum:=@rownum+1 as rownum from franchiseeLog,(select @rownum:=0)r where result=1 and b_id=#b_id#;
+	</select>
+
 	
 	<!-- 정산시 해당 가맹점 라이센스키 뽑기 -->
 	<select id="getAcceptingRequestB_key" resultClass="String">
@@ -157,5 +188,5 @@
 		on a.e_id = b.e_id
 		where a.num=#num#;
 	</select>
-	
+
 </sqlMap>

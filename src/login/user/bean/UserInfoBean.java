@@ -195,6 +195,7 @@ public class UserInfoBean {
 		if(asd.equals(pw)){
 			try{
 				UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id); // 회원정보 호출
+				sqlMap.insert("test.userDeleteLog", dto); // 회원 삭제 로그
 				sqlMap.delete("test.userAccountDelete",id); //회원의 계좌정보 삭제
 				sqlMap.delete("test.deleteUserInfo",id);
 				session.invalidate();

@@ -42,17 +42,17 @@
 	</insert>
 	
 	<!-- 조회수 증가 -->
-	<update id="contentUp" parameterClass="customerDTO">
-		update customerBoard set readcount=readcount+1 where num= #num# and snum=#snum#    
+	<update id="contentUp" parameterClass="int">
+		update customerBoard set readcount=readcount+1 where num= #num# 
 	</update>
 	
 	<!-- 게시글 불러오기 -->
-	<select id="getContent" parameterClass="java.util.HashMap" resultClass="customerDTO">
-		select * from customerBoard where snum=#snum# and num=#num#
+	<select id="getContent" parameterClass="int" resultClass="customerDTO">
+		select * from customerBoard where num=#num#
 	</select>
 	
 	<!-- 답글 여부 확인 -->
-	<select id="getReply" parameterClass="int" resultClass="int">
+	<select id="getReply" parameterClass="java.util.HashMap" resultClass="int">
 		select count(*) from customerBoard where ref=#ref#;
 	</select>
 		

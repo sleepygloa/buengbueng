@@ -11,6 +11,7 @@
 <input type="hidden" name="pageNum2" value="${pageNum2}">
 <input type="hidden" name="pageNum3" value="${pageNum3}">
 <input type="hidden" name="pageNum4" value="${pageNum4}">
+<input type="hidden" name="pageNum5" value="${pageNum5}">
 <input type="hidden" name="num" value="${num}">
 <input type="hidden" name="ref" value="${ref}">
 <input type="hidden" name="re_step" value="${re_step}">

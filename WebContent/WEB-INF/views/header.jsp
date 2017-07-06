@@ -125,6 +125,7 @@
 						</ul>	
 					</li> 
 <!-- ------------------------------------------------------------------------------------------------------ -->
+				<c:if test="${sessionScope.grade==3}">
 					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 						<a class="ctgr" href="">
@@ -195,7 +196,9 @@
 							</li>
 						</ul>	
 					</li>
+				</c:if>
 <!-- ---------------------------------------------------------------------------------------------------- -->
+				<c:if test="${sessionScope.grade==1}">
  					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 						
@@ -243,71 +246,19 @@
 								</div>
 							</li>
 						</ul>	
-					</li>					
+					</li>				
+				</c:if>	
 <!-- ---------------------------------------------------------------------------------------------------- -->
+<c:if test="${sessionScope.grade==4}">					
 					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 						
-						<a class="ctgr" href="">
+						<a class="ctgr" href="/buengbueng/dashIndex.do">
 관리자 프로그램 관리
 						</a>
-						<!-- 드롭다운메뉴 : 소메뉴 -->
-						<ul class="menu_list">
-							<!-- 소메뉴 타이틀 -->
-							<h6 class="menu_subject minor-minor">관리자&nbsp; | &nbsp;<span class="list__title__desc">모든 사항을 관리합니다.</span></h6>
-							<!-- 소메뉴 의 각 링크들 -->
-							
-							<li class="row">
-								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="menu_menu col-sm-6-12">
-									<a href="">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">회원 관리</h6>
-											<p class="menu_desc">멀리서 가맹중인 PC방 관리</p>
-										</span>
-									</a>
-								</div>
-								
-								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="menu_menu col-sm-6-12">
-									<a href="">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">챗봇 관리</h6>
-											<p class="menu_desc">PC방 내 모든 현황 관리</p>
-										</span>
-									</a>
-								</div>
-							</li>
-							
-							<!-- 소메뉴 의 각 링크들 -->
-							<li class="row">
-								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="menu_menu col-sm-6-12">
-									<a href="">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">ERP 관리</h6>
-											<p class="menu_desc">전체 ERP 모듈 관리</p>
-										</span>
-									</a>
-								</div>
-								
-								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="menu_menu col-sm-6-12">
-									<a href="">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">페이지 관리</h6>
-											<p class="menu_desc">웹 페이지기능 추가 및 삭제</p>
-										</span>
-									</a>
-								</div>
-							</li>
-							
-						</ul>	
+						
 					</li>		
+</c:if>
 <!-- ----------------------------------------------------------------------------------------------------								 -->
 					<li class="item normal product" onClick="return true">
 						<a href="">

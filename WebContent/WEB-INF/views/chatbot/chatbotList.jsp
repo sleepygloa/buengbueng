@@ -3,6 +3,12 @@
 <head>
 	<title>챗봇 리스트</title>
 	<script type="text/javascript" src="/buengbueng/js/chatbot/chatbotList.js"></script>
+	<!--  BootStrap -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -27,5 +33,36 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<div>
+   <div id="myCarousel" class="carousel slide"  style="width:50%">
+    <!-- Indicators -->
+ 	<div>
+     <button type="button" data-target="#myCarousel" data-slide-to="0">최신 질문</button>
+     <button type="button" data-target="#myCarousel" data-slide-to="1">미답변 질문</button>
+	 <button type="button" data-target="#myCarousel" data-slide-to="2">키워드</button>
+	</div>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+       	<c:forEach var="ldto" items="${ldto}" end="9">
+       		<div>${ldto.question}</div>
+       	</c:forEach>
+      </div>
+ 
+      <div class="item">
+    	<c:forEach var="ldto2" items="${ldto2}" end="9">
+       		<div>${ldto2.question}</div>
+       	</c:forEach>
+      </div>
+      
+      <div class="item">
+    	<c:forEach var="countList" items="${countList}" end="9">
+    		<div>${countList}</div>
+       	</c:forEach>
+      </div>
+    </div>
+  </div>
+</div>
 	<jsp:include page="/WEB-INF/views/dashFooter.jsp"/>
 </body>

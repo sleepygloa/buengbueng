@@ -1,6 +1,9 @@
 package manage.admin.bean;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,9 +33,75 @@ public class ChatbotListBean extends BoardMethodBean {
 		}else{
 			model.addAttribute("max", 0);
 		}
+		// 질문 리스트 출력
+		//최신 3일간 질문 
+		String pageNum=request.getParameter("pageNum");
+		int count = 0;
+		int pageSize = 10;
+		if(pageNum==null){pageNum="1";}
+		
+		ArrayList<ChattingLogDto> ldto = (ArrayList)sqlMap.queryForList("chatbot.newChatLog", null);
+		count=ldto.size();
+		int pageCount = count / pageSize + (count%pageSize == 0? 0:1);
+		
+		int startPage = ((Integer.parseInt(pageNum)-1)/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage + pageBlock - 1;
+		if(endPage > pageCount){endPage = pageCount;}
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);	
+		request.setAttribute("count", count);
+		request.setAttribute("ldto", ldto);
+		
+		//답변할 수 없는 질문
+		ArrayList<ChattingLogDto> ldto2 = (ArrayList)sqlMap.queryForList("chatbot.noReChatLog", null);
+		request.setAttribute("ldto2", ldto2);
+		
+		//키워드 검색순
+		ArrayList<ChattingLogDto> ldto3 = (ArrayList)sqlMap.queryForList("chatbot.chatLogKeyword", null);
+		ArrayList keyList = new ArrayList();
+		TreeSet keyvalList = new TreeSet();
+		String[] keyval = null;
+		
+		for(int i =0 ; i < ldto3.size() ; i++){
+				String strKey = ((ChattingLogDto)ldto3.get(i)).getKeyword();
+				keyval= strKey.split(",|_");
+				for(int ii =0 ; ii < keyval.length ; ii++){
+					keyList.add(keyval[ii]);
+					keyvalList.add(keyval[ii]); // 중복값 제거 후 정렬한 리스트
+				}
+			}
+		Collections.sort(keyList); // 중복값 제거하지 않은 상태의 정렬한 리스트
+		Iterator iterator=keyvalList.iterator();	
+		ArrayList countList=new ArrayList();
+		for(int i=0; i<keyvalList.size();i++){
+			int check=0;
+			String key = (String)iterator.next(); // 검색 키워드 하나씩 추출
+			for(int ii=0;ii<keyList.size();ii++){
+				String subkey = (String)keyList.get(ii);
+				if(subkey.equals(key)){
+					check += 1;					
+				}else{
+					continue;
+				}
+			}
+			String sumResult= "count:"+check+",keyword:"+key;
+			countList.add(sumResult);
+		}
+		Collections.sort(countList);  // 정렬
+		Collections.reverse(countList); // 정렬후 역순으로 정렬 ( 이렇게 안하면 순서 이상해짐)
+
+		request.setAttribute("countList", countList);
 		return "/chatbot/chatbotList";
 	}
 	
+	private void reverseArrayInt(ArrayList countList) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	/* 챗봇 질답 추가 페이지 */
 	@RequestMapping("addChat.do")
 	public String addChat(int max, Model model,HttpServletRequest request){

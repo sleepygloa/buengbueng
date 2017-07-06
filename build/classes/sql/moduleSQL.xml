@@ -34,6 +34,10 @@
 	<update id="updateModule">
 		update franchiseeModule set module = #module#, menu = #menu# where m_name = #m_name# and b_id = #b_id#;
 	</update>
+	<!-- 모듈 한 개라도 있는지 확인 -->
+	<select id="getModuleCount" parameterClass="String" resultClass="int">
+		select count(b_id) from franchiseeModule where b_id = #b_id#;
+	</select>
 <!-- ======================================================================================================= -->
 	<!-- 사용자에게 제공하는 메뉴 가져오기 -->
 	<select id="getOfferMenu" resultClass="moduleDefaultDTO">	
