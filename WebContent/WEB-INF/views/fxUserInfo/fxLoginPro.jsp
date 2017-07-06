@@ -5,6 +5,7 @@
 	"loginTime" "${loginTime}",
 	"pcNum": "${pcNum}",
 	"bossIP" : "${bossIP}",
-	"moneyPolicy" : ${moneyPolicy}
+	"moneyPolicy" : ${moneyPolicy},
+	"historyNum" : "${historyNum}"
 	
 }

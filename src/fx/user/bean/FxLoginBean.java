@@ -2,6 +2,7 @@ package fx.user.bean;
 
 import java.net.URLEncoder;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -129,6 +130,7 @@ public class FxLoginBean {
 			int money = 0;
 			double moneyPolicy = 0;
 			String bossIP  = null;
+			int historyNum = 0;
 			result = info.getId();
 			if(info.getGrade() == 3){ //자리정보 계좌정보 + 사용 가능 유무
 				UserAccountDTO uadto = (UserAccountDTO)sqlMap.queryForObject("cash.getUserAccount", info.getId()); //아이디의 계좌를 불러옴.
@@ -139,7 +141,22 @@ public class FxLoginBean {
 				}
 				pcNum = (Integer)sqlMap.queryForObject("bossERP.getPcNum", map);//좌석 갯수 불러오기
 				modifySeatState(key, pcNum, "1"); //좌석 이용현황 초기화
-				bossIP = (String)sqlMap.queryForObject("bossERP.getBossIP", key); //가맹점 IP 불러오기
+				BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getFranchiseeOne", key); //가맹점 IP 불러오기
+				
+				bossIP = bdto.getB_ip();
+				
+				UsageHistoryDataDTO uhdto = new UsageHistoryDataDTO();
+				uhdto.setUserId(info.getId());
+				uhdto.setUserName(info.getName());
+				uhdto.setAffiliateCode(key);
+				uhdto.setUsageTime(udto.getLoginTime());
+				uhdto.setBusinessName(bdto.getB_name());
+				uhdto.setBossId(bdto.getB_id());
+				uhdto.setAmountUsed(0);
+				uhdto.setPcAmount(0);
+				uhdto.setMenuAmount(0);
+				sqlMap.insert("cash.addUsageHistory", uhdto);
+				historyNum = (Integer)sqlMap.queryForObject("cash.getUserHistoryNum", info.getId());
 			}
 			model.addAttribute("money", money);
 			model.addAttribute("grade", info.getGrade());
@@ -147,6 +164,7 @@ public class FxLoginBean {
 			model.addAttribute("pcNum", pcNum);
 			model.addAttribute("bossIP", bossIP);
 			model.addAttribute("moneyPolicy", moneyPolicy);
+			model.addAttribute("historyNum", historyNum);
 		}else{
 			result = "fail,로그인 실패";
 		}
@@ -159,7 +177,7 @@ public class FxLoginBean {
 	}
 	
 	@RequestMapping("fxLogoutPro.do")
-	public String fxLogoutPro(String id, String loginTime, String key, String pcNum, Double useAmount, Model model){
+	public String fxLogoutPro(String id, String loginTime, String key, String pcNum, Double useAmount, int idx, Model model){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("loginTime", loginTime);
@@ -178,19 +196,19 @@ public class FxLoginBean {
 				if(menuAmount == null){
 					menuAmount = "0";
 				}
-				
+				String amount = (String)sqlMap.queryForObject("cash.getpcAmount", idx);
 				UsageHistoryDataDTO uhdto = new UsageHistoryDataDTO();
-				uhdto.setUserId(id);
-				uhdto.setUserName(udto.getName());
-				uhdto.setAffiliateCode(key);
-				uhdto.setUsageTime(utdto.getLoginTime());
 				uhdto.setEndTime(utdto.getLogoutTime());
-				uhdto.setBusinessName(fdto.getB_name());
-				uhdto.setBossId(fdto.getB_id());
-				uhdto.setAmountUsed(useAmount);
-				uhdto.setPcAmount(useAmount-Double.parseDouble(menuAmount));
 				uhdto.setMenuAmount(Integer.parseInt(menuAmount));
-				sqlMap.insert("cash.addUsageHistory", uhdto);
+				uhdto.setPcAmount(useAmount);
+				String beforePcAmount = (String)sqlMap.queryForObject("cash.getpcAmount", idx);
+				DecimalFormat df = new DecimalFormat("0.###");
+				double all =  Double.parseDouble(amount) + uhdto.getPcAmount() + Double.parseDouble(menuAmount);
+				
+				uhdto.setAmountUsed(Double.parseDouble(df.format(all)));
+				uhdto.setIdx(idx);
+				
+				sqlMap.update("cash.addUserEtc", uhdto);
 				
 				map.clear();
 				map.put("id", id);
@@ -206,7 +224,21 @@ public class FxLoginBean {
 	}
 	
 	@RequestMapping("fxGetUserPoint.do")
-	public String fxGetUserPoint(String id, Model model){
+	public String fxGetUserPoint(String id, double point, double startPoint, int historyNum, Model model){
+		double usePoint = startPoint - point;
+		DecimalFormat df = new DecimalFormat("0.###");
+		
+		String pcAmount = df.format(usePoint);
+		
+		HashMap param = new HashMap();
+		param.put("idx", historyNum);
+		param.put("cash", pcAmount);
+		
+		sqlMap.update("cash.addUserPcAmount", param);
+		
+		param.remove("idx");
+		param.put("id", id);
+		sqlMap.update("cash.deductMoney", param);
 		UserAccountDTO uadto = (UserAccountDTO)sqlMap.queryForObject("cash.getUserAccount", id);
 		double money = uadto.getMoney();
 		model.addAttribute("point", money);

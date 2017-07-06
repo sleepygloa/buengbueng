@@ -38,10 +38,6 @@
 	<select id="getLicenseKey" parameterClass="java.util.HashMap" resultClass="String">
 		select b_key from franchiseeInfo where b_name = #b_name# and b_id = #b_id#;
 	</select>
-	<!-- 라이센스키로 가맹점 사장님 ip 가져오기 -->
-	<select id="getBossIP" parameterClass="String" resultClass="String">
-		select b_ip from franchiseeInfo where b_key = #key#;
-	</select>
 	<!-- 라이센스키로 가맹점 이름 가져오기 -->
 	<select id="getFranchiseeName" parameterClass="String" resultClass="String">
 		select b_name from franchiseeInfo where b_key = #key#;

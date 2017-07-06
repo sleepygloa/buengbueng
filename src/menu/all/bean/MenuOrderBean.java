@@ -1,27 +1,17 @@
 package menu.all.bean;
 
-import java.util.Date;
-import java.sql.Timestamp;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
-import org.springframework.orm.ibatis.SqlMapTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.mysql.fabric.xmlrpc.base.Data;
-
-import sun.rmi.transport.proxy.HttpReceiveSocket;
 
 @Controller
 
@@ -35,30 +25,31 @@ public class MenuOrderBean {
 	@RequestMapping("userOrderForm.do")
 	public String userOrderForm(String id, String tf ,HttpServletRequest request, String name){
 		try{
-		String l_key = (String)sqlMap.queryForObject("order.getLicenseKey",name);
-		List menuList= sqlMap.queryForList("menu.getMenu",l_key);
-		request.setAttribute("menuList", menuList);
-		
-		//사용자가 주문 주문내역 가져오기
-		String loginTime = (String)sqlMap.queryForObject("useSeat.getUserStartTime2", id);
-		
-		HashMap map = new HashMap();
-		map.put("l_key",l_key);
-		map.put("id",id);
-		map.put("loginTime", loginTime);
-		List<OrderDTO> userOrderList=(List<OrderDTO>)sqlMap.queryForList("order.getUserOrderList", map);
-		request.setAttribute("userOrderList", userOrderList);
-		request.setAttribute("id", id);
-		request.setAttribute("name",name);
-
-		
-		List categoryList =sqlMap.queryForList("menu.getCategory",l_key);
-		if(categoryList!=null){
-			request.setAttribute("categoryList",categoryList);
-			request.setAttribute("l_key",l_key);
-			request.setAttribute("name", name);
-		}
-		
+			String franchiseeName = URLDecoder.decode(name,"UTF-8");
+			String l_key = (String)sqlMap.queryForObject("order.getLicenseKey",name);
+			List menuList= sqlMap.queryForList("menu.getMenu",l_key);
+			request.setAttribute("menuList", menuList);
+			
+			//사용자가 주문 주문내역 가져오기
+			String loginTime = (String)sqlMap.queryForObject("useSeat.getUserStartTime2", id);
+			
+			HashMap map = new HashMap();
+			map.put("l_key",l_key);
+			map.put("id",id);
+			map.put("loginTime", loginTime);
+			List<OrderDTO> userOrderList=(List<OrderDTO>)sqlMap.queryForList("order.getUserOrderList", map);
+			request.setAttribute("userOrderList", userOrderList);
+			request.setAttribute("id", id);
+			request.setAttribute("name",name);
+	
+			
+			List categoryList =sqlMap.queryForList("menu.getCategory",l_key);
+			if(categoryList!=null){
+				request.setAttribute("categoryList",categoryList);
+				request.setAttribute("l_key",l_key);
+				request.setAttribute("name", name);
+			}
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -364,11 +355,13 @@ public class MenuOrderBean {
 				sqlMap.update("order.refundStatus", odto); //status 값을 5로 바꿔주는데 사용.
 				sqlMap.update("order.refundResetproductsaleregistdate",odto); //sellBuyLog의 판매시간 0000-00-00으로 초기화.
 				sqlMap.update("order.refundProduct", odto);
-								
-				int usermoney=(Integer)sqlMap.queryForObject("order.getUserMoney",odto.getId());
-				usermoney = usermoney+odto.getOrdermoney();
+							
 				// 사용자에게 돈 돌려주기
-				sqlMap.update("order.userMoneyRefund", usermoney);
+				HashMap param = new HashMap();
+				param.put("id", odto.getId());
+				param.put("ordermoney", odto.getOrdermoney());
+				
+				sqlMap.update("order.cancelMenuOrder", param);
 				check=1;
 			}else{check=0;}
 			request.setAttribute("check",check);

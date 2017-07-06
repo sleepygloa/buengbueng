@@ -87,23 +87,23 @@ function keyword(){
 }
 
 function checkChatbot(){
-	if(document.addChatbot.question.value == ""){
-		document.getElementById("alert").value = "모든 정보를 입력해주십시오.";
-		return false;
-	}
-	if(document.addChatbot.answer.value == ""){
-		document.getElementById("alert").value = "모든 정보를 입력해주십시오.";
-		return false;
-	}
+    if(document.addChatbot.question.value == ""){
+        document.getElementById("alert").value = "모든 정보를 입력해주십시오.";
+        return false;
+    }
+    if(document.addChatbot.answer.value == ""){
+        document.getElementById("alert").value = "모든 정보를 입력해주십시오.";
+        return false;
+    }
 }
 
 function checkModifyChatbot(){
-	if(document.modifyChatbot.question.value == ""){
-		document.getElementById("alert").value = "모든 정보를 입력해주십시오.";
-		return false;
-	}
-	if(document.modifyChatbot.answer0.value == ""){
-		document.getElementById("alert").value = "모든 정보를 입력해주십시오.";
-		return false;
-	}
+    if(document.modifyChatbot.question.value == ""){
+        document.getElementById("alert").value = "모든 정보를 입력해주십시오.";
+        return false;
+    }
+    if(document.modifyChatbot.answer0.value == ""){
+        document.getElementById("alert").value = "모든 정보를 입력해주십시오.";
+        return false;
+    }
 }
