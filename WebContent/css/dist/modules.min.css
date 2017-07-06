@@ -321,11 +321,10 @@ header, section, footer{
 /* index 반응형 끝----------------------------------------*/
 
 
-
 /*- 아이디 찾기 -*/
-.input_style{
-	width:70%;
-	height:1.2em;
-	maring:0 20 0 20;
+
+.idSearchForm{
+	padding:200 200 200 200;
 }
+
 /*- 아이디 찾기 끝 -*/
