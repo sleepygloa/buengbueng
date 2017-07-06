@@ -44,7 +44,7 @@
 		</div>
 	<script>
 		function successAdd${count1}(){
-			if (confirm("수정 하시겠습니까??") == true){ 
+			if (confirm("승인 하시겠습니까??") == true){ 
 				$.ajax({
 					url:"dashEmployeeAddAdminConfirm.do",
 					type:"post",
@@ -97,7 +97,7 @@
 		</div>
 	<script>
 		function successDel${count2}(){
-			if (confirm("수정 하시겠습니까??") == true){ 
+			if (confirm("삭제 하시겠습니까??") == true){ 
 				$.ajax({
 					url:"dashEmployeeDeleteAdminConfirm.do",
 					type:"post",

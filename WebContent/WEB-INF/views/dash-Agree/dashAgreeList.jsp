@@ -9,7 +9,7 @@
 	}
 </script>
 <div>
-<div>신청 중인 가맹점 수 : ${count2}</div>
+<div>승인 대기중인 가맹점 수 : ${count2}</div>
 <c:forEach var="article" items="${articleList2}">
 <h5 onclick="getInfo('${article.b_name}');" value="">${article.b_name}</h5>
 		<p class="tool__section__desc">

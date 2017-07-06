@@ -8,9 +8,9 @@
 </head>
 
 <div>
-<div>Q & A</div>
+<div>자주 묻는 질문</div>
 <c:if test="${sessionScope.grade == 4}">
-<div><a href="customerForm.do?snum=${snum}&pageNum=${pageNum}">QA작성</a></div>
+<div><a href="customerForm.do?snum=${snum}&pageNum=${pageNum}">글쓰기</a></div>
 </c:if>
 	<span>번호</span>
 	<span>제목</span>
