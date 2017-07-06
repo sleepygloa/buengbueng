@@ -213,7 +213,9 @@
 
 	<!-- 사용자 메뉴 주문 완료 현황 가져오기 -->
 	<select id="getOneUserMenuOrder" parameterClass="java.util.HashMap" resultClass="orderDto">
-		select * from menuOrder where id = #id# and l_key = #l_key# and orderstatus = 2 and date_format(ordertime, '%Y-%c-%d') = (curdate() - INTERVAL 1 DAY) or date_format(ordertime, '%Y-%c-%d') = curdate();
+	<![CDATA[
+		select * from menuOrder where id = #id# and l_key = #l_key# and (orderstatus = 2 or orderstatus = 6) and ordertime >= #startTime# and date_format(ordertime, '%Y-%c-%d') <= curdate();
+	]]>
 	</select>
 	<!-- 사용자 주문 취소 시 사용자 잔액 돌려놓기 -->
 	<update id="cancelMenuOrder" parameterClass="java.util.HashMap">

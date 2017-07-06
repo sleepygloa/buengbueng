@@ -275,6 +275,7 @@ public class BossMenuManageController {
 				tv.setItems(data);
 				tab.setContent(tv);
 				menuTab.getTabs().add(tab);
+				getMenu();
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -417,6 +418,7 @@ public class BossMenuManageController {
 				pl.setModi(modify);
 				pl.setDel(delete);
 				tv.getItems().add(pl);
+				getProduct();
 			}
 		}catch(Exception e){
 			e.printStackTrace();

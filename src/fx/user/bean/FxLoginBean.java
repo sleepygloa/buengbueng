@@ -177,12 +177,13 @@ public class FxLoginBean {
 	}
 	
 	@RequestMapping("fxLogoutPro.do")
-	public String fxLogoutPro(String id, String loginTime, String key, String pcNum, Double useAmount, int idx, Model model){
+	public String fxLogoutPro(String id, String loginTime, String key, String pcNum, Double useAmount, String index, Model model){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("loginTime", loginTime);
 		map.put("licenseKey", key);
 		String result = "fail";
+		
 		try{
 			sqlMap.update("useSeat.useTimeLogout", map);
 			if(!pcNum.equals("0")){
@@ -190,6 +191,7 @@ public class FxLoginBean {
 			}
 			UserInfoDataDTO udto = (UserInfoDataDTO)sqlMap.queryForObject("test.getUserInfo", id);
 			if(udto.getGrade() == 3){
+				int idx = Integer.parseInt(index);
 				UseTimeLogDTO utdto = (UseTimeLogDTO)sqlMap.queryForObject("useSeat.getUseUserInfo", map);
 				BossInfoDataDTO fdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getFranchiseeOne", key);
 				String menuAmount = (String)sqlMap.queryForObject("order.getUserMenuOrderSum", map);

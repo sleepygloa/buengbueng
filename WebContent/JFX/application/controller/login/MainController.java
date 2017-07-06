@@ -135,7 +135,7 @@ public class MainController {
 			// 사용자 로그아웃 시간 로그에 남기기
 			String param="id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&loginTime="+URLEncoder.encode(UserInfo.getInstance().getLoginTime(),"UTF-8")+
 					"&pcNum="+URLEncoder.encode(UserInfo.getInstance().getPcNum(),"UTF-8")+"&key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
-					"&useAmount="+useAmount+"&idx="+UserInfo.getInstance().getHistoryNum();
+					"&useAmount="+useAmount+"&index="+UserInfo.getInstance().getHistoryNum();
 			String urlInfo ="http://localhost:8080/buengbueng/fxLogoutPro.do";
 			JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 			

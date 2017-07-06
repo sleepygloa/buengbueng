@@ -25,7 +25,6 @@ public class MenuOrderBean {
 	@RequestMapping("userOrderForm.do")
 	public String userOrderForm(String id, String tf ,HttpServletRequest request, String name){
 		try{
-			String franchiseeName = URLDecoder.decode(name,"UTF-8");
 			String l_key = (String)sqlMap.queryForObject("order.getLicenseKey",name);
 			List menuList= sqlMap.queryForList("menu.getMenu",l_key);
 			request.setAttribute("menuList", menuList);
@@ -62,8 +61,6 @@ public class MenuOrderBean {
 	
 	@RequestMapping("userOrderPro.do")
 	public String userOrderPro(String name,String order,HttpServletRequest request,String l_key, String id){
-
-		System.out.println(name+" "+order+" "+l_key+" "+id);
 		
 		int check;
 		int num;
@@ -144,13 +141,13 @@ public class MenuOrderBean {
 			request.setAttribute("l_key", l_key);
 			request.setAttribute("id",id);
 			
-			System.out.println(check);
-			
 		}catch(Exception e){
 			e.printStackTrace(); 
 			check=-1; request.setAttribute("check", check);
 			request.setAttribute("name",name);
-			request.setAttribute("l_key", l_key);}
+			request.setAttribute("l_key", l_key);
+			request.setAttribute("id",id);
+		}
 		return "/menu/userOrderPro";
 	}
 	
@@ -191,7 +188,6 @@ public class MenuOrderBean {
 	public String userOrderCancel(HttpServletRequest request, String id, String l_key, String name, String ordermoney){
 		int check=0;
 		String ordertime=request.getParameter("ordertime");
-		System.out.println(ordertime);
 		try{			
 			HashMap map = new HashMap();
 			map.put("id",id);
@@ -206,16 +202,14 @@ public class MenuOrderBean {
 				map.put("id", id);
 				map.put("ordermoney",ordermoney);
 				
-				System.out.println("ordermoney "+ordermoney);
-				
 				sqlMap.update("order.cancelMenuOrder", map);
 				check=1;
 			}else{
 				check=0;
 			}
 			request.setAttribute("check", check);
-			request.setAttribute("l_key", l_key);
 			request.setAttribute("name",fcname);
+			request.setAttribute("id",id);
 		}catch(Exception e){e.printStackTrace(); check=-1; request.setAttribute("check",check); request.setAttribute("l_key", l_key);}
 		return "/menu/userOrderCancel";
 	}
@@ -239,8 +233,8 @@ public class MenuOrderBean {
 				check=0;
 			}
 			request.setAttribute("check", check);
-			request.setAttribute("l_key", l_key);
 			request.setAttribute("name",fcname);
+			request.setAttribute("id",id);
 		}catch(Exception e){e.printStackTrace(); check=-1; request.setAttribute("check", check);}
 		return "menu/userOrderRefund";
 	}
@@ -451,6 +445,7 @@ public class MenuOrderBean {
 			}else{check=0; }
 			request.setAttribute("check",check);
 			request.setAttribute("l_key", odto.getL_key());
+			
 		}catch(Exception e){e.printStackTrace(); check=-1; request.setAttribute("check",check);}
 		return "/menu/menuOrderRefund";
 	}

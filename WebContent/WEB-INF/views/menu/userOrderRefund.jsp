@@ -6,7 +6,7 @@
 	
 	<script>
 		alert("환불이 요청되었습니다.");
-		window.location.href="userOrderForm.do?l_key=${l_key}&name=${name}";
+		window.location.href="userOrderForm.do?name=${name}&id=${id}";
 	</script>
 </c:if>
 
@@ -14,7 +14,7 @@
 
 	<script>
 		alert("환불 요청에 실패하였습니다.");
-		window.location.href="userOrderForm.do?l_key=${l_key}&name=${name}";
+		window.location.href="userOrderForm.do?name=${name}&id=${id}";
 	</script>
 </c:if>
 
@@ -22,7 +22,7 @@
 
 	<script>
 		alert("오류. 사용에 불편을 끼쳐 죄송합니다.");
-		window.location.href="productInsertForm.do?l_key=${l_key}&name=${name}";
+		window.location.href="productInsertForm.do?name=${name}&id=${id}";
 	</script>
 </c:if>
      

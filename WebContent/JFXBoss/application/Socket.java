@@ -1,6 +1,7 @@
 package application;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
@@ -10,22 +11,35 @@ import javafx.application.Platform;
 
 public class Socket implements Runnable{
 	private static Socket instance;
-	private static Thread Socket;
-	
+	private static Thread socket;
+	private ServerSocket server;
+	private Socket(){
+		try {
+			server = new ServerSocket(7778);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	};
 	public static Thread getSocket(){
 		instance = new Socket();
-		Socket = new Thread(instance);
+		socket = new Thread(instance);
 		// true일 때 반복 실행
-		return Socket;
+		return socket;
+	}
+	
+	public static void socketClose(){
+		instance.server = null;
+		instance = null;
+		socket = null;
 	}
 
+	@Override
 	public void run(){
 		try{
-	        ServerSocket server = new ServerSocket(7778);
 	        System.out.println("Wating Connect ..");    
 	       
 	        String line = null;
-	        while(true){
+	        while(!server.isClosed()){
 		        java.net.Socket sock = server.accept();	       
 		        InputStream in = sock.getInputStream();
 		        BufferedReader br = new BufferedReader(new InputStreamReader(in));

@@ -242,6 +242,7 @@ public class FxRentBean {
 			HashMap<String,Object> param = new HashMap<String,Object>();
 			param.put("id", id);
 			param.put("l_key", b_key);
+			param.put("startTime", startTime);
 			
 			ArrayList<OrderDTO> menuOrderList = (ArrayList<OrderDTO>)sqlMap.queryForList("order.getOneUserMenuOrder", param);
 			

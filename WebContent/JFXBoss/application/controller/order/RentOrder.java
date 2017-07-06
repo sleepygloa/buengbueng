@@ -2,8 +2,8 @@ package application.controller.order;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.SocketException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 import application.controller.module.BossPcManageController;
 import javafx.application.Platform;
@@ -11,7 +11,14 @@ import javafx.application.Platform;
 public class RentOrder implements Runnable{
 	private static RentOrder instance;
 	private static Thread rent;
-	
+	private DatagramSocket socket;
+	private RentOrder(){
+		try {
+			socket = new DatagramSocket(7777);
+		} catch (SocketException e) {
+			e.printStackTrace();
+		}
+	};
 	public static Thread getRent(){
 		instance = new RentOrder();
 		rent = new Thread(instance);
@@ -19,11 +26,15 @@ public class RentOrder implements Runnable{
 		return rent;
 	}
 	
+	public static void rentClose(){
+		instance.socket = null;
+		instance = null;
+		rent = null;
+	}
+	
 	@Override
 	public void run() {
 		try{
-			// 상대방이 연결할수 있도록 UDP 소켓 생성
-			DatagramSocket socket = new DatagramSocket(7777);
 			// 전송받은 데이터를 지정할 바이트 배열선언
 			byte [] date = new byte[66536];
    

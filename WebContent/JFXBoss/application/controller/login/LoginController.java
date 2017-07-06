@@ -91,6 +91,10 @@ public class LoginController {
 						Main.getSocket().start();
 						Main.setSocketCheck(true);
 					}
+					if(Main.getSocketCheckT() == false){
+						Main.getSocketT().start();
+						Main.setSocketCheckT(true);
+					}
 					// 메인화면 레이아웃을 화면에 등록
 					Parent main = null;
 					main =  FXMLLoader.load(getClass().getResource("/application/controller/login/BossMainApp.fxml"));

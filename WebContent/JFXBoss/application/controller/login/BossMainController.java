@@ -37,7 +37,6 @@ public class BossMainController {
 			param = "l_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8");
 			urlInfo = "http://localhost:8080/buengbueng/fxDeleteLastProduct.do";
 			ConnectServer.connect(param, urlInfo);
-			Main.getSocketT().start();
 		}catch(Exception e){	
 		}
 	}

@@ -333,10 +333,18 @@ public class FxBossERPBean {
 	public String fxAddProduct(ProductDTO product, String regist, String last, Model model){
 		String result = "fail";
 		try{
-			product.setBeginregist(java.sql.Timestamp.valueOf(regist));
-			product.setLastday(java.sql.Date.valueOf(last));
-			sqlMap.insert("menu.insertProductFX", product);
-			result = "succ";
+			HashMap map=new HashMap();
+			map.put("code",product.getCode());
+			map.put("name", product.getName());
+			map.put("l_key",product.getL_key());
+			ProductDTO codeDto =(ProductDTO)sqlMap.queryForObject("menu.getProductName",map);
+			if(codeDto==null){
+				product.setBeginregist(java.sql.Timestamp.valueOf(regist));
+				product.setLastday(java.sql.Date.valueOf(last));
+				sqlMap.insert("menu.insertProductFX", product);
+				sqlMap.insert("menu.insertSaleBuyLog",product);
+				result = "succ";
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}

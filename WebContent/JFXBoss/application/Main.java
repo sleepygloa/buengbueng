@@ -19,6 +19,7 @@ public class Main extends Application {
 	private static Thread socket = RentOrder.getRent();
 	private static Thread socketT = Socket.getSocket();
 	private static boolean socketCheck = false;
+	private static boolean socketCheckT = false;
 	@Override
 	public void start(Stage primaryStage) {
 		Main.primaryStage = primaryStage;
@@ -75,8 +76,9 @@ public class Main extends Application {
 				}catch(Exception e){
 					e.printStackTrace();
 				}finally{
-					socket = null;
-					socketT = null;
+					// 수정하기
+					Socket.socketClose();
+					RentOrder.rentClose();
 				}
 			});
 			
@@ -104,7 +106,13 @@ public class Main extends Application {
 	public static void setSocketCheck(boolean tf){
 		socketCheck = tf;
 	}
+	public static boolean getSocketCheckT(){
+		return socketCheckT;
+	}
 	
+	public static void setSocketCheckT(boolean tf){
+		socketCheckT = tf;
+	}
 	public static void main(String[] args) {
 		launch(args);
 	}
