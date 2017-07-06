@@ -2,8 +2,9 @@
 
 /* --- 기본 설정 CSS ---*/
 @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
-html{overflow-y:scroll;overflow-x:scroll} /* x y 축 스크롤링 가능 */
-.clearfix::after{display:block;content:'';clear:both}W
+html{overflow-y:scroll;} /* x y 축 스크롤링 가능 */
+bodt{height: 100%;}
+.clearfix::after{display:block;content:'';clear:both}
 section{height:100%;min-height: 100vh;} /* 세로 100% 최대크기 */
 img{vertical-align:middle} /* 사진은 기본으로 세로가운데정렬 */
 section,p{line-height:1.5;letter-spacing:-.025em;word-break:keep-all} /* word-break 문단 글이 길거나 자동줄바꿈이될때, 글자를 끊어서 줄바꾼할껀지(break-all), 단어 단위로 줄바꿈 할껀지(keep-all) (normal) */
@@ -128,7 +129,7 @@ header, section, footer{
 /* HEADER 영역 */
 .header_wrap{display:block;/* position:fixed */;z-index:10;top:0;width:100%;background-color:#fff; color:#101010; border-bottom:1px #eee solid; float:left; }
 /* HEADER 사용영역 : 내부영역*/
-.header{position:relative;height:0px}
+.header{position:relative;height:0px;}
 .header,.header_wrap{height:60px}	
 /* 로고 */
 .header  div{padding:auto;}

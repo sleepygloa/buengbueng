@@ -17,7 +17,7 @@ history.go(-1);
 	<div class="main_ad_content">
 		<div class="mainContent_left">
 			<div class="left_container1">
-				<div class="left_container1_box1">
+				<div class="left_container1_box1 mt-overlay-1">
 					<a href="#">포인트 결제</a>
 				</div>
 				<div class="left_container1_box2">

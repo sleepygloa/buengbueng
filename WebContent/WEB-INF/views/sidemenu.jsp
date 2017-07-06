@@ -3,7 +3,6 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>http://www.blueb.co.kr</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
 @import url('http://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
@@ -12,9 +11,8 @@ body {
   color: #5D5F63;
   background: #293949;
   font-family: 'Open Sans', sans-serif;
-  float:lett;
+  float:left;
   height:100%;
-  border:1px green solid;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -220,7 +218,7 @@ $(document).ready(function(){
       <li class="sub-menu">
         <a href="javascript:void(0);"><i class="fa fa-map-marker"></i><span>대여 관리</span><i class="arrow fa fa-angle-right pull-right"></i></a>
         <ul>
-          <li><a href="rentMain.do">대여물품 관리</a>
+          <li><a href="chart.do">대여물품 관리</a>
           </li>
         </ul>
       </li>
@@ -251,4 +249,5 @@ $("#leftside-navigation .sub-menu > a").click(function(e) {
 </script>
 
 </body>
+
 </html>

@@ -6,22 +6,23 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
 		<title>Insert title here</title>
-		<style type="text/css">
-			.tabl tr{border:1px red solid; width:auto;}
-			.tabl td{border:1px red solid; width:auto;}
-			.tabl th{border:1px red solid; width:auto;}
-		</style>
 	</head>
 	
 	<jsp:include page="../../erp_header.jsp" />
 	
 	<body >
+		<!-- 가맹점 선택하지 않는 경우 -->
+		<%-- <c:if test="${affiliateCodeList == null }">
+			가맹지점을 선택하여 주세요.
+		</c:if>
+		
+		<c:if test="${affiliateCodeList != null }"> --%>
 		<div class="ERP_Navigator">
 			<ul>
 				<li>ERP 관리</li>
-				<li>></li>
+				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
 				<li>일일정산</li>
-				<li>></li>
+				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
 				<li>일일정산 내역</li>
 			</ul>
 		</div>
@@ -62,7 +63,7 @@
 						<td>${articleList.companyName}</td>
 						<td>${articleList.settlementNumber}</td>
 						<td>${articleList.requestedAccount}</td>
-						<td>${articleList.settlementAmount}</td>
+						<td>${articleList.settlementAmount} </td>
 						<td><div class="bt_1"><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do', '_blank', 'width=550 height=500')" >상세보기</a></div></td>
 						<td>${articleList.settlementStatus}</td>
 					</tr>
@@ -82,7 +83,9 @@
 			   		</c:if> 
 			          
 			   		<c:if test="${startPage > 10}">
-			        		<a href="/buengbueng/dailySettlementList.do?pageNum=${startPage - 10 }">[이전]</a>
+			   			<div class="paging_part">
+			        		<a class="pageing-ing" href="/buengbueng/dailySettlementList.do?pageNum=${startPage - 10 }">[이전]</a>
+			        	</div>
 			   		</c:if>
 			
 			   		<c:forEach var="i" begin="${startPage}" end="${endPage}">
@@ -92,12 +95,17 @@
 			   		</c:forEach>
 			
 			   		<c:if test="${endPage < pageCount}">
-			        	<a href="/buengbueng/dailySettlementList.do?pageNum=${startPage + 10}">[다음]</a>
+			   			<div class="paging_part">
+			        	<a class="pageing-ing" href="/buengbueng/dailySettlementList.do?pageNum=${startPage + 10}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+			        	</div>
 			   		</c:if>
 					</c:if>
 				</div>
 			</div>
 		</div>
 	</body>
-	<jsp:include page="../../footer.jsp" />
+	<footer style="background: red; height:1px; width:100%;float:left;">
+
+</footer>
+	<%-- <jsp:include page="../../footer.jsp" /> --%>
 </html>

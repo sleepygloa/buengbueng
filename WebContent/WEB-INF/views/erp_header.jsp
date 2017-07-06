@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html>
+<html style="height:100%;">
+
 	<head>
 	
 		<!-- 기본 세팅, 브라우저 세팅, device 세팅 -->
@@ -41,18 +42,44 @@
 
 		
 		<!-- 홈페이지 제목 -->
-		
 	</head>
 
  
 
 	 	<!-- LOGIN SECTION -->
-	 	<header class="header_wrap" style="background:#2b3643; border:none; height:40px;">
-			<div class="header container ">
-				<div style="border:1px red solid; ; margin:0 auto; width:100%;">
-					buengbueng
+	 	<header class="header_wrap" style="background:#2b3643; border:none; height:50px; float:left;">
+			<div class="header container " style="float:left;">
+				<div class="logo_box">
+					<div class="logo_con">
+						<p>buengbueng ERP</p>
+					</div>
+									
 				</div>
+				
          </div>
+         <div class="util_menu">
+         	<ul>
+			<c:if test="${sessionScope.loginId != null}" >
+                  <li class="item sign"><a href="#">${sessionScope.loginId}님</a></li>
+                  <li class="item sign"><a href="/buengbueng/userInfoForm.do">회원 정보보기</a></li>
+                  <!-- <li class="item sign"><a href="/buengbueng/logout.do">로그아웃</a></li> -->
+                  <c:if test="${sessionScope.grade!=4}" >
+                  	<li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
+                  </c:if>
+               </c:if>
+
+               <c:if test="${sessionScope.loginId == null}" >
+                  <!-- <li class="item sign"><a href="/buengbueng/userInfoSignForm.do">회원가입</a></li> -->
+                  <li class="item sign"><a href="">비밀번호찾기</a></li>
+                  <li class="item sign"><a href="/buengbueng/loginForm.do">로그인</a></li>
+                  <li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
+               </c:if>
+               
+               <c:if test="${sessionScope.grade==4}" >
+			      <li class="item sign"><a href="/buengbueng/dashIndex.do">관리자 페이지</a></li>
+			   </c:if>
+			  </ul> 			
+		 </div>	
       </header>
       
 <section class="main_wrap" style="float:left;"> 

@@ -48,7 +48,7 @@
 
 	 	<!-- LOGIN SECTION -->
 	 	<header class="header_wrap">
-			<div class="header container ">
+			<div class="header container">
 				<!-- 로고 : BUENGBUENG 또는 그림 -->
 				<div><h1 class="logo" ><a style="color:#ed1c24;" href="index.do"><b>bueng</b>bueng</a></h1></div>
 

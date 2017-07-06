@@ -6,7 +6,7 @@
 </section>
 
 <style>
-.footer{width:100%; float:left; background: blue;}
+.footer{margin-top:-1.9em;height:1.9em; background: blue; width:100%;}
 </style>
 <!-- footer -->
 <footer class="footer">

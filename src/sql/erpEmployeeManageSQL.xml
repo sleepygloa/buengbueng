@@ -490,5 +490,9 @@
     b on a.id = b.e_id;
 	</select>
 	
+	<select id="chartData" resultClass="int">
+		select usageTime,amountUsed from usageHistory where affiliateCode = #b_key#;
+	</select>
+	
 </sqlMap>
 	

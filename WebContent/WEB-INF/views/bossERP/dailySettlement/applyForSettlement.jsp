@@ -20,7 +20,7 @@
 		</script>
 	</head>
 	<!-- HEADER TEMPLATE -->
-	<jsp:include page="../../header.jsp" />
+	<jsp:include page="../../erp_header.jsp" />
 	
 	<!-- 가맹점 선택하지 않는 경우 -->
 	
@@ -32,13 +32,20 @@
 		</c:if>
 		<c:if test="${affiliateCodeList != null }">
 		
+		<div class="ERP_Navigator">
+			<ul>
+				<li>ERP 관리</li>
+				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+				<li>일일정산</li>
+				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+				<li>일일정산 요청</li>
+			</ul>
+		</div>
 			
-				<div class="title_box">
-					<p>일일정산 - 일일정산 요청</p>
-				</div>
-				<p class="sub_title">하하 가맹점의 오늘 총  ${dailyCount}건의 오늘 정산금액은 ${dailyAmount}원 입니다.</p>
-				
-				<table border="1" class="applyForSettlement">
+		<div class="boss_con">
+			<p>일일정산 요청</p>
+			<hr>
+			<table border="1" class="dailySettlementList_table">
 				<tr>
 					<th>번호</th>
 					<th>사용자 아이디</th>
@@ -48,13 +55,12 @@
 					<th>사용종료 시간</th>
 					<th>사용 금액</th>
 					<th>기타</th>
-				
 				</tr>
-				<c:if test="${count > 0}">
-					<tr class="applyForSettlement_noCount">
-						<td colspan="8">
+				<c:if test="${count < 1}">
+					<tr class="dailySettlementList_NoCount">
+						<td colspan="9">
 							<p>
-							<img src="/buengbueng/img/bossERP/bg_alert.gif" widtd="40"height="40">
+							<img src="/buengbueng/img/bossERP/bg_alert.gif" width="40" height="40">
 								조회결과가 없습니다.
 							</p>
 						</td>
@@ -62,7 +68,7 @@
 				</c:if>
 				<c:if test="${count > 0}">
 				<c:forEach items="${articleList}" var="articleList">
-					<tr class="applyForSettlement_Count">
+					<tr>
 						<td>
 							<c:out value="${number}"/>
 							<c:set var="number" value="${number-1}"/>
@@ -78,33 +84,35 @@
 				</c:forEach>
 				</c:if>
 			</table>
+			<div class="paging_con">
+				<div class="paging_con_box">
+				    <c:if test="${count > 0}">
+			        <c:set var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}"/>
+			        <c:set var="pageBlock" value="${10}"/>
+			        <fmt:parseNumber var="result" value="${currentPage / 10}" integerOnly="true" />
+			        <c:set var="startPage" value="${result * 10 + 1}" />
+			        <c:set var="endPage" value="${startPage + pageBlock-1}"/>
+			        <c:if test="${endPage > pageCount}">
+			            <c:set var="endPage" value="${pageCount}"/>
+			   		</c:if> 
+			          
+			   		<c:if test="${startPage > 10}">
+			        		<a href="/buengbueng/dailySettlementList.do?pageNum=${startPage - 10 }">[이전]</a>
+			   		</c:if>
 			
-			<div class="pageing_box">
-			    <c:if test="${count > 0}">
-		        <c:set var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}"/>
-		        <c:set var="pageBlock" value="${10}"/>
-		        <fmt:parseNumber var="result" value="${currentPage / 10}" integerOnly="true" />
-		        <c:set var="startPage" value="${result * 10 + 1}" />
-		        <c:set var="endPage" value="${startPage + pageBlock-1}"/>
-		        <c:if test="${endPage > pageCount}">
-		            <c:set var="endPage" value="${pageCount}"/>
-		   		</c:if> 
-		          
-		   		<c:if test="${startPage > 10}">
-		        		<a href="/buengbueng/applyForSettlement.do?pageNum=${startPage - 10 }">[이전]</a>
-		   		</c:if>
-		
-		   		<c:forEach var="i" begin="${startPage}" end="${endPage}">
-		   			<div class="pageing-ing_box">
-		       		<a class="pageing-ing" href="/buengbueng/applyForSettlement.do?pageNum=${i}">${i}</a>
-		       		</div>
-		   		</c:forEach>
-		
-		   		<c:if test="${endPage < pageCount}">
-		        	<a href="/buengbueng/applyForSettlementserbilling/cashHistory.do?pageNum=${startPage + 10}">[다음]</a>
-		   		</c:if>
-				</c:if>
+			   		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			   			<div class="paging_part">
+			       		<a class="pageing-ing" href="/buengbueng/dailySettlementList.do?pageNum=${i}">${i}</a>
+			       		</div>
+			   		</c:forEach>
+			
+			   		<c:if test="${endPage < pageCount}">
+			        	<a href="/buengbueng/dailySettlementList.do?pageNum=${startPage + 10}">[다음]</a>
+			   		</c:if>
+					</c:if>
+				</div>
 			</div>
+		
 			
 				<form action="applyForSettlementPro.do" method="post">
 					<input type="hidden" name="bossId" value="${id}">
@@ -119,7 +127,8 @@
 					<input type="hidden" name="affiliateCodeList" id="affiliateCodeList" value="${affiliateCodeList}">
 					<input class="applyForSettlement_button" type="submit" value="정산하기" onclick="return acpet();">
 				</form>
-			
+			</div>
 		</c:if>
 	</body>
+	<jsp:include page="../../footer.jsp" />
 </html>
