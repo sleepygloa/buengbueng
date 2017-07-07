@@ -13,11 +13,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 public class BossMainController {
 	@FXML private AnchorPane bossMenu;
@@ -38,6 +39,32 @@ public class BossMainController {
 			urlInfo = "http://localhost:8080/buengbueng/fxDeleteLastProduct.do";
 			ConnectServer.connect(param, urlInfo);
 		}catch(Exception e){	
+		}
+	}
+	
+	public void logout(){
+		try{
+			if(UserInfo.getInstance().getId() != null){
+				// 사용자 로그아웃 시간 로그에 남기기
+				String param="id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&loginTime="+URLEncoder.encode(UserInfo.getInstance().getLoginTime(),"UTF-8")+
+						"&pcNum="+URLEncoder.encode("0","UTF-8")+"&key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8");
+				String urlInfo ="http://localhost:8080/buengbueng/fxLogoutPro.do";
+				JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+				
+				// 로그아웃 정상적으로 되면 초기 화면(로그인 화면)으로 전환
+				if(jsonObj.get("result").equals("succ")){
+					UserInfo.getInstance().clear();
+					BorderPane root = new BorderPane();
+					Parent login = FXMLLoader.load(getClass().getResource("/application/controller/login/LoginApp.fxml"));
+					root.setCenter(login);
+					Scene scene = new Scene(root);
+					scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
+					Main.getStage().setScene(scene);
+					Main.getStage().setFullScreen(true);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	

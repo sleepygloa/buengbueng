@@ -1,9 +1,13 @@
+/config/
+/sql/
+/erp/
+/superclass/
+/fx/
+/index/
+/login/
 /manage/
 /menu/
 /payment/
 /pc/
 /pcRoom/
-/superclass/
 /test/
-/sql/
-/fx/
