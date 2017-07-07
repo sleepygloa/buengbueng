@@ -2,96 +2,48 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- HEADER TEMPLATE -->
-<jsp:include page="../header.jsp" />
-
+<jsp:include page="../erp_header.jsp" />
 <style>
-.erp_subtitle{
-font-weight:700;
-}
-.erp_content div{
-float:left;
-}
-.erp_content .erp_sub_title{
-font-weight:600;
-font-size:1.1em;
-}
-.erp_employee_icon{
-background:url(/buengbueng/img/erp/ic_person_black_24dp_2x.png) no-repeat;
-width:50px;
-height:50px;
-}
-.erp_menu_icon{
-background:url(/buengbueng/img/erp/ic_restaurant_menu_black_24dp_2x.png) no-repeat;
-width:50px;
-height:50px;
-}
-.erp_stock_icon{
-background:url(/buengbueng/img/erp/ic_business_center_black_24dp_2x.png) no-repeat;
-width:50px;
-height:50px;
-}
-.erp_seat_icon{
-background:url(/buengbueng/img/erp/ic_airline_seat_recline_normal_black_24dp_2x.png) no-repeat;
-width:50px;
-height:50px;
-}
-.erp_borrow_icon{
-background:url(/buengbueng/img/erp/ic_headset_black_24dp_2x.png) no-repeat;
-width:50px;
-height:50px;
-}
+	.main_con{width:97%;background:#555; height:auto; MARGIN:20px AUTO; border:1px red solid;}
+	.box1{width:25%;height:150px; background: #999; float:left; color:#2ab4c0;}
+	.box2{width:25%;height:150px; background: green; float:left;}	
 </style>
-	
-	<!-- 페이지 제목 -->
-	<div class="container margin_bottom50">
-		<div class="col-md-10-12 col-xs-12-12">
-			<h3>ERP 페이지</h3>
-			<hr />
-			<span class="erp_subtitle">ERP 페이지에서는?</span>
-		</div>
+
+
+<div class="main_con">
+
+	<div class="box1">
+		<p>총 매출 현황</p>
+		<c:if test="${count > 0}">
+			<p>${totalAmount}원</p>
+		</c:if>
+		<c:if test="${count < 1}">
+			<p>0원</p>
+		</c:if>
 	</div>
 	
-	<div class="container">	
-		<div class="col-md-10-12 col-xs-12-12">
-					
-				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12 erp_content">
-						<div class="erp_employee_icon"></div>
-						<div class="erp_sub_title">아르바이트생 관리</div>
-						<div>아르바이트생 고용 및 퇴사, 출근 및 퇴근, 급여, 일정 관리 등 손쉽게 관리 할 수 있습니다.</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12 erp_content">
-						<div class="erp_menu_icon"></div>
-						<div class="erp_sub_title">PC방 판매 메뉴 관리</div>
-						<div>아르바이트생 고용 및 퇴사, 출근 및 퇴근, 급여, 일정 관리 등 손쉽게 관리 할 수 있습니다.</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12 erp_content">
-						<div class="erp_stock_icon"></div>
-						<div class="erp_sub_title">재고 관리</div>
-						<div>아르바이트생 고용 및 퇴사, 출근 및 퇴근, 급여, 일정 관리 등 손쉽게 관리 할 수 있습니다.</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12 erp_content">
-						<div class="erp_seat_icon"></div>
-						<div class="erp_sub_title">PC방 좌석 관리</div>
-						<div>아르바이트생 고용 및 퇴사, 출근 및 퇴근, 급여, 일정 관리 등 손쉽게 관리 할 수 있습니다.</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-10-12 col-xs-12-12 erp_content">
-						<div class="erp_borrow_icon"></div>
-						<div class="erp_sub_title">PC방 대여품 메뉴 관리</div>
-						<div>아르바이트생 고용 및 퇴사, 출근 및 퇴근, 급여, 일정 관리 등 손쉽게 관리 할 수 있습니다.</div>
-					</div>
-				</div>
-		</div>
+	<div class="box2">
+		현재 매출 현황
+		<c:if test="${count2 > 0}">
+			<p>${dailyAmount}원</p>
+		</c:if>
+		<c:if test="${count2 < 1}">
+			<p>0명</p>
+		</c:if>
 	</div>
 	
+	<div class="box1">
+		<p>상품재고 현황</p>
+		0
+	</div>
+	
+	<div class="box2">
+		가맹점 이용자 수
+		<c:if test="${count3 > 0}">
+			<p>${dailyUserCount}명</p>
+		</c:if>
+		<c:if test="${count3 < 1}">
+			<p>0명</p>
+		</c:if>
+	</div>
 </div>
-
-

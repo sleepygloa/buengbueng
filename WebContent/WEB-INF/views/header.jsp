@@ -23,10 +23,10 @@
 		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/bootstrap-theme.min.css" />
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/modules.min.css" />
-		
 	
 		<!-- main -->
 		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/dist/sidemain_main.css" />
+		
 		<!-- 구글 MATERIAL ICON -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 		
@@ -43,9 +43,9 @@
 		<!-- 홈페이지 제목 -->
 		
 	</head>
-<!-- LOGIN SECTION -->
-	 	<header class="header_wrap ">
-			<div class="header container ">
+	 	<!-- LOGIN SECTION -->
+	 	<header class="header_wrap">
+			<div class="header container">
 				<!-- 로고 : BUENGBUENG 또는 그림 -->
 				<div><h1 class="logo"><a href="index.do">buengbueng</a></h1></div>
 
@@ -340,16 +340,16 @@
          </div>
       </header>
  
-<section class="main_wrap" style="float:left;"> 
+<section class="main_wrap1" style="float:left;"> 
 	<!-- css로 추가활것 -->
-  	<div class="main container" style="width:100%; background: #E7EAEB;">
+  	<div class="main" style="width:100%;">
  
 		 <!-- SIDEMENU TEMPLATE -->
 		<c:if test="${sidemenuCheck == 1}">
 		
 		<!-- 가맹점 -->
 		<link rel="stylesheet" type="text/css" media="all" href="css/bosspcuse/franchisee.css">
-		
+			
 			<jsp:include page="sidemenu.jsp" />
 			
 			<!-- ARTICLE -->
@@ -361,7 +361,7 @@
 		<c:if test="${sidemenuCheck != 1}">
 
 			<!-- ARTICLE -->
-			<div class="side_scontent container">
+			<div class="side_scontent container" style="margin:0 auto;">
 			
 		</c:if>
   <script>
@@ -401,3 +401,5 @@
 	 if(check == 5){$("#respon_submenu_intro").hide();$("#respon_submenu_user").hide();$("#respon_submenu_boss").hide();$("#respon_submenu_admin").hide();}
  }
  </script>
+ 
+ 

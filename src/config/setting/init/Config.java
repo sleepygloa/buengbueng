@@ -1,4 +1,5 @@
 package config.setting.init;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,20 +8,13 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller

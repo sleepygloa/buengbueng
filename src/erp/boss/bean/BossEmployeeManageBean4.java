@@ -204,7 +204,7 @@ public class BossEmployeeManageBean4 {
 		if (pageNum == null) {
             pageNum = "1";
         }
-        int pageSize = 4;
+        int pageSize = 40;
         int currentPage = Integer.parseInt(pageNum);
         int startRow = (currentPage - 1) * pageSize + 1;
         int endRow = currentPage * pageSize;
@@ -357,10 +357,19 @@ public class BossEmployeeManageBean4 {
 		return "/bossERP/pcUseStatus/pcUseStatusList";
 	}
 	
-	@RequestMapping("/erpMain.do")
-	public String erpMain(){
+	@RequestMapping("/chart.do")
+	public String chart(HttpSession session, HttpServletRequest request){
+		String b_key = (String)session.getAttribute("b_key");
+		System.out.println("key" + b_key);
+		List chart = sqlMap.queryForList("erpEmp.chartData", b_key);
+		System.out.println("chart"+ chart);
+		request.setAttribute("chartList", chart);
+		for(int i=0; i<chart.size(); i++){
+			System.out.println("chartaaa"+ chart.get(i));
+			request.setAttribute("chart", chart.get(i));
+		}
 		
-		return "/bossERP/pcUseStatus/erpMain";
+		return "/bossERP/chart/chart";
 	}
 	
 	@RequestMapping("userviewDetails.do")

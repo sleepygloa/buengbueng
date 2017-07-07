@@ -4,11 +4,19 @@
 
 /* 바디 영역  */
 
-.main_wrap{height:100%; border:3px red solid;}
-.main_wrap .main{top:60px;position:relative; height:100%; border:3px green solid; float:left;}
+.main_wrap{height:100%;}
+.main_wrap .main{position:relative; height:auto; float:left; background: #293949;}
 
 /* 사이드메뉴 */
-.main_wrap .main .sidemenu{float:left;height:100%; min-width:150px; width:15%; overflow:hidden;}
+.main_wrap .main .sidemenu{    
+	float: left;
+    min-height: 930px;
+    min-width: 150px;
+    max-height: 100%;
+    width: 15%;
+    overflow: hidden;
+    z-index: 999999;
+    background: #293949;}
 .main_wrap .main .sidemenu_ul{ width:100%; overflow:hidden; border-top:2px solid #283444 }
 .main_wrap .main .side_top{ background:url(images/back_left.jpg); height:43px; padding-top:25px; font-size:22px; color:#333333; font-weight:bold; padding-left:10px; }
 .main_wrap .main .sidemenu_ul li{ border-bottom:1px solid #e5e5e5; height:37px; line-height:37px; padding-left:10px;}
@@ -19,11 +27,19 @@
 }
 
 /* 메인 컨텐츠 */	
-.main_wrap .main .content{float:left; background-color:#fff;  margin-right:0; margin-left:0; width:100%;}
-.main_wrap .main .side_content{float:left; background-color:#ffff; margin-right:0; margin-left:0; width:85%;}
+.main_wrap .main .content{float:left; background-color:#fff;  margin-right:0; margin-left:0; width:auto;}
+.main_wrap .main .side_content{float:left; background:#eef1f5; margin-right:0; margin-left:0; width:85%; height:100%;     min-height: 930px;}
 .main_wrap .main .side_content .margin_bottom50{margin-bottom:50px;}
 
 /* 메인 컨텐츠 반응형*/
 @media screen and (max-width:1199px){
 .main_wrap .main .side_content{width:100%}
 }
+
+
+.logo_box{ width:100%; height:50px; }
+.logo_con{width:284px;  height:50px; text-align: center; line-height: 1;}
+.logo_con p{line-height: 2; color:#fff; font-weight: bold; font-size: 24px;float: left; margin-left: 26px;}
+.util_menu{float:left;  width:350px; height:50px; float:right;line-height: 3.3;}
+.util_menu ul li{ float:left; margin-left:20px; }
+.util_menu ul li a{color:#aeb2b7;}
