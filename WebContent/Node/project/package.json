@@ -1,0 +1,24 @@
+{
+  "name": "chatbot",
+  "version": "1.0.0",
+  "description": "ChatBot",
+  "main": "chatServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "http": "0.0.0",
+    "http-post": "^0.1.1",
+    "jade": "^1.11.0",
+    "json-parser": "^1.1.5",
+    "node-mysql": "^0.4.2",
+    "querystring": "^0.2.0",
+    "request": "^2.81.0",
+    "socket.io": "^2.0.1",
+    "supervisor": "^0.12.0"
+  }
+}
