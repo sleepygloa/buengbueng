@@ -11,15 +11,21 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import superclass.all.bean.SuperClass;
 
 @Controller
 public class CustomerMethodBean {  // 사용자 게시판 메서드( 가맹문의, 1:1 문의 , 자주묻는 질문)
 	
 	@Autowired
 	SqlMapClientTemplate sqlMap;
+	@Autowired
+	protected SuperClass sc;
 	//글 목록
-	public void boardList(HttpServletRequest request,HashMap map){
+	public void boardList(HttpServletRequest request,HashMap map,Model model){
+		sc.sideMenuTemp(model, 1, 1);
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");

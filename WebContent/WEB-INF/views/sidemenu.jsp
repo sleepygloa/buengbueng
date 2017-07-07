@@ -138,6 +138,7 @@ ${sessionScope.b_key}
 	<!-- 링크 LIST -->
 		<ul class="my_side_ul">
 <!-- --------------------------------------------------------- -->
+
 <aside class="sidebar">
   <div id="leftside-navigation" class="nano">
     <ul class="nano-content">
@@ -219,7 +220,7 @@ ${sessionScope.b_key}
       <li class="sub-menu">
         <a href="javascript:void(0);"><i class="fa fa-map-marker"></i><span>대여 관리</span><i class="arrow fa fa-angle-right pull-right"></i></a>
         <ul>
-          <li><a href="rentManage.do">대여물품 관리</a>
+          <li><a href="rentMain.do">대여물품 관리</a>
           </li>
         </ul>
       </li>
@@ -231,6 +232,18 @@ ${sessionScope.b_key}
         <ul>
           <li><a href="favoritePCRoom.do">즐겨찾는 PC방</a>
           </li>
+        </ul>
+      </li>
+      </c:if>
+      
+     <c:if test="${sidemenu == 1}"> 
+     <li class="sub-menu">
+        <a href="javascript:void(0);"><i class="fa fa-file"></i><span>고객센터</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+        <ul>
+          <li><a href="franchiseQA.do?snum=1">가맹문의</a></li>
+          <li><a href="customerQA.do?snum=2">자주묻는 질문</a></li>
+          <li><a href="oneQA.do?snum=3">1:1 문의</a></li>
+          <li><a href="notice.do?snum=4&pageNum=1">공지사항</a></li>
         </ul>
       </li>
       </c:if>

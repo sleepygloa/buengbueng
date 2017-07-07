@@ -30,10 +30,10 @@
 <title>작성한 글</title>
 </head>
 <input type="hidden" id="snum" value="5"/>
-<input type="hidden" id="num" value="${article.num}"/><!--535-->
+<input type="hidden" id="num" value="${article.num}"/>
 <input type="hidden" id="writer" value="${sessionScope.loginId}"/>
-<input type="hidden" id="ref" value="${article.ref}"/><!--14-->
-<input type="hidden" id="re_step" value="${article.re_step}"/><!--0-->
+<input type="hidden" id="ref" value="${article.ref}"/>
+<input type="hidden" id="re_step" value="${article.re_step}"/>
  
 <div id="num">
 		<span>no</span>
@@ -112,8 +112,6 @@ function commentModifyForm${countRe}(){
 	</textarea>
 	</div>
 
-</div>
-
 <div>
 pw:&nbsp;&nbsp;&nbsp;<input type="password" id="passwd">
 </div>
@@ -121,7 +119,7 @@ pw:&nbsp;&nbsp;&nbsp;<input type="password" id="passwd">
 <div>
 <button onclick="return button();">등록</button>
 </div>
-
+</div>
 
 <c:if test="${sessionScope.loginId=='admin'}">
 <div id="button">
