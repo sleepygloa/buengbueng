@@ -1,3 +1,5 @@
+nodeSituation();//노드 상황보기
+
 function addChat(max){
 	if($(".addChat").html() != ""){
 		$(".addChat").html("");
@@ -106,4 +108,24 @@ function checkModifyChatbot(){
         document.getElementById("alert").value = "모든 정보를 입력해주십시오.";
         return false;
     }
+}
+
+/* 선호 코드 추가 */
+
+
+function nodeSituation(){
+	$.ajax({
+		url : "chatSituation.do",
+		type : "post",
+		success : function(data){
+			$("#nodeSituation").html(data);
+		}
+	});
+	setTimeout("nodeSituation()",5000);
+}
+function nodeStart(){
+	$.post("nodeStart.do");
+}
+function nodeEnd(){
+	$.post("nodeEnd.do");
 }

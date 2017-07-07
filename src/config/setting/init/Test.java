@@ -59,11 +59,13 @@ public class Test {
 			list.add("cmd.exe");
 			list.add("/c");
 			list.add("supervisor chatServer.js");
+//			list.add("dir");
 			
 			ProcessBuilder pb = new ProcessBuilder(
 					list
 					);
-			pb.directory(new File("C:\\Users\\user2\\Documents\\workspace\\buengbueng\\WebContent\\Node\\project\\"));
+//			pb.directory(new File("C:\\Users\\user2\\Documents\\workspace\\buengbueng\\WebContent\\Node\\project\\"));
+			pb.directory(new File("C:\\Users\\sleep\\Documents\\workspace\\buengbueng\\WebContent\\Node\\project\\"));
 		       System.out.println(pb.command());
 		       pb.redirectErrorStream(true);
 		        Process p = pb.start();

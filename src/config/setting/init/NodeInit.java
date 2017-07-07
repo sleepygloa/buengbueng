@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class  NodeInit {
+public class  NodeInit extends Thread {
 	public static void nodeExit(){
 		StringBuffer message = new StringBuffer();
 		 InputStreamReader isr = null;
@@ -56,19 +56,21 @@ public class  NodeInit {
 	}
 	
 	//노드 실행
-	public static void nodeExe() {
+	public void run(){
 		BufferedReader r = null;
 		try{
 			
 			List<String> list = new ArrayList<String>();
 			list.add("cmd.exe");
 			list.add("/c");
+//			list.add("dir");
 			list.add("supervisor chatServer.js");
 			
 			ProcessBuilder pb = new ProcessBuilder(
 					list
 					);
-			pb.directory(new File("C:\\Users\\user2\\Documents\\workspace\\buengbueng\\WebContent\\Node\\project\\"));
+//			pb.directory(new File("C:\\Users\\user2\\Documents\\workspace\\buengbueng\\WebContent\\Node\\project\\")); //학원선호컴
+			pb.directory(new File("C:\\Users\\sleep\\Documents\\workspace\\buengbueng\\WebContent\\Node\\project\\")); //선호 집컴
 //		       System.out.println(pb.command());
 		       pb.redirectErrorStream(true);
 		        Process p = pb.start();

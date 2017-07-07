@@ -25,17 +25,19 @@ public class Config  {
 	BufferedReader b = null;
 	String fileRealName = "\\log.txt";
 	File path = new File(Config.class.getResource("").getPath());
+	NodeInit ni = new NodeInit();
 	
 	@PostConstruct
 	public void init() {
 		
-		NodeInit.nodeExit();
+//		NodeInit.nodeExit();
 		
-		String folderCheck = folderCheck();
+//		String folderCheck = folderCheck();
+//		
+//		fileCheck(folderCheck);
 		
-		fileCheck(folderCheck);
 		
-//		NodeInit.nodeExe();
+//		ni.start();
 		
 	}
 	
@@ -45,6 +47,8 @@ public class Config  {
 		if( fos != null){try{fos.close();}catch(IOException e){System.out.println("init 종료시 fos 오류"+e);}}
 		if( b != null){try{b.close();}catch(IOException e){System.out.println("init 종료시 b 오류"+e);}}
 		
+//		try {Thread.sleep(10000);} catch(InterruptedException e) {}
+
 //		NodeInit.nodeExit();
 
 	}
