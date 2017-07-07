@@ -62,10 +62,20 @@
 						<td>${articleList.bossId}</td>
 						<td>${articleList.companyName}</td>
 						<td>${articleList.settlementNumber}</td>
-						<td>${articleList.requestedAccount}</td>
-						<td>${articleList.settlementAmount} </td>
+						<td>${articleList.requestedAccount} &#8361;</td>
+						<td>${articleList.settlementAmount} &#8361;</td>
 						<td><div class="bt_1"><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do', '_blank', 'width=550 height=500')" >상세보기</a></div></td>
-						<td>${articleList.settlementStatus}</td>
+						<td>
+							<c:if test="${articleList.resultValue == 3}">
+								<div class="bt_2"><a>${articleList.settlementStatus}</a></div>
+							</c:if>
+							<c:if test="${articleList.resultValue == 2}">
+								<div class="bt_3"><a>${articleList.settlementStatus}</a></div>
+							</c:if>
+							<c:if test="${articleList.resultValue == 1}">
+								<div class="bt_4"><a>${articleList.settlementStatus}</a></div>
+							</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 				</c:if>
@@ -104,8 +114,6 @@
 			</div>
 		</div>
 	</body>
-	<footer style="background: red; height:1px; width:100%;float:left;">
-
-</footer>
-	<%-- <jsp:include page="../../footer.jsp" /> --%>
+	
+	<jsp:include page="../../footer.jsp" />
 </html>

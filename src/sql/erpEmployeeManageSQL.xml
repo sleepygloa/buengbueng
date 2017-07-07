@@ -490,9 +490,30 @@
     b on a.id = b.e_id;
 	</select>
 	
-	<select id="chartData" resultClass="int">
-		select usageTime,amountUsed from usageHistory where affiliateCode = #b_key#;
+	<select id="totalAmount" resultClass="String">
+		select format(sum(settlementAmount),0) from dailySettlement where b_key=#b_key#;
 	</select>
+	
+	<select id="totalAmountCount" resultClass="int">
+		select count(settlementAmount) from dailySettlement where b_key=#b_key#;
+	</select>
+	
+	<select id="dailyUserCount" resultClass="int">
+		select count(userId) from usageHistory where affiliateCode = #b_key#;
+	</select>
+	
+	<select id="dailyAmountCount" resultClass="int" parameterClass="java.util.HashMap">
+	<![CDATA[
+		select count(*) from usageHistory where affiliateCode=#b_key# and usageTime >= #startDate# and endTime <= #endDate#;
+	]]>
+	</select>
+	
+	<select id="dailyUsageHistoryAmountCount" resultClass="String" parameterClass="java.util.HashMap">
+	<![CDATA[
+		select format(sum(amountUsed),0) from usageHistory where affiliateCode = #b_key# and usageTime >=#startDate# and endTime<=#endDate#;
+	]]>
+	</select>
+	
 	
 </sqlMap>
 	

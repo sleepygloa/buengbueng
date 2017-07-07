@@ -66,6 +66,7 @@
                   <c:if test="${sessionScope.grade!=4}" >
                   	<li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
                   </c:if>
+                  <li class="item sign"><a href="/buengbueng/index.do">로그아웃</a></li>
                </c:if>
 
                <c:if test="${sessionScope.loginId == null}" >

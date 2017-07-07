@@ -132,7 +132,31 @@ body{height:100%;}
 	width:60px;
 	height:24px;
 }
-.bt_1 a{color:#fff; line-height: 2}
+.bt_2{
+	background-color: RED;
+	color:#fff;
+	font-size: 13px;
+	margin:0 auto;
+	width:60px;
+	height:24px;
+}
+.bt_3{
+	background-color: BLUE;
+	color:#fff;
+	font-size: 13px;
+	margin:0 auto;
+	width:60px;
+	height:24px;
+}
+.bt_4{
+	background-color: YELLOW;
+	color:#fff;
+	font-size: 13px;
+	margin:0 auto;
+	width:60px;
+	height:24px;
+}
+.bt_1 a, .bt_2 a, .bt_3 a, .bt_4 a{color:#fff; line-height: 2}
 .bt_1 a:VISITED{color:#fff; line-height: 2; text-decoration: none;}
 .paging_con{
 	width:100%;

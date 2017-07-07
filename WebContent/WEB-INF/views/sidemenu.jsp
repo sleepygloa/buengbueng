@@ -94,10 +94,16 @@ body {
 	text-indent: 20px;
 	background: none;
 	font-size: 14px;
-	color:#fff;
+	color:#aeb2b7;
+	border:none;
 }
 .flist, option:selected{
-	color:red;
+	background-color: red;
+}
+.flist option{
+	background-color: #2B3643;
+	color:#fff;
+	text-indent:10;
 }
 
 </style>
