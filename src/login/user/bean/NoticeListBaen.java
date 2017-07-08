@@ -1,5 +1,6 @@
 package login.user.bean;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,9 @@ import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 @Controller
@@ -247,11 +250,31 @@ public String noticeForm(HttpServletRequest request){
 	}
 	
 	
+
+
+@RequestMapping("indexNotice.do")
+public ModelAndView indexNotice(Model model){
+	ModelAndView mv = new ModelAndView();
+	List articleList = new ArrayList();;
+	
+	int snum = 4; //고객센터 게시판
+	
+	try{
+		articleList = (List)sqlMap.queryForList("customer.indexCustomerlist", snum);
+	}catch(Exception e){
+		e.printStackTrace();
+	}	
+	    
+	model.addAttribute("list", articleList);
+	mv.setViewName("/customer-center/indexNoticeList");    
+	
+	return mv;
+	}
+
+
+
+
+
+
+
 }
-
-
-
-
-
-
-

@@ -251,6 +251,29 @@ setInterval("autoRefresh1()", 3000);
                                 </li>
                             </ul>
                         </li>
+                        <li class="mt-has-menu">
+                            <a href="javascript:void(0)">
+	                            <i class="fa fa-pencil-square-o"></i>
+	                            <span class="menu-text">Log 관리</span>
+	                            <span class="selected"></span>
+                        	</a>
+                            <ul class="mt-sub-menu">
+                                <li>
+                                    <a href="dashAgreeList.do?pageNum=1&pageNum1=1" class="rippler rippler-default">
+                                    <span class="menu-text">가맹 목록</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                            </ul>
+                            <ul class="mt-sub-menu">
+                                <li>
+                                    <a href="dashEmpAgreeList.do?pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">알바 목록</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                            </ul>
+                        </li>
                 </aside>
          <!-- 중앙에 들어갈 내용!-->
          <section id="main-content">

@@ -10,6 +10,20 @@ history.go(-1);
 <!-- HEADER TEMPLATE -->
 <jsp:include page="header.jsp" /> 
 
+<script>
+indexNoticeList();
+function indexNoticeList(){
+	$.ajax({
+		url:"indexNotice.do",
+		type:"post",
+		success:function(data){
+			$("#indexNoticeList").html(data);
+		}
+	})
+}
+</script>
+
+
 <!-- ARTICLE -->
 <!-- 메인 화면 전광판  ------------------------------------------------------------>
 <div class="main_ad">
@@ -32,13 +46,13 @@ history.go(-1);
 				</div>
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">포인트 결제</a></div>
+						<div class="contentBox_a"><a href="cash.do">포인트 결제</a></div>
 						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10 col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">결제내역 조회</a></div>
+						<div class="contentBox_a"><a href="cashHistory.do">결제내역 조회</a></div>
 						<div><i class="fa fa-credit-card fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>
@@ -57,12 +71,10 @@ history.go(-1);
 				</div>
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10 col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;공지사항</a></div>
+						<div class="contentBox_a"><a href="notice.do?snum=4"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;공지사항</a></div>
 						<div><hr /></div>
-						<div class="contentBox_board_list">
-							1. 내용입니다.<br />
-							2. 내용입니다.<br />
-							3. 내용입니다?
+						<div id="indexNoticeList" class="contentBox_board_list">
+
 						</div>
 					</div>
 				</div>
@@ -81,7 +93,7 @@ history.go(-1);
 				</div>	
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">포인트 결제</a></div>
+						<div class="contentBox_a"><a href="#">알바생 일정</a></div>
 						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>					
@@ -93,7 +105,7 @@ history.go(-1);
 				</div>	
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;고객센터</a></div>
+						<div class="contentBox_a"><a href="franchiseQA.do"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;고객센터</a></div>
 						<div><hr /></div>
 						<div class="contentBox_board_list">
 							1. 내용입니다.<br />
