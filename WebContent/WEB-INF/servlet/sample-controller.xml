@@ -26,6 +26,7 @@
 	<context:component-scan base-package="erp.boss.bean" /> <!-- 사장님 ERP관리 BEAN -->
 	<context:component-scan base-package="manage.admin.bean" /> <!-- 관리자 페이지 BEAN -->
 	<context:component-scan base-package="menu.all.bean" /> <!-- Menu 총 기능 관리 BEAN -->
+	<context:component-scan base-package="remote.all.bean" /> <!-- 원격지원 서비스 BEAN -->
 	
 	<!-- FX BEAN INPORT 지정 -->
 	<context:component-scan base-package="fx.user.bean" /> <!-- FX 사용자 BEAN  -->

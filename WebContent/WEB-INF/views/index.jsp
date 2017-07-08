@@ -104,7 +104,7 @@ history.go(-1);
 				</div>	
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">원격 지원</a></div>
+						<div class="contentBox_a"><a href="remoteIntro.do">원격 지원</a></div>
 						<div><i class="fa fa-desktop fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>	

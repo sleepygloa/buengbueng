@@ -320,6 +320,11 @@ header, section, footer{
 .mb0{margin-bottom:0px;}
 
 .contentBox_board_list{text-align:left;padding-left:20px;}
+
+.text_left, .text_left > div{
+	text-align:left;
+}
+
 /* index 반응형 끝----------------------------------------*/
 
 
@@ -330,3 +335,13 @@ header, section, footer{
 }
 
 /*- 아이디 찾기 끝 -*/
+
+/* 원격지원 버튼 */
+.remote_button{
+	width:200px; height:50px; background-color:#28546f;color:#fff;
+}
+
+.hr {
+	border-bottom : solid 1px gray;
+	width:100%;
+}
