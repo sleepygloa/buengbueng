@@ -4,22 +4,37 @@
 
 .notUse{
 	-fx-background-color: gray;
-	-fx-cursor: hand;
-	-fx-translate-x: 12;
-	-fx-translate-y: 12;
 	-fx-border-color: #999;
-
 }
 
 .use{
 	-fx-background-color: red;
 	-fx-cursor: hand;
-	-fx-translate-x: 12;
-	-fx-translate-y: 12;
 	-fx-border-color: #999;
 }
 
 .pcNum{
 	-fx-text-fill: white;
 	-fx-padding: 10;
+}
+
+.userId{
+	-fx-text-fill: white;
+	-fx-font-size: 20;
+	-fx-translate-x: 30;
+	-fx-translate-y: 10;	
+}
+
+.failure{
+	-fx-background-color: #444;
+	-fx-border-color: #999;
+}
+
+.err{
+	-fx-background-color: red;
+	-fx-border-color: white;
+	-fx-text-fill: white;
+	-fx-font-size: 20;
+	-fx-translate-x: 40;
+	-fx-translate-y: 10;
 }

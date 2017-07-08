@@ -108,8 +108,7 @@ public class LoginController {
 					alertTxt.setText("로그인 실패");
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				alertTxt.setText("로그인 실패");
 			}
 		}
 	}

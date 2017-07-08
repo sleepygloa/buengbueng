@@ -103,7 +103,7 @@ public class LoginController {
 					UserInfo.getInstance().setBossIP((String)jsonObj.get("bossIP"));
 					UserInfo.getInstance().setPcNum((String)jsonObj.get("pcNum"));
 					UserInfo.getInstance().setHistoryNum((Integer.parseInt((String)jsonObj.get("historyNum"))));
-					UserInfo.getInstance().setMoneyPolicy((double)jsonObj.get("moneyPolicy"));
+					UserInfo.getInstance().setMoneyPolicy(Double.parseDouble((String)jsonObj.get("moneyPolicy")));
 					Parent main =  FXMLLoader.load(getClass().getResource("/application/controller/login/MainApp.fxml"));
 					// 메인화면 레이아웃을 화면에 등록
 					Scene scene = new Scene(main);
@@ -121,8 +121,7 @@ public class LoginController {
 					alertTxt.setText(id.substring(id.indexOf(",")+1, id.length()));
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				alertTxt.setText("로그인 실패");
 			}
 		}
 	}

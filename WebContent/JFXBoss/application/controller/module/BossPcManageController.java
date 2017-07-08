@@ -30,8 +30,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -40,6 +38,7 @@ import javafx.stage.Stage;
 public class BossPcManageController {
 	@FXML private AnchorPane pcAlertView;
 	@FXML private AnchorPane pcUseView;
+	@FXML private GridPane gridPane;
 	@FXML private AnchorPane pcRentView;
 	@FXML private WebView pcMenuView;
 	@FXML private TableView<RentOrderList> rentTable;
@@ -77,7 +76,7 @@ public class BossPcManageController {
 			pcOrderCount = orderCount;
 			pcRentCount = rentCount;
 			pcCount = pcCheck;
-			GridPane gridPane = new GridPane();
+
 			String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8");
 			String urlInfo = "http://localhost:8080/buengbueng/fxGetPcUseState.do";
 			JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
@@ -102,29 +101,24 @@ public class BossPcManageController {
 				label.getStyleClass().add("pcNum");
 				AnchorPane pcUseCheck = new AnchorPane();
 				pcUseCheck.setId(String.valueOf(k));
-				pcUseCheck.setMaxWidth(117); pcUseCheck.setMinWidth(117);
-				pcUseCheck.setMaxHeight(117); pcUseCheck.setMinHeight(117);
 				pcUseCheck.getChildren().add(label);
 				String stateChk = iteratorState.next();
 				if(stateChk.equals("고장")){
 					Label state = new Label("고장");
-					state.setTextFill(Color.RED);
-					Font font = Font.loadFont(getClass().getResourceAsStream("/application/css/font.ttf"), 20);
-					state.setFont(font);
-					state.setTranslateX(40); state.setTranslateY(10);
+					state.getStyleClass().add("err");
 					pcUseCheck.getChildren().add(state);
+					pcUseCheck.getStyleClass().add("failure");
 				}
-				if(chkUse == 0){
+				else if(chkUse == 0 && !stateChk.equals("고장")){
 					pcUseCheck.getStyleClass().add("notUse");
-				}else{
+				}else if(chkUse == 1 && !stateChk.equals("고장")){
 					l++;
 					PCCheckDTO.getInstance().setUseCount(PCCheckDTO.getInstance().getUseCount()+1);
 					for(int sc = 0; sc < jsonSeatNum.size(); sc++){
 						int num = Integer.parseInt((String)jsonSeatNum.get(sc));
 						if(num == c){
 							Label userId = new Label((String)jsonUserId.get(PCCheckDTO.getInstance().getCurrentCount()));
-							userId.setTextFill(Color.WHITE);
-							userId.setTranslateX(30); userId.setTranslateY(10);
+							userId.getStyleClass().add("userId");
 							pcUseCheck.getChildren().add(userId);
 							pcUseCheck.setOnMouseClicked(new EventHandler<MouseEvent>() {
 								@Override
@@ -159,7 +153,6 @@ public class BossPcManageController {
 			PCCheckDTO.getInstance().setPcAllCount(Integer.parseInt((String)jsonObj.get("count")));
 			String check = PCCheckDTO.getInstance().getUseCount()+"/"+PCCheckDTO.getInstance().getPcAllCount();
 			pcCheck.setText(check);
-			pcUseView.getChildren().add(gridPane);
 			
 			// 대여
 			param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8");
@@ -253,7 +246,7 @@ public class BossPcManageController {
 	}
 	
 	private static void bell(){
-		String musicFile = "bell.wav";
+		String musicFile = System.getProperty("user.dir")+"\\bell"+"\\bell.wav";
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		MediaPlayer mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.play();
@@ -274,8 +267,7 @@ public class BossPcManageController {
 	public static void userLogin(String[] txt){	
 		pcList.get(Integer.parseInt(txt[1])-1).getStyleClass().add("use");
 		Label userId = new Label(txt[2]);
-		userId.setTextFill(Color.WHITE);
-		userId.setTranslateX(30); userId.setTranslateY(10);
+		userId.getStyleClass().add("userId");
 		pcList.get(Integer.parseInt(txt[1])-1).getChildren().add(userId);
 		PCCheckDTO.getInstance().setUseCount(PCCheckDTO.getInstance().getUseCount()+1);
 		String check = PCCheckDTO.getInstance().getUseCount()+"/"+PCCheckDTO.getInstance().getPcAllCount();
