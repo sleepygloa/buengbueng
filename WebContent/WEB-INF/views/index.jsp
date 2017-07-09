@@ -10,6 +10,20 @@ history.go(-1);
 <!-- HEADER TEMPLATE -->
 <jsp:include page="header.jsp" /> 
 
+<script>
+indexNoticeList();
+function indexNoticeList(){
+	$.ajax({
+		url:"indexNotice.do",
+		type:"post",
+		success:function(data){
+			$("#indexNoticeList").html(data);
+		}
+	})
+}
+</script>
+
+
 <!-- ARTICLE -->
 <!-- 메인 화면 전광판  ------------------------------------------------------------>
 <div class="main_ad">
@@ -32,13 +46,13 @@ history.go(-1);
 				</div>
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">포인트 결제</a></div>
+						<div class="contentBox_a"><a href="cash.do">포인트 결제</a></div>
 						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10 col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">결제내역 조회</a></div>
+						<div class="contentBox_a"><a href="cashHistory.do">결제내역 조회</a></div>
 						<div><i class="fa fa-credit-card fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>
@@ -57,12 +71,10 @@ history.go(-1);
 				</div>
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10 col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;공지사항</a></div>
+						<div class="contentBox_a"><a href="notice.do?snum=4"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;공지사항</a></div>
 						<div><hr /></div>
-						<div class="contentBox_board_list">
-							1. 내용입니다.<br />
-							2. 내용입니다.<br />
-							3. 내용입니다?
+						<div id="indexNoticeList" class="contentBox_board_list">
+
 						</div>
 					</div>
 				</div>
@@ -81,7 +93,7 @@ history.go(-1);
 				</div>	
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">포인트 결제</a></div>
+						<div class="contentBox_a"><a href="#">알바생 일정</a></div>
 						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>					
@@ -93,7 +105,7 @@ history.go(-1);
 				</div>	
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;고객센터</a></div>
+						<div class="contentBox_a"><a href="franchiseQA.do"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;고객센터</a></div>
 						<div><hr /></div>
 						<div class="contentBox_board_list">
 							1. 내용입니다.<br />
@@ -104,7 +116,7 @@ history.go(-1);
 				</div>	
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">원격 지원</a></div>
+						<div class="contentBox_a"><a href="remoteIntro.do">원격 지원</a></div>
 						<div><i class="fa fa-desktop fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>	
@@ -113,72 +125,5 @@ history.go(-1);
 		</div>
 		
 	</div>
-<!-- 끝 : 메인화면 전광판 ---------------------------------------------------------->	
-	<%-- 
-<!-- 메인 주요기능 : 카드 섹션? 영역 -------------------------------------------------->
-<div class="main_card_wrap row">
-    <div class="main_card_content">
-        <div class="card_title_wrap">
-            <h3 class="card_title">와우! 간편한 기능!</h3>
-        </div>
-
-	    <div class="card_content_wrap">
-	            <h4 class="card_content_title">새로운 점주는 언제나 환영이지!!</h4>
-	            <div class="row">
-<!-- 카드섹션 컨텐츠------------------------------------------------------------ -->
-	                <div class="co\l-xs-12-12 col-sm-6-12 col-md-4-12">
-	                    <a class="offer__function__section scalable"  href="">
-	                        <div class="card_icon ux-heatmap"></div>
-	                        <h6 class=" minor">UX Heatmap</h6>
-	                        <p class="tool__section__desc">사용자의 UX결과를 히트맵 형태로<br/>한눈에 볼 수 있습니다.</p>
-	                        <span class="goProduct">더 알아보기 &gt;</span>
-	                    </a>
-	                </div>
-	                <div class="col-xs-12-12 col-sm-6-12 col-md-4-12 ">
-	                    <a class="offer__function__section scalable" href="">
-	                        <div class="card_icon reporting-heatmap"></div>
-	                        <h6 class=" minor">Reporting Heatmap</h6>
-	                        <p class="tool__section__desc">히트맵 분석 결과와 이슈를 자동으로<br/>요약하고 정리 해드립니다.</p>
-	                        <span class="goProduct">더 알아보기 &gt;</span>
-	                    </a>
-	                </div>
-	                <div class="col-xs-12-12 col-sm-6-12 col-md-4-12 ">
-	                    <a class="offer__function__section scalable" href="">
-	                        <div class="card_icon comparing-referrers"></div>
-	                        <h6 class=" minor">Comparing as Referrers</h6>
-	                        <p class="tool__section__desc">유입 경로에 따라 달라지는 UX를<br/>직접 비교해 볼 수 있습니다.</p>
-	                        <span class="goProduct">더 알아보기 &gt;</span>
-	                    </a>
-	                </div>
-	                <div class="col-xs-12-12 col-sm-6-12 col-md-4-12 ">
-	                    <a class="offer__function__section scalable" href="">
-	                        <div class="card_icon user-heatmap"></div>
-	                        <h6 class=" minor">User Analytics</h6>
-	                        <p class="tool__section__desc">뷰저블을 설치하셨다면 사용자 지표도<br/>실시간으로 볼 수 있습니다.</p>
-	                        <span class="goProduct">더 알아보기 &gt;</span>
-	                    </a>
-	                </div>
-	                <div class="col-xs-12-12 col-sm-6-12 col-md-4-12 ">
-	                    <a class="offer__function__section scalable" href="">
-	                        <div class="card_icon gaze-heatmap"></div>
-	                        <h6 class=" minor">Gaze Heatmap</h6>
-	                        <p class="tool__section__desc">사용자들의 전반적인 사용 흐름을<br/>시각적으로 제공합니다.</p>
-	                        <span class="goProduct">더 알아보기 &gt;</span>
-	                    </a>
-	                </div>
-	                <div class="col-xs-12-12 col-sm-6-12 col-md-4-12 ">
-	                    <a class="offer__function__section scalable" href="">
-	                        <div class="card_icon segmenting-cta"></div>
-	                        <h6 class=" minor">Segmenting as CTA</h6>
-	                        <p class="tool__section__desc">특정 버튼이나 클릭 요소를 어떤 유형의</br> 사용자들이 선택했는지 알 수 있습니다.</p>
-	                        <span class="goProduct">더 알아보기 &gt;</span>
-	                    </a>
-	                </div>
-	            </div>
-		</div>
-    </div>
-</div>
-<!-- 메인 주요기능 : 카드 섹션? 영역 --------------------------------------------------->
---%>
 <!-- FOOTER TEMPLATE -->
 <jsp:include page="footer.jsp" /> 

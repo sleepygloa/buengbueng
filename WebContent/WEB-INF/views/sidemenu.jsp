@@ -3,26 +3,23 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>http://www.blueb.co.kr</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
 @import url('http://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
 @import url('http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css');
 body {
-  
   color: #5D5F63;
   background: #293949;
   font-family: 'Open Sans', sans-serif;
-  padding: 0;
-  margin: 0;
+  float:left;
+  height:100%;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 .sidebar-toggle {
-  margin-left: -240px;
 }
 .sidebar {
-  width: 240px;
+  width: 100%;
   height: 100%;
   background: #293949;
   /* position: absolute; */
@@ -32,6 +29,7 @@ body {
   -ms-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   z-index: 9;
+  float:left;
 }
 .sidebar #leftside-navigation ul,
 .sidebar #leftside-navigation ul ul {
@@ -96,10 +94,16 @@ body {
 	text-indent: 20px;
 	background: none;
 	font-size: 14px;
-	color:#fff;
+	color:#aeb2b7;
+	border:none;
 }
 .flist, option:selected{
-	color:red;
+	background-color: red;
+}
+.flist option{
+	background-color: #2B3643;
+	color:#fff;
+	text-indent:10;
 }
 
 </style>
@@ -129,14 +133,14 @@ $(document).ready(function(){
 	})
 })
 </script>
-${sessionScope.b_key}
+<input type="hidden" value="${sessionScope.b_key}">
 </head>
 
-<body>
+<body style="height:100%;">
 <!-- SIDEMENU 위치에서 실제로 사용할 영역 지정하는 DIV -->
 	<div class="sidemenu xs_hidden">
 	<!-- 링크 LIST -->
-		<ul class="my_side_ul">
+		
 <!-- --------------------------------------------------------- -->
 <aside class="sidebar">
   <div id="leftside-navigation" class="nano">
@@ -227,6 +231,13 @@ ${sessionScope.b_key}
       
       <c:if test="${sidemenu == 4}"> 
       	<li class="sub-menu">
+        <a href="javascript:void(0);"><i class="fa fa-file"></i><span>PC방 찾기</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+        <ul>
+          <li><a href="searchPCForm.do">PC방 찾기</a></li>
+          <li><a href="searchPCNear.do">우리동네 찾기</a></li>
+        </ul>
+      </li>
+      <li class="sub-menu">
         <a href="javascript:void(0);"><i class="fa fa-file"></i><span>즐겨찾는 PC방</span><i class="arrow fa fa-angle-right pull-right"></i></a>
         <ul>
           <li><a href="favoritePCRoom.do">즐겨찾는 PC방</a>
@@ -238,7 +249,7 @@ ${sessionScope.b_key}
   </div>
 </aside>
 <!-- --------------------------------------------------------- -->		
-		</ul>
+	
 	</div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
@@ -250,4 +261,5 @@ $("#leftside-navigation .sub-menu > a").click(function(e) {
 </script>
 
 </body>
+
 </html>

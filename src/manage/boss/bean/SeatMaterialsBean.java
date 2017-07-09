@@ -118,8 +118,6 @@ public class SeatMaterialsBean {
 		plog.setMo_code(map.get("mo_code"));
 		plog.setS_code(map.get("s_code"));
 		
-		System.out.println(map.get("s_code"));
-		
 		plog.setK_code(map.get("k_code"));
 		plog.setIp(map.get("ip"));
 		plog.setOs(map.get("os"));
@@ -135,10 +133,15 @@ public class SeatMaterialsBean {
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
 		
-		String b_key = (String)session.getAttribute("b_key");
-		BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getFranchiseeOne",b_key);		
-		model.addAttribute("count",bdto.getB_pccount());
-		model.addAttribute("b_key",bdto.getB_key());
+		try{
+			String b_key = (String)session.getAttribute("b_key");
+			BossInfoDataDTO bdto = (BossInfoDataDTO)sqlMap.queryForObject("bossERP.getFranchiseeOne",b_key);
+			model.addAttribute("count",bdto.getB_pccount());
+			model.addAttribute("b_key",bdto.getB_key());
+			model.addAttribute("result","succ");
+		}catch(Exception e){
+			model.addAttribute("result","fail");
+		}
 		return "/bossERP/seatMaterials/seatDispose";
 	}
 	
@@ -247,38 +250,45 @@ public class SeatMaterialsBean {
 		model.addAttribute("sidemenu", sidemenu);
 		
 		String b_key = (String)session.getAttribute("b_key");
-		SeatStateDataDTO sdto = (SeatStateDataDTO)sqlMap.queryForObject("bossERP.getSeatCount", b_key);
-		int pcCount = (Integer)sqlMap.queryForObject("bossERP.getPcCount", b_key);
-		ArrayList<String> pcState = (ArrayList<String>)sqlMap.queryForList("pcInfo.getState", b_key);
-		model.addAttribute("pcState",pcState);
-		model.addAttribute("count",pcCount);
-		if(sdto != null){
-			String[] seatCon = sdto.getSeatCheck().split(",");
-			ArrayList<HashMap<String,String>> param = (ArrayList<HashMap<String,String>>)sqlMap.queryForList("useSeat.getUseUserId", b_key);
-			ArrayList<String> useSeatId = new ArrayList<String>();
-			ArrayList<Integer> useSeatNum = new ArrayList<Integer>();
-			// 해당 가맹점을 사용하고 있는 유저가 있으면
-			if(param != null){
-				for(int i=0; i<param.size(); i++){
-					HashMap<String,Object> a = new HashMap();
-					a.put("key",b_key);
-					a.put("ip",param.get(i).get("ip"));
-					// 사용자의 좌석번호 알아내기
-					int num = (int)sqlMap.queryForObject("bossERP.getPcNum",a);
-					useSeatNum.add(num);
-					a.remove("ip");
-					a.put("id", param.get(i).get("id").toString());
-					useSeatId.add(param.get(i).get("id").toString());
-				}
-				model.addAttribute("useSeatId",useSeatId);
-			}
-			model.addAttribute("seatCon",seatCon);
-			model.addAttribute("useSeatNum",useSeatNum);
-		}
-		if(tf == null){
+		if(b_key == null){
+			model.addAttribute("result","fail");
 			return "/bossERP/seatMaterials/seatState";
 		}else{
-			return "/bossERP/seatMaterials/seatState2";
+			model.addAttribute("result","succ");
+			SeatStateDataDTO sdto = (SeatStateDataDTO)sqlMap.queryForObject("bossERP.getSeatCount", b_key);
+			int pcCount = (Integer)sqlMap.queryForObject("bossERP.getPcCount", b_key);
+			ArrayList<String> pcState = (ArrayList<String>)sqlMap.queryForList("pcInfo.getState", b_key);
+			model.addAttribute("pcState",pcState);
+			model.addAttribute("count",pcCount);
+			if(sdto != null){
+				String[] seatCon = sdto.getSeatCheck().split(",");
+				ArrayList<HashMap<String,String>> param = (ArrayList<HashMap<String,String>>)sqlMap.queryForList("useSeat.getUseUserId", b_key);
+				ArrayList<String> useSeatId = new ArrayList<String>();
+				ArrayList<Integer> useSeatNum = new ArrayList<Integer>();
+				// 해당 가맹점을 사용하고 있는 유저가 있으면
+				if(param != null){
+					for(int i=0; i<param.size(); i++){
+						HashMap<String,Object> a = new HashMap();
+						a.put("key",b_key);
+						a.put("ip",param.get(i).get("ip"));
+						// 사용자의 좌석번호 알아내기
+						int num = (int)sqlMap.queryForObject("bossERP.getPcNum",a);
+						useSeatNum.add(num);
+						a.remove("ip");
+						a.put("id", param.get(i).get("id").toString());
+						useSeatId.add(param.get(i).get("id").toString());
+					}
+					model.addAttribute("useSeatId",useSeatId);
+				}
+				model.addAttribute("seatCon",seatCon);
+				model.addAttribute("useSeatNum",useSeatNum);
+				model.addAttribute("result","succ");
+			}
+			if(tf == null){
+				return "/bossERP/seatMaterials/seatState";
+			}else{
+				return "/bossERP/seatMaterials/seatState2";
+			}
 		}
 	}
 	
@@ -312,7 +322,7 @@ public class SeatMaterialsBean {
 		String b_key = (String)session.getAttribute("b_key");
 		boolean all = false;
 		/* 단일 좌석 정보 */
-		if(page != 2){
+		if(page != 1){
 			PcInfoDataDTO pdto = getPcInfo(b_key, Integer.parseInt(pcNum));
 			if(pdto != null){
 				ComputerDataDTO cdto = (ComputerDataDTO)sqlMap.queryForObject("pcInfo.getComputerInfo",pdto);
@@ -333,15 +343,8 @@ public class SeatMaterialsBean {
 			all = true;
 		}
 		model.addAttribute("pcNum", pcNum);
-		// 선택한 좌석 정보 보기(0)로 이동
-		if(page == 0){
-			return "/bossERP/seatMaterials/getPcInfo";
-		}
-		// 선택한 좌석(1) 또는 일괄 좌석(2) 수정으로 이동
-		else{
-			model.addAttribute("all", all);
-			return "/bossERP/seatMaterials/setPcInfo";
-		}
+		model.addAttribute("all", all);
+		return "/bossERP/seatMaterials/getPcInfo";
 	}
 	
 	/* pc방 좌석 정보 및 수정 */

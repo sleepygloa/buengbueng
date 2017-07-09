@@ -2,19 +2,30 @@
 
 <head>
 	<title>우리 동네 PC방 찾기</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/buengbueng/js/searchPCRoom/searchPCRoom.js"></script>
-	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=b6f10c55f448ee9fa690fab9e2bfe418&libraries=services"></script>
+	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=94daac16260e127522f29ef34241f526&libraries=services"></script>
+	<link rel="stylesheet" type="text/css" href="/buengbueng/css/pcRoom/pcRoom.css">
 </head>
 
-<!-- HEADER TEMPLATE -->
-<jsp:include page="../header.jsp" />
+<jsp:include page="../user_header.jsp" />
 
 <body onload="searchPCNear('${addr}');">
-	<span id="guide" style="color:#999"></span>
-	<div class="pcRoomInfo"></div>
-	<div class="seatState"></div>
-	<div class="pcInfo"></div>
-	
-	<!-- FOOTER TEMPLATE -->
-	<jsp:include page="../footer.jsp" />
+	<div class="pcRoom">
+		<ul>
+			<li>사용자 PC방 이용</li>
+			<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+			<li>PC방 찾기</li>
+			<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+			<li>우리동네 PC방 찾기</li>
+		</ul>
+	</div>
+	<div class="pcRoomDiv">
+		<span id="guide" style="color:#999"></span>
+		<div class="pcRoomInfo"></div>
+		<div class="seatState"></div>
+		<div class="pcInfo"></div>
+	</div>
 </body>
+
+<jsp:include page="../footer.jsp" />

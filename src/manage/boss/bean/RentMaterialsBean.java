@@ -30,10 +30,15 @@ public class RentMaterialsBean {
 		
 		try{
 			String b_key = (String)session.getAttribute("b_key");
-			ArrayList<RentDataDTO> rentList = (ArrayList)sqlMap.queryForList("rent.getRentAll", b_key);
-			model.addAttribute("rentList", rentList);
+			if(b_key != null){
+				ArrayList<RentDataDTO> rentList = (ArrayList)sqlMap.queryForList("rent.getRentAll", b_key);
+				model.addAttribute("rentList", rentList);
+				model.addAttribute("result", "succ");
+			}else{
+				model.addAttribute("result", "fail");
+			}
 		}catch(Exception e){
-			/// 추후 수정
+			model.addAttribute("result", "fail");
 		}
 		return "/bossERP/rentMaterials/rentManage";
 	}
@@ -107,7 +112,7 @@ public class RentMaterialsBean {
 			model.addAttribute("rentProduct", rent.getRentProduct());
 			model.addAttribute("b_key", rent.getB_key());
 		}catch(Exception e){
-			// 추후 수정
+			System.out.println("err");
 		}
 		return "/bossERP/rentMaterials/selectedRentProductAll";
 	}

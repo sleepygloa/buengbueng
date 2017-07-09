@@ -5,12 +5,25 @@
 	<input type="button" value="대여물품 추가" id="addRentProduct"/>&emsp;&emsp;&emsp;
 	<input type="button" value="대여물품삭제" id="delRentProduct"/>&emsp;&emsp;&emsp;
 	<br/><br/>
-	<c:forEach var="rentList" items="${rentList}">
-		<input type="checkbox" name="rentName" value="${rentList.rentProduct}" />
-		${rentList.rentProduct}
-		<input type="button" value="수정하기" onclick="modiRent('${rentList.rentProduct}','${b_key}')"/>
-		<input type="button" value="물품 보기" onclick="selectedproductList('${rentList.rentProduct}','${b_key}')"/>
-	</c:forEach>
+	<div id="container">
+	    <ul class="tabs">
+	    	<c:set var="num" value="1"/>
+	   		<c:forEach var="rentList" items="${rentList}">
+		     	<li rel="tab${num}" onclick="selectedproductList('${rentList.rentProduct}','${sessionScope.b_key}','tab${num}');">
+				    &emsp;<input type="checkbox" name="rentName" value="${rentList.rentProduct}"/>&emsp;${rentList.rentProduct}&emsp;
+				    <input type="button" value="수정" onclick="modiRent('${rentList.rentProduct}','${sessionScope.b_key}')"/>&emsp;
+				</li>
+				<c:set var="num" value="${num+1}"/>
+			</c:forEach>
+	    </ul>
+	    <div class="tab_container">
+	    	<c:set var="num" value="1"/>
+	    	<c:forEach var="rentList" items="${rentList}">
+		   		<div id="tab${num}" class="tab_content"></div>
+		   		<c:set var="num" value="${num+1}"/>
+			</c:forEach>
+		</div>
+	</div>
 </c:if>
 <c:if test="${rentList.size() == 0}">
 	대여물품목록이 없습니다.

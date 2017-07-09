@@ -15,5 +15,5 @@
 주소 : ${franchiseeInfo.b_address}<input type="hidden" value="${franchiseeInfo.b_address}" id="addr"/><br/>
 전화번호 : ${franchiseeInfo.b_tel}<br/>
 
-<div id="map" style="width:100%;height:350px;"></div>
+<div id="map" style="width:100%;height:350px;z-index:100;"></div>
 <script type="text/javascript" src="/buengbueng/js/searchPCRoom/map.js"></script>

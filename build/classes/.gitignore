@@ -1,7 +1,4 @@
-/config/
-/sql/
 /erp/
-/superclass/
 /fx/
 /index/
 /login/
@@ -10,4 +7,7 @@
 /payment/
 /pc/
 /pcRoom/
+/remote/
+/superclass/
 /test/
+/sql/

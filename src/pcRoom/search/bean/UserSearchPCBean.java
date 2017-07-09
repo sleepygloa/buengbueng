@@ -32,7 +32,7 @@ public class UserSearchPCBean {
 	public String searchPC(Model model){
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 2; //사이드메뉴의 내용을 선택
+		int sidemenu = 4; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
 		
@@ -47,7 +47,7 @@ public class UserSearchPCBean {
 		}
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 2; //사이드메뉴의 내용을 선택
+		int sidemenu = 4; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
 	

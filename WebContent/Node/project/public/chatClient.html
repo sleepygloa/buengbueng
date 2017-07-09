@@ -1,0 +1,59 @@
+﻿<html>
+  <head>
+	<meta charset="UTF-8">
+    <title>챗봇</title>
+    <script type='text/javascript' src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js'></script>
+    <script type='text/javascript'>
+    //  var socket = io.connect('ws://192.168.0.206:3000');
+      var socket = io.connect('ws://localhost:3000');
+      $(document).ready(function(){
+        // 입력버튼 누르면 발생
+        $('#submitBtn').click(function(){
+          var keyword = "";
+          // 사용자 질문 채팅창에 띄우기
+          var txt = $('#chat').html()+'<br/>';
+          $('#chat').html(txt+'user: '+$('#userTxt').val());
+          var question =  document.getElementById("userTxt").value;
+          // 사용자의 질문에서 키워드 추출하기
+          $.ajax({
+        		url:"http://api.datamixi.com/datamixiApi/keywordextract",
+        		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        		type:"POST",
+        		dataType:'text',
+        		data: {
+        			request:'post',
+        			key:'7173114780022473721',
+        			text: question
+        		},
+            success: function(data){
+        			var parser = JSON.parse(data);
+        			for(i=0;i<parser.return_object.length;i++){
+        				var last = parser.return_object[i].term.indexOf('|');
+        				keyword += parser.return_object[i].term.substring(0,last);
+                if(i != parser.return_object.length-1){
+                  keyword  += ",";
+                }
+        			}
+              socket.emit('chat', keyword,question);
+        		}
+        	});
+          socket.on('recieveChat',function(data){
+            var txt = $('#chat').html()+'<br/>';
+            $('#chat').html(txt+data);
+            socket.end();
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h2>무엇을 도와드릴까요</h2>
+    <!--<textarea cols='30px' rows='20px' id='chat' readonly>안녕하세요. 무엇을 도와드릴까요?</textarea> -->
+    <div id='chat'>안녕하세요. 무엇을 도와드릴까요?</div>
+    <br/>
+    <input type='text' id='userTxt' placeholder='입력란'/>
+    &nbsp;&nbsp;&nbsp;
+    <button id='submitBtn'>입력</button>
+  </body>
+</html>

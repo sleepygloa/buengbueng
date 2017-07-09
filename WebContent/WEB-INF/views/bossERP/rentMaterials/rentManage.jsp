@@ -6,35 +6,78 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="/buengbueng/js/bossERP/rentManage.js"></script>
 	<link rel="stylesheet" type="text/css" href="/buengbueng/css/bossERP/seatDispose.css" />
+	<script type="text/javascript">
+	$(function () {
+	 	$(".tab_content").hide();
+	    $(".tab_content:first").show();
+	    $("ul.tabs li:first").trigger('click');
+		$("ul.tabs li:first").addClass("active").css("color", "red");
+	    $("ul.tabs li").click(function () {
+	        $("ul.tabs li").removeClass("active").css("color", "#333");
+	        $(this).addClass("active").css("color", "red");
+	        $(".tab_content").hide();
+	        var activeTab = $(this).attr("rel");
+	        $("#" + activeTab).fadeIn();
+	    });
+	});
+	</script>
 </head>
 
-<body>
+<jsp:include page="../../erp_header.jsp" />
 
-	<!-- HEADER TEMPLATE -->
-	<jsp:include page="/WEB-INF/views/header.jsp" />
-	
-	<input type="hidden" id="b_key" value="${sessionScope.b_key}"/>
-	<div>
-		<input type="button" value="대여물품목록 추가" id="addRent"/>&emsp;&emsp;&emsp;
-		<input type="button" value="대여물품목록삭제" id="delRent"  />&emsp;&emsp;&emsp;
-	</div>
-	<br/><br/>
-	<div id="seatDisposeFirstDiv">
-		<c:if test="${rentList.size() != 0}">
-			<input type="button" value="대여물품 추가" id="addRentProduct"/>&emsp;&emsp;&emsp;
-			<input type="button" value="대여물품삭제" id="delRentProduct"/>&emsp;&emsp;&emsp;
+<body>
+	<!-- 가맹점 선택하지 않는 경우 -->
+	<c:if test="${result eq 'fail'}">
+		가맹지점을 선택하여 주세요.
+	</c:if>
+	<c:if test="${result eq 'succ'}">
+		<div class="infoAddModiDel">
+				<ul>
+				<li>ERP 관리</li>
+				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+				<li>대여 관리</li>
+				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+				<li>대여물품 관리</li>
+			</ul>
+		</div>
+		<div class="infoDiv">
+			<input type="hidden" id="b_key" value="${sessionScope.b_key}"/>
+			<div>
+				<input type="button" value="대여물품목록 추가" id="addRent"/>&emsp;&emsp;&emsp;
+				<input type="button" value="대여물품목록삭제" id="delRent"  />&emsp;&emsp;&emsp;
+				<input type="button" value="대여물품 추가" id="addRentProduct"/>&emsp;&emsp;&emsp;
+				<input type="button" value="대여물품삭제" id="delRentProduct"/>&emsp;&emsp;&emsp;
+			</div>
 			<br/><br/>
-			<c:forEach var="rentList" items="${rentList}">
-				<input type="checkbox" name="rentName" value="${rentList.rentProduct}" />
-				${rentList.rentProduct}
-				<input type="button" value="수정하기" onclick="modiRent('${rentList.rentProduct}','${sessionScope.b_key}')"/>
-				<input type="button" value="물품 보기" onclick="selectedproductList('${rentList.rentProduct}','${sessionScope.b_key}')"/>
-			</c:forEach>
-		</c:if>
-		<c:if test="${rentList.size() == 0}">
-			대여물품목록이 없습니다.
-		</c:if>
-	</div>
-	<br/><br/>
-	<div id="rentDiv"></div>
+			<div id="rentDiv"></div>
+			<br/><br/>
+			<div id="seatDisposeFirstDiv">
+				<c:if test="${rentList.size() != 0}">
+					<br/><br/>
+					<div id="container">
+					    <ul class="tabs">
+					    	<c:set var="num" value="1"/>
+					   		<c:forEach var="rentList" items="${rentList}">
+						     	<li rel="tab${num}" onclick="selectedproductList('${rentList.rentProduct}','${sessionScope.b_key}','tab${num}');">
+								    &emsp;<input type="checkbox" name="rentName" value="${rentList.rentProduct}"/>&emsp;${rentList.rentProduct}&emsp;
+								    <input type="button" value="수정" onclick="modiRent('${rentList.rentProduct}','${sessionScope.b_key}')"/>&emsp;
+								</li>
+								<c:set var="num" value="${num+1}"/>
+							</c:forEach>
+					    </ul>
+					    <div class="tab_container">
+					    	<c:set var="num" value="1"/>
+					    	<c:forEach var="rentList" items="${rentList}">
+						   		<div id="tab${num}" class="tab_content"></div>
+						   		<c:set var="num" value="${num+1}"/>
+							</c:forEach>
+						</div>
+					</div>
+				</c:if>
+				<c:if test="${rentList.size() == 0}">
+					대여물품목록이 없습니다.
+				</c:if>
+			</div>
+		</div>
+	</c:if>
 </body>

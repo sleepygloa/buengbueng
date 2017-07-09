@@ -5,11 +5,13 @@
 	</div>
 </section>
 
-
-
+<style>
+.footer{margin-top:-1.9em;height:1.9em; background: blue; width:100%;}
+</style>
 <!-- footer -->
-<footer class="footer_wrap">
+<footer class="footer">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+   	sdsdaasddsadasdassdasdasdasda
 </footer>
 
 

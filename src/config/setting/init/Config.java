@@ -1,4 +1,5 @@
 package config.setting.init;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,12 +13,8 @@ import java.util.StringTokenizer;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -27,12 +24,36 @@ public class Config  {
 	FileOutputStream fos = null;
 	BufferedReader b = null;
 	String fileRealName = "\\log.txt";
-	
 	File path = new File(Config.class.getResource("").getPath());
+	NodeInit ni = new NodeInit();
 	
 	@PostConstruct
-	public  void init() throws Exception, IOException {
-		// TODO Auto-generated method stub
+	public void init() {
+		
+//		NodeInit.nodeExit();
+		
+//		String folderCheck = folderCheck();
+//		
+//		fileCheck(folderCheck);
+		
+		
+//		ni.start();
+		
+	}
+	
+	@PreDestroy
+	public void destroy() {
+		if( fis != null){try{fis.close();}catch(IOException e){System.out.println("init 종료시 fis 오류"+e);}}
+		if( fos != null){try{fos.close();}catch(IOException e){System.out.println("init 종료시 fos 오류"+e);}}
+		if( b != null){try{b.close();}catch(IOException e){System.out.println("init 종료시 b 오류"+e);}}
+		
+//		try {Thread.sleep(10000);} catch(InterruptedException e) {}
+
+//		NodeInit.nodeExit();
+
+	}
+
+	public String folderCheck(){
 		String logAdminPath = path.getAbsolutePath();
 		String logFilePath = System.getProperty("user.home")+"\\Documents\\buengbueng\\log";
 		FileOutputStream fos = null;
@@ -54,11 +75,16 @@ public class Config  {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
+			System.out.println(" log 폴더 체크시 오류  : "+e);
 		}finally{
-			if( fis != null){fis.close();}
-			if( fos != null){fos.close();}
+			if( fis != null){try{fis.close();}catch(IOException e){System.out.println(e);}}
+			if( fos != null){try{fos.close();}catch(IOException e){System.out.println(e);}}
 		}
 		
+		return logFilePath;
+	}
+	
+	public void fileCheck(String logFilePath){
 		try{
 			File file = new File(logFilePath);
 			String destination = ""+ file.getCanonicalPath();
@@ -76,7 +102,7 @@ public class Config  {
 				//폴더만들기
 				f_list.add(new File(str));
 				String mkFolder = destination +"\\"+ f_list.get(i);
-				System.out.println(" 경로 찾자"+mkFolder);
+//				System.out.println(" 경로 찾자"+mkFolder);
 				File desti = new File(mkFolder);
 				if(!desti.exists()){
 					desti.mkdirs();
@@ -98,16 +124,10 @@ public class Config  {
 			
 		}catch(Exception e){
 			e.printStackTrace();
+			System.out.println(" Log 디렉토리 생성시 오류 : "+e);
 		}finally{
-			if( b != null){b.close();}
+			if( b != null){ try{b.close();}catch(IOException e){System.out.println(" Log 디렉토리 생성시 오류 : "+e);}}
 		}
 	}
 	
-	@PreDestroy
-	public void destroy() throws Exception, IOException{
-		if( fis != null){fis.close();}
-		if( fos != null){fos.close();}
-		if( b != null){b.close();}
-	}
-
 }

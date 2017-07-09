@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title 챗봇
+    script(type='text/javascript' src='https://code.jquery.com/jquery-3.2.1.min.js')
+    script(type='text/javascript')
+		function btn(){
+          alert('클릭');
+		 }
+  body
+    h2 무엇을 도와드릴까요
+
+    textarea(cols='30px' rows='20px' id='chat') 안녕하세요. 무엇을 도와드릴까요?
+    br
+    input(type='text' name='userTxt' placeholder='입력란')
+    &nbsp;&nbsp;&nbsp;
+    button(id='submitBtn' onclick='btn();') 입력
