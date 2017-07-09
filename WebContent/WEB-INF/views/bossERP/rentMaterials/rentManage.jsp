@@ -42,6 +42,7 @@
 		</div>
 		<div class="infoDiv">
 			<input type="hidden" id="b_key" value="${sessionScope.b_key}"/>
+			<br/>
 			<div>
 				<input type="button" value="대여물품목록 추가" id="addRent"/>&emsp;&emsp;&emsp;
 				<input type="button" value="대여물품목록삭제" id="delRent"  />&emsp;&emsp;&emsp;
@@ -53,7 +54,7 @@
 			<br/><br/>
 			<div id="seatDisposeFirstDiv">
 				<c:if test="${rentList.size() != 0}">
-					<br/><br/>
+					<br/>
 					<div id="container">
 					    <ul class="tabs">
 					    	<c:set var="num" value="1"/>

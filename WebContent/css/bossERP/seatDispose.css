@@ -25,8 +25,8 @@ body{height:100%;}
 
 .infoDiv{
 	border:1px #e7ecf1 solid;
-	width:97%;
-	height: 91%;
+	width:100%;
+	display:inline-block;
 	margin:62px auto; 
 	background: #fff; 
 	text-align: center;
@@ -46,6 +46,7 @@ body{height:100%;}
 #pcInfo{
 	width: 100%;
 	display: inline-block;
+	margin-bottom: 3%;
 }
 
 .pcInfoDetail{
@@ -68,6 +69,7 @@ body{height:100%;}
 	margin:0 auto;
 	width:98%;
 	display: inline-block;
+	margin-bottom: 3%;
 }
 
 .seatDisposeSecondDiv{
