@@ -86,7 +86,7 @@
 	</bean>
 	
 	<!-- DB 연동 : MySQL -->
-	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource"
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close"
           p:driverClassName="com.mysql.jdbc.Driver"
           p:url="jdbc:mysql://211.211.163.86:11056/buengbueng?useUnicode=yes&amp;characterEncoding=utf8"
