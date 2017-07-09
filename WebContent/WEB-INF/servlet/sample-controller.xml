@@ -34,7 +34,7 @@
 	<context:component-scan base-package="payment.all.bean" /> <!-- 결제 관련 BEAN  -->
 	
 	<!-- DOWNLOAD 지정 -->
-	<!-- <bean id="download" class="test.spring.bean.DownloadView" /> -->
+	<bean id="download" class="manage.boss.bean.SetupFileDownloadView" />
 	
 	<!-- 이것은 View로 바로안가고 bean으로 가게 해주는 controller -->
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">

@@ -38,6 +38,10 @@
 				가맹점을 운영하려면, 먼저 가맹점을 신청해주세요! <br />
 				<a href="franchiseeAdd.do" >가맹점 추가</a>
 				<a href="franchiseeDelete.do" >가맹점 삭제신청</a>
+				<%--설치파일 추가 --%>
+				<c:if test="${count1 != 0}">
+					<a href="down.do">설치파일 다운로드</a>
+				</c:if>
 				</div>
 			</div>
 		</div>
