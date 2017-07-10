@@ -99,7 +99,14 @@ public class BossEmployeeManageBean2 {
 		return "/bossERP/employeeManage/employeeLoginList";
 	}
 	
-	
+	//사장님 알바생관리 메인 페이지
+	@RequestMapping("employeeCalenderOnly.do")
+	public String employeeCalenderOnly(Model model){
+		
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
+		
+		return "/bossERP/employeeManage/employeeCalenderOnly";
+	}	
 	
 	//사장님 알바생관리 메인 페이지
 	@RequestMapping("employeeCalender.do")
