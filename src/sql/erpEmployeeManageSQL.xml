@@ -71,7 +71,7 @@
 	
 	<!-- 알바생 리스트 -->
 	<select id="getEmployeeList" resultClass="beDto" parameterClass="java.util.HashMap">
-		select e_id, pw,num, name, b_key AS e_name from userInfo a INNER JOIN 
+		select e_id, pw,num, name AS e_name, b_key from userInfo a INNER JOIN 
 		(select e_id,num,b_key from employeeInfo where e_bossid = #id# and b_key = #b_key#) b on a.id = b.e_id;
 	</select>
 	

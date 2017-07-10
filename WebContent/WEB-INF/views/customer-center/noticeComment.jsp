@@ -12,7 +12,7 @@
 <body>
 
 <div id="comment">
-<div id=css>
+<div>
 <div id="css${countRe}">
 <c:forEach items="${CmList}" var="cl">
 <div id="csss${countRe}">

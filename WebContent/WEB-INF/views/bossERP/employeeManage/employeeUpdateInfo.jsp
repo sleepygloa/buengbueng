@@ -1,79 +1,96 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<style>
+.contentBox_outline{margin-bottom:10px;}
+.uf > .contentBox{text-align:left;padding:0px;}
+</style>
+
+
 <form action="employeeUpdateInfoPro.do" method="post">
+<div class="col-xs-10-10 col-sm-5-10 col-md-5-10  col_height620 contentBox_outline">
+	<div class="contentBox col_height0">
 <!-- 카테고리 -->
-	<!-- 알바생아이디 -->
-	<div class="row">
-		<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
-				<div class=" col-xs-12-12 col-sm-12-12 col-md-12-12 form-group">
-					<div class="input-group">
-					<label>아이디 : ${userDto.id}<br /></label>
-						<input type="hidden" name="id" value="${userDto.id}" placeholder="${userDto.id}" />
-					</div>
-				</div>														
+	<!-- 알바생아이디 -->		
+		<div class="uf col-xs-10-10 col-sm-10-10 col-md-10-10  col_height60 contentBox_outline">
+			<div class="contentBox col_height0">
+				<label>아이디 : ${userDto.id}<input type="hidden" name="id" value="${userDto.id}" placeholder="${userDto.id}" /></label>
+			</div>
 		</div>
-	</div>	
+
 
 	<!-- 비밀번호 -->
-	<div class="row">
-		<div class=" col-xs-12-12 col-sm-12-12 col-md-12-12">
-			<div class=" col-xs-12-12 col-sm-12-12 col-md-12-12 form-group">
-				<div class=" col-xs-12-12 col-sm-12-12 col-md-12-12 input-group">
-				<label>비밀번호<br /></label>
-					<input type="text" name="pw" class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" value="${userDto.pw}" placeholder="${userDto.pw}" />
-				</div>
-			</div>														
+		<div class="uf col-xs-10-10 col-sm-10-10 col-md-10-10  col_height60 contentBox_outline">
+			<div class="contentBox col_height0">
+				<label class="col-xs-12-12">비밀번호</label>
+				<input type="text" name="pw" class="col-xs-12-12 form-control" value="${userDto.pw}" placeholder="${userDto.pw}" />
+			</div>
+		</div>	
 
-			<div class="col-xs-12-12 col-sm-12-12 col-md-12-12  form-group">
-				<div class="col-xs-12-12 col-sm-12-12 col-md-12-12  input-group">
-				<label>이름<br /></label>
-					<input type="text" name="name" class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" value="${userDto.name}" placeholder="${userDto.name}" />
-				</div>
-			</div>														
-
-			<div class="col-xs-12-12 col-sm-12-12 col-md-12-12  form-group">
-				<div class="col-xs-12-12 col-sm-12-12 col-md-12-12  input-group">
-				<label>생년월일<br /></label>
-					<input type="text" class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" value="${userDto.birth}" placeholder="${userDto.birth}" />
-				</div>
-			</div>														
-
-			<div class="col-xs-12-12 col-sm-12-12 col-md-12-12  form-group">
-				<div class="col-xs-12-12 col-sm-12-12 col-md-12-12  input-group">
-				<label>연락처<br /></label>
-					<input type="text" name="phone" class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" value="${userDto.phone}" placeholder="${userDto.phone}" />
-				</div>
-			</div>														
-
-			<div class="col-xs-12-12 col-sm-12-12 col-md-12-12  form-group">
-				<div class="col-xs-12-12 col-sm-12-12 col-md-12-12  input-group">
-				<label>주소<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br /></label></label>
-					<input class="col-xs-12-12 form-control" type="text"  value="${userDto.address}" placeholder="${userDto.address}"
-						id="sample5_address" name="address" placeholder="사업장 주소 입력" onblur="return checkB_address();">
-					<br>
-					<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
-				</div>
-			</div>														
-
-			<div class="col-xs-12-12 col-sm-12-12 col-md-12-12  form-group">
-				<div class="col-xs-12-12 col-sm-12-12 col-md-12-12  input-group">
-				<label>email<br /></label>
-					<input type="text" name="email" class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" value="${userDto.email}" placeholder="${userDto.email}" />
-				</div>
-				</div>														
+	<!-- 이름 -->
+		<div class="uf col-xs-10-10 col-sm-10-10 col-md-10-10  col_height60 contentBox_outline">
+			<div class="contentBox col_height0">
+				<label>이름</label>
+				<input type="text" name="name" class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" value="${userDto.name}" placeholder="${userDto.name}" />
+			</div>
 		</div>
-	</div>	
-	
-	<div class="row">
-		<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
+
+	<!-- 생년월일 -->
+		<div class="uf col-xs-10-10 col-sm-10-10 col-md-10-10  col_height60 contentBox_outline">
+			<div class="contentBox col_height0">
+				<label>이름</label>
+				<input type="text" name="name" class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" value="${userDto.name}" placeholder="${userDto.name}" />
+			</div>
+		</div>
+		
+	<!-- 생년월일 -->
+		<div class="uf col-xs-10-10 col-sm-10-10 col-md-10-10  col_height60 contentBox_outline">
+			<div class="contentBox col_height0">
+				<label>생년월일</label>
+				<input type="text" class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" value="${userDto.birth}" placeholder="${userDto.birth}" />
+			</div>
+		</div>
+
+	<!-- 연락처 -->
+		<div class="uf col-xs-10-10 col-sm-10-10 col-md-10-10  col_height60 contentBox_outline">
+			<div class="contentBox col_height0">
+				<label>연락처</label>
+				<input type="text" name="phone" class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" value="${userDto.phone}" placeholder="${userDto.phone}" />
+			</div>
+		</div>
+
+	<!-- 주소 -->
+		<div class="uf col-xs-10-10 col-sm-10-10 col-md-10-10  col_height60 contentBox_outline">
+			<div class="contentBox col_height0">
+				<label>주소<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"></label></label>
+				<input class="col-xs-12-12 form-control" type="text"  value="${userDto.address}" placeholder="${userDto.address}"
+					id="sample5_address" name="address" placeholder="사업장 주소 입력" onblur="return checkB_address();">
+				<br>
+				<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
+			</div>
+		</div>
+		
+	<!-- 이메일 -->
+		<div class="uf col-xs-10-10 col-sm-10-10 col-md-10-10  col_height60 contentBox_outline">
+			<div class="contentBox col_height0">
+				<label>email</label>
+				<input type="text" name="email" class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" value="${userDto.email}" placeholder="${userDto.email}" />
+			</div>
+		</div>
+
+	<!-- 버튼모음 -->
+		<div class="uf col-xs-10-10 col-sm-10-10 col-md-10-10  col_height60 contentBox_outline">
+			<div class="contentBox col_height0">
 			<input class="btn btn-success col-xs-12-12 col-sm-6-12 col-md-6-12" type="submit" value="신청하기" />
 			<input class="btn btn-default col-xs-12-12 col-sm-6-12 col-md-6-12" type="button" value="취소하기"
 			onclick="window.location='index.do'" />
-		</div>					
-	</div>	
-
+			</div>
+		</div>
+		
+	</div>
+</div>
 </form>
+
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="//apis.daum.net/maps/maps3.js?apikey=발급받은 API KEY를 사용하세요&libraries=services"></script>
 <script>

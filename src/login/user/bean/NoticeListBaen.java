@@ -18,12 +18,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import superclass.all.bean.SuperClass;
+
 @Controller
 public class NoticeListBaen {
 @Autowired
 private SqlMapClientTemplate sqlMap;
+@Autowired
+protected SuperClass sc;
+
 @RequestMapping("notice.do")
-	public String noticeList(HttpServletRequest request,HashMap r){
+	public String noticeList(HttpServletRequest request,HashMap r,Model model){
+		sc.sideMenuTemp(model, 1, 1); //sidemenu template
+	
 		int snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		
@@ -72,7 +79,8 @@ private SqlMapClientTemplate sqlMap;
 	}
 
 @RequestMapping("noticeForm.do")
-public String noticeForm(HttpServletRequest request){
+public String noticeForm(HttpServletRequest request,Model model){
+	sc.sideMenuTemp(model, 1, 1);
 	int snum = Integer.parseInt(request.getParameter("snum"));
 	String pageNum = request.getParameter("pageNum");
 	int num=0, ref=1, re_step=0;
@@ -122,7 +130,9 @@ public String noticeForm(HttpServletRequest request){
    }
 
 	@RequestMapping("noticeContent.do")
-		public String noticeContent(HttpServletRequest request,CustomerDTO article,HashMap r){
+		public String noticeContent(HttpServletRequest request,CustomerDTO article,HashMap r,Model model){
+		
+		
 		int snum = Integer.parseInt(request.getParameter("snum"));//4
 		String pageNum = request.getParameter("pageNum");//1
 		int num = Integer.parseInt(request.getParameter("num"));//535
@@ -138,6 +148,7 @@ public String noticeForm(HttpServletRequest request){
 		
 		sqlMap.update("customer.contentUp",num);
 		
+	
 		article=(CustomerDTO)sqlMap.queryForObject("customer.getContent", num);//snum怨펝um�쑝濡� 李얠쓬
 	
 		snum = 5; //�씠�쟾源뚯� num�� 4
@@ -172,7 +183,8 @@ public String noticeForm(HttpServletRequest request){
 		String pageNum = request.getParameter("pageNum");
 		int num = Integer.parseInt(request.getParameter("num"));
 		int number = Integer.parseInt(request.getParameter("number"));
-				
+		
+	
 		article = (CustomerDTO)sqlMap.queryForObject("customer.getContent",num);
 		
 		request.setAttribute("snum", snum);
