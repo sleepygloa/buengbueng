@@ -40,7 +40,17 @@
 				<a href="franchiseeDelete.do" >가맹점 삭제신청</a>
 				<%--설치파일 추가 --%>
 				<c:if test="${count1 != 0}">
-					<a href="down.do">설치파일 다운로드</a>
+					<select id="setupFile">
+					<option disabled="disabled" selected="selected">설치파일 다운로드</option>
+					<c:forEach var="file" items="${fileName}">
+						<option onclick="window.location='down.do?fileName=${file}'">${file}</option>
+					</c:forEach>
+					</select>
+					<script type="text/javascript">
+						$("#setupFile").change(function(){
+						   window.location = "down.do?fileName="+$(this).val();
+						});
+					</script>
 				</c:if>
 				</div>
 			</div>
