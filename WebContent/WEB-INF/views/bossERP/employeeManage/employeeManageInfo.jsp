@@ -143,7 +143,7 @@ $(function (){
 				<div id="info">
 				</div>
 				
-				<div class="col-xs-10-10 col-sm-10-10 col-md-10-10  col_height200 contentBox_outline">
+				<div class="col-xs-10-10 col-sm-10-10 col-md-10-10  col_height300 contentBox_outline">
 					<div class="contentBox col_height0">
 						<div class="contentBox_a">
 							<label>아이디 신청 List입니다.</label>
@@ -166,7 +166,7 @@ $(function (){
 									<div class="col-xs-6-12 md_hidden">${list.content}</div>
 									<div class="col-xs-6-12 col-md-1-12">신청확인</div>
 									<div class="col-xs-6-12 md_hidden">
-										<input type="submit" name="confirm" value="신청확인" 	/> 
+										<input class="btn_style" type="submit" name="confirm" value="신청확인" 	/> 
 									</div>
 								</div>
 								<div class="b_l">
@@ -185,7 +185,7 @@ $(function (){
 					</div>
 				</div>				
 				
-				<div class="col-xs-10-10 col-sm-10-10 col-md-10-10  col_height200 contentBox_outline">
+				<div class="col-xs-10-10 col-sm-10-10 col-md-10-10  col_height300 contentBox_outline">
 					<div class="contentBox col_height0">
 						<div class="contentBox_a">
 							<label>아이디 삭제 List입니다.</label>
@@ -207,16 +207,16 @@ $(function (){
 									<div class="col-xs-6-12 md_hidden">${list.content}</div>
 									<div class="col-xs-6-12 col-md-1-12">신청확인</div>
 									<div class="col-xs-6-12 md_hidden">
-										<input type="submit" name="confirm" value="신청확인" 	/> 
+										<input class="btn_style" type="submit" name="confirm" value="신청확인" 	/> 
 									</div>
 								</div>
 								<div class="b_l">
-									<div class="col-xs-6-12 col-md-1-12">${list.num}</div>
-									<div class="col-xs-6-12 col-md-1-12">${list.b_id}</div>
-									<div class="col-xs-6-12 col-md-1-12">${list.e_id}</div>
-									<div class="col-xs-6-12 col-md-2-12">${list.applyTime}</div>
-									<div class="col-xs-6-12 col-md-6-12">${list.content}</div>
-									<div class="col-xs-6-12 col-md-1-12">
+									<div class="xsm_hidden col-md-1-12">${list.num}</div>
+									<div class="xsm_hidden col-md-1-12">${list.b_id}</div>
+									<div class="xsm_hidden col-md-1-12">${list.e_id}</div>
+									<div class="xsm_hidden col-md-2-12">${list.applyTime}</div>
+									<div class="xsm_hidden col-md-6-12">${list.content}</div>
+									<div class="xsm_hidden col-md-1-12">
 										<input class="btn_style" type="submit" name="confirm" value="신청확인" 	/> 
 									</div>
 								</div>

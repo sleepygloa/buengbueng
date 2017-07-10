@@ -411,6 +411,8 @@ public class BossEmployeeManageBean {
 		List list = new ArrayList();
 		list = (List)sqlMap.queryForList("erpEmp.getEmployeeIdList", b_key);
 		
+		model.addAttribute("list", list);
+		
 		String menu =  bossEmployeeManageBean.MenuCategoryDivResponse(list);
 		
 		model.addAttribute("menu", menu);
