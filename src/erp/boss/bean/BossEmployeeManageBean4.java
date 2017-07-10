@@ -54,6 +54,7 @@ public class BossEmployeeManageBean4 {
         Calendar c1 = Calendar.getInstance();
 
         String Today = sdf.format(c1.getTime());
+        
         String TodayEndTime = end.format(c1.getTime());
         
 		Calendar day = Calendar.getInstance();
@@ -80,6 +81,7 @@ public class BossEmployeeManageBean4 {
 		String dailyPureAmount = (String) sqlMap.queryForObject("erpEmp.dailyPureAmount", time);	
 		System.out.println("dailyPureAmount" + dailyPureAmount);
 		int dailyCount = 0;
+		
 		dailyCount = (Integer) sqlMap.queryForObject("erpEmp.dailyCount", time);
 		System.out.println("dailyCount" + dailyCount);
 		
@@ -88,7 +90,7 @@ public class BossEmployeeManageBean4 {
 		if (pageNum == null) {
             pageNum = "1";
         }
-        int pageSize = 40;
+        int pageSize = 10;
         int currentPage = Integer.parseInt(pageNum);
         int startRow = (currentPage - 1) * pageSize + 1;
         int endRow = currentPage * pageSize;
@@ -101,7 +103,7 @@ public class BossEmployeeManageBean4 {
         
         
         
-        if(count > 0){
+        if(dailyCount > 0){
         	HashMap r = new HashMap<>();
         	
     		r.put("startDate", startDate);
@@ -117,24 +119,33 @@ public class BossEmployeeManageBean4 {
         	articleList = Collections.EMPTY_LIST;
         }
         
-        number = count - (currentPage - 1) * pageSize;
-        
+        number = dailyCount - (currentPage - 1) * pageSize;
+        System.out.println("number" + number);
         /**************************************************************************************************/
         
         /**정산신청 중복방지******************************************************************************************/
         
         HashMap checkValue = new HashMap<>();
-        checkValue.put("settlementDate", TodayEndTime);
+        checkValue.put("endDate", TodayEndTime);
+        checkValue.put("startDate", Today);
+        System.out.println("settlementDate = " + TodayEndTime);
         checkValue.put("b_key", affiliateCodeList);
         int check =  (int) sqlMap.queryForObject("erpEmp.checkValue", checkValue);
         System.out.println("check" + check);
         int checkPoint = 0;
-		if(check < 1){ //  check 0 일결우 삽입
+		if(check < 2 && check > -1){ //  check 0 일결우 삽입
 			
 			checkPoint = 1;
+			request.setAttribute("checkPoint", checkPoint);
 			System.out.println("checkPoint" + checkPoint);
 		}else if(check >= 1){ //  check 0이 아닐 경우에 블럭
 			checkPoint = 2;
+			request.setAttribute("checkPoint", checkPoint);
+			System.out.println("checkPoint" + checkPoint);
+		}else if(check == 0){
+			checkPoint = 3;
+			request.setAttribute("checkPoint", checkPoint);
+			System.out.println("checkPoint" + checkPoint);
 		}
 		
 		/**************************************************************************************************/
@@ -155,7 +166,7 @@ public class BossEmployeeManageBean4 {
 		request.setAttribute("affiliateCodeList", affiliateCodeList);
 		request.setAttribute("dailyCount", dailyCount);
 
-		request.setAttribute("checkPoint", checkPoint);
+		
 		
 		request.setAttribute("Today", Today);
 	    request.setAttribute("TodayEndTime", TodayEndTime);
@@ -318,7 +329,7 @@ public class BossEmployeeManageBean4 {
 		if (pageNum == null) {
             pageNum = "1";
         }
-        int pageSize = 4;
+        int pageSize = 40;
         int currentPage = Integer.parseInt(pageNum);
         int startRow = (currentPage - 1) * pageSize + 1;
         int endRow = currentPage * pageSize;
@@ -357,20 +368,6 @@ public class BossEmployeeManageBean4 {
 		return "/bossERP/pcUseStatus/pcUseStatusList";
 	}
 	
-	@RequestMapping("/chart.do")
-	public String chart(HttpSession session, HttpServletRequest request){
-		String b_key = (String)session.getAttribute("b_key");
-		System.out.println("key" + b_key);
-		List chart = sqlMap.queryForList("erpEmp.chartData", b_key);
-		System.out.println("chart"+ chart);
-		request.setAttribute("chartList", chart);
-		for(int i=0; i<chart.size(); i++){
-			System.out.println("chartaaa"+ chart.get(i));
-			request.setAttribute("chart", chart.get(i));
-		}
-		
-		return "/bossERP/chart/chart";
-	}
 	
 	@RequestMapping("userviewDetails.do")
 	public String userviewDetails(String id,HttpSession session,String starttime, String endtime, HttpServletRequest request){

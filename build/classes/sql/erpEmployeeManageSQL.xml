@@ -375,7 +375,7 @@
 	<!-- 오늘날 pc방 이용 토탈 건수 카운트 -->
 	<select id="dailyCount" resultClass="int">
 	<![CDATA[
-		select count(*) from usageHistory where affiliateCode = #affiliateCode# and usageTime >=#startDate# and endTime <= #endDate#;
+		select count(idx) from usageHistory where affiliateCode = #affiliateCode# and usageTime >=#startDate# and endTime <= #endDate#;
 	  ]]>
 	</select>
 	
@@ -394,9 +394,9 @@
      </select>
      
      <!-- 정산요청 시 중복 방지를 위한 resultValue 체크값 -->
-     <select id="checkValue"  resultClass="int">
+     <select id="checkValue"  resultClass="int" parameterClass="java.util.HashMap">
 	 <![CDATA[
-	 	select count(*) from dailySettlement where b_key = #b_key# and settlementDate <= #settlementDate#;
+	 	select count(*) from dailySettlement where b_key = #b_key# and settlementDate >= #startDate# and settlementDate <= #endDate#;
 	 ]]>
 	 </select>
 	 
@@ -533,8 +533,10 @@
 		select count(settlementAmount) from dailySettlement where b_key=#b_key#;
 	</select>
 	
-	<select id="dailyUserCount" resultClass="int">
-		select count(userId) from usageHistory where affiliateCode = #b_key#;
+	<select id="dailyUserCount" resultClass="int" parameterClass="java.util.HashMap">
+	<![CDATA[
+		select count(userId) from usageHistory where affiliateCode = #b_key# and usageTime >= #startDate# and endTime <= #endDate#;
+		]]>
 	</select>
 	
 	<select id="dailyAmountCount" resultClass="int" parameterClass="java.util.HashMap">

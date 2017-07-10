@@ -15,6 +15,9 @@
 					}else if(check == 2){
 						alert('이미 정산요청이 처리 되었습니다.');
 						return false;
+					}else if(check == 3){
+						alert('정산요청 할 내역이 존재하지 않습니다.');
+						return false;
 					}
 				}
 		</script>
@@ -56,7 +59,7 @@
 					<th>사용 금액</th>
 					<th>기타</th>
 				</tr>
-				<c:if test="${count < 1}">
+				<c:if test="${dailyCount < 1}">
 					<tr class="dailySettlementList_NoCount">
 						<td colspan="9">
 							<p>
@@ -66,7 +69,7 @@
 						</td>
 					</tr>
 				</c:if>
-				<c:if test="${count > 0}">
+				<c:if test="${dailyCount > 0}">
 				<c:forEach items="${articleList}" var="articleList">
 					<tr>
 						<td>
@@ -86,8 +89,8 @@
 			</table>
 			<div class="paging_con">
 				<div class="paging_con_box">
-				    <c:if test="${count > 0}">
-			        <c:set var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}"/>
+				    <c:if test="${dailyCount > 0}">
+			        <c:set var="pageCount" value="${dailyCount / pageSize + ( count % pageSize == 0 ? 0 : 1)}"/>
 			        <c:set var="pageBlock" value="${10}"/>
 			        <fmt:parseNumber var="result" value="${currentPage / 10}" integerOnly="true" />
 			        <c:set var="startPage" value="${result * 10 + 1}" />
@@ -97,17 +100,17 @@
 			   		</c:if> 
 			          
 			   		<c:if test="${startPage > 10}">
-			        		<a href="/buengbueng/dailySettlementList.do?pageNum=${startPage - 10 }">[이전]</a>
+			        		<a href="/buengbueng/applyForSettlement.do?pageNum=${startPage - 10 }">[이전]</a>
 			   		</c:if>
 			
 			   		<c:forEach var="i" begin="${startPage}" end="${endPage}">
 			   			<div class="paging_part">
-			       		<a class="pageing-ing" href="/buengbueng/dailySettlementList.do?pageNum=${i}">${i}</a>
+			       		<a class="pageing-ing" href="/buengbueng/applyForSettlement.do?pageNum=${i}">${i}</a>
 			       		</div>
 			   		</c:forEach>
 			
 			   		<c:if test="${endPage < pageCount}">
-			        	<a href="/buengbueng/dailySettlementList.do?pageNum=${startPage + 10}">[다음]</a>
+			        	<a href="/buengbueng/applyForSettlement.do?pageNum=${startPage + 10}">[다음]</a>
 			   		</c:if>
 					</c:if>
 				</div>
@@ -121,7 +124,7 @@
 					<input type="hidden" name="settlementNumber" value="${dailyCount}">
 					<input type="hidden" name="requestedAccount" value="110-313-991874">
 					<input type="hidden" name="settlementAmount" value="${dailyPureAmount}">
-					<input type="hidden" name="settlementStatus" value="정산 요청중">
+					<input type="hidden" name="settlementStatus" value="정산 요청">
 					<input type="hidden" name="resultValue" value="2">
 					<input type="hidden" name="b_key" value="${affiliateCodeList}">
 					<input type="hidden" name="affiliateCodeList" id="affiliateCodeList" value="${affiliateCodeList}">

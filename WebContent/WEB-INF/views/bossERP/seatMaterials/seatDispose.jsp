@@ -11,7 +11,7 @@
 
 <body>
 	<!-- HEADER TEMPLATE -->
-	<jsp:include page="/WEB-INF/views/header.jsp" />
+	<jsp:include page="/WEB-INF/views/erp_header.jsp" />
 	PC방 좌석 정보 관리<br/>
 	<div>
 		&emsp;&emsp;&emsp;

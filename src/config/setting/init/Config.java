@@ -29,7 +29,7 @@ public class Config  {
 	@PostConstruct
 	public void init() {
 		
-		NodeInit.nodeExit();
+		/*NodeInit.nodeExit();*/
 		
 		String folderCheck = folderCheck();
 		
