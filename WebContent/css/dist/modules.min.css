@@ -286,7 +286,8 @@ header, section, footer{
 .col_height300{height:300px;}.col_height310{height:310px;}.col_height320{height:320px;}.col_height330{height:330px;}.col_height340{height:340px;}.col_height350{height:350px;}.col_height360{height:360px;}.col_height370{height:370px;}.col_height380{height:380px;}.col_height390{height:390px;}
 .col_height400{height:400px;}
 
-.col_height600{height:600px;}
+.col_height600{height:600px;}.col_height610{height:610px;}.col_height620{height:620px;}.col_height630{height:630px;}.col_height640{height:640px;}.col_height650{height:650px;}.col_height660{height:660px;}.col_height670{height:670px;}.col_height680{height:680px;}.col_height690{height:690px;}
+.col_height700{height:700px;}
 
 .bg0{background-color:#ffffff}
 .bg1{background-color:#e3e3e3}
