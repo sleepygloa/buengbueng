@@ -26,7 +26,7 @@
 <div class="pcInfoDefault">
 	<form action="managePcInfoPro.do" name="pcInfoForm" method="post" onsubmit="return checkPCInfoDefault();">
 		<br/><br/>
-		<input type="text" id="alert" readonly="readonly"/>&emsp;<input type="submit" class="floatRight" value="수정"/>
+		<input type="text" id="alert" readonly="readonly"/>&emsp;<input type="submit" class="modiBtn3" value="수정"/>
 		<br/><br/>
 		<div id="container">
 		    <ul class="tabs">

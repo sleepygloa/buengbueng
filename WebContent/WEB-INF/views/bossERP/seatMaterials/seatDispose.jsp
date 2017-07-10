@@ -5,7 +5,8 @@
 	<title>PC방 좌석 정보 관리</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="/buengbueng/js/bossERP/seatDispose.js"></script>
-	<link rel="stylesheet" type="text/css" href="/buengbueng/css/bossERP/seatDispose.css">
+	<link rel="stylesheet" type="text/css" href="/buengbueng/css/bossERP/applyForSettlement.css">
+	<link rel="stylesheet" type="text/css" href="/buengbueng/css/ko/kocss.css">
 </head>
 
 <jsp:include page="../../erp_header.jsp" />
@@ -16,7 +17,7 @@
 		가맹지점을 선택하여 주세요.
 	</c:if>
 	<c:if test="${result eq 'succ'}">
-	<div class="infoAddModiDel">
+	<div class="ERP_Navigator">
 		<ul>
 			<li>ERP 관리</li>
 			<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
@@ -27,11 +28,12 @@
 	</div>
 	<div class="infoDiv">
 		<br>
-		PC 좌석&emsp;<input type="text" id="pcCount" placeholder="추가 좌석 개수"/>&emsp;<input type="button" id="seatAdd" value="추가"/>
+		PC 좌석&emsp;<input type="text" id="pcCount" placeholder="추가 좌석 개수"/>
+		&emsp;<input type="button" class="applyForSettlement_button" id="seatAdd" value="추가"/>
 		<br/><br/>
-		<input type="button" id="seatModi" value="일괄 수정"/>
+		<input type="button" class="applyForSettlement_button" id="seatModi" value="일괄 수정"/>
 		&emsp;&emsp;&emsp;
-		<input type="button" id="seatDel" value="삭제"/>
+		<input type="button" class="applyForSettlement_button" id="seatDel" value="삭제"/>
 		<br><br><hr>
 		<div id="seatDisposeFirstDiv">
 			<c:forEach begin="1" end="${count}" var="pcNum" step="1">

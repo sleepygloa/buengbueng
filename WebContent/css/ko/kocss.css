@@ -1,29 +1,6 @@
 @CHARSET "UTF-8";
-
-body{height:100%;}
-
-.pcRoom{
-	float:left;
-	width:100%;
-	display: inline-block;
-	background:#fff;
-	line-height: 1;
-}
-
-.pcRoom ul{
-	margin-left:10px;
-	line-height: 1.8;
-}
-.pcRoom ul li{
-	float: left;
-    font-size: 14px;
-    margin-left: 14px;
-    line-height: 2.8;
-    list-style: none;
-	
-}
-
-.pcRoomDiv{
+/*-- 공통 --*/
+.infoDiv{
 	border:1px #e7ecf1 solid;
 	width:100%;
 	display:inline-block;
@@ -32,17 +9,33 @@ body{height:100%;}
 	text-align: center;
 }
 
-.pcRoomDiv hr{
+.infoDiv hr{
 	margin:0 auto;
 	width:98%;
 	border-bottom:0.5px #eee solid;
 	margin-bottom:20px;
 }
 
+.center{
+	text-align: center;
+}
+
+.rignt{
+	text-align: right;
+}
+
+#alert{
+	border: none;
+	color: red;
+	width: auto;
+	background-color: transparent;
+}
+
 #seatDisposeFirstDiv{
 	margin:0 auto;
 	width:98%;
 	display: inline-block;
+	margin-bottom: 2%;
 }
 
 .seatDisposeSecondDiv{
@@ -71,10 +64,93 @@ body{height:100%;}
 	cursor: pointer;
 }
 
-.center{
+.modiBtn{
+    background: none;
+    border: 1px #cdd3d7 solid;
+    color: #616f77;
+}
+
+.modiBtn2{
+    background-color: #659be0;
+    color: #fff;
+    font-size: 13px;
+    border: none;
+    height: 28px;
+}
+
+.modiBtn3{
+	background-color: #659be0;
+    color: #fff;
+    font-size: 13px;
+    border: none;
+    height: 28px;
+    float: right;
+	margin-right: 2%;
+}
+
+/*-- PC관리, 대여 관리, PC방 찾기 --*/
+
+#pcNum{
+	border:none;
+}
+
+#pcInfo{
+	width: 100%;
+	display: inline-block;
+	margin-bottom: 3%;
+}
+
+.pcInfoDetail{
+	display: inline-block;
+	padding-top: 0.5%;
+	border: 1px gray solid;
+}
+
+.pcInfoDefault{
+	width: 100%;
+	display: inline-block;
 	text-align: center;
 }
 
+.userInfo{
+	display: inline-block;
+}
+
+.pcBox{
+	width:100%;
+	display: inline-block;
+}
+
+.userInfo{
+	width: 100%;
+	display: inline-block;
+}
+
+.userInfoDetail{
+	display: inline-block;
+	padding-top: 0.5%;
+	border: 1px gray solid;
+	text-align: left;
+}
+
+.rentProduct{
+	width: 100;
+	display: inline-block;
+}
+
+#rentDiv{
+	width: 100%;
+	display: inline-block;
+}
+
+.rentDivDetail{
+	display: inline-block;
+	padding-top: 0.5%;
+	border: 1px gray solid;
+	text-align: right;
+}
+
+/*-- pcRoom --*/
 .pcInfoDefault{
 	width: 100%;
 	display: inline-block;
@@ -100,6 +176,14 @@ body{height:100%;}
 	display: inline-block;
 	text-align: center;
 	margin-bottom: 3%;
+}
+
+#guide{
+	color:#999;
+}
+
+.marginTop{
+	margin-top: 5%;
 }
 
 /*-- 탭 메뉴 --*/
@@ -142,6 +226,7 @@ ul.tabs li.active {
     background: #FFFFFF;
 }
 .tab_content {
+	width: 100%;
     padding: 5px;
     font-size: 12px;
     text-align: right;

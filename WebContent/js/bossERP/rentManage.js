@@ -20,7 +20,17 @@ $(document).ready(function(){
 				rentNames += rName[i].value+',';
 			}
 		}
-		gotoURL2("delRent.do","rentName",rentNames,"b_key",b_key);
+		$.ajax({
+			url: "delRent.do",
+			type: "post",
+			data: {
+				rentName : rentNames,
+				b_key : b_key
+			},
+			success: function(data){
+				$("#seatDisposeFirstDiv").html(data);
+			}
+		});
 	});
 	$("#addRentProduct").click(function(){
 		$.ajax({
@@ -50,7 +60,7 @@ $(document).ready(function(){
 				b_key : b_key
 			},
 			success: function(data){
-				$("#rentDiv").html('');
+				$("#seatDisposeFirstDiv").html(data);
 			}
 		});
 	});

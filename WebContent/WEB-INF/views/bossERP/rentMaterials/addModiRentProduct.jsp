@@ -14,7 +14,7 @@
 				<option value="${rentName.rentProduct}">${rentName.rentProduct}</option>
 			</c:forEach>
 		</select>&emsp;<br/>
-		<input type="submit" value="추가"/>&emsp;
+		<input type="submit" class="modiBtn2" value="추가"/>&emsp;
 	</form>
 </c:if>
 
@@ -34,7 +34,7 @@
 							<option value="0">대여 가능</option>
 						</c:if>
 					  </select>&emsp;<br/>
-		<input type="submit" value="완료"/>&emsp;
+		<input type="submit" class="modiBtn2" value="완료"/>&emsp;
 	</form>
 </c:if>
 </div>

@@ -54,7 +54,12 @@ public class UserSearchPCBean {
 		String address = (String)sqlMap.queryForObject("test.getUserAddr", id);
 
 		String[] spl = address.split(" ");
-		String addr = spl[2].substring(0, spl[2].length()-1);
+		String addr = null;
+		if(spl[2].length() > 2){
+			addr = spl[2].substring(0, spl[2].length()-1);
+		}else{
+			addr = spl[2];
+		}
 		
 		model.addAttribute("addr", addr);
 		return "/pcRoom/searchPCNear";

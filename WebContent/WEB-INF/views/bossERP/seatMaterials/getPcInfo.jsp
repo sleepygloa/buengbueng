@@ -21,7 +21,7 @@
 <body>
 	<div class="pcInfoDetail">
 		<form action="addModiPcInfo.do" name="pcInfoForm" method="post" onsubmit="return checkPCInfo();">
-			<input type="text" id="alert" readonly="readonly"/>&emsp;<input type="submit" class="floatRight" value="수정"/>
+			<input type="text" id="alert" readonly="readonly"/>&emsp;<input type="submit" class="modiBtn3" value="수정"/>
 			<br/><br/>
 			<div id="container">
 			    <ul class="tabs">

@@ -229,20 +229,27 @@ $(document).ready(function(){
       <li class="sub-menu">
         <a href="javascript:void(0);"><i class="fa fa-map-marker"></i><span>대여 관리</span><i class="arrow fa fa-angle-right pull-right"></i></a>
         <ul>
-          <li><a href="rentMain.do">대여물품 관리</a>
+          <li><a href="rentManage.do">대여물품 관리</a>
           </li>
         </ul>
       </li>
       </c:if>
       
       <c:if test="${sidemenu == 4}"> 
-      	<li class="sub-menu">
-        <a href="javascript:void(0);"><i class="fa fa-file"></i><span>즐겨찾는 PC방</span><i class="arrow fa fa-angle-right pull-right"></i></a>
-        <ul>
-          <li><a href="favoritePCRoom.do">즐겨찾는 PC방</a>
-          </li>
-        </ul>
-      </li>
+		<li class="sub-menu">
+        	<a href="javascript:void(0);"><i class="fa fa-file"></i><span>PC방 찾기</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+	        <ul>
+	          <li><a href="searchPCForm.do">PC방 찾기</a></li>
+	          <li><a href="searchPCNear.do">우리동네 찾기</a></li>
+	        </ul>
+      	</li>
+		<li class="sub-menu">
+			<a href="javascript:void(0);"><i class="fa fa-file"></i><span>즐겨찾는 PC방</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+	        <ul>
+	          <li><a href="favoritePCRoom.do">즐겨찾는 PC방</a>
+	          </li>
+	        </ul>
+      	</li>
       </c:if>
       
      <c:if test="${sidemenu == 1}"> 

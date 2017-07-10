@@ -1,28 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<link rel="stylesheet" type="text/css" href="/buengbueng/css/bossERP/applyForSettlement.css">
 <c:if test="${rentPList.size() != 0}">
-	<ul>
+	<table border="1" class="dailySettlementList_table">
+    	<tr>
+			<th>체크</th><th>바코드 번호</th><th>대여 유무</th><th>최초 등록일</th><th>수정</th>
+		</tr>
 		<c:forEach var="rentPList" items="${rentPList}">
-		<li>
-			<input type="checkbox" name="rentCode" value="${rentPList.code}" />&emsp;${rentPList.code}
-			&emsp;
-			<c:if test="${rentPList.rentCheck == 0}">	
-				대여 가능
-			</c:if>
-			<c:if test="${rentPList.rentCheck == 1}">	
-				대여 중
-			</c:if>
-			&emsp;
-			${rentPList.beginRegist}
-			&emsp;
-			<input type="hidden" value="${b_key}" name="b_key"/>
-			&emsp;
-			<input type="button" value="수정" onclick="modiRentProduct('${rentPList.code}','${b_key}');"/>
-		</li>
+			<tr>
+				<td><input type="checkbox" name="rentCode" value="${rentPList.code}" /></td>
+				<td>${rentPList.code}</td>
+				<c:if test="${rentPList.rentCheck == 0}">	
+					<td>대여 가능</td>
+				</c:if>
+				<c:if test="${rentPList.rentCheck == 1}">	
+					<td>대여 중</td>
+				</c:if>
+				<td>${rentPList.beginRegist}<input type="hidden" value="${b_key}" name="b_key"/></td>
+				<td><div class="bt_3"><a onclick="modiRentProduct('${rentPList.code}','${b_key}');">수정</a></div></td>
+			</tr>
 		</c:forEach>
-	</ul>
+	</table>
 </c:if>
 <c:if test="${rentPList.size() == 0}">
-	${rentProduct} 목록에 등록된 대여물품이 없습니다.
+	<table border="1" class="dailySettlementList_table">
+		<tr class="dailySettlementList_NoCount">
+			<td colspan="9">
+				<p>
+				<img src="/buengbueng/img/bossERP/bg_alert.gif" width="40" height="40">
+					조회결과가 없습니다.
+				</p>
+			</td>
+		</tr>
+	</table>
 </c:if>

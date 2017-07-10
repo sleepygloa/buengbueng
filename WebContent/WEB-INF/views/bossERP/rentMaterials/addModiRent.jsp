@@ -7,7 +7,7 @@
 		<input type="hidden" value="${page}" name="page"/>
 		<input type="hidden" name="b_key" value="${b_key}"/><br/>
 		대여물품 목록 : <input type="text" id="rentProduct" name="rentProduct"/>
-		<input type="submit" value="추가"/>
+		<input type="submit" class="modiBtn2" value="추가"/>
 	</form>
 </c:if>
 
@@ -17,6 +17,6 @@
 		<input type="hidden" value="${rent.rentProduct}" name="beforeProduct"/>
 		<input type="hidden" name="key" value="${rent.b_key}"/><br/>
 		대여물품 목록 : <input type="text" id="rentProduct" name="afterProduct" value="${rent.rentProduct}"/>
-		<input type="submit" value="완료"/>
+		<input type="submit" class="modiBtn2" value="완료"/>
 	</form>
 </c:if>

@@ -4,7 +4,8 @@
 	<title>PC방 이용현황 관리</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="/buengbueng/js/bossERP/seatState.js"></script>
-	<link rel="stylesheet" type="text/css" href="/buengbueng/css/bossERP/seatDispose.css" />
+	<link rel="stylesheet" type="text/css" href="/buengbueng/css/bossERP/applyForSettlement.css">
+	<link rel="stylesheet" type="text/css" href="/buengbueng/css/ko/kocss.css">
 </head>
 
 <jsp:include page="../../erp_header.jsp" />
@@ -15,7 +16,7 @@
 		가맹지점을 선택하여 주세요.
 	</c:if>
 	<c:if test="${result eq 'succ'}">
-		<div class="infoAddModiDel">
+		<div class="ERP_Navigator">
 			<ul>
 				<li>ERP 관리</li>
 				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
