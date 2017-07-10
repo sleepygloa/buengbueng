@@ -3,20 +3,27 @@
 
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
-<style>[class*=col]{margin-bottom:0px}</style>
-	<!-- 페이지 제목 -->
-	<div class="margin_bottom50">
-		<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
-			<h3>가맹점 신청 PAGE</h3>
-		</div>
-	</div>
-	
-	<div class="margin_bottom50">	
-		<div class="col-xs-12-12">
+<style>[class*=col]{margin-bottom:15px}.contentBox > div{text-align:left;}</style>
+
+
+<!-- 메인 화면 전광판  ------------------------------------------------------------>
+<div class="main_ad" style="background-color:#fff;height:100%;">
+	<div class="main_ad_content">
+			<div class="col-xs-10-10 main_ad_contentBox">
+
+				<div class="col-xs-10-10 col-sm-10-10 col-md-10-10  col_height100 contentBox_outline">
+					<div class="contentBox col_height0">
+						<div class="contentBox_a"><a href="#">가맹점 신청 PAGE</a></div>
+					</div>
+				</div>
+<div class="col-xs-10-10 hr"></div>
+
+<form  action="franchiseeAddPro.do" method="post">
+				
+				<div class="col-xs-10-10 col-sm-10-10 col-md-10-10  col_height30 contentBox_outline">
+					<div class="contentBox col_height0">
+						<div>
 					
-			<form  action="franchiseeAddPro.do" method="post">
-				<!-- 회원 ID -->
-				<div class="row">
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 						<c:if test="${userDto.id != null}">
 							<label>ID<br /></label>
@@ -27,9 +34,10 @@
 						</c:if>
 						<c:if test="${userDto.id == null}">비회원</c:if>
 					</div>
-				</div>
-				<!-- 회원 GRADE -->
-				<div class="row">
+					
+
+					
+<!-- 회원 GRADE -->
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 						<c:if test="${userDto.grade != null}">
 							<label>등급<br /></label>
@@ -41,19 +49,15 @@
 							</div>
 						</c:if>
 					</div>
-				</div>				
 				
 				<!-- 상호명 -->
-				<div class="row">
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>상호명<br /></label>
 							<div class="form-group ">
 								<input class="col-xs-12-12 form-control" type="text" name="b_name" placeholder="상호명을 입력하세요" />
 							</div>
 					</div>
-				</div>
 				<!-- 사업자 번호 -->
-				<div class="row">
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>사업자번호<br /></label>	
 							<div class="form-group">
@@ -67,9 +71,7 @@
 								
 							</div>														
 					</div>
-				</div>				
 				<!-- 사업장 주소 -->
-				<div class="row">
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>사업장 주소 <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br /></label>
 							<div class="form-group">
@@ -79,10 +81,7 @@
 								<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
 							</div>
 					</div>
-				</div>	
 				<!-- 사업장 전화번호 -->
-				<div class="row">
-
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>사업장 전화번호<br /></label>
 							<div class="form-group">
@@ -95,38 +94,28 @@
 								</div>
 							</div>
 					</div>
-				</div>
 				<!-- 사업장 규모 -->
-				<div class="row">
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>사업장 규모<br /></label>
 							<div class="form-group">
 								<input class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" type="text" name="b_size" placeholder="사업장 규모 입력 (평 수)" onblur="return checkB_size();">	
 							</div>
 					</div>
-				</div>
 				<!-- 가맹주 계좌-->
-				<div class="row">
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>계좌번호<br /></label>
 							<div class="form-group">
 								<input class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" type="text" name="b_requestedAccount" placeholder="계좌번호 입력" onblur="return checkB_size();">	
 							</div>
 					</div>
-				</div>
 				<!-- 보유 컴퓨터수 -->
-				<div class="row">
-
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>보유컴퓨터 수<br /></label>
 							<div class="form-group">
 								<input class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" type="text" name="b_pccount" placeholder="보유한 컴퓨터 대수를 입력하세요" onblur="return checkB_size();">	
 							</div>
 					</div>
-				</div>	
 				<!-- 사업장 사장님컴퓨터 IP -->
-				<div class="row">
-
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 							<label>사업장 사장님컴퓨터 IP<br /></label>
 							<div class="form-group">
@@ -134,24 +123,24 @@
 						<input type="hidden" name="b_ip" value="${ip}" />
 							</div>
 					</div>
-				</div>							
 				<!-- 버튼 -->
-				<div class="row">
 					<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 						<input class="btn btn-success col-xs-12-12 col-sm-6-12 col-md-6-12" type="submit" value="신청하기" />
 						<input class="btn btn-default col-xs-12-12 col-sm-6-12 col-md-6-12" type="button" value="취소하기" />
 					</div>					
-				</div>	
-			</form>	
-			<div class="row">
 				<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
 					<button class="btn btn-default col-xs-12-12 col-sm-12-12 col-md-12-12"  onclick="window.location='index.do'" >메인페이지로</button>
 				</div>
-			</div>
+
+						</div>
+					</div>
+				</div>	<!-- 페이지 제목 -->
+
+</form>
+
 		</div>
 	</div>
-	
-</div>
+</div>	<!-- 페이지 제목 -->
 
 <script type="text/javascript" src="/buengbueng/js/userInfo/signForm.js"></script>
 

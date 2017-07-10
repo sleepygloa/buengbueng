@@ -49,16 +49,7 @@ public class FranchiseeManagementBean {
 	
 	@Autowired
 	protected SuperClass sc;
-	
-	//대메뉴에서 '사장님 가맹점 관리 버튼 클릭시' 이동
-	@RequestMapping("franchiseeManagementMain.do")
-	public String franchiseeManagementMain(Model model){
-		
-		sc.sideMenuTemp(model, 1, 1); //sidemenu template
-		
-		return "/bosspcuse/franchiseeManagementMain";
-	}
-	
+
 	//가맹점 추가 //폼에서 입력받음
 	@RequestMapping("franchiseeAdd.do")
 	public String franchiseeAdd(HttpSession session, BossInfoDataDTO bossDto, Model model){

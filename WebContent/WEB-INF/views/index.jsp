@@ -26,7 +26,7 @@ function indexNoticeList(){
 
 <!-- ARTICLE -->
 <!-- 메인 화면 전광판  ------------------------------------------------------------>
-<div class="main_ad">
+<div class="main_ad" style="background-color:#EEF1F2;height:100%;">
 	<div class="main_ad_content">
 			<div class="col-xs-10-10 main_ad_contentBox">
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10 col_height200 contentBox_outline contentBox_right">
@@ -65,7 +65,7 @@ function indexNoticeList(){
 
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10 col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="franchiseeManagementMain.do">가맹점 관리</a></div>
+						<div class="contentBox_a"><a href="franchiseeList.do">가맹점 관리</a></div>
 						<div><i class="fa fa-pencil-square-o fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>

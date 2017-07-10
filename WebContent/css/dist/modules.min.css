@@ -10,7 +10,7 @@ img{vertical-align:middle} /* 사진은 기본으로 세로가운데정렬 */
 a:visited{text-decoration:none}
 h6{font-size:1.2em;line-height:1.2096;margin-bottom:1.2096em} /* 19px=1.209 */
 h5{font-size:1.5em;line-height:1.951;margin-bottom:.975em} /* 15px=.975 */
-h4{font-size:1.9m;line-height:1.5734;margin-bottom:.75em} /* 25px=.75 */
+h4{font-size:1.9em;line-height:1.5734;margin-bottom:.75em} /* 25px=.75 */
 h3{font-size:2.3em;line-height:1.2688;margin-bottom:.6344em} /* 10px=.634 */
 h2{font-size:2.9em;line-height:1.5348;margin-bottom:.511em}  /* 8px=.511 */
 h1{font-size:3.6em;line-height:1.2378;margin-bottom:.438em} /* 7px=.438 */ 
@@ -23,6 +23,7 @@ header, section, footer{
 	width:100%;
 	display:block;
 	position:relative;
+	word-break:normal;
 }
 
 [class*=col]{float:left;position:relative;box-sizing:border-box;}
@@ -135,7 +136,7 @@ header, section, footer{
 @media screen and (min-width:768px){
 	section{font-size:14px;}
 }
-@media screen and (max-width:1200px){
+@media screen and (min-width:1200px){
 	section{font-size:16px;}
 }
 
@@ -309,7 +310,7 @@ header, section, footer{
 
 .contentBox{text-align:center;height:100%;width:100%;padding:20px;background-color:#fff;}
 .contentBox .contentBox_a {margin-bottom:20px;}
-.contentBox .contentBox_a a{font-size:1.8em;}
+.contentBox .contentBox_a a{font-size:1.5em;}
 
 .contentBox_right{float:right;}
 
@@ -342,6 +343,6 @@ header, section, footer{
 }
 
 .hr {
-	border-bottom : solid 1px gray;
+	border-bottom : solid 0.8px #E7E7E7;
 	width:100%;
 }
