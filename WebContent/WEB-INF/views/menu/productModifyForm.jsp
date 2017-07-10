@@ -4,6 +4,7 @@
 
     
     <head>
+    <link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
     <title>재 고 수 정</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
@@ -14,7 +15,7 @@
     <body>
     
     <!-- HEADER TEMPLATE -->
-	<jsp:include page="/WEB-INF/views/header.jsp" />
+	<jsp:include page="../erp_header.jsp" />
     
     	<div>
     	<form action="productModifyPro.do" method="post" onsubmit="return menuModify()" >
@@ -49,6 +50,6 @@
     		</form>
     	</div>
     	<div>
-    	<button onclick="window.location='productModify.do?l_key=${l_key}'">돌아가기</button> 
+    	<button onclick="window.location='menu.do?l_key=${l_key}'">돌아가기</button> 
     	</div>
     </body>

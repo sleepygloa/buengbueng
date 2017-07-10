@@ -4,6 +4,7 @@
     
     <head>
     	<title>주문 현황</title>
+    	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
     		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     	<script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
     	<script type="text/javascript" src="/buengbueng/js/menu/menuStatus.js"></script>

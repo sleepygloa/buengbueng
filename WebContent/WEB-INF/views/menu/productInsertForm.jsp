@@ -5,6 +5,7 @@
     
     <head>
     <title>재 고 추 가</title>
+    <link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
     <script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
@@ -14,7 +15,7 @@
     <body>
     
     <!-- HEADER TEMPLATE -->
-	<jsp:include page="/WEB-INF/views/header.jsp" />
+	<jsp:include page="../erp_header.jsp" />
     
     	<div>
     	<form action="productInsertPro.do" method="post" name="productInsertForm" onsubmit="return menuInsert()">

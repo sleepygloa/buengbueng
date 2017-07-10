@@ -5,6 +5,7 @@
     
     <head>
     <title>메 뉴 추 가</title>
+    <link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
     </head>
@@ -13,11 +14,29 @@
     <body>
     
     <!-- HEADER TEMPLATE -->
-	<jsp:include page="/WEB-INF/views/header.jsp" />
+	<jsp:include page="../erp_header.jsp" />
     
+    	<div class="ERP_Navigator">
+			<ul>
+				<li>ERP 관리</li>
+				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+				<li>메뉴관리</li>
+				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+				<li>메뉴추가</li>
+			</ul>
+		</div>
+ 	   
+    	<div class="boss_con">
+    	<p style="font-size:25">메뉴 관리 - 메뉴 추가</p>
+		<hr>
+    	
     	<div>
+    		
+    	
     	<form action="menuInsertPro.do" method="post" onsubmit="return menuInsert()">
-    		<table>					
+    		<table class="dailySettlementList_table">
+
+    								
     			<tr>	
     			<td>카테고리</td>
     			<td><input type="text" name="category" placeholder="카테고리 입력">	</td>

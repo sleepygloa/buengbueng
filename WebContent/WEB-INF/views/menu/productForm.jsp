@@ -4,13 +4,14 @@
 
     <head>
     <title>메 뉴 재 고</title>
+    <link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     </head>
     
     <body>
     
     <!-- HEADER TEMPLATE -->
-	<jsp:include page="/WEB-INF/views/header.jsp" />
+	<jsp:include page="../erp_header.jsp" />
     
     <div>
     <table>

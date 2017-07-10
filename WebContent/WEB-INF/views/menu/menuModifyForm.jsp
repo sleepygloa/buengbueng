@@ -4,6 +4,7 @@
     
     <head>
     <title>메 뉴 수 정</title>
+    <link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
     </head>
@@ -12,7 +13,22 @@
     <body>
     
     <!-- HEADER TEMPLATE -->
-	<jsp:include page="/WEB-INF/views/header.jsp" />
+	<jsp:include page="../erp_header.jsp" />
+	
+	
+			<div class="ERP_Navigator">
+			<ul>
+				<li>ERP 관리</li>
+				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+				<li>메뉴관리</li>
+				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+				<li>메뉴수정</li>
+			</ul>
+		</div>
+	
+	<div class="boss_con">
+	
+	<p style="font-size:25">메뉴 수정</p>
     	<div>
     	<form action="menuModifyPro.do" method="post" onsubmit="return menuModify()">
     		<table>					
@@ -34,10 +50,14 @@
      
     			<tr>	
     			<td>제품가격</td>
-    			<td><input type="text" name="price" placeholder="제품가격 입력" value="${mdto.price}"></td>
+    			<td><input type="hidden" name="l_key" value="${l_key}"/>
+    			<input type="text" name="price" placeholder="제품가격 입력" value="${mdto.price}"></td>
+    			
+    			
     			</tr>
+    			
     			<tr><td><input type="submit" value="수 정"/>
-    					<input type="hidden" name="l_key" value="${l_key}"/>
+    					
     			</td>
     			</tr>    		
     		</table>
@@ -45,6 +65,7 @@
     	</div>
     	
     	<div>
-    	<button onclick="window.location='menuModify.do?l_key=${l_key}'">수정창 전체보기로 돌아가기</button> 
+    	<button onclick="window.location='menu.do?l_key=${l_key}'">돌아가기</button> 
+    	</div>
     	</div>
     </body>

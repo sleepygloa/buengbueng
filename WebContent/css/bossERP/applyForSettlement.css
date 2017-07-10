@@ -61,6 +61,15 @@ body{height:100%;}
 	margin-top:20px;
 	margin-bottom:20px;
 }
+.applyForSettlement_button1{
+	width:80px;
+	height:40px;
+	background:none;
+	border:1px #cdd3d7 solid;
+	color:#616f77;
+	margin-top:20px;
+	margin-bottom:20px;
+}
 .pageing_box{
 	float:right;
 	margin-right:30px;
