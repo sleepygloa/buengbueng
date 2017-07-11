@@ -38,6 +38,8 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class BossEmployeeManageController {
@@ -59,12 +61,13 @@ public class BossEmployeeManageController {
 	@FXML private AnchorPane commuteTablePane;
 	@FXML private TitledPane payTitlePane;
 	@FXML private AnchorPane payTablePane;
-	@FXML private AnchorPane dialySection;
+	@FXML private AnchorPane diarySection;
 	
 	//좌상 
 	@FXML private TableView<EmployeeList> e_idListTable;
 	@FXML private TableColumn<EmployeeList,String> e_id; //테이블 컴럼 추가
 	private static ObservableList<EmployeeList> e_idListData =FXCollections.observableArrayList();
+	
 	
 	
 	//좌하
@@ -79,6 +82,10 @@ public class BossEmployeeManageController {
 	@FXML private TableColumn<EmployeeTotalIdInfoList,String> totalEmail; //테이블 컴럼 추가
 	@FXML private TableColumn<EmployeeTotalIdInfoList,String> totalGoogleId; //테이블 컴럼 추가
 	private static ObservableList<EmployeeTotalIdInfoList> e_idListData2 =FXCollections.observableArrayList();
+	
+	//우상
+	@FXML private WebView diary; //달력
+	
 	
 	//우하
 	@FXML private TableView<EmployeeWorkTimeList> commuteTable;
@@ -198,8 +205,13 @@ public class BossEmployeeManageController {
 			
 		}catch(Exception e){e.printStackTrace();}
 		
-			//우상 달력
-			
+		//우상 달력
+		WebEngine webEngine = diary.getEngine();
+		// 웹 사이트에서 아이디 중복확인할 때 새 창 띄우는 거 없애고, Ajax 써야할 듯 -> load()가 여러 페이지를 보여주지 않고, 현재 페이지에 새로 띄우는 페이지를 덮어씌움
+		webEngine.load("http://localhost:8080/buengbueng/employeeCalenderOnly.do");
+		webEngine.setJavaScriptEnabled(true);
+		
+		
 			//우하 근무일정
 		try{
 			commuteTable.getItems().clear();
@@ -259,7 +271,7 @@ public class BossEmployeeManageController {
 			splitLeftHorizon.getItems().addAll(e_idListSection,employeeInfoSection);
 			splitLeftHorizonPane.getChildren().add(splitLeftHorizon);
 			
-			splitRightHorizon.getItems().addAll(dialySection,commuteSection); //한개더넣어야됨
+			splitRightHorizon.getItems().addAll(diarySection,commuteSection); //한개더넣어야됨
 			splitRightHorizonPane.getChildren().add(splitRightHorizon);
 			
 			splitVertical.getItems().addAll(splitLeftHorizonPane,splitRightHorizonPane);//좌하

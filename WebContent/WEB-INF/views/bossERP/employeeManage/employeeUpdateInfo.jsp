@@ -35,13 +35,6 @@
 			</div>
 		</div>
 
-	<!-- 생년월일 -->
-		<div class="uf col-xs-10-10 col-sm-10-10 col-md-10-10  col_height60 contentBox_outline">
-			<div class="contentBox col_height0">
-				<label>이름</label>
-				<input type="text" name="name" class="col-xs-12-12 col-sm-12-12 col-md-12-12 form-control" value="${userDto.name}" placeholder="${userDto.name}" />
-			</div>
-		</div>
 		
 	<!-- 생년월일 -->
 		<div class="uf col-xs-10-10 col-sm-10-10 col-md-10-10  col_height60 contentBox_outline">
