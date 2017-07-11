@@ -24,7 +24,11 @@ function reverseUser(){
 }
 </script>
 
+<div style="position:absolute;top:50%;left:50%;width:250px;height:100px;margin:-50px 0 0 -50px;">
 <input type="text" id="reverse" placeholder="복구 아이디">
 <button onclick="return reverseUser();">조회</button>
+</div>
+
+
 <div id="result"/>
 <jsp:include page="../dashFooter.jsp"/>

@@ -33,6 +33,7 @@
 					<label>가맹점 라이센스<br /></label>
 					<div class="form-group">
 						${sessionScope.b_key}
+						<input class="col-xs-12-12 form-control" type="hidden" name="b_key" value="${sessionScope.b_key}" />
 					</div>
 			</div>
 		</div>

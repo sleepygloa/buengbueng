@@ -315,12 +315,12 @@ public class BossEmployeeManageBean {
 	public String employeeDeleteInfoPro(Model model, HttpSession session, BossEmployeeManageDataDTO beDto){
 
 		String b_id = sc.getSessionBidModelBid(model, session); //session b_id, model.addAttribute(b_id) template
-		
 		//////////////////////////////////////////
 		//b_key로 가맹점 이름 알바 정보에 입력
 		String b_name = (String)sqlMap.queryForObject("franchisee.getFranchiseeLogBkey",beDto.getB_key());
 		beDto.setB_id(b_id);
 		beDto.setB_name(b_name);
+		System.out.println("b_key="+beDto.getB_key()+"b_name="+beDto.getB_name());
 		int check = 0;
 		try{
 			sqlMap.insert("erpEmp.deleteIdLogAdd", beDto);

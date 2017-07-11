@@ -110,8 +110,8 @@
 	<!-- 관리자 페이지 가맹점 신청 리스트 목록 -->
 	<select id="getFranchiseeAddList" resultClass="franchiseeDTO" parameterClass="java.util.HashMap">
 		<![CDATA[
-		select num,date, result, date, b_id, finishDate, b_name, b_number, b_address, b_tel, b_size, b_pccount, b_ip, b_key,b_requestedAccount,@rownum:=@rownum+1 as rownum
-		 from franchiseeLog,(select @rownum:=0)r where result = 0 order by date asc limit #startRow#,#pageSize#;
+		select date_format(date , '%Y-%m-%d') as aDate,b_name,@rownum:=@rownum+1 as rownum
+		from franchiseeLog,(select @rownum:=0)r where result = 0 order by date asc limit #startRow#,#pageSize#;
 		 ]]> 	
 	</select>
 	
@@ -188,5 +188,4 @@
 		on a.e_id = b.e_id
 		where a.num=#num#;
 	</select>
-
 </sqlMap>
