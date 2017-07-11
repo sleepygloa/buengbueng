@@ -104,8 +104,8 @@ function indexFranchiseeList(){
 				</div>	
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">알바생 일정</a></div>
-						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
+						<div class="contentBox_a"><a href="employeeCalenderOnly.do">알바생 일정</a></div>
+						<div><i class="fa fa-calendar fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>					
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">

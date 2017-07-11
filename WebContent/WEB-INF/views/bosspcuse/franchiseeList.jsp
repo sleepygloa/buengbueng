@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!-- HEADER TEMPLATE -->
+<jsp:include page="../header.jsp" />
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
 [class*=col-]{margin-bottom:5px} /* 모든 클래스들 중 col- 로 시작하는 것들을 정의, grid간 아랫공간 띄우기*/
-
 @media screen and (min-width:250px){
 	.main_ad{font-size:14px;}
 }
@@ -29,8 +31,7 @@
 			})
 	}
 </script>
-<!-- HEADER TEMPLATE -->
-<jsp:include page="../header.jsp" />
+
 
 <!-- 메인 화면 전광판  ------------------------------------------------------------>
 <div class="main_ad" style="background-color:#fff;height:100%;">

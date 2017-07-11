@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!-- HEADER TEMPLATE -->
+<jsp:include page="../../header.jsp" />
+
 <style>
 #toast-container{
 	width: 70%;
@@ -35,10 +38,10 @@ margin-right:10px;
 
 <style type="text/css">
     body {
-        margin :40px 10px;
         padding : 0;
         font-family : "Lucida Grande", Helvetica, Arial, Verdana,sans-serif;
         font-size : 14px;
+        background-color:#fff;
     }
     #calendar {
         max-width : 900px;
@@ -378,12 +381,22 @@ $(document).ready(function() {
 	})
 }
 </script>
+
 <script type="text/javascript" src="/buengbueng/css/toast/toastAlert.js" charset="utf-8"></script>
 
 <input type="hidden" id="id" value="${sessionScope.loginId} " />
+
+<div class="main_ad" style="background-color:#fff;height:100%;">
+	<div class="main_ad_content">
+		<div class="col-xs-10-10 main_ad_contentBox">
+
    <div id="calendar"></div>
    
    <div class="popup">
 	   <div class="popuptext" id="myPopup"></div>
 	   <div class="popuptext" id="myPopup1"></div>
    </div>
+   
+		</div>
+	</div>
+</div>

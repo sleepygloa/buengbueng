@@ -103,8 +103,6 @@ public class BossEmployeeManageBean2 {
 	@RequestMapping("employeeCalenderOnly.do")
 	public String employeeCalenderOnly(Model model){
 		
-		sc.sideMenuTemp(model, 1, 3); //sidemenu template
-		
 		return "/bossERP/employeeManage/employeeCalenderOnly";
 	}	
 	
@@ -233,6 +231,9 @@ public class BossEmployeeManageBean2 {
 		}
 		
 		model.addAttribute("check", check);
+		if(id.contains("employee")){
+			return new ModelAndView("redirect:/employeeCalenderOnly.do");	
+		}
 		
 		return new ModelAndView("redirect:/employeeCalender.do");	
 	}
@@ -332,6 +333,10 @@ public class BossEmployeeManageBean2 {
 				sqlMap.update("erpEmp.calenderUpdateTime", map); //근무시간 변경
 			}catch(Exception e){
 				e.printStackTrace();
+			}
+			
+			if(e_id.contains("employee")){
+				return new ModelAndView("redirect:/employeeCalenderOnly.do");	
 			}
 			
 			return new ModelAndView("redirect:/employeeCalender.do");
