@@ -227,14 +227,6 @@ public class ChatbotListBean extends BoardMethodBean {
 		return "redirect: chatbotList.do";
 	}
 	
-	@RequestMapping("chatting.do")
-	public String test(Model model,HttpServletRequest request){
-		Alarm(request);
-		ArrayList<ChattingLogDto> dto = (ArrayList)sqlMap.queryForList("chatbot.getChatlog", null);
-		model.addAttribute("dto", dto);
-		return "/chatbot/chatting";
-	}
-	
 	// 선호코드추가
 	@RequestMapping("chatSituation.do")
 	public ModelAndView chatSituation(Model model){
@@ -284,7 +276,7 @@ public class ChatbotListBean extends BoardMethodBean {
 					list
 					);
 //			pb.directory(new File("C:\\Users\\user2\\Documents\\workspace\\buengbueng\\WebContent\\Node\\project\\"));
-			pb.directory(new File("C:\\Users\\sleep\\Documents\\workspace\\buengbueng\\WebContent\\Node\\project\\"));
+			pb.directory(new File("C:\\Users\\KO\\Documents\\eclipse\\Spring\\buengbueng\\WebContent\\Node\\project\\"));
 		       System.out.println(pb.command());
 		       pb.redirectErrorStream(true);
 		        Process p = pb.start();

@@ -4,16 +4,16 @@
 	<title>좌석 관리</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/buengbueng/js/bossERP/seatDispose.js"></script>
-	<link rel="stylesheet" type="text/css" href="/buengbueng/css/bossERP/seatDispose.css">
+	<link rel="stylesheet" type="text/css" href="/buengbueng/css/ko/kocss.css">
 	<script type="text/javascript">
 		$(function () {
-		    $(".tab_content").hide();
-		    $(".tab_content:first").show();
-		    $(".tabs li:first").addClass("active").css("color", "red");
+		    $(".tab_content2").hide();
+		    $(".tab_content2:first").show();
+		    $(".tabs li:first").addClass("active").css("color", "blue");
 		    $(".tabs li").click(function () {
 		        $(".tabs li").removeClass("active").css("color", "#333");
-		        $(this).addClass("active").css("color", "red");
-		        $(".tab_content").hide();
+		        $(this).addClass("active").css("color", "blue");
+		        $(".tab_content2").hide();
 		        var activeTab = $(this).attr("rel");
 		        $("#" + activeTab).fadeIn();
 		    });
@@ -38,13 +38,13 @@
 		        <li rel="tab6">&emsp;스피커 정보&emsp;</li>
 		    </ul>
 			<div class="tab_container">
-				<div id="tab1" class="tab_content">
+				<div id="tab1" class="tab_content2">
 		        	<ul>
 						<li>OS : <input type="text" name="os" /></li>
 					</ul>
 				</div>
 				
-				<div id="tab2" class="tab_content">
+				<div id="tab2" class="tab_content2">
 					<ul>
 						<li>제조사 : <input type="text" name="c_company"/></li>
 						<li>제품명 : <input type="text" name="c_name"/></li>
@@ -59,7 +59,7 @@
 					</ul>
 				</div>
 						
-				<div id="tab3" class="tab_content">
+				<div id="tab3" class="tab_content2">
 					<ul>
 						<li>제조사 : <input type="text" name="m_company"/></li>
 						<li>제품명 : <input type="text" name="m_name"/></li>
@@ -71,7 +71,7 @@
 					</ul>
 				</div>
 						
-				<div id="tab4" class="tab_content">
+				<div id="tab4" class="tab_content2">
 					<ul>
 						<li>제조사 : <input type="text" name="k_company"/></li>
 						<li>제품명 : <input type="text"name="k_name"/></li>
@@ -80,7 +80,7 @@
 					</ul>
 				</div>
 						
-				<div id="tab5" class="tab_content">
+				<div id="tab5" class="tab_content2">
 					<ul>
 						<li>제조사 : <input type="text" name="mo_company"/><li>
 						<li>제품명 : <input type="text" name="mo_name"/><li>
@@ -89,7 +89,7 @@
 					</ul>
 				</div>
 						
-				<div id="tab6" class="tab_content">
+				<div id="tab6" class="tab_content2">
 					<ul>
 						<li>제조사 : <input type="text" name="s_company"/><li>
 						<li>제품명 : <input type="text" name="s_name"/><li>

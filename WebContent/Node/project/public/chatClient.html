@@ -2,8 +2,10 @@
   <head>
 	<meta charset="UTF-8">
     <title>챗봇</title>
-    <script type='text/javascript' src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="./chatClient.css">
+	<script type='text/javascript' src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js'></script>
+	<script type='text/javascript' src='block.js'></script>
     <script type='text/javascript'>
     //  var socket = io.connect('ws://192.168.0.206:3000');
       var socket = io.connect('ws://localhost:3000');
@@ -12,8 +14,17 @@
         $('#submitBtn').click(function(){
           var keyword = "";
           // 사용자 질문 채팅창에 띄우기
-          var txt = $('#chat').html()+'<br/>';
-          $('#chat').html(txt+'user: '+$('#userTxt').val());
+          var txt = $('#chat').html();
+		  var userTxt = $('#userTxt').val().replace("\n","<br/>");
+          $('#chat').html(
+		  		txt+"<div class='line'>"+
+						"<div class='user'>사용자<br/>"+
+							"<div class='question'>"+
+								userTxt+
+							"</div>"+
+						"</div>"+
+					"</div>"
+		  );
           var question =  document.getElementById("userTxt").value;
           // 사용자의 질문에서 키워드 추출하기
           $.ajax({
@@ -39,8 +50,16 @@
         		}
         	});
           socket.on('recieveChat',function(data){
-            var txt = $('#chat').html()+'<br/>';
-            $('#chat').html(txt+data);
+            var txt = $('#chat').html();
+            $('#chat').html(
+				txt+"<div class='line'>"+
+						"<div class='admin'>관리자<br/>"+
+							"<div class='answer'>"+
+								data+
+							"</div>"+
+						"</div>"+
+					"</div>"
+			);
             socket.end();
           });
         });
@@ -49,11 +68,22 @@
   </head>
   <body>
     <h2>무엇을 도와드릴까요</h2>
-    <!--<textarea cols='30px' rows='20px' id='chat' readonly>안녕하세요. 무엇을 도와드릴까요?</textarea> -->
-    <div id='chat'>안녕하세요. 무엇을 도와드릴까요?</div>
-    <br/>
-    <input type='text' id='userTxt' placeholder='입력란'/>
-    &nbsp;&nbsp;&nbsp;
-    <button id='submitBtn'>입력</button>
+    <div class='chatbot'>
+		<div id='chat'>
+			<div class='line'>
+				<div class='admin'>관리자<br/>
+					<div class='answer'>
+						안녕하세요. 무엇을 도와드릴까요?
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class='inputDiv'>
+			<textArea id='userTxt' placeholder='입력란'></textArea>
+			<div class='btnDiv'>
+				<button id='submitBtn'>전송</button>
+			</div>
+		</div>
+	</div>
   </body>
 </html>

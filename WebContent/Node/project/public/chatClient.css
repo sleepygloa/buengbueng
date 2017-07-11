@@ -1,0 +1,83 @@
+body{
+   background-color: #333;
+   color: white;
+   margin:0;
+}
+.chatbot{
+    margin-left:0;
+    width:100%;
+}
+.inputDiv{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    background-color: white;
+    display: inline-block;
+}
+.btnDiv{
+    margin-left:0;
+    margin-top:10;
+	margin-right:30;
+    float:right;
+}
+#chat{
+    width:100%;
+    max-height:85%;
+    overflow:auto;
+}
+.line{
+	width:100%;
+	float:left;
+	margin-top: 10;
+	display: inline-block;
+}
+.admin{
+	left:0;
+	padding-left:10;
+	float:left;
+	width:45%;
+	display:inline-block;
+	color:white;
+}
+.answer{
+	margin-top:5;
+	padding-left:10;
+	padding-right:10;
+	border-radius: 5px;
+	word-break:break-all;
+	display:inline-block;
+	background-color:white;
+	color: black;
+}
+.user{
+	text-align:right;
+	right:0;
+	padding-right:10;
+	width:45%;
+	float:right;
+	display:inline-block;
+	color:white;
+}
+.question{
+	margin-top:5;
+	padding-left:10;
+	padding-right:10;
+	border-radius: 5px;
+	word-break:break-all;
+	display:inline-block;
+	background-color:yellow;
+	color: black;
+}
+#userTxt{
+    margin-top:10;
+    margin-bottom:10;
+    width:80%;
+    height:40;
+	border:none;
+}
+#submitBtn{
+    height:40;
+    background-color:yellow;
+    border:none;
+    color:#444;
+}

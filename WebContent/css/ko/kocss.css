@@ -239,9 +239,24 @@ ul.tabs li.active {
 }
 .tab_container .tab_content ul li {
     padding:5px;
+    list-style:none;
+}
+.tab_content2 {
+	width: 100%;
+    padding: 5px;
+    font-size: 12px;
+    text-align: center;
+    display: inline-block;
+}
+.tab_container .tab_content2 ul {
+    width:100%;
+    margin:0px;
+    padding:0px;
+}
+.tab_container .tab_content2 ul li {
+    padding:5px;
     list-style:none
 }
-;
  #container {
     width: 100%;
     margin: 0 auto;
