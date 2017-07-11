@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
@@ -243,8 +244,16 @@ public class MenuOrderBean {
 	////// 사장님 주문 //////
 	
 	@RequestMapping("menuOrderListForm.do")
-	public String menuOrderListForm(String l_key,String tf,HttpServletRequest request){
+	public String menuOrderListForm(String tf,HttpServletRequest request, HttpSession session){
 		try{
+			//사이드메뉴 템플릿
+			int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+			int sidemenu = 3; //사이드메뉴의 내용을 선택
+			request.setAttribute("sidemenuCheck", sidemenuCheck);
+			request.setAttribute("sidemenu", sidemenu);
+			
+			String l_key=(String)session.getAttribute("b_key");
+			
 			List orderList = (List)sqlMap.queryForList("order.getMenuOrder", l_key);
 			request.setAttribute("orderList", orderList);
 			request.setAttribute("l_key",l_key);	
@@ -262,6 +271,13 @@ public class MenuOrderBean {
 	/* 주문승인버튼 누른 후 바코드 확인하기*/
 	@RequestMapping("menuBarcodeCheck.do")
 	public String menuBarcodeCheck(HttpServletRequest request,String menuname, int num, String l_key){
+		
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		request.setAttribute("sidemenuCheck", sidemenuCheck);
+		request.setAttribute("sidemenu", sidemenu);
+		
 		request.setAttribute("name",menuname);
 		request.setAttribute("num",num);
 		request.setAttribute("l_key",l_key);

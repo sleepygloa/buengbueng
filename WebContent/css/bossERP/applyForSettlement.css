@@ -116,6 +116,18 @@ body{height:100%;}
 	border:1px #e7ecf1 solid;
 	text-align: center;
 }
+
+.dailySettlementList_table1{
+	margin:0 auto;
+	width:98%;
+	border:1px #e7ecf1 solid;
+}
+.dailySettlementList_table1 tr,.dailySettlementList_table1 td,.dailySettlementList_table1 th{
+	border:1px #e7ecf1 solid;
+	text-align: left;
+}
+
+
 .dailySettlementList_NoCount{
 	height:160px;
 }

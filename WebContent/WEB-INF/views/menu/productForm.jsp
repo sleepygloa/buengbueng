@@ -12,34 +12,46 @@
     
     <!-- HEADER TEMPLATE -->
 	<jsp:include page="../erp_header.jsp" />
-    
-    <div>
-    <table>
-    <tr>
-		<td><button onclick="window.location='productInsertForm.do?l_key=${l_key}'">재 고 등 록</button></td>
 	
-		<td><button onclick="window.location='productModify.do?l_key=${l_key}'">재 고 수 정</button></td>
 	
-		<td><button onclick="window.location='productDeleteForm.do?l_key=${l_key}'">재 고 삭 제</button></td>
-	
-	</tr>
-	</table>
-	</div>
+			<div class="ERP_Navigator">
+			<ul>
+				<li>ERP 관리</li>
+				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+				<li>재고관리</li>
+			</ul>
+		</div>
 		
-	<div>
-		<table>
-		<tr><td>제품명</td><td>바코드</td><td>유통기한</td><td>판매유무</td><td>등록일</td></tr>
-		<c:forEach var="pl" items="${productList}">
-			<tr>
-			<td>${pl.name}</td>
-			<td>${pl.code}</td>
-			<td>${pl.lastday}</td>
-			<td>${pl.salecheck}</td>
-			<td>${pl.beginregist}</td>
-			</tr>
-			</c:forEach> 
-		</table>
+			
+<div class=" margin_bottom50">	
+		<div class="col-xs-12-12">
 	
+	
+    
+    <div class="boss_con">
+	<p style="font-size:25">재고 관리</p>
+	<hr>
+
+<div>
+
+		<div align="right" class="dailySettlementList_table">
+		<button style="background-color: white; border: none; font-weight: 900" onclick="window.location='productInsertForm.do?l_key=${l_key}'">재 고 등 록</button>
+		</div>
+	<table class="dailySettlementList_table">
+		<tr>
+		<td><p>카테고리</p></td><td><p>재고 명</p></td><td><p>재고수량</p></td><td><p>상세보기</p></td>
+		</tr>
+		<c:forEach var="nl" items="${nameList}" varStatus="stat">
+		<tr><td>${categoryList[stat.index]}</td><td>${nl}</td><td>${countList[stat.index]} 개</td>
+		<td><button style="background-color: white; border: none; font-weight: 900;" onclick="window.location='productModify.do?name=${nl}&l_key=${l_key}'">상세보기</button></td></tr>
+		</c:forEach>
+	</table>
+</div>
+
+
+
+	</div>
+	</div>
 	</div>
     
   

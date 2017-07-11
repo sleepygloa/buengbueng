@@ -34,39 +34,44 @@
     		
     	
     	<form action="menuInsertPro.do" method="post" onsubmit="return menuInsert()">
-    		<table class="dailySettlementList_table">
+    		<table class="dailySettlementList_table1">
 
     								
     			<tr>	
     			<td>카테고리</td>
-    			<td><input type="text" name="category" placeholder="카테고리 입력">	</td>
+    			<td><input style="border:none" type="text" name="category" placeholder="카테고리 입력">	</td>
     			</tr>
     			
     			<tr>	
     			<td>제품명</td>
-    			<td><input type="text" name="name" placeholder="제품명 입력">	</td>
+    			<td><input style="border:none" type="text" name="name" placeholder="제품명 입력">	</td>
     			</tr>
     		
     			<tr>	
     			<td>제조회사</td>
-    			<td><input type="text" name="company" placeholder="제조회사 입력">	</td>
+    			<td><input style="border:none" type="text" name="company" placeholder="제조회사 입력">	</td>
     			</tr>
      
     			<tr>	
     			<td>제품가격</td>
-    			<td><input type="text" name="price" placeholder="제품가격 입력"></td>
+    			<td><input style="border:none" type="text" name="price" placeholder="제품가격 입력"></td>
     			</tr>
-    			<tr><td><input type="submit" value="추 가" />
-    					<input type="hidden" name="l_key" value="${l_key}">
-    					
-    			</td>
-    			</tr>    					  		
+    							  		
     		</table>
+    		
+    		<div>
+    	
+    			<tr><td><input class="applyForSettlement_button" type="submit" value="추 가" />
+    					<input type="hidden" name="l_key" value="${l_key}">
+     			</td>
+     			<td><button class="applyForSettlement_button" onclick="window.location='menu.do?l_key=${l_key}'">취소</button></td></tr>
+     		</div>
+     	    
     		</form>
     	</div>
     	
     	<div>
-    	<button onclick="window.location='menu.do?l_key=${l_key}'">메뉴로 돌아가기</button> 
+ 
     	</div>
     	
     </body>

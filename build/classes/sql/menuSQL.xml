@@ -93,8 +93,34 @@
 	
 	<!-- product 삭제 -->
 	<delete id="deleteProduct" parameterClass="java.util.HashMap">
-		delete from product where code=#code# and l_key=#l_key#;
+		delete from product where code=#code# and l_key=#l_key# and name=#name#;
 	</delete>
+	
+	
+	
+	
+	<!-- 재고페이지 새로 수정 -->
+	
+	<!-- 재고 메뉴명 가져오기 -->
+	<select id="distinctProductName" parameterClass="String" resultClass="String">
+		select distinct name from product where salecheck=1 and l_key=#l_key#;
+	</select>
+	
+	<!-- 재고 각각 수량 가져오기 -->
+	<select id="getProductCount" parameterClass="java.util.HashMap" resultClass="int">
+		select count(*) from product where name=#name# and salecheck=1 and l_key=#l_key#;
+	</select>
+	
+	<!-- 재고의 카테고리 가져오기 -->
+	<select id="getProductCategory" parameterClass="java.util.HashMap" resultClass="String">
+		select category from menu where name=#name# and l_key=#l_key#;
+	</select>
+	
+	<!-- 각재고 상황 가져오기 -->
+	<select id="getProductStatus" parameterClass="java.util.HashMap" resultClass="productDto">
+		select * from product where name=#name# and l_key=#l_key# and salecheck=1;
+	</select>
+	
 	
 	
 <!-- =========================================================================================================== -->

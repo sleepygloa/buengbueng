@@ -5,7 +5,7 @@
 
 <script>
 	alert("재고정보가 삭제되었습니다.");
-	window.location.href="productDeleteForm.do?l_key=${l_key}";
+	window.location.href="productModify.do?name=${name}&l_key=${l_key}";
 	
 </script>
 
