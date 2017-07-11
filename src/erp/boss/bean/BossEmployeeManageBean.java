@@ -200,8 +200,6 @@ public class BossEmployeeManageBean {
 				 checkIdInt = Integer.parseInt(checkId); //숫자를 인트로 형변환한다.
 			}
 
-	
-					
 				for(int i = 0; i < applyCount; i ++){
 					checkIdInt += 1; //checkIdInt 가 겹치기 않게 +1을 한다.
 						for(int j = 0; j < checkIdInt+1; j++){
@@ -235,7 +233,6 @@ public class BossEmployeeManageBean {
 							};
 							
 						}
-					
 				}
 				sqlMap.update("erpEmp.updateEmployeeAddLog", id);	
 				check = 1;
