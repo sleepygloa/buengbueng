@@ -107,6 +107,28 @@ body{height:100%;}
 	border-bottom:0.5px #eee solid;
 	margin-bottom:20px;
 }
+
+.boss_con1{
+	border:1px #e7ecf1 solid;
+	width:97%; 
+	margin-bottom:62px auto; 
+	background: #fff; 
+	text-align: center;
+}
+.boss_con1 p{
+	text-align: left;
+	margin: 10px 10px auto;
+	margin-bottom:10px;
+	font-weight: bold;
+	font-size: 16px;
+}
+.boss_con1 hr{
+	margin:0 auto;
+	width:98%;
+	border-bottom:0.5px #eee solid;
+	margin-bottom:20px;
+}
+
 .dailySettlementList_table{
 	margin:0 auto;
 	width:98%;

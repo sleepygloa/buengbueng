@@ -61,8 +61,7 @@ public class ProductBean {
 		request.setAttribute("nameList",productnameList);
 		request.setAttribute("countList",menuCount);
 		request.setAttribute("categoryList",categoryList);
-		
-		request.setAttribute("productList",productnameList);
+	
 		request.setAttribute("l_key", l_key);
 		}catch(Exception e){e.printStackTrace();}
 		return "/menu/productForm";
