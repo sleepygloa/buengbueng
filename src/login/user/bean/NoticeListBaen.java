@@ -263,9 +263,9 @@ public String noticeForm(HttpServletRequest request,Model model){
 	
 	
 
-
-@RequestMapping("indexNotice.do")
-public ModelAndView indexNotice(Model model){
+//메인 화면(index.do) 의 공지사항 최신내용 3개 불러오기
+@RequestMapping("indexNoticeList.do")
+public ModelAndView indexNoticeList(Model model){
 	ModelAndView mv = new ModelAndView();
 	List articleList = new ArrayList();;
 	
@@ -283,7 +283,25 @@ public ModelAndView indexNotice(Model model){
 	return mv;
 	}
 
-
+//메인 화면(index.do) 의 고객센터 최신내용 3개 불러오기
+@RequestMapping("indexFranchiseeList.do")
+public ModelAndView indexfrachiseeList(Model model){
+	ModelAndView mv = new ModelAndView();
+	List articleList = new ArrayList();;
+	
+	int snum = 1; //고객센터 게시판
+	
+	try{
+		articleList = (List)sqlMap.queryForList("customer.indexFranchiseelist", snum);
+	}catch(Exception e){
+		e.printStackTrace();
+	}	
+	    System.out.println("어디까지되나요");
+	model.addAttribute("list", articleList);
+	mv.setViewName("/customer-center/indexFranchiseeList");    
+	
+	return mv;
+	}
 
 
 

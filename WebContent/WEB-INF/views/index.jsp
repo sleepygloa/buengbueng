@@ -11,13 +11,24 @@ history.go(-1);
 <jsp:include page="header.jsp" /> 
 
 <script>
-indexNoticeList();
+indexNoticeList(); //공지사항 리스트
+indexFranchiseeList(); //가맹문의 리스트
+
 function indexNoticeList(){
 	$.ajax({
-		url:"indexNotice.do",
+		url:"indexNoticeList.do",
 		type:"post",
 		success:function(data){
 			$("#indexNoticeList").html(data);
+		}
+	})
+}
+function indexFranchiseeList(){
+	$.ajax({
+		url:"indexFranchiseeList.do",
+		type:"post",
+		success:function(data){
+			$("#indexFranchiseeList").html(data);
 		}
 	})
 }
@@ -105,12 +116,9 @@ function indexNoticeList(){
 				</div>	
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="franchiseQA.do"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;고객센터</a></div>
+						<div class="contentBox_a"><a href="franchiseQA.do"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;가맹 문의 최신글</a></div>
 						<div><hr /></div>
-						<div class="contentBox_board_list">
-							1. 내용입니다.<br />
-							2. 내용입니다.<br />
-							3. 내용입니다?
+						<div id="indexFranchiseeList" class="contentBox_board_list">
 						</div>
 					</div>
 				</div>	
