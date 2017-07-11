@@ -21,7 +21,6 @@ public class FranchiseeSelect {
 	
 	@RequestMapping("franchiseeSelect.do")
 	public String franchiseeSelect(HttpSession session, String b_key){
-		System.out.println("????");
 		if(session.getAttribute(b_key) != null){
 			session.removeAttribute("b_key");
 		}
@@ -33,7 +32,7 @@ public class FranchiseeSelect {
 	
 	@RequestMapping("franchiseeSelectList.do")
 	public String franchiseeList(HttpSession session,String id,Model model){
-		List<FranchiseeDataDTO> list = new ArrayList();
+		List list = new ArrayList();
 		FranchiseeDataDTO fdto= null;
 		int gradeCheck = 0;
 		try{
@@ -43,21 +42,13 @@ public class FranchiseeSelect {
 		}
 		
 		//알바생 아이디검사
-		if(id !=null && id.contains("employee")){
-			try{
+		if( id !=null && id.contains("employee") ){
 				list.add((FranchiseeDataDTO)sqlMap.queryForObject("erpEmp.getEidBkey", id));
-				fdto = list.get(0);
-				if(session.getAttribute("b_key") != null){
-					session.removeAttribute("b_key");
-				}
-				session.setAttribute("b_key", fdto.getB_key());
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+				sessionbkey(id,list);
+
 		}else if(gradeCheck == 1){
-			System.out.println("사장님테스트");
-			list = (List)sqlMap.queryForList("erpEmp.getBossFranchiseeList", id);
-			fdto = list.get(0);
+				list = (List)sqlMap.queryForList("erpEmp.getBossFranchiseeList", id);
+				sessionbkey(id,list);
 		}else{
 			list = sqlMap.queryForList("franchisee.getFirstFranchiseeInfo", id);
 		}
@@ -66,6 +57,17 @@ public class FranchiseeSelect {
 		
 		return "/bossERP/employeeManage/franchiseeList";
 	}
-	
-	
+
+	public void sessionbkey(String id,List list){
+		FranchiseeDataDTO fdto= new FranchiseeDataDTO();
+		HttpSession session = null;
+		try{
+			fdto = (FranchiseeDataDTO)list.get(0);
+				if(session.getAttribute("b_key") != null){
+					session.removeAttribute("b_key");		
+				}
+			session.setAttribute("b_key", fdto.getB_key());
+		}catch(Exception e){
+		}
+	}
 }

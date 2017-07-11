@@ -1,6 +1,8 @@
 package login.user.bean;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,9 +18,11 @@ import login.user.bean.BossInfoDataDTO;
 import login.user.bean.EmployeeInfoDataDTO;
 import login.user.bean.UseTimeLogDTO;
 import login.user.bean.UserInfoDataDTO;
+import manage.boss.bean.FranchiseeDataDTO;
 import superclass.all.bean.CheckInfo;
 import superclass.all.bean.EventGetMoney;
 import superclass.all.bean.FindIpBean;
+import superclass.all.bean.FranchiseeSelect;
 
 @Controller
 public class UserInfoBean {
@@ -34,6 +38,9 @@ public class UserInfoBean {
 	@Autowired
 	public EventGetMoney eventGetMoney;
 	
+	@Autowired
+    protected FranchiseeSelect fs;
+	
 	//로그인 클릭시 로그인 페이지로 이동
 	@RequestMapping("loginForm.do")
 	public String loginForm(){
@@ -46,6 +53,8 @@ public class UserInfoBean {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		
+		
+		
 		int check = 1;
 		String ip = null;
 		try{
@@ -57,6 +66,20 @@ public class UserInfoBean {
 				session.setAttribute("webLogin", 1);
 				check=0;
 
+				if(id.contains("employee")){
+					List list = new ArrayList();
+					FranchiseeDataDTO fdto= null;
+					try{
+						list.add((FranchiseeDataDTO)sqlMap.queryForObject("erpEmp.getEidBkey", id));
+						fdto = (FranchiseeDataDTO)list.get(0);
+						if(session.getAttribute("b_key") != null){
+							session.removeAttribute("b_key");		
+						}
+					session.setAttribute("b_key", fdto.getB_key());
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}
 
 				//////////////////////////////////
 				//접속장소의 IP를 검색하고,로그인 LOG 를 남긴다.
