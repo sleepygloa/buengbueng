@@ -80,7 +80,6 @@
                         </AnchorPane>
                     </items>
                   </SplitPane>
-                  <WebView prefHeight="200.0" prefWidth="200.0" />
                </children>
             </AnchorPane>
           <AnchorPane fx:id="splitRightHorizonPane" minHeight="1025.0" minWidth="596.0" prefHeight="1025.0" prefWidth="662.0">
