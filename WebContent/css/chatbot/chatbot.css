@@ -4,3 +4,13 @@
     width: 50%;
     background-color: transparent;
 }
+
+.pop{
+	float:right;
+	border:none;
+	outline: none;
+	color: white;
+	background-color: gray;
+	width: 50px;
+	height: 50px;
+}
