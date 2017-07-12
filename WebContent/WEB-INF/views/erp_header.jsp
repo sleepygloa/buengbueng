@@ -48,6 +48,10 @@
 	 	
 	 	<!-- erp_main 관련 CSS -->
 	 	<link rel="stylesheet" href="/buengbueng/css/erp_main.css">
+	 	
+	 	<link rel="stylesheet" href="/buengbueng/css/filp/jquery.flipster.min.css">
+		<script src="/buengbueng/js/filp/jquery.min.js"></script>
+		<script src="/buengbueng/js/filp/jquery.flipster.min.js"></script>
 		<!-- 홈페이지 제목 -->
 		<script>
 			/* When the user clicks on the button, 
@@ -298,5 +302,7 @@
 	 if(check == 5){$("#respon_submenu_intro").hide();$("#respon_submenu_user").hide();$("#respon_submenu_boss").hide();$("#respon_submenu_admin").hide();}
  }
  </script>
+ 
+ 
  
  

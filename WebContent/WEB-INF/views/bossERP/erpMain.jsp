@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+<title>가망점 관리</title>
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../erp_header.jsp" />
 
@@ -67,8 +69,7 @@
 				</c:if>
 				<c:if test="${count3 < 1}">
 					<p style="color:#fff;">0 <i class="fa fa-krw" aria-hidden="true"></i></p>
-				</c:if>
-			</div>
+				</c:if>			</div>
 			<div class="box_con_bottom1_1">
 				<p>가맹점 이용자 수</p>
 			</div>
@@ -78,7 +79,7 @@
 	
 	<!--  -->
 	
-	<div class="box3 co">
+	<div class="box3">
 		<p>PC이용 현황 리스트 <button class="erp_more_btn">상세보기</button></p>
 		<hr>
 		<div style="overflow: auto;height:250px; width:99%;">
@@ -175,21 +176,70 @@
 	<div class="box3_2">
 		<p>재고 리스트 <button class="erp_more_btn">상세보기</button></p>
 		<hr>
+		
+	</div>
+
+ 	<div class="box4">
+		<p>직원 일정 관리 <button class="erp_more_btn">상세보기</button></p>
+		<hr>
+		<jsp:include page="../bossERP/employeeManage/employeeCalender2.jsp" />
+	</div>
+
+
+	<div class="box3_3">
+		<p>직원 출ㆍ퇴근 관리 <button class="erp_more_btn">상세보기</button></p>
+		<hr>
 		<table class="StockList_table">
 			<tr>
-				<th>1</th>
-				<th>2</th>
-				<th>3</th>
-				<th>4</th>
+				<th>아이디</th>
+				<th>출근계획 시간</th>
+				<th>퇴근계획 시간</th>
+				<th>출근 시간</th>
+				<th>퇴근 시간</th>
+				<th>현황</th>
 			</tr>
-			<tr>
-				<td>a</td>
-				<td>s</td>
-				<td>d</td>
-				<td>f</td>
-			</tr>
+			<c:forEach var="list" items="${list}">
+				<tr>
+					<td>${list.title}</td>
+					<td>${list.start}</td>
+					<td>${list.end}</td>
+					<td>
+						<c:if test="${list.commuteTime == null}">
+							<p>ㆍ</p>
+						</c:if>
+						<c:if test="${list.commuteTime != null}">
+							<p>${list.commuteTime}</p>
+						</c:if>
+					</td>
+					<td>
+						<c:if test="${list.ex == null}">
+							<p>ㆍ</p>
+						</c:if>
+						<c:if test="${list.ex != null}">
+							<p>${list.ex}</p>
+						</c:if>
+					</td>
+					<td>
+						<c:if test="${list.result == 0}">
+							<p>출근준비중</p>
+						</c:if>
+						<c:if test="${list.result == 1}">
+							<p>근무중</p>
+						</c:if>						
+						<c:if test="${list.result == 2}">
+							<p>퇴근</p>
+						</c:if>
+					</td>
+				</tr>
+			</c:forEach>
 		</table>
-	</div>
+	
 	
 	</div>
+	
+	
+	
+</div>
+
+
 	

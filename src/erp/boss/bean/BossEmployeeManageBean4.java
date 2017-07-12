@@ -43,7 +43,7 @@ public class BossEmployeeManageBean4 {
 		String b_key = (String)session.getAttribute("b_key");
 		
 		String affiliateCodeList = b_key;
-		System.out.println("affiliateCodeList" + affiliateCodeList);
+		
 		
 		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
@@ -77,15 +77,14 @@ public class BossEmployeeManageBean4 {
 		
 		//일일정산시 총 합계금액 계산
 		String dailyAmount = (String) sqlMap.queryForObject("erpEmp.dailyAmount", time);
-		System.out.println("dailyAmount" + dailyAmount);
 		String dailyPureAmount = (String) sqlMap.queryForObject("erpEmp.dailyPureAmount", time);	
-		System.out.println("dailyPureAmount" + dailyPureAmount);
+		
 		int dailyCount = 0;
 		
 		dailyCount = (Integer) sqlMap.queryForObject("erpEmp.dailyCount", time);
 		System.out.println("dailyCount" + dailyCount);
 		
-		/*내역 리스트 *********************************************************************/
+		/*현재 오늘 기준으로 어제 사용자가 pc사용한 내역 리스트 *********************************************************************/
 		
 		if (pageNum == null) {
             pageNum = "1";
@@ -98,11 +97,10 @@ public class BossEmployeeManageBean4 {
         int number= 0;
         
         count = (Integer)sqlMap.queryForObject("erpEmp.B_keyValidity", affiliateCodeList);
-        System.out.println("가맹점에서 이용한 사용한 내역 카운트 =" + count);
+   
         List articleList = null;
         
-        
-        
+             
         if(dailyCount > 0){
         	HashMap r = new HashMap<>();
         	
@@ -120,7 +118,7 @@ public class BossEmployeeManageBean4 {
         }
         
         number = dailyCount - (currentPage - 1) * pageSize;
-        System.out.println("number" + number);
+        
         /**************************************************************************************************/
         
         /**정산신청 중복방지******************************************************************************************/
@@ -128,24 +126,21 @@ public class BossEmployeeManageBean4 {
         HashMap checkValue = new HashMap<>();
         checkValue.put("endDate", TodayEndTime);
         checkValue.put("startDate", Today);
-        System.out.println("settlementDate = " + TodayEndTime);
         checkValue.put("b_key", affiliateCodeList);
+        
         int check =  (int) sqlMap.queryForObject("erpEmp.checkValue", checkValue);
-        System.out.println("check" + check);
         int checkPoint = 0;
+        
 		if(check < 2 && check > -1){ //  check 0 일결우 삽입
-			
 			checkPoint = 1;
 			request.setAttribute("checkPoint", checkPoint);
-			System.out.println("checkPoint" + checkPoint);
 		}else if(check >= 1){ //  check 0이 아닐 경우에 블럭
 			checkPoint = 2;
 			request.setAttribute("checkPoint", checkPoint);
-			System.out.println("checkPoint" + checkPoint);
 		}else if(check == 0){
 			checkPoint = 3;
 			request.setAttribute("checkPoint", checkPoint);
-			System.out.println("checkPoint" + checkPoint);
+			
 		}
 		
 		/**************************************************************************************************/
@@ -317,13 +312,8 @@ public class BossEmployeeManageBean4 {
 	@RequestMapping("/pcUseStatusList.do")
 	public String pcUseStatusList(HttpSession session, Model model, String pageNum, HttpServletRequest request){
 		String b_key = (String)session.getAttribute("b_key");
-		System.out.println(b_key);
-		
 
 		sc.sideMenuTemp(model, 1, 3); //sidemenu template
-
-		
-
 		
 		//내역 리스트
 		if (pageNum == null) {

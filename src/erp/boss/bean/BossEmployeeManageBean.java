@@ -43,7 +43,7 @@ public class BossEmployeeManageBean {
 	@RequestMapping("bossErpMain.do")
 	public String bossEmployeeInfoMain(Model model, HttpSession session, String pageNum,String pageNum2){
 		String b_key = (String)session.getAttribute("b_key");
-		System.out.println(b_key);
+		
 		Calendar day = Calendar.getInstance();
         day.add(Calendar.DATE, 0);
         
@@ -65,7 +65,7 @@ public class BossEmployeeManageBean {
 		
 		
 		
-		
+		/// 각 페이지 카운트
 		int count = (int)sqlMap.queryForObject("erpEmp.totalAmountCount", b_key);
 		
 		int count2 = (int)sqlMap.queryForObject("erpEmp.dailyUserCount", mainInfo);
@@ -89,6 +89,29 @@ public class BossEmployeeManageBean {
 			model.addAttribute("dailyAmount", dailyAmount);
 			System.out.println("dailyAmount" + dailyAmount);
 		}
+		
+		
+		//box4 출 퇴근 리스트
+		try{
+			int check = (Integer)sqlMap.queryForObject("erpEmp.getUserGrade", id);//알바인지, 사장님인지 구분한다.
+			//리스트를 뽑는다.
+			List list = new ArrayList();
+			
+			if(check == 1){
+				//사장님이면	
+				list = (List)sqlMap.queryForList("erpEmp.getEmployeeWorkTimeList", id);
+			}else if(check == 2){
+				//알바생이면				
+				id = (String)sqlMap.queryForObject("erpEmp.getEidBid", id);
+				list = (List)sqlMap.queryForList("erpEmp.getEmployeeWorkTimeList", id);
+			}else{}
+		
+			model.addAttribute("list", list);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		
 		
 		// 사용 현황
@@ -160,8 +183,7 @@ public class BossEmployeeManageBean {
           model.addAttribute("pageSize2", new Integer(pageSize2));
           model.addAttribute("number2", new Integer(number2));
         
-        
-//	    
+         
 	    model.addAttribute("articleList", articleList);
 	    model.addAttribute("currentPage", new Integer(currentPage));
 	    model.addAttribute("startRow", new Integer(startRow));

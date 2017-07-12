@@ -127,7 +127,7 @@ setInterval("autoRefresh1()", 3000);
                         </a>
                             <ul class="mt-sub-menu">
                              	<li>
-                                    <a href="dashUser.do?grade=3&pageNum=1" class="rippler rippler-default">
+                                    <a href="completePayment.do" class="rippler rippler-default">
                                     <span class="menu-text">결제 내역</span>
                                     <span class="selected"></span>
                                 </a>

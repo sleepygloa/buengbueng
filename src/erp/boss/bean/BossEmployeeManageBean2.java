@@ -110,6 +110,15 @@ public class BossEmployeeManageBean2 {
 		return "/bossERP/employeeManage/employeeCalender";
 	}
 	
+	//사장님 알바생관리 메인 페이지
+	@RequestMapping("employeeCalender2.do")
+	public String employeeCalender2(Model model){
+		
+		sc.sideMenuTemp(model, 1, 3); //sidemenu template
+		
+		return "/bossERP/employeeManage/employeeCalender2";
+	}
+	
 	//알바생 일정 추가하기전에 검색하기
 	@RequestMapping("employeeCalenderEventInsertCheck.do")
 	public ModelAndView employeeCalenderEventInsertCheck(HttpSession session, Model model, Long start, Long end){

@@ -117,8 +117,8 @@
 			<button class="cash_btn" id="bt">결제하기</button>
 		</div>
 	</center>
-	<!-- 결제 버튼 스크립트 -->
-		
+	
+		<!-- 회원이 보유한 포인트  + 충전할 포인트 합산 -->
 		<script type="text/javascript">
 				$("#1,#2,#3,#4,#5").click(function (Integer) { 
 					var text = Number($(this).text()); 
@@ -130,6 +130,7 @@
 						}
 					}); 
 		</script>
+		
 	</body>
 	<jsp:include page="../footer.jsp" />
 </html>

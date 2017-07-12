@@ -2,7 +2,14 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 
 <sqlMap namespace="cash">
-
+	<select id="paymentCount" resultClass="int">
+		select count(*) from paymentList;
+	</select>
+	<select id="completePaymentList" resultClass="dto" parameterClass="java.util.HashMap">
+      select r,idx,buyer_chatid,payment_date,payment_type,paying_name,paying_price,confirmation,error_msg,pg_name,merchant_uid,pg_tid
+            from (select @rownum:= @rownum+1 as r,idx,buyer_chatid,payment_date,payment_type,paying_name,paying_price,confirmation,error_msg,pg_name,merchant_uid,pg_tid
+            from paymentList,(select @rownum:=0)i order by idx desc)yz where r between #startRow# and #endRow#;
+	</select>	
 	<select id="cash_area" resultClass="dto">
 		select * from paymentList;
 	</select>

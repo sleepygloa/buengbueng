@@ -21,6 +21,7 @@ import erp.boss.bean.BossEmployeeManageDataDTO;
 import index.all.bean.FranchiseeModuleDataDTO;
 import index.all.bean.ModuleDataDTO;
 import manage.boss.bean.FranchiseeDataDTO;
+import payment.all.bean.UserBillingHistoryDTO;
 import superclass.all.bean.Random;
 
 @Controller
@@ -408,6 +409,7 @@ public class DashAllManagementBean extends BoardMethodBean{
 		
 		return "/dash-AcceptingRequest/AcceptingRequest";
 	}
+	
 	@RequestMapping("/AcceptingRequestPro.do")
 	public String AcceptingRequestPro(HttpServletRequest request){
 		//가맹키 배열로 받음
@@ -419,10 +421,9 @@ public class DashAllManagementBean extends BoardMethodBean{
         
         //현재 오늘일 기준으로 어제 시작 일 00:00:00  코드
     	String startDate = new java.text.SimpleDateFormat("yyyy-MM-dd 00:00:00").format(day.getTime());
-    	System.out.println("startDate" + startDate);
     	//현재 오늘일 기준으로 어제 종료 일 23:59:59  코드
     	String endDate = new java.text.SimpleDateFormat("yyyy-MM-dd 23:59:59").format(day.getTime());
-    	System.out.println("endDate" + endDate);
+    	
     	
     	//chbox를 배열로 받아 리스트로 변경 해주는 코드
 		ArrayList<String> arrayList = new ArrayList<>();
@@ -430,32 +431,28 @@ public class DashAllManagementBean extends BoardMethodBean{
 		  arrayList.add(temp);
 		}
 		
-		
 		for(int i=0; i<chbox.length; i++){
-			System.out.println("chbox ㄴㅇ" + chbox[i]);
 			HashMap idx = new HashMap<>();
 			idx.put("idx", chbox[i]);
-			 String b_key = (String)sqlMap.queryForObject("admin.getAcceptingRequestB_key", idx);
-			 System.out.println("b_key" + b_key);
+			String b_key = (String)sqlMap.queryForObject("admin.getAcceptingRequestB_key", idx);
+			
+			HashMap info = new HashMap<>();
+			info.put("b_key", b_key);
+			info.put("start", startDate);
+			info.put("end", endDate);
 			 
-			 HashMap info = new HashMap<>();
-			 info.put("b_key", b_key);
-			 info.put("start", startDate);
-			 info.put("end", endDate);
+			List num = (List) sqlMap.queryForList("admin.getTitle", info);
 			 
-			 
-			 List num = (List) sqlMap.queryForList("admin.getTitle", info);
-			 
-			 //알바비 포함하고 정산하는 경우
-			 if(num != null){
-				 int sum=0; // 알바들의 알바비 총합
-				 int Amount=0; // 가맹점 요청 정산 금액
-				 int settlementAmount=0; // 최종 정산 승인시 삽입될 금액
+			//알바비 포함하고 정산하는 경우
+			if(num != null){
+				int sum=0; // 알바들의 알바비 총합
+				int Amount=0; // 가맹점 요청 정산 금액
+				int settlementAmount=0; // 최종 정산 승인시 삽입될 금액
 				 
-				 //알바들 num값  각각 돌리기
-				 for (int p = 0; p<num.size(); p++) {		       
+				//알바들 num값  각각 돌리기
+				for (int p = 0; p<num.size(); p++) {		       
 		           
-		            HashMap nupm = new HashMap<>();
+					HashMap nupm = new HashMap<>();
 		            nupm.put("num", num.get(p));
 		            
 		            //각각 받은 num값으로 하루 일한 금액 추출 
@@ -491,5 +488,49 @@ public class DashAllManagementBean extends BoardMethodBean{
 		}
 		
 		return "/dash-AcceptingRequest/AcceptingRequestPro";
+	}
+	
+	@RequestMapping("completePayment.do")
+	public String completePayment(String pageNum, HttpServletRequest request, UserBillingHistoryDTO dto){
+		/*List payment = (List)sqlMap.queryForList("cash.cash_area", dto);*/
+		
+		if (pageNum == null) {
+            pageNum = "1";
+        }
+        int pageSize = 30;
+        int currentPage = Integer.parseInt(pageNum);
+        int startRow = (currentPage - 1) * pageSize + 1;
+        int endRow = currentPage * pageSize;
+        int count = 0;
+        int number= 0;
+        
+        count = (Integer)sqlMap.queryForObject("cash.paymentCount", null);
+        System.out.println("가맹점에서 이용한 사용한 내역 카운트 =" + count);
+        List articleList = null;
+        
+        
+        
+        if(count > 0){
+        	HashMap info = new HashMap<>();
+			info.put("startRow", startRow);
+			info.put("endRow", endRow);
+     	    articleList = sqlMap.queryForList("cash.completePaymentList", info);
+     	    
+        } else {
+        	articleList = Collections.EMPTY_LIST;
+        }
+        
+        number = count - (currentPage - 1) * pageSize;
+		
+        request.setAttribute("articleList", articleList);
+        request.setAttribute("currentPage", new Integer(currentPage));
+        request.setAttribute("startRow", new Integer(startRow));
+        request.setAttribute("endRow", new Integer(endRow));
+        request.setAttribute("count", new Integer(count));
+        request.setAttribute("pageSize", new Integer(pageSize));
+		request.setAttribute("number", new Integer(number));
+        
+        
+		return "/dash-completePayment/completePayment";
 	}
 }

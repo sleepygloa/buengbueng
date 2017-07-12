@@ -188,5 +188,4 @@
 		on a.e_id = b.e_id
 		where a.num=#num#;
 	</select>
-
 </sqlMap>

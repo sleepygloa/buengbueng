@@ -29,7 +29,7 @@
 
 /* 메인 컨텐츠 */	
 .main_wrap .main .content{float:left; background-color:#fff;  margin-right:0; margin-left:0; width:auto;}
-.main_wrap .main .side_content{float:left; background:#fff;margin-right:0; margin-left:0; width:85%; height:100%;     min-height: 930px;}
+.main_wrap .main .side_content{float:left; background:#fff;margin-right:0; margin-left:0; width:85%; height:auto;     min-height: 955px;}
 .main_wrap .main .side_content .margin_bottom50{margin-bottom:50px;}
 
 /* 메인 컨텐츠 반응형*/

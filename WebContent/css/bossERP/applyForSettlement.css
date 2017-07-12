@@ -1,5 +1,5 @@
 @CHARSET "UTF-8";
-body{height:100%;}
+body{height:100%; width:100%;}
 .wrap{
 	border:1px #fff solid;
 	background:#fff;
@@ -9,6 +9,7 @@ body{height:100%;}
 }
 .title_box{
 	border-bottom:1px #eef1f5 solid;
+	background:red;
 	width:100%;
 	height:36px;
 	margin: 9px auto;
