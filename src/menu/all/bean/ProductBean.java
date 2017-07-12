@@ -1,8 +1,10 @@
 package menu.all.bean;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 @Controller
 public class ProductBean {
@@ -32,10 +36,32 @@ public class ProductBean {
 			int sidemenu = 3; //사이드메뉴의 내용을 선택
 			request.setAttribute("sidemenuCheck", sidemenuCheck);
 			request.setAttribute("sidemenu", sidemenu);
+	
 			
-		String l_key=(String)session.getAttribute("b_key");
-		List productList=sqlMap.queryForList("menu.getProduct",l_key);
-		request.setAttribute("productList",productList);
+		String l_key=(String)session.getAttribute("b_key");		
+		ArrayList menuCount=new ArrayList(); 
+		ArrayList categoryList=new ArrayList();
+		
+		List productnameList=(List)sqlMap.queryForList("menu.distinctProductName",l_key);
+		if(productnameList!=null){
+		for(int i=0;i<productnameList.size();i++){
+			 String menuname=(String)productnameList.get(i);
+			 HashMap map = new HashMap();
+			 map.put("name",menuname);
+			 map.put("l_key",l_key);
+			 int count = (Integer)sqlMap.queryForObject("menu.getProductCount", map);
+			 menuCount.add(count);
+			 String categorymenu=(String)sqlMap.queryForObject("menu.getProductCategory",map);
+			 categoryList.add(categorymenu);
+			}
+		}else{
+			productnameList=java.util.Collections.EMPTY_LIST;
+		}
+		
+		request.setAttribute("nameList",productnameList);
+		request.setAttribute("countList",menuCount);
+		request.setAttribute("categoryList",categoryList);
+	
 		request.setAttribute("l_key", l_key);
 		}catch(Exception e){e.printStackTrace();}
 		return "/menu/productForm";
@@ -81,14 +107,14 @@ public class ProductBean {
 			}
 			request.setAttribute("check",check);
 			request.setAttribute("l_key", pdto.getL_key());
-		}catch(Exception e){e.printStackTrace(); check=0; request.setAttribute("check",check);}
+		}catch(Exception e){e.printStackTrace(); check=0; request.setAttribute("check",check); request.setAttribute("l_key", l_key);}
 		
 		return "/menu/productInsertPro";
 	}
 	
 	/* 재고수정 페이지*/
 	@RequestMapping("productModify.do")
-	public String productModify(HttpServletRequest request, String l_key){
+	public String productModify(HttpServletRequest request, String l_key, String name){
 		
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
@@ -96,9 +122,13 @@ public class ProductBean {
 		request.setAttribute("sidemenuCheck", sidemenuCheck);
 		request.setAttribute("sidemenu", sidemenu);
 		
-		List productList=sqlMap.queryForList("menu.getProduct",l_key);
+		HashMap map = new HashMap();
+		map.put("name",name);
+		map.put("l_key", l_key);		
+		List productList=sqlMap.queryForList("menu.getProductStatus",map);
 		request.setAttribute("productList",productList);
 		request.setAttribute("l_key", l_key);
+		request.setAttribute("name",name);
 		return "/menu/productModify";
 	}
 	
@@ -123,12 +153,13 @@ public class ProductBean {
 			request.setAttribute("pdto",pdto);
 			request.setAttribute("nameList",nameList);
 			request.setAttribute("l_key",l_key);
+			request.setAttribute("name", name);
 		}catch(Exception e){e.printStackTrace();}
 		return "/menu/productModifyForm";
 	}
 	
 	@RequestMapping("productModifyPro.do")
-	public String productModifyPro(ProductDTO pdto, HttpServletRequest request){
+	public String productModifyPro(ProductDTO pdto, HttpServletRequest request, String name){
 		int check=0;
 		String l_key=request.getParameter("l_key");
 		String last=request.getParameter("last");
@@ -171,6 +202,7 @@ public class ProductBean {
 
 		request.setAttribute("l_key", l_key);
 		request.setAttribute("check",check);
+		request.setAttribute("name", name);
 		}catch(Exception e){e.printStackTrace();check=-1; request.setAttribute("check",check);}
 		
 		return "/menu/productModifyPro";
@@ -192,13 +224,15 @@ public class ProductBean {
 	}
 	
 	@RequestMapping("productDeletePro.do")
-	public String productDeletePro(HttpServletRequest request,String code, String l_key){
+	public String productDeletePro(HttpServletRequest request,String code, String l_key,String name){
 		try{
 			HashMap map=new HashMap();
 			map.put("code", code);
 			map.put("l_key", l_key);
+			map.put("name", name);
 			sqlMap.delete("menu.deleteProduct",map);
 			request.setAttribute("l_key", l_key);
+			request.setAttribute("name",name);
 		}catch(Exception e){e.printStackTrace();}
 		return "/menu/productDeletePro";
 	}

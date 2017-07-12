@@ -65,7 +65,7 @@
 						<td>${articleList.settlementNumber}</td>
 						<td>${articleList.requestedAccount}</td>
 						<td>${articleList.settlementAmount} &#8361;</td>
-						<td><div class="bt_1"><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do', '_blank', 'width=550 height=500')" >상세보기</a></div></td>
+						<td><div class="bt_1"><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do?settlementDate=${articleList.settlementDate}', '_blank', 'width=550 height=500')" >상세보기</a></div></td>
 						<td>
 							<c:if test="${articleList.resultValue == 3}">
 								<div class="bt_2"><a>${articleList.settlementStatus}</a></div>

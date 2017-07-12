@@ -94,6 +94,13 @@ $(document).ready(function(){
           </li>
         </ul>
       </li>
+       <li class="sub-menu">
+        <a href="javascript:void(0);"><i class="fa fa-map-marker"></i><span>주문 관리</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+        <ul>
+          <li><a href="menuOrderListForm.do">가맹점 주문현황</a>
+          </li>
+        </ul>
+      </li>
       <li class="sub-menu">
         <a href="#"><i class="fa fa fa-tasks"></i><span>일일정산</span><i class="arrow fa fa-angle-right pull-right"></i></a>
         <ul>

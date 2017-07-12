@@ -5,79 +5,68 @@
 
     <head>
 	<title>메 뉴</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
 	</head>
 
 <body>
 <!-- HEADER TEMPLATE -->
-	<jsp:include page="/WEB-INF/views/header.jsp" />
+	<jsp:include page="../erp_header.jsp" />
 
 	<!-- 페이지 제목 -->
-	<div class=" margin_bottom50">
-		<div class="col-xs-12-12 col-sm-12-12 col-md-12-12">
-			<h3>ERP 메뉴관리 페이지입니다.</h3>
-		</div>
-	</div>
+
 	
+			<div class="ERP_Navigator">
+			<ul>
+				<li>ERP 관리</li>
+				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+				<li>메뉴관리</li>
+			</ul>
+		</div>
 	
 	
 	
 <div class=" margin_bottom50">	
 		<div class="col-xs-12-12">
 	
-	<div>
-		<table>
-		<tr>
-		<td>
-		<button onclick="window.location='menuInsertForm.do?l_key=${l_key}'">메 뉴 추 가</button>
-		</td>
-		
-		<td>
-		<button onclick="window.location='menuModify.do?l_key=${l_key}'">메 뉴 수 정</button>
-		</td>
-	
-		<td>
-		<button onclick="window.location='menuDeleteForm.do?l_key=${l_key}'">메 뉴 삭 제</button>
-		</td>
+	<div class="boss_con">
+	<p style="font-size:25">메뉴 관리</p>
+	<hr>
 
-	</table>
-	</div>
-	
-	
-	<div>
-		<table>
-		<tr><td><button onclick="alls('${l_key}')">전 체</button></td>
+
+		<button class="applyForSettlement_button1" style="font-weight: 900" onclick="alls('${l_key}')">전 체</button>
 		<c:forEach var="category" items="${categoryList}">
-			<td><input type="button" name="${category}" onclick="category('${category}','${l_key}')" value="${category}" /> </td>
+		<input type="button" style="font-weight: 900" name="${category}" class="applyForSettlement_button1" onclick="category('${category}','${l_key}')" value="${category}" /> 
 		</c:forEach>
-		</tr>	
-		</table>
-	</div>
 	
+
 	<div>
 
-		<table id="categoryMenu">	
-		
-		
-		<tr>
-		<td>카테고리</td><td>제 품</td><td>제조사</td><td>가 격</td>
+
+		<div align="right" class="dailySettlementList_table">
+		<button style="background-color: white; border: none; font-weight: 900" onclick="window.location='menuInsertForm.do?l_key=${l_key}'">메 뉴 추 가</button>
+		</div>
+		<table id="categoryMenu" class="dailySettlementList_table">	
+		<tr align="center">
+		<td width="200"><p>카테고리</p></td><td width="400"><p>제 품</p></td><td><p>제조사</p></td><td><p>가 격</p></td><td colspan="2" width="300"><p>수정 / 삭제</p></td>
 		</tr>
 		<c:forEach var="menu" items="${menuList}">
 		<tr >
-		<td>${menu.category}</td>			<td>${menu.name}</td>	<td>${menu.company}</td> 	<td>${menu.price}</td>
+		<td>${menu.category}</td><td>${menu.name}</td><td>${menu.company}</td><td>${menu.price}</td>
+		<td width="150"><button style="background-color: white; border: none; font-weight: 900;" onclick="window.location='menuModifyForm.do?name=${menu.name}&l_key=${menu.l_key}'">수정</button></td>
+		<td width="150"><button style="background-color: white; border: none; font-weight: 900;" onclick="window.location='menuDeletePro.do?name=${menu.name}&l_key=${menu.l_key}'">삭제</button></td>
 		</tr>
 		</c:forEach>
 		
 		
-		
-		
-			
-			
 		</table>
+		
+		
 	</div>
 	</div>
 	</div>
-
+</div>
 	
 </body>

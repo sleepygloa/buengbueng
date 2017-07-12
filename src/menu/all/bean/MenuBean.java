@@ -147,7 +147,7 @@ public class MenuBean {
 	}
 
 	@RequestMapping("menuModifyForm.do")
-	public String menuModifyForm(HttpServletRequest request,String l_key, MenuDTO mdto, HttpSession session){
+	public String menuModifyForm(HttpServletRequest request,String l_key, String name){
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
 		int sidemenu = 3; //사이드메뉴의 내용을 선택
@@ -155,11 +155,10 @@ public class MenuBean {
 		request.setAttribute("sidemenu", sidemenu);
 		
 		HashMap map=new HashMap();
-		map.put("name",mdto.getName());
+		map.put("name",name);
 		map.put("l_key", l_key);
 		
-		System.out.println(map);
-		mdto=(MenuDTO)sqlMap.queryForObject("menu.getMenuName",map);
+		MenuDTO mdto = (MenuDTO)sqlMap.queryForObject("menu.getMenuName",map);
 		request.setAttribute("mdto",mdto);
 		request.setAttribute("l_key",l_key);
 		return "/menu/menuModifyForm";
@@ -170,17 +169,18 @@ public class MenuBean {
 		int check=0;
 		try{
 			check=1;
-	
 			HashMap map=new HashMap();
 			map.put("beforeName",beforeName);
 			map.put("name", mdto.getName());
 			map.put("price", mdto.getPrice());
 			map.put("category", mdto.getCategory());
 			map.put("company", mdto.getCompany());
+			map.put("l_key", mdto.getL_key());
 			sqlMap.update("menu.updateMenu", map);
 			
 			request.setAttribute("check",check);
 			request.setAttribute("l_key", l_key);
+		
 			
 		}catch(Exception e){e.printStackTrace(); check=0; request.setAttribute("check", check);}		
 		return "/menu/menuModifyPro";
@@ -203,9 +203,9 @@ public class MenuBean {
 	}
 	
 	@RequestMapping("menuDeletePro.do")
-	public String menuDeletePro(HttpServletRequest request, String l_key){
-		String name=request.getParameter("name");
+	public String menuDeletePro(HttpServletRequest request, String l_key, String name){
 		try{
+			
 			HashMap map=new HashMap();
 			map.put("name", name);
 			map.put("l_key", l_key);

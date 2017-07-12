@@ -37,7 +37,7 @@
 
 <c:if test="${check==0}">
 	<body onload="succ('접근권한이 없습니다.','index.do')"/>
-</c:if>dksizz
+</c:if>
 
 <c:if test="${check==-1}">
 	<body onload="succc('정보입력이 바르지 않습니다.','menuInsertForm.do'l_key','${l_key}')"/>

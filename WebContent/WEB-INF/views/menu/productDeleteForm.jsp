@@ -4,13 +4,14 @@
 
 <head>
 	<title>재고삭제</title>
+	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
 	<script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
 </head>
 
 <body>
 
     <!-- HEADER TEMPLATE -->
-	<jsp:include page="/WEB-INF/views/header.jsp" />
+	<jsp:include page="../erp_header.jsp" />
     
 
 <div>

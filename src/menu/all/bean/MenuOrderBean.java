@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
@@ -92,9 +93,7 @@ public class MenuOrderBean {
 			}else{
 						
 			if(productsalecheck > menuorderstatus){ // 판매되지 않은 주문한 메뉴의 재고가 있을 시.
-			
 				menuOrderList=(List<OrderDTO>)sqlMap.queryForList("order.orderCount",l_key);
-				
 				if(menuOrderList.size()==0){
 					num=0;
 					}else{				
@@ -104,16 +103,9 @@ public class MenuOrderBean {
 					
 					// 마지막 주문의 날짜 가져오기.
 					String lastOrdertime=(String)sqlMap.queryForObject("order.getLastOrder",l_key);
-				
-					HashMap map4 = new HashMap();
-					map4.put("userId",id);
-					map4.put("money",price);
-					sqlMap.update("order.menuPayment", map4);
-					
 					if(lastOrdertime.equals(nowTime)){ 
 						OrderDTO odto=(OrderDTO) menuOrderList.get(0);
 						num=odto.getNum();
-					
 					}else{
 						num=0;
 					}
@@ -132,9 +124,8 @@ public class MenuOrderBean {
 				check=1;
 			}else{ // 주문한 메뉴의 재고가 없을 시.
 				check=0;
+				}
 			}
-			}
-			
 			request.setAttribute("check", check);
 			request.setAttribute("order",order);
 			request.setAttribute("name",name);
@@ -198,11 +189,7 @@ public class MenuOrderBean {
 			
 			if(status==1){
 				sqlMap.update("order.userOrderCancel", map);
-				map.clear();
-				map.put("id", id);
-				map.put("ordermoney",ordermoney);
-				
-				sqlMap.update("order.cancelMenuOrder", map);
+		
 				check=1;
 			}else{
 				check=0;
@@ -243,8 +230,16 @@ public class MenuOrderBean {
 	////// 사장님 주문 //////
 	
 	@RequestMapping("menuOrderListForm.do")
-	public String menuOrderListForm(String l_key,String tf,HttpServletRequest request){
+	public String menuOrderListForm(String tf,HttpServletRequest request, HttpSession session){
 		try{
+			//사이드메뉴 템플릿
+			int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+			int sidemenu = 3; //사이드메뉴의 내용을 선택
+			request.setAttribute("sidemenuCheck", sidemenuCheck);
+			request.setAttribute("sidemenu", sidemenu);
+			
+			String l_key=(String)session.getAttribute("b_key");
+			
 			List orderList = (List)sqlMap.queryForList("order.getMenuOrder", l_key);
 			request.setAttribute("orderList", orderList);
 			request.setAttribute("l_key",l_key);	
@@ -262,6 +257,13 @@ public class MenuOrderBean {
 	/* 주문승인버튼 누른 후 바코드 확인하기*/
 	@RequestMapping("menuBarcodeCheck.do")
 	public String menuBarcodeCheck(HttpServletRequest request,String menuname, int num, String l_key){
+		
+		//사이드메뉴 템플릿
+		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
+		int sidemenu = 3; //사이드메뉴의 내용을 선택
+		request.setAttribute("sidemenuCheck", sidemenuCheck);
+		request.setAttribute("sidemenu", sidemenu);
+		
 		request.setAttribute("name",menuname);
 		request.setAttribute("num",num);
 		request.setAttribute("l_key",l_key);
@@ -277,11 +279,12 @@ public class MenuOrderBean {
 			map.put("barcode", barcode);
 			map.put("name",name);
 			map.put("l_key",l_key);
+			// 해당 바코드를 가지고 있는 메뉴의 판매유무를 확인.
 			ProductDTO pdto=(ProductDTO)sqlMap.queryForObject("order.salecheckCheck", map);
 			
-			if(pdto==null){
+			if(pdto==null){ // 판매되어서 salecheck 가 0 일 때.
 				check=0;
-			}else{
+			}else{			
 				// 주문자 아이디 가져오기
 				HashMap map3 = new HashMap();
 				map3.put("num",num);
@@ -294,14 +297,12 @@ public class MenuOrderBean {
 				map7.put("l_key", l_key);
 				int ordermoney = (Integer)sqlMap.queryForObject("order.getOrderMoney", map7); // 메뉴가격 가져오는 것.
 				int usermoney = (Integer)sqlMap .queryForObject("order.getUserMoney",userId);
-				int money = usermoney-ordermoney;
+				int money = usermoney-ordermoney; // 사용자의 잔액에서 메뉴의 가격을 차감한다.
 				
-		
-//				
-//				HashMap map4 = new HashMap();
-//				map4.put("userId",userId);
-//				map4.put("money",money);
-//				sqlMap.update("order.menuPayment", map4);
+				HashMap map4 = new HashMap();
+				map4.put("userId",userId);
+				map4.put("money",money);
+				sqlMap.update("order.menuPayment", map4); //사용자 잔액에서 메뉴 금액 뺀 금액 update.
 				
 				HashMap map1=new HashMap();
 				map1.put("num",num);
@@ -315,8 +316,6 @@ public class MenuOrderBean {
 				map2.put("barcode", barcode);
 				map2.put("l_key", l_key);
 				sqlMap.update("order.updateSaleCheck",map2); // 재고 판매여부 1 --> 0
-				
-				
 				
 				// sellBuyLog 판매시간 입력 / sellBuyLog 금액 입력. /주문한 사용자 아이디도 집어넣기!
 				HashMap map5 = new HashMap();
@@ -332,14 +331,13 @@ public class MenuOrderBean {
 				map6.put("l_key", l_key);
 				
 				sqlMap.update("order.productsaleregistdate", map6);
-				
-				
+							
 				//여기서부터는 정산
+				
 				Date nowtime=new Date();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				String nowTime = sdf.format(nowtime);
-				
-				
+								
 				HashMap tmp1=new HashMap();
 				tmp1.put("menuname", name);
 				tmp1.put("menuprice",price);
@@ -349,8 +347,6 @@ public class MenuOrderBean {
 				tmp2.put("menuname",name);
 				tmp2.put("l_key", l_key);
 				tmp2.put("saledate", nowTime);
-				
-			
 				
 				int sellbuylogcheck=(Integer)sqlMap.queryForObject("order.sellBuyLogCheck",l_key);
 				if(sellbuylogcheck==0){ // TotalMenuPrice 처음 등록. (각 가맹점마다 한번만 실행됨.)
@@ -375,15 +371,13 @@ public class MenuOrderBean {
 					}else{	 // 날짜가 바뀐 경우.
 						sqlMap.insert("order.firstTMPinsert", tmp1);
 					}
-				}
-						
+				}	
 				check=1;
 			}
 			request.setAttribute("check",check);
 			request.setAttribute("l_key", l_key);
 			request.setAttribute("name",name);
 		}catch(Exception e){e.printStackTrace(); check=-1; request.setAttribute("check",check);}
-		
 		return "/menu/menuOrderComplete";
 	}	
 	
@@ -450,32 +444,7 @@ public class MenuOrderBean {
 		return "/menu/menuOrderRefund";
 	}
 	
-	
-	/* 사용자가 환불요청시 환불 요청 승인 해주는 페이지 */
-//	@RequestMapping("menuOrderRefund.do")
-//	public String menuOrderRefund(HttpServletRequest request,OrderDTO odto){
-//		int check=0;
-//		try{
-//			if(odto.getOrderstatus() == 4){
-//				sqlMap.update("order.refundStatus", odto); //status 값을 5로 바꿔주는데 사용.
-//				sqlMap.update("order.refundResetproductsaleregistdate",odto); //sellBuyLog의 판매시간 0000-00-00으로 초기화.
-//				sqlMap.update("order.refundProduct", odto);
-//							
-//				// 사용자에게 돈 돌려주기
-//				HashMap param = new HashMap();
-//				param.put("id", odto.getId());
-//				param.put("ordermoney", odto.getOrdermoney());
-//				
-//				sqlMap.update("order.cancelMenuOrder", param);
-//				check=1;
-//			}else{check=0;}
-//			request.setAttribute("check",check);
-//			request.setAttribute("l_key", odto.getL_key());
-//			
-//		}catch(Exception e){e.printStackTrace(); check=-1; request.setAttribute("check",check);}
-//		return "/menu/menuOrderRefund";
-//	}
-	
+
 	/* 사용자가 환불요청시 환불 요청 거절하는 페이지 */
 	@RequestMapping("menuOrderNotRefund.do")
 	public String menuOrderNotRefund(HttpServletRequest request, OrderDTO odto){

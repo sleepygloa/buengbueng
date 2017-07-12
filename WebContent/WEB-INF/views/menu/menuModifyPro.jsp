@@ -6,7 +6,7 @@
 <c:if test="${check==1}">
 	<script>
 		alert("메뉴정보가 수정되었습니다.");
-		window.location.href="menuModify.do?l_key=${l_key}";
+		window.location="menu.do?l_key=${l_key}";
 	</script>
 </c:if>
 

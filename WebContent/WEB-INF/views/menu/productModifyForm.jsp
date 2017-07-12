@@ -4,6 +4,7 @@
 
     
     <head>
+    <link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
     <title>재 고 수 정</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
@@ -14,11 +15,25 @@
     <body>
     
     <!-- HEADER TEMPLATE -->
-	<jsp:include page="/WEB-INF/views/header.jsp" />
+	<jsp:include page="../erp_header.jsp" />
     
-    	<div>
-    	<form action="productModifyPro.do" method="post" onsubmit="return menuModify()" >
-    		<table>					
+    
+			<div class="ERP_Navigator">
+			<ul>
+				<li>ERP 관리</li>
+				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+				<li>재고 관리 - 재고 수정</li>
+			</ul>
+		</div>
+	
+    <div class=" margin_bottom50">	
+		<div class="col-xs-12-12">
+	
+	<div class="boss_con">
+	<p style="font-size:25">메뉴 관리</p>
+	<hr>
+    	<form action="productModifyPro.do" method="post" name="productModify" >
+    		<table  class="dailySettlementList_table1">					
     			<tr>	
     			<td>제품명</td>
     			<td>
@@ -36,19 +51,23 @@
     		
     			<tr>	
     			<td>유통기한</td>
-    			<td><input type="text" name="last" value="${pdto.lastday}">
+    			<td><input type="text" maxlength="10" name="last" value="${pdto.lastday}">ex)xxxx-xx-xx
     				<input type="hidden" name="beforeLastday" value="${pdto.lastday}">
+    					<input type="hidden" name="l_key" value="${l_key}">
+    					<input type="hidden" name="name" value="${name}">
     				</td>
     			</tr>
     
-    			<tr><td><input type="submit" value="수 정"/>
-    					<input type="hidden" name="l_key" value="${l_key}">
-    				</td>
-    			</tr>    		
+    			
+    				
+    		  		
     		</table>
-    		</form>
-    	</div>
     	<div>
-    	<button onclick="window.location='productModify.do?l_key=${l_key}'">돌아가기</button> 
+    	<input class="applyForSettlement_button" type="submit" onclick="return menuModify()" value="수 정"/>
+    	<input  class="applyForSettlement_button" type="button" onclick="window.location='productModify.do?name=${name}&l_key=${l_key}'" value="취 소"/> 
+    	</div>
+    	</form>
+    	</div>
+    	</div>
     	</div>
     </body>

@@ -54,14 +54,14 @@
 							<c:set var="number" value="${number-1}"/>
 						</td>
 						<td>${articleList.businessName}</td>
-						<td>${articleList.userId}</td>
-						<td>${articleList.userName}</td>	
-						<td>${articleList.usageTime}</td>
-						<td>${articleList.endTime}</td>
-						<td>${articleList.amountUsed}</td>
-						<td>${articleList.pcAmount}</td>
-						<td>${articleList.menuAmount}</td>
-						<td><div class="bt_1"><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do', '_blank', 'width=550 height=500')" >상세보기</a></td>
+				<td>${articleList.userId}</td>
+				<td>${articleList.userName}</td>	
+				<td>${articleList.usageTime}</td>
+				<td>${articleList.endTime}</td>
+				<td>${articleList.amountUsed}</td>
+				<td>${articleList.pcAmount}</td>
+				<td>${articleList.menuAmount}</td>
+				<td><div class="bt_1"><a href="#" onclick="window.open('http://localhost:8080/buengbueng/userviewDetails.do', '_blank', 'width=550 height=500')" >상세보기</a></td>
 					</tr>
 				</c:forEach>
 				</c:if>
