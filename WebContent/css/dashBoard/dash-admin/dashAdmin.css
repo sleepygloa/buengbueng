@@ -170,4 +170,9 @@ a:active {color: blue;}
 .col-mc-5{width:55%; border-bottom:1px solid white; text-align:left; margin-right:3%; resize: none;}
 .col-mc-6{width:96%; border-bottom:1px solid white; text-align:left;}
 
+.col-mc-7{width:25%;}
+.col-mc-8{width:96%; text-align:left;}
+.col-mc-9{width:48%; height:20px; text-align:right;}
+
+
 

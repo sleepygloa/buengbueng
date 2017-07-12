@@ -263,5 +263,5 @@ setInterval("autoRefresh1()", 3000);
                         </li>
                 </aside>
          <!-- 중앙에 들어갈 내용!-->
-         <section id="main-content">
+         <section id="main-content" >
          
