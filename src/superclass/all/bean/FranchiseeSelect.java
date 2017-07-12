@@ -31,12 +31,14 @@ public class FranchiseeSelect {
 	}
 	
 	@RequestMapping("franchiseeSelectList.do")
-	public String franchiseeList(HttpSession session,String id,Model model){
+	public String franchiseeList(HttpSession session,String id,Model model, String b_key){
 		List list = new ArrayList();
 		FranchiseeDataDTO fdto= null;
 		int gradeCheck = 0;
 		try{
-		gradeCheck = (Integer)sqlMap.queryForObject("erpEmp.getUserGrade", id);
+			if(sqlMap.queryForObject("erpEmp.getUserGrade", id) != null){
+				gradeCheck = (Integer)sqlMap.queryForObject("erpEmp.getUserGrade", id);
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -58,12 +60,19 @@ public class FranchiseeSelect {
 		}else if(gradeCheck == 1){
 				list = (List)sqlMap.queryForList("erpEmp.getBossFranchiseeList", id);
 				try{
-					fdto = (FranchiseeDataDTO)list.get(0);
+					if(b_key == null){
+						fdto = (FranchiseeDataDTO)list.get(0);
 						if(session.getAttribute("b_key") != null){
 							session.removeAttribute("b_key");		
 						}
-					session.setAttribute("b_key", fdto.getB_key());
-					System.out.println("가맹점 라이센스 세션("+fdto.getB_key()+")이 생성 되었습니다.");
+						session.setAttribute("b_key", fdto.getB_key());
+						System.out.println("가맹점 라이센스 세션("+fdto.getB_key()+")이 생성 되었습니다.");
+					}else{
+						session.setAttribute("b_key", b_key);
+						System.out.println("사장님 프로그램에서 가맹점 라이센스 세션("+fdto.getB_key()+")이 생성 되었습니다.");
+						
+					}
+
 				}catch(Exception e){
 					System.out.println("가맹점 라이센스 세션생성 오류");
 				}

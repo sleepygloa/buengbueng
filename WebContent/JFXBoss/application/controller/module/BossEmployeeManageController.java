@@ -48,15 +48,11 @@ public class BossEmployeeManageController {
 	
 	//영역(PANE)
 	@FXML private AnchorPane employeeManage;
-	@FXML private SplitPane splitVertical;
 	//좌측
-	@FXML private SplitPane splitLeftHorizon;
 	@FXML private AnchorPane splitLeftHorizonPane;
 	@FXML private AnchorPane e_idListSection;
 	@FXML private AnchorPane employeeInfoSection;
 	//우측
-	@FXML private SplitPane splitRightBottomHorizon;
-	@FXML private SplitPane splitRightHorizon;
 	@FXML private AnchorPane splitRightHorizonPane;
 	@FXML private AnchorPane commuteSection;
 	@FXML private TitledPane commuteTitlePane;
@@ -66,7 +62,6 @@ public class BossEmployeeManageController {
 	@FXML private AnchorPane diarySection;
 	
 	//좌상 
-	@FXML private Group listGroup1;
 	
 	@FXML private TableView<EmployeeList> e_idListTable;
 	@FXML private TableColumn<EmployeeList,String> e_id; //테이블 컴럼 추가
@@ -223,7 +218,8 @@ public class BossEmployeeManageController {
 		//우상 달력
 		WebEngine webEngine = diary.getEngine();
 		// 웹 사이트에서 아이디 중복확인할 때 새 창 띄우는 거 없애고, Ajax 써야할 듯 -> load()가 여러 페이지를 보여주지 않고, 현재 페이지에 새로 띄우는 페이지를 덮어씌움
-		webEngine.load("http://localhost:8080/buengbueng/employeeCalenderOnly.do?id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8"));
+		webEngine.load("http://localhost:8080/buengbueng/employeeCalenderOnly.do?id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+
+				"&b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8"));
 		webEngine.setJavaScriptEnabled(true);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -280,24 +276,18 @@ public class BossEmployeeManageController {
 		try{	
 			//각종 VIEW 연동
 			
-//			listGroup1.getChildren().addAll(e_idListTable, commuteList);
 			
 			e_idListSection.getChildren().addAll(e_idListTable, commuteList);
 			
 			employeeInfoSection.getChildren().add(e_idListSection);
 			
-			splitRightBottomHorizon.getItems().addAll(commuteTitlePane,payTitlePane);
-//			commuteSection.getChildren().add(splitRightBottomHorizon);
+			commuteSection.getChildren().addAll(commuteTablePane, payTablePane);
 			
-			splitLeftHorizon.getItems().addAll(e_idListSection,employeeInfoSection);
-//			splitLeftHorizonPane.getChildren().add(splitLeftHorizon);
+			splitLeftHorizonPane.getChildren().addAll(e_idListSection,employeeInfoSection);
 			
-			splitRightHorizon.getItems().addAll(diarySection,commuteSection); //한개더넣어야됨
-//			splitRightHorizonPane.getChildren().add(splitRightHorizon);
+			splitRightHorizonPane.getChildren().addAll(diarySection,commuteSection);
 			
-			splitVertical.getItems().addAll(splitLeftHorizonPane,splitRightHorizonPane);//좌하
-			
-//			employeeManage.getChildren().add(splitVertical);
+			employeeManage.getChildren().addAll(splitLeftHorizonPane,splitRightHorizonPane);
 		}catch(Exception e ){e.printStackTrace();}
 		
 	}

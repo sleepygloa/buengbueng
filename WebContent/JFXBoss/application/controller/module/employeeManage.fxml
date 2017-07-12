@@ -65,7 +65,6 @@
                                           </TableView>
                                        </content>
                                     </Tab>
-                                  <Tab text="Untitled Tab 2" />
                                 </tabs>
                               </TabPane>
                            </children>
@@ -84,60 +83,52 @@
                            </children></AnchorPane>
                       <AnchorPane fx:id="commuteSection" minHeight="481.0" minWidth="596.0" prefHeight="481.0" prefWidth="660.0">
                            <children>
-                              <SplitPane fx:id="splitRightBottomHorizon" dividerPositions="0.5" orientation="VERTICAL" prefHeight="535.0" prefWidth="594.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                       <children>
-                                          <TitledPane fx:id="commuteTitlePane" animated="false" minHeight="264.0" minWidth="592.0" prefHeight="264.0" prefWidth="592.0" text="근무 달력" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <content>
-                                              <AnchorPane fx:id="commuteTablePane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                   <children>
-                                                      <TableView fx:id="commuteTable" prefHeight="264.0" prefWidth="592.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                        <columns>
-                                                          <TableColumn fx:id="wtNum" prefWidth="35.0" text="num" />
-                                                          <TableColumn fx:id="wtTitle" prefWidth="65.0" text="id" />
-                                                            <TableColumn prefWidth="65.0" text="name" />
-                                                            <TableColumn fx:id="wtStart" prefWidth="120.0" text="start" />
-                                                            <TableColumn fx:id="wtEnd" prefWidth="120.0" text="end" />
-                                                            <TableColumn fx:id="wtCommuteTime" prefWidth="120.0" text="commute" />
-                                                            <TableColumn fx:id="wtOffWorkTime" prefWidth="120.0" text="offWork" />
-                                                            <TableColumn fx:id="wtEx" prefWidth="120.0" text="ex" />
-                                                            <TableColumn fx:id="wtResult" prefWidth="41.0" text="result" />
-                                                            <TableColumn fx:id="wtColor" prefWidth="38.0" text="color" />
-                                                            <TableColumn fx:id="wtTodayDate" prefWidth="120.0" text="etc" />
-                                                        </columns>
-                                                      </TableView>
-                                                   </children>
-                                                </AnchorPane>
-                                            </content>
-                                          </TitledPane>
-                                       </children>
-                                    </AnchorPane>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="231.0" prefWidth="658.0">
-                                       <children>
-                                          <TitledPane fx:id="payTitlePane" animated="false" minHeight="236.0" minWidth="592.0" prefHeight="236.0" prefWidth="658.0" text="근무 정산" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <content>
-                                              <AnchorPane fx:id="payTablePane" minHeight="0.0" minWidth="0.0" prefHeight="203.0" prefWidth="656.0">
-                                                   <children>
-                                                      <TableView fx:id="payTable" layoutX="18.6" layoutY="19.6" prefHeight="195.0" prefWidth="637.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                                                        <columns>
-                                                          <TableColumn fx:id="payNum" prefWidth="75.0" text="num" />
-                                                          <TableColumn fx:id="payId" prefWidth="120.0" text="id" />
-                                                            <TableColumn fx:id="payName" prefWidth="75.0" text="name" />
-                                                            <TableColumn fx:id="payCommute" prefWidth="120.0" text="commute" />
-                                                            <TableColumn fx:id="payOffWork" prefWidth="120.0" text="offwork" />
-                                                            <TableColumn fx:id="payWorkTime" prefWidth="75.0" text="time" />
-                                                            <TableColumn fx:id="payPayment" prefWidth="75.0" text="payment" />
-                                                        </columns>
-                                                      </TableView>
-                                                   </children>
-                                                </AnchorPane>
-                                            </content>
-                                          </TitledPane>
-                                       </children>
-                                    </AnchorPane>
-                                </items>
-                              </SplitPane>
+                              <Group>
+                                 <children>
+                                    <TitledPane fx:id="payTitlePane" animated="false" layoutX="-1.0" layoutY="231.0" minHeight="236.0" minWidth="592.0" prefHeight="236.0" prefWidth="658.0" text="근무 정산" AnchorPane.bottomAnchor="-231.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="231.0">
+                                      <content>
+                                        <AnchorPane fx:id="payTablePane" minHeight="0.0" minWidth="0.0" prefHeight="203.0" prefWidth="656.0">
+                                             <children>
+                                                <TableView fx:id="payTable" layoutX="18.6" layoutY="19.6" prefHeight="195.0" prefWidth="637.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                                  <columns>
+                                                    <TableColumn fx:id="payNum" prefWidth="75.0" text="num" />
+                                                    <TableColumn fx:id="payId" prefWidth="120.0" text="id" />
+                                                      <TableColumn fx:id="payName" prefWidth="75.0" text="name" />
+                                                      <TableColumn fx:id="payCommute" prefWidth="120.0" text="commute" />
+                                                      <TableColumn fx:id="payOffWork" prefWidth="120.0" text="offwork" />
+                                                      <TableColumn fx:id="payWorkTime" prefWidth="75.0" text="time" />
+                                                      <TableColumn fx:id="payPayment" prefWidth="75.0" text="payment" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </TitledPane>
+                                    <TitledPane fx:id="commuteTitlePane" animated="false" minHeight="230.0" minWidth="592.0" prefHeight="230.0" prefWidth="660.0" text="근무 달력" AnchorPane.bottomAnchor="251.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <content>
+                                        <AnchorPane fx:id="commuteTablePane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView fx:id="commuteTable" prefHeight="264.0" prefWidth="592.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <columns>
+                                                    <TableColumn fx:id="wtNum" prefWidth="35.0" text="num" />
+                                                    <TableColumn fx:id="wtTitle" prefWidth="65.0" text="id" />
+                                                      <TableColumn prefWidth="65.0" text="name" />
+                                                      <TableColumn fx:id="wtStart" prefWidth="120.0" text="start" />
+                                                      <TableColumn fx:id="wtEnd" prefWidth="120.0" text="end" />
+                                                      <TableColumn fx:id="wtCommuteTime" prefWidth="120.0" text="commute" />
+                                                      <TableColumn fx:id="wtOffWorkTime" prefWidth="120.0" text="offWork" />
+                                                      <TableColumn fx:id="wtEx" prefWidth="120.0" text="ex" />
+                                                      <TableColumn fx:id="wtResult" prefWidth="41.0" text="result" />
+                                                      <TableColumn fx:id="wtColor" prefWidth="38.0" text="color" />
+                                                      <TableColumn fx:id="wtTodayDate" prefWidth="120.0" text="etc" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </TitledPane>
+                                 </children>
+                              </Group>
                            </children></AnchorPane>
                     </items>
                   </SplitPane>

@@ -40,9 +40,9 @@ public class BossEmployeeManageBean {
 	
 	//사장님 알바생관리 메인 페이지 세션 처리
 		@RequestMapping("bossErpMainSession.do")
-		public String bossErpMainSession(Model model, HttpSession session, String pageNum,String pageNum2){
+		public String bossErpMainSession(Model model, HttpSession session, String pageNum,String pageNum2, String b_key){
 			String id = sc.getSessionIdModelId(model, session); //sessionId, model.addAttribute(id) template
-			fs.franchiseeList(session, id, model);
+			fs.franchiseeList(session, id, model, b_key);
 			return "redirect:/bossErpMain.do";
 		}
 	
