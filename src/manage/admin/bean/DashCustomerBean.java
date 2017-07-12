@@ -412,7 +412,7 @@ public class DashCustomerBean extends BoardMethodBean{
 		String today = sdf.format(day); // 오늘날짜 스트링으로 형변환
 		
 		if(pageNum==null){pageNum = "1";}
-		int pageSize = 10;
+		int pageSize = 5;
 		int currentPage= Integer.parseInt(pageNum);
 		int startRow = (currentPage-1)*pageSize;
 		int number = 0;

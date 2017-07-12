@@ -59,18 +59,17 @@ function bossDel(){
 	<span class="dashBoardContentTableCell col-bc-6">${dto.title}</span>
 </div>
 <div class="dashBoardContentTableRow">
-	${dto.content}
+	<span class="dashBoardContentTableCell col-bc-7">${dto.content}</span>
 </div>
 <div class="dashBoardContentTableRow">
+	<span class="dashBoardContentTableCell col-bc-8">
 	<c:if test="${re_step == 1 && dto.snum!=4}">
-		<span>
-			<input type="button" value="답글쓰기" onclick=
-			"window.location='dashBoardWriteForm.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}'">
-		</span>
+		<input type="button" value="답글쓰기" onclick=
+		"window.location='dashBoardWriteForm.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}'">
 	</c:if>
-	<span><button onclick="return bossDel();">글삭제</button></span>
-	<span><input type="button" value="글수정" onclick="window.location='dashBoardModify.do?snum=${dto.snum}&num=${dto.num}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}&number=${number}'"></span>
-	<span><input type="button" value="창닫기" onclick="window.close();"></span>
+	<button onclick="return bossDel();">글삭제</button>
+	<input type="button" value="글수정" onclick="window.location='dashBoardModify.do?snum=${dto.snum}&num=${dto.num}&pageNum=${pageNum}&pageNum2=${pageNum2}&pageNum3=${pageNum3}&pageNum4=${pageNum4}&number=${number}'">
+	<input type="button" value="창닫기" onclick="window.close();"></span>
 </div>
 </div>
 <c:if test="${dto.snum==4}">
