@@ -32,7 +32,7 @@
 	<div class="boss_con">
 	<p style="font-size:25">메뉴 관리</p>
 	<hr>
-    	<form action="productModifyPro.do" method="post" onsubmit="return menuModify()" >
+    	<form action="productModifyPro.do" method="post" name="productModify" >
     		<table  class="dailySettlementList_table1">					
     			<tr>	
     			<td>제품명</td>
@@ -51,7 +51,7 @@
     		
     			<tr>	
     			<td>유통기한</td>
-    			<td><input type="text" name="last" value="${pdto.lastday}">
+    			<td><input type="text" maxlength="10" name="last" value="${pdto.lastday}">ex)xxxx-xx-xx
     				<input type="hidden" name="beforeLastday" value="${pdto.lastday}">
     					<input type="hidden" name="l_key" value="${l_key}">
     					<input type="hidden" name="name" value="${name}">
@@ -63,8 +63,8 @@
     		  		
     		</table>
     	<div>
-    	<input class="applyForSettlement_button" type="submit" value="수 정"/>
-    	<button  class="applyForSettlement_button" onclick="window.location='productModify.do?name=${name}&l_key=${l_key}'">돌아가기</button> 
+    	<input class="applyForSettlement_button" type="submit" onclick="return menuModify()" value="수 정"/>
+    	<input  class="applyForSettlement_button" type="button" onclick="window.location='productModify.do?name=${name}&l_key=${l_key}'" value="취 소"/> 
     	</div>
     	</form>
     	</div>

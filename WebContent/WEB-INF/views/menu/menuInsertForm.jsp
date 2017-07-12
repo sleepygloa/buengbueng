@@ -7,15 +7,14 @@
     <title>메 뉴 추 가</title>
     <link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
-    </head>
+	</head>
     
     
     <body>
     
     <!-- HEADER TEMPLATE -->
 	<jsp:include page="../erp_header.jsp" />
-    
+    <script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
     	<div class="ERP_Navigator">
 			<ul>
 				<li>ERP 관리</li>
@@ -33,7 +32,7 @@
     	<div>
     		
     	
-    	<form action="menuInsertPro.do" method="post" onsubmit="return menuInsert()">
+    	<form action="menuInsertPro.do" name="menuInsert" method="post" >
     		<table class="dailySettlementList_table1">
 
     								
@@ -61,10 +60,10 @@
     		
     		<div>
     	
-    			<tr><td><input class="applyForSettlement_button" type="submit" value="추 가" />
+    			<tr><td><input class="applyForSettlement_button" onclick="return menuInsertForm();" type="submit" value="추 가" />
     					<input type="hidden" name="l_key" value="${l_key}">
      			</td>
-     			<td><button class="applyForSettlement_button" onclick="window.location='menu.do?l_key=${l_key}'">취소</button></td></tr>
+     			<td><input class="applyForSettlement_button" type="button" onclick="window.location='menu.do?l_key=${l_key}'" value="취 소"/></td></tr>
      		</div>
      	    
     		</form>

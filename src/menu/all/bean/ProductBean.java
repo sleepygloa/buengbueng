@@ -1,6 +1,6 @@
 package menu.all.bean;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -107,7 +107,7 @@ public class ProductBean {
 			}
 			request.setAttribute("check",check);
 			request.setAttribute("l_key", pdto.getL_key());
-		}catch(Exception e){e.printStackTrace(); check=0; request.setAttribute("check",check);}
+		}catch(Exception e){e.printStackTrace(); check=0; request.setAttribute("check",check); request.setAttribute("l_key", l_key);}
 		
 		return "/menu/productInsertPro";
 	}

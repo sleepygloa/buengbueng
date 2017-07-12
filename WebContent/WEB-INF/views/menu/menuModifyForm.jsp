@@ -31,7 +31,7 @@
 	<p style="font-size:25">메뉴 관리 - 메뉴 수정</p>
 	<hr>
     	<div>
-    	<form action="menuModifyPro.do" method="post" onsubmit="return menuModify()">
+    	<form action="menuModifyPro.do" method="post" name="menuModify" >
     		<table class="dailySettlementList_table1">					
     			<tr>	
     			<td>카테고리</td>
@@ -58,8 +58,8 @@
     		
     		<div>
     			
-    			<tr><td><input class="applyForSettlement_button" type="submit" value="수 정"/></td>
-    			<td><button class="applyForSettlement_button" onclick="window.location='menu.do?l_key=${l_key}'">취소</button></td>
+    			<tr><td><input class="applyForSettlement_button" onclick="return menuModifyForm();" type="submit" value="수 정"/></td>
+    			<td><input class="applyForSettlement_button" type="button" onclick="window.location='menu.do?l_key=${l_key}'" value="취 소"/></td>
     			</tr>    		
     		
     		</div>

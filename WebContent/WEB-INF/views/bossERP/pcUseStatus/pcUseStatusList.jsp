@@ -61,7 +61,7 @@
 				<td>${articleList.amountUsed}</td>
 				<td>${articleList.pcAmount}</td>
 				<td>${articleList.menuAmount}</td>
-				<td><div class="bt_1"><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do', '_blank', 'width=550 height=500')" >상세보기</a></td>
+				<td><div class="bt_1"><a href="#" onclick="window.open('http://localhost:8080/buengbueng/userviewDetails.do', '_blank', 'width=550 height=500')" >상세보기</a></td>
 					</tr>
 				</c:forEach>
 				</c:if>

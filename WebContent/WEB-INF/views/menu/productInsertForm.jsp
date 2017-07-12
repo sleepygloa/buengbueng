@@ -33,7 +33,7 @@
 		<p style="font-size:25">재고 관리 - 재고 추가</p>
 	<hr>
 	
-    	<form action="productInsertPro.do" method="post" name="productInsertForm" onsubmit="return menuInsert()">
+    	<form action="productInsertPro.do" method="post" name="productInsert" >
     		<table class="dailySettlementList_table1">					
     			<tr>	
     			<td>제품명   <input type="hidden" name="l_key" value="${l_key}"></td>
@@ -56,17 +56,20 @@
     		
     			<tr>	
     			<td>유통기한</td>
-    			<td><input style="border: none" type="text" name="last" placeholder="유통기한 입력">	</td>
+    			<td><input style="border: none" type="text" name="last" maxlength="10" placeholder="유통기한 입력">	ex)xxxx-xx-xx</td>
+    			
     			</tr>    		
     		</table>
 
        	
     	<div>
-    	<input class="applyForSettlement_button" type="submit" value="추 가"/>
-    	<button class="applyForSettlement_button" onclick="window.location='product.do?l_key=${l_key}'">돌아가기</button> 
+    	<input class="applyForSettlement_button" type="submit" onclick="return productInsertForm();" value="추 가"/>
+    	<input class="applyForSettlement_button" type="button" onclick="window.location='product.do?l_key=${l_key}'" value="돌아가기"/>
     	</div>
-    	 </form>
+    	</form>
+    	
     	</div>
+    	
     	</div>
     	</div>
     </body>
