@@ -119,17 +119,17 @@
 	
 	<!-- 알바생의 아이디를 삭제 신청함.-->
 	<insert id="deleteIdLogAdd" >
-		insert into employeeDeleteLog (num, result, b_id, e_id, applyTime, content)
-			 VALUES(0, 0, #b_id#, #e_id#, now(), #content#);  
+		insert into employeeDeleteLog (num, result, b_key,b_name, b_id, e_id, applyTime, content)
+			 VALUES(0, 0, #b_key#,#b_name#,#b_id#, #e_id#, now(), #content#);  
 	</insert>
 	
 	<!-- 알바생아이디 삭제 리스트 -->
 	<select id="getEmployeeDeleteList" resultClass="beDto" parameterClass="java.util.HashMap" >
-		SELECT * from  employeeDeleteLog where result = '0';
+		SELECT * from  employeeDeleteLog where result = '0' and b_key=#b_key#;
 	</select>	
 	
 	<select id="getEmployeeDeleteListCount" resultClass="int" parameterClass="java.util.HashMap" >
-		SELECT count(*) from  employeeDeleteLog where result = '0';
+		SELECT count(*) from  employeeDeleteLog where result = '0' and b_key=#b_key#;
 	</select>		
 	
 	<!-- 알바생의 아이디를 삭제 확인 - 관리자.-->

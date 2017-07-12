@@ -67,7 +67,7 @@ body{position:relative;}
     z-index: 999;
 	transition: all .2s;
 }
-.mt-left-header a {
+. a {
     color: #FFF;
 }
 .mt-left-header a:hover,

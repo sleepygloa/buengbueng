@@ -26,7 +26,7 @@ public class DashCustomerBean extends BoardMethodBean{
 	@RequestMapping("dashList.do")
 	public String dashList(HttpServletRequest request){
 		Alarm(request);
-		int pageSize = 10; // 한페이지 크기
+		int pageSize = 5; // 한페이지 크기
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 		Date day = new Date();
 		String today = sdf.format(day); // java에서 오늘 날짜 출력
@@ -412,7 +412,7 @@ public class DashCustomerBean extends BoardMethodBean{
 		String today = sdf.format(day); // 오늘날짜 스트링으로 형변환
 		
 		if(pageNum==null){pageNum = "1";}
-		int pageSize = 10;
+		int pageSize = 5;
 		int currentPage= Integer.parseInt(pageNum);
 		int startRow = (currentPage-1)*pageSize;
 		int number = 0;
@@ -593,7 +593,6 @@ public class DashCustomerBean extends BoardMethodBean{
 		request.setAttribute("dates4", dates4);
 		///////////////////////////////////////////////////////////
 		String pageNum5=request.getParameter("pageNum5");
-		
 		if(pageNum5==null){pageNum5 = "1";}
 		int currentPage5= Integer.parseInt(pageNum5);
 		int startRow5 = (currentPage5-1)*pageSize;

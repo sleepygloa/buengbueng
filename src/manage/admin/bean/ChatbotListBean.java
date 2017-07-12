@@ -44,24 +44,7 @@ public class ChatbotListBean extends BoardMethodBean {
 		}
 		// 질문 리스트 출력
 		//최신 3일간 질문 
-		String pageNum=request.getParameter("pageNum");
-		int count = 0;
-		int pageSize = 10;
-		if(pageNum==null){pageNum="1";}
-		
 		ArrayList<ChattingLogDto> ldto = (ArrayList)sqlMap.queryForList("chatbot.newChatLog", null);
-		count=ldto.size();
-		int pageCount = count / pageSize + (count%pageSize == 0? 0:1);
-		
-		int startPage = ((Integer.parseInt(pageNum)-1)/10)*10+1;
-		int pageBlock = 10;
-		int endPage = startPage + pageBlock - 1;
-		if(endPage > pageCount){endPage = pageCount;}
-		request.setAttribute("pageNum", pageNum);
-		request.setAttribute("pageCount", pageCount);
-		request.setAttribute("startPage", startPage);
-		request.setAttribute("endPage", endPage);	
-		request.setAttribute("count", count);
 		request.setAttribute("ldto", ldto);
 		
 		//답변할 수 없는 질문
