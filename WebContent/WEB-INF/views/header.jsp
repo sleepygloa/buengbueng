@@ -63,8 +63,8 @@
 							<div id="respon_submenu_user" class="respon_submenu" style="display:none">
 								<div><a href="searchPCForm.do">PC방 찾기</a></div>
 								<div><a href="favoritePCRoom.do">즐겨찾는 PC방</a></div>								
-								<div><a href="userbilling/cash.do">결제</a></div>
-								<div><a href="">이용현황</a></div>								
+								<div><a href="cash.do">결제</a></div>
+								<div><a href="ledger.do">이용현황</a></div>								
 							</div>
 						<div id="respon_menu_boss" class="respon_menu_list"><a href="">사장님 PC방 관리</a></div>
 							<div id="respon_submenu_boss" class="respon_submenu" style="display:none">
@@ -156,7 +156,7 @@
 								
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="userbilling/cash.do">
+									<a href="cash.do">
 										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">결제</h6>
@@ -181,7 +181,7 @@
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 							
 								<div class="menu_menu col-sm-6-12">
-									<a href="">
+									<a href="ledger.do">
 										<span class="menu_icon "><img src="img/ux-heatmaps-gnb@2x.png"> </span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">이용현황</h6>
