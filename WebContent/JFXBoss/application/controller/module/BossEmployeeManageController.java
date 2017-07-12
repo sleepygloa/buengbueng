@@ -26,6 +26,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -65,13 +66,15 @@ public class BossEmployeeManageController {
 	@FXML private AnchorPane diarySection;
 	
 	//좌상 
+	@FXML private Group listGroup1;
+	
 	@FXML private TableView<EmployeeList> e_idListTable;
 	@FXML private TableColumn<EmployeeList,String> e_id; //테이블 컴럼 추가
 	private static ObservableList<EmployeeList> e_idListData =FXCollections.observableArrayList();
 	
 	@FXML private TableView<EmployeeList> commuteList;
 	@FXML private TableColumn<EmployeeList,String> commuteListColumn; //테이블 컴럼 추가
-	
+	private static ObservableList<EmployeeList> e_idListData5 =FXCollections.observableArrayList();
 	
 	@FXML private TextField commuteIdText; //아이디 입력창
 	@FXML private Button commute; //출근
@@ -164,7 +167,7 @@ public class BossEmployeeManageController {
 
 			//TABLE을 VIEW에 포함하기
 			e_idListTable.setItems(e_idListData);
-			e_idListSection.getChildren().add(e_idListTable);
+
 		}catch(Exception e ){e.printStackTrace();}
 		
 		
@@ -172,6 +175,17 @@ public class BossEmployeeManageController {
 		//좌상 출근중인사람 리스트
 		try{
 			commuteList.getItems().clear();
+			e_idListData5.clear();
+			
+			String jsonString = jsonTo.urlConntectToReturnString("fxEmployeeWorkList.do"); //Bean에 연결
+			JSONArray jsonEid = jsonTo.stringToJsonArray(jsonString);//String 을 JsonArray 변경
+			String eDtoString = "EmployeeWorkList"; //구분 변수 
+			e_idListData5 = jsonTo.jsonArrayToJsonObject(jsonEid, eDtoString); //JsonArray를 JsonObject로 변경하고 dto에 넣음.
+			
+			commuteListColumn.setCellValueFactory(new PropertyValueFactory<EmployeeList,String>("e_id")); //테이블 컬럼 이름과 형식
+			
+			commuteList.setItems(e_idListData5);
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -266,20 +280,24 @@ public class BossEmployeeManageController {
 		try{	
 			//각종 VIEW 연동
 			
+//			listGroup1.getChildren().addAll(e_idListTable, commuteList);
+			
+			e_idListSection.getChildren().addAll(e_idListTable, commuteList);
+			
 			employeeInfoSection.getChildren().add(e_idListSection);
 			
 			splitRightBottomHorizon.getItems().addAll(commuteTitlePane,payTitlePane);
-			commuteSection.getChildren().add(splitRightBottomHorizon);
+//			commuteSection.getChildren().add(splitRightBottomHorizon);
 			
 			splitLeftHorizon.getItems().addAll(e_idListSection,employeeInfoSection);
-			splitLeftHorizonPane.getChildren().add(splitLeftHorizon);
+//			splitLeftHorizonPane.getChildren().add(splitLeftHorizon);
 			
 			splitRightHorizon.getItems().addAll(diarySection,commuteSection); //한개더넣어야됨
-			splitRightHorizonPane.getChildren().add(splitRightHorizon);
+//			splitRightHorizonPane.getChildren().add(splitRightHorizon);
 			
 			splitVertical.getItems().addAll(splitLeftHorizonPane,splitRightHorizonPane);//좌하
 			
-			employeeManage.getChildren().add(splitVertical);
+//			employeeManage.getChildren().add(splitVertical);
 		}catch(Exception e ){e.printStackTrace();}
 		
 	}
@@ -291,3 +309,4 @@ public class BossEmployeeManageController {
 	}
 	
 }
+

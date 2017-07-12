@@ -58,18 +58,18 @@ font-weight:700;
 				<div class="col-xs-3-12 col-sm-2-12">${list.start}</div>
 				<div class="col-xs-3-12 col-sm-2-12">${list.end}</div>
 				<div class="col-sm-2-12 xs_hidden">
-					<c:if test="${list.commuteTime == null}">
+					<c:if test="${list.commuteTime == '1970-01-01 00:00:00.0'}">
 						
 					</c:if>
-					<c:if test="${list.commuteTime != null}">
+					<c:if test="${list.commuteTime != '1970-01-01 00:00:00.0'}">
 						${list.commuteTime}
 					</c:if>					
 				</div>
 				<div class="col-sm-2-12 xs_hidden">
-					<c:if test="${list.ex == null}">
+					<c:if test="${list.ex == '1970-01-01 00:00:00.0'}">
 						
 					</c:if>
-					<c:if test="${list.ex != null}">
+					<c:if test="${list.ex != '1970-01-01 00:00:00.0'}">
 						${list.ex}
 					</c:if>		
 				</div>

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -11,7 +16,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane fx:id="employeeManage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.module.BossEmployeeManageController">
+<AnchorPane fx:id="employeeManage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.module.BossEmployeeManageController">
    <children>
       <SplitPane fx:id="splitVertical" dividerPositions="0.48" prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -21,17 +26,21 @@
                     <items>
                       <AnchorPane fx:id="e_idListSection" minHeight="539.0" minWidth="596.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <TableView fx:id="e_idListTable" layoutX="29.0" layoutY="39.0" prefHeight="472.0" prefWidth="140.0">
-                                <columns>
-                                  <TableColumn id="e_id" fx:id="e_id" prefWidth="139.0" text="아이디 리스트" />
-                                  
-                                </columns>
-                              </TableView>
-                              <TableView fx:id="commuteList" layoutX="184.0" layoutY="39.0" prefHeight="472.0" prefWidth="120.0">
-                                <columns>
-                                  <TableColumn fx:id="commuteListColumn" prefWidth="119.0" text="출근한 아이디" />
-                                </columns>
-                              </TableView>
+                              <Group>
+                                 <children>
+                                    <TableView fx:id="commuteList" layoutX="184.0" layoutY="39.0" prefHeight="472.0" prefWidth="120.0">
+                                      <columns>
+                                        <TableColumn fx:id="commuteListColumn" prefWidth="119.0" text="출근한 아이디" />
+                                      </columns>
+                                    </TableView>
+                                    <TableView fx:id="e_idListTable" layoutX="29.0" layoutY="39.0" prefHeight="472.0" prefWidth="140.0">
+                                      <columns>
+                                        <TableColumn id="e_id" fx:id="e_id" prefWidth="139.0" text="아이디 리스트" />
+                                        
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </Group>
                               <TextField fx:id="commuteIdText" layoutX="321.0" layoutY="76.0" />
                               <Button fx:id="commute" layoutX="469.0" layoutY="76.0" mnemonicParsing="false" onMouseClicked="#commute" text="출근" />
                               <Button fx:id="offWork" layoutX="519.0" layoutY="76.0" mnemonicParsing="false" onMouseClicked="#offWork" text="퇴근" />

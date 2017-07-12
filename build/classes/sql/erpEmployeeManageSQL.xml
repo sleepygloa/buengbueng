@@ -328,8 +328,8 @@
 	<!-- 알바 근태 리스트 -->
 	<select id="getEmployeeWorkTimeList" resultClass="workTimeDto" parameterClass="String">
 		select c.num, c.b_key, c.todayDate, c.title, c.start, c.end, c.result, c.backgroundColor,c.borderColor, c.commuteTime, c.offWorkTime, c.ex from employeeInfo a 
-			 INNER JOIN	(select a.num, a.b_key, a.todayDate, a.title, a.start, a.end, a.result, a.backgroundColor,a.borderColor, b.commuteTime, b.offWorkTime, b.ex from employeeWorkTime a INNER JOIN employeeWorkTimeCommute b ON a.num = b.num WHERE a.result = 2) c 
-		ON a.e_id = c.title WHERE a.e_bossid = #id#;
+			 INNER JOIN	(select a.num, a.b_key, a.todayDate, a.title, a.start, a.end, a.result, a.backgroundColor,a.borderColor, b.commuteTime, b.offWorkTime, b.ex from employeeWorkTime a INNER JOIN employeeWorkTimeCommute b ON a.num = b.num ) c 
+		ON a.e_id = c.title WHERE a.e_bossid = #id# order by c.start desc;
 	</select>	
 	
 	
@@ -476,6 +476,11 @@
 	<select id="getFxEmployeeList" resultClass="fxEidListDTO" parameterClass="java.util.HashMap">
 		select e_id, pw,num,  b_key from userInfo a INNER JOIN 
 		(select e_id,num,b_key from employeeInfo where e_bossid = #id# and b_key = #b_key#) b on a.id = b.e_id;
+	</select>
+	
+	<!-- 아르바이트 출근한 사람 리스트 -->
+	<select id="getFxEmployeeWorkList" resultClass="fxEidListDTO" parameterClass="java.util.HashMap">
+		select b.e_id from employeeWorkTime a INNER JOIN (select e_id from employeeInfo where e_bossId = #b_id# and b_key = #b_key#) b on a.title = b.e_id where a.result = 1;
 	</select>
 	
 	<!-- 알바생 리스트 수 -->
