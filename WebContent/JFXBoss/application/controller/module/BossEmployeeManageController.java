@@ -205,12 +205,15 @@ public class BossEmployeeManageController {
 			
 		}catch(Exception e){e.printStackTrace();}
 		
+		try{
 		//우상 달력
 		WebEngine webEngine = diary.getEngine();
 		// 웹 사이트에서 아이디 중복확인할 때 새 창 띄우는 거 없애고, Ajax 써야할 듯 -> load()가 여러 페이지를 보여주지 않고, 현재 페이지에 새로 띄우는 페이지를 덮어씌움
-		webEngine.load("http://localhost:8080/buengbueng/employeeCalenderOnly.do");
+		webEngine.load("http://localhost:8080/buengbueng/employeeCalenderOnly.do?id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8"));
 		webEngine.setJavaScriptEnabled(true);
-		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 			//우하 근무일정
 		try{

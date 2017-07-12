@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -30,28 +27,14 @@
                                   
                                 </columns>
                               </TableView>
-                              <Label layoutX="205.0" layoutY="39.0" text="신청 중인 아이디 리스트 :" />
-                              <Label layoutX="205.0" layoutY="64.0" text="보유 중인 아이디 리스트 :" />
-                              <Group layoutY="-41.0">
-                                 <children>
-                                    <Label layoutX="220.0" layoutY="234.0" text="신청할 아이디 수" />
-                                    <Label layoutX="220.0" layoutY="268.0" text="신청 사유" />
-                                    <TextArea layoutX="220.0" layoutY="296.0" prefHeight="48.0" prefWidth="283.0" />
-                                    <TextField layoutX="389.0" layoutY="230.0" prefHeight="23.0" prefWidth="115.0" />
-                                    <Button layoutX="218.0" layoutY="192.0" mnemonicParsing="false" text="신청하기" />
-                                    <Label layoutX="236.0" layoutY="160.0" prefHeight="15.0" prefWidth="249.0" text="아이디 신청하기" />
-                                 </children>
-                              </Group>
-                              <Group layoutY="160.0">
-                                 <children>
-                                    <Label layoutX="220.0" layoutY="234.0" text="삭제할 아이디" />
-                                    <Label layoutX="220.0" layoutY="268.0" text="신청 사유" />
-                                    <TextArea layoutX="220.0" layoutY="296.0" prefHeight="48.0" prefWidth="283.0" />
-                                    <TextField layoutX="389.0" layoutY="230.0" prefHeight="23.0" prefWidth="115.0" />
-                                    <Button fx:id="idInsertApplyBtn" layoutX="218.0" layoutY="192.0" mnemonicParsing="false" text="신청하기" />
-                                    <Label layoutX="237.0" layoutY="164.0" text="아이디 삭제하기" />
-                                 </children>
-                              </Group>
+                              <TableView layoutX="184.0" layoutY="39.0" prefHeight="472.0" prefWidth="120.0">
+                                <columns>
+                                  <TableColumn prefWidth="119.0" text="출근한 아이디" />
+                                </columns>
+                              </TableView>
+                              <Button layoutX="469.0" layoutY="76.0" mnemonicParsing="false" text="출근" />
+                              <TextField layoutX="321.0" layoutY="76.0" />
+                              <Button layoutX="519.0" layoutY="76.0" mnemonicParsing="false" text="퇴근" />
                            </children>
                         </AnchorPane>
                       <AnchorPane fx:id="employeeInfoSection" minHeight="469.0" minWidth="596.0" prefHeight="496.0" prefWidth="608.0">

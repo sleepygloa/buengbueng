@@ -283,8 +283,8 @@ public class ChatbotListBean extends BoardMethodBean {
 			ProcessBuilder pb = new ProcessBuilder(
 					list
 					);
-//			pb.directory(new File("C:\\Users\\user2\\Documents\\workspace\\buengbueng\\WebContent\\Node\\project\\"));
-			pb.directory(new File("C:\\Users\\sleep\\Documents\\workspace\\buengbueng\\WebContent\\Node\\project\\"));
+			pb.directory(new File("C:\\Users\\user2\\Documents\\workspace\\buengbueng\\WebContent\\Node\\project\\"));
+//			pb.directory(new File("C:\\Users\\sleep\\Documents\\workspace\\buengbueng\\WebContent\\Node\\project\\"));
 		       System.out.println(pb.command());
 		       pb.redirectErrorStream(true);
 		        Process p = pb.start();

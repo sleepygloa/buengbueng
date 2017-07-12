@@ -110,7 +110,6 @@ public class BossEmployeeManageBean2 {
 			id = (String)session.getAttribute("loginId");
 		}
 		
-		System.out.println("id 값을 받고 있나 "+id);
 		fs.franchiseeList(session, id, model);
 		return "/bossERP/employeeManage/employeeCalenderOnly";
 	}	
