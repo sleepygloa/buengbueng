@@ -43,7 +43,6 @@
 		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/chatbot/chatbot.css" />
 		
 		<!-- 홈페이지 제목 -->
-		
 	</head>
 	 	<!-- LOGIN SECTION -->
 	 	<header class="header_wrap">

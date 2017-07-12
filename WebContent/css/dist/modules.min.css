@@ -160,7 +160,7 @@ header, section, footer{
 .header{position:relative;height:0px;}
 .header,.header_wrap{height:60px; margin:0 auto;}	
 /* 로고 */
-.header  div{padding:auto;}
+
 .header  div h1{text-align: center;}
 .header  div h1 a{color: #ed1c24; font-size: 20px;}
 .header .logo{float:left;width:120px;height:40px;position:relative;font-size:18px; padding:auto;margin:20 20 0 20; color:#ed1c24;}
@@ -180,11 +180,10 @@ header, section, footer{
 
 /* HEADER 반응형 ----------*/
 /* 로고 */
-@media screen and (max-width:1199px){.header .logo{margin-left:0;width:110px}} /* 화면 작아질때 왼쪽여백 삭제 */
+@media screen and (max-width:1199px){.header .logo{margin-left:10;width:100px}} /* 화면 작아질때 왼쪽여백 삭제 */
 @media screen and (min-width:250px){
 	.header_wrap .header .menu_area .item > a{position:relative;display:block;font-size:20px;height:60px;line-height:60px}
 	.header .menu_area .item.sign{float:none;border:none;display:block;background:0 0;height:60px;line-height:60px;transition:all .3s}
-	
 	
 	/* 반응형 메뉴 */
 	.header .respon_menu .respon_menu_icon span{display:none; color:#fff;}
@@ -196,7 +195,6 @@ header, section, footer{
 }
 @media screen and (min-width:768px){
 	.header .item.product. .menu_list [class*=col]{margin-bottom:0;}
-	
 	/* 반응형 메뉴 */
 }
 @media screen and (max-width:1199px){

@@ -33,7 +33,11 @@ function indexFranchiseeList(){
 	})
 }
 </script>
-
+<style>
+.side_scontent{
+background-color:#EEF1F2;
+}
+</style>
 
 <!-- ARTICLE -->
 <!-- 메인 화면 전광판  ------------------------------------------------------------>
