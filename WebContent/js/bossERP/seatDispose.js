@@ -36,7 +36,7 @@ $(document).ready(function(){
 			type:"post",
 			data:{
 				pcNum : pcNums,
-				page : "2"
+				page : "1"
 			},
 			success:function(data){
 				$("#pcInfo").html(data);
@@ -68,14 +68,14 @@ $(document).ready(function(){
 	});
 });
 
-// 선택한 좌석 정보 보기(0) / 수정(1)
-function showModiPcInfo(pcNum,page){
+
+function showModiPcInfo(pcNum){
 	$.ajax({
 		url:"getSetPcInfo.do",
 		type:"post",
 		data:{
 			pcNum : pcNum,
-			page : page
+			page : "0"
 		},
 		success:function(data){
 			$("#pcInfo").html(data);

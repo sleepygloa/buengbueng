@@ -1,5 +1,6 @@
 package login.user.bean;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -12,15 +13,24 @@ import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
+
+import superclass.all.bean.SuperClass;
 
 @Controller
 public class NoticeListBaen {
 @Autowired
 private SqlMapClientTemplate sqlMap;
+@Autowired
+protected SuperClass sc;
+
 @RequestMapping("notice.do")
-	public String noticeList(HttpServletRequest request,HashMap r){
+	public String noticeList(HttpServletRequest request,HashMap r,Model model){
+		sc.sideMenuTemp(model, 1, 1); //sidemenu template
+	
 		int snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		
@@ -69,7 +79,8 @@ private SqlMapClientTemplate sqlMap;
 	}
 
 @RequestMapping("noticeForm.do")
-public String noticeForm(HttpServletRequest request){
+public String noticeForm(HttpServletRequest request,Model model){
+	sc.sideMenuTemp(model, 1, 1);
 	int snum = Integer.parseInt(request.getParameter("snum"));
 	String pageNum = request.getParameter("pageNum");
 	int num=0, ref=1, re_step=0;
@@ -119,7 +130,9 @@ public String noticeForm(HttpServletRequest request){
    }
 
 	@RequestMapping("noticeContent.do")
-		public String noticeContent(HttpServletRequest request,CustomerDTO article,HashMap r){
+		public String noticeContent(HttpServletRequest request,CustomerDTO article,HashMap r,Model model){
+		
+		
 		int snum = Integer.parseInt(request.getParameter("snum"));//4
 		String pageNum = request.getParameter("pageNum");//1
 		int num = Integer.parseInt(request.getParameter("num"));//535
@@ -135,6 +148,7 @@ public String noticeForm(HttpServletRequest request){
 		
 		sqlMap.update("customer.contentUp",num);
 		
+	
 		article=(CustomerDTO)sqlMap.queryForObject("customer.getContent", num);//snum怨펝um�쑝濡� 李얠쓬
 	
 		snum = 5; //�씠�쟾源뚯� num�� 4
@@ -169,7 +183,8 @@ public String noticeForm(HttpServletRequest request){
 		String pageNum = request.getParameter("pageNum");
 		int num = Integer.parseInt(request.getParameter("num"));
 		int number = Integer.parseInt(request.getParameter("number"));
-				
+		
+	
 		article = (CustomerDTO)sqlMap.queryForObject("customer.getContent",num);
 		
 		request.setAttribute("snum", snum);
@@ -247,11 +262,49 @@ public String noticeForm(HttpServletRequest request){
 	}
 	
 	
+
+//메인 화면(index.do) 의 공지사항 최신내용 3개 불러오기
+@RequestMapping("indexNoticeList.do")
+public ModelAndView indexNoticeList(Model model){
+	ModelAndView mv = new ModelAndView();
+	List articleList = new ArrayList();;
+	
+	int snum = 4; //고객센터 게시판
+	
+	try{
+		articleList = (List)sqlMap.queryForList("customer.indexCustomerlist", snum);
+	}catch(Exception e){
+		e.printStackTrace();
+	}	
+	    
+	model.addAttribute("list", articleList);
+	mv.setViewName("/customer-center/indexNoticeList");    
+	
+	return mv;
+	}
+
+//메인 화면(index.do) 의 고객센터 최신내용 3개 불러오기
+@RequestMapping("indexFranchiseeList.do")
+public ModelAndView indexfrachiseeList(Model model){
+	ModelAndView mv = new ModelAndView();
+	List articleList = new ArrayList();;
+	
+	int snum = 1; //고객센터 게시판
+	
+	try{
+		articleList = (List)sqlMap.queryForList("customer.indexFranchiseelist", snum);
+	}catch(Exception e){
+		e.printStackTrace();
+	}	
+	    System.out.println("어디까지되나요");
+	model.addAttribute("list", articleList);
+	mv.setViewName("/customer-center/indexFranchiseeList");    
+	
+	return mv;
+	}
+
+
+
+
+
 }
-
-
-
-
-
-
-

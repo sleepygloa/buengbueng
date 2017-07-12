@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
 	<title>챗봇 리스트</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/buengbueng/js/chatbot/chatbotList.js"></script>
 	<link rel="stylesheet" type="text/css" href="/buengbueng/css/chatbot/chatbot.css" />
 </head>
@@ -10,6 +11,7 @@
 	<jsp:include page="/WEB-INF/views/dashHeader.jsp"/>
 	<button onclick="addChat('${max}');">챗봇 추가</button><br/>
 	<div class="addChat"></div><br/>
+	<div id="nodeSituation">챗봇상환판 자리 : </div>
 	<table>
 		<tr>
 			<td style="border-bottom: 1px solid gray;">번호</td>

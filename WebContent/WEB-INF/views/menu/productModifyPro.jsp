@@ -7,7 +7,7 @@
 	
 	<script>
 		alert("재고정보가 수정되었습니다.");
-		window.location="productModify.do?l_key=${l_key}";
+		window.location="productModify.do?l_key=${l_key}&name=${name}";
 	</script>
 </c:if>
 

@@ -10,9 +10,34 @@ history.go(-1);
 <!-- HEADER TEMPLATE -->
 <jsp:include page="header.jsp" /> 
 
+<script>
+indexNoticeList(); //공지사항 리스트
+indexFranchiseeList(); //가맹문의 리스트
+
+function indexNoticeList(){
+	$.ajax({
+		url:"indexNoticeList.do",
+		type:"post",
+		success:function(data){
+			$("#indexNoticeList").html(data);
+		}
+	})
+}
+function indexFranchiseeList(){
+	$.ajax({
+		url:"indexFranchiseeList.do",
+		type:"post",
+		success:function(data){
+			$("#indexFranchiseeList").html(data);
+		}
+	})
+}
+</script>
+
+
 <!-- ARTICLE -->
 <!-- 메인 화면 전광판  ------------------------------------------------------------>
-<div class="main_ad">
+<div class="main_ad" style="background-color:#EEF1F2;height:100%;">
 	<div class="main_ad_content">
 			<div class="col-xs-10-10 main_ad_contentBox">
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10 col_height200 contentBox_outline contentBox_right">
@@ -32,37 +57,35 @@ history.go(-1);
 				</div>
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">포인트 결제</a></div>
+						<div class="contentBox_a"><a href="cash.do">포인트 결제</a></div>
 						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10 col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">결제내역 조회</a></div>
+						<div class="contentBox_a"><a href="cashHistory.do">결제내역 조회</a></div>
 						<div><i class="fa fa-credit-card fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10 col_height200 contentBox_outline">
 					<div class="contentBox col_height0" >
-						<div class="contentBox_a"><a href="#">이용내역 조회</a></div>
+						<div class="contentBox_a"><a href="ledger.do">이용내역 조회</a></div>
 						<div><i class="fa fa-bar-chart fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>
 
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10 col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="franchiseeManagementMain.do">가맹점 관리</a></div>
+						<div class="contentBox_a"><a href="franchiseeList.do">가맹점 관리</a></div>
 						<div><i class="fa fa-pencil-square-o fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10 col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;공지사항</a></div>
+						<div class="contentBox_a"><a href="notice.do?snum=4"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;공지사항</a></div>
 						<div><hr /></div>
-						<div class="contentBox_board_list">
-							1. 내용입니다.<br />
-							2. 내용입니다.<br />
-							3. 내용입니다?
+						<div id="indexNoticeList" class="contentBox_board_list">
+
 						</div>
 					</div>
 				</div>
@@ -81,8 +104,8 @@ history.go(-1);
 				</div>	
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">포인트 결제</a></div>
-						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
+						<div class="contentBox_a"><a href="employeeCalenderOnly.do">알바생 일정</a></div>
+						<div><i class="fa fa-calendar fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>					
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
@@ -93,18 +116,15 @@ history.go(-1);
 				</div>	
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;고객센터</a></div>
+						<div class="contentBox_a"><a href="franchiseQA.do"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;가맹 문의 최신글</a></div>
 						<div><hr /></div>
-						<div class="contentBox_board_list">
-							1. 내용입니다.<br />
-							2. 내용입니다.<br />
-							3. 내용입니다?
+						<div id="indexFranchiseeList" class="contentBox_board_list">
 						</div>
 					</div>
 				</div>	
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">원격 지원</a></div>
+						<div class="contentBox_a"><a href="remoteIntro.do">원격 지원</a></div>
 						<div><i class="fa fa-desktop fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>	

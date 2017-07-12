@@ -3,32 +3,38 @@
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
-	
+	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
+	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/erp.css">
 </head>
 
 <body>
 
 <!-- HEADER TEMPLATE -->
-	<jsp:include page="/WEB-INF/views/header.jsp" />
-<div>
+	<jsp:include page="../erp_header.jsp" />
+
+
+<div class="boss_con">
 <form action="menuModifyForm.do" method="post">
-<table>
-	<tr>
-	<td>카테고리</td> <td>메뉴명</td> <td>회사명</td> <td>가격</td>
-	</tr>
-	<c:forEach var="menu" items="${menuList}">
-	<tr>
-	<td>${menu.category}</td>
-	<td>${menu.name}</td>
-	<td>${menu.company}</td>
-	<td>${menu.price}</td>
-	<td><button type="submit" name="name" value="${menu.name}">수정</button>
-	</td>
-	</tr>
-	</c:forEach>
-	<input type="hidden" name="l_key" value="${l_key}"/>
-	
-</table>
+	<table class="menu_table">
+		<tr>
+			<td>카테고리</td>
+			<td>메뉴명</td>
+			<td>회사명</td>
+			<td>가격111</td>
+		</tr>
+		<c:forEach var="menu" items="${menuList}">
+			<tr>
+				<td>${menu.category}</td>
+				<td>${menu.name}</td>
+				<td>${menu.company}</td>
+				<td>${menu.price}</td>
+				<td><button type="submit" name="name" value="${menu.name}">수정</button>
+				</td>
+			</tr>
+		</c:forEach>
+		<input type="hidden" name="l_key" value="${l_key}"/>
+		
+	</table>
 </form>
 </div>
 <div>

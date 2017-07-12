@@ -159,6 +159,7 @@ public class DashUserBean extends BoardMethodBean{
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
+		request.setAttribute("dates", dates);
 		return "/dash-userInfo/dashUserSearch";
 	}
 	// 회원 정보 & 가맹 정보 복구 페이지
@@ -175,8 +176,8 @@ public class DashUserBean extends BoardMethodBean{
 		UserInfoDataDTO dto = (UserInfoDataDTO)sqlMap.queryForObject("admin.getUserDeleteLog", reverse);
 		int check= 0;
 		if(dto!=null){
-			sqlMap.insert("admin.userInfoInsert", dto);
-			sqlMap.delete("admin.userLogDelete", dto.getId());
+			sqlMap.insert("admin.userInfoInsert", dto); // 회원 정보 복구
+			sqlMap.delete("admin.userLogDelete", dto.getId()); // 회원 정보 로그 삭제
 			check = 1;
 		}	
 		request.setAttribute("check", check);

@@ -11,7 +11,7 @@
 window.onload=function(){
 	var id = '${sessionScope.loginId}';
 	$.ajax({
-		url : "franchiseeSelectList.do",
+		url : "franchiseeSelectList2.do",
 		type: "post",
 		data : {id : id},
 		success:function(data){
@@ -42,6 +42,7 @@ $(document).ready(function(){
 	<!-- 링크 LIST -->
 		
 <!-- --------------------------------------------------------- -->
+
 <aside class="sidebar">
   <div id="leftside-navigation" class="nano">
     <ul class="nano-content">
@@ -68,10 +69,8 @@ $(document).ready(function(){
 
           <li><a href="employeeManageInfo.do">알바 아이디 관리</a>
           </li>
-          <li><a href="employeeInfoList.do">신상관리</a>
-          </li>
-          <li><a href="#">알바 근태관리</a>
-          </li>
+          <!-- <li><a href="employeeInfoList.do">신상관리</a>
+          </li> -->
           <li><a href="employeeCalender.do">근무달력</a>
           </li>
           <li><a href="employeeCommute.do">출근하기</a>
@@ -80,16 +79,19 @@ $(document).ready(function(){
           </li>
           <li><a href="employeeWorkTimeList.do">출근기록 확인하기</a>
           </li>
-          <li><a href="#">휴가관리</a>
-          </li>
-          <li><a href="bossEmployeeAccountManage.do">장부관리</a>
-          </li>
         </ul>
       </li>
       <li class="sub-menu">
         <a href=#><i class="fa fa-table"></i><span>가맹점 PC이용현황</span><i class="arrow fa fa-angle-right pull-right"></i></a>
         <ul>
           <li><a href="pcUseStatusList.do">가맹점 PC이용현황</a>
+          </li>
+        </ul>
+      </li>
+       <li class="sub-menu">
+        <a href="javascript:void(0);"><i class="fa fa-map-marker"></i><span>주문 관리</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+        <ul>
+          <li><a href="menuOrderListForm.do">가맹점 주문현황</a>
           </li>
         </ul>
       </li>
@@ -130,11 +132,30 @@ $(document).ready(function(){
       </c:if>
       
       <c:if test="${sidemenu == 4}"> 
-      	<li class="sub-menu">
-        <a href="javascript:void(0);"><i class="fa fa-file"></i><span>즐겨찾는 PC방</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+		<li class="sub-menu">
+        	<a href="javascript:void(0);"><i class="fa fa-file"></i><span>PC방 찾기</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+	        <ul>
+	          <li><a href="searchPCForm.do">PC방 찾기</a></li>
+	          <li><a href="searchPCNear.do">우리동네 찾기</a></li>
+	        </ul>
+      	</li>
+		<li class="sub-menu">
+			<a href="javascript:void(0);"><i class="fa fa-file"></i><span>즐겨찾는 PC방</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+	        <ul>
+	          <li><a href="favoritePCRoom.do">즐겨찾는 PC방</a>
+	          </li>
+	        </ul>
+      	</li>
+      </c:if>
+      
+     <c:if test="${sidemenu == 1}"> 
+     <li class="sub-menu">
+        <a href="javascript:void(0);"><i class="fa fa-file"></i><span>고객센터</span><i class="arrow fa fa-angle-right pull-right"></i></a>
         <ul>
-          <li><a href="favoritePCRoom.do">즐겨찾는 PC방</a>
-          </li>
+          <li><a href="franchiseQA.do?snum=1">가맹문의</a></li>
+          <li><a href="customerQA.do?snum=2">자주묻는 질문</a></li>
+          <li><a href="oneQA.do?snum=3">1:1 문의</a></li>
+          <li><a href="notice.do?snum=4&pageNum=1">공지사항</a></li>
         </ul>
       </li>
       </c:if>

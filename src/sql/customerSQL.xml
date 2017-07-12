@@ -20,6 +20,16 @@
 		FROM customerBoard,(select @rownum:=0)r WHERE snum=#snum# order by ref desc, re_step asc limit #startRow#,#pageSize#)a order by ref desc, re_step asc)b;
 		]]>
 	</select>
+
+	<!-- 메인화면, 공지사항 리스트 간단 불러오기-->
+	<select id="indexCustomerlist" parameterClass="int" resultClass="customerDTO">
+		SELECT num, title FROM customerBoard where snum = #snum# order by num desc limit 0, 2;
+	</select>
+
+	<!-- 메인화면, 공지사항 리스트 간단 불러오기-->
+	<select id="indexFranchiseelist" parameterClass="int" resultClass="customerDTO">
+		SELECT num, title FROM customerBoard where snum = #snum# order by num desc limit 0, 2;
+	</select>
 	
 	<!-- 공지사항 리스트 -->
 	<select id="noticelist" parameterClass="java.util.HashMap" resultClass="customerDTO">

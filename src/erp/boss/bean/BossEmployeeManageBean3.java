@@ -29,9 +29,10 @@ public class BossEmployeeManageBean3 {
 	//알바생 출근하기
 	//알바생이 계획된 시간이 아니면 출근하지 못한다.
 	@RequestMapping("employeeCommute.do")
-	public String employeeCommute(HttpSession session, Model model, EmployeeWorkTimeDTO ewtDTO){
-		
-		String e_id = (String)session.getAttribute("loginId");
+	public String employeeCommute(HttpSession session, Model model, String e_id, EmployeeWorkTimeDTO ewtDTO){
+		if(session.getAttribute("loginId") != null){
+			e_id = (String)session.getAttribute("loginId");
+		}
 		String b_key = (String)session.getAttribute("b_key");
 		
 		sc.sideMenuTemp(model, 1, 3); //sidemenu template
@@ -150,11 +151,6 @@ public class BossEmployeeManageBean3 {
 			}
 			
 			//////////////////////////////////////////
-			
-			
-			
-			
-			
 			
 		}catch(Exception e){
 			e.printStackTrace();

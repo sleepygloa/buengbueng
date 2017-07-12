@@ -32,22 +32,22 @@ public class ReadDbWriteArray {
 		////////////////////////////////
 		//각 Log의 TEXT파일의 Line 수를 세는 코드
 		
-		File file = new File(System.getProperty("user.home")+"\\Documents\\buengbueng\\log\\log.txt");
+		File file = new File(System.getProperty("user.home")+"\\Documents\\buengbueng\\log\\log.txt"); //특정 위치의 log.txt파일의 경로를 저장
 		String totalFileName = 
 				"" + file.getCanonicalPath();
 		
-		 InputStream is = new BufferedInputStream(new FileInputStream(totalFileName));
+		 InputStream is = new BufferedInputStream(new FileInputStream(totalFileName)); //log.txt파일을 읽어드림
 		 int count = 0;
 		    try {
 		        byte[] c = new byte[1024];
 		        
 		        int readChars = 0;
 		        boolean empty = true;
-		        while ((readChars = is.read(c)) != -1) {
-		        	System.out.println(readChars);
+		        while ((readChars = is.read(c)) != -1) { //파일의 내용이 있다면.
+		        	System.out.println(readChars); 
 		            empty = false;
-		            for (int i = 0; i < readChars; ++i) {
-		                if (c[i] == '\n') {
+		            for (int i = 0; i < readChars; ++i) { 
+		                if (c[i] == '\n') { //한줄끝에도달할때마다 엔터를 눌러 누른 수의 카운트를 센다.
 		                    ++count;
 		                    System.out.println(count);
 		                }
@@ -69,7 +69,7 @@ public class ReadDbWriteArray {
 		FranchiseeDataDTO DTO =  (FranchiseeDataDTO)dto ;
 		/////////////////////////////////////
 		
-		content += "{";
+		content += "{"; //경우에 따라서, 일어난 log에 대해서 해당.txt에 로그의 내용을 저장해준다.
 		switch (fileCheck){
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		case "franchisee" : 

@@ -10,7 +10,7 @@ function state() {
 			tf : "1"
 		},
 		success : function(data) {
-			$(".seatDisposeFirstDiv").html(data);
+			$("#seatDisposeFirstDiv").html(data);
 		}
 	});
 }

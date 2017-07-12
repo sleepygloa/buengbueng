@@ -63,3 +63,22 @@ function useralls(l_key,name,id){
 }
 
 
+
+/* 전체적인 menu, product, order */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

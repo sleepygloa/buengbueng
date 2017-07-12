@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <c:if test="${sessionScope.grade!=4}">
 	<script> alert('관리자 페이지'); window.location='index.do';</script>
 </c:if>
+
 <!DOCTYPE html>
 <html lang="en">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -12,10 +14,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>관리자 페이지</title>
     <!-- Bootstrap -->
-    <link href="css/dashBoard/font-awesome.min.css" rel="stylesheet">
+    <link href="/buengbueng/css/dashBoard/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900%7CRoboto+Mono:400,300,700' rel='stylesheet'
         type='text/css'>
-    <link href="css/dashBoard/busy.css" rel="stylesheet">
+    <link href="/buengbueng/css/dashBoard/busy.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -54,7 +56,7 @@ setInterval("autoRefresh1()", 3000);
                         <img class="img-responsive" alt="Image Here" src="img/dashBoard/1.jpg">
                         <div class="detail">
                         <div id="autoRe"><strong>${sessionScope.loginId}</strong>
-                        <span class="label bg-warning"><a href="#">${alarm} ${franchiseAlarm+oneAlarm}</a></span></div>
+                        <span class="label bg-warning"><a>${alarm} ${franchiseAlarm+oneAlarm}</a></span></div>
                           	
                             <ul class="list-inline">
                                 <li class="badge badge-danger m-left-xs"><a href="userInfoForm.do">정보 버튼</a></li>
@@ -184,21 +186,6 @@ setInterval("autoRefresh1()", 3000);
                         <li class="mt-has-menu">
                             <a href="javascript:void(0)">
                             <i class="fa fa-pencil-square-o"></i>
-                            <span class="menu-text">페이지 관리</span>
-                            <span class="selected"></span>
-                        </a>
-                            <ul class="mt-sub-menu">
-                                <li>
-                                    <a href="forms-layout.html" class="rippler rippler-default">
-                                    <span class="menu-text">카테고리</span>
-                                    <span class="selected"></span>
-                                </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="mt-has-menu">
-                            <a href="javascript:void(0)">
-                            <i class="fa fa-pencil-square-o"></i>
                             <span class="menu-text">신청 목록</span>
                             <span class="selected"></span>
                         </a>
@@ -246,6 +233,29 @@ setInterval("autoRefresh1()", 3000);
                                     <c:if test="${franchiseAlarm >0}">
                                     	<span class="badge badge-danger m-left-xs "><div id="autoRe1">${franchiseAlarm+oneAlarm}</div></span>
                                     </c:if>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="mt-has-menu">
+                            <a href="javascript:void(0)">
+	                            <i class="fa fa-pencil-square-o"></i>
+	                            <span class="menu-text">Log 관리</span>
+	                            <span class="selected"></span>
+                        	</a>
+                            <ul class="mt-sub-menu">
+                                <li>
+                                    <a href="dashAgreeList.do?pageNum=1&pageNum1=1" class="rippler rippler-default">
+                                    <span class="menu-text">가맹 목록</span>
+                                    <span class="selected"></span>
+                                </a>
+                                </li>
+                            </ul>
+                            <ul class="mt-sub-menu">
+                                <li>
+                                    <a href="dashEmpAgreeList.do?pageNum=1" class="rippler rippler-default">
+                                    <span class="menu-text">알바 목록</span>
                                     <span class="selected"></span>
                                 </a>
                                 </li>

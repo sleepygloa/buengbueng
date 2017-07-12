@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 
+app.use(express.static('public'));
+
 require('events').EventEmitter.prototype._maxListeners = 100;
 
 // POST 사용

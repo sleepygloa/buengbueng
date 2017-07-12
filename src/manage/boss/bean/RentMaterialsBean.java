@@ -20,6 +20,12 @@ public class RentMaterialsBean {
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
 
+	private ArrayList<RentDataDTO> getRentList(String b_key){
+		ArrayList<RentDataDTO> rentList = (ArrayList)sqlMap.queryForList("rent.getRentAll", b_key);
+		return rentList;
+	}
+	
+	
 	@RequestMapping("rentManage.do")
 	public String rentManage(HttpSession session, Model model){
 		//사이드메뉴 템플릿
@@ -30,14 +36,18 @@ public class RentMaterialsBean {
 		
 		try{
 			String b_key = (String)session.getAttribute("b_key");
-			ArrayList<RentDataDTO> rentList = (ArrayList)sqlMap.queryForList("rent.getRentAll", b_key);
-			model.addAttribute("rentList", rentList);
+			if(b_key != null){
+				model.addAttribute("rentList", getRentList(b_key));
+				model.addAttribute("result", "succ");
+			}else{
+				model.addAttribute("result", "fail");
+			}
 		}catch(Exception e){
-			/// 추후 수정
+			model.addAttribute("result", "fail");
 		}
 		return "/bossERP/rentMaterials/rentManage";
 	}
-	
+
 	@RequestMapping("addRent.do")
 	public String addRent(String b_key,Model model){
 		model.addAttribute("page", "add");
@@ -80,12 +90,11 @@ public class RentMaterialsBean {
 				rdto.setRentProduct(rent[i]);
 				sqlMap.delete("rent.deleteRent", rdto);
 			}	
-			model.addAttribute("check", "1");
-			model.addAttribute("b_key", rdto.getB_key());
+			model.addAttribute("rentList",  getRentList(rdto.getB_key()));
 		}catch(Exception e){
 			/// 추후 수정
 		}
-		return "/bossERP/rentMaterials/gotoRentManage";
+		return "/bossERP/rentMaterials/rentManage2";
 	}
 	
 	@RequestMapping("modiRent.do")
@@ -107,7 +116,7 @@ public class RentMaterialsBean {
 			model.addAttribute("rentProduct", rent.getRentProduct());
 			model.addAttribute("b_key", rent.getB_key());
 		}catch(Exception e){
-			// 추후 수정
+			System.out.println("err");
 		}
 		return "/bossERP/rentMaterials/selectedRentProductAll";
 	}
@@ -115,8 +124,7 @@ public class RentMaterialsBean {
 	@RequestMapping("addRentProduct.do")
 	public String addRentProduct(String b_key, Model model){
 		try{
-			ArrayList<RentDataDTO> rentName = (ArrayList<RentDataDTO>)sqlMap.queryForList("rent.getRentAll", b_key);
-			model.addAttribute("rentName", rentName);
+			model.addAttribute("rentName", getRentList(b_key));
 			model.addAttribute("page", "add");
 			model.addAttribute("b_key", b_key);
 		}catch(Exception e){
@@ -166,8 +174,7 @@ public class RentMaterialsBean {
 		try{
 			param = (RentProductDataDTO)sqlMap.queryForObject("rent.getRentProduct", param);
 			
-			ArrayList<RentDataDTO> rentName = (ArrayList<RentDataDTO>)sqlMap.queryForList("rent.getRentAll", param.getB_key());
-			model.addAttribute("rentName", rentName);
+			model.addAttribute("rentName", getRentList(param.getB_key()));
 			model.addAttribute("rentP", param);
 			model.addAttribute("page", "modi");
 			model.addAttribute("b_key", param.getB_key());
@@ -184,11 +191,11 @@ public class RentMaterialsBean {
 			for(int i=0; i< rent.length; i++){
 				rdto.setCode(Integer.parseInt(rent[i]));
 				sqlMap.delete("rent.deleteRentProduct", rdto);
-			}	
-			model.addAttribute("check", "1");
+			}
+			model.addAttribute("rentList",  getRentList(rdto.getB_key()));
 		}catch(Exception e){
-			/// 추후 수정
+			e.printStackTrace();
 		}
-		return "/bossERP/rentMaterials/gotoRentManage";
+		return "/bossERP/rentMaterials/rentManage2";
 	}
 }

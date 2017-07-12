@@ -114,10 +114,10 @@ public class FxLoginBean {
 			udto.setGrade(info.getGrade());
 
 			SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
-				Calendar cal = Calendar.getInstance();
-				String today = null;
-				today = formatter.format(cal.getTime());
-				Timestamp ts = Timestamp.valueOf(today);
+			Calendar cal = Calendar.getInstance();
+			String today = null;
+			today = formatter.format(cal.getTime());
+			Timestamp ts = Timestamp.valueOf(today);
 			udto.setLoginTime(ts);
 			udto.setIp(ip);
 			udto.setLicenseKey(key);
@@ -203,11 +203,11 @@ public class FxLoginBean {
 				uhdto.setEndTime(utdto.getLogoutTime());
 				uhdto.setMenuAmount(Integer.parseInt(menuAmount));
 				uhdto.setPcAmount(useAmount);
-				String beforePcAmount = (String)sqlMap.queryForObject("cash.getpcAmount", idx);
-				DecimalFormat df = new DecimalFormat("0.###");
-				double all =  Double.parseDouble(amount) + uhdto.getPcAmount() + Double.parseDouble(menuAmount);
+				String beforePcAmount = (String)sqlMap.queryForObject("cash.getpcAmount", idx); // pc 사용 금액 String으로 뽑음
+				DecimalFormat df = new DecimalFormat("0.###"); // 소수점 3자리까지로 Decimal을 포맷함
+				double all =  Double.parseDouble(amount) + uhdto.getPcAmount() + Double.parseDouble(menuAmount); // 총 가격 구하기
 				
-				uhdto.setAmountUsed(Double.parseDouble(df.format(all)));
+				uhdto.setAmountUsed(Double.parseDouble(df.format(all))); // 소수점 3자리까지만 뽑히게 해서 double형으로 바꿔서 넣기
 				uhdto.setIdx(idx);
 				
 				sqlMap.update("cash.addUserEtc", uhdto);

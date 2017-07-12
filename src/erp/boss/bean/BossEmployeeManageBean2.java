@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import login.user.bean.UseTimeLogDTO;
+import superclass.all.bean.FranchiseeSelect;
 import superclass.all.bean.ParsingDate;
 import superclass.all.bean.SuperClass;
 
@@ -38,6 +39,9 @@ public class BossEmployeeManageBean2 {
 	
 	@Autowired
 	protected SuperClass sc;
+	
+	@Autowired
+	public FranchiseeSelect fs;
 	
 	//사장님 알바생관리 메인 페이지
 	@RequestMapping("employeeLoginList.do")
@@ -99,7 +103,16 @@ public class BossEmployeeManageBean2 {
 		return "/bossERP/employeeManage/employeeLoginList";
 	}
 	
-	
+	//사장님 알바생관리 메인 페이지
+	@RequestMapping("employeeCalenderOnly.do")
+	public String employeeCalenderOnly(HttpSession session, String id, Model model){
+		if(session.getAttribute("loginId") != null){
+			id = (String)session.getAttribute("loginId");
+		}
+		
+		fs.franchiseeList(session, id, model);
+		return "/bossERP/employeeManage/employeeCalenderOnly";
+	}	
 	
 	//사장님 알바생관리 메인 페이지
 	@RequestMapping("employeeCalender.do")
@@ -235,6 +248,9 @@ public class BossEmployeeManageBean2 {
 		}
 		
 		model.addAttribute("check", check);
+		if(id.contains("employee")){
+			return new ModelAndView("redirect:/employeeCalenderOnly.do");	
+		}
 		
 		return new ModelAndView("redirect:/employeeCalender.do");	
 	}
@@ -334,6 +350,10 @@ public class BossEmployeeManageBean2 {
 				sqlMap.update("erpEmp.calenderUpdateTime", map); //근무시간 변경
 			}catch(Exception e){
 				e.printStackTrace();
+			}
+			
+			if(e_id.contains("employee")){
+				return new ModelAndView("redirect:/employeeCalenderOnly.do");	
 			}
 			
 			return new ModelAndView("redirect:/employeeCalender.do");

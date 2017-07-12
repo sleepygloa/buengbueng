@@ -202,7 +202,7 @@ public class BossEmployeeManageBean4 {
 	@RequestMapping("/dailySettlementList.do")
 	public String dailySettlementList(String pageNum, HttpSession session,Model model, HttpServletRequest request)throws Exception{
 		String b_key = (String)session.getAttribute("b_key");
-		System.out.println(b_key);
+		System.out.println("이거아냐?"+b_key);
 		
 		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
@@ -262,7 +262,8 @@ public class BossEmployeeManageBean4 {
     	//현재 오늘일 기준으로 어제 종료 일 23:59:59  코드
     	String endDate = new java.text.SimpleDateFormat("yyyy-MM-dd 23:59:59").format(day.getTime());
     	
-    	String yesterday=settlementDate.substring(0,10);  
+    	String yesterday=settlementDate.substring(0,10); 
+    	System.out.println(yesterday+"////////////");
 		
 		//내역 리스트
 		if (pageNum == null) {

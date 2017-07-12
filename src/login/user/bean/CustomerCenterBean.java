@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -22,8 +23,8 @@ public class CustomerCenterBean extends CustomerMethodBean{ // 가맹 문의 , 1
 	// 가맹 문의 게시판	
 	
 	@RequestMapping("franchiseQA.do")  // 게시판 리스트
-	public String franchiseQA(HttpServletRequest request,HashMap map){
-		boardList(request, map);
+	public String franchiseQA(HttpServletRequest request,HashMap map,Model model){
+		boardList(request, map,model);
 		return "/customer-center/franchiseList";
 	}
 	
@@ -78,8 +79,8 @@ public class CustomerCenterBean extends CustomerMethodBean{ // 가맹 문의 , 1
 	
 	// 1:1 게시판
 	@RequestMapping("oneQA.do")  // 게시판 리스트
-	public String oneQA(HttpServletRequest request,HashMap map){
-		boardList(request, map);
+	public String oneQA(HttpServletRequest request,HashMap map,Model model){
+		boardList(request, map,model);
 		return "/customer-center/oneList";
 	}
 	
@@ -134,8 +135,8 @@ public class CustomerCenterBean extends CustomerMethodBean{ // 가맹 문의 , 1
 	// 자주 묻는 목록 게시판 
 	
 	@RequestMapping("customerQA.do")  
-	public String customerQA(HttpServletRequest request,HashMap map){
-		boardList(request, map);
+	public String customerQA(HttpServletRequest request,HashMap map,Model model){
+		boardList(request, map,model);
 		return "/customer-center/customerList";
 	}
 	// 문의 작성 폼 

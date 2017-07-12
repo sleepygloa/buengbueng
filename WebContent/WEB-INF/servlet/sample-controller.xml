@@ -26,6 +26,7 @@
 	<context:component-scan base-package="erp.boss.bean" /> <!-- 사장님 ERP관리 BEAN -->
 	<context:component-scan base-package="manage.admin.bean" /> <!-- 관리자 페이지 BEAN -->
 	<context:component-scan base-package="menu.all.bean" /> <!-- Menu 총 기능 관리 BEAN -->
+	<context:component-scan base-package="remote.all.bean" /> <!-- 원격지원 서비스 BEAN -->
 	
 	<!-- FX BEAN INPORT 지정 -->
 	<context:component-scan base-package="fx.user.bean" /> <!-- FX 사용자 BEAN  -->
@@ -33,7 +34,7 @@
 	<context:component-scan base-package="payment.all.bean" /> <!-- 결제 관련 BEAN  -->
 	
 	<!-- DOWNLOAD 지정 -->
-	<!-- <bean id="download" class="test.spring.bean.DownloadView" /> -->
+	<bean id="download" class="manage.boss.bean.SetupFileDownloadView" />
 	
 	<!-- 이것은 View로 바로안가고 bean으로 가게 해주는 controller -->
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
@@ -85,7 +86,7 @@
 	</bean>
 	
 	<!-- DB 연동 : MySQL -->
-	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource"
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close"
           p:driverClassName="com.mysql.jdbc.Driver"
           p:url="jdbc:mysql://211.211.163.86:11056/buengbueng?useUnicode=yes&amp;characterEncoding=utf8"
