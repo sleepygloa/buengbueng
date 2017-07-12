@@ -44,11 +44,29 @@ public class FranchiseeSelect {
 		//알바생 아이디검사
 		if( id !=null && id.contains("employee") ){
 				list.add((FranchiseeDataDTO)sqlMap.queryForObject("erpEmp.getEidBkey", id));
-				sessionbkey(id,list);
+				try{
+					fdto = (FranchiseeDataDTO)list.get(0);
+						if(session.getAttribute("b_key") != null){
+							session.removeAttribute("b_key");		
+						}
+					session.setAttribute("b_key", fdto.getB_key());
+					System.out.println("가맹점 라이센스 세션("+fdto.getB_key()+")이 생성 되었습니다.");
+				}catch(Exception e){
+					System.out.println("가맹점 라이센스 세션생성 오류");
+				}
 
 		}else if(gradeCheck == 1){
 				list = (List)sqlMap.queryForList("erpEmp.getBossFranchiseeList", id);
-				sessionbkey(id,list);
+				try{
+					fdto = (FranchiseeDataDTO)list.get(0);
+						if(session.getAttribute("b_key") != null){
+							session.removeAttribute("b_key");		
+						}
+					session.setAttribute("b_key", fdto.getB_key());
+					System.out.println("가맹점 라이센스 세션("+fdto.getB_key()+")이 생성 되었습니다.");
+				}catch(Exception e){
+					System.out.println("가맹점 라이센스 세션생성 오류");
+				}
 		}else{
 			list = sqlMap.queryForList("franchisee.getFirstFranchiseeInfo", id);
 		}
@@ -58,16 +76,4 @@ public class FranchiseeSelect {
 		return "/bossERP/employeeManage/franchiseeList";
 	}
 
-	public void sessionbkey(String id,List list){
-		FranchiseeDataDTO fdto= new FranchiseeDataDTO();
-		HttpSession session = null;
-		try{
-			fdto = (FranchiseeDataDTO)list.get(0);
-				if(session.getAttribute("b_key") != null){
-					session.removeAttribute("b_key");		
-				}
-			session.setAttribute("b_key", fdto.getB_key());
-		}catch(Exception e){
-		}
-	}
 }

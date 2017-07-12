@@ -65,7 +65,7 @@
 					</div>
 				</div>
 <div class="col-xs-10-10 hr"></div>				
-				<div class="col-xs-10-10 col-sm-10-10 col-md-10-10  col_height30 contentBox_outline">
+				<div class="col-xs-10-10 col-sm-10-10 col-md-10-10  col_height70 contentBox_outline">
 					<div class="contentBox col_height0">
 						<div class="contentBox_a"><a href="#">보유 가맹점 수 : ${count1}</a></div>
 					</div>
@@ -87,7 +87,7 @@
 
 
 <div class="col-xs-10-10 hr"></div>				
-				<div class="col-xs-10-10 col-sm-10-10 col-md-10-10  col_height30 contentBox_outline">
+				<div class="col-xs-10-10 col-sm-10-10 col-md-10-10  col_height70 contentBox_outline">
 					<div class="contentBox col_height0">
 						<div class="contentBox_a"><a href="#">신청 중인 가맹점 수 : ${count2}</a></div>
 					</div>

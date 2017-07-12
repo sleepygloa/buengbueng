@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import login.user.bean.UseTimeLogDTO;
+import superclass.all.bean.FranchiseeSelect;
 import superclass.all.bean.ParsingDate;
 import superclass.all.bean.SuperClass;
 
@@ -38,6 +39,9 @@ public class BossEmployeeManageBean2 {
 	
 	@Autowired
 	protected SuperClass sc;
+	
+	@Autowired
+	public FranchiseeSelect fs;
 	
 	//사장님 알바생관리 메인 페이지
 	@RequestMapping("employeeLoginList.do")
@@ -101,8 +105,13 @@ public class BossEmployeeManageBean2 {
 	
 	//사장님 알바생관리 메인 페이지
 	@RequestMapping("employeeCalenderOnly.do")
-	public String employeeCalenderOnly(Model model){
+	public String employeeCalenderOnly(HttpSession session, String id, Model model){
+		if(session.getAttribute("loginId") != null){
+			id = (String)session.getAttribute("loginId");
+		}
 		
+		System.out.println("id 값을 받고 있나 "+id);
+		fs.franchiseeList(session, id, model);
 		return "/bossERP/employeeManage/employeeCalenderOnly";
 	}	
 	
