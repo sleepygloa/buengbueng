@@ -8,7 +8,7 @@
 		$("ul.tabs li:first").addClass("active").css("color", "blue");
 	    $("ul.tabs li").click(function () {
 	        $("ul.tabs li").removeClass("active").css("color", "#333");
-	        $(this).addClass("active").css("color", "red");
+	        $(this).addClass("active").css("color", "blue");
 	        $(".tab_content").hide();
 	        var activeTab = $(this).attr("rel");
 	        $("#" + activeTab).fadeIn();

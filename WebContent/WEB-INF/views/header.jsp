@@ -38,7 +38,9 @@
 		<!-- 알람 toast API JS 임시 -->
 		<script src="/buengbueng/css/toast/toast.js"></script>
 	
-
+		<!-- 챗봇 JS -->
+		<script src="/buengbueng/js/layer.js"></script>
+		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/chatbot/chatbot.css" />
 		
 		<!-- 홈페이지 제목 -->
 		
@@ -323,14 +325,14 @@
                   <li class="item sign"><a href="/buengbueng/userInfoForm.do">회원 정보보기</a></li>
                   <li class="item sign"><a href="#">${sessionScope.loginId}님 환영해요</a></li>
                   <c:if test="${sessionScope.grade!=4}" >
-                  	<li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
+                  	<li class="item sign"><a onclick="chattingView();" style="cursor: pointer;">실시간 문의</a></li>
                   </c:if>
                </c:if>
                <c:if test="${sessionScope.loginId == null}" >
                   <li class="item sign"><a href="/buengbueng/userInfoSignForm.do">회원가입</a></li>
                   <li class="item sign"><a href="">비밀번호찾기</a></li>
                   <li class="item sign"><a href="/buengbueng/loginForm.do">로그인</a></li>
-                  <li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
+                  <li class="item sign"><a onclick="chattingView();" style="cursor: pointer;">실시간 문의</a></li>
                </c:if>
                <c:if test="" >
                   <li class="item sign">관리자페이지</li>
@@ -401,5 +403,15 @@
 	 if(check == 5){$("#respon_submenu_intro").hide();$("#respon_submenu_user").hide();$("#respon_submenu_boss").hide();$("#respon_submenu_admin").hide();}
  }
  </script>
- 
- 
+
+<!-- 챗봇 창 -->
+ <div id="chatting" style="display:none;position:absolute;z-index: 10">
+ 	<div style="width:100%;background-color: gray;display: inline-block;">
+ 		<button id="pop_close" class="pop">x</button>
+ 		<button id="pop_max" class="pop">ㅁ</button>
+ 		<button id="pop_min" class="pop">＿</button><br/>
+ 	</div>
+ 	<div id="chattingDiv" style="width:100%;display:inline-block;">
+		<iframe src="http://localhost:3000/" width = 100% height="80%"></iframe>
+	</div>
+ </div>

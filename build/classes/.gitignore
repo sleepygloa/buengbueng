@@ -1,4 +1,9 @@
-/config/
-/erp/
-/manage/
+/setup/
+/menu/
+/payment/
+/pc/
+/pcRoom/
+/remote/
 /superclass/
+/test/
+/manage/
