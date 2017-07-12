@@ -27,14 +27,14 @@
                                   
                                 </columns>
                               </TableView>
-                              <TableView layoutX="184.0" layoutY="39.0" prefHeight="472.0" prefWidth="120.0">
+                              <TableView fx:id="commuteList" layoutX="184.0" layoutY="39.0" prefHeight="472.0" prefWidth="120.0">
                                 <columns>
-                                  <TableColumn prefWidth="119.0" text="출근한 아이디" />
+                                  <TableColumn fx:id="commuteListColumn" prefWidth="119.0" text="출근한 아이디" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="469.0" layoutY="76.0" mnemonicParsing="false" text="출근" />
-                              <TextField layoutX="321.0" layoutY="76.0" />
-                              <Button layoutX="519.0" layoutY="76.0" mnemonicParsing="false" text="퇴근" />
+                              <TextField fx:id="commuteIdText" layoutX="321.0" layoutY="76.0" />
+                              <Button fx:id="commute" layoutX="469.0" layoutY="76.0" mnemonicParsing="false" onMouseClicked="#commute" text="출근" />
+                              <Button fx:id="offWork" layoutX="519.0" layoutY="76.0" mnemonicParsing="false" onMouseClicked="#offWork" text="퇴근" />
                            </children>
                         </AnchorPane>
                       <AnchorPane fx:id="employeeInfoSection" minHeight="469.0" minWidth="596.0" prefHeight="496.0" prefWidth="608.0">

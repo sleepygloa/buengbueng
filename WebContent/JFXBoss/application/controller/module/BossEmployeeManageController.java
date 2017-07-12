@@ -34,6 +34,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -68,7 +69,13 @@ public class BossEmployeeManageController {
 	@FXML private TableColumn<EmployeeList,String> e_id; //테이블 컴럼 추가
 	private static ObservableList<EmployeeList> e_idListData =FXCollections.observableArrayList();
 	
+	@FXML private TableView<EmployeeList> commuteList;
+	@FXML private TableColumn<EmployeeList,String> commuteListColumn; //테이블 컴럼 추가
 	
+	
+	@FXML private TextField commuteIdText; //아이디 입력창
+	@FXML private Button commute; //출근
+	@FXML private Button offWork; //퇴근
 	
 	//좌하
 	@FXML private TabPane totalIdInfo; //좌하 의 탭페이지
@@ -119,6 +126,28 @@ public class BossEmployeeManageController {
 	@FXML private Button idInsertApplyBtn;
 	
 	@FXML
+	public void commute(){
+		StringToJson jsonTo = new StringToJson();
+		try{
+			//좌상 출근하기
+			jsonTo.urlConntectToReturnStringContainText("fxEmployeeCommute.do", commuteIdText); //Bean에 연결
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void offWork(){
+		StringToJson jsonTo = new StringToJson();
+		try{
+			//좌상 퇴근하기
+			jsonTo.urlConntectToReturnStringContainText("fxEmployeeOffWork.do", commuteIdText); //Bean에 연결
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
 	public void initialize(){
 		StringToJson jsonTo = new StringToJson();
 		try{
@@ -138,49 +167,20 @@ public class BossEmployeeManageController {
 			e_idListSection.getChildren().add(e_idListTable);
 		}catch(Exception e ){e.printStackTrace();}
 		
-
-			
-//			idInsertApplyBtn = new Button();
-//			idInsertApplyBtn.setOnMouseClicked(new EventHandler<MouseEvent>(){
-//				@Override
-//				public void handle(MouseEvent event) {
-//					//여기서나는 신청 수와 신청사유를 가져갈 것이야
-//					try{
-//						String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")
-//								+"&what="+URLEncoder.encode("return","UTF-8");
-//						String urlInfo = "http://localhost:8080/buengbueng/employeeAddPro.do";
-//						ConnectServer.connect(param, urlInfo);
-//					}catch(UnsupportedEncodingException uee){
-//						uee.printStackTrace();
-//					}
-//				}
-//			});	
-//					idInsertApply();
-			
-					
-			
-			
-			
-			
-			//각종 VIEW 생성
-//			splitVertical = new SplitPane();
-//			splitLeftHorizon = new SplitPane();
-//			splitRightHorizon  = new SplitPane();
-//			e_idListSection = new AnchorPane();
-//			employeeInfoSection = new AnchorPane();
+		
+		
+		//좌상 출근중인사람 리스트
+		try{
+			commuteList.getItems().clear();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 			
 			
 
 			
-			//좌상 추가신청 폼
 			
-			//좌상 삭제신청 폼
-			
-			//좌상 신청중인 아이디개수
-			
-			//좌상 보유중인 아이디개수
-			
-			//좌하 알바 신상 현황
+		//좌하 알바 신상 현황
 		try{
 			totalTable.getItems().clear();
 			e_idListData2.clear();
