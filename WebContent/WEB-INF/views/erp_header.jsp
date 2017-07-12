@@ -38,17 +38,64 @@
 		
 		<!-- 알람 toast API JS 임시 -->
 		<script src="/buengbueng/css/toast/toast.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	
-
-		
+		<!-- erp_header 관련 CSS 및 JS -->
+		<link rel="stylesheet" href="/buengbueng/css/menu.css"> 
+		<link rel="stylesheet" href="/buengbueng/css/erp_header.css">
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+	 	<script src="/buengbueng/js/menu.js"></script>
+	 	
+	 	<!-- erp_main 관련 CSS -->
+	 	<link rel="stylesheet" href="/buengbueng/css/erp_main.css">
+	 	
+	 	<link rel="stylesheet" href="/buengbueng/css/filp/jquery.flipster.min.css">
+		<script src="/buengbueng/js/filp/jquery.min.js"></script>
+		<script src="/buengbueng/js/filp/jquery.flipster.min.js"></script>
 		<!-- 홈페이지 제목 -->
-	</head>
+		<script>
+			/* When the user clicks on the button, 
+			toggle between hiding and showing the dropdown content */
+			function myFunction() {
+			    document.getElementById("myDropdown").classList.toggle("show");
+			}
+			
+			// Close the dropdown if the user clicks outside of it
+			window.onclick = function(event) {
+			  if (!event.target.matches('.dropbtn')) {
+			
+			    var dropdowns = document.getElementsByClassName("dropdown-content");
+			    var i;
+			    for (i = 0; i < dropdowns.length; i++) {
+			      var openDropdown = dropdowns[i];
+			      if (openDropdown.classList.contains('show')) {
+			        /* openDropdown.classList.remove('show'); */
+			      }
+			    }
+			  }
+			}
+			
+			
+			$(document).ready(function(){
+			    // memu 클래스 바로 하위에 있는 a 태그를 클릭했을때
+			    $(".menu>a").click(function(){
+			        // 현재 클릭한 태그가 a 이기 때문에
+			        // a 옆의 태그중 ul 태그에 hide 클래스 태그를 넣던지 빼던지 한다.
+			        $(this).next("ul").toggleClass("hide");
+			    });
+			});
+		</script>
 
- 
+
+
+
+					
+	</head>
+ 	
 
 	 	<!-- LOGIN SECTION -->
 	 	<header class="header_wrap" style="background:#2b3643; border:none; height:50px; float:left;">
-			<div class="header container " style="float:left;">
+			<div class="header container " style="float:left; height:50px;">
 				<div class="logo_box">
 					<div class="logo_con">
 						<p>buengbueng ERP</p>
@@ -57,16 +104,125 @@
 				</div>
 				
          </div>
+         <%-- <ul>
+			<c:if test="${sessionScope.loginId != null}" >
+                  <li class="item sign"><a href="#">${sessionScope.loginId}님</a></li>
+             
+               </c:if>
+
+               <c:if test="${sessionScope.loginId == null}" >
+                  <li class="item sign"><a href="/buengbueng/loginForm.do">로그인</a></li>
+               </c:if>
+          </ul> --%>
+         	   <div class="dropdown">
+					
+			      <div class="three col" >
+			      <div class="dropbtn"  style="z-index: 999999">
+			        <div class="hamburger dropbtn" id="hamburger-1" onclick="myFunction()" >
+			        <div>
+			          <span class="line dropbtn"></span>
+			          <span class="line dropbtn"></span>
+			          <span class="line dropbtn"></span>
+			          </div>
+			        </div>
+			        </div>
+			      </div>
+			      </div>
+			      
+			      
+			      
+					  <div id="myDropdown" class="dropdown-content">
+					 		
+					 		<li class="menu">
+					                <div class="stats_ms_menu">
+						                <div class="stats_ms_menu_top">
+						                	<div class="stats_ms_menu_top_left">
+						                		<c:if test="${sessionScope.loginId != null}" >
+						                			<span>${sessionScope.loginId}님</span>
+						                		</c:if>
+								                <c:if test="${sessionScope.loginId == null}" >
+								                	<a style="color:red;" href="/buengbueng/loginForm.do">로그인</a> 
+								                </c:if>
+								            </div>
+								            <div class="stats_ms_menu_top_right">
+								            	<a href="/buengbueng/index.do">사용자 페이지</a>
+								            </div>
+					                	</div>
+					                <select style="background:#293949; text-align:center; border-bottom:1px #344352 solid; " id="franchiseeSelect2" class="flist"></select>
+					                </div>
+					         
+					        </li>
+					    
+					        <li class="menu">
+					            <a class="menu_a">알바생 관리</a>
+					            <ul class="hide" style="float:left; width:100%; margin-top:10px;">
+					                <li><a href="employeeManageInfo.do">알바 아이디 관리</a></li>
+							          <li><a href="employeeInfoList.do">신상관리</a></li>
+							          <li><a href="#">알바 근태관리</a></li>
+							          <li><a href="employeeCalender.do">근무달력</a></li>
+							          <li><a href="employeeCommute.do">출근하기</a></li>
+							          <li><a href="employeeOffWork.do">퇴근하기</a></li>
+							          <li><a href="employeeWorkTimeList.do">출근기록 확인하기</a></li>
+							          <li><a href="#">휴가관리</a></li>
+							          <li><a href="bossEmployeeAccountManage.do">장부관리</a></li>
+					            </ul>
+					        </li>
+					 
+					        <li class="menu">
+					            <a class="menu_a">가맹점 PC이용현황</a>
+					            <ul class="hide" style="float:left; width:100%; margin-top:10px;">
+					                <li><a href="pcUseStatusList.do">가맹점 PC이용현황</a></li>
+					            </ul>
+					        </li>
+					        
+					        <li class="menu">
+					            <a class="menu_a">일일정산</a>
+					            <ul class="hide" style="float:left; width:100%; margin-top:10px;">
+					                <li><a href="applyForSettlement.do">일일정산 요청</a></li>
+							         <li><a href="dailySettlementList.do">일일정산 내역</a></li>
+					            </ul>
+					        </li>
+					        
+					        <li class="menu">
+					            <a class="menu_a">메뉴</a>
+					            <ul class="hide" style="float:left; width:100%; margin-top:10px;">
+					                <li class="active"><a href="menu.do">메뉴 관리</a></li>
+							        <li class="active"><a href="product.do">재고 리스트</a></li>
+					            </ul>
+					        </li>
+					        
+					        <li class="menu">
+					            <a class="menu_a">PC방 관리</a>
+					            <ul class="hide" style="float:left; width:100%; margin-top:10px;">
+					                <li><a href="seatDispose.do">PC방 좌석 정보 관리</a></li>
+						            <li><a href="seatState.do">PC방 좌석 이용 관리</a></li>
+					            </ul>
+					        </li>
+					        
+					        <li class="menu">
+					            <a class="menu_a">대여관리</a>
+					            <ul class="hide" style="float:left; width:100%; margin-top:10px;">
+					                <li><a href="rentManage.do">대여물품 관리</a></li>
+					            </ul>
+					        </li>
+					    
+					    </div>
+					 
+		
+		     
+	
+
+						      
          <div class="util_menu">
          	<ul>
 			<c:if test="${sessionScope.loginId != null}" >
                   <li class="item sign"><a href="#">${sessionScope.loginId}님</a></li>
-                  <li class="item sign"><a href="/buengbueng/userInfoForm.do">회원 정보보기</a></li>
+                  <li class="item sign"><a href="/buengbueng/index.do">로그아웃</a></li>
+                  <li class="item sign"><a href="/buengbueng/index.do">사용자 페이지</a></li>
                   <!-- <li class="item sign"><a href="/buengbueng/logout.do">로그아웃</a></li> -->
                   <c:if test="${sessionScope.grade!=4}" >
                   	<li class="item sign"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 문의</a></li>
                   </c:if>
-                  <li class="item sign"><a href="/buengbueng/index.do">로그아웃</a></li>
                </c:if>
 
                <c:if test="${sessionScope.loginId == null}" >
@@ -79,8 +235,10 @@
                <c:if test="${sessionScope.grade==4}" >
 			      <li class="item sign"><a href="/buengbueng/dashIndex.do">관리자 페이지</a></li>
 			   </c:if>
-			  </ul> 			
+			  </ul>
+			  
 		 </div>	
+		 
       </header>
       
 <section class="main_wrap" style="float:left;"> 
@@ -144,5 +302,7 @@
 	 if(check == 5){$("#respon_submenu_intro").hide();$("#respon_submenu_user").hide();$("#respon_submenu_boss").hide();$("#respon_submenu_admin").hide();}
  }
  </script>
+ 
+ 
  
  

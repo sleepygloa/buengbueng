@@ -216,21 +216,16 @@ public class PaymentBean {
 		String paying_price = request.getParameter("pay");
 		String payment_type = request.getParameter("cardtype");
 		String pg_tid = request.getParameter("pg_tid");
-		System.out.println("pg_tid = s	" + pg_tid);
+		
 		//API 부가적인 정보
 		String card_code = request.getParameter("card_code");
-		System.out.println("card_code =" + card_code);
 		String merchant_uid = request.getParameter("merchant_uid");
 		String imp_uid = request.getParameter("imp_uid");
+		
 		//session과 일치하는 회원정보 수집
 		UserInfoDataDTO info1 = (UserInfoDataDTO)sqlMap.queryForObject("cash.cash_payment_useInfoLoad", id);
 		UserAccountDTO account = (UserAccountDTO)sqlMap.queryForObject("cash.cash_userAccount", id);
-		
-		System.out.println("결제 완료 imp_uid" + imp_uid);
-		System.out.println("결제 완료 confirmation" + confirmation);
-		//API 부가적인 정보
-		System.out.println("결제 완료 merchant_uid" + merchant_uid);
-		
+				
 		//회원이 결제한 회원 결제 정보 insert
 		sqlMap.insert("cash.cash_input", dto);
 		

@@ -1,0 +1,124 @@
+@CHARSET "UTF-8";
+.main_con{width:97%;background:#555; height:auto; MARGIN:20px AUTO;}
+.totalAmount_color{color:#2AB4C0;}
+.totalAmount_color2{color:#F36A5A;}
+.totalAmount_color3{color:#5C9BD1;}
+.totalAmount_color4{color:#8877A9;}
+.box1{width:24%; height:120px; background: #3598DC; float:left; margin-right:1.3%; overflow: hidden;}
+.box1_5{width:24%; height:120px; background: #E7505A; float:left; margin-right:1.3%; overflow: hidden;}
+.box1_6{width:24%; height:120px; background: #32C5D2; float:left; margin-right:1.3%; overflow: hidden;}
+.box1_1{width:24%; height:120px; background: #8E44AD; float:left; overflow: hidden;}
+
+
+.fafa_icon1{margin-top: -60px; margin-left: -59px; font-size: 110px; color:#62A5DD; opacity: 0.4;}
+.fafa_icon2{margin-top: -60px; margin-left: -59px; font-size: 110px; color:#E9616A; opacity: 0.4;}
+.fafa_icon3{margin-top: -60px; margin-left: -59px; font-size: 110px; color:#53d1dc; opacity: 0.8;}
+.fafa_icon4{margin-top: -60px; margin-left: -59px; font-size: 110px; color:#9956B5; opacity: 0.4;}
+
+
+.box_con_top p{font-size: 30px; line-height: 2.2; margin-left: 10px; text-align: right;}
+.box2{width:25%;height:150px; background: green; float:left;}
+.box_con{width:85%; height:70%; background: #3598DC; margin: 20px auto; }
+.box_con_top{height:60%; width:100%; margin-top:10px; }
+.box_con_bottom p{ font-size: 14px; margin-left: 10px; line-height: 1.2;  color: #fff;  text-align: right;}
+
+.box_con_top1_1 p{font-size: 30px; line-height: 2.2; margin-left: 10px; text-align: right;}
+.box_con1_1{width:85%; height:70%; background: #8E44AD; margin: 20px auto; }
+.box_con_top1_1{height:60%; width:100%; margin-top:10px; }
+.box_con_bottom1_1 p{ font-size: 14px; margin-left: 10px; line-height: 1.2;  color: #fff;  text-align: right;}
+
+.box_con_top1_5 p{font-size: 30px; line-height: 2.2; margin-left: 10px; text-align: right;}
+.box_con1_5{width:85%; height:70%; background: #3E7505A; margin: 20px auto; }
+.box_con_top1_5{height:60%; width:100%; margin-top:10px; }
+.box_con_bottom1_5 p{ font-size: 14px; margin-left: 10px; line-height: 1.2;  color: #fff;  text-align: right;}
+
+.box_con_top1_6 p{font-size: 30px; line-height: 2.2; margin-left: 10px; text-align: right;}
+.box_con1_6{width:85%; height:70%; background: #32C5D2; margin: 20px auto; }
+.box_con_top1_6{height:60%; width:100%; margin-top:10px; }
+.box_con_bottom1_6 p{ font-size: 14px; margin-left: 10px; line-height: 1.2;  color: #fff;  text-align: right;}
+
+
+.box3{width:49.3%; height:320px; background: #fff; float:left; margin-top:20px;margin-right:1.3%; border: 1px #e7ecf1 solid; }
+.box3_1{width:24%; height:320px; background: #fff; float:left; margin-top:20px;margin-right:1.3%; border: 1px #e7ecf1 solid;}
+.box3_2{width:24%; height:320px; background: #fff; float:left; margin-top:20px; overflow: auto; border: 1px #e7ecf1 solid; }
+.box3_3{width:49.3%; height:320px; background: #fff; float:left; margin-top:20px;border: 1px #e7ecf1 solid;  overflow: auto;}
+
+/* 달력관리 */
+.box4{width:49.3%; border: 1px #e7ecf1 solid; float:left; height:700px; margin-top:20px; margin-right:1.3%;}
+
+.box3 p, .box3_1 p, .box3_2 p,.box4 p,.box3_3 p{ text-align: left;
+   margin: 10px 10px auto;
+   margin-bottom: 10px;
+   font-weight: bold;
+   font-size: 16px;
+}
+
+
+
+.erp_more_btn{color: #E7505A; border: 1px #E7505A solid; border-radius: 15px; background: none; font-size: 12px; width: 74px; transition: 0.3s; height: 22px; float: right;}
+.erp_more_btn:HOVER{color:#fff; background:#E7505A; transition:0.3s}
+
+.box3 hr, .box3_1 hr, .box3_2 hr, .box4 hr,.box3_3 hr{margin: 0 auto; width: 98%;  margin-bottom: 20px;}
+.StockList_table{margin: 0 auto; width: 98%; border: 1px #e7ecf1 solid; text-align: center; margin-bottom:20px;}
+.StockList_table th{border: 1px #e7ecf1 solid; text-align: center;font-size: 14px; height:30px; }
+
+.StockList_table td{border: 1px #e7ecf1 solid; height: 28px; font-size: 14px;}
+
+.StockList_table{margin: 0 auto; width: 98%; border: 1px #e7ecf1 solid; text-align: center; margin-bottom:20px;}
+.StockList_table th{border: 1px #e7ecf1 solid; text-align: center;font-size: 14px; height:30px; }
+
+.StockList_table td{border: 1px #e7ecf1 solid; height: 28px; font-size: 14px;}
+/* 	.StockList_table thead{display: block; width: 100%; }
+	.StockList_table tbody{overflow: auto;display: block; height: 200px; width: auto;} */
+.con_2{margin-top: 10px; float: left; width: 100%;}
+.bt_2{
+	background: #29B4B6;
+	color:#fff;
+	font-size: 13px;
+	margin:0 auto;
+	width:60px;
+	height:18px;
+}
+.bt_3{
+	background-color: #E43A45;
+	color:#fff;
+	font-size: 13px;
+	margin:0 auto;
+	width:60px;
+	height:18px;
+}
+.bt_4{
+	background: #F4D03F;
+	color:#fff;
+	font-size: 13px;
+	margin:0 auto;
+	width:60px;
+	height:18px;
+}
+.noCount{height:199px;}
+.noCount p {text-align: center; font-size: 16px;}
+
+.erp_main_title{width:97%;  height:26px; MARGIN:20px AUTO; }
+.erp_main_title p{font-size: 19px; font-weight: bold; color:#666}
+
+
+
+
+
+
+
+@media screen and (max-width: 768px) { 
+	.box1, .box1_1,.box1_5,.box1_6{
+		width:100%;
+		margin-bottom:10px;
+	}
+	.box3,.box3_1,.box3_2,.box4{width:100%;}
+	.side_content, .container{height:auto;}
+	/* .box_con_top p{font-size: 12px;} */
+
+	
+} 
+@media screen and (max-width: 1800px) { 
+		
+		
+}

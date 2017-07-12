@@ -38,10 +38,17 @@ public class BossEmployeeManageBean {
 	@Autowired
 	protected SuperClass sc;
 	
+	//사장님 알바생관리 메인 페이지 세션 처리
+		@RequestMapping("bossErpMainSession.do")
+		public String bossErpMainSession(Model model, HttpSession session, String pageNum,String pageNum2){
+			String id = sc.getSessionIdModelId(model, session); //sessionId, model.addAttribute(id) template
+			fs.franchiseeList(session, id, model);
+			return "redirect:/bossErpMain.do";
+		}
 	
 	//사장님 알바생관리 메인 페이지
 	@RequestMapping("bossErpMain.do")
-	public String bossEmployeeInfoMain(Model model, HttpSession session){
+	public String bossEmployeeInfoMain(Model model, HttpSession session, String pageNum,String pageNum2){
 		String b_key = (String)session.getAttribute("b_key");
 		Calendar day = Calendar.getInstance();
         day.add(Calendar.DATE, 0);
@@ -53,7 +60,7 @@ public class BossEmployeeManageBean {
 		
 		String id = sc.getSessionIdModelId(model, session); //sessionId, model.addAttribute(id) template
 		
-		fs.franchiseeList(session, id, model);
+		
 		
 		HashMap mainInfo = new HashMap<>();
 		mainInfo.put("startDate", startDate);
@@ -61,8 +68,11 @@ public class BossEmployeeManageBean {
 		mainInfo.put("b_key", b_key);
 		
 		
+		
+		/// 각 페이지 카운트
 		int count = (int)sqlMap.queryForObject("erpEmp.totalAmountCount", b_key);
-		int count2 = (int)sqlMap.queryForObject("erpEmp.dailyUserCount", b_key);
+		int count2 = (int)sqlMap.queryForObject("erpEmp.dailyUserCount", mainInfo);
+		System.out.println("count2" + count2);
 		int count3 = (int)sqlMap.queryForObject("erpEmp.dailyAmountCount", mainInfo);
 		
 		if(count > 0){
@@ -71,7 +81,7 @@ public class BossEmployeeManageBean {
 			System.out.println("totalAmount" + totalAmount);
 		}
 		if(count2 > 0){
-			int dailyUserCount = (int) sqlMap.queryForObject("erpEmp.dailyUserCount", b_key);
+			int dailyUserCount = (int) sqlMap.queryForObject("erpEmp.dailyUserCount", mainInfo);
 			model.addAttribute("dailyUserCount", dailyUserCount);
 			System.out.println("dailyUserCount" + dailyUserCount);
 		}
@@ -82,6 +92,109 @@ public class BossEmployeeManageBean {
 			System.out.println("dailyAmount" + dailyAmount);
 		}
 		
+		
+		//box4 출 퇴근 리스트
+		try{
+			int check = (Integer)sqlMap.queryForObject("erpEmp.getUserGrade", id);//알바인지, 사장님인지 구분한다.
+			//리스트를 뽑는다.
+			List list = new ArrayList();
+			
+			if(check == 1){
+				//사장님이면	
+				list = (List)sqlMap.queryForList("erpEmp.getEmployeeWorkTimeList", id);
+			}else if(check == 2){
+				//알바생이면				
+				id = (String)sqlMap.queryForObject("erpEmp.getEidBid", id);
+				list = (List)sqlMap.queryForList("erpEmp.getEmployeeWorkTimeList", id);
+			}else{}
+		
+			model.addAttribute("list", list);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		
+		
+		// 사용 현황
+		//내역 리스트
+		if (pageNum == null) {
+            pageNum = "1";
+        }
+        int pageSize = 99999;
+        int currentPage = Integer.parseInt(pageNum);
+        int startRow = (currentPage - 1) * pageSize + 1;
+        int endRow = currentPage * pageSize;
+        int count4 = 0;
+        int number= 0;
+	
+        List articleList = null;
+               
+        count4 = (Integer)sqlMap.queryForObject("erpEmp.useStatusCount", b_key);
+        System.out.println("count" + count);
+        
+        if(count4 > 0){
+        	HashMap r = new HashMap<>();
+     	    r.put("startRow", startRow);
+     	    r.put("endRow", endRow);
+     	    r.put("b_key", b_key);
+     	    articleList = sqlMap.queryForList("erpEmp.useStatusList", r);
+     	    System.out.println("articleList" + articleList.size());
+        } else {
+        	articleList = Collections.EMPTY_LIST;
+        }
+        
+     
+        number = count4 - (currentPage - 1) * pageSize;
+        
+      //일일정산내역 리스트
+  		if (pageNum2 == null) {
+              pageNum2 = "1";
+          }
+          int pageSize2 = 40;
+          int currentPage2 = Integer.parseInt(pageNum);
+          int startRow2 = (currentPage - 1) * pageSize + 1;
+          int endRow2 = currentPage * pageSize;
+          int count5 = 0;
+          int number2= 0;
+  	
+          List articleList2 = null;
+                 
+          count5 = (Integer)sqlMap.queryForObject("erpEmp.dailySettlementCount", b_key);
+          System.out.println("count" + count);
+          
+          if(count5 > 0){
+          	HashMap r = new HashMap<>();
+       	    r.put("startRow", startRow);
+       	    r.put("endRow", endRow);
+       	    r.put("b_key", b_key);
+       	    articleList2 = sqlMap.queryForList("erpEmp.dailySettlementList", r);
+          } else {
+          	articleList2 = Collections.EMPTY_LIST;
+          }
+          
+       
+          number2 = count5 - (currentPage - 1) * pageSize;
+          
+  	    
+          model.addAttribute("articleList2", articleList2);
+          model.addAttribute("currentPage2", new Integer(currentPage2));
+          model.addAttribute("startRow2", new Integer(startRow2));
+          model.addAttribute("endRow2", new Integer(endRow2));
+          model.addAttribute("count5", new Integer(count5));
+          model.addAttribute("pageSize2", new Integer(pageSize2));
+          model.addAttribute("number2", new Integer(number2));
+        
+         
+	    model.addAttribute("articleList", articleList);
+	    model.addAttribute("currentPage", new Integer(currentPage));
+	    model.addAttribute("startRow", new Integer(startRow));
+	    model.addAttribute("endRow", new Integer(endRow));
+	    model.addAttribute("count4", new Integer(count4));
+	    model.addAttribute("pageSize", new Integer(pageSize));
+	    model.addAttribute("number", new Integer(number));
+	    
+	    
 		model.addAttribute("count", count);
 		model.addAttribute("count2", count2);
 		model.addAttribute("count3", count3);

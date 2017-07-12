@@ -76,4 +76,30 @@ public class FranchiseeSelect {
 		return "/bossERP/employeeManage/franchiseeList";
 	}
 
+	@RequestMapping("franchiseeSelectList2.do")
+	public String franchiseeList2(HttpSession session,String id,Model model){
+		List list = new ArrayList();
+		FranchiseeDataDTO fdto= null;
+		int gradeCheck = 0;
+		try{
+			gradeCheck = (Integer)sqlMap.queryForObject("erpEmp.getUserGrade", id);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		//알바생 아이디검사
+		if( id !=null && id.contains("employee") ){
+				list.add((FranchiseeDataDTO)sqlMap.queryForObject("erpEmp.getEidBkey", id));
+		}else if(gradeCheck == 1){
+				list = (List)sqlMap.queryForList("erpEmp.getBossFranchiseeList", id);
+		}else{
+			list = sqlMap.queryForList("franchisee.getFirstFranchiseeInfo", id);
+		}
+
+		model.addAttribute("flist",list);
+		
+		return "/bossERP/employeeManage/franchiseeList";
+	}
+	
+	
 }

@@ -43,7 +43,7 @@ public class BossEmployeeManageBean4 {
 		String b_key = (String)session.getAttribute("b_key");
 		
 		String affiliateCodeList = b_key;
-		System.out.println("affiliateCodeList" + affiliateCodeList);
+		
 		
 		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
@@ -54,6 +54,7 @@ public class BossEmployeeManageBean4 {
         Calendar c1 = Calendar.getInstance();
 
         String Today = sdf.format(c1.getTime());
+        
         String TodayEndTime = end.format(c1.getTime());
         
 		Calendar day = Calendar.getInstance();
@@ -76,19 +77,19 @@ public class BossEmployeeManageBean4 {
 		
 		//일일정산시 총 합계금액 계산
 		String dailyAmount = (String) sqlMap.queryForObject("erpEmp.dailyAmount", time);
-		System.out.println("dailyAmount" + dailyAmount);
 		String dailyPureAmount = (String) sqlMap.queryForObject("erpEmp.dailyPureAmount", time);	
-		System.out.println("dailyPureAmount" + dailyPureAmount);
+		
 		int dailyCount = 0;
+		
 		dailyCount = (Integer) sqlMap.queryForObject("erpEmp.dailyCount", time);
 		System.out.println("dailyCount" + dailyCount);
 		
-		/*내역 리스트 *********************************************************************/
+		/*현재 오늘 기준으로 어제 사용자가 pc사용한 내역 리스트 *********************************************************************/
 		
 		if (pageNum == null) {
             pageNum = "1";
         }
-        int pageSize = 40;
+        int pageSize = 10;
         int currentPage = Integer.parseInt(pageNum);
         int startRow = (currentPage - 1) * pageSize + 1;
         int endRow = currentPage * pageSize;
@@ -96,12 +97,11 @@ public class BossEmployeeManageBean4 {
         int number= 0;
         
         count = (Integer)sqlMap.queryForObject("erpEmp.B_keyValidity", affiliateCodeList);
-        System.out.println("가맹점에서 이용한 사용한 내역 카운트 =" + count);
+   
         List articleList = null;
         
-        
-        
-        if(count > 0){
+             
+        if(dailyCount > 0){
         	HashMap r = new HashMap<>();
         	
     		r.put("startDate", startDate);
@@ -117,24 +117,30 @@ public class BossEmployeeManageBean4 {
         	articleList = Collections.EMPTY_LIST;
         }
         
-        number = count - (currentPage - 1) * pageSize;
+        number = dailyCount - (currentPage - 1) * pageSize;
         
         /**************************************************************************************************/
         
         /**정산신청 중복방지******************************************************************************************/
         
         HashMap checkValue = new HashMap<>();
-        checkValue.put("settlementDate", TodayEndTime);
+        checkValue.put("endDate", TodayEndTime);
+        checkValue.put("startDate", Today);
         checkValue.put("b_key", affiliateCodeList);
+        
         int check =  (int) sqlMap.queryForObject("erpEmp.checkValue", checkValue);
-        System.out.println("check" + check);
         int checkPoint = 0;
-		if(check < 1){ //  check 0 일결우 삽입
-			
+        
+		if(check < 2 && check > -1){ //  check 0 일결우 삽입
 			checkPoint = 1;
-			System.out.println("checkPoint" + checkPoint);
+			request.setAttribute("checkPoint", checkPoint);
 		}else if(check >= 1){ //  check 0이 아닐 경우에 블럭
 			checkPoint = 2;
+			request.setAttribute("checkPoint", checkPoint);
+		}else if(check == 0){
+			checkPoint = 3;
+			request.setAttribute("checkPoint", checkPoint);
+			
 		}
 		
 		/**************************************************************************************************/
@@ -155,7 +161,7 @@ public class BossEmployeeManageBean4 {
 		request.setAttribute("affiliateCodeList", affiliateCodeList);
 		request.setAttribute("dailyCount", dailyCount);
 
-		request.setAttribute("checkPoint", checkPoint);
+		
 		
 		request.setAttribute("Today", Today);
 	    request.setAttribute("TodayEndTime", TodayEndTime);
@@ -196,7 +202,7 @@ public class BossEmployeeManageBean4 {
 	@RequestMapping("/dailySettlementList.do")
 	public String dailySettlementList(String pageNum, HttpSession session,Model model, HttpServletRequest request)throws Exception{
 		String b_key = (String)session.getAttribute("b_key");
-		System.out.println(b_key);
+		System.out.println("이거아냐?"+b_key);
 		
 		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
@@ -306,19 +312,14 @@ public class BossEmployeeManageBean4 {
 	@RequestMapping("/pcUseStatusList.do")
 	public String pcUseStatusList(HttpSession session, Model model, String pageNum, HttpServletRequest request){
 		String b_key = (String)session.getAttribute("b_key");
-		System.out.println(b_key);
-		
 
 		sc.sideMenuTemp(model, 1, 3); //sidemenu template
-
-		
-
 		
 		//내역 리스트
 		if (pageNum == null) {
             pageNum = "1";
         }
-        int pageSize = 4;
+        int pageSize = 40;
         int currentPage = Integer.parseInt(pageNum);
         int startRow = (currentPage - 1) * pageSize + 1;
         int endRow = currentPage * pageSize;
@@ -357,20 +358,6 @@ public class BossEmployeeManageBean4 {
 		return "/bossERP/pcUseStatus/pcUseStatusList";
 	}
 	
-	@RequestMapping("/chart.do")
-	public String chart(HttpSession session, HttpServletRequest request){
-		String b_key = (String)session.getAttribute("b_key");
-		System.out.println("key" + b_key);
-		List chart = sqlMap.queryForList("erpEmp.chartData", b_key);
-		System.out.println("chart"+ chart);
-		request.setAttribute("chartList", chart);
-		for(int i=0; i<chart.size(); i++){
-			System.out.println("chartaaa"+ chart.get(i));
-			request.setAttribute("chart", chart.get(i));
-		}
-		
-		return "/bossERP/chart/chart";
-	}
 	
 	@RequestMapping("userviewDetails.do")
 	public String userviewDetails(String id,HttpSession session,String starttime, String endtime, HttpServletRequest request){

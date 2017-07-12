@@ -3,7 +3,7 @@
 /* --- 기본 설정 CSS ---*/
 @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
 html{overflow-y:scroll;} /* x y 축 스크롤링 가능 */
-body{height: 100%; float:left;}
+body{height: 100%; float:left; list-style: none;}
 .clearfix::after{display:block;content:'';clear:both}
 section{height:100%;min-height: 100vh;} /* 세로 100% 최대크기 */
 img{vertical-align:middle} /* 사진은 기본으로 세로가운데정렬 */
@@ -15,7 +15,7 @@ h3{font-size:2.3em;line-height:1.2688;margin-bottom:.6344em} /* 10px=.634 */
 h2{font-size:2.9em;line-height:1.5348;margin-bottom:.511em}  /* 8px=.511 */
 h1{font-size:3.6em;line-height:1.2378;margin-bottom:.438em} /* 7px=.438 */ 
 a,a:visited,h1,h2,h3,h4,h5,h6,p{color:#5c5c5c; font-family:'Nanum Gothic';}
-
+li {list-style: none;}
 div{
 	display:block;position:relative;
 }
@@ -51,6 +51,8 @@ header, section, footer{
 	.col-xs-11-12{width:91.5%}
 	.col-xs-10-10{width:100%}
 	.col-xs-12-12{width:100%}
+	
+	
 }
 @media screen and (min-width:768px){
 	[class*=col-]{margin-bottom:2em}
@@ -76,6 +78,7 @@ header, section, footer{
 	.col-sm-11-12{width:91.5%}
 	.col-sm-10-10{width:100%}
 	.col-sm-12-12{width:100%}
+
 }
 
 @media screen and (min-width:1200px){
@@ -106,6 +109,15 @@ header, section, footer{
 }
 
 /* 안보이게 하는 태그 */
+
+@media screen and (max-width: 1200px) { 
+	.dst_1{
+		display:none;
+	}
+	.util_menu{
+		display:none;
+	}
+} 
 @media screen and (min-width:250px){
 	.xs_hidden{display:none;}
 	.md_hidden{display:block;}

@@ -17,7 +17,8 @@
 		</c:if>
 		
 		<c:if test="${affiliateCodeList != null }"> --%>
-		<div class="ERP_Navigator">
+		
+		<div class="ERP_Navigator ">
 			<ul>
 				<li>ERP 관리</li>
 				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
@@ -26,7 +27,7 @@
 				<li>일일정산 내역</li>
 			</ul>
 		</div>
-		<div class="boss_con">
+		<div class="boss_con table-responsive ">
 			<p>일일정산 내역</p>
 			<hr>
 			<table border="1" class="dailySettlementList_table">
@@ -62,7 +63,7 @@
 						<td>${articleList.bossId}</td>
 						<td>${articleList.companyName}</td>
 						<td>${articleList.settlementNumber}</td>
-						<td>${articleList.requestedAccount} &#8361;</td>
+						<td>${articleList.requestedAccount}</td>
 						<td>${articleList.settlementAmount} &#8361;</td>
 						<td><div class="bt_1"><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do', '_blank', 'width=550 height=500')" >상세보기</a></div></td>
 						<td>

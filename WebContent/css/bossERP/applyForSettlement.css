@@ -1,5 +1,5 @@
 @CHARSET "UTF-8";
-body{height:100%;}
+body{height:100%; width:100%;}
 .wrap{
 	border:1px #fff solid;
 	background:#fff;
@@ -9,6 +9,7 @@ body{height:100%;}
 }
 .title_box{
 	border-bottom:1px #eef1f5 solid;
+	background:red;
 	width:100%;
 	height:36px;
 	margin: 9px auto;
@@ -133,7 +134,7 @@ body{height:100%;}
 	height:24px;
 }
 .bt_2{
-	background-color: RED;
+	background: #29B4B6;
 	color:#fff;
 	font-size: 13px;
 	margin:0 auto;
@@ -141,7 +142,7 @@ body{height:100%;}
 	height:24px;
 }
 .bt_3{
-	background-color: BLUE;
+	background-color: #E43A45;
 	color:#fff;
 	font-size: 13px;
 	margin:0 auto;
@@ -149,7 +150,7 @@ body{height:100%;}
 	height:24px;
 }
 .bt_4{
-	background-color: YELLOW;
+	background: #F4D03F;
 	color:#fff;
 	font-size: 13px;
 	margin:0 auto;

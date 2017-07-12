@@ -4,16 +4,16 @@ import java.sql.Timestamp;
 public class UserBillingHistoryDTO {
 	
 	private int idx;
+	private String buyer_chatid;
 	private Timestamp payment_date;
 	private String payment_type;
 	private String paying_name;
 	private int paying_price;
 	private String confirmation;
 	private String error_msg;
-	private String buyer_chatid;
 	private String pg_name;
-	private String imp_uid;
 	private String merchant_uid;
+	private String imp_uid;
 	private String pg_tid;
 	
 	
