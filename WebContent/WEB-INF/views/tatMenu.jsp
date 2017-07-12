@@ -7,7 +7,7 @@
 		<title>Insert title here</title>
 		<style>
 		#container {
-			width:100%;
+			width:960px;
 			margin:0 auto;
 			text-align:center;
 		}
@@ -51,14 +51,16 @@
 	
 	<body>
 		<div id="container">
-		<div style="margin-bottom:60px;">
-			<ul class="tab">
-				<li class="current" data-tab="tab1"><a href="#">About</a></li>
-				<li data-tab="tab2"><a href="#">Portfolio</a></li>
-				<li data-tab="tab3"><a href="#">Contact</a></li>
-				<li data-tab="tab4"><a href="#">Travel</a></li>
-			</ul>
-		</div>
+		<h2>How to develop a tab menu with jQuery</h2>
+		<p>제작자 : 박경두</p>
+		<p>고려대학교 경영정보학과</p>
+		<p>멋쟁이 사자처럼 4기</p>
+		<ul class="tab">
+			<li class="current" data-tab="tab1"><a href="#">About</a></li>
+			<li data-tab="tab2"><a href="#">Portfolio</a></li>
+			<li data-tab="tab3"><a href="#">Contact</a></li>
+			<li data-tab="tab4"><a href="#">Travel</a></li>
+		</ul>
 
 		<div id="tab1" class="tabcontent current">
 			<h3>About</h3>

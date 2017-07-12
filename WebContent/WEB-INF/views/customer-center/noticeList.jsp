@@ -6,6 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공지사항</title>
+
+	
+	</head>
 <c:if test="${sessionScope.loginId=='admin'}"> 
 <div><a href = "noticeForm.do?snum=${snum}&pageNum=${pageNum}">공지하기</a></div>
 </c:if>
