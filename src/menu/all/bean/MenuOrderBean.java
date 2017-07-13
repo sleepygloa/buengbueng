@@ -1,6 +1,5 @@
 package menu.all.bean;
 
-import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -265,12 +264,14 @@ public class MenuOrderBean {
 			request.setAttribute("canList", canList);
 			request.setAttribute("cantList", cantList);
 			request.setAttribute("orderList", orderList);
-			request.setAttribute("l_key",l_key);	
+			request.setAttribute("l_key",l_key);
+			
 		}catch(Exception e){e.printStackTrace();}
 		
 		if(tf == null){
 			return "/menu/menuOrderListForm";
 		}else{
+			System.out.println("Ddd");
 			return "/menu/menuOrderTable";
 		}
 		
