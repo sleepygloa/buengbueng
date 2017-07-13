@@ -107,7 +107,7 @@ public class UserInfoBean {
 			
 		}
 		request.setAttribute("check", check);
-		return "/index";
+		return "redirect:/index.do";
 	}
 	
 	//로그아웃 클릭시 세션이 종료됨 =--> 메인페이지로 이동
@@ -154,7 +154,7 @@ public class UserInfoBean {
 			session.invalidate();
 		}
 		
-		return "/index";
+		return "redirect:/index.do";
 	}
 
 	//아이디찾기 폼으로 이동

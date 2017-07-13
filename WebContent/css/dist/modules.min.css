@@ -276,18 +276,21 @@ header, section, footer{
 @media screen and (min-width:768px){
 	.main_ad{padding-top:2em;}
 }
-@media screen and (max-width:1200px){
+@media screen and (min-width:1200px){
 	.main_ad{padding-top:3em;}
 }
 
 @media screen and (min-width:250px){
 	.row-xs-2-12{height:20%;}
+	.colres_height600{height:450px;}
 }
 @media screen and (min-width:768px){
 	.row-sm-4-12{height:30%;}
+	.colres_height600{height:600px;}
 }
-@media screen and (max-width:1200px){
+@media screen and (min-width:1200px){
 	.row-md-6-12{height:60%;}
+	.colres_height600{height:600px;}
 }
 
 .col_height10{height:10px;}.col_height20{height:20px;}.col_height20{height:20px;}.col_height30{height:30px;}.col_height40{height:40px;}.col_height50{height:50px;}.col_height60{height:60px;}.col_height70{height:70px;}.col_height80{height:80px;}.col_height90{height:90px;}
@@ -319,9 +322,21 @@ header, section, footer{
 .main_ad_contentBox > div{margin-bottom:0px;}
 .main_ad_contentBox > .contentBox_outline{padding:10px;}
 
-.contentBox{text-align:center;height:100%;width:100%;padding:20px;background-color:#fff;}
-.contentBox .contentBox_a {margin-bottom:20px;}
-.contentBox .contentBox_a a{font-size:1.5em;}
+@media screen and (min-width:250px){
+	.contentBox .contentBox_a a{font-size:1.5em;}
+	.contentBox{text-align:center;height:100%;width:100%;padding:30 20;background-color:#fff;}
+}
+@media screen and (min-width:768px){
+}
+@media screen and (min-width:1200px){
+	.contentBox .contentBox_a a{font-size:1.4em;}
+	.contentBox{padding:30 20;}
+}
+
+
+
+.contentBox .contentBox_a {margin-bottom:15px;}
+
 
 .contentBox_right{float:right;}
 

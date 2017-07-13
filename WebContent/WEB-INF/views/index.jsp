@@ -51,7 +51,7 @@ background-color:#EEF1F2;
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10 col_height200 contentBox_outline contentBox_right">
 					<div class="contentBox col_height0" >
 						<div class="login_title">
-							<p>환영합니다. 원활한 이용을 위해 로그인이 필요합니다.</p>
+							<p>환영합니다. 이용을 위해 로그인이 필요합니다.</p>
 						</div>
 						<div class="contentBox_img_banner"><a href="loginForm.do"><img src="/buengbueng/img/index/login_banner.png" width="100%;" height="50px;" /></a></div>
 						<div class="contentBox_login_other">
@@ -97,7 +97,7 @@ background-color:#EEF1F2;
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10  col_height600 contentBox_outline contentBox_right">
+				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10  colres_height600 contentBox_outline contentBox_right">
 					<div class="contentBox col_height0">
 						<div class="contentBox_a"><a href="#">이벤트 & 광고</a></div>
 						<div><i class="fa fa-newspaper-o fa-4x" aria-hidden="true"></i></div>
@@ -128,8 +128,8 @@ background-color:#EEF1F2;
 				</div>					
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">포인트 결제</a></div>
-						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
+						<div class="contentBox_a " style="margin-bottom:0px;"><a href="index.do">부엉부엉</a></div>
+						<div><img src="/buengbueng/img/index/buengbueng_emoticon.jpg" width="80px;" /></div>
 					</div>
 				</div>	
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10  col_height200 contentBox_outline">

@@ -112,11 +112,17 @@
     border:1px solid #e7e7e7;
     height:30px;
 }
+.menu_name, .menu_desc{
+padding-left:10px;
+}
 .col1 {
     display: block;
     float: right;
     margin-right: 20px;
     margin-top: 10px;
+}
+.ux-heatmap{
+padding-top:5px;
 }
 @media screen and (min-width:250px){
 .buengbueng_logo{
@@ -168,7 +174,7 @@ width:1100px;
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="intro.do">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_icon ux-heatmap" ><i class="fa fa-university fa-2x" aria-hidden="true"></i></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">프로그램 기능소개</h6>
 											<p class="menu_desc">BUENGBUENG 모든 기능 소개</p>
@@ -198,7 +204,7 @@ width:1100px;
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="searchPCForm.do">
-										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_icon ux-heatmap"><i class="fa fa-search fa-2x" aria-hidden="true"></i></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">PC방 찾기</h6>
 											<p class="menu_desc">우리동네, 지역 가맹 피시방찾기</p>
@@ -209,7 +215,7 @@ width:1100px;
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="cash.do">
-										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_icon ux-heatmap"><i class="fa fa-krw fa-2x" aria-hidden="true"></i></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">결제</h6>
 											<p class="menu_desc">PC이용요금 결제</p>
@@ -223,7 +229,7 @@ width:1100px;
 							
 								<div class="menu_menu col-sm-6-12">
 									<a href="favoritePCRoom.do">
-										<span class="menu_icon"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_icon ux-heatmap"><i class="fa fa-thumbs-up fa-2x" aria-hidden="true"></i></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">즐겨찾는 PC방</h6>
 											<p class="menu_desc">자주찾는 PC방을 지정하여 그곳의 정보를 먼저 파악</p>
@@ -234,7 +240,7 @@ width:1100px;
 							
 								<div class="menu_menu col-sm-6-12">
 									<a href="ledger.do">
-										<span class="menu_icon "><img src="img/ux-heatmaps-gnb@2x.png"> </span>
+										<span class="menu_icon ux-heatmap"><i class="fa fa-bar-chart fa-2x" aria-hidden="true"></i></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">이용현황</h6>
 											<p class="menu_desc">현재 실시간 자리현황 파악</p>
@@ -268,7 +274,7 @@ width:1100px;
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_icon ux-heatmap"><i class="fa fa-desktop fa-2x" aria-hidden="true"></i></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">원격 조종</h6>
 											<p class="menu_desc">멀리서 사장님 PC 관리</p>
@@ -278,7 +284,7 @@ width:1100px;
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="bossErpMainSession.do">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_icon ux-heatmap"><i class="fa fa-tachometer fa-2x" aria-hidden="true"></i></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">ERP 관리</h6>
 											<p class="menu_desc">PC방 내 모든 현황 관리</p>
@@ -291,7 +297,7 @@ width:1100px;
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="franchiseeList.do">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_icon ux-heatmap"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">가맹점 관리</h6>
 											<p class="menu_desc">가맹점 등록 및 삭제</p>
@@ -327,7 +333,7 @@ width:1100px;
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="franchiseQA.do?snum=1">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_icon ux-heatmap"><i class="fa fa-book fa-2x" aria-hidden="true"></i></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">가맹 문의</h6>
 											<p class="menu_desc">가맹시 궁금한 문의 여기로</p>
@@ -337,7 +343,7 @@ width:1100px;
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="customerQA.do?snum=2">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_icon ux-heatmap"><i class="fa fa-book fa-2x" aria-hidden="true"></i></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">자주 묻는 질문</h6>
 											<p class="menu_desc">자주 물어보는 질문들 여기로</p>
@@ -350,7 +356,7 @@ width:1100px;
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="oneQA.do?snum=3">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+										<span class="menu_icon ux-heatmap"><i class="fa fa-book fa-2x" aria-hidden="true"></i></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">1:1 문의</h6>
 											<p class="menu_desc">사소한것까지 궁금한건 여기로</p>
@@ -360,7 +366,7 @@ width:1100px;
 							<!-- 컨텐츠당 하나의 div로 구성 -->
 							<div class="menu_menu col-sm-6-12">
 							      <a href = "notice.do?snum=4&pageNum=1">
-							      	 <span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
+							      	 <span class="menu_icon ux-heatmap"><i class="fa fa-book fa-2x" aria-hidden="true"></i></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">공지사항</h6>
 											<p class="menu_desc">사이트 공지는  여기로</p>
