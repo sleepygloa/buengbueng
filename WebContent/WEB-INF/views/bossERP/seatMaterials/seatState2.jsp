@@ -19,7 +19,6 @@
 					&emsp;${pcNum}
 					<c:forEach var="num" items="${useSeatNum}">
 						<c:if test="${num == (pcNum)}">
-							<br/>
 							&emsp;${useSeatId.get(currentPcCount)}님<br/>
 							<c:set var="usePcCount" value="${usePcCount+1}" />
 						</c:if>
