@@ -26,10 +26,7 @@ public class CommentBean {
 	int ref = 	Integer.parseInt(request.getParameter("ref"));//14
 	int re_step = 	Integer.parseInt(request.getParameter("re_step"));//0	
 	String passwd = request.getParameter("passwd");	
-	
-	
-		
-		
+			
 	      num=article.getNum(); 
 	      ref=article.getRef();
 	      re_step=article.getRe_step();
@@ -45,23 +42,18 @@ public class CommentBean {
 	      }
 	      
 	      if (num!=0){ 
-	    	  //article.setRe_step(re_step+1);//
 	    	  int zxc=(Integer)sqlMap.queryForObject("customer.Max(re_step)",ref);
 	    	  re_step=zxc+1;
-	    	  article.setRe_step(re_step);//�씠嫄� 瑗ъ삤�삤�삤�삦 �빐以섏빞�븿!!!!!!!!!!!!!!!!!!!!!!
+	    	  article.setRe_step(re_step);
 	      }else{ 
 	    	  article.setRef(number);
 	    	  article.setRe_step(0);
 	      }
 		
-		
-	
-		
 		sqlMap.insert("customer.commentInsert", article);
 		
 		r.put("snum", 5);
-		r.put("ref",ref);  //14
-		
+		r.put("ref",ref);  		
 	 List CmList = (List)sqlMap.queryForList("customer.commentList", r);
 			    	
 	

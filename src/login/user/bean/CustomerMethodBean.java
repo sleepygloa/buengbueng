@@ -25,7 +25,7 @@ public class CustomerMethodBean {  // 사용자 게시판 메서드( 가맹문�
 	protected SuperClass sc;
 	//글 목록
 	public void boardList(HttpServletRequest request,HashMap map,Model model){
-		sc.sideMenuTemp(model, 1, 1);
+		
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
