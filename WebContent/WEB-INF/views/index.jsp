@@ -37,6 +37,12 @@ function indexFranchiseeList(){
 .side_scontent{
 background-color:#EEF1F2;
 }
+.newsList::nth-child(1) {
+	background-color:#E66565;
+}
+.newsList::nth-child(2) {
+	background-color:#E66565;
+}
 </style>
 
 <!-- ARTICLE -->
@@ -96,9 +102,16 @@ background-color:#EEF1F2;
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10  col_height600 contentBox_outline contentBox_right">
 					<div class="contentBox col_height0">
 						<div class="contentBox_a"><a href="#">이벤트 & 광고</a></div>
-						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
+						<div><i class="fa fa-newspaper-o fa-4x" aria-hidden="true"></i></div>
 						<div style="display:inline-block;text-align:left;">
-							${newsList}
+						
+						<c:set var="number" value="1" />
+							<c:forEach var="list" items="${newsList}">
+								<div class="newsList"><c:out value="${number}" />. ${list.newsList}</div>
+								<c:set var="number" value="${number+1}" />
+							</c:forEach>
+							
+							
 						</div>
 					</div>
 				</div>					

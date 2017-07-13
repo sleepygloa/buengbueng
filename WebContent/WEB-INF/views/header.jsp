@@ -143,7 +143,7 @@ width:1100px;
 	</head>
 	 	<!-- LOGIN SECTION -->
 	 	<header class="header_wrap" >
-			<div class="header container buengbueng_logo" style="background-color:#e7e7e7;">
+			<div class="header container buengbueng_logo" style="background-color:#fff;">
 				<!-- 로고 : BUENGBUENG 또는 그림 -->
 				<div class="logo_box">
 					<div class="logo_con" style="width:28%;float:left;">

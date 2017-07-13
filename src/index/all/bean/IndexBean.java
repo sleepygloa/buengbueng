@@ -1,7 +1,10 @@
 package index.all.bean;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,22 +48,36 @@ public class IndexBean {
 	        String str = elem.text();
 	        
 	        IndexBean c = new IndexBean();
-	        String newsList = c.subtitution(str); //문자열 치환하여 그날의 log.txt에 저장
+	        List newsList = c.subtitution(str); //문자열 치환하여 그날의 log.txt에 저장
 	        
 	        model.addAttribute("newsList", newsList);
 		}catch(Exception e){e.printStackTrace();}
         
     }
 
-    public String subtitution(String str){
+    public List subtitution(String str){
     	 Pattern pattern = Pattern.compile(", ", Pattern.CASE_INSENSITIVE); // 대소문자 구분 안함 
          Matcher matcher = pattern.matcher(str);
 
          StringBuffer replacedString = new StringBuffer();
+         
+         StringTokenizer st = new StringTokenizer(str, ",");
+         List list = new ArrayList();
+         
          while(matcher.find()){
          	//찾을대상 치환
          	matcher.appendReplacement(replacedString, "<br />");
          }
+         
+         while(st.hasMoreElements()){
+        	 NewsDTO ndto = new NewsDTO();
+        	 ndto.setNewsList((String)st.nextElement());
+        	 list.add(ndto);
+        	 
+        	 System.out.println("리스트 입니다 : "+ndto.getNewsList());
+        	 
+         }
+         
          //검색에 마지막으로 찾는 부분 이후의 검색 대상 문자열을 결합
          matcher.appendTail(replacedString);
          
@@ -68,9 +85,10 @@ public class IndexBean {
          //치환결과 값은 Log.txt 로 저장.
          System.out.println("strResult :" +strResult);
          
-         return strResult;
+         return list;
     }
     
+    //회사소개 페이지 이동
     @RequestMapping("intro.do")
     public String intro(){
     	
