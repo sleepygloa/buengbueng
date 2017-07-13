@@ -42,54 +42,117 @@
 		<script src="/buengbueng/js/layer.js"></script>
 		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/chatbot/chatbot.css" />
 		
+		<!-- 반응형 메뉴 -->
+		<script>
+			/* When the user clicks on the button, 
+			toggle between hiding and showing the dropdown content */
+			function myFunction() {
+			    document.getElementById("myDropdown").classList.toggle("show");
+			}
+			
+			// Close the dropdown if the user clicks outside of it
+			window.onclick = function(event) {
+			  if (!event.target.matches('.dropbtn')) {
+			
+			    var dropdowns = document.getElementsByClassName("dropdown-content");
+			    var i;
+			    for (i = 0; i < dropdowns.length; i++) {
+			      var openDropdown = dropdowns[i];
+			      if (openDropdown.classList.contains('show')) {
+			        /* openDropdown.classList.remove('show'); */
+			      }
+			    }
+			  }
+			}
+			
+			
+			$(document).ready(function(){
+			    // memu 클래스 바로 하위에 있는 a 태그를 클릭했을때
+			    $(".menu>a").click(function(){
+			        // 현재 클릭한 태그가 a 이기 때문에
+			        // a 옆의 태그중 ul 태그에 hide 클래스 태그를 넣던지 빼던지 한다.
+			        $(this).next("ul").toggleClass("hide");
+			    });
+			});
+		</script>
+		<style>
+		.dropbtn {
+    font-family: 'NEXONFootballGothicB';
+    color: white;
+    padding: 2px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+.hamburger .line {
+    width: 28px;
+    height: 5px;
+    margin-bottom: 6px;
+    background-color: #fff;
+    display: block;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.dropdown-content {
+    display: none;
+    background-color: #e7e7e7;
+    /* min-width: 160px; */
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    width: 100%;
+    float: left;
+    height: auto;
+    text-align: center;
+}
+.menu {
+    float: left;
+    width: 100%;
+    background: #fff;
+    border:1px solid #e7e7e7;
+    height:30px;
+}
+.col1 {
+    display: block;
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+@media screen and (min-width:250px){
+.buengbueng_logo{
+float:left;
+width:100%;}
+}
+@media screen and (min-width:768px){
+.buengbueng_logo{
+float:none;
+width:750px;
+}
+@media screen and (min-width:992px){
+.buengbueng_logo{
+width:970px;
+}
+@media screen and (min-width:1200px){
+.buengbueng_logo{
+width:1100px;
+}
+}
+		</style>
+		
 		<!-- 홈페이지 제목 -->
 	</head>
 	 	<!-- LOGIN SECTION -->
-	 	<header class="header_wrap">
-			<div class="header container">
+	 	<header class="header_wrap" >
+			<div class="header container buengbueng_logo" style="background-color:#e7e7e7;">
 				<!-- 로고 : BUENGBUENG 또는 그림 -->
-				<div><h1 class="logo"><a href="index.do">buengbueng</a></h1></div>
-
-				<div id="respon_menu" class="respon_menu" ><div class="respon_menu_icon"><span>menu</span></div></div>
-				<div id="respon_menu_area" class="respon_menu_area" style="display:none">
-					<div class="respon_menu_ul">
-						<div id="respon_menu_intro" class="respon_menu_list"><a href="">회사소개</a></div>
-							<div id="respon_submenu_intro" class="respon_submenu" style="display:none">
-								<div><a href="">가맹점 찾기</a></div>
-								<div><a href="">프로그램 기능소개</a></div>
-							</div>
-						<div id="respon_menu_user" class="respon_menu_list"><a href="">사용자 PC방 이용</a></div>
-							<div id="respon_submenu_user" class="respon_submenu" style="display:none">
-								<div><a href="searchPCForm.do">PC방 찾기</a></div>
-								<div><a href="favoritePCRoom.do">즐겨찾는 PC방</a></div>								
-								<div><a href="cash.do">결제</a></div>
-								<div><a href="ledger.do">이용현황</a></div>								
-							</div>
-						<div id="respon_menu_boss" class="respon_menu_list"><a href="">사장님 PC방 관리</a></div>
-							<div id="respon_submenu_boss" class="respon_submenu" style="display:none">
-								<div><a href="">원격 조종</a></div>
-								<div><a href="bossErpMain.do">ERP 관리</a></div>								
-								<div><a href="franchiseeList.do">가맹점 관리</a></div>
-							</div>						
-						<div id="respon_menu_admin" class="respon_menu_list"><a href="">관리자 프로그램 관리</a></div>
-							<div id="respon_submenu_admin" class="respon_submenu" style="display:none">
-								<div><a href="">챗봇 관리</a></div>
-								<div><a href="">ERP 관리</a></div>								
-								<div><a href="">회원 관리</a></div>
-								<div><a href="">페이지 관리</a></div>
-							</div>							
-						<div id="respon_menu_question" class="respon_menu_list"><a href="">고객센터</a></div>
-							<div id="respon_submenu_question" class="respon_submenu"  style="display:none">
-								<div><a href="">가맹 문의</a></div>
-								<div><a href="">자주묻는 질문</a></div>								
-								<div><a href="">1:1 관리</a></div>
-							</div>							
+				<div class="logo_box">
+					<div class="logo_con" style="width:28%;float:left;">
+						<p><a href="index.do">buengbueng</a></p>
 					</div>
-				</div>
-				
-				<!-- NAV SECTION -->
+					
+					<!-- NAV SECTION -->
 				<!-- BIG NAV : 대 제목 : 메인 NAV : 메인 메뉴 -->				
-				<ul class="menu_area"> 
+				<ul class="menu_area"  style="width:70%;float:right;"> 
 					<li class="item normal product" onClick="return true">
 						<!-- 대메뉴 이름 : 링크 : 클릭시 드롭다운메뉴 -->
 <!-- -------------------------------------------------------------------------------------------------------- -->						
@@ -102,16 +165,6 @@
 							<h6 class="menu_subject minor-minor">회사소개&nbsp; | &nbsp;<span class="list__title__desc">PC방이용자님이 사용할수 있는 메뉴입니다.</span></h6>
 							<!-- 소메뉴 의 각 링크들 -->
 							<li class="row">
-								<!-- 컨텐츠당 하나의 div로 구성 -->
-								<div class="menu_menu col-sm-6-12">
-									<a href="">
-										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
-										<span class="menu_text">
-											<h6 class="menu_name minor-minor">가맹점 찾기</h6>
-											<p class="menu_desc">시스템을 제공하는 가맹점 찾기</p>
-										</span>
-									</a>
-								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
 									<a href="intro.do">
@@ -338,7 +391,92 @@
                </c:if>
                
             </ul>
+					
+				</div>
+				
+				
+				
+				
+				
+            
+            <div class="dropdown md_hidden" style="float:right;width:43.9%;height:50px;top:-50px;">
+					
+			      <div class="three col1" >
+			      <div class="dropbtn"  style="z-index: 999999">
+			        <div class="hamburger dropbtn" id="hamburger-1" onclick="myFunction()" >
+			        <div>
+			          <span class="line dropbtn"></span>
+			          <span class="line dropbtn"></span>
+			          <span class="line dropbtn"></span>
+			          </div>
+			        </div>
+			        </div>
+			      </div>
+			</div>
+			      
+			      
+			      
+					  <div id="myDropdown" class="dropdown-content " style="top:-50px;">
+					 		
+					 		<li class="menu">
+					                <div class="stats_ms_menu">
+						                <div class="stats_ms_menu_top col-xs-12-12">
+						                	<div class="stats_ms_menu_top_left">
+						                		<c:if test="${sessionScope.loginId != null}" >
+						                			<span>${sessionScope.loginId}님</span>
+						                		</c:if>
+								                <c:if test="${sessionScope.loginId == null}" >
+								                	<a style="color:red;" href="/buengbueng/loginForm.do">로그인</a> 
+								                </c:if>
+								            </div>
+					                	</div>
+					                </div>
+					         
+					        </li>
+					    
+					        <li class="menu">
+					            <a class="intro.do">회사 소개</a>
+					        </li>
+							<li class="menu">
+					            <a href="cash.do">결제</a>
+					        </li>
+					        <li class="menu">
+					            <a href="searchPCForm.do">PC방 찾기</a>
+					        </li>
+					        <li class="menu">
+					            <a href="favoritePCRoom.do">즐겨찾는 PC방</a>
+					        </li>
+					        <li class="menu">
+					            <a href="ledger.do">이용현황</a>
+					        </li>
+     					    <li class="menu">
+					            <a href="remoteIntro.do">원격 지원</a>
+					        </li>	
+      					    <li class="menu">
+					            <a href="franchiseeList.do">가맹점 관리</a>
+					        </li>	
+					        <li class="menu">
+					            <a href="bossErpMainSession.do">ERP 관리</a>
+					        </li>	
+					        <li class="menu">
+					            <a href="franchiseQA.do?snum=1">가맹 문의</a>
+					        </li>	
+					        <li class="menu">
+					            <a href="customerQA.do?snum=2">자주묻는 질문</a>	
+					        </li>	
+					        <li class="menu">
+					            <a href="oneQA.do?snum=3">1:1 문의</a>
+					        </li>	
+					        <li class="menu">
+					            <a href = "notice.do?snum=4&pageNum=1">공지사항</a>
+					        </li>	
+					    
+					    </div>
+            
          </div>
+         
+			
+         
       </header>
  
 <section class="main_wrap1" style="float:left;"> 
