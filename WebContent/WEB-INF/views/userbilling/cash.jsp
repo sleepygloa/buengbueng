@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<c:if test="${sessionScope.loginId == null}" >
+	<script> alert('로그인 후에 사용해주세요.'); window.location='index.do';</script>
+</c:if>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
@@ -33,12 +36,12 @@
 	<jsp:include page="../header.jsp" />
 	
 	<body>
-		<center>	
-		<div class="emp_box">		
+	
+		<div style="background: red;">
 			<div class="cash_title margin_b20">
 				<span><b>${id}</b>님 환영합니다. BuengBueng 포인트 구매 창입니다. </span>
 			</div>
-			<!-- 사용자정보 목록 -->
+			
 			<div class="user_info margin_r20">
 				<div class="cash_in_list1">
 					<span class="cash_span_left">현재 보유 : </span><span class="cash_span_right"><b class="cashing_point_b2">
@@ -59,6 +62,7 @@
 					</span>
 				</div>	
 			</div>
+			
 			<!-- 결제금액 목록 -->
 			<div class="emp_box_class1">
 				<input type="hidden" id="result">
@@ -113,24 +117,25 @@
 				</div>
 			</div>
 			<!-- 버튼  -->
-			<button class="cash_btn">돌아가기</button>
-			<button class="cash_btn" id="bt">결제하기</button>
+			<div style="text-align:center; width:100%; background: blue; float:left;">
+				<button class="cash_btn">돌아가기</button>
+				<button class="cash_btn" id="bt">결제하기</button>
+			</div>
+			
+			<!-- 회원이 보유한 포인트  + 충전할 포인트 합산 -->
+			<script type="text/javascript">
+					$("#1,#2,#3,#4,#5").click(function (Integer) { 
+						var text = Number($(this).text()); 
+							$("#pay").val(text);
+							if(${info.money != null}){
+								$("#payend").val(text+${info.money});
+							}else{
+								$("#payend").val(text);
+							}
+						}); 
+			</script>
 		</div>
-	</center>
 	
-		<!-- 회원이 보유한 포인트  + 충전할 포인트 합산 -->
-		<script type="text/javascript">
-				$("#1,#2,#3,#4,#5").click(function (Integer) { 
-					var text = Number($(this).text()); 
-						$("#pay").val(text);
-						if(${info.money != null}){
-							$("#payend").val(text+${info.money});
-						}else{
-							$("#payend").val(text);
-						}
-					}); 
-		</script>
-		
 	</body>
 	<jsp:include page="../footer.jsp" />
 </html>

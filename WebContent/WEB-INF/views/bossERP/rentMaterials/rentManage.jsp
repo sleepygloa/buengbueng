@@ -7,6 +7,7 @@
 	<script src="/buengbueng/js/bossERP/rentManage.js"></script>
 	<link rel="stylesheet" type="text/css" href="/buengbueng/css/bossERP/applyForSettlement.css">
 	<link rel="stylesheet" type="text/css" href="/buengbueng/css/ko/kocss.css">
+	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/erp.css">
 	<script type="text/javascript">
 	$(function () {
 	 	$(".tab_content").hide();
@@ -41,22 +42,26 @@
 				<li>대여물품 관리</li>
 			</ul>
 		</div>
-		<div class="infoDiv">
+		
+		<div class="boss_con">
+			<p>PC방 좌석 현황</p>
+			<hr>
 			<input type="hidden" id="b_key" value="${sessionScope.b_key}"/>
-			<br/>
-			<div>
-				<input type="button" class="applyForSettlement_button" value="대여물품목록 추가" id="addRent"/>&emsp;&emsp;&emsp;
-				<input type="button" class="applyForSettlement_button" value="대여물품목록삭제" id="delRent"  />&emsp;&emsp;&emsp;
-				<input type="button" class="applyForSettlement_button" value="대여물품 추가" id="addRentProduct"/>&emsp;&emsp;&emsp;
-				<input type="button" class="applyForSettlement_button" value="대여물품삭제" id="delRentProduct"/>&emsp;&emsp;&emsp;
+			<div style="width:98%; margin-left:1%; float:left; height:40px;	">
+				<div style=" float:left; height:40px;">
+					<input type="button"  class="rentManage_btn" value="물품목록 추가" id="addRent"/>
+					<input type="button" class="rentManage_btn" value="물품목록 삭제" id="delRent"  />
+					<input type="button" class="rentManage_btn" value="물품 추가" id="addRentProduct"/>
+					<input type="button" class="rentManage_btn" value="물품 삭제" id="delRentProduct"/>
+				</div>
 			</div>
-			<br/><br/>
+		
 			<div id="rentDiv"></div>
-			<br/><br/>
+	
 			<div id="seatDisposeFirstDiv">
 				<c:if test="${rentList.size() != 0}">
-					<br/>
-					<div id="container">
+				
+				
 					    <ul class="tabs">
 					    	<c:set var="num" value="1"/>
 					   		<c:forEach var="rentList" items="${rentList}">
@@ -74,7 +79,7 @@
 							   		<c:set var="num" value="${num+1}"/>
 								</c:forEach>
 						</div>
-					</div>
+		
 				</c:if>
 				<c:if test="${rentList.size() == 0}">
 					<table border="1" class="dailySettlementList_table">

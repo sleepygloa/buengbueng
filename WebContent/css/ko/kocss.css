@@ -183,19 +183,17 @@
 }
 
 /*-- 탭 메뉴 --*/
-ul.tabs {
-    margin: 0;
-    padding: 0;
+.tabs {
     float: left;
     list-style: none;
     height: inline-block;
-    border-bottom: 1px solid #eee;
-    border-left: 1px solid #eee;
-    width: 100%;
+    width: auto;
     font-family:"dotum";
     font-size:12px;
+    margin-bottom: 0px;
+    margin-left:-30px;
 }
-ul.tabs li {
+.tabs li {
     float: left;
     text-align:center;
     cursor: pointer;
@@ -208,6 +206,7 @@ ul.tabs li {
     background: #fafafa;
     overflow: hidden;
     position: relative;
+    
 }
 ul.tabs li.active {
     background: #FFFFFF;
@@ -253,7 +252,7 @@ ul.tabs li.active {
     padding:5px;
     list-style:none
 }
- #container {
+/*  #container {
     width: 100%;
     margin: 0 auto;
-}
+} */

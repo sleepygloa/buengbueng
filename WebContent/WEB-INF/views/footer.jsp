@@ -7,11 +7,14 @@
 
 <style>
 .footer{margin-top:-1.9em;height:1.9em; background: blue; width:100%;}
+.footer_Box{width:100%; float:left; height:320px; background:#e3e3e3; position: relative; }
 </style>
 <!-- footer -->
 <footer class="footer">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-   	sdsdaasddsadasdassdasdasdasda
+   	<div class="footer_Box">
+   	
+   	</div>
 </footer>
 
 

@@ -7,12 +7,12 @@
 
 .menu_stats_btn{background: #F3C200; color: #fff; font-size: 13px; margin: 0 auto; width: 60px; height: 24px; line-height: 1; border:none}
 .menu_stats_btn2{background: #E43A45; color: #fff; font-size: 13px; margin: 0 auto; width: 60px; height: 24px; line-height: 1; border:none}
-.menu_stats_btn3{background: #659be0; color: #fff; font-size: 13px; margin: 0 auto; width: 80px; height: 24px; line-height: 1; border:none}
+.menu_stats_btn3{background: #659be0; color: #fff; fboss_conont-size: 13px; margin: 0 auto; width: 80px; height: 24px; line-height: 1; border:none}
 
 .menuOrderListForm_stats{background-color: #659be0; color: #fff; font-size: 13px; margin: 0 auto; width: 80px; height: 24px; line-height: 2;}
-.menuOrderListForm_stats2{background-color: #1BBC9B; color: #fff; font-size: 13px; margin: 0 auto; width: 80px; height: 24px; line-height: 2;}
+.menuOrderListForm_stats2{background-color: #1BBC9B; color: #fff; font-size: 13px; margin: 0 auto; width: 80px; height: 24px; line-height: 2; border:none;}
 .menuOrderListForm_stats3{background-color: #E43A45; color: #fff; font-size: 13px; margin: 0 auto; width: 80px; height: 24px; line-height: 2;}
-.menuOrderListForm_stats4{background-color: #8775A7; color: #fff; font-size: 13px; margin: 0 auto; width: 80px; height: 24px; line-height: 1; border:none;}
+.menuOrderListForm_stats4{background-color: #8775A7; color: #fff; font-size: 13px; margin: 0 auto; width: 80px; height: 24px; line-height: 2; border:none;}
 
 
 /* 상태확인 버튼 */
@@ -85,18 +85,18 @@
 .menu_table td{border: 1px #e7ecf1 solid; font-size: 12px;}
 .menu_table tr{border: 1px #e7ecf1 solid;}
 
-.menuAdd_btn{color: #E7505A; border: 1px #E7505A solid; border-radius: 15px; background: none; font-size: 12px; width: 74px; transition: 0.3s; height: 22px; float: right;}
+.menuAdd_btn{color: #E7505A; border: 1px #E7505A solid; border-radius: 15px; background: none; font-size: 12px; width: 80px; transition: 0.3s; height: 22px; float: right;}
 .menuAdd_btn:HOVER{color:#fff; background:#E7505A; transition:0.3s}
 
 
 .productModifyForm_td input{text-indent: 10px; float:left; height:35px; margin-left:1%; border:1px #eee solid;}
 .productModifyForm_td span{float:left; margin-left:1%;}
 
-.menuModify_input{float:left; border:1px #eee solid; margin-left:1%;text-indent: 10px width:180px;}
+.menuModify_input{float:left; border:1px #eee solid; margin-left:1%;text-indent: 10px; width:180px;}
 /* 메뉴 폼 */
 
 /* PC방 좌석관리 */
-.seatDispose_box{width:98%; margin-left:1%; border:1px red solid;}
+.seatDispose_box{width:98%; margin-left:1%;}
 .seatDispose_btn_box{ width:100%;  float:left; height:40px; mnargin-bottom:10px;}
 .seatDispose_btn_box2{ width:auto; float:right; margin-top: 8px;}
 .seatDispose_btn_box2_left{ float:left; }
@@ -111,6 +111,11 @@
 .seatDispose_titlebox{background: red;width:98%; margin:1%;}
 .seatDispose_titlebox span{float:left; margin: 0px 0px 10px auto; font-weight: bold;}
 .seatDispose_checkbox{border: 1px #e7ecf1 solid; background: #eee;}
+
+.rentManage_btn{border:1px #e7ecf1 solid; background: none; font-size: 14px;}
+
+/* .rentManage_box_ul{border:1px blue solid; float:left; background: blue; width:98%; margin-left:1%;}
+.rentManage_box{border:1px red solid; width:100%; float:left;} */
 /* PC방 좌석관리 */
 
 

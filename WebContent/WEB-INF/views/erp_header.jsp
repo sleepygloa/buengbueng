@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:if test="${sessionScope.grade!=1}">
+	<script> alert('"사장님 전용" PC방 관리 ERP입니다.'); window.location='index.do';</script>
+</c:if>
 <html style="height:100%;">
 
 	<head>
@@ -83,7 +85,8 @@
 			        // a 옆의 태그중 ul 태그에 hide 클래스 태그를 넣던지 빼던지 한다.
 			        $(this).next("ul").toggleClass("hide");
 			    });
-			});
+			});	
+			
 		</script>
 
 
@@ -217,7 +220,7 @@
          	<ul>
 			<c:if test="${sessionScope.loginId != null}" >
                   <li class="item sign"><a href="#">${sessionScope.loginId}님</a></li>
-                  <li class="item sign"><a href="/buengbueng/index.do">로그아웃</a></li>
+                  <li class="item sign"><a href="/buengbueng/logout.do">로그아웃</a></li>
                   <li class="item sign"><a href="/buengbueng/index.do">사용자 페이지</a></li>
                   <!-- <li class="item sign"><a href="/buengbueng/logout.do">로그아웃</a></li> -->
                   <c:if test="${sessionScope.grade!=4}" >

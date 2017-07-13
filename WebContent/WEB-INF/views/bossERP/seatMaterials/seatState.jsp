@@ -6,6 +6,7 @@
 	<script src="/buengbueng/js/bossERP/seatState.js"></script>
 	<link rel="stylesheet" type="text/css" href="/buengbueng/css/bossERP/applyForSettlement.css">
 	<link rel="stylesheet" type="text/css" href="/buengbueng/css/ko/kocss.css">
+	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/erp.css">
 </head>
 
 <jsp:include page="../../erp_header.jsp" />
@@ -25,11 +26,14 @@
 				<li>PC방 좌석 이용 관리</li>
 			</ul>
 		</div>
-		<div class="infoDiv">
-			<br/>
-			<div class="userInfo"></div>
-			<br/><br/>
-			<div id="seatDisposeFirstDiv">
+			<div class="boss_con">
+				<p>PC방 좌석 현황</p>
+				<hr>
+			
+			<div class="userInfo" ></div>
+	
+	
+			<div id="seatDisposeFirstDiv" style="width:98%; ">
 				<c:set var="usePcCount" value="0" />
 				<div class="pcBox">
 					<c:if test="${count != 0}">

@@ -188,11 +188,12 @@ body{
  }
  .cash_title{color:#ffffff;}
  .cash_cehck{
- 	width:680px;
+ 	width:95%;
  	height:25px;
  	margin:0 auto;
  	font-size:14px;
  }
+
   .cash_Price_box_0{
   	border:none;
  	border-top:2px #ccc solid;
@@ -202,14 +203,14 @@ body{
  }
  .cash_Price_box_1{
  	border:1px #ccc solid;
- 	width:145px;
+ 	width:16%;
  	height:80px;
  	float:left;
  	text-align:center;
  }
    .cash_Price_box_1:hover{
  	border:2px red solid;
- 	width:145px;
+ 	width:16%px;
  	height:80px;
  	float:left;
  	font-weight:bold;
@@ -221,7 +222,7 @@ body{
   	border:none;
  	border-top:1px #ccc solid;
  	border-bottom:1px #ccc solid;
- 	width:775px;
+ 	width:80%;
  	height:80px;
  	float:left;
  	text-align:left;
@@ -235,11 +236,12 @@ body{
   .cash_Price_box_1 p{
  	vertical-align:middle;
  	color: #ee2e24;
+ 	text-align: center;
   }
    .cash_Price_box_2 p{
  	color: #ee2e24;
  	margin:0 ;
- 	margin-left:45px;
+ 	margin-left:15px;
   }
   .cash_Price_box_2 ul{
     margin-top:15px;
@@ -261,9 +263,9 @@ body{
  	margin-top:60px;
 }
  .emp_box_class1{
- 	width:100%;
+ 	width:77%;
  	height:108px;
- 	flaot:left;
+ 	float:left;
  	
  }
  .cash_cehck_label{
@@ -381,22 +383,24 @@ body{
  }
  .cash_Price_box_1 button{
  	border:none;
- 	width:145px;
+ 	width:100%;
  	height:80px;
  	background:none;
  	font-size:18px;
  	outline:none;
  	cursor:pointer;
+ 	text-align: center;
  }
   .cash_Price_box_1 button:hover{
  	border:none;
- 	width:145px;
+ 	width:100%;
  	height:80px;
  	background:none;
  	font-size:18px;
  	outline:none;
  	color:#ee2e24;
  	font-weight:bold;
+ 	text-align: center;
  }
  .cash_title{
  	width:1200px;
