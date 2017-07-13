@@ -21,13 +21,18 @@ public class CustomerMethodBean {  // 사용자 게시판 메서드( 가맹문�
 	
 	@Autowired
 	SqlMapClientTemplate sqlMap;
-	@Autowired
-	protected SuperClass sc;
 	//글 목록
-	public void boardList(HttpServletRequest request,HashMap map,Model model){
-		sc.sideMenuTemp(model, 1, 1);
-		Integer snum = Integer.parseInt(request.getParameter("snum"));
-		String pageNum = request.getParameter("pageNum");
+	public void boardList1(HttpServletRequest request,HashMap map){
+//		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		
+		Integer snum = 1;
+		String pageNum = "";
+		if(request.getParameter("find") !=null && request.getParameter("find").equals(request.getParameter("snum"))){
+			pageNum = "1";
+		}else{
+			pageNum = request.getParameter("pageNum");
+		}
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 		if(pageNum==null){pageNum="1";}
 		
@@ -72,6 +77,128 @@ public class CustomerMethodBean {  // 사용자 게시판 메서드( 가맹문�
 		request.setAttribute("snum", snum);
 		request.setAttribute("dates", dates);
 	}
+	
+	
+	public void boardList2(HttpServletRequest request,HashMap map){
+//		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		
+		Integer snum = 2;
+		String pageNum = "";
+		if(request.getParameter("find") !=null && request.getParameter("find").equals(request.getParameter("snum"))){
+			pageNum = "1";
+		}else{
+			pageNum = request.getParameter("pageNum");
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+		if(pageNum==null){pageNum="1";}
+		
+		int pageSize=10; // endRow와 같이써도 가능함. mysql limit 사용시. 출력은 고정.
+		int currentPage = Integer.parseInt(pageNum);
+	    int startRow = (currentPage - 1) * pageSize; // mysql에서 limit 는 0부터 시작해야 rownum 1번 값부터 호출
+	    int number=0;
+	    
+	    List list=null;
+	    String[] dates = null;	
+	    int count = (Integer)sqlMap.queryForObject("customer.customercount", snum); //해당 페이지 게시글 갯수
+	    if (count > 0) {
+	    	map.put("snum",snum);
+	    	map.put("startRow",startRow);
+		    map.put("pageSize",pageSize);
+	    	list = sqlMap.queryForList("customer.customerlist", map);
+            dates = new String[count];
+			for(int i = 0; i< list.size(); i++){
+				dates[i] = sdf.format(((CustomerDTO)list.get(i)).getReg_date());
+				}
+	    }else{
+	    	list = Collections.EMPTY_LIST;
+	    }
+	    
+		number=count-(currentPage-1)*pageSize;
+		// 페이지 카운트
+        int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		 
+        int startPage = ((Integer.parseInt(pageNum)-1)/10)*10+1;
+		int pageBlock=10;
+        int endPage = startPage + pageBlock-1;
+        if (endPage > pageCount) endPage = pageCount;
+
+		request.setAttribute("count", count);
+		request.setAttribute("list", list);
+		request.setAttribute("number", number);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("snum", snum);
+		request.setAttribute("dates", dates);
+	}
+	
+	
+	public void boardList3(HttpServletRequest request,HashMap map){
+//		Integer snum = Integer.parseInt(request.getParameter("snum"));
+		
+		Integer snum = 3;
+		String pageNum = "";
+		if(request.getParameter("find") !=null && request.getParameter("find").equals(request.getParameter("snum"))){
+			pageNum = "1";
+		}else{
+			pageNum = request.getParameter("pageNum");
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+		if(pageNum==null){pageNum="1";}
+		
+		int pageSize=10; // endRow와 같이써도 가능함. mysql limit 사용시. 출력은 고정.
+		int currentPage = Integer.parseInt(pageNum);
+	    int startRow = (currentPage - 1) * pageSize; // mysql에서 limit 는 0부터 시작해야 rownum 1번 값부터 호출
+	    int number=0;
+	    
+	    List list=null;
+	    String[] dates = null;	
+	    int count = (Integer)sqlMap.queryForObject("customer.customercount", snum); //해당 페이지 게시글 갯수
+	    if (count > 0) {
+	    	map.put("snum",snum);
+	    	map.put("startRow",startRow);
+		    map.put("pageSize",pageSize);
+	    	list = sqlMap.queryForList("customer.customerlist", map);
+            dates = new String[count];
+			for(int i = 0; i< list.size(); i++){
+				dates[i] = sdf.format(((CustomerDTO)list.get(i)).getReg_date());
+				}
+	    }else{
+	    	list = Collections.EMPTY_LIST;
+	    }
+	    
+		number=count-(currentPage-1)*pageSize;
+		// 페이지 카운트
+        int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
+		 
+        int startPage = ((Integer.parseInt(pageNum)-1)/10)*10+1;
+		int pageBlock=10;
+        int endPage = startPage + pageBlock-1;
+        if (endPage > pageCount) endPage = pageCount;
+
+		request.setAttribute("count", count);
+		request.setAttribute("list", list);
+		request.setAttribute("number", number);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("snum", snum);
+		request.setAttribute("dates", dates);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	// 글쓰기 폼
 	public void writeForm(HttpServletRequest request,HttpSession session){
 		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출

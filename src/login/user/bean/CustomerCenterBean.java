@@ -20,11 +20,14 @@ public class CustomerCenterBean extends CustomerMethodBean{ // 가맹 문의 , 1
 	@Autowired
 	private SqlMapClientTemplate sqlMap;
 	
+	@Autowired
+	protected NoticeListBaen nlb;
+	
 	// 가맹 문의 게시판	
 	
-	@RequestMapping("franchiseQA.do")  // 게시판 리스트
-	public String franchiseQA(HttpServletRequest request,HashMap map,Model model){
-		boardList(request, map,model);
+//	@RequestMapping("franchiseQA.do")  // 게시판 리스트
+	public String franchiseQA(HttpServletRequest request,HashMap map){
+		boardList1(request, map);
 		return "/customer-center/franchiseList";
 	}
 	
@@ -78,9 +81,9 @@ public class CustomerCenterBean extends CustomerMethodBean{ // 가맹 문의 , 1
 	
 	
 	// 1:1 게시판
-	@RequestMapping("oneQA.do")  // 게시판 리스트
-	public String oneQA(HttpServletRequest request,HashMap map,Model model){
-		boardList(request, map,model);
+//	@RequestMapping("oneQA.do")  // 게시판 리스트
+	public String oneQA(HttpServletRequest request,HashMap map){
+		boardList3(request, map);
 		return "/customer-center/oneList";
 	}
 	
@@ -134,9 +137,9 @@ public class CustomerCenterBean extends CustomerMethodBean{ // 가맹 문의 , 1
 	
 	// 자주 묻는 목록 게시판 
 	
-	@RequestMapping("customerQA.do")  
-	public String customerQA(HttpServletRequest request,HashMap map,Model model){
-		boardList(request, map,model);
+//	@RequestMapping("customerQA.do")  
+	public String customerQA(HttpServletRequest request,HashMap map){
+		boardList2(request, map);
 		return "/customer-center/customerList";
 	}
 	// 문의 작성 폼 
@@ -260,4 +263,21 @@ public class CustomerCenterBean extends CustomerMethodBean{ // 가맹 문의 , 1
 		request.setAttribute("pageNum", pageNum);
 		return "/customer-center/bossDelete";
 	}
+	
+	@RequestMapping("serviceCenter.do")
+	public String serviceCenter(HttpServletRequest request, HashMap r,String pageNum)  {
+		
+		franchiseQA(request, r); //가맹문의 1
+		
+		customerQA(request, r); //고객센터 2
+		
+		oneQA(request, r); //1:1 3
+		
+		nlb.noticeList(request,r); //공지사항 4
+			
+		
+		return "/customer-center/serviceCenter";
+	}
+
+	
 }
