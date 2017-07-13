@@ -23,7 +23,7 @@ public class Crawl{
         String[] items = str.split(", ");
         List<String> list = Arrays.asList(items);
        
-        model.addAttribute("list", list);
+//        model.addAttribute("list", list);
         
     }
     

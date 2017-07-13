@@ -70,4 +70,13 @@ public class IndexBean {
          
          return strResult;
     }
+    
+    @RequestMapping("intro.do")
+    public String intro(){
+    	
+    	return "/intro/intro";
+    }
+    
+    
+    
 }
