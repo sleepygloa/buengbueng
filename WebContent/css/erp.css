@@ -85,7 +85,7 @@
 .menu_table td{border: 1px #e7ecf1 solid; font-size: 12px;}
 .menu_table tr{border: 1px #e7ecf1 solid;}
 
-.menuAdd_btn{color: #E7505A; border: 1px #E7505A solid; border-radius: 15px; background: none; font-size: 12px; width: 74px; transition: 0.3s; height: 22px; float: right;}
+.menuAdd_btn{color: #E7505A; border: 1px #E7505A solid; border-radius: 15px; background: none; font-size: 12px; width: 80px; transition: 0.3s; height: 22px; float: right;}
 .menuAdd_btn:HOVER{color:#fff; background:#E7505A; transition:0.3s}
 
 

@@ -5,6 +5,7 @@
 <title>가망점 관리</title>
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../erp_header.jsp" />
+<script type="text/javascript" src="/buengbueng/js/menu/menuStatus.js"></script>
 
 
 <div class="erp_main_title"><p>Admin Dashboard<small> -  최근 통계 및 보고서</small></p></div>
@@ -174,8 +175,33 @@
 	</div>
 	
 	<div class="box3_2">
-		<p>재고 리스트 <button class="erp_more_btn">상세보기</button></p>
+		<p>재고 리스트 <button class="erp_more_btn" onclick="window.location='product.do'">상세보기</button></p>
 		<hr>
+		
+		<div style="overflow: auto;height:250px; width:99%;">
+		<table class="StockList_table">
+			<tr>
+				<th>카테고리</th>
+				<th>재고</th>
+				<th>수량</th>
+			</tr>
+			<c:if test="${productCheck==0}">
+				<tr class="noCount">
+					<td colspan="3">
+						<p>
+							<img src="/buengbueng/img/bossERP/bg_alert.gif" width="30" height="30">
+							조회결과가 없습니다.
+						</p>
+					</td>
+				</tr>
+			</c:if>
+			<c:if test="${productCheck==1}">
+				<c:forEach var="nl" items="${nameList}" varStatus="stat">
+		<tr><td>${categoryList[stat.index]}</td><td>${nl}</td><td>${countList[stat.index]} 개</td></tr>
+		</c:forEach>
+			</c:if>
+		</table>
+		</div>
 		
 	</div>
 
@@ -232,6 +258,51 @@
 					</td>
 				</tr>
 			</c:forEach>
+		</table>	
+	</div>
+	
+	
+		<div class="box3_3">
+		<p>주 문 현 황<button class="erp_more_btn" onclick="window.location='menuOrderListForm.do'">상세보기</button></p>
+		<hr>
+		<table class="StockList_table">
+			<tr>
+				<th>주문번호</th>
+				<th>주문자</th>
+				<th>메뉴</th>
+				<th>가격</th>
+				<th>주문상태</th>
+			</tr>
+				<c:if test="${cannocount==0}">
+				<tr class="noCount">
+					<td colspan="4">
+						<p>
+							<img src="/buengbueng/img/bossERP/bg_alert.gif" width="30" height="30">
+							조회결과가 없습니다.
+						</p>
+					</td>
+				</tr>
+			</c:if>
+				<c:if test="${cannocount==1}">
+				<div class="erpOrder">
+			<c:forEach var="canlist" items="${canList}">
+				<tr>
+					<td>${canlist.num}</td>
+					<td>${canlist.id}</td>
+					<td>${canlist.menuname}</td>
+					<td>${canlist.ordermoney}</td>
+					
+						<c:if test="${canlist.orderstatus==1}">
+							<td style="background-color:#FFA7A7">주문 중</td>
+						</c:if>
+						<c:if test="${canlist.orderstatus==4}">
+							<td style="background-color:#FFE08C ">환불 요청 중</td>
+						</c:if>
+					
+						</tr>
+			</c:forEach>
+			</div>
+			</c:if>
 		</table>
 	
 	

@@ -42,7 +42,7 @@
     			
     			<tr>	
 	    			<td>바코드번호</td>
-	    			<td class="productModifyForm_td">
+	    			<td class="menuModify_input">
 	    				<input type="text" name="code" maxlength="13" value="${pdto.code}">	
 	    				<input type="hidden" name="beforeCode" value="${pdto.code}">
 	    			</td>

@@ -121,6 +121,19 @@ public class MenuOrderBean {
 				map.put("l_key",l_key);
 				sqlMap.insert("order.insertMenuOrder", map);
 				 
+				//야매
+				HashMap map7 = new HashMap();
+				map7.put("name", order);
+				map7.put("l_key", l_key);
+				int ordermoney = (Integer)sqlMap.queryForObject("order.getOrderMoney", map7); // 메뉴가격 가져오는 것.
+				int usermoney = (Integer)sqlMap .queryForObject("order.getUserMoney",id);
+				int money = usermoney-ordermoney; // 사용자의 잔액에서 메뉴의 가격을 차감한다.
+				
+				HashMap map4 = new HashMap();
+				map4.put("userId",id);
+				map4.put("money",money);
+				sqlMap.update("order.menuPayment", map4); //사용자 잔액에서 메뉴 금액 뺀 금액 update.
+				
 				check=1;
 			}else{ // 주문한 메뉴의 재고가 없을 시.
 				check=0;
@@ -230,7 +243,7 @@ public class MenuOrderBean {
 	////// 사장님 주문 //////
 	
 	@RequestMapping("menuOrderListForm.do")
-	public String menuOrderListForm(String tf,HttpServletRequest request, HttpSession session){
+	public String menuOrderListForm(String tf,HttpServletRequest request, HttpSession session, String l_key){
 		try{
 			//사이드메뉴 템플릿
 			int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
@@ -238,9 +251,19 @@ public class MenuOrderBean {
 			request.setAttribute("sidemenuCheck", sidemenuCheck);
 			request.setAttribute("sidemenu", sidemenu);
 			
-			String l_key=(String)session.getAttribute("b_key");
+			if(l_key == null){
+				l_key=(String)session.getAttribute("b_key");
+			}
 			
+			// 이건 전체
 			List orderList = (List)sqlMap.queryForList("order.getMenuOrder", l_key);
+			// 처리해야할 주문
+			List canList = (List)sqlMap.queryForList("order.canOrder", l_key);
+			// 처리된 주문
+			List cantList = (List)sqlMap.queryForList("order.cantOrder",l_key);
+			
+			request.setAttribute("canList", canList);
+			request.setAttribute("cantList", cantList);
 			request.setAttribute("orderList", orderList);
 			request.setAttribute("l_key",l_key);	
 		}catch(Exception e){e.printStackTrace();}
@@ -292,6 +315,7 @@ public class MenuOrderBean {
 				map3.put("name",name);
 				String userId=(String)sqlMap.queryForObject("order.getOrderUserId",map3);
 			
+				/* 주문 승인시 사용자 잔액 처리
 				HashMap map7 = new HashMap();
 				map7.put("name", name);
 				map7.put("l_key", l_key);
@@ -303,6 +327,7 @@ public class MenuOrderBean {
 				map4.put("userId",userId);
 				map4.put("money",money);
 				sqlMap.update("order.menuPayment", map4); //사용자 잔액에서 메뉴 금액 뺀 금액 update.
+				*/
 				
 				HashMap map1=new HashMap();
 				map1.put("num",num);
