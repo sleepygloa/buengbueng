@@ -23,6 +23,9 @@
 	</div>
 	<div class="infoDiv">
 		<span id="guide"></span>
+		
+		<div class="pcRoomInfo"></div>
+		
 		<div id="setInfo">
 			<div class="pop">
 		 		<button id="pop_close">x</button>
@@ -30,7 +33,6 @@
 			<div class="pcInfo"></div>
 		</div>
 		
-		<div class="pcRoomInfo"></div>
 		<div class="seatState"></div>
 	</div>
 </body>

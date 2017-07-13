@@ -33,7 +33,11 @@ function indexFranchiseeList(){
 	})
 }
 </script>
-
+<style>
+.side_scontent{
+background-color:#EEF1F2;
+}
+</style>
 
 <!-- ARTICLE -->
 <!-- 메인 화면 전광판  ------------------------------------------------------------>
@@ -93,6 +97,9 @@ function indexFranchiseeList(){
 					<div class="contentBox col_height0">
 						<div class="contentBox_a"><a href="#">이벤트 & 광고</a></div>
 						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
+						<div style="display:inline-block;text-align:left;">
+							${newsList}
+						</div>
 					</div>
 				</div>					
 

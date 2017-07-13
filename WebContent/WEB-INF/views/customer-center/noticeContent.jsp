@@ -104,7 +104,7 @@ function commentModifyForm${countRe}(){
 <c:set var="countRe" value="${countRe-1}"/>
 </c:forEach>
 </div>
-
+<c:if test="${sessionScope.loginId != null }">
 <div>
 	내용:
 	<textarea id="content">
@@ -115,13 +115,12 @@ function commentModifyForm${countRe}(){
 <div>
 pw:&nbsp;&nbsp;&nbsp;<input type="password" id="passwd">
 </div>
-</div>
 <div>
 <button onclick="return button();">등록</button>
 </div>
-</div>
+</c:if>
 
-<c:if test="${sessionScope.loginId=='admin'}">
+<c:if test="${sessionScope.grade==4}">
 <div id="button">
 		<span><input type="button" value="글수정" onclick="window.location='noticeModifyForm.do?snum=${article.snum}&pageNum=${pageNum}&num=${article.num}&number=${number}'"></span>
 		<span><input type="button" value="글삭제" onclick="window.location='noticeDeleteForm.do?snum=${article.snum}&pageNum=${pageNum}&num=${article.num}&number=${number}&ref=${ref}'"></span>

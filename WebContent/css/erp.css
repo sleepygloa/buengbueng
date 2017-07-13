@@ -1,0 +1,145 @@
+@CHARSET "UTF-8";\
+
+/* 상태확인 버튼 */
+.employeeWorkTimeList_btn1{background: #E43A45; color: #fff; font-size: 13px; margin: 0 auto; width: 60px; height: 24px; line-height: 1; border:none}
+.employeeWorkTimeList_btn2{background: #F3C200; color: #fff; font-size: 13px; margin: 0 auto; width: 60px; height: 24px; line-height: 1; border:none}
+.employeeWorkTimeList_btn3{background: #1BBC9B; color: #fff; font-size: 13px; margin: 0 auto; width: 60px; height: 24px; line-height: 1; border:none}
+
+.menu_stats_btn{background: #F3C200; color: #fff; font-size: 13px; margin: 0 auto; width: 60px; height: 24px; line-height: 1; border:none}
+.menu_stats_btn2{background: #E43A45; color: #fff; font-size: 13px; margin: 0 auto; width: 60px; height: 24px; line-height: 1; border:none}
+.menu_stats_btn3{background: #659be0; color: #fff; font-size: 13px; margin: 0 auto; width: 80px; height: 24px; line-height: 1; border:none}
+
+.menuOrderListForm_stats{background-color: #659be0; color: #fff; font-size: 13px; margin: 0 auto; width: 80px; height: 24px; line-height: 2;}
+.menuOrderListForm_stats2{background-color: #1BBC9B; color: #fff; font-size: 13px; margin: 0 auto; width: 80px; height: 24px; line-height: 2;}
+.menuOrderListForm_stats3{background-color: #E43A45; color: #fff; font-size: 13px; margin: 0 auto; width: 80px; height: 24px; line-height: 2;}
+.menuOrderListForm_stats4{background-color: #8775A7; color: #fff; font-size: 13px; margin: 0 auto; width: 80px; height: 24px; line-height: 1; border:none;}
+
+
+/* 상태확인 버튼 */
+
+/* 알바아이디 관리 */
+.management_container{border:1px red solid; width:98%; margin-left:1%}
+.add_management_container{float:left; width:100%; overflow:hidden; height:auto; max-height:100%; float:left;}
+.stats_idbox{width:98%; float:left; margin-left:1%; margin-bottom:10px;}
+.stats_idbox span{float:left; text-align: center; margin: 10px 10px auto;}
+.stats_id_btn_box{width:30%; float:right;}
+.stats_id_btn_box2{width:auto; float:right; margin-top: 10px;}
+.stats_id_btn2{width:22px; height:22px; background: none; border: 1px #e7ecf1 solid; color:#e7ecf1; float:righjt;}
+.stats_id_btn1{color: #E7505A; border: 1px #E7505A solid; border-radius: 15px; background: none; font-size: 12px; width: 74px; transition: 0.3s; height: 22px; float: left;}
+.stats_id_btn1:HOVER{color:#fff; background:#E7505A; transition:0.3s}
+
+.stats_idList{float:left; width:100%;}
+.stats_idList_table{width:98%;margin-left: 1%; text-align: center;}
+.stats_idList_table th{border: 1px #e7ecf1 solid; font-size: 14px;}
+.stats_idList_table td{border: 1px #e7ecf1 solid; font-size: 12px;}
+.stats_idList_table tr{border: 1px #e7ecf1 solid;}
+
+.add_info_form{width:98%; margin:1%;  float:left;}
+/* 알바아이디 관리 */
+
+/* 알바아이디 관리 리스트 */
+.add_info_stats_List{width:100%; text-align: center;}
+.add_info_stats_List th{border: 1px #e7ecf1 solid; text-align: center;font-size: 14px;}
+.add_info_stats_List td{border: 1px #e7ecf1 solid; font-size: 12px;}
+.add_info_stats_List tr{border: 1px #e7ecf1 solid;}
+
+.add_info_stats_List2{width:98%; text-align: center; margin-left:1%;}
+.add_info_stats_List2 th{border: 1px #e7ecf1 solid; text-align: center; font-size: 14px;}
+.add_info_stats_List2 td{border: 1px #e7ecf1 solid; font-size: 12px;}
+.add_info_stats_List2 tr{border: 1px #e7ecf1 solid;}
+
+.erp_stats_btn{background-color: #659be0; color: #fff; font-size: 13px; margin: 0 auto; width: 80px; height: 24px; border:none; line-height: 1;}
+/* 알바아이디 관리 리스트 */
+
+/* 알바 아이디 신청 */
+.addInfo_container{width:100%;}
+.addInfoForm{border: 1px #e7ecf1 solid; width:100%; float:left;}
+.addInfoForm th {width:20%; text-indent: 20px;}
+.addInfoForm td {text-align:left; text-indent: 20px;}
+.addIdCount{width:96%;margin:0 auto;float:left;}
+.addIdText{width:96%; resize: none; margin:0 auto;float:left;}
+.addInfobtn_box{width:100%; float:left;;height:70px;}
+.addInfobtn_btn_con{float:right; margin: 15px auto;}
+.addInfobtn_btn1{border: 1px #e7ecf1 solid; background: none; width:120px; height:40px;margin-right:15px; margin:0 auto;}
+.addInfobtn_btn2{border: 1px #e7ecf1 solid; background: none; width:120px; height:40px;}
+.addInfo_container hr{margin: 0 auto; width: 100%;  margin-bottom: 20px;}
+/* 알바 아이디 신청 */
+
+/* 알바 출퇴근 관리*/
+.LeavingWork{width:98%;margin-left: 1%; text-align: center;margin-bottom:20px;}
+.LeavingWork th{border: 1px #e7ecf1 solid; text-align: center;font-size: 14px;}
+.LeavingWork td{border: 1px #e7ecf1 solid; font-size: 12px;}
+.LeavingWork tr{border: 1px #e7ecf1 solid;}
+/* 알바 출퇴근 관리*/
+
+/* 메뉴 폼 */
+.menu_titlbox{background: red;width:98%; margin:1%;}
+.menu_titlbox span{float:left; margin: 0px 0px 10px auto; font-weight: bold;}
+
+.category_con_box{margin-bottom:10px; float:left; width:100%;}
+.category_box{width:auto; float:left; margin-left:1%;}
+.menu_category_total{width:85px; height:35px; border: 1px #e7ecf1 solid;; background: none; font-size: 14px; font-weight: normal; flaot:left;}
+
+.menu_table{width:98%;margin-left: 1%; text-align: center;margin-bottom:20px; flaot:left;}
+.menu_table th{border: 1px #e7ecf1 solid; text-align: center;font-size: 14px;}
+.menu_table td{border: 1px #e7ecf1 solid; font-size: 12px;}
+.menu_table tr{border: 1px #e7ecf1 solid;}
+
+.menuAdd_btn{color: #E7505A; border: 1px #E7505A solid; border-radius: 15px; background: none; font-size: 12px; width: 80px; transition: 0.3s; height: 22px; float: right;}
+.menuAdd_btn:HOVER{color:#fff; background:#E7505A; transition:0.3s}
+
+
+.productModifyForm_td input{text-indent: 10px; float:left; height:35px; margin-left:1%; border:1px #eee solid;}
+.productModifyForm_td span{float:left; margin-left:1%;}
+
+.menuModify_input{float:left; border:1px #eee solid; margin-left:1%;text-indent: 10px width:180px;}
+/* 메뉴 폼 */
+
+/* PC방 좌석관리 */
+.seatDispose_box{width:98%; margin-left:1%; border:1px red solid;}
+.seatDispose_btn_box{ width:100%;  float:left; height:40px; mnargin-bottom:10px;}
+.seatDispose_btn_box2{ width:auto; float:right; margin-top: 8px;}
+.seatDispose_btn_box2_left{ float:left; }
+.seatDispose_btn_box2_left_in{border:1px #666 solid; width:120px; text-indent: 10px; margin-right:1%;}
+.seatDispose_btn_box2_right{float:right; margin-bottom:8px; width:200px;}
+
+
+.seatDispose_button2{border: 1px #e7ecf1 solid; background: none; width:60px;}
+.seatDispose_button{color: #E7505A; border: 1px #E7505A solid; border-radius: 15px; background: none; font-size: 12px; width: 74px; transition: 0.3s; height: 22px; float: right;}
+.seatDispose_button:HOVER{color:#fff; background:#E7505A; transition:0.3s}
+
+.seatDispose_titlebox{background: red;width:98%; margin:1%;}
+.seatDispose_titlebox span{float:left; margin: 0px 0px 10px auto; font-weight: bold;}
+.seatDispose_checkbox{border: 1px #e7ecf1 solid; background: #eee;}
+/* PC방 좌석관리 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

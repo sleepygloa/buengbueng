@@ -4,8 +4,11 @@
 
     <head>
     <title>메 뉴 재 고</title>
-    <link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
+	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/erp.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
     </head>
     
     <body>
@@ -14,46 +17,40 @@
 	<jsp:include page="../erp_header.jsp" />
 	
 	
-			<div class="ERP_Navigator">
-			<ul>
-				<li>ERP 관리</li>
-				<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
-				<li>재고관리</li>
-			</ul>
-		</div>
-		
-			
-<div class=" margin_bottom50">	
-		<div class="col-xs-12-12">
-	
-	
+	<div class="ERP_Navigator">
+		<ul>
+			<li>ERP 관리</li>
+			<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+			<li>재고관리</li>
+		</ul>
+	</div>
+
     
     <div class="boss_con">
-	<p style="font-size:25">재고 관리</p>
-	<hr>
+	<div class="menu_titlbox">
+		<span>재고 관리</span>
+		<button class="menuAdd_btn" onclick="window.location='productInsertForm.do?l_key=${l_key}'">재 고 등 록</button>
+	
+</div>
 
-<div>
-
-		<div align="right" class="dailySettlementList_table">
-		<button style="background-color: white; border: none; font-weight: 900" onclick="window.location='productInsertForm.do?l_key=${l_key}'">재 고 등 록</button>
-		</div>
-	<table class="dailySettlementList_table">
-		<tr>
-		<td><p>카테고리</p></td><td><p>재고 명</p></td><td><p>재고수량</p></td><td><p>상세보기</p></td>
+	<table class="menu_table">
+		<tr align="center">
+			<th>카테고리</th>
+			<th>재고 명</th>
+			<th>재고수량</th>
+			<th>상세보기</th>
 		</tr>
 		<c:forEach var="nl" items="${nameList}" varStatus="stat">
-		<tr><td>${categoryList[stat.index]}</td><td>${nl}</td><td>${countList[stat.index]} 개</td>
-		<td><button style="background-color: white; border: none; font-weight: 900;" onclick="window.location='productModify.do?name=${nl}&l_key=${l_key}'">상세보기</button></td></tr>
+			<tr>
+				<td>${categoryList[stat.index]}</td>
+				<td>${nl}</td><td>${countList[stat.index]} 개</td>
+				<td><button class="menu_stats_btn3" onclick="window.location='productModify.do?name=${nl}&l_key=${l_key}'">상세보기</button></td>
+			</tr>
 		</c:forEach>
 	</table>
 </div>
 
 
-
-	</div>
-	</div>
-	</div>
-    
   
     
     </body>

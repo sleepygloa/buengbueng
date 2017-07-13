@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import login.user.bean.UserInfoDataDTO;
 import manage.boss.bean.FranchiseeDataDTO;
+import menu.all.bean.OrderDTO;
 import superclass.all.bean.FranchiseeSelect;
 import superclass.all.bean.MenuCategoryDivResponse;
 import superclass.all.bean.SuperClass;
@@ -40,9 +41,9 @@ public class BossEmployeeManageBean {
 	
 	//사장님 알바생관리 메인 페이지 세션 처리
 		@RequestMapping("bossErpMainSession.do")
-		public String bossErpMainSession(Model model, HttpSession session, String pageNum,String pageNum2){
+		public String bossErpMainSession(Model model, HttpSession session, String pageNum,String pageNum2, String b_key){
 			String id = sc.getSessionIdModelId(model, session); //sessionId, model.addAttribute(id) template
-			fs.franchiseeList(session, id, model);
+			fs.franchiseeList(session, id, model, b_key);
 			return "redirect:/bossErpMain.do";
 		}
 	
@@ -199,6 +200,52 @@ public class BossEmployeeManageBean {
 		model.addAttribute("count2", count2);
 		model.addAttribute("count3", count3);
     	
+		
+		// 재고리스트
+		
+		ArrayList menuCount=new ArrayList(); 
+		ArrayList categoryList=new ArrayList();
+		int productCheck=0;
+		List productnameList=(List)sqlMap.queryForList("menu.distinctProductName",b_key);
+		if(productnameList!=null){
+			productCheck=1;
+		for(int i=0;i<productnameList.size();i++){
+			 String menuname=(String)productnameList.get(i);
+			 HashMap map = new HashMap();
+			 map.put("name",menuname);
+			 map.put("l_key",b_key);
+			 int count1 = (Integer)sqlMap.queryForObject("menu.getProductCount", map);
+			 menuCount.add(count1);
+			 String categorymenu=(String)sqlMap.queryForObject("menu.getProductCategory",map);
+			 categoryList.add(categorymenu);
+			}
+		}else{
+			productnameList=java.util.Collections.EMPTY_LIST;
+			productCheck=0;
+		}
+		
+		model.addAttribute("productCheck", productCheck);
+		model.addAttribute("countList",menuCount);
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("nameList", productnameList);
+		
+	
+		// 주문 현황 리스트
+		int cannocount=0;
+	List<OrderDTO> canList=Collections.EMPTY_LIST;
+		canList = (ArrayList<OrderDTO>)sqlMap.queryForList("order.canOrder", b_key);
+		
+		if(canList.equals(null)){
+			cannocount=0;
+		}else{
+			cannocount=1;
+		}
+		model.addAttribute("cannocount", cannocount);
+		model.addAttribute("canList", canList);
+		
+		
+		
+		
 		
 		return "/bossERP/erpMain";
 	}
@@ -467,12 +514,12 @@ public class BossEmployeeManageBean {
 	public String employeeDeleteInfoPro(Model model, HttpSession session, BossEmployeeManageDataDTO beDto){
 
 		String b_id = sc.getSessionBidModelBid(model, session); //session b_id, model.addAttribute(b_id) template
-		
 		//////////////////////////////////////////
 		//b_key로 가맹점 이름 알바 정보에 입력
 		String b_name = (String)sqlMap.queryForObject("franchisee.getFranchiseeLogBkey",beDto.getB_key());
 		beDto.setB_id(b_id);
 		beDto.setB_name(b_name);
+		System.out.println("b_key="+beDto.getB_key()+"b_name="+beDto.getB_name());
 		int check = 0;
 		try{
 			sqlMap.insert("erpEmp.deleteIdLogAdd", beDto);

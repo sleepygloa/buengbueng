@@ -28,6 +28,7 @@
 			<c:forEach var="favoritePCRoom" items="${favoritePCRoom}">
 				<b onclick="pcRoomInfo('${favoritePCRoom.b_name}','${favoritePCRoom.b_id}');">${favoritePCRoom.b_name}</b>&emsp;
 			</c:forEach>
+			<div class="pcRoomInfo"></div>
 			
 			<div id="setInfo">
 				<div class="pop">
@@ -35,7 +36,7 @@
 			 	</div>
 					<div class="pcInfo"></div>
 			</div>
-			<div class="pcRoomInfo"></div>
+			
 			<div class="seatState"></div>
 		</c:if>
 		<c:if test="${favoritePCRoom.size() == 0}">

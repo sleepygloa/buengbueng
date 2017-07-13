@@ -83,6 +83,16 @@
 	<select id="getMenuOrder" parameterClass="String" resultClass="orderDto">
 		select * from (select * from menuOrder where l_key=#l_key# order by orderstatus asc) menuOrder where date_format(ordertime, '%Y-%c-%d') = (curdate() - INTERVAL 1 DAY) or date_format(ordertime, '%Y-%c-%d') = curdate() order by ordertime desc;
 	</select>
+	<!-- 사장님이 주문중 해야할 것 status가 주문중이거나 환불요청일때 -->
+	<select id="canOrder" parameterClass="String" resultClass="orderDto">
+		<![CDATA[
+		select * from menuOrder where (orderstatus=1 or orderstatus=4) and l_key=#b_key# order by num desc;
+		]]>
+	</select>
+	<!-- 사장님이 주문 완료한거. status가 2,5,6 인거-->
+	<select id="cantOrder" parameterClass="String" resultClass="orderDto">
+		select * from menuOrder where orderstatus!=1 and orderstatus!=4 and l_key=#l_key# order by num desc;
+	</select>
 	
 	<!-- 마지막 주문 시간 가져오기 -->
 	<select id="getLastOrder" resultClass="String" parameterClass="String">

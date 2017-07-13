@@ -119,17 +119,17 @@
 	
 	<!-- 알바생의 아이디를 삭제 신청함.-->
 	<insert id="deleteIdLogAdd" >
-		insert into employeeDeleteLog (num, result, b_id, e_id, applyTime, content)
-			 VALUES(0, 0, #b_id#, #e_id#, now(), #content#);  
+		insert into employeeDeleteLog (num, result, b_key,b_name, b_id, e_id, applyTime, content)
+			 VALUES(0, 0, #b_key#,#b_name#,#b_id#, #e_id#, now(), #content#);  
 	</insert>
 	
 	<!-- 알바생아이디 삭제 리스트 -->
 	<select id="getEmployeeDeleteList" resultClass="beDto" parameterClass="java.util.HashMap" >
-		SELECT * from  employeeDeleteLog where result = '0';
+		SELECT * from  employeeDeleteLog where result = '0' and b_key=#b_key#;
 	</select>	
 	
 	<select id="getEmployeeDeleteListCount" resultClass="int" parameterClass="java.util.HashMap" >
-		SELECT count(*) from  employeeDeleteLog where result = '0';
+		SELECT count(*) from  employeeDeleteLog where result = '0' and b_key=#b_key#;
 	</select>		
 	
 	<!-- 알바생의 아이디를 삭제 확인 - 관리자.-->
@@ -328,8 +328,8 @@
 	<!-- 알바 근태 리스트 -->
 	<select id="getEmployeeWorkTimeList" resultClass="workTimeDto" parameterClass="String">
 		select c.num, c.b_key, c.todayDate, c.title, c.start, c.end, c.result, c.backgroundColor,c.borderColor, c.commuteTime, c.offWorkTime, c.ex from employeeInfo a 
-			 INNER JOIN	(select a.num, a.b_key, a.todayDate, a.title, a.start, a.end, a.result, a.backgroundColor,a.borderColor, b.commuteTime, b.offWorkTime, b.ex from employeeWorkTime a INNER JOIN employeeWorkTimeCommute b ON a.num = b.num WHERE a.result = 2) c 
-		ON a.e_id = c.title WHERE a.e_bossid = #id#;
+			 INNER JOIN	(select a.num, a.b_key, a.todayDate, a.title, a.start, a.end, a.result, a.backgroundColor,a.borderColor, b.commuteTime, b.offWorkTime, b.ex from employeeWorkTime a INNER JOIN employeeWorkTimeCommute b ON a.num = b.num ) c 
+		ON a.e_id = c.title WHERE a.e_bossid = #id# order by c.start desc;
 	</select>	
 	
 	
@@ -467,15 +467,20 @@
 	
 	<select id="useStatusList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
 			select r,userId,userName,usageTime,endTime,round(amountUsed) as amountUsed,round(pcAmount) as pcAmount,businessName,round(menuAmount) as menuAmount    
-		  	from (select @rownum:= @rownum+1 as r, userId,userName,usageTime,endTime,round(amountUsed) as amountUsed,round(pcAmount) as pcAmount,businessName,round(menuAmount) as menuAmount
-	      	from usageHistory,(select @rownum:=0)i where affiliateCode = #b_key# and endTime != '0000-00-00 00:00:00' order by idx desc )yz where r between #startRow# and #endRow#;
+            from (select @rownum:= @rownum+1 as r, userId,userName,usageTime,endTime,round(amountUsed) as amountUsed,round(pcAmount) as pcAmount,businessName,round(menuAmount) as menuAmount
+            from usageHistory,(select @rownum:=0)i where affiliateCode = #b_key# and endTime != '0000-00-00 00:00:00' order by idx desc )yz where r between #startRow# and #endRow#;
 	</select>
-	
+	 
 <!-- FX용 -->
 	<!-- 알바생 리스트 -->
 	<select id="getFxEmployeeList" resultClass="fxEidListDTO" parameterClass="java.util.HashMap">
 		select e_id, pw,num,  b_key from userInfo a INNER JOIN 
 		(select e_id,num,b_key from employeeInfo where e_bossid = #id# and b_key = #b_key#) b on a.id = b.e_id;
+	</select>
+	
+	<!-- 아르바이트 출근한 사람 리스트 -->
+	<select id="getFxEmployeeWorkList" resultClass="fxEidListDTO" parameterClass="java.util.HashMap">
+		select b.e_id from employeeWorkTime a INNER JOIN (select e_id from employeeInfo where e_bossId = #b_id# and b_key = #b_key#) b on a.title = b.e_id where a.result = 1;
 	</select>
 	
 	<!-- 알바생 리스트 수 -->

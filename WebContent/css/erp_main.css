@@ -44,7 +44,7 @@
 .box3_3{width:49.3%; height:320px; background: #fff; float:left; margin-top:20px;border: 1px #e7ecf1 solid;  overflow: auto;}
 
 /* 달력관리 */
-.box4{width:49.3%; border: 1px #e7ecf1 solid; float:left; height:700px; margin-top:20px; margin-right:1.3%;}
+.box4{width:49.3%; border: 1px #e7ecf1 solid; float:left; height:580px; margin-top:20px; margin-right:1.3%; margin-bottom:20px;}
 
 .box3 p, .box3_1 p, .box3_2 p,.box4 p,.box3_3 p{ text-align: left;
    margin: 10px 10px auto;
@@ -77,7 +77,7 @@
 	font-size: 13px;
 	margin:0 auto;
 	width:60px;
-	height:18px;
+	height:24px;
 }
 .bt_3{
 	background-color: #E43A45;
@@ -85,7 +85,7 @@
 	font-size: 13px;
 	margin:0 auto;
 	width:60px;
-	height:18px;
+	height:24px;
 }
 .bt_4{
 	background: #F4D03F;
@@ -93,7 +93,7 @@
 	font-size: 13px;
 	margin:0 auto;
 	width:60px;
-	height:18px;
+	height:24px;
 }
 .noCount{height:199px;}
 .noCount p {text-align: center; font-size: 16px;}

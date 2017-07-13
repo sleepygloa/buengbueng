@@ -7,8 +7,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공지사항</title>
+<<<<<<< HEAD
+
+	
+	</head>
+=======
 <div>
 <div class="title">공지사항</div>
+>>>>>>> 47b607cb46327f2b144c8d8c25ce26dd3d39de14
 <c:if test="${sessionScope.loginId=='admin'}"> 
 <div class="zxc"><a href = "noticeForm.do?snum=${snum}&pageNum=${pageNum}">공지하기</a></div>
 </c:if>

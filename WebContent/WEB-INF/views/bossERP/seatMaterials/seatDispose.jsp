@@ -7,6 +7,7 @@
 	<script src="/buengbueng/js/bossERP/seatDispose.js"></script>
 	<link rel="stylesheet" type="text/css" href="/buengbueng/css/bossERP/applyForSettlement.css">
 	<link rel="stylesheet" type="text/css" href="/buengbueng/css/ko/kocss.css">
+	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/erp.css">
 </head>
 
 <jsp:include page="../../erp_header.jsp" />
@@ -17,41 +18,44 @@
 		가맹지점을 선택하여 주세요.
 	</c:if>
 	<c:if test="${result eq 'succ'}">
-	<div class="ERP_Navigator">
-		<ul>
-			<li>ERP 관리</li>
-			<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
-			<li>PC방 관리</li>
-			<li><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
-			<li>PC방 좌석 정보 관리</li>
-		</ul>
-	</div>
-	
-	<div class="infoDiv">
-		PC 좌석&emsp;<input type="text" id="pcCount" placeholder="추가 좌석 개수"/>
-		&emsp;<input type="button" class="applyForSettlement_button" id="seatAdd" value="추가"/>
-		<br/><br/>
-		<input type="button" class="applyForSettlement_button" id="seatModi" value="일괄 수정" onclick="setInfoView();"/>
-		&emsp;&emsp;&emsp;
-		<input type="button" class="applyForSettlement_button" id="seatDel" value="삭제"/>
-		<br><br><hr>
-		
-		<div id="setInfo">
-			<div class="pop">
-		 		<button id="pop_close">x</button>
-		 	</div>
-			<div id="pcInfo"></div>
+		<div class="boss_con">
+		<div class="seatDispose_titlebox">
+			<span>PC방 좌석정보 관리</span>
+			<div class="seatDispose_btn_box2_right">
+				<input class="seatDispose_btn_box2_left_in"type="text" id="pcCount" placeholder="추가 좌석 개수"/>
+				<input type="button" class="seatDispose_button2" id="seatAdd" value="추가"/>
+			</div>		
 		</div>
-		
-		<div id="seatDisposeFirstDiv">
-			<c:forEach begin="1" end="${count}" var="pcNum" step="1">
-				<div class="seatDisposeSecondDiv" onclick="showModiPcInfo('${pcNum}')">
-					&emsp;<input type="checkBox" value="${pcNum}" name="checkPC"/>&nbsp;&nbsp;${pcNum}
+		<hr>
+			<div class="seatDispose_box">
+				<div class="seatDispose_btn_box">
+					<div class="seatDispose_btn_box2">
+						<div class="seatDispose_btn_box2_right">						
+							<input type="button" class="seatDispose_button" id="seatModi" value="일괄 수정" onclick="setInfoView();"/>
+							<input type="button" style="margin-right:3%;" class="seatDispose_button" id="seatDel" value="삭제"/>
+						</div>
+					</div>
 				</div>
-			</c:forEach>
+				
+				<div id="setInfo">
+					<div class="pop">
+				 		<button id="pop_close">x</button>
+				 	</div>
+					<div id="pcInfo"></div>
+				</div>
+				
+				
+				<div id="seatDisposeFirstDiv">
+					<c:forEach begin="1" end="${count}" var="pcNum" step="1">
+						<div class="seatDisposeSecondDiv" onclick="showModiPcInfo('${pcNum}')">
+						<input class="seatDispose_checkbox" type="checkBox" value="${pcNum}" name="checkPC"/>&nbsp;&nbsp;${pcNum}
+						</div>
+					</c:forEach>
+				</div>
+			</div>
 		</div>
-	</div>
 	</c:if>
+
 </body>
 
 <jsp:include page="../../footer.jsp" />

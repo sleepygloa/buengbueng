@@ -1,6 +1,7 @@
 package manage.boss.bean;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class FranchiseeDataDTO {
 
@@ -18,6 +19,7 @@ public class FranchiseeDataDTO {
 	
 	private int num; //신청번호 //가맹점 list에서 사용
 	private Timestamp date; //신청날짜
+	private String aDate; // (타입변경)신청날짜
 	private Timestamp finishDate; //승인날짜
 	private int result; //신청결과
 	
@@ -25,6 +27,13 @@ public class FranchiseeDataDTO {
 	private String pw; //삭제비밀번호
 	
 	
+	
+	public String getaDate() {
+		return aDate;
+	}
+	public void setaDate(String aDate) {
+		this.aDate = aDate;
+	}
 	public String getB_requestedAccount() {
 		return b_requestedAccount;
 	}

@@ -6,6 +6,7 @@
     <head>
     <title>재 고 추 가</title>
     <link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
+    <link rel="stylesheet" type="text/css"  href="/buengbueng/css/erp.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
     <script type="text/javascript" src="/buengbueng/js/menu/onemoreCheck.js"></script>
@@ -25,19 +26,16 @@
 				<li>재고 관리 - 재고 추가</li>
 			</ul>
 		</div>
-		
-    <div class=" margin_bottom50">	
-		<div class="col-xs-12-12">
 	
 	<div class="boss_con">
 		<p style="font-size:25">재고 관리 - 재고 추가</p>
 	<hr>
 	
     	<form action="productInsertPro.do" method="post" name="productInsert" >
-    		<table class="dailySettlementList_table1">					
+    		<table class="menu_table">					
     			<tr>	
     			<td>제품명   <input type="hidden" name="l_key" value="${l_key}"></td>
-    			<td>
+    			<td class="productModifyForm_td">
     			
     			<select  style="border: none" name="name" style="width:200px; heigth:30px">
     				<option selected="selected">등록 메뉴 보기</option>
@@ -51,12 +49,12 @@
     			
     			<tr>	
     			<td>바코드번호</td>
-    			<td><input style="border: none" type="text" name="code" maxlength="13" placeholder="바코드 입력">	</td>
+    			<td class="productModifyForm_td"><input type="text" name="code" maxlength="13" placeholder="바코드 입력">	</td>
     			</tr>
     		
     			<tr>	
     			<td>유통기한</td>
-    			<td><input style="border: none" type="text" name="last" maxlength="10" placeholder="유통기한 입력">	ex)xxxx-xx-xx</td>
+    			<td class="productModifyForm_td"><input type="text" name="last" maxlength="10" placeholder="유통기한 입력">	<span>ex)xxxx-xx-xx</span></td>
     			
     			</tr>    		
     		</table>
@@ -70,6 +68,5 @@
     	
     	</div>
     	
-    	</div>
-    	</div>
+    	
     </body>

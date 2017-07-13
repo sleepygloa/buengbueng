@@ -105,12 +105,12 @@ public class BossEmployeeManageBean2 {
 	
 	//사장님 알바생관리 메인 페이지
 	@RequestMapping("employeeCalenderOnly.do")
-	public String employeeCalenderOnly(HttpSession session, String id, Model model){
+	public String employeeCalenderOnly(HttpSession session, String id, Model model, String b_key){
 		if(session.getAttribute("loginId") != null){
 			id = (String)session.getAttribute("loginId");
 		}
 		
-		fs.franchiseeList(session, id, model);
+		fs.franchiseeList(session, id, model, b_key);
 		return "/bossERP/employeeManage/employeeCalenderOnly";
 	}	
 	
