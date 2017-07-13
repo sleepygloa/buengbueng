@@ -247,6 +247,7 @@ public class BossEmployeeManageBean4 {
 				
 	
 		return "/bossERP/dailySettlement/dailySettlementList";
+		
 	}
 	@RequestMapping("/viewDetails.do")
 	public String viewDetails(String pageNum, HttpSession session, HttpServletRequest request){

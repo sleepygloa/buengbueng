@@ -42,7 +42,7 @@
 					<th>상품상세보기</th>
 					<th>현황</th>
 				</tr>
-				<c:if test="${dailyCount < 1}">
+				<c:if test="${count < 1}">
 					<tr class="dailySettlementList_NoCount">
 						<td colspan="9">
 							<p>
@@ -52,7 +52,7 @@
 						</td>
 					</tr>
 				</c:if>
-				<c:if test="${dailyCount > 0}">
+				<c:if test="${count > 0}">
 				<c:forEach items="${articleList}" var="articleList">
 					<tr>
 						<td>
@@ -68,13 +68,13 @@
 						<td><div class="bt_1"><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do?settlementDate=${articleList.settlementDate}', '_blank', 'width=550 height=500')" >상세보기</a></div></td>
 						<td>
 							<c:if test="${articleList.resultValue == 3}">
-								<div class="bt_2"><a>${articleList.settlementStatus}</a></div>
+								<div style="height:24px;" class="bt_2"><a>${articleList.settlementStatus}</a></div>
 							</c:if>
 							<c:if test="${articleList.resultValue == 2}">
-								<div class="bt_3"><a>${articleList.settlementStatus}</a></div>
+								<div style="height:24px;" class="bt_3"><a>${articleList.settlementStatus}</a></div>
 							</c:if>
 							<c:if test="${articleList.resultValue == 1}">
-								<div class="bt_4"><a>${articleList.settlementStatus}</a></div>
+								<div style="height:24px;" class="bt_4"><a>${articleList.settlementStatus}</a></div>
 							</c:if>
 						</td>
 					</tr>

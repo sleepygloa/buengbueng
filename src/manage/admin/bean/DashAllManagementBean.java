@@ -357,7 +357,7 @@ public class DashAllManagementBean extends BoardMethodBean{
 	}
 	
 	//일일정산 요청 승인 
-	@RequestMapping("/AcceptingRequest.do")
+	@RequestMapping("AcceptingRequest.do")
 	public String AcceptingRequest(String pageNum, HttpServletRequest request){
 		
 		int check = 2;
@@ -408,7 +408,7 @@ public class DashAllManagementBean extends BoardMethodBean{
 		return "/dash-AcceptingRequest/AcceptingRequest";
 	}
 	
-	@RequestMapping("/AcceptingRequestPro.do")
+	@RequestMapping("AcceptingRequestPro.do")
 	public String AcceptingRequestPro(HttpServletRequest request){
 		//가맹키 배열로 받음
 		String[] chbox = request.getParameterValues("chbox"); 

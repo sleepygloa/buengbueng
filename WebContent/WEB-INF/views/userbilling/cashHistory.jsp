@@ -28,7 +28,7 @@
 		<div class="history_point_img">
 			<div class="history_point_tbox">
 				<P>${id}님의 현재 보유 포인트는 <span >${c.money}P</span> 입니다.</P>
-				<button class="cash_btn" onclick="location.href='http://localhost:8080/buengbueng/userbilling/cash.do'">충전하기</button>
+				<button class="cash_btn" onclick="location.href='http://localhost:8080/buengbueng/cash.do'">충전하기</button>
 			</div>
 		</div>
 		<div class="history_point_List ">
@@ -52,7 +52,7 @@
 					<td><p>${articleList.imp_uid}/${articleList.merchant_uid}</p></td>
 					<td>${articleList.payment_date}</td>
 					<td>${articleList.pg_name}</td>
-					<td>${articleList.paying_price}</td>
+					<td>${articleList.paying_price} &#8361;</td>
 					<td><a href="#" onClick="javascript:window.open('https:\/\/iniweb.inicis.com\/DefaultWebApp\/mall\/cr\/cm\/mCmReceipt_head.jsp?noTid=${articleList.pg_tid}&noMethod=1','popup','scrollbars=no, resizable=no, width=420,height=750')"> 영수증 </a></td>
 				</tr>
 				</c:forEach>
@@ -74,20 +74,20 @@
 	   		</c:if> 
 	          
 	   		<c:if test="${startPage > 10}">
-	        		<a href="/buengbueng/userbilling/cashHistory.do?pageNum=${startPage - 10 }">[이전]</a>
+	        		<a href="/buengbueng/cashHistory.do?pageNum=${startPage - 10 }">[이전]</a>
 	   		</c:if>
 	
 	   		<c:forEach var="i" begin="${startPage}" end="${endPage}">
-	       		<a href="/buengbueng/userbilling/cashHistory.do?pageNum=${i}">[${i}]</a>
+	       		<a href="/buengbueng/cashHistory.do?pageNum=${i}">[${i}]</a>
 	   		</c:forEach>
 	
 	   		<c:if test="${endPage < pageCount}">
-	        	<a href="/buengbueng/userbilling/cashHistory.do?pageNum=${startPage + 10}">[다음]</a>
+	        	<a href="/buengbueng/cashHistory.do?pageNum=${startPage + 10}">[다음]</a>
 	   		</c:if>
 			</c:if>
 		</center>
 	 
-	<p>1</p>
+	
 	</body>
 	
 	<jsp:include page="../footer.jsp" />

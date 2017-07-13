@@ -47,7 +47,7 @@
 						<!-- 결젠내역 테이블 -->
 						<table class="cash_today_list">
 							<tr>
-								<th colspan="2">결제 내역</th>
+								<th colspan="2" style="text-align: center">결제 내역</th>
 							</tr>
 							<tr>
 								<td class="cash_today_list_td">결제일 </td>
@@ -65,7 +65,7 @@
 						<!-- 충전내역 테이블 -->
 						<table class="point_have_list margin_l20" border="1">
 							<tr>
-								<th colspan="2">충전 포인트</th>
+								<th colspan="2" style="text-align: center">충전 포인트</th>
 							</tr>
 							<tr>
 								<td class="point_have_list_td">기존 보유 포인트 </td>
@@ -76,7 +76,7 @@
 								<td class="point_have_list_td2">${cash}원</td>
 							</tr>
 							<tr>
-								<td class="point_have_list_td">결제 완료 후 포인트 </td>
+								<td class="point_have_list_td">결제 후 포인트 </td>
 								<td class="point_have_list_td2">${info1.money+cash}원</td>
 								
 							</tr>		
@@ -85,7 +85,7 @@
 				</div>	
 								
 				<div>
-					<button class="main_btn margin_t20">메인으로</button>		
+					<button class="main_btn margin_t20" onclick="window.location='index.do'">메인으로</button>		
 				</div>
 			</div>
 		</center>

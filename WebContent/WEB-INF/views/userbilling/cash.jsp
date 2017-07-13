@@ -37,7 +37,7 @@
 	
 	<body>
 	
-		<div style="background: red;">
+		<div>
 			<div class="cash_title margin_b20">
 				<span><b>${id}</b>님 환영합니다. BuengBueng 포인트 구매 창입니다. </span>
 			</div>
@@ -117,8 +117,8 @@
 				</div>
 			</div>
 			<!-- 버튼  -->
-			<div style="text-align:center; width:100%; background: blue; float:left;">
-				<button class="cash_btn">돌아가기</button>
+			<div style="text-align:center; width:100%; float:left;">
+				<button class="cash_btn" onclick="window.location='index.do'">돌아가기</button>
 				<button class="cash_btn" id="bt">결제하기</button>
 			</div>
 			

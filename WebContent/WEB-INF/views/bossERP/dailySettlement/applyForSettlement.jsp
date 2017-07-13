@@ -80,7 +80,7 @@
 						<td>${articleList.businessName}</td>
 						<td>${articleList.usageTime}</td>
 						<td>${articleList.endTime}</td>
-						<td>${articleList.amountUsed}</td>
+						<td>${articleList.amountUsed} &#8361;</td>
 					</tr>
 				</c:forEach>
 				</c:if>

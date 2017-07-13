@@ -17,7 +17,7 @@
 					<span><b>${id}</b>님, 결제가 취소 처리 되었습니다. </span>
 				</div>
 				
-				<div class="cash_title_af">
+				<div class="cash_title_af" >
 					<p>${error_msg}</p>
 				</div>	
 								

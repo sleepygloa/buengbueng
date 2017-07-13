@@ -146,7 +146,7 @@ body{
 }
 
 
-.cash_title_af p { font-size:18px;	color: #333; margin : auto; margin-top:20px;}
+.cash_title_af p { font-size:18px;	color: #333; margin : auto; margin-top:190px;}
 .cash_title1{ font-size:32px; color:#ee2e24;}
 .cash_title2{ font-size:18px; color:#6c6c6c;}
 .td_title{text-align:center; width:auto;}
@@ -310,6 +310,7 @@ body{
  	width:210px;
  	height:55px;
  	text-align:center;
+ 	margin-left:9px;
  }
   .cash_in_list p{
   width:100px;
@@ -355,6 +356,7 @@ body{
  	outline:none;
  	vertical-align: middle;
  	margin-top: -7px;
+ 	background: none;
  }
 .cashing_point2{
  	width:100px;
@@ -366,6 +368,7 @@ body{
  	outline:none;
  	vertical-align: middle;
  	margin-top: -7px;
+ 	background: none;
  }
 
 

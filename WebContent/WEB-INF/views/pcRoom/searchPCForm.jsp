@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="/buengbueng/css/ko/kocss.css">
 </head>
 
-<jsp:include page="../user_header.jsp" />
+<jsp:include page="../header.jsp" />
 
 <body>
 	<div class="ERP_Navigator">
