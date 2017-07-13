@@ -74,7 +74,6 @@ public class IndexBean {
         	 ndto.setNewsList((String)st.nextElement());
         	 list.add(ndto);
         	 
-        	 System.out.println("리스트 입니다 : "+ndto.getNewsList());
         	 
          }
          
@@ -83,7 +82,6 @@ public class IndexBean {
          
          String strResult = replacedString.toString();
          //치환결과 값은 Log.txt 로 저장.
-         System.out.println("strResult :" +strResult);
          
          return list;
     }

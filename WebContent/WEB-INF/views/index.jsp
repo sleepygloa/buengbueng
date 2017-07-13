@@ -37,11 +37,9 @@ function indexFranchiseeList(){
 .side_scontent{
 background-color:#EEF1F2;
 }
-.newsList::nth-child(1) {
-	background-color:#E66565;
-}
-.newsList::nth-child(2) {
-	background-color:#E66565;
+.newsList > div:first-child,.newsList > div:first-child + div {
+	color:#E66565;
+	font-weight:700;
 }
 </style>
 
@@ -103,15 +101,15 @@ background-color:#EEF1F2;
 					<div class="contentBox col_height0">
 						<div class="contentBox_a"><a href="#">이벤트 & 광고</a></div>
 						<div><i class="fa fa-newspaper-o fa-4x" aria-hidden="true"></i></div>
-						<div style="display:inline-block;text-align:left;">
+						<div class="newsList" style="display:inline-block;text-align:left;padding-top:20px;">
 						
 						<c:set var="number" value="1" />
 							<c:forEach var="list" items="${newsList}">
-								<div class="newsList"><c:out value="${number}" />. ${list.newsList}</div>
+								<div style="margin:5 0;"><c:out value="${number}" />. ${list.newsList}</div>
 								<c:set var="number" value="${number+1}" />
 							</c:forEach>
 							
-							
+							<br />*. 출처 : 인벤 웹진 : http://www.inven.co.kr/webzine/news/?hotnews=3 
 						</div>
 					</div>
 				</div>					
