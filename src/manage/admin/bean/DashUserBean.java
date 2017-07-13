@@ -3,6 +3,7 @@ package manage.admin.bean;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,6 +27,46 @@ public class DashUserBean extends BoardMethodBean{
 	@RequestMapping("dashIndex.do") 
 	String dashIndex(HttpServletRequest request){
 		Alarm(request);// 알람 메서드
+		String somedate=null;
+		if(request.getParameter("somedate")==null){
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			somedate = sdf.format(date);
+		}else{
+			somedate =request.getParameter("somedate");
+		}
+		//총 충전금액
+		int allCash = (Integer)sqlMap.queryForObject("admin.getAllCash", null);
+		//해당 일 충전된 금액
+		int todayCash = (Integer)sqlMap.queryForObject("admin.getTodayCash",somedate);
+		//가맹점 총 갯수
+		int allFranchise = (Integer)sqlMap.queryForObject("admin.getAllFranchise", null);
+		//해당일  신규 승인 가맹점 수
+		int todayFranchise = (Integer)sqlMap.queryForObject("admin.getTodayFranchise", somedate);
+		//신청중인 가맹점
+		int agreeFranchise = (Integer)sqlMap.queryForObject("admin.getAgreeFranchise", null);
+		//가입된 총 회원 ( 알바 관리자 뺌)
+		int allUser = (Integer)sqlMap.queryForObject("admin.getAllUser", null);
+		//회원, 사장 각각 갯수
+		int User = (Integer)sqlMap.queryForObject("admin.getUserCount",null);
+		int Boss = (Integer)sqlMap.queryForObject("admin.getBoss", null);
+		
+		//알바 신청 승인 및 삭제 수
+		int empAgree =(Integer)sqlMap.queryForObject("admin.getAgreeCount", null);
+		int empDelete =(Integer)sqlMap.queryForObject("admin.getDeleteCount", null);
+		
+		
+		request.setAttribute("empDelete", empDelete);
+		request.setAttribute("empAgree",empAgree);
+		request.setAttribute("Boss", Boss);
+		request.setAttribute("User", User);
+		request.setAttribute("allUser", allUser);
+		request.setAttribute("agreeFranchise", agreeFranchise);
+		request.setAttribute("todayFranchise", todayFranchise);
+		request.setAttribute("allFranchise",allFranchise);
+		request.setAttribute("todayCash", todayCash);
+		request.setAttribute("allCash", allCash);
+		request.setAttribute("somedate", somedate);
 		return "dashIndex";
 	}
 	

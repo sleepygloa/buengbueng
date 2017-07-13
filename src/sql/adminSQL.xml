@@ -188,4 +188,46 @@
 		on a.e_id = b.e_id
 		where a.num=#num#;
 	</select>
+	<!-- 금액 null일때 치환 -->
+	<resultMap class="int" id="notnull">
+		<result property="paying_price" column="paying_price" nullValue="0"/>
+	</resultMap>
+	<!-- 총 충전 금액-->
+	<select id="getAllCash" resultMap="notnull">
+		select sum(paying_price) as paying_price from paymentList where confirmation='Accept';
+	</select>
+	<!-- 해당일 충전 금액 -->
+	<select id="getTodayCash" resultMap="notnull" parameterClass="String">
+		select sum(paying_price) as paying_price from paymentList where confirmation='Accept' and payment_date like concat('%',#somedate#,'%');
+	</select>
+	<!-- 가맹점 총 갯수 -->
+	<select id="getAllFranchise" resultMap="notnull">
+		SELECT count(*) as paying_price FROM franchiseeInfo;
+	</select>
+	<!-- 해당일 신규 가입된 가맹점 수 -->
+	<select id="getTodayFranchise" resultMap="notnull" parameterClass="String">
+		SELECT count(*) as paying_price FROM franchiseeLog where finishDate like concat('%',#somedate#,'%');
+	</select>
+	<!-- 신청중인 가맹점 수 -->
+	<select id="getAgreeFranchise" resultMap="notnull" >
+		select count(*) as paying_price from franchiseeLog where result=0;
+	</select>
+	<!-- 총 회원수 -->
+	<select id="getAllUser" resultMap="notnull">
+		select count(*) as paying_price from userInfo where grade=1 or grade=3;
+	</select>
+	<select id="getBoss" resultMap="notnull">
+		select count(*) as paying_price from userInfo where grade=1;
+	</select>
+	<select id="getUserCount" resultMap="notnull">
+		select count(*) as paying_price from userInfo where grade=3;
+	</select>
+	<!-- 알바 신청 승인 및 삭제 count -->
+	<select id="getAgreeCount" resultMap="notnull">
+		select count(*) as paying_price from employeeAddLog where result=0;
+	</select>
+	<select id="getDeleteCount" resultMap="notnull">
+		select count(*) as paying_price from employeeDeleteLog where result=0;
+	</select>	
+	
 </sqlMap>
