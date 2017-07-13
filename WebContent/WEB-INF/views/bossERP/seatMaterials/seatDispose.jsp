@@ -7,6 +7,7 @@
 	<script src="/buengbueng/js/bossERP/seatDispose.js"></script>
 	<link rel="stylesheet" type="text/css" href="/buengbueng/css/bossERP/applyForSettlement.css">
 	<link rel="stylesheet" type="text/css" href="/buengbueng/css/ko/kocss.css">
+	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/erp.css">
 </head>
 
 <jsp:include page="../../erp_header.jsp" />
@@ -26,25 +27,41 @@
 			<li>PC방 좌석 정보 관리</li>
 		</ul>
 	</div>
-	<div class="infoDiv">
-		<br>
-		PC 좌석&emsp;<input type="text" id="pcCount" placeholder="추가 좌석 개수"/>
-		&emsp;<input type="button" class="applyForSettlement_button" id="seatAdd" value="추가"/>
-		<br/><br/>
-		<input type="button" class="applyForSettlement_button" id="seatModi" value="일괄 수정"/>
-		&emsp;&emsp;&emsp;
-		<input type="button" class="applyForSettlement_button" id="seatDel" value="삭제"/>
-		<br><br><hr>
-		<div id="seatDisposeFirstDiv">
-			<c:forEach begin="1" end="${count}" var="pcNum" step="1">
-				<div class="seatDisposeSecondDiv" onclick="showModiPcInfo('${pcNum}')">
-					&emsp;<input type="checkBox" value="${pcNum}" name="checkPC"/>&nbsp;&nbsp;${pcNum}
-				</div>
-			</c:forEach>
-		</div>
-		<div id="pcInfo"></div>
+	<div class="boss_con">
+	<div class="seatDispose_titlebox">
+		<span>PC방 좌석정보 관리</span>
+		<div class="seatDispose_btn_box2_right">
+			<input class="seatDispose_btn_box2_left_in"type="text" id="pcCount" placeholder="추가 좌석 개수"/>
+			<input type="button" class="seatDispose_button2" id="seatAdd" value="추가"/>
+		</div>		
 	</div>
-	</c:if>
+	<hr>
+		<div class="seatDispose_box">
+			<div class="seatDispose_btn_box">
+				<div class="seatDispose_btn_box2">
+					<div class="seatDispose_btn_box2_right">						
+						<input type="button" class="seatDispose_button" id="seatModi" value="일괄 수정"/>
+						<input type="button" style="margin-right:3%;" class="seatDispose_button" id="seatDel" value="삭제"/>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			
+			<div id="seatDisposeFirstDiv">
+				<c:forEach begin="1" end="${count}" var="pcNum" step="1">
+					<div class="seatDisposeSecondDiv" onclick="showModiPcInfo('${pcNum}')">
+					<input class="seatDispose_checkbox" type="checkBox" value="${pcNum}" name="checkPC"/>&nbsp;&nbsp;${pcNum}
+					</div>
+				</c:forEach>
+			</div>
+			<div id="pcInfo"></div>
+		</div>
+			
+	</div>
+		</c:if>
+
 </body>
 
 <jsp:include page="../../footer.jsp" />

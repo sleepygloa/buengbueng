@@ -69,10 +69,8 @@ $(document).ready(function(){
 
           <li><a href="employeeManageInfo.do">알바 아이디 관리</a>
           </li>
-          <li><a href="employeeInfoList.do">신상관리</a>
-          </li>
-          <li><a href="#">알바 근태관리</a>
-          </li>
+          <!-- <li><a href="employeeInfoList.do">신상관리</a>
+          </li> -->
           <li><a href="employeeCalender.do">근무달력</a>
           </li>
           <li><a href="employeeCommute.do">출근하기</a>
@@ -80,10 +78,6 @@ $(document).ready(function(){
           <li><a href="employeeOffWork.do">퇴근하기</a>
           </li>
           <li><a href="employeeWorkTimeList.do">출근기록 확인하기</a>
-          </li>
-          <li><a href="#">휴가관리</a>
-          </li>
-          <li><a href="bossEmployeeAccountManage.do">장부관리</a>
           </li>
         </ul>
       </li>

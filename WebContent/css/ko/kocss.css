@@ -33,7 +33,7 @@
 
 #seatDisposeFirstDiv{
 	margin:0 auto;
-	width:98%;
+	width:100%;
 	display: inline-block;
 	margin-bottom: 2%;
 }
@@ -42,11 +42,9 @@
 	text-align: left;
 	width:10%;
 	height:120px;
-	border-bottom:1px solid black;
-	border-right:1px solid black;
+	border:1px solid #e7ecf1;
 	padding-top:0.5%;
-	background-color:#666;
-	color:white;
+	background-color:none;
 	float:left;
 	cursor: pointer;
 }
@@ -55,10 +53,8 @@
 	text-align: left;
 	width:10%;
 	height:120px;
-	border-bottom:1px solid black;
-	border-right:1px solid black;
+	border:1px solid #e7ecf1;
 	padding-top:0.5%;
-	background-color:red;
 	color:white;
 	float:left;
 	cursor: pointer;

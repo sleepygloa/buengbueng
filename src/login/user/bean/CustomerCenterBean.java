@@ -260,4 +260,10 @@ public class CustomerCenterBean extends CustomerMethodBean{ // 가맹 문의 , 1
 		request.setAttribute("pageNum", pageNum);
 		return "/customer-center/bossDelete";
 	}
+	
+	@RequestMapping("serviceCenter.do")
+	public String serviceCenter(){
+		
+		return "/customer-center/serviceCenter";
+	}
 }
