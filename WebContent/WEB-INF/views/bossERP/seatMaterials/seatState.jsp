@@ -26,9 +26,14 @@
 			</ul>
 		</div>
 		<div class="infoDiv">
-			<br/>
-			<div class="userInfo"></div>
-			<br/><br/>
+		
+			<div id="setInfo">
+				<div class="pop">
+			 		<button id="pop_close">x</button>
+			 	</div>
+				<div class="userInfo"></div>
+			</div>
+			
 			<div id="seatDisposeFirstDiv">
 				<c:set var="usePcCount" value="0" />
 				<div class="pcBox">

@@ -22,6 +22,7 @@
 			<li>PC방 찾기</li>
 		</ul>
 	</div>
+	
 	<div class="infoDiv">
 		<br/>
 		<input type="button" class="modiBtn2" value="PC방 주소 찾기" onclick="seachAddr();">
@@ -29,9 +30,14 @@
 		<input type="button" class="modiBtn" value="찾기" onclick="searchPCRoom();"/>
 		
 		<span id="guide"></span>
+		<div id="setInfo">
+			<div class="pop">
+		 		<button id="pop_close">x</button>
+		 	</div>
+			<div class="pcInfo"></div>
+		</div>
 		<div class="pcRoomInfo"></div>
 		<div class="seatState"></div>
-		<div class="pcInfo"></div>
 	</div>
 </body>
 

@@ -45,14 +45,19 @@
 			<input type="hidden" id="b_key" value="${sessionScope.b_key}"/>
 			<br/>
 			<div>
-				<input type="button" class="applyForSettlement_button" value="대여물품목록 추가" id="addRent"/>&emsp;&emsp;&emsp;
+				<input type="button" class="applyForSettlement_button" value="대여물품목록 추가" id="addRent" onclick="setInfoView();"/>&emsp;&emsp;&emsp;
 				<input type="button" class="applyForSettlement_button" value="대여물품목록삭제" id="delRent"  />&emsp;&emsp;&emsp;
-				<input type="button" class="applyForSettlement_button" value="대여물품 추가" id="addRentProduct"/>&emsp;&emsp;&emsp;
+				<input type="button" class="applyForSettlement_button" value="대여물품 추가" id="addRentProduct" onclick="setInfoView();"/>&emsp;&emsp;&emsp;
 				<input type="button" class="applyForSettlement_button" value="대여물품삭제" id="delRentProduct"/>&emsp;&emsp;&emsp;
 			</div>
-			<br/><br/>
-			<div id="rentDiv"></div>
-			<br/><br/>
+			
+			<div id="setInfo">
+				<div class="pop">
+			 		<button id="pop_close">x</button>
+			 	</div>
+				<div id="rentDiv"></div>
+			</div>
+			
 			<div id="seatDisposeFirstDiv">
 				<c:if test="${rentList.size() != 0}">
 					<br/>

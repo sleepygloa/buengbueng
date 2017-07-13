@@ -468,7 +468,7 @@
 	<select id="useStatusList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
 			select r,userId,userName,usageTime,endTime,round(amountUsed) as amountUsed,round(pcAmount) as pcAmount,businessName,round(menuAmount) as menuAmount    
 		  	from (select @rownum:= @rownum+1 as r, userId,userName,usageTime,endTime,round(amountUsed) as amountUsed,round(pcAmount) as pcAmount,businessName,round(menuAmount) as menuAmount
-	      	from usageHistory,(select @rownum:=0)i where affiliateCode = #b_key# order by idx desc )yz where r between #startRow# and #endRow#;
+	      	from usageHistory,(select @rownum:=0)i where affiliateCode = #b_key# and endTime != '0000-00-00 00:00:00' order by idx desc )yz where r between #startRow# and #endRow#;
 	</select>
 	
 <!-- FX용 -->

@@ -230,7 +230,7 @@ public class MenuOrderBean {
 	////// 사장님 주문 //////
 	
 	@RequestMapping("menuOrderListForm.do")
-	public String menuOrderListForm(String tf,HttpServletRequest request, HttpSession session){
+	public String menuOrderListForm(String tf,HttpServletRequest request, HttpSession session, String l_key){
 		try{
 			//사이드메뉴 템플릿
 			int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
@@ -238,7 +238,9 @@ public class MenuOrderBean {
 			request.setAttribute("sidemenuCheck", sidemenuCheck);
 			request.setAttribute("sidemenu", sidemenu);
 			
-			String l_key=(String)session.getAttribute("b_key");
+			if(l_key == null){
+				l_key=(String)session.getAttribute("b_key");
+			}
 			
 			List orderList = (List)sqlMap.queryForList("order.getMenuOrder", l_key);
 			request.setAttribute("orderList", orderList);

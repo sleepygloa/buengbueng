@@ -26,15 +26,23 @@
 			<li>PC방 좌석 정보 관리</li>
 		</ul>
 	</div>
+	
 	<div class="infoDiv">
-		<br>
 		PC 좌석&emsp;<input type="text" id="pcCount" placeholder="추가 좌석 개수"/>
 		&emsp;<input type="button" class="applyForSettlement_button" id="seatAdd" value="추가"/>
 		<br/><br/>
-		<input type="button" class="applyForSettlement_button" id="seatModi" value="일괄 수정"/>
+		<input type="button" class="applyForSettlement_button" id="seatModi" value="일괄 수정" onclick="setInfoView();"/>
 		&emsp;&emsp;&emsp;
 		<input type="button" class="applyForSettlement_button" id="seatDel" value="삭제"/>
 		<br><br><hr>
+		
+		<div id="setInfo">
+			<div class="pop">
+		 		<button id="pop_close">x</button>
+		 	</div>
+			<div id="pcInfo"></div>
+		</div>
+		
 		<div id="seatDisposeFirstDiv">
 			<c:forEach begin="1" end="${count}" var="pcNum" step="1">
 				<div class="seatDisposeSecondDiv" onclick="showModiPcInfo('${pcNum}')">
@@ -42,7 +50,6 @@
 				</div>
 			</c:forEach>
 		</div>
-		<div id="pcInfo"></div>
 	</div>
 	</c:if>
 </body>

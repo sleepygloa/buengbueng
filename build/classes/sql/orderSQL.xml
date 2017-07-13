@@ -19,7 +19,7 @@
 		select * from franchiseeInfo;
 	</select>
 	
-	<!-- 가맹점이름으로 그 가맹점 라이센스 키 가져오기 -->
+	<!-- 가맹점이름으로 그 가맹점 라이센스 키 가getUserOrderList져오기 -->
 	<select id="getLicenseKey" parameterClass="String" resultClass="String">
 		select b_key from franchiseeInfo where b_name=#b_name#;
 	</select>
@@ -132,7 +132,7 @@
 
 	<!-- 사장이 주문승인시 주문한 사용자 메뉴값 잔액에서 차감--> 
 	<update id="menuPayment" parameterClass="java.util.HashMap">
-		update userAccount set money=#money# where id=#userId#;
+		update userAccount set money= money - #money# where id=#userId#;
 	</update> 
 	
 	<!-- 사용자가 환불을 요청했을 때 승인하면서 status 값을 5로 바꿔주는데 사용 -->

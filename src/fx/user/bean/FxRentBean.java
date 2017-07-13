@@ -220,6 +220,7 @@ public class FxRentBean {
 	public String fxGetOneUserInfo(String id, String b_key, Model model){
 		try{
 			String startTime = (String)sqlMap.queryForObject("useSeat.getUserStartTime", id);
+			String startTime2 = (String)sqlMap.queryForObject("useSeat.getUserStartTime2", id);
 			
 			model.addAttribute("startTime", startTime);
 			
@@ -242,7 +243,7 @@ public class FxRentBean {
 			HashMap<String,Object> param = new HashMap<String,Object>();
 			param.put("id", id);
 			param.put("l_key", b_key);
-			param.put("startTime", startTime);
+			param.put("startTime", startTime2);
 			
 			ArrayList<OrderDTO> menuOrderList = (ArrayList<OrderDTO>)sqlMap.queryForList("order.getOneUserMenuOrder", param);
 			
