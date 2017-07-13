@@ -113,13 +113,7 @@ setInterval("autoRefresh1()", 3000);
                                     <span class="selected"></span>
                                 </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="rippler rippler-default">
-                                    <span class="menu-text">일일정산 완료내역</span>
-                                    <span class="selected"></span>
-                                </a>
-                                </li>
-                            </ul>
+                             </ul>
                         </li>
                         <li class="mt-has-menu">
                             <a href="javascript:void(0)" class="rippler rippler-default">
@@ -238,6 +232,8 @@ setInterval("autoRefresh1()", 3000);
                                 </li>
                             </ul>
                         </li>
+                        <!-- 추후 작업 예정 -->
+                        <%-- 
                         <li class="mt-has-menu">
                             <a href="javascript:void(0)">
 	                            <i class="fa fa-pencil-square-o"></i>
@@ -260,8 +256,9 @@ setInterval("autoRefresh1()", 3000);
                                 </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> 
+                        --%>
                 </aside>
          <!-- 중앙에 들어갈 내용!-->
-         <section id="main-content" >
+         <section id="main-content">
          

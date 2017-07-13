@@ -97,7 +97,7 @@ a:active {color: blue;}
 }
 
 /* Admin Page CustomerBoard*/
-#dashCustomerBoard {display: table; width: 48%; float:left; margin:1%;}
+#dashCustomerBoard {display: table; width: 48%; float:left; margin:1%; overflow: hidden;}
 .dashCustomerBoardTableRow {display: table-row;}
 .dashCustomerBoardTableCell {display: table-cell; padding: 3px; border-bottom: 1px solid #c0c0c0; float:left; text-align: center; vertical-align: middle;}
 .col-cb-1{width:7%;}
