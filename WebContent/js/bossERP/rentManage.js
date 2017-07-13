@@ -20,7 +20,17 @@ $(document).ready(function(){
 				rentNames += rName[i].value+',';
 			}
 		}
-		gotoURL2("delRent.do","rentName",rentNames,"b_key",b_key);
+		$.ajax({
+			url: "delRent.do",
+			type: "post",
+			data: {
+				rentName : rentNames,
+				b_key : b_key
+			},
+			success: function(data){
+				$("#seatDisposeFirstDiv").html(data);
+			}
+		});
 	});
 	$("#addRentProduct").click(function(){
 		$.ajax({
@@ -50,7 +60,7 @@ $(document).ready(function(){
 				b_key : b_key
 			},
 			success: function(data){
-				$("#rentDiv").html('');
+				$("#seatDisposeFirstDiv").html(data);
 			}
 		});
 	});
@@ -112,7 +122,7 @@ function modiRent(rentProduct,b_key){
 		}
 	});
 }
-function selectedproductList(rentProduct,b_key){
+function selectedproductList(rentProduct,b_key,num){
 	$.ajax({
 		url: "selectedRentProductAll.do",
 		type: "post",
@@ -121,7 +131,7 @@ function selectedproductList(rentProduct,b_key){
 			b_key: b_key
 		},
 		success: function(data){
-			$("#rentDiv").html(data);
+			$("#"+num).html(data);
 		}
 	});
 }
@@ -157,7 +167,7 @@ function checkRentProductModi(){
 		return false;
 	}
 	if(document.rentProductModiForm.rentCheck.value == ""){
-		document.getElementById("alert").value = "대여유무를 입력하십시오.(대여 가능 = 0 / 대여 중 = 1)";
+		document.getElementById("alert").value = "대여유무를 입력하십시오.";
 		return false;
 	}
 }

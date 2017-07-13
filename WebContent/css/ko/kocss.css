@@ -1,0 +1,248 @@
+@CHARSET "UTF-8";
+/*-- 공통 --*/
+.infoDiv{
+	border:1px #e7ecf1 solid;
+	width:100%;
+	display:inline-block;
+	margin:62px auto; 
+	background: #fff; 
+	text-align: center;
+}
+
+.infoDiv hr{
+	margin:0 auto;
+	width:98%;
+	border-bottom:0.5px #eee solid;
+	margin-bottom:20px;
+}
+
+.center{
+	text-align: center;
+}
+
+.rignt{
+	text-align: right;
+}
+
+#alert{
+	border: none;
+	color: red;
+	width: auto;
+	background-color: transparent;
+}
+
+#seatDisposeFirstDiv{
+	margin:0 auto;
+	width:98%;
+	display: inline-block;
+	margin-bottom: 2%;
+}
+
+.seatDisposeSecondDiv{
+	text-align: left;
+	width:10%;
+	height:120px;
+	border-bottom:1px solid black;
+	border-right:1px solid black;
+	padding-top:0.5%;
+	background-color:#666;
+	color:white;
+	float:left;
+	cursor: pointer;
+}
+
+.seatDisposeSecondDiv2{
+	text-align: left;
+	width:10%;
+	height:120px;
+	border-bottom:1px solid black;
+	border-right:1px solid black;
+	padding-top:0.5%;
+	background-color:red;
+	color:white;
+	float:left;
+	cursor: pointer;
+}
+
+.modiBtn{
+    background: none;
+    border: 1px #cdd3d7 solid;
+    color: #616f77;
+}
+
+.modiBtn2{
+    background-color: #659be0;
+    color: #fff;
+    font-size: 13px;
+    border: none;
+    height: 28px;
+}
+
+.modiBtn3{
+	background-color: #659be0;
+    color: #fff;
+    font-size: 13px;
+    border: none;
+    height: 28px;
+    float: right;
+	margin-right: 2%;
+}
+
+/*-- PC관리, 대여 관리, PC방 찾기 --*/
+
+#pcNum{
+	border:none;
+}
+
+#pcInfo{
+	width: 100%;
+	display: inline-block;
+	margin-bottom: 3%;
+}
+
+.pcInfoDetail{
+	display: inline-block;
+	padding-top: 0.5%;
+	border: 1px gray solid;
+}
+
+.pcInfoDefault{
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+}
+
+.userInfo{
+	display: inline-block;
+}
+
+.pcBox{
+	width:100%;
+	display: inline-block;
+}
+
+.userInfo{
+	width: 100%;
+	display: inline-block;
+}
+
+.userInfoDetail{
+	display: inline-block;
+	padding-top: 0.5%;
+	border: 1px gray solid;
+	text-align: left;
+}
+
+.rentProduct{
+	width: 100;
+	display: inline-block;
+}
+
+#rentDiv{
+	width: 100%;
+	display: inline-block;
+}
+
+.rentDivDetail{
+	display: inline-block;
+	padding-top: 0.5%;
+	border: 1px gray solid;
+	text-align: right;
+}
+
+/*-- pcRoom --*/
+.pcInfoDefault{
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+}
+
+.pcRoomInfo{
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	margin-bottom: 3%;
+}
+
+.seatState{
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	margin-bottom: 3%;
+}
+
+.pcInfo{
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	margin-bottom: 3%;
+}
+
+#guide{
+	color:#999;
+}
+
+.marginTop{
+	margin-top: 5%;
+}
+
+/*-- 탭 메뉴 --*/
+ul.tabs {
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+    height: inline-block;
+    border-bottom: 1px solid #eee;
+    border-left: 1px solid #eee;
+    width: 100%;
+    font-family:"dotum";
+    font-size:12px;
+}
+ul.tabs li {
+    float: left;
+    text-align:center;
+    cursor: pointer;
+    width:auto;
+    height: 31px;
+    line-height: 31px;
+    border: 1px solid #eee;
+    border-left: none;
+    font-weight: bold;
+    background: #fafafa;
+    overflow: hidden;
+    position: relative;
+}
+ul.tabs li.active {
+    background: #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+}
+.tab_container {
+    border: 1px solid #eee;
+    border-top: none;
+    clear: both;
+    float: left;
+    width: 100%;
+    background: #FFFFFF;
+}
+.tab_content {
+	width: 100%;
+    padding: 5px;
+    font-size: 12px;
+    text-align: right;
+    display: inline-block;
+}
+.tab_container .tab_content ul {
+    width:100%;
+    margin:0px;
+    padding:0px;
+}
+.tab_container .tab_content ul li {
+    padding:5px;
+    list-style:none
+}
+;
+ #container {
+    width: 100%;
+    margin: 0 auto;
+}

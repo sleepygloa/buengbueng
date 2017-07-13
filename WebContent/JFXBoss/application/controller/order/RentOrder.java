@@ -29,6 +29,7 @@ public class RentOrder implements Runnable{
 	public static void rentClose(){
 		instance.socket = null;
 		instance = null;
+		rent.interrupt();
 		rent = null;
 	}
 	
@@ -46,16 +47,12 @@ public class RentOrder implements Runnable{
 				byte[] data = dp.getData();
                 String txt = URLDecoder.decode(new String(data, 0, dp.getLength()),"UTF-8");
                 Platform.runLater(() -> {
-                	rent(txt);
+                	BossPcManageController.addRentOrder(txt);
                 });
                 Thread.sleep(1000);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-	}
-	
-	private void rent(String txt){
-		BossPcManageController.addRentOrder(txt);
 	}
 }

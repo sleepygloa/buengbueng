@@ -14,7 +14,7 @@
 	<script>
 		alert('알바생 삭제 신청이 완료되었습니다. ')
 	</script>
-	<meta http-equiv="refresh" content="1;url=bossErpMain.do" />
+	<meta http-equiv="refresh" content="1;url=employeeManageInfo.do" />
 </c:if>
 
 <!-- 서버오류, 메인페이지로이동 -->

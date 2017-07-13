@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<link rel="stylesheet" type="text/css" href="/buengbueng/css/notice/noticeForm.css">
 <jsp:include page="../header.jsp" />  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -25,12 +26,12 @@
 	</div>
 	<div>
 		<span>제목</span>
-		<span><input type="text" name="title"></span>
+		<span><input type="text" name="title" id="title11" ></span>
 	</div>
 	<div>
-		<textarea name="content"></textarea>
+		<textarea name="content" cols="130" rows="30"></textarea>
 	</div>
-	<div>
+	<div id="button2">
 		<span><input type="submit" value="작성하기"></span>
 		<span><input type="reset" value="다시쓰기"></span>
 		<span><input type="button" value="돌아가기" onclick="window.location='notice.do?snum=${snum}&pageNum=${pageNum}'"></span>

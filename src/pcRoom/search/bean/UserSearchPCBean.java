@@ -32,7 +32,7 @@ public class UserSearchPCBean {
 	public String searchPC(Model model){
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 2; //사이드메뉴의 내용을 선택
+		int sidemenu = 4; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
 		
@@ -47,14 +47,19 @@ public class UserSearchPCBean {
 		}
 		//사이드메뉴 템플릿
 		int sidemenuCheck = 1; //사이드메뉴 를 보여줄건지
-		int sidemenu = 2; //사이드메뉴의 내용을 선택
+		int sidemenu = 4; //사이드메뉴의 내용을 선택
 		model.addAttribute("sidemenuCheck", sidemenuCheck);
 		model.addAttribute("sidemenu", sidemenu);
 	
 		String address = (String)sqlMap.queryForObject("test.getUserAddr", id);
 
 		String[] spl = address.split(" ");
-		String addr = spl[2].substring(0, spl[2].length()-1);
+		String addr = null;
+		if(spl[2].length() > 2){
+			addr = spl[2].substring(0, spl[2].length()-1);
+		}else{
+			addr = spl[2];
+		}
 		
 		model.addAttribute("addr", addr);
 		return "/pcRoom/searchPCNear";

@@ -30,6 +30,7 @@ public class Socket implements Runnable{
 	public static void socketClose(){
 		instance.server = null;
 		instance = null;
+		socket.interrupt();
 		socket = null;
 	}
 

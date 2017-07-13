@@ -21,7 +21,7 @@
 </div>
 <div>
 	<span>제목</span>
-	<span><input type="text" name="title" value="${dto.title}"></span>
+	<span><input type="text" name="title"  id="title11" value="${dto.title}"></span>
 </div>
 <div>
 	<textarea name="content">${dto.content}</textarea>

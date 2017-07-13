@@ -1,19 +1,23 @@
 @CHARSET "UTF-8";
+
 #css{
 border-bottom:1px gray dotted;
-background-color:#FFD8D8;
-}
+	}
+
 #comment2{
 	border-bottom:1px gray dotted;
 }
+@media all and (min-width:768px) and (max-width:1920px){
 #num{
 	margin-left:95%;
+	}
 }
-#title{
-	border:1px gray dotted;
-	height:50px;
-	
+@media (max-width:768px){
+#num{
+	margin-left:95%;
+	}
 }
+
 #result{
 	border:1px gray solid;
 	width:100%;
@@ -22,10 +26,33 @@ background-color:#FFD8D8;
 #writer{
 	height:60px;
 }
-#button{
-	margin-left:81%;
+#button3{
+	margin-left:84%;
 }
 #content{
-	width:100%;
-	margin-left:15px;
+	width:98%;
+
+}
+@media all and (min-width:768px) and (max-width:1920px){
+#title2{
+	border-bottom:1px gray dotted;
+	font-weight:bold;
+	}
+}
+@media (max-width:768px){
+#title2{
+	border-bottom:1px gray dotted;
+	font-weight:bold;
+	}
+}
+
+
+#writer2{
+	font-weight:bold;
+}
+#comment{
+	background-color:#F6F6F6;
+}
+#middle{
+	font-weight:bold;
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" type="text/css" href="/buengbueng/css/notice/noticeContent.css">
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../header.jsp" />
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -60,12 +61,7 @@
 </div>
 <div>
 	<c:if test="${sessionScope.loginId == 'admin'}">
-		<c:if test="${re_step==1}">
-			<span>
-				<input type="button" value="답글쓰기" onclick=
-				"window.location='customerForm.do?ref=${dto.ref}&re_step=${dto.re_step}&num=${dto.num}&title=${dto.title}&snum=${dto.snum}&pageNum=${pageNum}'">
-			</span>
-		</c:if>
+	
 		<span><button id="bossDel">글삭제</button></span>
 	</c:if>
 	<c:if test="${sessionScope.loginId != 'admin'}">

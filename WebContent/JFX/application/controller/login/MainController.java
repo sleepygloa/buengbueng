@@ -92,6 +92,8 @@ public class MainController {
 						if((double)jsonObj.get("point") != UserInfo.getInstance().getStartPoint()){
 							UserInfo.getInstance().setPoint((double)jsonObj.get("point"));
 							UserInfo.getInstance().setStartPoint((double)jsonObj.get("point"));
+							UseCount.stopTime();
+							count();
 						}
 					}catch(Exception e){
 						e.printStackTrace();
@@ -178,6 +180,8 @@ public class MainController {
 				if((double)jsonObj.get("point") != UserInfo.getInstance().getStartPoint()){
 					UserInfo.getInstance().setPoint((double)jsonObj.get("point"));
 					UserInfo.getInstance().setStartPoint((double)jsonObj.get("point"));
+					UseCount.stopTime();
+					count();
 				}
 			}catch(Exception e){
 				e.printStackTrace();
@@ -198,6 +202,8 @@ public class MainController {
 			if((double)jsonObj.get("point") != UserInfo.getInstance().getStartPoint()){
 				UserInfo.getInstance().setPoint((double)jsonObj.get("point"));
 				UserInfo.getInstance().setStartPoint((double)jsonObj.get("point"));
+				UseCount.stopTime();
+				count();
 			}
 		}catch(Exception e){
 			e.printStackTrace();

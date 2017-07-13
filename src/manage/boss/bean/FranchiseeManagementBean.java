@@ -1,5 +1,7 @@
 package manage.boss.bean;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -49,16 +51,7 @@ public class FranchiseeManagementBean {
 	
 	@Autowired
 	protected SuperClass sc;
-	
-	//대메뉴에서 '사장님 가맹점 관리 버튼 클릭시' 이동
-	@RequestMapping("franchiseeManagementMain.do")
-	public String franchiseeManagementMain(Model model){
-		
-		sc.sideMenuTemp(model, 1, 1); //sidemenu template
-		
-		return "/bosspcuse/franchiseeManagementMain";
-	}
-	
+
 	//가맹점 추가 //폼에서 입력받음
 	@RequestMapping("franchiseeAdd.do")
 	public String franchiseeAdd(HttpSession session, BossInfoDataDTO bossDto, Model model){
@@ -267,6 +260,16 @@ public class FranchiseeManagementBean {
         request.setAttribute("pageSize", new Integer(pageSize));
         request.setAttribute("articleList1", articleList1);
         request.setAttribute("articleList2", articleList2);
+       
+        /* 혜민 설치파일 코드 추가 */
+        File path = new File(this.getClass().getResource("/").getPath()+"\\setup");
+        File[] fileList = path.listFiles();
+        String[] fileName = new String[fileList.length];
+        for(int i = 0; i < fileList.length; i++){
+        	String fName = fileList[i].getName();
+        	fileName[i] = fName.substring(0, fName.indexOf(".exe"));
+        }
+        request.setAttribute("fileName", fileName);
         
 		return  "/bosspcuse/franchiseeList";	
 	}

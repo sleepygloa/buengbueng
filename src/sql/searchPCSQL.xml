@@ -4,7 +4,7 @@
 <sqlMap namespace="searchPC">
 	<!-- 주소로 PC방 정보 가져오기 -->
 	<select id="searchPCRoom" parameterClass="String" resultClass="bossDTO">
-		select * from franchiseeInfo where b_address like '%$addr$%';
+		select * from franchiseeInfo where b_address like '%$addr$%' or b_name like '%$addr$%';
 	</select>
 	<!-- 해당 가맹점이 사용자의 즐겨찾는 PC방에 있는지 확인 -->
 	<select id="searchFavoritePCRoom" parameterClass="favoriteDTO" resultClass="String">
@@ -20,6 +20,6 @@
 	</delete>
 	<!-- 사용자의 모든 즐겨찾는 PC방 가져오기 -->
 	<select id="getFavoritePCRoom" parameterClass="String" resultClass="bossDTO">
-		select * from franchiseeInfo where b_key = (select b_key from favoritePCRoom where id = #id#);
+		select * from franchiseeInfo where b_key in (select b_key from favoritePCRoom where id = #id#);
 	</select>
 </sqlMap>

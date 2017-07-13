@@ -71,7 +71,7 @@
 	
 	<!-- 알바생 리스트 -->
 	<select id="getEmployeeList" resultClass="beDto" parameterClass="java.util.HashMap">
-		select e_id, pw,num, name, b_key AS e_name from userInfo a INNER JOIN 
+		select e_id, pw,num, name AS e_name, b_key from userInfo a INNER JOIN 
 		(select e_id,num,b_key from employeeInfo where e_bossid = #id# and b_key = #b_key#) b on a.id = b.e_id;
 	</select>
 	
@@ -328,7 +328,7 @@
 	<!-- 알바 근태 리스트 -->
 	<select id="getEmployeeWorkTimeList" resultClass="workTimeDto" parameterClass="String">
 		select c.num, c.b_key, c.todayDate, c.title, c.start, c.end, c.result, c.backgroundColor,c.borderColor, c.commuteTime, c.offWorkTime, c.ex from employeeInfo a 
-			 INNER JOIN	(select a.num, a.b_key, a.todayDate, a.title, a.start, a.end, a.result, a.backgroundColor,c.borderColor, b.commuteTime, b.offWorkTime, b.ex from employeeWorkTime a INNER JOIN employeeWorkTimeCommute b ON a.num = b.num WHERE a.result = 2) c 
+			 INNER JOIN	(select a.num, a.b_key, a.todayDate, a.title, a.start, a.end, a.result, a.backgroundColor,a.borderColor, b.commuteTime, b.offWorkTime, b.ex from employeeWorkTime a INNER JOIN employeeWorkTimeCommute b ON a.num = b.num WHERE a.result = 2) c 
 		ON a.e_id = c.title WHERE a.e_bossid = #id#;
 	</select>	
 	

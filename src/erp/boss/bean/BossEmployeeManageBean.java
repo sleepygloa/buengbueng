@@ -43,14 +43,11 @@ public class BossEmployeeManageBean {
 	@RequestMapping("bossErpMain.do")
 	public String bossEmployeeInfoMain(Model model, HttpSession session){
 		String b_key = (String)session.getAttribute("b_key");
-		System.out.println(b_key);
 		Calendar day = Calendar.getInstance();
         day.add(Calendar.DATE, 0);
         
         String startDate = new java.text.SimpleDateFormat("yyyy-MM-dd 00:00:00").format(day.getTime());
-    	System.out.println("startDate" + startDate);
     	String endDate = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(day.getTime());
-    	System.out.println("endDate" + endDate);
         
 		sc.sideMenuTemp(model, 1, 3); //sidemenu template
 		
@@ -65,10 +62,8 @@ public class BossEmployeeManageBean {
 		
 		
 		int count = (int)sqlMap.queryForObject("erpEmp.totalAmountCount", b_key);
-		System.out.println("count" + count);
 		int count2 = (int)sqlMap.queryForObject("erpEmp.dailyUserCount", b_key);
 		int count3 = (int)sqlMap.queryForObject("erpEmp.dailyAmountCount", mainInfo);
-		System.out.println("count3 = " + count3); 
 		
 		if(count > 0){
 			String totalAmount = (String) sqlMap.queryForObject("erpEmp.totalAmount", b_key);
@@ -205,8 +200,6 @@ public class BossEmployeeManageBean {
 				 checkIdInt = Integer.parseInt(checkId); //숫자를 인트로 형변환한다.
 			}
 
-	
-					
 				for(int i = 0; i < applyCount; i ++){
 					checkIdInt += 1; //checkIdInt 가 겹치기 않게 +1을 한다.
 						for(int j = 0; j < checkIdInt+1; j++){
@@ -240,7 +233,6 @@ public class BossEmployeeManageBean {
 							};
 							
 						}
-					
 				}
 				sqlMap.update("erpEmp.updateEmployeeAddLog", id);	
 				check = 1;
@@ -410,6 +402,8 @@ public class BossEmployeeManageBean {
 		
 		List list = new ArrayList();
 		list = (List)sqlMap.queryForList("erpEmp.getEmployeeIdList", b_key);
+		
+		model.addAttribute("list", list);
 		
 		String menu =  bossEmployeeManageBean.MenuCategoryDivResponse(list);
 		

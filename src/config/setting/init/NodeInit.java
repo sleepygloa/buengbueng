@@ -42,7 +42,6 @@ public class  NodeInit extends Thread {
 					            if(line2 == null) { break; }
 					            System.out.println("line : "+line2);
 					        } 
-					   
 				   }
 			   }
 			  } catch (Exception e) {

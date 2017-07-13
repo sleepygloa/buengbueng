@@ -21,13 +21,13 @@ public class CustomerMethodBean {  // 사용자 게시판 메서드( 가맹문�
 	
 	@Autowired
 	SqlMapClientTemplate sqlMap;
-	@Autowired
-	protected SuperClass sc;
 	//글 목록
-	public void boardList(HttpServletRequest request,HashMap map,Model model){
-		
+
+	public void boardList(HttpServletRequest request,HashMap map){
+
 		Integer snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 		if(pageNum==null){pageNum="1";}
 		
@@ -72,6 +72,8 @@ public class CustomerMethodBean {  // 사용자 게시판 메서드( 가맹문�
 		request.setAttribute("snum", snum);
 		request.setAttribute("dates", dates);
 	}
+	
+	
 	// 글쓰기 폼
 	public void writeForm(HttpServletRequest request,HttpSession session){
 		if(session.getAttribute("loginId") != null){  // 로그인 세션 기록 있을때 해당 로그인 정보 호출

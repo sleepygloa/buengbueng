@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 import all.info.dto.UserInfo;
 import application.controller.order.RentOrder;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -77,8 +78,12 @@ public class Main extends Application {
 					e.printStackTrace();
 				}finally{
 					// 수정하기
+					socket.interrupt();
+					socketT.interrupt();
 					Socket.socketClose();
 					RentOrder.rentClose();
+					Platform.exit();
+					System.exit(0);
 				}
 			});
 			

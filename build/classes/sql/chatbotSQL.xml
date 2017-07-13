@@ -52,4 +52,9 @@
 		select questionNum, group_concat(keyword) as keyword from chatLog where date_format(time,'%Y%m%d') between date_format(date_add(now(),interval -7 day),'%Y%m%d') and 
         date_format(now(),'%Y%m%d') group by questionNum;
 	</select>
+	
+	<!-- 키워드 추출 테스트 -->
+	<select id="getKeywordList" parameterClass="String" resultClass="int">
+		select count(keyword) count from chatLog where keyword = #keyword#;
+	</select>
 </sqlMap>

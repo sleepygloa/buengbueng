@@ -77,7 +77,7 @@
 								<div><a href="">회원 관리</a></div>
 								<div><a href="">페이지 관리</a></div>
 							</div>							
-						<div id="respon_menu_question" class="respon_menu_list"><a href="">고객센터</a></div>
+						<div id="respon_menu_question" class="respon_menu_list"><a href="serviceCenter.do">고객센터</a></div>
 							<div id="respon_submenu_question" class="respon_submenu"  style="display:none">
 								<div><a href="">가맹 문의</a></div>
 								<div><a href="">자주묻는 질문</a></div>								
@@ -261,7 +261,7 @@
 </c:if>
 <!-- ----------------------------------------------------------------------------------------------------								 -->
 					<li class="item normal product" onClick="return true">
-						<a href="">
+						<a href="serviceCenter.do">
 고객센터
 						</a>
 						<!-- 드롭다운메뉴 : 소메뉴 -->

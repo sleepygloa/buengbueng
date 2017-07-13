@@ -136,7 +136,12 @@ $(document).ready(function(){
 <input type="hidden" value="${sessionScope.b_key}">
 </head>
 
+<c:if test="${sidemenu!=5}">
 <body style="height:100%;">
+</c:if>
+<c:if test="${sidemenu==5}">
+<body class="container franchiseeManageMain" style="height:100%;">
+</c:if>
 <!-- SIDEMENU 위치에서 실제로 사용할 영역 지정하는 DIV -->
 	<div class="sidemenu xs_hidden">
 	<!-- 링크 LIST -->
@@ -224,20 +229,27 @@ $(document).ready(function(){
       <li class="sub-menu">
         <a href="javascript:void(0);"><i class="fa fa-map-marker"></i><span>대여 관리</span><i class="arrow fa fa-angle-right pull-right"></i></a>
         <ul>
-          <li><a href="rentMain.do">대여물품 관리</a>
+          <li><a href="rentManage.do">대여물품 관리</a>
           </li>
         </ul>
       </li>
       </c:if>
       
       <c:if test="${sidemenu == 4}"> 
-      	<li class="sub-menu">
-        <a href="javascript:void(0);"><i class="fa fa-file"></i><span>즐겨찾는 PC방</span><i class="arrow fa fa-angle-right pull-right"></i></a>
-        <ul>
-          <li><a href="favoritePCRoom.do">즐겨찾는 PC방</a>
-          </li>
-        </ul>
-      </li>
+		<li class="sub-menu">
+        	<a href="javascript:void(0);"><i class="fa fa-file"></i><span>PC방 찾기</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+	        <ul>
+	          <li><a href="searchPCForm.do">PC방 찾기</a></li>
+	          <li><a href="searchPCNear.do">우리동네 찾기</a></li>
+	        </ul>
+      	</li>
+		<li class="sub-menu">
+			<a href="javascript:void(0);"><i class="fa fa-file"></i><span>즐겨찾는 PC방</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+	        <ul>
+	          <li><a href="favoritePCRoom.do">즐겨찾는 PC방</a>
+	          </li>
+	        </ul>
+      	</li>
       </c:if>
       
      <c:if test="${sidemenu == 1}"> 
@@ -251,6 +263,23 @@ $(document).ready(function(){
         </ul>
       </li>
       </c:if>
+    <c:if test="${sidemenu == 5}">
+    <style>
+	    body { background-color:#fff; }
+	    .sidebar {width: 25%;height: 100%;background: #fff;}
+	    .franchiseeManageMain {margin:0 auto;float:none;}
+    </style>
+    
+	    <li class="sub-menu">
+	        <a href="javascript:void(0);"><i class="fa fa-table"></i><span>가맹점 관리</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+	        <ul>
+	          <li><a href="searchPCNear.do">가맹점 리스트</a></li>
+	          <li><a href="searchPCNear.do">가맹점 신청</a></li>
+	          <li><a href="searchPCNear.do">가맹점 삭제</a></li>
+	          <li><a href="searchPCNear.do">가맹점 PC이용현황</a></li>
+	        </ul>
+	      </li>
+    </c:if>      
     </ul>
   </div>
 </aside>

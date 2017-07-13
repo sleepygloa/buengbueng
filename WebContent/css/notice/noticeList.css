@@ -1,10 +1,27 @@
 @CHARSET "UTF-8";
 
 
-.er{width:100%; text-align: center;}
-.er th{border-top:1px solid #FFBB00; border-bottom:1px solid #FFBB00; text-align: center; background-color:#B2CCFF;}
-.er td{border-bottom:1px dotted gray;}
-.er tr{border:1px red solid;}
+.er1{width:100%; text-align: center;}
+.er1 th{border-top:1px solid #F15F5F; border-bottom:1px solid #F15F5F; text-align: center; background-color:#FFA7A7;}
+.er1 td{border-bottom:1px dotted gray;}
+.er1 tr{}
+
+.er2{width:100%; text-align: center;}
+.er2 th{border-top:1px solid #6799FF; border-bottom:1px solid #6799FF; text-align: center; background-color:#B2CCFF;}
+.er2 td{border-bottom:1px dotted gray;}
+.er2 tr{}
+
+
+
+.er3{width:100%; text-align: center;}
+.er3 th{border-top:1px solid #BCE55C; border-bottom:1px solid #BCE55C; text-align: center; background-color:#E4F7BA;}
+.er3 td{border-bottom:1px dotted gray;}
+.er3 tr{}
+
+.er4{width:100%; text-align: center;}
+.er4 th{border-top:1px solid #FAED7D; border-bottom:1px solid #FAED7D; text-align: center; background-color:#FAF4C0;}
+.er4 td{border-bottom:1px dotted gray;}
+.er4 tr{}
 
 
 @media all and (min-width:768px) and (max-width:1920px){
@@ -31,39 +48,16 @@
 	margin-left:30pt;
 	color:red;
 }
-@media all and (min-width:768px) and (max-width:1920px){
-.top{
-	border-top:1px solid #FFBB00;
-	color:#543900;
-	background-color:#FAED7D;
-	height:4%;
-	width:100%; border:1px red solid; text-align: center;
-	line-height:220%;
-	font-weight:bold;
-	}
-}
 
-@media (max-width:768px){
-.top{
-	border-top:1px solid #FFBB00;
-	border-bottom:1px solid #FFBB00;
-	color:#543900;
-	background-color:#FAED7D;
-	height:4%;
-	width:100%;
- 	line-height:220%;
- 	font-weight:bold;
-
-	}
-}
 
 
 @media all and (min-width:768px) and (max-width:1920px){
 .tt1{
 	display:inline-block;
-	width:5%;
+	width: 7%;
 	text-align:center;
-	overflow: hidden; white-space:nowrap;
+	overflow: hidden;
+	white-space:nowrap;
 	}
 }
 
@@ -99,9 +93,10 @@
 @media all and (min-width:768px) and (max-width:1920px){
 .tt3{
 	display:inline-block;
-	width:5%;
+	width: 6%;
 	text-align:center;
-	overflow: hidden; white-space:nowrap;
+	overflow: hidden;
+	white-space:nowrap;
 	}
 }
 @media (max-width:768px){
@@ -134,9 +129,10 @@
 @media all and (min-width:768px) and (max-width:1920px){
 .tt5{
 	display:inline-block;
-	width:5%;
+	width: 7%;
 	text-align:center;
-	overflow: hidden; white-space:nowrap;
+	overflow: hidden;
+	white-space:nowrap;
 	}
 }
 @media (max-width:768px){

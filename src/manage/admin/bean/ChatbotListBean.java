@@ -2,14 +2,15 @@ package manage.admin.bean;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
@@ -80,7 +81,8 @@ public class ChatbotListBean extends BoardMethodBean {
 					keyList.add(keyval[ii]);
 					keyvalList.add(keyval[ii]); // 중복값 제거 후 정렬한 리스트
 				}
-			}
+		}
+		
 		Collections.sort(keyList); // 중복값 제거하지 않은 상태의 정렬한 리스트
 		Iterator iterator=keyvalList.iterator();	
 		ArrayList countList=new ArrayList();
@@ -100,10 +102,40 @@ public class ChatbotListBean extends BoardMethodBean {
 		}
 		Collections.sort(countList);  // 정렬
 		Collections.reverse(countList); // 정렬후 역순으로 정렬 ( 이렇게 안하면 순서 이상해짐)
+		
+		/* 지우는 거 아님!! - 키워드 테스트 (혜민) */
+//		Iterator iterator=keyvalList.iterator();
+//		HashMap<String,Integer> result = new HashMap<String,Integer>();
+//		for(int i=0; i<keyvalList.size();i++){
+//			String keyword = (String)iterator.next();
+//			int countNum = (Integer)sqlMap.queryForObject("chatbot.getKeywordList", keyword);
+//			result.put(keyword,countNum);
+//			System.out.println(keyword+" "+countNum);
+//		}
+//		
+//		ArrayList countList = sortByValue(result);
 
 		request.setAttribute("countList", countList);
 		return "/chatbot/chatbotList";
 	}
+	
+	private static ArrayList sortByValue(final HashMap<String, Integer> result) {
+		ArrayList<String> list = new ArrayList();
+        list.addAll(result.keySet());
+         
+        Collections.sort(list,new Comparator() {
+             
+            public int compare(Object o1,Object o2) {
+                Object v1 = result.get(o1);
+                Object v2 = result.get(o2);
+                 
+                return ((Comparable) v2).compareTo(v1);
+            }
+             
+        });
+//        Collections.reverse(list); // 주석시 오름차순
+        return list;
+    }
 	
 	private void reverseArrayInt(ArrayList countList) {
 		// TODO Auto-generated method stub
