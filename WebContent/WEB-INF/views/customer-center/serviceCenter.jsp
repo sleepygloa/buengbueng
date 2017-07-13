@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
    <head>
@@ -61,41 +62,32 @@
          <div class="tabTitlebox">
             <div class="tabTitlebox_in">
                <ul class="tab">
-                  <li class="current" data-tab="tab1"><a href="#">가맹문의</a></li>
-                  <li data-tab="tab2"><a href="#">자주 묻는 질문</a></li>
-                  <li data-tab="tab3"><a href="#">1:1문의</a></li>
-                  <li data-tab="tab4"><a href="#">공지사항</a></li>
+               	<c:if test="${snum==1}">
+	               	<li class="current" ><a href="franchiseQA.do?snum=1">가맹문의</a></li>
+	                <li><a href="customerQA.do?snum=2">자주 묻는 질문</a></li>
+	                <li><a href="oneQA.do?snum=3">1:1문의</a></li>
+	                <li><a href="notice.do?snum=4&pageNum=1">공지사항</a></li>
+               	</c:if>
+               	<c:if test="${snum==2}">
+	               	<li><a href="franchiseQA.do?snum=1">가맹문의</a></li>
+	                <li class="current" ><a href="customerQA.do?snum=2">자주 묻는 질문</a></li>
+	                <li><a href="oneQA.do?snum=3">1:1문의</a></li>
+	                <li><a href="notice.do?snum=4&pageNum=1">공지사항</a></li>
+               	</c:if>
+               	<c:if test="${snum==3}">
+	               	<li><a href="franchiseQA.do?snum=1">가맹문의</a></li>
+	                <li><a href="customerQA.do?snum=2">자주 묻는 질문</a></li>
+	                <li class="current" ><a href="oneQA.do?snum=3">1:1문의</a></li>
+	                <li><a href="notice.do?snum=4&pageNum=1">공지사항</a></li>
+               	</c:if>
+               	<c:if test="${snum==4}">
+	               	<li><a href="franchiseQA.do?snum=1">가맹문의</a></li>
+	                <li><a href="customerQA.do?snum=2">자주 묻는 질문</a></li>
+	                <li><a href="oneQA.do?snum=3">1:1문의</a></li>
+	                <li class="current" ><a href="notice.do?snum=4&pageNum=1">공지사항</a></li>
+               	</c:if>
                </ul>
             </div>
          </div>
    
-         <div id="tab1" class="tabcontent current">
-			<jsp:include page="../customer-center/franchiseList.jsp" />
-         </div>
-   
-         <div id="tab2" class="tabcontent">
-         	<jsp:include page="../customer-center/customerList.jsp" />
-         </div>
-   
-         <div id="tab3" class="tabcontent">
-            <jsp:include page="../customer-center/oneList.jsp" />
-         </div>
-   
-         <div id="tab4" class="tabcontent">
-            <jsp:include page="../customer-center/noticeList.jsp" />
-         </div>
-      </div>
-   
-      <script>
-         $(function() {
-            $('ul.tab li').click(function() {
-               var activeTab = $(this).attr('data-tab');
-               $('ul.tab li').removeClass('current');
-               $('.tabcontent').removeClass('current');
-               $(this).addClass('current');
-               $('#' + activeTab).addClass('current');
-            })
-         });
-      </script>
-   </body>
-</html>
+         

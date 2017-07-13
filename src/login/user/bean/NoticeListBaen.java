@@ -25,27 +25,11 @@ public class NoticeListBaen {
 @Autowired
 private SqlMapClientTemplate sqlMap;
 
-
+	@RequestMapping("notice.do")
 	public String noticeList(HttpServletRequest request,HashMap r){
-//		int snum = Integer.parseInt(request.getParameter("snum"));
-//		
-		
-		int snum = 4;
-		String pageNum = "";
-		if(request.getParameter("find") != null && request.getParameter("find").equals(request.getParameter("snum"))){
-			pageNum = "1";
-		}else{
-			pageNum = request.getParameter("pageNum");
-		}
-		noticeList2(request,snum,pageNum,r);
-		
-		return "/customer-center/noticeList";
-	}
+		int snum = Integer.parseInt(request.getParameter("snum"));
+		String pageNum = request.getParameter("pageNum");
 
-	
-	public void noticeList2(HttpServletRequest request, int snum, String pageNum, HashMap r){
-
-		
 		if(pageNum == null){
 			pageNum = "1";
 		}
@@ -86,7 +70,10 @@ private SqlMapClientTemplate sqlMap;
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageCount",pageCount);
+		
+		return "/customer-center/noticeList";
 	}
+	
 
 @RequestMapping("noticeForm.do")
 public String noticeForm(HttpServletRequest request){

@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+
+<jsp:include page="serviceCenter.jsp" /> 
+
+
 <link rel="stylesheet" type="text/css" href="/buengbueng/css/notice/noticeList.css">
 <!-- HEADER TEMPLATE -->
 
@@ -35,7 +39,7 @@
 		<td class="tt1">
 			<c:out value="${number}"/>
 		</td>							    
-		<td class="tt2"><a href="customerContent?snum=${snum}&pageNum=${pageNum}&number=${number}&num=${article.num}&ref=${article.ref}&find=4">${article.title}</a></td>
+		<td class="tt2"><a href="customerContent?snum=${snum}&pageNum=${pageNum}&number=${number}&num=${article.num}&ref=${article.ref}">${article.title}</a></td>
 			<c:set var="number" value="${number -1}"/>
 		<td class="tt3">${article.writer}</td>
 		<td class="tt4">${article.reg_date}</td>
@@ -49,16 +53,21 @@
 	
 	<div class="footer">         
    <c:if test="${startPage > 10}">
-        <a href="serviceCenter.do?snum=${snum}&pageNum=${startPage - 10 }&find=4">[이전]</a>
+        <a href="notice.do?snum=${snum}&pageNum=${startPage - 10 }">[이전]</a>
    </c:if>
 
    <c:forEach var="i" begin="${startPage}" end="${endPage}">
-       <a href="serviceCenter.do?snum=${snum}&pageNum=${i}&find=4">[${i}]</a>
+       <a href="notice.do?snum=${snum}&pageNum=${i}">[${i}]</a>
    </c:forEach>
 
    <c:if test="${endPage < pageCount}">
-        <a href="serviceCenter.do?snum=${snum}&pageNum=${startPage + 10}&find=4">[다음]</a>
+        <a href="notice.do?snum=${snum}&pageNum=${startPage + 10}">[다음]</a>
    </c:if>
 </div>
 </div>
 
+
+
+       </div>
+   </body>
+</html>

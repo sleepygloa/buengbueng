@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<jsp:include page="serviceCenter.jsp" /> 
+
+
 <link rel="stylesheet" type="text/css" href="/buengbueng/css/notice/noticeList.css">
 <!-- HEADER TEMPLATE -->
 
@@ -47,13 +51,13 @@
 	
 <div class="footer">	
 	<c:if test="${startPage > 10}">
-        <a href="serviceCenter.do?snum=${snum}&pageNum=${ startPage - 10 }&find=3">[이전]</a>
+        <a href="oneQA.do?snum=${snum}&pageNum=${ startPage - 10 }">[이전]</a>
 	</c:if>
 	<c:forEach var="i" begin="${startPage}" end="${endPage}">
-		<a href="serviceCenter.do?snum=${snum}&pageNum=${i}&find=3">[${i}]</a>
+		<a href="oneQA.do?snum=${snum}&pageNum=${i}">[${i}]</a>
 	</c:forEach>
 	<c:if test="${endPage < pageCount}">
-    	<a href="serviceCenter.do?snum=${snum}&pageNum=${ startPage + 10 }&find=3">[다음]</a>
+    	<a href="oneQA.do?snum=${snum}&pageNum=${ startPage + 10 }">[다음]</a>
 	</c:if>
 </c:if>
 </div>
