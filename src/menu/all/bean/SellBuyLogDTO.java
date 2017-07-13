@@ -11,11 +11,11 @@ public class SellBuyLogDTO {
 	private int price;
 	private String l_key;
 	
-	public String getCostomer() {
+	public String getCustomer() {
 		return customer;
 	}
-	public void setCostomer(String costomer) {
-		this.customer = costomer;
+	public void setCustomer(String customer) {
+		this.customer = customer;
 	}
 	public int getPrice() {
 		return price;

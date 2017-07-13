@@ -47,7 +47,7 @@
     		
     			<tr>	
     			<td>제조회사</td>
-    			<td><input class="menuModify_input" type="text"  name="company" placeholder="제조회사 입력" value="${mdto.company}">	</td>
+    			<td><input class="menuModify_input" type="text"  name="company" placeholder="제조회사 입력" value="${mdto.company}"></td>
     			</tr>
      
     			<tr>	

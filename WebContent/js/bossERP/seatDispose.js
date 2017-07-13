@@ -1,5 +1,7 @@
 var b_key;
 
+var time = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
+
 $(document).ready(function(){
 	$("#seatAdd").click(function(){
 		// 입력한만큼 좌석 추가
@@ -79,8 +81,42 @@ function showModiPcInfo(pcNum){
 		},
 		success:function(data){
 			$("#pcInfo").html(data);
+			$("#setInfo").show();
+			$('#setInfo').mousedown(handle_mousedown);
 		}
 	});
+}
+
+function setInfoView() {
+	$("#setInfo").show();
+	$('#setInfo').mousedown(handle_mousedown);
+}
+ 
+$(function(){
+	$("#pop_close").click(function(){
+		$("#setInfo").hide();
+   }); 
+});
+function handle_mousedown(e){
+    window.my_dragging = {};
+    my_dragging.pageX0 = e.pageX;
+    my_dragging.pageY0 = e.pageY;
+    my_dragging.elem = this;
+    my_dragging.offset0 = $(this).offset();
+    function handle_dragging(e){
+        var left = my_dragging.offset0.left + (e.pageX - my_dragging.pageX0);
+        var top = my_dragging.offset0.top + (e.pageY - my_dragging.pageY0);
+        $(my_dragging.elem)
+        .offset({top: top, left: left});
+    }
+    function handle_mouseup(e){
+        $('body')
+        .off('mousemove', handle_dragging)
+        .off('mouseup', handle_mouseup);
+    }
+    $('body')
+    .on('mouseup', handle_mouseup)
+    .on('mousemove', handle_dragging);
 }
 
 // 좌석 정보 입력 확인
@@ -110,6 +146,11 @@ function checkPCInfo(){
 		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
 		return false;
 	}
+	if(!time.test(document.pcInfoForm.computer_date.value)){
+		document.getElementById("alert").value = "YYYY-MM-DD 형식입니다.";
+		return false;
+	}
+	
 	if(document.pcInfoForm.c_model.value == ""){
 		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
 		return false;
@@ -153,6 +194,10 @@ function checkPCInfo(){
 	}
 	if(document.pcInfoForm.monitor_date.value == ""){
 		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
+		return false;
+	}
+	if(!time.test(document.pcInfoForm.monitor_date.value)){
+		document.getElementById("alert").value = "YYYY-MM-DD 형식입니다.";
 		return false;
 	}
 	if(document.pcInfoForm.m_name.value == ""){
@@ -293,10 +338,6 @@ function checkPCInfoDefault(){
 		return false;
 	}
 	if(document.pcInfoForm.m_name.value == ""){
-		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
-		return false;
-	}
-	if(document.pcInfoForm.monitor_date.value == ""){
 		document.getElementById("alert").value = "모든 정보를 입력하십시오.";
 		return false;
 	}

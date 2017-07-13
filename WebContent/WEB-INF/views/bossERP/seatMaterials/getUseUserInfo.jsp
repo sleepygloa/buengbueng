@@ -4,10 +4,10 @@
 	$(function () {
 	    $(".tab_content").hide();
 	    $(".tab_content:first").show();
-	    $("ul.tabs li:first").addClass("active").css("color", "red");
+	    $("ul.tabs li:first").addClass("active").css("color", "blue");
 	    $("ul.tabs li").click(function () {
 	        $("ul.tabs li").removeClass("active").css("color", "#333");
-	        $(this).addClass("active").css("color", "red");
+	        $(this).addClass("active").css("color", "blue");
 	        $(".tab_content").hide();
 	        var activeTab = $(this).attr("rel");
 	        $("#" + activeTab).fadeIn();
@@ -16,8 +16,8 @@
 </script>
 
 <div class="userInfoDetail">
-	<p class="center">No.${pcNum}</p>
-	<p class="rignt">&emsp;${id}&nbsp;님&emsp;</p>
+	<p class="center"><b>No.${pcNum}</b></p>
+	<p class="rignt"><b>&emsp;${id}&nbsp;님&emsp;</b></p>
 	<p class="rignt">&emsp;로그인&emsp;${startTime}&emsp;</p><br/>
 	
 	<div id="container">
@@ -39,7 +39,7 @@
 			<div id="tab2" class="tab_content">
 				<ul>
 					<c:if test="${menuOrderList.size() == 0}">
-						<li>대여 중인 물품이 없습니다.</li>
+						<li>주문한 메뉴가 없습니다.</li>
 					</c:if>
 					<c:forEach var="menu" items="${menuOrderList}">
 						<li><b>메뉴명</b> [${menu.menuname}]&emsp;&emsp;<b>바코드</b> [${menu.code}]&emsp;&emsp;<b>가격</b> [${menu.ordermoney}]</li>

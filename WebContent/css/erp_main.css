@@ -41,10 +41,10 @@
 .box3{width:49.3%; height:320px; background: #fff; float:left; margin-top:20px;margin-right:1.3%; border: 1px #e7ecf1 solid; }
 .box3_1{width:24%; height:320px; background: #fff; float:left; margin-top:20px;margin-right:1.3%; border: 1px #e7ecf1 solid;}
 .box3_2{width:24%; height:320px; background: #fff; float:left; margin-top:20px; overflow: auto; border: 1px #e7ecf1 solid; }
-.box3_3{width:49.3%; height:320px; background: #fff; float:left; margin-top:20px;border: 1px #e7ecf1 solid;  overflow: auto;}
+.box3_3{width:49.3%; height:342px; background: #fff; float:left; margin-top:20px;border: 1px #e7ecf1 solid;  overflow: auto;}
 
 /* 달력관리 */
-.box4{width:49.3%; border: 1px #e7ecf1 solid; float:left; height:580px; margin-top:20px; margin-right:1.3%; margin-bottom:20px;}
+.box4{width:49.3%; border: 1px #e7ecf1 solid; float:left; height:705px; margin-top:20px; margin-right:1.3%; margin-bottom:20px;}
 
 .box3 p, .box3_1 p, .box3_2 p,.box4 p,.box3_3 p{ text-align: left;
    margin: 10px 10px auto;
@@ -73,28 +73,52 @@
 .con_2{margin-top: 10px; float: left; width: 100%;}
 .bt_2{
 	background: #29B4B6;
-	color:#fff;
-	font-size: 13px;
-	margin:0 auto;
-	width:60px;
-	height:24px;
+	color: #fff;
+    font-size: 12px;
+    margin: 0 auto;
+    width: 60px;
+    height: 17px;
+    line-height: 1.5;
 }
 .bt_3{
 	background-color: #E43A45;
-	color:#fff;
-	font-size: 13px;
-	margin:0 auto;
-	width:60px;
-	height:24px;
+    color: #fff;
+    font-size: 12px;
+    margin: 0 auto;
+    width: 60px;
+    height: 17px;
+    line-height: 1.5;
 }
 .bt_4{
 	background: #F4D03F;
-	color:#fff;
-	font-size: 13px;
-	margin:0 auto;
-	width:60px;
-	height:24px;
+	color: #fff;
+    font-size: 12px;
+    margin: 0 auto;
+    width: 60px;
+    height: 17px;
+    line-height: 1.5;
 }
+
+.bt_5{
+	background: #F4D03F;
+	color: #fff;
+    font-size: 12px;
+    margin: 0 auto;
+    width: 60px;
+    height: 17px;
+    line-height: 1.5;
+}
+.bt_6{
+	background: #1BBC9B;
+	color: #fff;
+    font-size: 12px;
+    margin: 0 auto;
+    width: 60px;
+    height: 17px;
+    line-height: 1.5;
+}
+
+
 .noCount{height:199px;}
 .noCount p {text-align: center; font-size: 16px;}
 
@@ -112,7 +136,7 @@
 		width:100%;
 		margin-bottom:10px;
 	}
-	.box3,.box3_1,.box3_2,.box4{width:100%;}
+	.box3,.box3_1,.box3_2,.box4,.box3_3{width:100%;}
 	.side_content, .container{height:auto;}
 	/* .box_con_top p{font-size: 12px;} */
 

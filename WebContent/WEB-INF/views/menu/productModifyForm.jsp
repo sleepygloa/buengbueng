@@ -35,13 +35,13 @@
     	<form action="productModifyPro.do" method="post" name="productModify" >
     		<table class="menu_table">					
     			<tr>	
-	    			<td>제품명</td>
-	    			<td>${pdto.name}</td>
+	    			<th>제품명</th>
+	    			<td style="float: left; margin-left: 2%; border: none; line-height: 4;">${pdto.name}</td>
     			</tr>  			
     			
     			
     			<tr>	
-	    			<td>바코드번호</td>
+	    			<th>바코드번호</th>
 	    			<td class="productModifyForm_td">
 	    				<input type="text" name="code" maxlength="13" value="${pdto.code}">	
 	    				<input type="hidden" name="beforeCode" value="${pdto.code}">
@@ -49,7 +49,7 @@
     			</tr>
     		
     			<tr>	
-    			<td>유통기한</td>
+    			<th>유통기한</th>
 	    			<td class="productModifyForm_td">
 	    				<input type="text" maxlength="10" name="last" value="${pdto.lastday}"><span>ex)xxxx-xx-xx</span>
 	    				<input type="hidden" name="beforeLastday" value="${pdto.lastday}">

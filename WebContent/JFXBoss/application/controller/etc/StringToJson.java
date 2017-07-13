@@ -11,6 +11,7 @@ import all.info.dto.UserInfo;
 import application.ConnectServer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TextField;
 
 public class StringToJson {
 
@@ -30,7 +31,6 @@ public class StringToJson {
 	public JSONArray stringToJsonArray(String jsonString){
 		JSONParser jsonParser = new JSONParser();
 		JSONArray jsonEid = new JSONArray();
-		
 		try{
 			jsonEid = (JSONArray)jsonParser.parse(jsonString);
 		}catch(Exception e){
@@ -54,6 +54,7 @@ public class StringToJson {
 			EmployeeTotalIdInfoList eDto2 = null; //알바생 신상정보리스트
 			EmployeeWorkTimeList eDto3 = null; //알바생 일정 및 출근 대장
 			EmployeePayList eDto4 = null; //알바생 알바비 지급 대장
+			EmployeeList eDto5 = null; //알바생 알바비 지급 대장
 			for(int i = 0;i<jsonArray.size(); i++){
 				if(eDtoString.equals("EmployeeList")){ //좌상 아이디리스트
 					eDto1 = new EmployeeList();
@@ -96,6 +97,11 @@ public class StringToJson {
 						eDto4.setPayCommute((Long)jsonObj.get("payCommute"));
 						eDto4.setPayOffWork((Long)jsonObj.get("payOffWork"));
 					data.add(eDto4);
+				}else if(eDtoString.equals("EmployeeWorkList")){ //좌상 출근한 알바아이디 리스트
+					eDto5 = new EmployeeList();
+					jsonObj = (JSONObject)jsonArray.get(i);
+						eDto5.setE_id((String)jsonObj.get("e_id"));
+					data.add(eDto5);
 				}
 			}
 			
@@ -106,5 +112,17 @@ public class StringToJson {
 		return data;
 	}
 	
+	
+	//url 연결해주는 메서드
+	public String urlConntectToReturnStringContainText(String url, TextField commuteIdText){
+		String param = "", urlInfo = "";
+		try{
+			param = "e_id="+URLEncoder.encode(commuteIdText.getText(),"UTF-8")+"&b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8"); 
+			urlInfo = "http://localhost:8080/buengbueng/"+url;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return ConnectServer.connectS(param, urlInfo);
+	}
 	
 }

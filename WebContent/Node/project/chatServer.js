@@ -60,8 +60,8 @@ io.sockets.on('connection',function(socket){
             console.log("insertErr: "+err);
           }
         });
-        socket.emit('recieveChat',answerToUser);
     });
+	socket.emit('recieveChat',answerToUser);
     socket.on('end',function(){
       console.log('Client connection ended');
     });

@@ -3,6 +3,7 @@
 
 
 <!-- HEADER TEMPLATE -->
+
 <jsp:include page="../../erp_header.jsp" />
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

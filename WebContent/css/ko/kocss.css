@@ -25,10 +25,11 @@
 }
 
 #alert{
-	border: none;
-	color: red;
-	width: auto;
-	background-color: transparent;
+    border: none;
+    color: red;
+    width: 100%;
+    margin-left: 13;
+    background-color: transparent;
 }
 
 #seatDisposeFirstDiv{
@@ -84,6 +85,29 @@
 	margin-right: 2%;
 }
 
+#setInfo{
+	background-color: white;
+	display:none;
+	position:absolute;
+	z-index: 2000;
+	margin-left: 40%;
+}
+
+.pop{
+	width:100%;
+	background-color: #2B3643;
+	display: inline-block;
+}
+
+#pop_close{
+	float:right;
+	margin-right: 1%;
+	background-color: transparent;
+	color: white;
+	border: none;
+	
+}
+
 /*-- PC관리, 대여 관리, PC방 찾기 --*/
 
 #pcNum{
@@ -97,9 +121,10 @@
 }
 
 .pcInfoDetail{
+	width: 100%;
 	display: inline-block;
 	padding-top: 0.5%;
-	border: 1px gray solid;
+	border:1px #e7ecf1 solid;
 }
 
 .pcInfoDefault{
@@ -125,7 +150,6 @@
 .userInfoDetail{
 	display: inline-block;
 	padding-top: 0.5%;
-	border: 1px gray solid;
 	text-align: left;
 }
 
@@ -137,12 +161,14 @@
 #rentDiv{
 	width: 100%;
 	display: inline-block;
+	border:1px #e7ecf1 solid;
 }
 
 .rentDivDetail{
+	width: 100%;
 	display: inline-block;
 	padding-top: 0.5%;
-	border: 1px gray solid;
+	border:1px #e7ecf1 solid;
 	text-align: right;
 }
 
@@ -190,8 +216,8 @@
     width: auto;
     font-family:"dotum";
     font-size:12px;
-    margin-bottom: 0px;
-    margin-left:-30px;
+    margin-bottom: -6px;
+    margin-left: -19px;
 }
 .tabs li {
     float: left;
@@ -213,12 +239,12 @@ ul.tabs li.active {
     border-bottom: 1px solid #FFFFFF;
 }
 .tab_container {
-    border: 1px solid #eee;
+
     border-top: none;
     clear: both;
     float: left;
     width: 100%;
-    background: #FFFFFF;
+
 }
 .tab_content {
 	width: 100%;

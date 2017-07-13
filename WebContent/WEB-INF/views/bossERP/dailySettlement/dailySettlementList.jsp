@@ -42,7 +42,7 @@
 					<th>상품상세보기</th>
 					<th>현황</th>
 				</tr>
-				<c:if test="${count < 1}">
+				<c:if test="${dailyCount < 1}">
 					<tr class="dailySettlementList_NoCount">
 						<td colspan="9">
 							<p>
@@ -52,7 +52,7 @@
 						</td>
 					</tr>
 				</c:if>
-				<c:if test="${count > 0}">
+				<c:if test="${dailyCount > 0}">
 				<c:forEach items="${articleList}" var="articleList">
 					<tr>
 						<td>
@@ -83,8 +83,8 @@
 			</table>
 			<div class="paging_con">
 				<div class="paging_con_box">
-				    <c:if test="${count > 0}">
-			        <c:set var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}"/>
+				    <c:if test="${dailyCount > 0}">
+			        <c:set var="pageCount" value="${dailyCount / pageSize + ( dailyCount % pageSize == 0 ? 0 : 1)}"/>
 			        <c:set var="pageBlock" value="${10}"/>
 			        <fmt:parseNumber var="result" value="${currentPage / 10}" integerOnly="true" />
 			        <c:set var="startPage" value="${result * 10 + 1}" />

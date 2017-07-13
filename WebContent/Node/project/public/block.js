@@ -1,6 +1,6 @@
 $(document).ready(function(){
-//  var socket = io.connect('ws://192.168.0.206:3000');
-    var socket = io.connect('ws://localhost:3000');
+  var socket = io.connect('ws://192.168.10.102:3000');
+//    var socket = io.connect('ws://localhost:3000');
     $(document).ready(function(){
       // 입력버튼 누르면 발생
       $('#submitBtn').click(function(){
@@ -29,17 +29,22 @@ $(document).ready(function(){
       			key:'7173114780022473721',
       			text: question
       		},
-          success: function(data){
+			success: function(data){
       			var parser = JSON.parse(data);
-      			for(i=0;i<parser.return_object.length;i++){
-      				var last = parser.return_object[i].term.indexOf('|');
-      				keyword += parser.return_object[i].term.substring(0,last);
-              if(i != parser.return_object.length-1){
-                keyword  += ",";
-              }
-      			}
-            socket.emit('chat', keyword,question);
+				if (typeof parser.return_object !== "undefined") {
+					for(i=0;i<parser.return_object.length;i++){
+						var last = parser.return_object[i].term.indexOf('|');
+						keyword += parser.return_object[i].term.substring(0,last);
+						if(i != parser.return_object.length-1){
+							keyword  += ",";
+						}
+					}
+				}else{
+					keyword = "키워드 없음";
+				}
+				socket.emit('chat', keyword,question);
       		}
+			
       	});
         socket.on('recieveChat',function(data){
           var txt = $('#chat').html();

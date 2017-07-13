@@ -7,7 +7,7 @@
 	<form action="addModiRentProductPro.do" method="post" name="rentProductForm" onsubmit="return checkRentProduct();">
 		<input type="hidden" value="add" name="page" />
 		<input type="hidden" value="${b_key}" name="b_key">
-		&emsp;바코드 번호 : <input type="text" name="code" />&emsp;<br/>
+		&emsp;바코드 번호 : <input type="text" name="code" maxlength="7"/>&emsp;<br/>
 		&emsp;물품: <select name="rentProduct">
 			<option >선택</option>
 			<c:forEach var="rentName" items="${rentName}">
@@ -23,7 +23,7 @@
 		<input type="hidden" value="modi" name="page" />
 		<input type="hidden" value="${rentP.code}" name="beforeCode"/>
 		<input type="hidden" value="${b_key}" name="b_key">
-		&emsp;바코드 번호 : <input type="text" name="code" value="${rentP.code}"/>&emsp;<br/>
+		&emsp;바코드 번호 : <input type="text" name="code" value="${rentP.code}" maxlength="7"/>&emsp;<br/>
 		&emsp;대여 유무 : <select name="rentCheck">
 						<c:if test="${rentP.rentCheck == 0}">
 							<option value="0">대여 가능</option>

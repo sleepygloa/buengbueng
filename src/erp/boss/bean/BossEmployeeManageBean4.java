@@ -37,143 +37,143 @@ public class BossEmployeeManageBean4 {
 	protected SuperClass sc;
 
 	
-	@RequestMapping("/applyForSettlement.do")
-	public String applyForSettlement (String pageNum, HttpSession session, HttpServletRequest request, Model model)throws Exception{
-		String id = (String)session.getAttribute("loginId");
-		String b_key = (String)session.getAttribute("b_key");
-		
-		String affiliateCodeList = b_key;
-		
-		
-		sc.sideMenuTemp(model, 1, 3); //sidemenu template
-		
-		/***********************************************************************************************/
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
-		SimpleDateFormat end = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
+	 @RequestMapping("/applyForSettlement.do")
+	   public String applyForSettlement (String pageNum, HttpSession session, HttpServletRequest request, Model model)throws Exception{
+	      String id = (String)session.getAttribute("loginId");
+	      String b_key = (String)session.getAttribute("b_key");
+	      
+	      String affiliateCodeList = b_key;
+	      
+	      
+	      sc.sideMenuTemp(model, 1, 3); //sidemenu template
+	      
+	      /***********************************************************************************************/
+	      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+	      SimpleDateFormat end = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
 
-        Calendar c1 = Calendar.getInstance();
+	        Calendar c1 = Calendar.getInstance();
 
-        String Today = sdf.format(c1.getTime());
-        
-        String TodayEndTime = end.format(c1.getTime());
-        
-		Calendar day = Calendar.getInstance();
-        day.add(Calendar.DATE , -1);
-        
-        //현재 오늘일 기준으로 어제 시작 일 00:00:00  코드
-    	String startDate = new java.text.SimpleDateFormat("yyyy-MM-dd 00:00:00").format(day.getTime());
-    	//현재 오늘일 기준으로 어제 종료 일 23:59:59  코드
-    	String endDate = new java.text.SimpleDateFormat("yyyy-MM-dd 23:59:59").format(day.getTime());
-    	
-    	/***********************************************************************************************/
-    	
-    	
-		/*가맹주 기본정보  *********************************************************************/
-    	
-    	HashMap time = new HashMap<>();
-		time.put("startDate", startDate);
-		time.put("endDate", endDate);
-		time.put("affiliateCode", affiliateCodeList);
-		
-		//일일정산시 총 합계금액 계산
-		String dailyAmount = (String) sqlMap.queryForObject("erpEmp.dailyAmount", time);
-		String dailyPureAmount = (String) sqlMap.queryForObject("erpEmp.dailyPureAmount", time);	
-		
-		int dailyCount = 0;
-		
-		dailyCount = (Integer) sqlMap.queryForObject("erpEmp.dailyCount", time);
-		System.out.println("dailyCount" + dailyCount);
-		
-		/*현재 오늘 기준으로 어제 사용자가 pc사용한 내역 리스트 *********************************************************************/
-		
-		if (pageNum == null) {
-            pageNum = "1";
-        }
-        int pageSize = 10;
-        int currentPage = Integer.parseInt(pageNum);
-        int startRow = (currentPage - 1) * pageSize + 1;
-        int endRow = currentPage * pageSize;
-        int count = 0;
-        int number= 0;
-        
-        count = (Integer)sqlMap.queryForObject("erpEmp.B_keyValidity", affiliateCodeList);
-   
-        List articleList = null;
-        
-             
-        if(dailyCount > 0){
-        	HashMap r = new HashMap<>();
-        	
-    		r.put("startDate", startDate);
-        	r.put("endDate", endDate);
-     	    r.put("startRow", startRow);
-     	    r.put("endRow", endRow);
-     	    //가맹점 코드
-     	    r.put("affiliateCodeList", affiliateCodeList);
-     	   
-     	    articleList = sqlMap.queryForList("erpEmp.SelectedList", r);
-     	    
-        } else {
-        	articleList = Collections.EMPTY_LIST;
-        }
-        
-        number = dailyCount - (currentPage - 1) * pageSize;
-        
-        /**************************************************************************************************/
-        
-        /**정산신청 중복방지******************************************************************************************/
-        
-        HashMap checkValue = new HashMap<>();
-        checkValue.put("endDate", TodayEndTime);
-        checkValue.put("startDate", Today);
-        checkValue.put("b_key", affiliateCodeList);
-        
-        int check =  (int) sqlMap.queryForObject("erpEmp.checkValue", checkValue);
-        int checkPoint = 0;
-        
-		if(check < 2 && check > -1){ //  check 0 일결우 삽입
-			checkPoint = 1;
-			request.setAttribute("checkPoint", checkPoint);
-		}else if(check >= 1){ //  check 0이 아닐 경우에 블럭
-			checkPoint = 2;
-			request.setAttribute("checkPoint", checkPoint);
-		}else if(check == 0){
-			checkPoint = 3;
-			request.setAttribute("checkPoint", checkPoint);
-			
-		}
-		
-		/**************************************************************************************************/
-		
-        /*view에서 사용할 코드****************************************************************************/
-		//게시판
-		
-        request.setAttribute("articleList", articleList);
-        request.setAttribute("currentPage", new Integer(currentPage));
-        request.setAttribute("startRow", new Integer(startRow));
-        request.setAttribute("endRow", new Integer(endRow));
-        request.setAttribute("count", new Integer(count));
-        request.setAttribute("pageSize", new Integer(pageSize));
-		request.setAttribute("number", new Integer(number));
-		
-		//가맹주 기본 정보
-		request.setAttribute("id", id);
-		request.setAttribute("affiliateCodeList", affiliateCodeList);
-		request.setAttribute("dailyCount", dailyCount);
+	        String Today = sdf.format(c1.getTime());
+	        
+	        String TodayEndTime = end.format(c1.getTime());
+	        
+	      Calendar day = Calendar.getInstance();
+	        day.add(Calendar.DATE , -1);
+	        
+	        //현재 오늘일 기준으로 어제 시작 일 00:00:00  코드
+	       String startDate = new java.text.SimpleDateFormat("yyyy-MM-dd 00:00:00").format(day.getTime());
+	       //현재 오늘일 기준으로 어제 종료 일 23:59:59  코드
+	       String endDate = new java.text.SimpleDateFormat("yyyy-MM-dd 23:59:59").format(day.getTime());
+	       
+	       /***********************************************************************************************/
+	       
+	       
+	      /*가맹주 기본정보  *********************************************************************/
+	       
+	       HashMap time = new HashMap<>();
+	      time.put("startDate", startDate);
+	      time.put("endDate", endDate);
+	      time.put("affiliateCode", affiliateCodeList);
+	      
+	      //일일정산시 총 합계금액 계산
+	      String dailyAmount = (String) sqlMap.queryForObject("erpEmp.dailyAmount", time);
+	      String dailyPureAmount = (String) sqlMap.queryForObject("erpEmp.dailyPureAmount", time);   
+	      
+	      int dailyCount = 0;
+	      
+	      dailyCount = (Integer) sqlMap.queryForObject("erpEmp.dailyCount", time);
+	      System.out.println("dailyCount" + dailyCount);
+	      
+	      /*현재 오늘 기준으로 어제 사용자가 pc사용한 내역 리스트 *********************************************************************/
+	      
+	      if (pageNum == null) {
+	            pageNum = "1";
+	        }
+	        int pageSize = 20;
+	        int currentPage = Integer.parseInt(pageNum);
+	        int startRow = (currentPage - 1) * pageSize + 1;
+	        int endRow = currentPage * pageSize;
+	        int count = 0;
+	        int number= 0;
+	        
+	        count = (Integer)sqlMap.queryForObject("erpEmp.B_keyValidity", affiliateCodeList);
+	   
+	        List articleList = null;
+	        
+	             
+	        if(dailyCount > 0){
+	           HashMap r = new HashMap<>();
+	           
+	          r.put("startDate", startDate);
+	           r.put("endDate", endDate);
+	            r.put("startRow", startRow);
+	            r.put("endRow", endRow);
+	            //가맹점 코드
+	            r.put("affiliateCodeList", affiliateCodeList);
+	           
+	            articleList = sqlMap.queryForList("erpEmp.SelectedList", r);
+	            
+	        } else {
+	           articleList = Collections.EMPTY_LIST;
+	        }
+	        
+	        number = dailyCount - (currentPage - 1) * pageSize;
+	        
+	        /**************************************************************************************************/
+	        
+	        /**정산신청 중복방지******************************************************************************************/
+	        
+	        HashMap checkValue = new HashMap<>();
+	        checkValue.put("endDate", TodayEndTime);
+	        checkValue.put("startDate", Today);
+	        checkValue.put("b_key", affiliateCodeList);
+	        
+	        int check =  (int) sqlMap.queryForObject("erpEmp.checkValue", checkValue);
+	        int checkPoint = 0;
+	        
+	      if(check < 2 && check > -1){ //  check 0 일결우 삽입
+	         checkPoint = 1;
+	         request.setAttribute("checkPoint", checkPoint);
+	      }else if(check >= 1){ //  check 0이 아닐 경우에 블럭
+	         checkPoint = 2;
+	         request.setAttribute("checkPoint", checkPoint);
+	      }else if(check == 0){
+	         checkPoint = 3;
+	         request.setAttribute("checkPoint", checkPoint);
+	         
+	      }
+	      
+	      /**************************************************************************************************/
+	      
+	        /*view에서 사용할 코드****************************************************************************/
+	      //게시판
+	      
+	        request.setAttribute("articleList", articleList);
+	        request.setAttribute("currentPage", new Integer(currentPage));
+	        request.setAttribute("startRow", new Integer(startRow));
+	        request.setAttribute("endRow", new Integer(endRow));
+	        request.setAttribute("count", new Integer(count));
+	        request.setAttribute("pageSize", new Integer(pageSize));
+	      request.setAttribute("number", new Integer(number));
+	      
+	      //가맹주 기본 정보
+	      request.setAttribute("id", id);
+	      request.setAttribute("affiliateCodeList", affiliateCodeList);
+	      request.setAttribute("dailyCount", dailyCount);
 
-		
-		
-		request.setAttribute("Today", Today);
-	    request.setAttribute("TodayEndTime", TodayEndTime);
-		
-		request.setAttribute("dailyPureAmount", dailyPureAmount);
-		request.setAttribute("dailyAmount", dailyAmount);
-		
-		//가맹코드
-		request.setAttribute("affiliateCode", affiliateCodeList);
-		
-		return "/bossERP/dailySettlement/applyForSettlement";
-	}
+	      
+	      
+	      request.setAttribute("Today", Today);
+	       request.setAttribute("TodayEndTime", TodayEndTime);
+	      
+	      request.setAttribute("dailyPureAmount", dailyPureAmount);
+	      request.setAttribute("dailyAmount", dailyAmount);
+	      
+	      //가맹코드
+	      request.setAttribute("affiliateCode", affiliateCodeList);
+	      
+	      return "/bossERP/dailySettlement/applyForSettlement";
+	   }
 	
 	
 	//일일정산 데이터 받아 데이터 삽입 부분

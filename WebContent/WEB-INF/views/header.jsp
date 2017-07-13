@@ -43,7 +43,6 @@
 		<link rel="stylesheet" type="text/css" media="all" href="/buengbueng/css/chatbot/chatbot.css" />
 		
 		<!-- 홈페이지 제목 -->
-		
 	</head>
 	 	<!-- LOGIN SECTION -->
 	 	<header class="header_wrap">
@@ -115,7 +114,7 @@
 								</div>
 								<!-- 컨텐츠당 하나의 div로 구성 -->
 								<div class="menu_menu col-sm-6-12">
-									<a href="">
+									<a href="intro.do">
 										<span class="menu_icon ux-heatmap"><img src="img/ux-heatmaps-gnb@2x.png"></span>
 										<span class="menu_text">
 											<h6 class="menu_name minor-minor">프로그램 기능소개</h6>
@@ -412,6 +411,6 @@
  		<button id="pop_min" class="pop">＿</button><br/>
  	</div>
  	<div id="chattingDiv" style="width:100%;display:inline-block;">
-		<iframe src="http://localhost:3000/" width = 100% height="80%"></iframe>
+		<iframe src="http://192.168.10.102:3000/" width = "100%" height="80%"></iframe>
 	</div>
  </div>

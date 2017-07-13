@@ -328,8 +328,8 @@
 	<!-- 알바 근태 리스트 -->
 	<select id="getEmployeeWorkTimeList" resultClass="workTimeDto" parameterClass="String">
 		select c.num, c.b_key, c.todayDate, c.title, c.start, c.end, c.result, c.backgroundColor,c.borderColor, c.commuteTime, c.offWorkTime, c.ex from employeeInfo a 
-			 INNER JOIN	(select a.num, a.b_key, a.todayDate, a.title, a.start, a.end, a.result, a.backgroundColor,a.borderColor, b.commuteTime, b.offWorkTime, b.ex from employeeWorkTime a INNER JOIN employeeWorkTimeCommute b ON a.num = b.num WHERE a.result = 2) c 
-		ON a.e_id = c.title WHERE a.e_bossid = #id#;
+			 INNER JOIN	(select a.num, a.b_key, a.todayDate, a.title, a.start, a.end, a.result, a.backgroundColor,a.borderColor, b.commuteTime, b.offWorkTime, b.ex from employeeWorkTime a INNER JOIN employeeWorkTimeCommute b ON a.num = b.num ) c 
+		ON a.e_id = c.title WHERE a.e_bossid = #id# order by c.start desc;
 	</select>	
 	
 	
@@ -381,7 +381,7 @@
 	
 	<!-- 가맹점에서 이용한 사용한 내역 카운트 -->
 	<select id="B_keyValidity" resultClass="int">
-	 	select count(*) from usageHistory where affiliateCode = #affiliateCodeList#;
+	 	select count(*) from usageHistory where affiliateCode = #affiliateCodeList# and endTime != '0000-00-00 00:00:00';
 	 </select>
 	
 	<!-- 가맹점에서 이용한 유저들 사용현황정보 리스트 -->
@@ -389,7 +389,7 @@
    	 <![CDATA[
            select r,idx,userId,userName,affiliateCode,usageTime,endTime,format(amountUsed, 0) amountUsed,businessName,bossId
             from (select @rownum:= @rownum+1 as r, idx,userId,userName,affiliateCode,usageTime,endTime,amountUsed,businessName,bossId
-            from usageHistory,(select @rownum:=0)i where affiliateCode=#affiliateCodeList# and usageTime >=#startDate# and endTime <=#endDate# order by idx desc)yz where r between #startRow# and #endRow#;
+            from usageHistory,(select @rownum:=0)i where affiliateCode=#affiliateCodeList# and usageTime >=#startDate# and endTime <=#endDate# and endTime != '0000-00-00 00:00:00' order by idx desc)yz where r between #startRow# and #endRow#;
      ]]>
      </select>
      
@@ -467,7 +467,7 @@
 	
 	<select id="useStatusList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
 			select r,userId,userName,usageTime,endTime,round(amountUsed) as amountUsed,round(pcAmount) as pcAmount,businessName,round(menuAmount) as menuAmount    
-           from (select @rownum:= @rownum+1 as r, userId,userName,usageTime,endTime,round(amountUsed) as amountUsed,round(pcAmount) as pcAmount,businessName,round(menuAmount) as menuAmount
+            from (select @rownum:= @rownum+1 as r, userId,userName,usageTime,endTime,round(amountUsed) as amountUsed,round(pcAmount) as pcAmount,businessName,round(menuAmount) as menuAmount
             from usageHistory,(select @rownum:=0)i where affiliateCode = #b_key# and endTime != '0000-00-00 00:00:00' order by idx desc )yz where r between #startRow# and #endRow#;
 	</select>
 	 
@@ -476,6 +476,11 @@
 	<select id="getFxEmployeeList" resultClass="fxEidListDTO" parameterClass="java.util.HashMap">
 		select e_id, pw,num,  b_key from userInfo a INNER JOIN 
 		(select e_id,num,b_key from employeeInfo where e_bossid = #id# and b_key = #b_key#) b on a.id = b.e_id;
+	</select>
+	
+	<!-- 아르바이트 출근한 사람 리스트 -->
+	<select id="getFxEmployeeWorkList" resultClass="fxEidListDTO" parameterClass="java.util.HashMap">
+		select b.e_id from employeeWorkTime a INNER JOIN (select e_id from employeeInfo where e_bossId = #b_id# and b_key = #b_key#) b on a.title = b.e_id where a.result = 1;
 	</select>
 	
 	<!-- 알바생 리스트 수 -->
@@ -535,19 +540,19 @@
 	
 	<select id="dailyUserCount" resultClass="int" parameterClass="java.util.HashMap">
 	<![CDATA[
-		select count(userId) from usageHistory where affiliateCode = #b_key# and usageTime >= #startDate# and endTime <= #endDate#;
+		select count(userId) from usageHistory where affiliateCode = #b_key# and usageTime >= #startDate# and endTime <= #endDate# and endTime != '0000-00-00 00:00:00';
 		]]>
 	</select>
 	
 	<select id="dailyAmountCount" resultClass="int" parameterClass="java.util.HashMap">
 	<![CDATA[
-		select count(*) from usageHistory where affiliateCode=#b_key# and usageTime >= #startDate# and endTime <= #endDate#;
+		select count(*) from usageHistory where affiliateCode=#b_key# and usageTime >= #startDate# and endTime <= #endDate# and endTime != '0000-00-00 00:00:00';
 	]]>
 	</select>
 	
 	<select id="dailyUsageHistoryAmountCount" resultClass="String" parameterClass="java.util.HashMap">
 	<![CDATA[
-		select format(sum(amountUsed),0) from usageHistory where affiliateCode = #b_key# and usageTime >=#startDate# and endTime<=#endDate#;
+		select format(sum(amountUsed),0) from usageHistory where affiliateCode = #b_key# and usageTime >=#startDate# and endTime<=#endDate# and endTime != '0000-00-00 00:00:00';
 	]]>
 	</select>
 	

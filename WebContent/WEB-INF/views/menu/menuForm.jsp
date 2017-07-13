@@ -46,9 +46,6 @@
 		</div>
 	</div>
 	<div>
-
-
-		
 		
 		</div>
 		<table id="categoryMenu" class="menu_table">	
@@ -75,7 +72,7 @@
 		
 		
 	</div>
-	</div>
+
 
 	
 </body>

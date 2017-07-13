@@ -32,7 +32,7 @@
 <!-- ================================================================================================================= -->
 	<!-- 선택된 목록의 대여물품 전부 가져오기 -->
 	<select id="getRentProductAll" parameterClass="rentDTO" resultClass="rentProdDTO">
-		select * from rentProduct where b_key = #b_key# and rentProduct = #rentProduct#;
+		select * from rentProduct where b_key = #b_key# and rentProduct = #rentProduct# order by code;
 	</select>
 	<!-- 대여물품 바코드 정보 확인하기 -->
 	<select id="getRentCode" parameterClass="rentProdDTO" resultClass="int">

@@ -94,29 +94,52 @@ public class FxBossEmployeeManageBean {
 	}
 	
 	//1.좌상
-		@RequestMapping("fxEmployeeOffWork.do")
-		public String fxEmployeeOffWork(Model model, String b_key, String e_id){
-			System.out.println("Bean 퇴근 처리 연결됐음:");
-			String jsonList = null;
-			EmployeeWorkTimeDTO ewtDTO = null;
-			try{
-				ewtDTO = (EmployeeWorkTimeDTO)sqlMap.queryForObject("erpEmp.employeeOffWorkCheck", e_id);
-				if( ewtDTO != null){
-					//2.퇴근
-					sqlMap.update("log.updateEmployeeCommuteLog", ewtDTO);
-					//3.퇴근 상태로 변경, 계획된 퇴근시간을 넘으면 초과 시간으로 표시한다.
-					sqlMap.update("erpEmp.updateEmployeeOffWork", ewtDTO);
-					sqlMap.update("erpEmp.updateEmployeeOffWork2", e_id);
-					jsonList = "1"; //퇴근되었음.
-				}
-				jsonList = "2"; //퇴근처리안됨.
-				model.addAttribute("jsonList", jsonList);
-			
-			}catch(Exception e){e.printStackTrace();
+	@RequestMapping("fxEmployeeOffWork.do")
+	public String fxEmployeeOffWork(Model model, String b_key, String e_id){
+		System.out.println("Bean 퇴근 처리 연결됐음:");
+		String jsonList = null;
+		EmployeeWorkTimeDTO ewtDTO = null;
+		try{
+			ewtDTO = (EmployeeWorkTimeDTO)sqlMap.queryForObject("erpEmp.employeeOffWorkCheck", e_id);
+			if( ewtDTO != null){
+				//2.퇴근
+				sqlMap.update("log.updateEmployeeCommuteLog", ewtDTO);
+				//3.퇴근 상태로 변경, 계획된 퇴근시간을 넘으면 초과 시간으로 표시한다.
+				sqlMap.update("erpEmp.updateEmployeeOffWork", ewtDTO);
+				sqlMap.update("erpEmp.updateEmployeeOffWork2", e_id);
+				jsonList = "1"; //퇴근되었음.
 			}
+			jsonList = "2"; //퇴근처리안됨.
+			model.addAttribute("jsonList", jsonList);
+		
+		}catch(Exception e){e.printStackTrace();
+		}
+		
+		return "/fxBossERP/fxEmployeeManageJson";
+	}
+	
+	//1. 좌상
+	@RequestMapping("fxEmployeeWorkList.do")
+	public String fxEmployeeWorkList(Model model, String b_key, String b_id){
+		String jsonList = null;
+		
+		HashMap map = new HashMap();
+		map.put("b_key", b_key);
+		map.put("b_id", b_id);
+		
+		try{
+			List list = new ArrayList();
+			list = (List)sqlMap.queryForList("erpEmp.getFxEmployeeWorkList", map);
+			
+			model.addAttribute("list",list);
+			ObjectMapper mapper = new ObjectMapper();
+			jsonList = mapper.writeValueAsString(list);
+			//굳이 ModelAndView를 사용했다. String으로 반환해도되는데
+			model.addAttribute("jsonList", jsonList);
+			}catch(Exception e){e.printStackTrace();}
 			
 			return "/fxBossERP/fxEmployeeManageJson";
-		}
+	}
 	
 	//2. 좌하
 	@RequestMapping("fxEmployeeTotalIdList.do")

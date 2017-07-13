@@ -4,9 +4,11 @@
 
     <head>
     <title>메 뉴 재 고</title>
-    <link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
-    <link rel="stylesheet" type="text/css"  href="/buengbueng/css/erp.css">
-  	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/bossERP/applyForSettlement.css">
+	<link rel="stylesheet" type="text/css"  href="/buengbueng/css/erp.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/buengbueng/js/menu/menu.js"></script>
     </head>
     
     <body>
@@ -22,18 +24,17 @@
 			<li>재고관리</li>
 		</ul>
 	</div>
-	
 
-	
     
     <div class="boss_con">
 	<div class="menu_titlbox">
 		<span>재고 관리</span>
 		<button class="menuAdd_btn" onclick="window.location='productInsertForm.do?l_key=${l_key}'">재 고 등 록</button>
-	</div>
-<div>
+	
+</div>
+
 	<table class="menu_table">
-		<tr>
+		<tr align="center">
 			<th>카테고리</th>
 			<th>재고 명</th>
 			<th>재고수량</th>
@@ -49,9 +50,6 @@
 	</table>
 </div>
 
-
-
-	</div>
 
   
     

@@ -57,7 +57,6 @@
 					<th>사용시작 시간</th>
 					<th>사용종료 시간</th>
 					<th>사용 금액</th>
-					<th>기타</th>
 				</tr>
 				<c:if test="${dailyCount < 1}">
 					<tr class="dailySettlementList_NoCount">
@@ -82,7 +81,6 @@
 						<td>${articleList.usageTime}</td>
 						<td>${articleList.endTime}</td>
 						<td>${articleList.amountUsed}</td>
-						<td>${articleList.etc}</td>
 					</tr>
 				</c:forEach>
 				</c:if>

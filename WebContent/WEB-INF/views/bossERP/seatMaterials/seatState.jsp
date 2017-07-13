@@ -26,6 +26,7 @@
 				<li>PC방 좌석 이용 관리</li>
 			</ul>
 		</div>
+<<<<<<< HEAD
 			<div class="boss_con">
 				<p>PC방 좌석 현황</p>
 				<hr>
@@ -34,6 +35,18 @@
 	
 	
 			<div id="seatDisposeFirstDiv" style="width:98%; ">
+=======
+		<div class="infoDiv">
+		
+			<div id="setInfo">
+				<div class="pop">
+			 		<button id="pop_close">x</button>
+			 	</div>
+				<div class="userInfo"></div>
+			</div>
+			
+			<div id="seatDisposeFirstDiv">
+>>>>>>> 35c4253fd2882920270ef93d513d36229ed493b5
 				<c:set var="usePcCount" value="0" />
 				<div class="pcBox">
 					<c:if test="${count != 0}">

@@ -129,8 +129,18 @@
 	<insert id="insertProductFX" parameterClass="productDto">
 		insert into product values(#code#, #name#, #lastday#, #salecheck#, #beginregist#, #l_key#);
 	</insert>	
-
 	
+	<select id="getProductCategoryList" parameterClass="String" resultClass="String">
+		select distinct name from product where l_key=#l_key#;
+	</select>
+	
+	<select id="getProductList" parameterClass="java.util.HashMap" resultClass="productDto">
+		select * from product where name=#category# and l_key=#l_key#;
+	</select>
+	
+	<select id="checkCategoryName" parameterClass="java.util.HashMap" resultClass="String">
+		select distinct name from product where l_key=#l_key# and name = #name#;
+	</select>
 	
 </sqlMap>
 	

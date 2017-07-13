@@ -297,7 +297,29 @@ public class FxBossERPBean {
 	@RequestMapping("fxGetMenuProduct.do")
 	public String fxGetMenuProduct(String b_key, Model model){
 		try{
-			ArrayList<ProductDTO> product = (ArrayList<ProductDTO>)sqlMap.queryForList("menu.getProduct", b_key);
+			ArrayList<String> product = (ArrayList<String>)sqlMap.queryForList("menu.getProductCategoryList", b_key);
+			StringBuffer sb = new StringBuffer();
+			for(int i = 0; i < product.size(); i++){
+				sb.append("\""+URLEncoder.encode(product.get(i), "UTF-8")+"\"");
+				if(i != product.size()-1){
+					sb.append(",");
+				}
+			}
+			
+			model.addAttribute("category", sb.toString());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return "/fxBossERP/fxGetMenuCategory";
+	}
+	
+	@RequestMapping("fxGetMenuProductList.do")
+	public String fxGetMenuProductList(String b_key, String name, Model model){
+		try{
+			HashMap<String,String> param = new HashMap<String,String>();
+			param.put("l_key", b_key);
+			param.put("category", name);
+			ArrayList<ProductDTO> product = (ArrayList<ProductDTO>)sqlMap.queryForList("menu.getProductList", param);
 			StringBuffer sb = new StringBuffer();
 			StringBuffer sb2 = new StringBuffer();
 			StringBuffer sb3 = new StringBuffer();
@@ -323,6 +345,7 @@ public class FxBossERPBean {
 			model.addAttribute("saleCheck", sb3.toString());
 			model.addAttribute("beginRegist", sb4.toString());
 			model.addAttribute("lastDay", sb5.toString());
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -334,9 +357,12 @@ public class FxBossERPBean {
 		String result = "fail";
 		try{
 			HashMap map=new HashMap();
-			map.put("code",product.getCode());
-			map.put("name", product.getName());
 			map.put("l_key",product.getL_key());
+			map.put("name", product.getName());
+			if(((String)sqlMap.queryForObject("menu.checkCategoryName", map)) == null){
+				return "/fxRent/fxResult";
+			}
+			map.put("code",product.getCode());
 			ProductDTO codeDto =(ProductDTO)sqlMap.queryForObject("menu.getProductName",map);
 			if(codeDto==null){
 				product.setBeginregist(java.sql.Timestamp.valueOf(regist));

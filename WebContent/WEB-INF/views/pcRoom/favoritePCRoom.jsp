@@ -21,6 +21,7 @@
 			<li>즐겨찾는 PC방</li>
 		</ul>
 	</div>
+	
 	<div class="infoDiv">
 		<c:if test="${favoritePCRoom.size() != 0}">
 			<br/>
@@ -28,8 +29,15 @@
 				<b onclick="pcRoomInfo('${favoritePCRoom.b_name}','${favoritePCRoom.b_id}');">${favoritePCRoom.b_name}</b>&emsp;
 			</c:forEach>
 			<div class="pcRoomInfo"></div>
+			
+			<div id="setInfo">
+				<div class="pop">
+			 		<button id="pop_close">x</button>
+			 	</div>
+					<div class="pcInfo"></div>
+			</div>
+			
 			<div class="seatState"></div>
-			<div class="pcInfo"></div>
 		</c:if>
 		<c:if test="${favoritePCRoom.size() == 0}">
 			<table border="1" class="dailySettlementList_table">

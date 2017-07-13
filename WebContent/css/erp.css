@@ -91,6 +91,7 @@
 
 .productModifyForm_td input{text-indent: 10px; float:left; height:35px; margin-left:1%; border:1px #eee solid;}
 .productModifyForm_td span{float:left; margin-left:1%;}
+.productModifyForm_td2 input{float:left; margin-left:1%; height:35px; border:1px #eee solid;}
 
 .menuModify_input{float:left; border:1px #eee solid; margin-left:1%;text-indent: 10px; width:180px;}
 /* 메뉴 폼 */
