@@ -271,7 +271,7 @@ public class MenuOrderBean {
 		if(tf == null){
 			return "/menu/menuOrderListForm";
 		}else{
-			System.out.println("Ddd");
+
 			return "/menu/menuOrderTable";
 		}
 		
