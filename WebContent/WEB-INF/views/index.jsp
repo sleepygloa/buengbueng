@@ -77,14 +77,14 @@ background-color:#EEF1F2;
 				</div>
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10 col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="cashHistory.do">결제내역 조회</a></div>
+						<div class="contentBox_a"><a href="cashHistory.do">포인트  조회</a></div>
 						<div><i class="fa fa-credit-card fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10 col_height200 contentBox_outline">
 					<div class="contentBox col_height0" >
-						<div class="contentBox_a"><a href="#">이용내역 조회</a></div>
-						<div><i class="fa fa-bar-chart fa-4x" aria-hidden="true"></i></div>
+						<div class="contentBox_a " style="margin-bottom:0px;"><a href="index.do">부엉부엉</a></div>
+						<div><img src="/buengbueng/img/index/buengbueng_emoticon.jpg" width="80px;" /></div>
 					</div>
 				</div>
 

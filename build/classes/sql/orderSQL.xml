@@ -142,7 +142,7 @@
 
    <!-- 사장이 주문승인시 주문한 사용자 메뉴값 잔액에서 차감--> 
    <update id="menuPayment" parameterClass="java.util.HashMap">
-      update userAccount set money= money - #money# where id=#userId#;
+      update userAccount set money= #money# where id=#userId#;
    </update> 
    
    <!-- 사용자가 환불을 요청했을 때 승인하면서 status 값을 5로 바꿔주는데 사용 -->

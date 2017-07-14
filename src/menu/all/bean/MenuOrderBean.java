@@ -81,10 +81,13 @@ public class MenuOrderBean {
 			if(userOrderMoneyList!=null){
 				for(int i=0; i<userOrderMoneyList.size(); i++){
 					orderMoney+=(int) userOrderMoneyList.get(i);
+					
+					
 				}
 			}
-			
+			System.out.println(orderMoney+"dfadfjdfjd");
 			int userMoney=(Integer)sqlMap.queryForObject("order.getUserMoney",id);
+			System.out.println(userMoney+"asdf");
 			userMoney=userMoney-orderMoney; //현재 잔액에서 주문내역에들어간 주문승인이 안된 값을 빼주고 난 뒤에 주문가능.
 			
 			if(userMoney<price){

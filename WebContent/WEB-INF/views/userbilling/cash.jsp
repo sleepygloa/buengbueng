@@ -56,7 +56,7 @@
 					</span>
 				</div>
 				<div class="cash_in_list2">
-					<span class="cash_span_left">충전 예정: </span>
+					<span class="cash_span_left">충전 후 예정: </span>
 					<span class="cash_span_right">
 						<input id="payend" class="cashing_point2" type="text"  placeholder="0"  readonly><b class="cashing_point_b2">P</b>
 					</span>

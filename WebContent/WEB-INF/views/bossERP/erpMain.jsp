@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<title>가망점 관리</title>
+<title>가맹점 관리</title>
 <!-- HEADER TEMPLATE -->
 <jsp:include page="../erp_header.jsp" />
 <script type="text/javascript" src="/buengbueng/js/menu/menuStatus.js"></script>
