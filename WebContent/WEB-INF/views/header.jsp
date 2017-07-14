@@ -321,7 +321,7 @@ width:1100px;
 </c:if>
 <!-- ----------------------------------------------------------------------------------------------------								 -->
 					<li class="item normal product" onClick="return true">
-						<a href="">
+						<a href="serviceCenter.do">
 고객센터
 						</a>
 						<!-- 드롭다운메뉴 : 소메뉴 -->

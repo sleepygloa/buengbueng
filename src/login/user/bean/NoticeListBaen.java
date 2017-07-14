@@ -24,16 +24,12 @@ import superclass.all.bean.SuperClass;
 public class NoticeListBaen {
 @Autowired
 private SqlMapClientTemplate sqlMap;
-@Autowired
-protected SuperClass sc;
 
-@RequestMapping("notice.do")
-	public String noticeList(HttpServletRequest request,HashMap r,Model model){
-		sc.sideMenuTemp(model, 1, 1); //sidemenu template
-	
+	@RequestMapping("notice.do")
+	public String noticeList(HttpServletRequest request,HashMap r){
 		int snum = Integer.parseInt(request.getParameter("snum"));
 		String pageNum = request.getParameter("pageNum");
-		
+
 		if(pageNum == null){
 			pageNum = "1";
 		}
@@ -74,13 +70,13 @@ protected SuperClass sc;
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageCount",pageCount);
-				
+		
 		return "/customer-center/noticeList";
 	}
+	
 
 @RequestMapping("noticeForm.do")
-public String noticeForm(HttpServletRequest request,Model model){
-	sc.sideMenuTemp(model, 1, 1);
+public String noticeForm(HttpServletRequest request){
 	int snum = Integer.parseInt(request.getParameter("snum"));
 	String pageNum = request.getParameter("pageNum");
 	int num=0, ref=1, re_step=0;
@@ -100,6 +96,8 @@ public String noticeForm(HttpServletRequest request,Model model){
 	
 	return "/customer-center/noticeForm";
 }
+
+
 
 @RequestMapping("noticePro.do")
 	public String noticePro(HttpServletRequest request,CustomerDTO article){
