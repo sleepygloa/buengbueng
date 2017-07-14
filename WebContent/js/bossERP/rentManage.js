@@ -121,6 +121,8 @@ function modiRent(rentProduct,b_key){
 		},
 		success: function(data){
 			$("#rentDiv").html(data);
+			$("#setInfo").show();
+			$('#setInfo').mousedown(handle_mousedown);
 		}
 	});
 }
@@ -148,6 +150,8 @@ function modiRentProduct(rentCode,b_key){
 		},
 		success: function(data){
 			$("#rentDiv").html(data);
+			$("#setInfo").show();
+			$('#setInfo').mousedown(handle_mousedown);
 		}
 	});
 }

@@ -36,12 +36,13 @@ io.sockets.on('connection',function(socket){
     // MySQL에서 질문 탐색 및 답변 받기
     var sql = "select * from chatbot where question = '"+keyword+"';";
     var questionNum = 0;
-    var answerToUser = '답변할 수 없는 질문입니다.';
     conn.query(sql,function(err,rows,fields){
         var date = new Date();
+		var answerToUser = '';
         // 에러가 있던가 레코드가 없을 때
         if(err || rows.length == 0){
           console.log("selectERR: "+err);
+		  answerToUser = '답변할 수 없는 질문입니다.';
         }
         // 에러가 없고 레코드가 있을 때
         else{
@@ -51,6 +52,9 @@ io.sockets.on('connection',function(socket){
           var num = Math.floor(Math.random()*result.length);
           answerToUser = result[num];
           questionNum = rows[0].questionNum;
+		  
+		  console.log('to User1: '+answerToUser);
+		  
         }
         // log 추가
         sql = 'insert into chatLog values(?,?,?,?,?);'
@@ -60,8 +64,9 @@ io.sockets.on('connection',function(socket){
             console.log("insertErr: "+err);
           }
         });
+		
+		socket.emit('recieveChat',answerToUser);
     });
-	socket.emit('recieveChat',answerToUser);
     socket.on('end',function(){
       console.log('Client connection ended');
     });

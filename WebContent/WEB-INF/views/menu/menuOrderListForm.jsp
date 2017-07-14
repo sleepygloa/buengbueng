@@ -28,7 +28,7 @@
       </div>
    
     
-
+<div class="bossMenuStatus">
    <div class="boss_con">
    <p>주문현황 리스트</p>
    <hr>
@@ -144,5 +144,5 @@
        </table>
         </div>
   
-  
+  </div>
 </body>
