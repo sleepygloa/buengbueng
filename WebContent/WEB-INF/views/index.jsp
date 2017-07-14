@@ -52,9 +52,15 @@ background-color:#EEF1F2;
 						<div class="contentBox_img_banner"><a href="loginForm.do"><img src="/buengbueng/img/index/login_banner.png" width="100%;" height="50px;" /></a></div>
 						<div class="contentBox_login_other">
 							<ul>
-								<li class="col-xs-4-12 mb0"><a href="userInfoSignForm.do">회원가입</a></li>
-								<li class="col-xs-4-12 mb0"><a href="userInfoSearchPwForm.do">비밀번호 찾기</a></li>
-								<li class="col-xs-4-12 mb0"><a href="userInfoSearchIdForm.do">아이디 찾기</a></li>
+								<c:if test="${sessionScope.loginId != null}" >
+	                  				<li class="col-xs-4-12 mb0"><a href="/buengbueng/logout.do">로그아웃</a></li>
+	                  				<li class="col-xs-4-12 mb0"><a href="/buengbueng/userInfoForm.do">회원 정보보기</a></li>
+                  				</c:if>
+                  				<c:if test="${sessionScope.loginId == null}" >
+									<li class="col-xs-4-12 mb0"><a href="userInfoSignForm.do">회원가입</a></li>
+									<li class="col-xs-4-12 mb0"><a href="userInfoSearchPwForm.do">비밀번호 찾기</a></li>
+									<li class="col-xs-4-12 mb0"><a href="userInfoSearchIdForm.do">아이디 찾기</a></li>
+								</c:if>
 							</ul>
 						</div>
 					</div>
@@ -73,7 +79,7 @@ background-color:#EEF1F2;
 				</div>
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10 col_height200 contentBox_outline">
 					<div class="contentBox col_height0" >
-						<div class="contentBox_a"><a href="ledger.do">이용내역 조회</a></div>
+						<div class="contentBox_a"><a href="#">이용내역 조회</a></div>
 						<div><i class="fa fa-bar-chart fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>

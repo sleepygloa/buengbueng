@@ -102,7 +102,7 @@ var num = document.getElementById("clickNum").value;
 $(function (){
 	$('.list').click(function(){
 		$('.bn').css("background-color","white");
-		$(this).css("background-color","green");
+		$(this).css("background-color","#659be0");
 		
 	});
 });
@@ -140,14 +140,10 @@ $(function (){
 				<div class="stats_idList">
 					<table class="stats_idList_table">
 						<tr>
-							<th>1</th>
-							<th>2</th>
-							<th>3</th>
+							<th style="text-align:center;">아이디</th>
 						</tr>
 						<c:forEach var="list" items="${list1}">
 						<tr>
-							<td>a</td>
-							<td>s</td>
 							<td><span id="num${list.num}" class="list bn" value="${list.num}"
 								onclick="employeeIdSet('${list.num}')">${list.e_id}
 								<c:if test="${list.e_name != null}">(${list.e_name})</c:if></span>

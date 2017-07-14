@@ -25,38 +25,6 @@
 		
 		<c:if test="${affiliateCodeList != null }">
 			<input type="hidden" name="affiliateCodeList" value="${affiliateCodeList}">
-			<p>asdasdasdasd${check}</p>
-			
-			<div>
-				<p>가맹주 아이디 : ${id}</p>
-				<p>가맹주 이름: </p>
-				<p>가맹 계좌번호 : </p>
-				<p>가맹 예금주 : </p>
-				<p>총  ${dailyCount}건의 오늘 정산금액은 ${dailyAmount}원 입니다.</p>
-			</div>
-			<table>
-				<tr>
-					<th>정산일자</th>
-					<th>가맹주 아이디</th>
-					<th>업체명</th>
-					<th>정산방식</th>
-					<th>정산상품수</th>
-					<th>입금요청 계좌</th>
-					<th>정산완료 금액</th>
-					<th>정산 상태</th>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td> ${dailyAmount}</td>
-					<td>미완료</td>
-				</tr>
-				
-			</table>
 			
 			
 			<table border="1">

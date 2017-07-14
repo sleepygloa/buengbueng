@@ -47,6 +47,9 @@ function bossDel(){
 	<c:if test="${dto.snum==3}">
 	<span class="dashBoardContentTableCell col-bc-3">1:1 문의</span>
 	</c:if>
+	<c:if test="${dto.snum==4}">
+	<span class="dashBoardContentTableCell col-bc-3">공지 사항</span>
+	</c:if>
 </div>
 <div class="dashBoardContentTableRow">
 	<span class="dashBoardContentTableCell col-bc-1">작성자</span>
@@ -74,15 +77,18 @@ function bossDel(){
 </div>
 <c:if test="${dto.snum==4}">
 <div id="comment">
-	<div id="css${countRe}">
+	<div id="css${countRe}" class="dashBoardContent">
 		<c:forEach items="${CmList}" var="cl">
-			<div id="csss${countRe}">
-				<span>${cl.writer}</span><br/>
-				<span>${cl.content}</span>
+			<div id="csss${countRe}" class="dashBoardwriteContentTableRow" >
+				<span class="dashBoardwriteContentTableCell col-mc-1">작성자</span>
+				<span class="dashBoardwriteContentTableCell col-mc-7">${cl.writer}</span>
+				<span class="dashBoardwriteContentTableCell col-mc-9">
 				<input type="hidden" id="ref${countRe}" value="${cl.ref}"/>
 				<input type="hidden" id="re_step${countRe}" value="${cl.re_step}"/>
+				<button onclick="return deletekey${countRe}();">삭제</button>
+				</span>
+				<span class="dashBoardwriteContentTableCell col-mc-8">${cl.content}</span>
 			</div>
-	<button onclick="return deletekey${countRe}();">삭제</button>
 <script type="text/javascript">
 	function deletekey${countRe}(){
 		   //확인
@@ -102,5 +108,7 @@ function bossDel(){
 </script>
 <c:set var="countRe" value="${countRe-1}"/>
 </c:forEach>
+</div>
+</div>
 </c:if>
 

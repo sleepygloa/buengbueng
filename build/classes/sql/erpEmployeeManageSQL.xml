@@ -556,6 +556,8 @@
 	]]>
 	</select>
 	
-	
+<!-- 	<select id="employeeCount" resultClass="int">
+		SELECT count(e_id) FROM employeeInfo where b_key=#b_key#
+	</select> -->
 </sqlMap>
 	

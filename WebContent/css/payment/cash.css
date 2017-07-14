@@ -82,6 +82,15 @@ body{
 	text-align:center;
 	float:left;
 }
+.cash_title_af2{
+	border:none;
+	border-top:1px #ccc solid;
+	border-bottom:1px #ccc solid;
+	width:1200px;
+	height:300px;
+	text-align:center;
+	float:left;
+}
 .cash_today_list{
 	border:1px #ccc solid;
 	float:left;
@@ -146,7 +155,8 @@ body{
 }
 
 
-.cash_title_af p { font-size:18px;	color: #333; margin : auto; margin-top:190px;}
+.cash_title_af p { font-size:18px;	color: #333; margin : auto; margin-top:20px;}
+.cash_title_af2 p { font-size:18px;	color: #333; margin : auto; margin-top:190px;}
 .cash_title1{ font-size:32px; color:#ee2e24;}
 .cash_title2{ font-size:18px; color:#6c6c6c;}
 .td_title{text-align:center; width:auto;}

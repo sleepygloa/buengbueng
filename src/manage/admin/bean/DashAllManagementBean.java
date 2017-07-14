@@ -359,7 +359,7 @@ public class DashAllManagementBean extends BoardMethodBean{
 	//일일정산 요청 승인 
 	@RequestMapping("AcceptingRequest.do")
 	public String AcceptingRequest(String pageNum, HttpServletRequest request){
-		
+		Alarm(request);
 		int check = 2;
 		
 		List accept = sqlMap.queryForList("cash.accept", check);
@@ -490,6 +490,7 @@ public class DashAllManagementBean extends BoardMethodBean{
 	
 	@RequestMapping("completePayment.do")
 	public String completePayment(String pageNum, HttpServletRequest request, UserBillingHistoryDTO dto){
+		Alarm(request);
 		/*List payment = (List)sqlMap.queryForList("cash.cash_area", dto);*/
 		
 		if (pageNum == null) {

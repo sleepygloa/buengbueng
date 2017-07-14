@@ -68,13 +68,13 @@
 						<td><div class="bt_1"><a href="#" onclick="window.open('http://localhost:8080/buengbueng/viewDetails.do?settlementDate=${articleList.settlementDate}', '_blank', 'width=550 height=500')" >상세보기</a></div></td>
 						<td>
 							<c:if test="${articleList.resultValue == 3}">
-								<div style="height:24px;" class="bt_2"><a>${articleList.settlementStatus}</a></div>
+								<div style="height:24px;" class="bt_2"><span>${articleList.settlementStatus}</span></div>
 							</c:if>
 							<c:if test="${articleList.resultValue == 2}">
-								<div style="height:24px;" class="bt_3"><a>${articleList.settlementStatus}</a></div>
+								<div style="height:24px;" class="bt_3"><span>${articleList.settlementStatus}</span></div>
 							</c:if>
 							<c:if test="${articleList.resultValue == 1}">
-								<div style="height:24px;" class="bt_4"><a>${articleList.settlementStatus}</a></div>
+								<div style="height:24px;" class="bt_4"><span>${articleList.settlementStatus}</span></div>
 							</c:if>
 						</td>
 					</tr>

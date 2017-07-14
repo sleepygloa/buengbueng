@@ -8,7 +8,7 @@
 <script type="text/javascript" src="/buengbueng/js/menu/menuStatus.js"></script>
 
 
-<div class="erp_main_title"><p>Admin Dashboard<small> -  최근 통계 및 보고서</small></p></div>
+<div class="erp_main_title"><p>Boss Dashboard<small> -  최근 통계 및 보고서</small></p></div>
 <div class="main_con">
 	<div class="box1">
 		<div class="box_con ">

@@ -4,13 +4,16 @@ body{
 	text-align: center;
 }
 .wrap{
-	border:1px black solid;
+	border:1px #2B3643 solid;
 	vertical-align:middle;
 	height:500px;
 }
 .title_box{
-	border:1px red solid;
+	background:#2B3643;
 	height: 60px;
+	color:#fff;
+	float: left;
+    width: 100%;
 }
 .menu_container{
 	background:green;
@@ -18,12 +21,13 @@ body{
 	width:100%;
 }
 .menu_container_piece{
-	border:1px blue solid;
+	border:1px #2B3643 solid;
 	width:100%;
 	height:40px;
 	float:left;
 }
 .menu_container_piece2{
+	border:1px #2B3643 solid;
 	width:49.5%;
 	float:left;
 	height:40px;

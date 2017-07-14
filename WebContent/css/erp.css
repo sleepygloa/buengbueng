@@ -18,14 +18,14 @@
 /* 상태확인 버튼 */
 
 /* 알바아이디 관리 */
-.management_container{border:1px red solid; width:98%; margin-left:1%}
+.management_container{width:98%; margin-left:1%}
 .add_management_container{float:left; width:100%; overflow:hidden; height:auto; max-height:100%; float:left;}
 .stats_idbox{width:98%; float:left; margin-left:1%; margin-bottom:10px;}
 .stats_idbox span{float:left; text-align: center; margin: 10px 10px auto;}
 .stats_id_btn_box{width:30%; float:right;}
 .stats_id_btn_box2{width:auto; float:right; margin-top: 10px;}
-.stats_id_btn2{width:22px; height:22px; background: none; border: 1px #e7ecf1 solid; color:#e7ecf1; float:righjt;}
-.stats_id_btn1{color: #E7505A; border: 1px #E7505A solid; border-radius: 15px; background: none; font-size: 12px; width: 74px; transition: 0.3s; height: 22px; float: left;}
+.stats_id_btn2{width:30px; height:30px; background: none; border: 1px #e7ecf1 solid; color:#e7ecf1; float:righjt; float: right; margin-left: 4px;}
+.stats_id_btn1{color: #E7505A; border: 1px #E7505A solid; border-radius: 15px; background: none; font-size: 12px; width: 74px; transition: 0.3s; height: 22px; float: left; margin-left:4px;}
 .stats_id_btn1:HOVER{color:#fff; background:#E7505A; transition:0.3s}
 
 .stats_idList{float:left; width:100%;}

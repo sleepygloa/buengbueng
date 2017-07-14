@@ -61,7 +61,11 @@ public class BossEmployeeManageBean {
 		
 		String id = sc.getSessionIdModelId(model, session); //sessionId, model.addAttribute(id) template
 		
+		/*int employeeCount = (int)sqlMap.queryForObject("erpEMP.employeeCount", b_key);
 		
+		if(employeeCount >0){
+			model.addAttribute("employeeCount", employeeCount);
+		}*/
 		
 		HashMap mainInfo = new HashMap<>();
 		mainInfo.put("startDate", startDate);
@@ -199,7 +203,9 @@ public class BossEmployeeManageBean {
 		model.addAttribute("count", count);
 		model.addAttribute("count2", count2);
 		model.addAttribute("count3", count3);
-    	
+		
+		
+		
 		
 		// 재고리스트
 		

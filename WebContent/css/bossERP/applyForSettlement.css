@@ -199,7 +199,8 @@ body{height:100%; width:100%;}
 	width:60px;
 	height:24px;
 }
-.bt_1 a, .bt_2 a, .bt_3 a, .bt_4 a{color:#fff; line-height: 2}
+.bt_2 span, .bt_3 span, .bt_4 span{color:#fff; line-height: 2;}
+.bt_1 a{color:#fff; line-height: 2; text-decoration: none;}
 .bt_1 a:VISITED{color:#fff; line-height: 2; text-decoration: none;}
 .paging_con{
 	width:100%;
