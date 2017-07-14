@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- HEADER TEMPLATE -->
-<jsp:include page="../header.jsp" />
+<link rel="stylesheet" type="text/css"  href="/buengbueng/css/notice/comment.css">
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -63,10 +63,10 @@ function bossDel(){
 	<span>제목</span>
 	<span>${dto.title}</span>
 </div>
-<div>
+<div id="meme">
 	${dto.content}
 </div>
-<div>
+<div id="button">
 	<c:if test="${sessionScope.grade == 4}">
 		<c:if test="${re_step == 1}">
 			<span>

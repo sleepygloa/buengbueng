@@ -113,15 +113,15 @@ function commentModifyForm${countRe}(){
 	</div>
 
 <div>
-pw:&nbsp;&nbsp;&nbsp;<input type="password" id="passwd">
+<input type="password" id="passwd">
 </div>
 <div>
 <button onclick="return button();">등록</button>
 </div>
 </c:if>
 
-<c:if test="${sessionScope.grade==4}">
-<div id="button">
+<c:if test="${sessionScope.loginId=='admin'}">
+<div id="button3">
 		<span><input type="button" value="글수정" onclick="window.location='noticeModifyForm.do?snum=${article.snum}&pageNum=${pageNum}&num=${article.num}&number=${number}'"></span>
 		<span><input type="button" value="글삭제" onclick="window.location='noticeDeleteForm.do?snum=${article.snum}&pageNum=${pageNum}&num=${article.num}&number=${number}&ref=${ref}'"></span>
 		<span><input type="button" value="뒤로가기" onclick="window.location='notice.do?snum=${article.snum}&pageNum=${pageNum}'"></span>

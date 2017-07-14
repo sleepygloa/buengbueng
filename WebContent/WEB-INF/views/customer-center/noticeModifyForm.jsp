@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css" href="/buengbueng/css/notice/noticeForm.css">
 <jsp:include page="../header.jsp"/>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,12 +21,12 @@
 </div>
 <div>
 	<span>제목</span>
-	<span><input type="text" name="title" value="${article.title}"></span>	
+	<span><input type="text" name="title" id="title11" value="${article.title}"></span>	
 </div>
 <div>
-	<textarea name="content">${article.content}</textarea>
+	<textarea name="content" cols="130" rows="30">${article.content}</textarea>
 </div>
-<div>
+<div id="button3">
 	<input type="submit" value="수정완료">
 	<input type="button" value="뒤로가기" onclick="history.go(-1);">
 </div>

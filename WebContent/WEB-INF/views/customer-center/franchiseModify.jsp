@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css" href="/buengbueng/css/notice/noticeForm.css">
 <script type="text/javascript" src="/buengbueng/js/userInfo/customerForm.js"></script>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시글 수정</title>
 </head>
 <!-- HEADER TEMPLATE -->
@@ -24,13 +26,13 @@
 	<span><input type="text" name="title" value="${dto.title}"></span>
 </div>
 <div>
-	<textarea name="content">${dto.content}</textarea>
+	<textarea name="content" cols="2000" rows="50">${dto.content}</textarea>
 </div>
 <div>
 	<span>글 비밀 번호</span>
 	<span><input type="password" name="passwd"></span>
 </div>	
-<div>
+<div id="button">
 	<input type="submit" value="수정 완료">
 	<input type="button" value="뒤로 가기" onclick="history.go(-1);">
 </div>

@@ -26,10 +26,7 @@ public class CommentBean {
 	int ref = 	Integer.parseInt(request.getParameter("ref"));//14
 	int re_step = 	Integer.parseInt(request.getParameter("re_step"));//0	
 	String passwd = request.getParameter("passwd");	
-	
-	
-		
-		
+			
 	      num=article.getNum(); 
 	      ref=article.getRef();
 	      re_step=article.getRe_step();
@@ -45,23 +42,18 @@ public class CommentBean {
 	      }
 	      
 	      if (num!=0){ 
-	    	  //article.setRe_step(re_step+1);//
 	    	  int zxc=(Integer)sqlMap.queryForObject("customer.Max(re_step)",ref);
 	    	  re_step=zxc+1;
-	    	  article.setRe_step(re_step);//�씠嫄� 瑗ъ삤�삤�삤�삦 �빐以섏빞�븿!!!!!!!!!!!!!!!!!!!!!!
+	    	  article.setRe_step(re_step);
 	      }else{ 
 	    	  article.setRef(number);
 	    	  article.setRe_step(0);
 	      }
 		
-		
-	
-		
 		sqlMap.insert("customer.commentInsert", article);
 		
 		r.put("snum", 5);
-		r.put("ref",ref);  //14
-		
+		r.put("ref",ref);  		
 	 List CmList = (List)sqlMap.queryForList("customer.commentList", r);
 			    	
 	
@@ -85,10 +77,14 @@ public class CommentBean {
 		int ref = Integer.parseInt(request.getParameter("ref"));
 		int re_step = Integer.parseInt(request.getParameter("re_step"));
 		
+		int asd=1;
+		
 		r.put("ref", ref);
 		r.put("re_step", re_step);
 		String content=(String)sqlMap.queryForObject("customer.getCommentContent", r);
 		
+		
+		request.setAttribute("asd", asd);
 		request.setAttribute("snum", snum);
 		request.setAttribute("ref", ref);
 		request.setAttribute("re_step", re_step);
@@ -104,22 +100,25 @@ public String CommentDeletePRo(HttpServletRequest request,HttpSession session,Ha
 	int re_step = Integer.parseInt(request.getParameter("re_step"));
 	String passwd = request.getParameter("passwd");	
 	
-	int asd = 0;
-   	
+	int asd = 0; //
+
 	
+	r.put("snum",snum);
 	r.put("ref",ref);
 	r.put("re_step",re_step);
+	
 	String passwd3 =(String)sqlMap.queryForObject("customer.commentPasswd", r);
 	System.out.println(ref+":"+re_step+":"+snum);
 	if(passwd3.equals(passwd)){
-		
-		r.put("snum",snum);
-		r.put("ref",ref);
-		r.put("re_step",re_step);
 		sqlMap.delete("customer.commentDelete",r);
 		asd = 1;
 	}
   
+	if(request.getParameter("asd")!=null){
+		asd=Integer.parseInt(request.getParameter("asd"));
+		sqlMap.delete("customer.commentDelete",r);
+	}
+	
 	request.setAttribute("asd", asd);	
 	return"/customer-center/commentDeletePro";
 }

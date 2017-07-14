@@ -37,6 +37,10 @@ function indexFranchiseeList(){
 .side_scontent{
 background-color:#EEF1F2;
 }
+.newsList > div:first-child,.newsList > div:first-child + div {
+	color:#E66565;
+	font-weight:700;
+}
 </style>
 
 <!-- ARTICLE -->
@@ -47,7 +51,7 @@ background-color:#EEF1F2;
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10 col_height200 contentBox_outline contentBox_right">
 					<div class="contentBox col_height0" >
 						<div class="login_title">
-							<p>환영합니다. 원활한 이용을 위해 로그인이 필요합니다.</p>
+							<p>환영합니다. 이용을 위해 로그인이 필요합니다.</p>
 						</div>
 						<div class="contentBox_img_banner"><a href="loginForm.do"><img src="/buengbueng/img/index/login_banner.png" width="100%;" height="50px;" /></a></div>
 						<div class="contentBox_login_other">
@@ -99,12 +103,19 @@ background-color:#EEF1F2;
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10  col_height600 contentBox_outline contentBox_right">
+				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10  colres_height600 contentBox_outline contentBox_right">
 					<div class="contentBox col_height0">
 						<div class="contentBox_a"><a href="#">이벤트 & 광고</a></div>
-						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
-						<div style="display:inline-block;text-align:left;">
-							${newsList}
+						<div><i class="fa fa-newspaper-o fa-4x" aria-hidden="true"></i></div>
+						<div class="newsList" style="display:inline-block;text-align:left;padding-top:20px;">
+						
+						<c:set var="number" value="1" />
+							<c:forEach var="list" items="${newsList}">
+								<div style="margin:5 0;"><c:out value="${number}" />. ${list.newsList}</div>
+								<c:set var="number" value="${number+1}" />
+							</c:forEach>
+							
+							<br />*. 출처 : 인벤 웹진 : http://www.inven.co.kr/webzine/news/?hotnews=3 
 						</div>
 					</div>
 				</div>					
@@ -123,13 +134,13 @@ background-color:#EEF1F2;
 				</div>					
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="#">포인트 결제</a></div>
-						<div><i class="fa fa-krw fa-4x" aria-hidden="true"></i></div>
+						<div class="contentBox_a " style="margin-bottom:0px;"><a href="index.do">부엉부엉</a></div>
+						<div><img src="/buengbueng/img/index/buengbueng_emoticon.jpg" width="80px;" /></div>
 					</div>
 				</div>	
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="franchiseQA.do"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;가맹 문의 최신글</a></div>
+						<div class="contentBox_a"><a href="franchiseQA.do?snum=1"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;가맹 문의 최신글</a></div>
 						<div><hr /></div>
 						<div id="indexFranchiseeList" class="contentBox_board_list">
 						</div>
