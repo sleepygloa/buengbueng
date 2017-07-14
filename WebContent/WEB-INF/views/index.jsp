@@ -134,7 +134,7 @@ background-color:#EEF1F2;
 				</div>	
 				<div class="col-xs-10-10 col-sm-5-10 col-md-4-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a href="franchiseQA.do"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;가맹 문의 최신글</a></div>
+						<div class="contentBox_a"><a href="franchiseQA.do?snum=1"><i class="fa fa-book fa-1x" aria-hidden="true"></i>&nbsp;가맹 문의 최신글</a></div>
 						<div><hr /></div>
 						<div id="indexFranchiseeList" class="contentBox_board_list">
 						</div>
