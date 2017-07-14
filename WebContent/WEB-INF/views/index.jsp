@@ -122,7 +122,7 @@ background-color:#EEF1F2;
 
 				<div class="col-xs-10-10 col-sm-5-10 col-md-2-10  col_height200 contentBox_outline">
 					<div class="contentBox col_height0">
-						<div class="contentBox_a"><a onclick="window.open('/buengbueng/chatting.do','chatting','toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500, height=500')" style="cursor: pointer;">실시간 상담</a></div>
+						<div class="contentBox_a"><a  onclick="chattingView();" style="cursor: pointer;">실시간 상담</a></div>
 						<div><i class="fa fa-comments fa-4x" aria-hidden="true"></i></div>
 					</div>
 				</div>	
