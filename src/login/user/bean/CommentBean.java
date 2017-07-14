@@ -77,10 +77,14 @@ public class CommentBean {
 		int ref = Integer.parseInt(request.getParameter("ref"));
 		int re_step = Integer.parseInt(request.getParameter("re_step"));
 		
+		int asd=1;
+		
 		r.put("ref", ref);
 		r.put("re_step", re_step);
 		String content=(String)sqlMap.queryForObject("customer.getCommentContent", r);
 		
+		
+		request.setAttribute("asd", asd);
 		request.setAttribute("snum", snum);
 		request.setAttribute("ref", ref);
 		request.setAttribute("re_step", re_step);
@@ -97,7 +101,10 @@ public String CommentDeletePRo(HttpServletRequest request,HttpSession session,Ha
 	String passwd = request.getParameter("passwd");	
 	
 	int asd = 0;
-   	
+	if(request.getParameter("asd")!=null){
+		asd=Integer.parseInt(request.getParameter("asd"));
+
+	}
 	
 	r.put("ref",ref);
 	r.put("re_step",re_step);

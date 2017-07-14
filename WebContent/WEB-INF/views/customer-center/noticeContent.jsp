@@ -18,6 +18,7 @@
 					  ref:$("#ref").val(),
 					  re_step:$("#re_step").val(),
 					  passwd:$("#passwd").val()
+				},
 					  success:function(data){
 						  $("#comment").html(data);  
 					}
