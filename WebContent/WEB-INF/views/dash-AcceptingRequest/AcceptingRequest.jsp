@@ -65,7 +65,7 @@
 				<td>${articleList.requestedAccount}</td>
 				<td>${articleList.settlementAmount}</td>
 				<td>${articleList.settlementStatus}</td>
-				<td><input type="checkbox" id="chbox" name="chbox" value="${articleList.idx}" onclick="alert('${articleList}');"></td>
+				<td><input type="checkbox" id="chbox" name="chbox" value="${articleList.idx}"></td>
 			</tr>
 			</c:forEach>
 		</table>

@@ -440,8 +440,8 @@ public class DashAllManagementBean extends BoardMethodBean{
 			info.put("end", endDate);
 			 
 			List num = (List) sqlMap.queryForList("admin.getTitle", info);
-			 
-			//알바비 포함하고 정산하는 경우
+			sqlMap.update("cash.approval", idx);
+			/*//알바비 포함하고 정산하는 경우
 			if(num != null){
 				int sum=0; // 알바들의 알바비 총합
 				int Amount=0; // 가맹점 요청 정산 금액
@@ -481,11 +481,11 @@ public class DashAllManagementBean extends BoardMethodBean{
 			 //알바비 없이 정산하는 경우
 			 }else{
 				//알바비를 포함하지 않고 정산 하는 쿼리
-				 sqlMap.update("cash.approval", idx);
-			 }
+				
+			 }*/
 		}
 		
-		return "/dash-AcceptingRequest/AcceptingRequestPro";
+		return "redirect:/AcceptingRequest.do";
 	}
 	
 	@RequestMapping("completePayment.do")

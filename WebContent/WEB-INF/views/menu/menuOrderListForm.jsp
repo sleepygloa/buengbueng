@@ -46,7 +46,7 @@
           <th>확인</th>
        </tr>
 
-       <c:forEach var="ol" items="${orderList}">
+       <c:forEach var="ol" items="${canList}">
 
           <tr>
              <td>${ol.num}</td>

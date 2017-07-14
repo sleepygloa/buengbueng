@@ -271,6 +271,7 @@ public class MenuOrderBean {
 		if(tf == null){
 			return "/menu/menuOrderListForm";
 		}else{
+
 			return "/menu/menuOrderTable";
 		}
 		
