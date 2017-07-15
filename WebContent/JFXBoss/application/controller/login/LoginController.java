@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
 public class LoginController {
@@ -24,10 +25,13 @@ public class LoginController {
 	
 	public void searchId(){
 		try {
+			BorderPane border = new BorderPane();
 			Parent main =  FXMLLoader.load(getClass().getResource("/application/controller/login/SearchIDApp.fxml"));
-			Scene scene = new Scene(main);
+			border.setCenter(main);
+			Scene scene = new Scene(border);
 			scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
-			Main.getStage().setScene(scene); 
+			Main.getStage().setScene(scene);
+			Main.getStage().setFullScreen(true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,10 +40,13 @@ public class LoginController {
 	
 	public void searchPw(){
 		try {
+			BorderPane border = new BorderPane();
 			Parent main =  FXMLLoader.load(getClass().getResource("/application/controller/login/SearchPWApp.fxml"));
-			Scene scene = new Scene(main);
+			border.setCenter(main);
+			Scene scene = new Scene(border);
 			scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
-			Main.getStage().setScene(scene); 
+			Main.getStage().setScene(scene);
+			Main.getStage().setFullScreen(true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +55,13 @@ public class LoginController {
 	
 	public void sign(){
 		try {
+			BorderPane border = new BorderPane();
 			Parent main =  FXMLLoader.load(getClass().getResource("/application/controller/login/SignApp.fxml"));
-			Scene scene = new Scene(main);
+			border.setCenter(main);
+			Scene scene = new Scene(border);
 			scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
-			Main.getStage().setScene(scene); 
+			Main.getStage().setScene(scene);
+			Main.getStage().setFullScreen(true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -28,12 +28,12 @@
             </Button>
          </children>
       </HBox>
-      <Label layoutX="372.0" layoutY="182.0" text="잔액" textFill="WHITE">
+      <Label layoutX="320.0" layoutY="182.0" text="잔액" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Text fx:id="point" fill="WHITE" layoutX="417.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" wrappingWidth="115.3818359375">
+      <Text fx:id="point" fill="WHITE" layoutX="372.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" wrappingWidth="161.99999302625656">
          <font>
             <Font size="18.0" />
          </font>
@@ -76,6 +76,6 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Button layoutX="269.0" layoutY="181.0" mnemonicParsing="false" onMouseClicked="#refresh" text="새로고침" />
+      <Button layoutX="228.0" layoutY="181.0" mnemonicParsing="false" onMouseClicked="#refresh" text="새로고침" />
    </children>
 </AnchorPane>

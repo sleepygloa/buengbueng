@@ -5,6 +5,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #222;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.module.BossNewModuleController">
    <children>
@@ -12,10 +14,20 @@
         <items>
           <AnchorPane fx:id="moduleSetView" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="598.0">
                <children>
-                  <HBox layoutX="50.0" layoutY="16.0" spacing="20.0">
+                  <HBox layoutX="50.0" layoutY="16.0" prefHeight="28.0" prefWidth="988.0" spacing="20.0">
                      <children>
-                        <TextField fx:id="moduleName" promptText="모듈 이름" />
-                        <Button fx:id="addModule" mnemonicParsing="false" onMouseClicked="#addModule" text="저장" />
+                        <TextField fx:id="moduleName" promptText="모듈 이름">
+                           <font>
+                              <Font size="14.0" />
+                           </font></TextField>
+                        <Button fx:id="addModule" mnemonicParsing="false" onMouseClicked="#addModule" text="저장">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                        <Text fx:id="alert" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="736.4544372558594">
+                           <font>
+                              <Font size="24.0" />
+                           </font></Text>
                      </children>
                   </HBox>
                </children></AnchorPane>

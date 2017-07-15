@@ -1,5 +1,3 @@
-/sql/
-/config/
 /erp/
 /fx/
 /index/
@@ -10,6 +8,7 @@
 /pc/
 /pcRoom/
 /remote/
-/setup/
+/sql/
 /superclass/
 /test/
+/config/

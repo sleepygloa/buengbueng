@@ -214,7 +214,7 @@ public class BossPcManageController {
 										"&code="+code+"&what="+URLEncoder.encode("return","UTF-8");
 								String urlInfo = "http://localhost:8080/buengbueng/fxUserRentReturnOk.do";
 								ConnectServer.connect(param, urlInfo);
-								int selectedIndex = rentTable.getFocusModel().getFocusedIndex();
+								int selectedIndex = rentTable.getSelectionModel().getSelectedIndex();
 							    if (selectedIndex >= 0) {
 							    	rentTable.getItems().remove(selectedIndex);
 							    	RentDTO.getInstance().setReturnOrderNum(RentDTO.getInstance().getReturnOrderNum()-1);

@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import user.info.dto.UserInfo;
 
@@ -36,10 +37,13 @@ public class LoginController {
 	}
 	public void searchId(){
 		try {
+			BorderPane border = new BorderPane();
 			Parent main =  FXMLLoader.load(getClass().getResource("/application/controller/login/SearchIDApp.fxml"));
-			Scene scene = new Scene(main);
+			border.setCenter(main);
+			Scene scene = new Scene(border);
 			scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
-			Main.getStage().setScene(scene); 
+			Main.getStage().setScene(scene);
+			Main.getStage().setFullScreen(true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,10 +52,13 @@ public class LoginController {
 	
 	public void searchPw(){
 		try {
+			BorderPane border = new BorderPane();
 			Parent main =  FXMLLoader.load(getClass().getResource("/application/controller/login/SearchPWApp.fxml"));
-			Scene scene = new Scene(main);
+			border.setCenter(main);
+			Scene scene = new Scene(border);
 			scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
-			Main.getStage().setScene(scene); 
+			Main.getStage().setScene(scene);
+			Main.getStage().setFullScreen(true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,10 +67,13 @@ public class LoginController {
 	
 	public void sign(){
 		try {
+			BorderPane border = new BorderPane();
 			Parent main =  FXMLLoader.load(getClass().getResource("/application/controller/login/SignApp.fxml"));
-			Scene scene = new Scene(main);
+			border.setCenter(main);
+			Scene scene = new Scene(border);
 			scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
-			Main.getStage().setScene(scene); 
+			Main.getStage().setScene(scene);
+			Main.getStage().setFullScreen(true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -112,8 +122,6 @@ public class LoginController {
 					Main.getStage().setFullScreen(false);
 					Main.getStage().setWidth(600);	// 창 가로 크기
 					Main.getStage().setHeight(350);	// 창 세로 크기
-					Main.getStage().setX(1300);	// 모니터 상에 창이 위치할 X 좌표
-					Main.getStage().setY(50);	// 모니터 상에 창이 위치할 Y 좌표
 					Main.getStage().setScene(scene); // 창에 화면 넣기
 				}
 				// 서버로부터 값을 전달 받지 못했거나, 전달받은 값이 fail이라면 = 로그인 실패

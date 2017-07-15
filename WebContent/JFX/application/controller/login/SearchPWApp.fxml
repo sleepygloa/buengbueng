@@ -39,7 +39,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Text fx:id="p_alert" fill="RED" layoutX="162.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="270.00000178813934">
+      <Text fx:id="p_alert" fill="RED" layoutX="100.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="399.00000178813934">
          <font>
             <Font size="18.0" />
          </font>

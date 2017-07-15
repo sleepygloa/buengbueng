@@ -8,75 +8,89 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.module.BossMenuManageController">
    <children>
-      <VBox layoutX="-2.0" layoutY="-4.0" prefHeight="1084.0" prefWidth="1922.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-4.0">
+      <VBox layoutX="-2.0" layoutY="-4.0" prefHeight="1084.0" prefWidth="1922.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-4.0">
          <children>
-            <HBox prefHeight="34.0" prefWidth="1922.0" spacing="150.0">
+            <Text fx:id="alert" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1398.0">
+               <VBox.margin>
+                  <Insets left="300.0" right="300.0" top="50.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <HBox prefHeight="33.0" prefWidth="1185.0" spacing="250.0">
                <children>
-                  <HBox prefHeight="34.0" prefWidth="1029.0" spacing="30.0">
+                  <HBox prefHeight="33.0" prefWidth="590.0" spacing="20.0">
                      <children>
-                        <TextField fx:id="category" prefHeight="33.0" prefWidth="141.0" promptText="카테고리">
+                        <TextField fx:id="category" prefHeight="33.0" prefWidth="110.0" promptText="카테고리">
                            <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="name" prefHeight="33.0" prefWidth="141.0" promptText="제품명">
+                              <Font size="14.0" />
+                           </font></TextField>
+                        <TextField fx:id="name" prefHeight="33.0" prefWidth="111.0" promptText="제품명">
                            <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="company" prefHeight="33.0" prefWidth="141.0" promptText="제조회사">
+                              <Font size="14.0" />
+                           </font></TextField>
+                        <TextField fx:id="company" prefHeight="33.0" prefWidth="97.0" promptText="제조회사">
                            <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="price" prefHeight="33.0" prefWidth="141.0" promptText="가격">
+                              <Font size="14.0" />
+                           </font></TextField>
+                        <TextField fx:id="price" prefHeight="33.0" prefWidth="104.0" promptText="가격">
                            <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <Button mnemonicParsing="false" onMouseClicked="#addMenu" prefHeight="33.0" prefWidth="138.0" text="메뉴 등록" />
+                              <Font size="14.0" />
+                           </font></TextField>
+                        <Button mnemonicParsing="false" onMouseClicked="#addMenu" prefHeight="33.0" prefWidth="87.0" text="메뉴 등록">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
                      </children>
                   </HBox>
-                  <HBox prefHeight="34.0" prefWidth="823.0" spacing="50.0">
+                  <HBox prefHeight="33.0" prefWidth="555.0" spacing="20.0">
                      <children>
-                        <TextField fx:id="code" prefHeight="33.0" prefWidth="133.0" promptText="상품 바코드">
+                        <TextField fx:id="code" prefHeight="33.0" prefWidth="150.0" promptText="상품 바코드">
                            <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="proName" prefHeight="33.0" prefWidth="133.0" promptText="상품명">
+                              <Font size="14.0" />
+                           </font></TextField>
+                        <TextField fx:id="proName" prefHeight="53.0" prefWidth="97.0" promptText="상품명">
                            <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="lastDay" prefHeight="33.0" prefWidth="133.0" promptText="유통기한">
+                              <Font size="14.0" />
+                           </font></TextField>
+                        <TextField fx:id="lastDay" prefHeight="40.0" prefWidth="132.0" promptText="유통기한">
                            <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <Button mnemonicParsing="false" onMouseClicked="#addProduct" prefHeight="53.0" prefWidth="131.0" text="재고 등록" />
+                              <Font size="14.0" />
+                           </font></TextField>
+                        <Button mnemonicParsing="false" onMouseClicked="#addProduct" prefHeight="53.0" prefWidth="131.0" text="재고 등록">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
                      </children>
                   </HBox>
                </children>
                <VBox.margin>
-                  <Insets left="100.0" right="100.0" top="80.0" />
+                  <Insets left="240.0" right="240.0" top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="35.0" prefWidth="1922.0" spacing="500.0">
+            <HBox prefHeight="23.0" prefWidth="832.0" spacing="670.0">
                <children>
-                  <Button mnemonicParsing="false" onMouseClicked="#getMenu" prefHeight="33.0" prefWidth="138.0" text="메뉴 관리" />
-                  <Button mnemonicParsing="false" onMouseClicked="#getProduct" prefHeight="33.0" prefWidth="138.0" text="재고 관리" />
+                  <Button mnemonicParsing="false" onMouseClicked="#getMenu" prefHeight="23.0" prefWidth="120.0" text="메뉴 관리">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onMouseClicked="#getProduct" prefHeight="23.0" prefWidth="129.0" text="재고 관리">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
                </children>
                <VBox.margin>
-                  <Insets left="600.0" right="600.0" />
+                  <Insets left="500.0" right="500.0" />
                </VBox.margin>
             </HBox>
-            <TabPane fx:id="menuTab" prefHeight="652.0" prefWidth="1722.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="menuTab" prefHeight="700.0" prefWidth="1782.0" tabClosingPolicy="UNAVAILABLE">
                <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
+                  <Insets left="70.0" right="70.0" />
                </VBox.margin>
             </TabPane>
          </children>

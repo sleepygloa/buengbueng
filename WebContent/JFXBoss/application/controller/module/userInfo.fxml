@@ -49,25 +49,25 @@
             </Text>
          </children>
       </HBox>
-      <VBox layoutX="26.0" layoutY="182.0" prefHeight="229.0" prefWidth="257.0" spacing="10.0">
+      <VBox layoutX="26.0" layoutY="174.0" prefHeight="229.0" prefWidth="257.0" spacing="10.0">
          <children>
             <Label prefHeight="15.0" prefWidth="250.0" text="대여물품" textAlignment="CENTER" />
             <TableView fx:id="rentList" prefHeight="205.0" prefWidth="246.0">
               <columns>
                 <TableColumn fx:id="name" maxWidth="1.7976931348623157E308" prefWidth="99.0" text="물품명" />
-                  <TableColumn fx:id="code" maxWidth="1.7976931348623157E308" prefWidth="155.0" text="코드번호" />
+                  <TableColumn fx:id="code" maxWidth="1.7976931348623157E308" prefWidth="157.0" text="코드번호" />
               </columns>
             </TableView>
          </children>
       </VBox>
-      <VBox layoutX="26.0" layoutY="441.0" prefHeight="298.0" prefWidth="250.0" spacing="10.0">
+      <VBox layoutX="26.0" layoutY="421.0" prefHeight="298.0" prefWidth="257.0" spacing="10.0">
          <children>
             <Label prefHeight="15.0" prefWidth="250.0" text="메뉴" textAlignment="CENTER" />
             <TableView fx:id="menuList" prefHeight="275.0" prefWidth="250.0">
                <columns>
-                  <TableColumn fx:id="mname" maxWidth="1.7976931348623157E308" prefWidth="74.0" resizable="false" text="메뉴명" />
-                  <TableColumn fx:id="mcode" maxWidth="1.7976931348623157E308" prefWidth="95.0" resizable="false" text="코드번호" />
-                  <TableColumn fx:id="mprice" maxWidth="1.7976931348623157E308" prefWidth="78.0" resizable="false" text="가격" />
+                  <TableColumn fx:id="mname" maxWidth="1.7976931348623157E308" prefWidth="79.0" text="메뉴명" />
+                  <TableColumn fx:id="mcode" maxWidth="1.7976931348623157E308" prefWidth="107.0" text="코드번호" />
+                  <TableColumn fx:id="mprice" maxWidth="1.7976931348623157E308" prefWidth="70.0" text="가격" />
                </columns>
             </TableView>
          </children>

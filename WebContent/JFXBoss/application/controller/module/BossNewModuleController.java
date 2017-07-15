@@ -24,12 +24,14 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class BossNewModuleController {
 	@FXML private AnchorPane moduleCheckView;
 	@FXML private AnchorPane moduleSetView;
 	@FXML private TextField moduleName;
 	@FXML private Button addModule;
+	@FXML private Text alert;
 	private ObservableList<String> selected;
 	private ObservableList<String> candidates;
 	@FXML
@@ -108,25 +110,30 @@ public class BossNewModuleController {
 		try{
 			StringBuffer sbModule = new StringBuffer();
 			StringBuffer sbMenu = new StringBuffer();
-			for(int i=0; i<selected.size(); i++){
-				sbMenu.append("\""+selected.get(i)+"\"");
+			if(moduleName.getText().length() == 0 || moduleName.getText().equals("기본")){
+				alert.setText("모듈 이름을 입력하십시오.('기본' 사용 불가)");
+			}else{
+				alert.setText("");
+				for(int i=0; i<selected.size(); i++){
+					sbMenu.append("\""+selected.get(i)+"\"");
+					sbModule.append("1");
+					sbMenu.append(",");
+					sbModule.append(",");
+				}
+				for(int i=0; i<candidates.size(); i++){
+					sbMenu.append("\""+candidates.get(i)+"\"");
+					sbModule.append("0");
+					sbMenu.append(",");
+					sbModule.append(",");
+				}
+				sbMenu.append("\"option\"");
 				sbModule.append("1");
-				sbMenu.append(",");
-				sbModule.append(",");
+				String	param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&m_name="+URLEncoder.encode(moduleName.getText(),"UTF-8")+
+						"&module="+URLEncoder.encode(sbModule.toString(),"UTF-8")+
+						"&menu="+URLEncoder.encode(sbMenu.toString(),"UTF-8");
+				String urlInfo = "http://localhost:8080/buengbueng/fxSetModulePro.do";
+				BossMainController.getMenu().getChildren().add(BossMainController.setBossMenu(param,urlInfo));
 			}
-			for(int i=0; i<candidates.size(); i++){
-				sbMenu.append("\""+candidates.get(i)+"\"");
-				sbModule.append("0");
-				sbMenu.append(",");
-				sbModule.append(",");
-			}
-			sbMenu.append("\"option\"");
-			sbModule.append("1");
-			String	param = "b_id="+URLEncoder.encode(UserInfo.getInstance().getId(),"UTF-8")+"&m_name="+URLEncoder.encode(moduleName.getText(),"UTF-8")+
-					"&module="+URLEncoder.encode(sbModule.toString(),"UTF-8")+
-					"&menu="+URLEncoder.encode(sbMenu.toString(),"UTF-8");
-			String urlInfo = "http://localhost:8080/buengbueng/fxSetModulePro.do";
-			BossMainController.getMenu().getChildren().add(BossMainController.setBossMenu(param,urlInfo));
 		}catch(Exception e){
 			
 		}

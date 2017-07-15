@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 
 public class ProductList {
 	private SimpleStringProperty code;
-	private SimpleStringProperty name;
 	private SimpleStringProperty saleCheck;
 	private SimpleStringProperty beginRegist;
 	private SimpleStringProperty lastDay;
@@ -15,7 +14,6 @@ public class ProductList {
 
 	public ProductList() {
 		this.code = new SimpleStringProperty();
-		this.name = new SimpleStringProperty();
 		this.saleCheck = new SimpleStringProperty();
 		this.beginRegist = new SimpleStringProperty();
 		this.lastDay = new SimpleStringProperty();
@@ -28,12 +26,6 @@ public class ProductList {
 	}
 	public void setCode(String code){
 		this.code.set(code);
-	}
-	public String getName(){
-		return name.get();
-	}
-	public void setName(String name){
-		this.name.set(name);
 	}
 	public String getSaleCheck(){
 		return saleCheck.get();

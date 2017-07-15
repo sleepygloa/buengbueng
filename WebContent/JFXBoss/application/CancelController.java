@@ -4,12 +4,9 @@ import java.util.Optional;
 
 import org.json.simple.JSONObject;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import javafx.scene.control.ButtonType;
 
 public class CancelController {
 	private static String param;

@@ -26,10 +26,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 public class BossRentManageController {
 	@FXML private TabPane rentProductTab;
+	@FXML private Text alert;	
 	@FXML private TextField rentName;
 	@FXML private TextField rentProductCode;
 	@FXML
@@ -74,17 +76,24 @@ public class BossRentManageController {
 							try{
 								String afterCode = null;
 								String rentCheck = null;
-								int selectedIndex = tv.getFocusModel().getFocusedIndex();
+								int selectedIndex = tv.getSelectionModel().getSelectedIndex();
 								if (selectedIndex >= 0) {
 									afterCode = tv.getItems().get(selectedIndex).getCode();
 									rentCheck = tv.getItems().get(selectedIndex).getRentCheck();
 							    }
-								String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
-										"&beforeCode="+URLEncoder.encode(rentCode,"UTF-8")+"&afterCode="+URLEncoder.encode(afterCode,"UTF-8")+
-										"&rentCheck="+URLEncoder.encode(rentCheck,"UTF-8");
-								String urlInfo = "http://localhost:8080/buengbueng/fxModifyRentProduct.do";
-								JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
-								String result = (String)jsonObj.get("result");
+								if(!afterCode.matches("^[0-9]{1,7}$")){
+									alert.setText("바코드는 최대 7자리입니다.");
+								}else if(!rentCheck.matches("^[0-1]$")){
+									alert.setText("대여유무를 입력하십시오. (대여 가능 = 0 / 대여 중 = 1)");
+								}else{
+									alert.setText("");
+									String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
+											"&beforeCode="+URLEncoder.encode(rentCode,"UTF-8")+"&afterCode="+URLEncoder.encode(afterCode,"UTF-8")+
+											"&rentCheck="+URLEncoder.encode(rentCheck,"UTF-8");
+									String urlInfo = "http://localhost:8080/buengbueng/fxModifyRentProduct.do";
+									JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+									String result = (String)jsonObj.get("result");
+								}
 							}catch(Exception e){
 								e.printStackTrace();
 							}
@@ -101,7 +110,7 @@ public class BossRentManageController {
 								JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 								String result = (String)jsonObj.get("result");
 								if(result.equals("succ")){
-									int selectedIndex = tv.getFocusModel().getFocusedIndex();
+									int selectedIndex = tv.getSelectionModel().getSelectedIndex();
 								    if (selectedIndex >= 0) {
 								    	tv.getItems().remove(selectedIndex);
 								    }
@@ -175,18 +184,23 @@ public class BossRentManageController {
 
 	public void addRent(){
 		try{
-			String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
-					"&rentProduct="+URLEncoder.encode(rentName.getText(),"UTF-8");
-			String urlInfo = "http://localhost:8080/buengbueng/fxAddRent.do";
-			JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
-			String result = (String)jsonObj.get("result");
-			if(result.equals("succ")){
-				Tab tab = new Tab(rentName.getText());
-				
-				ObservableList<RentProductList> data =FXCollections.observableArrayList();
-				TableView<RentProductList> tv = setTable();
-				tab.setContent(tv);
-				rentProductTab.getTabs().add(tab);
+			if(rentName.getText().length() == 0){
+				alert.setText("대여물품명을 입력하십시오.");
+			}else{
+				alert.setText("");
+				String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
+						"&rentProduct="+URLEncoder.encode(rentName.getText(),"UTF-8");
+				String urlInfo = "http://localhost:8080/buengbueng/fxAddRent.do";
+				JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+				String result = (String)jsonObj.get("result");
+				if(result.equals("succ")){
+					Tab tab = new Tab(rentName.getText());
+					
+					ObservableList<RentProductList> data =FXCollections.observableArrayList();
+					TableView<RentProductList> tv = setTable();
+					tab.setContent(tv);
+					rentProductTab.getTabs().add(tab);
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -215,72 +229,84 @@ public class BossRentManageController {
 		try{
 			int selectedIndex = rentProductTab.getSelectionModel().getSelectedIndex();
 		    if (selectedIndex >= 0) {
-		    	long time = System.currentTimeMillis(); 
-				SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-				String date = dayTime.format(new Date(time));
-				
-		    	String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
-		    			"&rentProduct="+URLEncoder.encode(rentProductTab.getTabs().get(selectedIndex).getText(),"UTF-8")+
-						"&code="+URLEncoder.encode(rentProductCode.getText(),"UTF-8")+"&rentCheck=0"+"&regist="+date;
-				String urlInfo = "http://localhost:8080/buengbueng/fxAddRentProduct.do";
-				JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
-				String result = (String)jsonObj.get("result");
-				
-				if(result.equals("succ")){
-			    	TableView<RentProductList> tv = (TableView<RentProductList>) rentProductTab.getTabs().get(selectedIndex).getContent();
-			    	RentProductList rpl = new RentProductList();
-					String rentCode = rentProductCode.getText();
-					rpl.setCode(rentCode);
-					rpl.setRentCheck("0");
-					rpl.setBeginRegist(date);
-
-					Button modify = new Button("수정");
-					modify.setOnMouseClicked(new EventHandler<MouseEvent>() {
-						@Override
-						public void handle(MouseEvent event) {
-							try{
-								String afterCode = null;
-								String rentCheck = null;
-								int selectedIndex = tv.getFocusModel().getFocusedIndex();
-								if (selectedIndex >= 0) {
-									afterCode = tv.getItems().get(selectedIndex).getCode();
-									rentCheck = tv.getItems().get(selectedIndex).getRentCheck();
-							    }
-								String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
-										"&beforeCode="+URLEncoder.encode(rentCode,"UTF-8")+"&afterCode="+URLEncoder.encode(afterCode,"UTF-8")+
-										"&rentCheck="+URLEncoder.encode(rentCheck,"UTF-8");
-								String urlInfo = "http://localhost:8080/buengbueng/fxModifyRentProduct.do";
-								JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
-								String result = (String)jsonObj.get("result");
-							}catch(Exception e){
-								e.printStackTrace();
-							}
-						}
-					});
-					Button delete = new Button("삭제");
-					delete.setOnMouseClicked(new EventHandler<MouseEvent>() {
-						@Override
-						public void handle(MouseEvent event) {
-							try{
-								String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
-										"&code="+URLEncoder.encode(rentCode,"UTF-8");
-								String urlInfo = "http://localhost:8080/buengbueng/fxDeleteRentProduct.do";
-								JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
-								String result = (String)jsonObj.get("result");
-								if(result.equals("succ")){
-									int selectedIndex = tv.getFocusModel().getFocusedIndex();
-								    if (selectedIndex >= 0) {
-								    	tv.getItems().remove(selectedIndex);
+		    	if(!rentProductCode.getText().matches("^[0-9]{1,7}$")){
+					alert.setText("대여물품 바코드를 입력하십시오.");
+				}else{
+					alert.setText("");
+			    	long time = System.currentTimeMillis(); 
+					SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+					String date = dayTime.format(new Date(time));
+					
+			    	String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
+			    			"&rentProduct="+URLEncoder.encode(rentProductTab.getTabs().get(selectedIndex).getText(),"UTF-8")+
+							"&code="+URLEncoder.encode(rentProductCode.getText(),"UTF-8")+"&rentCheck=0"+"&regist="+date;
+					String urlInfo = "http://localhost:8080/buengbueng/fxAddRentProduct.do";
+					JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+					String result = (String)jsonObj.get("result");
+					
+					if(result.equals("succ")){
+				    	TableView<RentProductList> tv = (TableView<RentProductList>) rentProductTab.getTabs().get(selectedIndex).getContent();
+				    	RentProductList rpl = new RentProductList();
+						String rentCode = rentProductCode.getText();
+						rpl.setCode(rentCode);
+						rpl.setRentCheck("0");
+						rpl.setBeginRegist(date);
+	
+						Button modify = new Button("수정");
+						modify.setOnMouseClicked(new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent event) {
+								try{
+									String afterCode = null;
+									String rentCheck = null;
+									int selectedIndex = tv.getSelectionModel().getSelectedIndex();
+									if (selectedIndex >= 0) {
+										afterCode = tv.getItems().get(selectedIndex).getCode();
+										rentCheck = tv.getItems().get(selectedIndex).getRentCheck();
 								    }
+									if(!afterCode.matches("^[0-9]{1,7}$")){
+										alert.setText("바코드는 최대 7자리입니다.");
+									}else if(!rentCheck.matches("^[0-1]$")){
+										alert.setText("대여유무를 입력하십시오. (대여 가능 = 0 / 대여 중 = 1)");
+									}else{
+										alert.setText("");
+										String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
+												"&beforeCode="+URLEncoder.encode(rentCode,"UTF-8")+"&afterCode="+URLEncoder.encode(afterCode,"UTF-8")+
+												"&rentCheck="+URLEncoder.encode(rentCheck,"UTF-8");
+										String urlInfo = "http://localhost:8080/buengbueng/fxModifyRentProduct.do";
+										JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+										String result = (String)jsonObj.get("result");
+									}
+								}catch(Exception e){
+									e.printStackTrace();
 								}
-							}catch(Exception e){
-								e.printStackTrace();
 							}
-						}
-					});
-					rpl.setModi(modify);
-					rpl.setDel(delete);
-					tv.getItems().add(rpl);
+						});
+						Button delete = new Button("삭제");
+						delete.setOnMouseClicked(new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent event) {
+								try{
+									String param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
+											"&code="+URLEncoder.encode(rentCode,"UTF-8");
+									String urlInfo = "http://localhost:8080/buengbueng/fxDeleteRentProduct.do";
+									JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+									String result = (String)jsonObj.get("result");
+									if(result.equals("succ")){
+										int selectedIndex = tv.getSelectionModel().getSelectedIndex();
+									    if (selectedIndex >= 0) {
+									    	tv.getItems().remove(selectedIndex);
+									    }
+									}
+								}catch(Exception e){
+									e.printStackTrace();
+								}
+							}
+						});
+						rpl.setModi(modify);
+						rpl.setDel(delete);
+						tv.getItems().add(rpl);
+					}
 				}
 		    }
 		}catch(Exception e){

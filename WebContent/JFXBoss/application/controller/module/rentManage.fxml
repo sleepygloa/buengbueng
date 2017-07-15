@@ -8,42 +8,58 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.module.BossRentManageController">
    <children>
-      <VBox layoutX="-2.0" layoutY="-4.0" prefHeight="1084.0" prefWidth="1922.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-4.0">
+      <VBox layoutX="-2.0" layoutY="-4.0" prefHeight="1084.0" prefWidth="1922.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-4.0">
          <children>
-            <HBox prefHeight="36.0" prefWidth="1192.0" spacing="200.0">
+            <Text fx:id="alert" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1398.0">
+               <VBox.margin>
+                  <Insets left="300.0" right="300.0" top="50.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <HBox prefHeight="36.0" prefWidth="1192.0" spacing="410.0">
                <children>
-                  <HBox prefHeight="50.0" prefWidth="570.0" spacing="30.0">
+                  <HBox prefHeight="36.0" prefWidth="621.0" spacing="30.0">
                      <children>
-                        <TextField fx:id="rentName" prefHeight="19.0" prefWidth="248.0" promptText="대여물품명">
+                        <TextField fx:id="rentName" prefHeight="36.0" prefWidth="203.0" promptText="대여물품명">
                            <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <Button mnemonicParsing="false" onMouseClicked="#addRent" prefHeight="33.0" prefWidth="138.0" text="대여물품목록 등록" />
-                        <Button mnemonicParsing="false" onMouseClicked="#delRent" prefHeight="33.0" prefWidth="136.0" text="대여물품목록 삭제" />
+                              <Font size="14.0" />
+                           </font></TextField>
+                        <Button mnemonicParsing="false" onMouseClicked="#addRent" prefHeight="33.0" prefWidth="154.0" text="대여물품목록 등록">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                        <Button mnemonicParsing="false" onMouseClicked="#delRent" prefHeight="33.0" prefWidth="162.0" text="대여물품목록 삭제">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
                      </children>
                   </HBox>
-                  <HBox prefHeight="36.0" prefWidth="429.0" spacing="50.0">
+                  <HBox prefHeight="36.0" prefWidth="487.0" spacing="50.0">
                      <children>
-                        <TextField fx:id="rentProductCode" prefHeight="19.0" prefWidth="248.0" promptText="대여물품 바코드">
+                        <TextField fx:id="rentProductCode" prefHeight="36.0" prefWidth="229.0" promptText="대여물품 바코드">
                            <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <Button mnemonicParsing="false" onMouseClicked="#addRentProduct" prefHeight="53.0" prefWidth="131.0" text="대여물품목록 등록" />
+                              <Font size="14.0" />
+                           </font></TextField>
+                        <Button mnemonicParsing="false" onMouseClicked="#addRentProduct" prefHeight="36.0" prefWidth="171.0" text="대여물품목록 등록">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
                      </children>
                   </HBox>
                </children>
                <VBox.margin>
-                  <Insets left="350.0" right="350.0" top="100.0" />
+                  <Insets left="240.0" right="240.0" top="10.0" />
                </VBox.margin>
             </HBox>
-            <TabPane fx:id="rentProductTab" prefHeight="742.0" prefWidth="1722.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="rentProductTab" prefHeight="700.0" prefWidth="1782.0" tabClosingPolicy="UNAVAILABLE">
                <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
+                  <Insets left="70.0" right="70.0" />
                </VBox.margin>
             </TabPane>
          </children>

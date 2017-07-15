@@ -27,10 +27,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 public class BossMenuManageController {
 	@FXML private TabPane menuTab;
+	@FXML private Text alert;
 	@FXML private TextField category;
 	@FXML private TextField name;
 	@FXML private TextField company;
@@ -125,18 +127,6 @@ public class BossMenuManageController {
 	            }
 	    );
 		
-		TableColumn<ProductList,String> name = new TableColumn<ProductList,String>("제품명");
-		name.setCellValueFactory(new PropertyValueFactory<ProductList,String>("name"));
-		name.setCellFactory(cellFactory);
-		name.setOnEditCommit(
-	            new EventHandler<CellEditEvent<ProductList, String>>() {
-	                @Override
-	                public void handle(CellEditEvent<ProductList, String> t) {
-	                    ((ProductList) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
-	                }
-	            }
-	    );
-		
 		TableColumn<ProductList,String> saleCheck = new TableColumn<ProductList,String>("판매 유무");
 		saleCheck.setCellValueFactory(new PropertyValueFactory<ProductList,String>("saleCheck"));
 
@@ -163,7 +153,7 @@ public class BossMenuManageController {
 		TableColumn<ProductList,Button> del = new TableColumn<ProductList,Button>("삭제");
 		del.setCellValueFactory(new PropertyValueFactory<ProductList,Button>("del"));
 		
-		tv.getColumns().addAll(code,name,saleCheck,beginRegist,lastDay,modi,del);
+		tv.getColumns().addAll(code,saleCheck,beginRegist,lastDay,modi,del);
 		
 		return tv;
 	}
@@ -230,52 +220,63 @@ public class BossMenuManageController {
 	
 	public void addMenu(){
 		try{
-			String param = "l_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
-					"&category="+URLEncoder.encode(category.getText(),"UTF-8")+
-					"&name="+URLEncoder.encode(name.getText(),"UTF-8")+
-					"&company="+URLEncoder.encode(company.getText(),"UTF-8")+
-					"&price="+URLEncoder.encode(price.getText(),"UTF-8");
-			String urlInfo = "http://localhost:8080/buengbueng/fxAddMenu.do";
-			JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
-			String result = (String)jsonObj.get("result");
-			if(result.equals("succ")){
-				for(int i = 0; i < menuTab.getTabs().size(); i++){
-					if(menuTab.getTabs().get(i).getText().equals(category.getText())){
-						TableView<MenuProductList> tv = (TableView<MenuProductList>) menuTab.getTabs().get(i).getContent();
-						MenuProductList mpl = new MenuProductList();
-						mpl.setCategory(category.getText());
-						mpl.setName(name.getText());
-						mpl.setCompany(company.getText());
-						mpl.setPrice(price.getText());
-						
-						Button modify = menuModifyButton(tv, name.getText(), category.getText());
-						Button delete = menuDeleteButton(tv, name.getText());
-						
-						mpl.setModi(modify);
-						mpl.setDel(delete);
-						tv.getItems().add(mpl);
-						return;
+			if(category.getText().length() == 0){
+				alert.setText("카테고리를 입력하십시오.");
+			}else if(name.getText().length() == 0){
+				alert.setText("제품명을 입력하십시오.");
+			}else if(company.getText().length() == 0){
+				alert.setText("제조회사를 입력하십시오.");
+			}else if(price.getText().length() == 0 || !price.getText().matches("^[0-9]*$")){
+				alert.setText("가격을 입력하십시오.");
+			}else{
+				alert.setText("");
+				String param = "l_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
+						"&category="+URLEncoder.encode(category.getText(),"UTF-8")+
+						"&name="+URLEncoder.encode(name.getText(),"UTF-8")+
+						"&company="+URLEncoder.encode(company.getText(),"UTF-8")+
+						"&price="+URLEncoder.encode(price.getText(),"UTF-8");
+				String urlInfo = "http://localhost:8080/buengbueng/fxAddMenu.do";
+				JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+				String result = (String)jsonObj.get("result");
+				if(result.equals("succ")){
+					for(int i = 0; i < menuTab.getTabs().size(); i++){
+						if(menuTab.getTabs().get(i).getText().equals(category.getText())){
+							TableView<MenuProductList> tv = (TableView<MenuProductList>) menuTab.getTabs().get(i).getContent();
+							MenuProductList mpl = new MenuProductList();
+							mpl.setCategory(category.getText());
+							mpl.setName(name.getText());
+							mpl.setCompany(company.getText());
+							mpl.setPrice(price.getText());
+							
+							Button modify = menuModifyButton(tv, name.getText(), category.getText());
+							Button delete = menuDeleteButton(tv, name.getText());
+							
+							mpl.setModi(modify);
+							mpl.setDel(delete);
+							tv.getItems().add(mpl);
+							return;
+						}
 					}
+					Tab tab = new Tab(category.getText());	
+					ObservableList<MenuProductList> data =FXCollections.observableArrayList();
+					TableView<MenuProductList> tv = setTable();
+					MenuProductList mpl = new MenuProductList();
+					mpl.setCategory(category.getText());
+					mpl.setName(name.getText());
+					mpl.setCompany(company.getText());
+					mpl.setPrice(price.getText());
+					
+					Button modify = menuModifyButton(tv, name.getText(), category.getText());
+					Button delete = menuDeleteButton(tv, name.getText());
+					
+					mpl.setModi(modify);
+					mpl.setDel(delete);
+					data.add(mpl);
+					tv.setItems(data);
+					tab.setContent(tv);
+					menuTab.getTabs().add(tab);
+					getMenu();
 				}
-				Tab tab = new Tab(category.getText());	
-				ObservableList<MenuProductList> data =FXCollections.observableArrayList();
-				TableView<MenuProductList> tv = setTable();
-				MenuProductList mpl = new MenuProductList();
-				mpl.setCategory(category.getText());
-				mpl.setName(name.getText());
-				mpl.setCompany(company.getText());
-				mpl.setPrice(price.getText());
-				
-				Button modify = menuModifyButton(tv, name.getText(), category.getText());
-				Button delete = menuDeleteButton(tv, name.getText());
-				
-				mpl.setModi(modify);
-				mpl.setDel(delete);
-				data.add(mpl);
-				tv.setItems(data);
-				tab.setContent(tv);
-				menuTab.getTabs().add(tab);
-				getMenu();
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -291,19 +292,28 @@ public class BossMenuManageController {
 					String mName = null;
 					String mCompany = null;
 					String mPrice = null;
-					int selectedIndex = tv.getFocusModel().getFocusedIndex();
+					int selectedIndex = tv.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
 						mName = tv.getItems().get(selectedIndex).getName();
 						mCompany = tv.getItems().get(selectedIndex).getCompany();
 						mPrice = tv.getItems().get(selectedIndex).getPrice();
 				    }
-					String param = "l_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
-							"&beforeName="+URLEncoder.encode(menuName,"UTF-8")+"&name="+URLEncoder.encode(mName,"UTF-8")+
-							"&company="+URLEncoder.encode(mCompany,"UTF-8")+"&price="+URLEncoder.encode(mPrice,"UTF-8")+
-							"&category="+URLEncoder.encode(menuCategory,"UTF-8");
-					String urlInfo = "http://localhost:8080/buengbueng/fxModifyMenu.do";
-					JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
-					String result = (String)jsonObj.get("result");
+					if(mName.length() == 0){
+						alert.setText("제품명을 입력하십시오.");
+					}else if(mCompany.length() == 0){
+						alert.setText("제조회사를 입력하십시오.");
+					}else if(mPrice.length() == 0 || !mPrice.matches("^[0-9]*$")){
+						alert.setText("가격을 입력하십시오.");
+					}else{
+						alert.setText("");
+						String param = "l_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
+								"&beforeName="+URLEncoder.encode(menuName,"UTF-8")+"&name="+URLEncoder.encode(mName,"UTF-8")+
+								"&company="+URLEncoder.encode(mCompany,"UTF-8")+"&price="+URLEncoder.encode(mPrice,"UTF-8")+
+								"&category="+URLEncoder.encode(menuCategory,"UTF-8");
+						String urlInfo = "http://localhost:8080/buengbueng/fxModifyMenu.do";
+						JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+						String result = (String)jsonObj.get("result");
+					}
 				}catch(Exception e){
 					e.printStackTrace();
 				}
@@ -324,7 +334,7 @@ public class BossMenuManageController {
 					JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 					String result = (String)jsonObj.get("result");
 					if(result.equals("succ")){
-						int selectedIndex = tv.getFocusModel().getFocusedIndex();
+						int selectedIndex = tv.getSelectionModel().getSelectedIndex();
 					    if (selectedIndex >= 0) {
 					    	tv.getItems().remove(selectedIndex);
 					    }
@@ -344,46 +354,55 @@ public class BossMenuManageController {
 			String urlInfo = "http://localhost:8080/buengbueng/fxGetMenuProduct.do";
 			JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 			
-			Tab tab = new Tab("재고");
-			ObservableList<ProductList> data =FXCollections.observableArrayList();
-			TableView<ProductList> tv = setPTable();
+			JSONArray jsonCategory = (JSONArray)jsonObj.get("category");
 			
-			JSONArray jsonCode = (JSONArray)jsonObj.get("code");
-			JSONArray jsonName = (JSONArray)jsonObj.get("name");
-			JSONArray jsonCheck = (JSONArray)jsonObj.get("saleCheck");
-			JSONArray jsonBegin = (JSONArray)jsonObj.get("beginRegist");
-			JSONArray jsonLast = (JSONArray)jsonObj.get("lastDay");
-			
-			Iterator<String> iteratorCode = jsonCode.iterator();
-			Iterator<String> iteratorName = jsonName.iterator();
-			Iterator<String> iteratorCheck = jsonCheck.iterator();
-			Iterator<String> iteratorBegin = jsonBegin.iterator();
-			Iterator<String> iteratorLast = jsonLast.iterator();
-			
-			while(iteratorCode.hasNext()){
-				ProductList pl = new ProductList();
-				String productCode = iteratorCode.next();
-				String productName = iteratorName.next();
-				String productCheck = iteratorCheck.next();
-				String productBegin = iteratorBegin.next();
-				String productLast = iteratorLast.next();
+			Iterator<String> iteratorCategory = jsonCategory.iterator();
+			while(iteratorCategory.hasNext()){
+				String category = iteratorCategory.next();
+				
+				Tab tab = new Tab(category);
+				
+				ObservableList<ProductList> data =FXCollections.observableArrayList();
+				TableView<ProductList> tv = setPTable();
+	
+				param = "b_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
+						"&name="+URLEncoder.encode(category,"UTF-8");
+				urlInfo = "http://localhost:8080/buengbueng/fxGetMenuProductList.do";
+				JSONObject jsonObj2 = ConnectServer.connect(param, urlInfo);
+				
+				JSONArray jsonCode = (JSONArray)jsonObj2.get("code");
+				JSONArray jsonCheck = (JSONArray)jsonObj2.get("saleCheck");
+				JSONArray jsonBegin = (JSONArray)jsonObj2.get("beginRegist");
+				JSONArray jsonLast = (JSONArray)jsonObj2.get("lastDay");
+				
+				Iterator<String> iteratorCode = jsonCode.iterator();
+				Iterator<String> iteratorCheck = jsonCheck.iterator();
+				Iterator<String> iteratorBegin = jsonBegin.iterator();
+				Iterator<String> iteratorLast = jsonLast.iterator();
+				
+				while(iteratorCode.hasNext()){
+					ProductList pl = new ProductList();
+					String productCode = iteratorCode.next();
+					String productCheck = iteratorCheck.next();
+					String productBegin = iteratorBegin.next();
+					String productLast = iteratorLast.next();
 
-				pl.setCode(productCode);
-				pl.setName(productName);
-				pl.setSaleCheck(productCheck);
-				pl.setBeginRegist(productBegin);
-				pl.setLastDay(productLast);
-				
-				Button modify = productModifyButton(tv, productCode);
-				Button delete = productDeleteButton(tv, productCode);
-				
-				pl.setModi(modify);
-				pl.setDel(delete);
-				data.add(pl);
+					pl.setCode(productCode);
+					pl.setSaleCheck(productCheck);
+					pl.setBeginRegist(productBegin);
+					pl.setLastDay(productLast);
+					
+					Button modify = productModifyButton(tv, productCode);
+					Button delete = productDeleteButton(tv, productCode);
+					
+					pl.setModi(modify);
+					pl.setDel(delete);
+					data.add(pl);
+				}
+				tv.setItems(data);
+				tab.setContent(tv);
+				menuTab.getTabs().add(tab);
 			}
-			tv.setItems(data);
-			tab.setContent(tv);
-			menuTab.getTabs().add(tab);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -392,33 +411,43 @@ public class BossMenuManageController {
 	
 	public void addProduct(){
 		try{
-			long time = System.currentTimeMillis(); 
-			SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			String date = dayTime.format(new Date(time));
-			
-			String param = "l_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
-					"&code="+code.getText() + "&name="+URLEncoder.encode(proName.getText(),"UTF-8")+
-					"&salecheck=1"+"&regist="+date + "&last="+lastDay.getText();
-
-			String urlInfo = "http://localhost:8080/buengbueng/fxAddProduct.do";
-			JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
-			String result = (String)jsonObj.get("result");
-			if(result.equals("succ")){
-				TableView<ProductList> tv = (TableView<ProductList>) menuTab.getTabs().get(0).getContent();
-				ProductList pl = new ProductList();
-				pl.setCode(code.getText());
-				pl.setName(proName.getText());
-				pl.setSaleCheck("0");
-				pl.setBeginRegist(date);
-				pl.setLastDay(lastDay.getText());
+			if(!code.getText().matches("^[0-9]{13}$")){
+				alert.setText("물품 바코드는 13자리입니다.");
+			}else if(proName.getText().length() == 0){
+				alert.setText("물품명을 입력하십시오.");
+			}else if(!lastDay.getText().matches("^(19|20)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$")){
+				alert.setText("유통기한은 YYYY-MM-DD 형식입니다.");
+			}else{
+				alert.setText("");
+				long time = System.currentTimeMillis(); 
+				SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				String date = dayTime.format(new Date(time));
 				
-				Button modify = productModifyButton(tv, code.getText());
-				Button delete = productDeleteButton(tv, code.getText());
-			
-				pl.setModi(modify);
-				pl.setDel(delete);
-				tv.getItems().add(pl);
-				getProduct();
+				String param = "l_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
+						"&code="+code.getText() + "&name="+URLEncoder.encode(proName.getText(),"UTF-8")+
+						"&salecheck=1"+"&regist="+date + "&last="+lastDay.getText();
+	
+				String urlInfo = "http://localhost:8080/buengbueng/fxAddProduct.do";
+				JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+				String result = (String)jsonObj.get("result");
+				if(result.equals("succ")){
+					TableView<ProductList> tv = (TableView<ProductList>) menuTab.getTabs().get(0).getContent();
+					ProductList pl = new ProductList();
+					pl.setCode(code.getText());
+					pl.setSaleCheck("0");
+					pl.setBeginRegist(date);
+					pl.setLastDay(lastDay.getText());
+					
+					Button modify = productModifyButton(tv, code.getText());
+					Button delete = productDeleteButton(tv, code.getText());
+				
+					pl.setModi(modify);
+					pl.setDel(delete);
+					tv.getItems().add(pl);
+					getProduct();
+				}else{
+					alert.setText("물품명을 확인하십시오.");
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -433,17 +462,24 @@ public class BossMenuManageController {
 				try{
 					String pCode = null;
 					String pLast = null;
-					int selectedIndex = tv.getFocusModel().getFocusedIndex();
+					int selectedIndex = tv.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
 						pCode = tv.getItems().get(selectedIndex).getCode();
 						pLast = tv.getItems().get(selectedIndex).getLastDay();
 				    }
-					String param = "l_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
-							"&beforeCode="+lastDay + "&code="+pCode + "&lastday="+pLast;
-					String urlInfo = "http://localhost:8080/buengbueng/fxModifyProduct.do";
-					
-					JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
-					String result = (String)jsonObj.get("result");
+					if(!pCode.matches("^[0-9]{13}$")){
+						alert.setText("물품 바코드는 13자리입니다.");
+					}else if(!pLast.matches("^(19|20)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$")){
+						alert.setText("유통기한은 YYYY-MM-DD 형식입니다.");
+					}else{
+						alert.setText("");
+						String param = "l_key="+URLEncoder.encode(UserInfo.getInstance().getB_key(),"UTF-8")+
+								"&beforeCode="+lastDay + "&code="+pCode + "&lastday="+pLast;
+						String urlInfo = "http://localhost:8080/buengbueng/fxModifyProduct.do";
+						
+						JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
+						String result = (String)jsonObj.get("result");
+					}
 				}catch(Exception e){
 					e.printStackTrace();
 				}
@@ -464,7 +500,7 @@ public class BossMenuManageController {
 					JSONObject jsonObj = ConnectServer.connect(param, urlInfo);
 					String result = (String)jsonObj.get("result");
 					if(result.equals("succ")){
-						int selectedIndex = tv.getFocusModel().getFocusedIndex();
+						int selectedIndex = tv.getSelectionModel().getSelectedIndex();
 					    if (selectedIndex >= 0) {
 					    	tv.getItems().remove(selectedIndex);
 					    }

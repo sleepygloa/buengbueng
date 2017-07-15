@@ -198,10 +198,12 @@ public class BossOptionController {
 		    gridPane.getColumnConstraints().addAll(column1, column2, column3);
 
 		    Label candidatesLbl = new Label("사용 안 함");
+		    candidatesLbl.setTextFill(Color.WHITE);
 		    GridPane.setHalignment(candidatesLbl, HPos.CENTER);
 		    gridPane.add(candidatesLbl, 0, 0);
 
 		    Label selectedLbl = new Label("사용");
+		    selectedLbl.setTextFill(Color.WHITE);
 		    gridPane.add(selectedLbl, 2, 0);
 		    GridPane.setHalignment(selectedLbl, HPos.CENTER);
 	

@@ -35,6 +35,7 @@ public class SearchIDPWController {
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/application/css/application.css").toExternalForm());
 			Main.getStage().setScene(scene);
+			Main.getStage().setFullScreen(true);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
