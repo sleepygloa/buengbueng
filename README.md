@@ -9,7 +9,7 @@
 프로젝트 팀원 : 김재욱, 고혜민, 김선호, 강승호, 임지영, 이명훈
 
 - 포트폴리오
-[포트폴리오] (https://github.com/sleepygloa/project_jsp_2_buengbueng\WebContent\plan\포트폴리오_20170714-완성.pdf)
+[포트폴리오] (https://github.com/sleepygloa/project_jsp_2_buengbueng/WebContent/plan/포트폴리오_20170714-완성.pdf)
 
 - 설명
 관리자, 사장, 사용자 간 사용이 쉬운 피씨방 관리 시스템
